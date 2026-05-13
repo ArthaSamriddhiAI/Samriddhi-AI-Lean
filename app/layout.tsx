@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Source_Serif_4, Geist, Geist_Mono } from "next/font/google";
+import { TopBar } from "@/components/chrome/TopBar";
 import "./globals.css";
 
-/* The three typefaces from the design system. Each registers a CSS variable
- * that the @theme block in globals.css plumbs into Tailwind's font-* namespace. */
 const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
@@ -37,7 +36,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${sourceSerif.variable} ${geist.variable} ${geistMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <div className="flex h-screen flex-col">
+          <TopBar />
+          <main className="flex-1 overflow-y-auto">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
