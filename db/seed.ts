@@ -394,9 +394,7 @@ const INVESTORS = [
   },
 ];
 
-async function seed() {
-  console.log("Seeding Samriddhi MVP database.");
-
+export async function seedDatabase() {
   for (const snap of SNAPSHOTS) {
     await prisma.snapshot.upsert({
       where: { id: snap.id },
@@ -404,7 +402,6 @@ async function seed() {
       create: snap,
     });
   }
-  console.log(`  ${SNAPSHOTS.length} snapshot metadata rows.`);
 
   for (const inv of INVESTORS) {
     await prisma.investor.upsert({
@@ -413,23 +410,22 @@ async function seed() {
       create: inv,
     });
   }
-  console.log(`  ${INVESTORS.length} investor archetypes.`);
 
   await prisma.setting.upsert({
     where: { id: 1 },
     update: {},
     create: { id: 1 },
   });
-  console.log("  1 settings row (defaults).");
 
-  console.log("Done.");
+  return { snapshots: SNAPSHOTS.length, investors: INVESTORS.length };
 }
 
-seed()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+/* Truncate cases, investors, and snapshots in dependency order. Settings
+ * row is preserved (API key, advisor name, firm). The user explicitly
+ * authorised this in the orientation as the "Clear demo data" action. */
+export async function clearDemoData() {
+  const cases = await prisma.case.deleteMany({});
+  const investors = await prisma.investor.deleteMany({});
+  const snapshots = await prisma.snapshot.deleteMany({});
+  return { cases: cases.count, investors: investors.count, snapshots: snapshots.count };
+}
