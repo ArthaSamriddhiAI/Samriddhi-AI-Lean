@@ -1,0 +1,35 @@
+{
+  "name": "samriddhi-ai-lean",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lean Samriddhi MVP: a demo-grade portfolio diagnostic and proposal evaluation tool for Indian HNI wealth advisors.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "db:push": "prisma db push",
+    "db:generate": "prisma generate",
+    "db:seed": "tsx db/seed.ts",
+    "db:reset": "prisma db push --force-reset && npm run db:seed"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "@prisma/client": "^6.1.0",
+    "@react-pdf/renderer": "^4.1.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "postcss": "^8.4.49",
+    "prisma": "^6.1.0",
+    "tailwindcss": "^4.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
