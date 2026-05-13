@@ -1248,6 +1248,197 @@
   .chat-input-row input::placeholder { color: var(--color-ink-4); }
   .chat-foot-note { font-size: 10.5px; color: var(--color-ink-4); padding: 0 2px; }
 
+  /* ---- Investor list ---- */
+  .investor-table {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-rule-strong);
+  }
+  .it-head,
+  .it-row {
+    display: grid;
+    grid-template-columns: 1.6fr 1.6fr 1.2fr 0.9fr 0.7fr 0.4fr;
+    gap: 22px;
+    align-items: center;
+    padding: 16px 14px;
+  }
+  .it-head {
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-3);
+    font-weight: 500;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+  .it-head .r { text-align: right; }
+  .it-row {
+    border-bottom: 1px solid var(--color-rule-faint);
+    transition: background var(--duration-1);
+    cursor: pointer;
+  }
+  .it-row:hover { background: var(--color-paper-hover); }
+  .it-row .r {
+    text-align: right;
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .it-identity { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .it-identity .name { font-size: 14px; font-weight: 500; color: var(--color-ink-1); }
+  .it-identity .meta {
+    font-size: 11.5px;
+    color: var(--color-ink-4);
+    font-family: var(--font-mono);
+    margin-top: 1px;
+  }
+  .it-mandate { display: flex; flex-direction: column; gap: 2px; }
+  .it-mandate .m-line { font-size: 12.5px; color: var(--color-ink-2); }
+  .it-mandate .m-sub { font-size: 11px; color: var(--color-ink-4); font-family: var(--font-mono); }
+
+  /* ---- Investor detail ---- */
+  .id-header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--color-rule);
+    margin-bottom: 28px;
+  }
+  .id-name {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+    color: var(--color-ink-1);
+    margin: 4px 0 6px;
+  }
+  .id-summary {
+    font-size: 13.5px;
+    color: var(--color-ink-3);
+    line-height: 1.6;
+    max-width: 620px;
+  }
+  .id-attr-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--color-rule);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-2);
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .id-attr {
+    background: var(--color-paper-raised);
+    padding: 14px 16px;
+  }
+  .id-attr .attr-eye {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-3);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .id-attr .attr-val {
+    font-size: 13.5px;
+    color: var(--color-ink-1);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .id-attr .attr-meta {
+    font-size: 11.5px;
+    color: var(--color-ink-4);
+    margin-top: 3px;
+    font-family: var(--font-mono);
+  }
+
+  /* Generic prose body for rendered markdown */
+  .prose-doc {
+    color: var(--color-ink-1);
+    max-width: 760px;
+  }
+  .prose-doc p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-2);
+    margin: 0 0 14px;
+  }
+  .prose-doc p strong {
+    color: var(--color-ink-1);
+    font-weight: 500;
+  }
+  .prose-doc h2, .prose-doc h3 {
+    font-family: var(--font-serif);
+    margin: 28px 0 10px;
+  }
+  .prose-doc ul, .prose-doc ol {
+    margin: 0 0 14px;
+    padding-left: 22px;
+  }
+  .prose-doc li {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-ink-2);
+    margin-bottom: 4px;
+  }
+  .prose-doc table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0 18px;
+  }
+  .prose-doc thead th {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-ink-3);
+    text-align: left;
+    padding: 8px 8px;
+    border-top: 1px solid var(--color-rule-strong);
+    border-bottom: 1px solid var(--color-rule-strong);
+  }
+  .prose-doc tbody td {
+    font-size: 12.5px;
+    padding: 8px;
+    border-bottom: 1px solid var(--color-rule-faint);
+    color: var(--color-ink-1);
+  }
+  .prose-doc tbody td:nth-child(n+4) {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .prose-doc blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .prose-doc blockquote p {
+    color: var(--color-ink-1);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+
+  /* Transcript styling — onboarding chat transcript appears as a series
+   * of blockquotes; this section dresses them up. */
+  .transcript-frame {
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-2);
+    background: var(--color-paper-raised);
+    padding: 22px 26px;
+    max-width: 760px;
+  }
+  .transcript-frame .prose-doc {
+    max-width: none;
+  }
+  .transcript-frame .prose-doc p {
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
   /* ---- Empty-state card ---- */
   .empty-card {
     border: 1px solid var(--color-rule);
