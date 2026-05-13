@@ -1,0 +1,48 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node / Next.js (added when scaffolding starts)
+node_modules/
+.next/
+out/
+dist/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Database (Prisma SQLite, added during scaffolding)
+*.db
+*.db-journal
+prisma/dev.db
+prisma/migrations/dev_*/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Test coverage
+coverage/
+
+# Build artifacts
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Temporary files
+*.tmp
+.cache/
+
+# Full-fat repo clone (kept out of working tree if accidentally cloned in)
+artha-fullfat/
