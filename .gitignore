@@ -2,9 +2,10 @@
 .DS_Store
 Thumbs.db
 
-# Editor / IDE
+# Editor / IDE / agent state
 .vscode/
 .idea/
+.claude/
 *.swp
 *.swo
 
@@ -38,7 +39,6 @@ coverage/
 # Build artifacts
 build/
 *.tsbuildinfo
-next-env.d.ts
 
 # Temporary files
 *.tmp
