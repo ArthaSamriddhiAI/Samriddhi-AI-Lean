@@ -10,6 +10,7 @@ seedDatabase()
     console.log(`  ${result.snapshots} snapshot metadata rows.`);
     console.log(`  ${result.investors} investor archetypes.`);
     console.log("  1 settings row (defaults).");
+    console.log(`  ${result.cases} pre-generated case fixtures.`);
     console.log("Done.");
   })
   .catch((e) => {
