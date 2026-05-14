@@ -95,55 +95,45 @@ export async function runDiagnosticPipeline(opts: {
     const mandate = `risk_appetite: ${investor.riskAppetite}; time_horizon: ${investor.timeHorizon}; model_cell: ${investor.modelCell}; liquid AUM Rs ${investor.liquidAumCr} Cr; liquidity_tier: ${investor.liquidityTier}`;
     const scopeNarrative = describeScope(holdings);
 
-    /* Evidence agents in parallel. Pack each as a labeled tuple so we can
-     * fan back into the EvidenceBundle / UsageBundle without losing names. */
-    const tasks: Array<Promise<{ key: keyof EvidenceBundle; result: AgentCallResult<unknown> }>> = [];
-    if (routerDecision.e1) {
-      tasks.push(
-        runE1({ asOfDate, investorName: investor.name, investorMandate: mandate, stocksInScope }).then((r) => ({ key: "e1" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-    if (routerDecision.e2) {
-      tasks.push(
-        runE2({ asOfDate, investorName: investor.name, investorMandate: mandate, stocksInScope }).then((r) => ({ key: "e2" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-    if (routerDecision.e3) {
-      tasks.push(
-        runE3({ asOfDate, investorName: investor.name, investorMandate: mandate, investorScope: scopeNarrative, macroData: snapshot.macro }).then((r) => ({ key: "e3" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-    if (routerDecision.e4) {
-      tasks.push(
-        runE4({
-          asOfDate,
-          investorName: investor.name,
-          investorMandate: mandate,
-          characterBibleMd: investor.profileMd,
-          priorCasesCount: 0,
-          advisorRelationshipLengthYears: 0,
-        }).then((r) => ({ key: "e4" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-    if (routerDecision.e6) {
-      tasks.push(
-        runE6({ asOfDate, investorName: investor.name, investorMandate: mandate, wrappers: wrappersInScope }).then((r) => ({ key: "e6" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-    if (routerDecision.e7) {
-      tasks.push(
-        runE7({ asOfDate, investorName: investor.name, investorMandate: mandate, schemes: mfScope }).then((r) => ({ key: "e7" as const, result: r as AgentCallResult<unknown> })),
-      );
-    }
-
-    const evidenceResults = await Promise.all(tasks);
-
+    /* Evidence agents serially. Tier-1 Anthropic rate limit on Sonnet 4.6
+     * is 10,000 input tokens per minute; each agent's input is roughly
+     * 5-15k tokens, so parallel dispatch trips the limit. Serial dispatch
+     * naturally spaces calls (each takes ~60-90s wall time, well under
+     * one-per-minute). When we move off tier-1, this collapses back into
+     * a Promise.all with no other changes; the EvidenceBundle / UsageBundle
+     * shape is unchanged. Slice 7 polish item. */
     const evidence: EvidenceBundle = { e1: null, e2: null, e3: null, e4: null, e6: null, e7: null };
     const usage: UsageBundle = {};
-    for (const { key, result } of evidenceResults) {
+
+    type AgentTask = { key: keyof EvidenceBundle; run: () => Promise<AgentCallResult<unknown>> };
+    const tasks: AgentTask[] = [];
+
+    if (routerDecision.e3) {
+      tasks.push({ key: "e3", run: () => runE3({ asOfDate, investorName: investor.name, investorMandate: mandate, investorScope: scopeNarrative, macroData: snapshot.macro }) as Promise<AgentCallResult<unknown>> });
+    }
+    if (routerDecision.e4) {
+      tasks.push({ key: "e4", run: () => runE4({ asOfDate, investorName: investor.name, investorMandate: mandate, characterBibleMd: investor.profileMd, priorCasesCount: 0, advisorRelationshipLengthYears: 0 }) as Promise<AgentCallResult<unknown>> });
+    }
+    if (routerDecision.e1) {
+      tasks.push({ key: "e1", run: () => runE1({ asOfDate, investorName: investor.name, investorMandate: mandate, stocksInScope }) as Promise<AgentCallResult<unknown>> });
+    }
+    if (routerDecision.e2) {
+      tasks.push({ key: "e2", run: () => runE2({ asOfDate, investorName: investor.name, investorMandate: mandate, stocksInScope }) as Promise<AgentCallResult<unknown>> });
+    }
+    if (routerDecision.e6) {
+      tasks.push({ key: "e6", run: () => runE6({ asOfDate, investorName: investor.name, investorMandate: mandate, wrappers: wrappersInScope }) as Promise<AgentCallResult<unknown>> });
+    }
+    if (routerDecision.e7) {
+      tasks.push({ key: "e7", run: () => runE7({ asOfDate, investorName: investor.name, investorMandate: mandate, schemes: mfScope }) as Promise<AgentCallResult<unknown>> });
+    }
+
+    for (const task of tasks) {
+      console.log(`[pipeline] running ${task.key}...`);
+      const result = await task.run();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      evidence[key] = result.output as any;
-      usage[key] = result.usage;
+      evidence[task.key] = result.output as any;
+      usage[task.key] = result.usage;
+      console.log(`[pipeline] ${task.key} done: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out (attempt ${result.attemptCount})`);
     }
 
     const stitched = stitch({

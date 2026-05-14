@@ -59,18 +59,28 @@ export type LoadedSkill = {
  * in Slice 2 (no LLM call). M0.PortfolioRiskAnalytics is deterministic too.
  */
 export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> = {
-  /* max_tokens kept at or near the skill-authored values; the demo
-   * economics saving is in the llm_model swap from Opus to Sonnet, not in
-   * starving the output budget. Tune downward later from empirical token
-   * usage logs if cases come in well under the ceilings. */
+  /* max_tokens raised above skill defaults for agents whose outputs scale
+   * with the number of holdings/schemes/wrappers analysed. Empirical from
+   * Bhatt's pipeline run:
+   *   E1 at 3 stocks used 4158 (room in skill default 6000)
+   *   E2 at 3 stocks used 3982 (near skill default 4500); bump to 5500
+   *   E3 used 4281 (room in skill default 5000)
+   *   E4 used 2443 (room in skill default 4000)
+   *   E6 at 5 wrappers used 6997 (near skill default 8000); bump to 9000
+   *   E7 at 3 schemes hit ceiling 4000; bump to 6000 */
   e1_listed_fundamental_equity: { llm_model: SONNET },
-  e2_industry_business: { llm_model: SONNET },
+  e2_industry_business: { llm_model: SONNET, max_tokens: 5500 },
   e3_macro_policy_news: { llm_model: SONNET },
   e4_behavioural_historical: { llm_model: SONNET },
   e5_unlisted_equity: { llm_model: SONNET },
-  e6_pms_aif_sif: { llm_model: SONNET },
-  e7_mutual_fund: { llm_model: SONNET },
-  s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 5000 },
+  e6_pms_aif_sif: { llm_model: SONNET, max_tokens: 9000 },
+  e7_mutual_fund: { llm_model: SONNET, max_tokens: 6000 },
+  /* S1 keeps its skill-authored Opus model. Tier-1 rate limits on Sonnet
+   * (10k input tokens / minute) are tight; S1's input is the largest in
+   * the pipeline (full stitched context) and the call is consequential
+   * (synthesis quality drives the whole briefing). The cost premium for
+   * one Opus call per case is small compared to the seven evidence calls. */
+  s1_diagnostic_mode: { max_tokens: 8000 },
 };
 
 function parseScalar(raw: string): unknown {
