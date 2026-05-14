@@ -11,7 +11,8 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:seed": "tsx db/seed-cli.ts",
-    "db:reset": "prisma db push --force-reset && npm run db:seed"
+    "db:reset": "prisma db push --force-reset && npm run db:seed",
+    "fixtures:copy": "tsx scripts/copy-fixtures.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",
