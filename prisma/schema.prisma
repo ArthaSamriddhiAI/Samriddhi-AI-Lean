@@ -82,6 +82,13 @@ model Case {
   // UI treats null as false (live). Drives the Case Detail "Stubbed
   // reasoning" badge, the Case List signal, and the PDF footer line.
   stubbed         Boolean?
+  // Advisor decision capture for Samriddhi 1 cases, JSON-encoded shape
+  // { action: "approve" | "approve_with_conditions" | "reject" | "defer",
+  //   rationale: string, capturedAt: ISO }. Null until the advisor saves
+  // a decision; the MVP captures the decision on the case record with
+  // no downstream effect (no actioning, no notifications). Slice 3
+  // commit 11 wires the Case Detail decision capture surface.
+  decisionJson    String?
 
   investor        Investor @relation(fields: [investorId], references: [id])
   snapshot        Snapshot @relation(fields: [snapshotId], references: [id])
