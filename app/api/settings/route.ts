@@ -18,6 +18,7 @@ type PatchBody = {
   modelChoice?: string;
   advisorName?: string;
   firmName?: string;
+  tokenBudgetPerCase?: number;
 };
 
 export async function PATCH(request: Request) {
