@@ -4,7 +4,29 @@
 
 This document is the factual ground truth for Lean Samriddhi MVP. It defines the model portfolio that diagnostics reference, the data layer vocabulary that diagnostics use, the investor archetypes the demo runs against, and the shape of the briefing PDF the system produces. Downstream design and build phases operate on what is in this document; anything not in this document is out of scope, deferred, or to be negotiated explicitly.
 
-Lean Samriddhi MVP is a case-driven portfolio diagnostic tool for wealth advisors in the Indian HNI and UHNI context. The advisor opens a case for an upcoming investor meeting; the system analyses the investor's portfolio against a single indicative model portfolio using the investor's profile as context; the system produces a 1-2 page briefing PDF that the advisor uses as meeting talking points. A verbose on-platform case view exists for auditability, and a read-only chat lets the advisor interrogate the case. That is the entire product. It does not generate recommendations, it does not consume live market data, it does not run multi-agent orchestration visible to the user, and it does not onboard investors as a functional flow. Those capabilities live in the broader Samriddhi vision; this document does not address them.
+Lean Samriddhi MVP is a case-driven portfolio analysis tool for wealth advisors in the Indian HNI and UHNI context. The advisor opens a case for an upcoming investor meeting; the system analyses the investor's portfolio against a single indicative model portfolio using the investor's profile as context; the system produces a 1-2 page briefing PDF that the advisor uses as meeting talking points. A verbose on-platform case view exists for auditability, and a read-only chat lets the advisor interrogate the case. Two workflows ship in the MVP: Samriddhi 2 (diagnostic) reviews an existing portfolio against the model, mandate, and concentration baselines; Samriddhi 1 (proposal evaluation) assesses a specific proposed action against the portfolio, mandate, regulatory context, and an adversarial challenge layer. That is the entire product. It does not proactively generate recommendations, it does not consume live market data, it does not run multi-agent orchestration visible to the user, and it does not onboard investors as a functional flow. Those capabilities live in the broader Samriddhi vision; this document does not address them.
+
+### Workflows and Case Intent
+
+The MVP supports two case workflows, differentiated at case opening:
+
+| Workflow | Case mode | Triggered by | Output shape |
+|---|---|---|---|
+| Samriddhi 2 | `diagnostic` | Advisor opens a portfolio review case for an investor | Seven-section diagnostic briefing per Section 6 |
+| Samriddhi 1 | `proposed_action` | Advisor captures a specific proposed action against an investor's portfolio | Seven-section proposal-evaluation briefing (verdict-shaped, mirrors Section 6's layout discipline with proposal-anchored content) |
+
+For Samriddhi 1 (proposed_action mode), the `case_intent` enum classifies the action and drives the dominant analytical lens. Four user-facing values surface in the proposal capture form:
+
+| case_intent | Dominant lens | Meaning |
+|---|---|---|
+| `rebalance_proposal` | `portfolio_shift` | Advisor proposes reweighting the existing portfolio (within or across asset classes) |
+| `new_investment` | `proposal_evaluation` | Advisor proposes adding a discrete new position |
+| `exit_position` | `context_dependent` | Advisor proposes exiting a position (lens depends on whether proceeds redeploy) |
+| `restructure` | `portfolio_shift` | Advisor proposes substantially modifying the portfolio composition |
+
+The dominant lens determines downstream analytical posture: `portfolio_shift` reads the action against existing holdings and mandate baselines; `proposal_evaluation` reads the new instrument on its own merits plus the marginal portfolio effect; `context_dependent` resolves per case based on whether the proceeds are redeployed.
+
+Additional `case_intent` values exist in the broader Samriddhi vocabulary (`product_evaluation`, `asset_allocation_change`, `tax_loss_harvesting`, `liquidity_mobilisation`, `mandate_review_response`, `other`) and are accepted by the router for forward compatibility with conversational intake. The MVP form exposes only the four above.
 
 ## Indicative Model Portfolio
 
@@ -421,13 +443,13 @@ The PDF generation uses the conventions in the broader Samriddhi typography and 
 
 ### What the Briefing Does Not Contain
 
-The briefing does not contain: recommendations or proposed actions, return projections or scenario analyses, real-time market commentary, live news feeds, mandate-compliance verdicts, or governance approvals. Those capabilities exist in the broader Samriddhi vision under different surfaces; the briefing is a diagnostic talking-points document only.
+This section specifies the **Samriddhi 2 diagnostic briefing**. The diagnostic briefing does not contain: return projections or scenario analyses, real-time market commentary, or live news feeds. Recommendations or proposed actions, mandate-compliance verdicts, and governance approvals belong to the **Samriddhi 1 proposal-evaluation briefing**, which mirrors the form factor and layout discipline of this section but carries verdict-shaped content (proposal summary, synthesis verdict, evidence summary, governance status, advisory challenges, talking points, coverage note).
 
 ## Explicitly Out of Scope
 
 The following capabilities exist in the broader Samriddhi vision but are explicitly out of scope for the Lean Samriddhi MVP. They are listed here to protect against scope creep during design and build.
 
-**Recommendation generation.** The MVP is diagnostic-only. It does not propose actions, suggest specific instruments, or generate proposed_action cases. The briefing surfaces observations and talking points, not recommendations.
+**Proactive recommendation generation.** The MVP does not proactively propose actions or suggest specific instruments. Samriddhi 1 (proposal evaluation) assesses actions the advisor has captured against the system; it does not surface unprompted recommendations. The Samriddhi 2 diagnostic briefing surfaces observations and talking points, not recommendations.
 
 **Multi-agent orchestration visible to the user.** The broader Samriddhi architecture has an evidence agent layer (E1 through E7), an instrument committee (IC1), a synthesis layer (S1), and adversarial review (A1). The MVP's diagnostic produces its output through whatever internal mechanics are convenient; no agent identities, agent debates, or orchestration steps are surfaced to the user.
 
