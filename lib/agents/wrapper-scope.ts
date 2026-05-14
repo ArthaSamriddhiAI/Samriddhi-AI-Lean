@@ -35,47 +35,76 @@ type AifRecord = { "Fund Name"?: string; [key: string]: unknown };
 function findPMS(snapshot: Snapshot, instrument: string): PmsRecord | null {
   const pms = snapshot.pms as { funds?: PmsRecord[] } | undefined;
   if (!pms?.funds) return null;
-  const target = simplify(instrument);
-  const hit = pms.funds.find((p) => {
-    const name = simplify(p.identity?.fund_name ?? "");
-    return overlapsName(name, target);
-  });
+  const hit = pms.funds.find((p) => overlapsName(p.identity?.fund_name ?? "", instrument));
   return hit ?? null;
 }
 
 function findAIF(snapshot: Snapshot, instrument: string): AifRecord | null {
   const aif = snapshot.aif as { "Fund Profiles"?: AifRecord[] } | undefined;
   if (!aif?.["Fund Profiles"]) return null;
-  const target = simplify(instrument);
-  const hit = aif["Fund Profiles"].find((a) => {
-    const name = simplify(a["Fund Name"] ?? "");
-    return overlapsName(name, target);
-  });
+  const hit = aif["Fund Profiles"].find((a) => overlapsName(a["Fund Name"] ?? "", instrument));
   return hit ?? null;
 }
 
 function findMF(snapshot: Snapshot, instrument: string): MutualFundRow | null {
-  const target = simplify(instrument);
-  const hit = snapshot.mf_funds.find((f) => {
-    const name = simplify(f.fund_name ?? "");
-    return overlapsName(name, target);
-  });
+  const hit = snapshot.mf_funds.find((f) => overlapsName(f.fund_name ?? "", instrument));
   return hit ?? null;
 }
 
 function simplify(s: string): string {
-  return s.toLowerCase().replace(/\s+/g, " ").trim();
+  return s.toLowerCase().replace(/[-_,/()]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function overlapsName(a: string, b: string): boolean {
-  if (!a || !b) return false;
-  if (a === b) return true;
-  if (a.startsWith(b) || b.startsWith(a)) return true;
-  // Substring overlap on the longer key segments (drop generic words).
-  const stop = new Set(["fund", "limited", "pms", "aif", "pvt", "ltd", "the", "of", "for"]);
-  const ka = a.split(" ").filter((w) => !stop.has(w));
-  const kb = b.split(" ").filter((w) => !stop.has(w));
-  return ka.length >= 2 && kb.length >= 2 && ka.slice(0, 2).join(" ") === kb.slice(0, 2).join(" ");
+const NAME_STOP_WORDS = new Set([
+  "fund",
+  "limited",
+  "ltd",
+  "pms",
+  "aif",
+  "pvt",
+  "private",
+  "company",
+  "the",
+  "of",
+  "for",
+  "and",
+  "a",
+  "asset",
+  "management",
+  "amc",
+  "growth",
+  "regular",
+  "direct",
+  "plan",
+  "option",
+  "scheme",
+  "co",
+  "sun",
+  "life",
+]);
+
+function distinctiveTokens(name: string): string[] {
+  return simplify(name)
+    .split(" ")
+    .filter((w) => w.length > 1 && !NAME_STOP_WORDS.has(w));
+}
+
+/* Tightened after Gate 1 surfaced false-positive matches: require ALL
+ * distinctive holding tokens to appear in the snapshot record's name
+ * tokens. Prevents "Aditya Birla Arbitrage Fund" matching the first
+ * Aditya Birla * row in the snapshot, or "Motilal Oswal Value
+ * Migration PMS" matching "Motilal Oswal AMC - Ethical Strategy".
+ * Returns true only when the holding's distinctive vocabulary is
+ * fully contained in the snapshot name. */
+function overlapsName(snapshotName: string, holdingName: string): boolean {
+  if (!snapshotName || !holdingName) return false;
+  const sn = simplify(snapshotName);
+  const hn = simplify(holdingName);
+  if (sn === hn || sn.startsWith(hn) || hn.startsWith(sn)) return true;
+  const snapshotTokens = new Set(distinctiveTokens(snapshotName));
+  const holdingTokens = distinctiveTokens(holdingName);
+  if (holdingTokens.length < 2) return false;
+  return holdingTokens.every((t) => snapshotTokens.has(t));
 }
 
 const MF_CURATED_KEYS = [
