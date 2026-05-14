@@ -18,6 +18,7 @@ export default async function SettingsPage() {
     advisorName: "Priya Nair",
     firmName: "Anand Rathi Wealth · UHNI desk",
     tokenBudgetPerCase: 250000,
+    stubMode: null as boolean | null,
     updatedAt: new Date(),
   };
 
@@ -35,6 +36,7 @@ export default async function SettingsPage() {
           advisorName: initial.advisorName,
           firmName: initial.firmName,
           tokenBudgetPerCase: initial.tokenBudgetPerCase,
+          stubMode: initial.stubMode,
         }}
         initialCounts={{ investors, snapshots, cases }}
       />

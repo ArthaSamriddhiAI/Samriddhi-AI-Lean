@@ -9,9 +9,37 @@ type Setting = {
   advisorName: string;
   firmName: string;
   tokenBudgetPerCase: number;
+  /* null = inherit env STUB_MODE; true = force on; false = force off. */
+  stubMode: boolean | null;
 };
 
 type Counts = { investors: number; snapshots: number; cases: number };
+
+type StubModeChoice = "inherit_env" | "force_on" | "force_off";
+
+function stubModeToChoice(value: boolean | null): StubModeChoice {
+  if (value === true) return "force_on";
+  if (value === false) return "force_off";
+  return "inherit_env";
+}
+
+function choiceToStubMode(choice: StubModeChoice): boolean | null {
+  if (choice === "force_on") return true;
+  if (choice === "force_off") return false;
+  return null;
+}
+
+const STUB_MODE_LABELS: Record<StubModeChoice, string> = {
+  inherit_env: "Inherit env (STUB_MODE)",
+  force_on: "Force on (replay stubs)",
+  force_off: "Force off (live calls)",
+};
+
+const STUB_MODE_CONFIRM_BODY: Record<StubModeChoice, string> = {
+  inherit_env: "Switch to inheriting the STUB_MODE environment variable. New cases will use whichever mode the env declares.",
+  force_on: "Force STUB_MODE on. New cases will replay pre-recorded agent responses from fixtures/stub-responses/ instead of calling the Anthropic SDK. No API spend. Cases without a matching stub will fail fast.",
+  force_off: "Force STUB_MODE off. New cases will call the Anthropic SDK live, incurring API spend. Existing stub fixtures will be ignored for new generations.",
+};
 
 type Props = {
   initialSetting: Setting;
@@ -37,10 +65,21 @@ export function SettingsForm({ initialSetting, initialCounts }: Props) {
   const [advisorName, setAdvisorName] = useState(initialSetting.advisorName);
   const [firmName, setFirmName] = useState(initialSetting.firmName);
   const [tokenBudget, setTokenBudget] = useState(initialSetting.tokenBudgetPerCase);
+  const [stubModeChoice, setStubModeChoice] = useState<StubModeChoice>(
+    stubModeToChoice(initialSetting.stubMode),
+  );
   const [test, setTest] = useState<TestState>({ kind: "idle" });
   const [counts, setCounts] = useState<Counts>(initialCounts);
   const [busy, setBusy] = useState<"none" | "load" | "clear">("none");
   const [savedAt, setSavedAt] = useState<string | null>(null);
+
+  const handleStubModeChange = (choice: StubModeChoice) => {
+    if (choice === stubModeChoice) return;
+    const msg = `Stub mode: ${STUB_MODE_LABELS[choice]}\n\n${STUB_MODE_CONFIRM_BODY[choice]}\n\nProceed?`;
+    if (!confirm(msg)) return;
+    setStubModeChoice(choice);
+    void saveField({ stubMode: choiceToStubMode(choice) });
+  };
 
   const saveField = async (patch: Partial<Setting>) => {
     await fetch("/api/settings", {
@@ -185,6 +224,32 @@ export function SettingsForm({ initialSetting, initialCounts }: Props) {
               onBlur={() => saveField({ tokenBudgetPerCase: tokenBudget })}
             />
             <span className="text-[11.5px] text-ink-4 font-mono ml-2">tokens</span>
+          </div>
+        </div>
+
+        <div className="kv-row">
+          <div className="k">
+            Stub mode
+            <span className="helper">
+              When active, agent calls replay pre-recorded responses from{" "}
+              <code>fixtures/stub-responses/</code> instead of hitting the Anthropic SDK.
+              Settings override wins over the <code>STUB_MODE</code> env var when set
+              explicitly; otherwise the env value applies.
+            </span>
+          </div>
+          <div className="v">
+            <select
+              className="select-native"
+              value={stubModeChoice}
+              onChange={(e) => handleStubModeChange(e.target.value as StubModeChoice)}
+            >
+              <option value="inherit_env">{STUB_MODE_LABELS.inherit_env}</option>
+              <option value="force_on">{STUB_MODE_LABELS.force_on}</option>
+              <option value="force_off">{STUB_MODE_LABELS.force_off}</option>
+            </select>
+            <span className="text-[11.5px] text-ink-4 font-mono ml-2">
+              {stubModeChoice === "inherit_env" ? "env-driven" : stubModeChoice === "force_on" ? "stub-only" : "live-only"}
+            </span>
           </div>
         </div>
       </section>

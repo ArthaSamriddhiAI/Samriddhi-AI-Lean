@@ -44,6 +44,9 @@ type CaseFixture = {
   tokenUsage: unknown;
   errorMessage: string | null;
   contextNote: string | null;
+  /** Optional. Sharma's commit-12 fixture sets this true; Shailesh's
+   * Slice 2 fixture omits the field (legacy, treated as null = live). */
+  stubbed?: boolean;
 };
 
 const SNAPSHOTS = [
@@ -476,6 +479,7 @@ export async function seedDatabase() {
       tokenUsageJson: fixture.tokenUsage ? JSON.stringify(fixture.tokenUsage) : null,
       errorMessage: fixture.errorMessage,
       contextNote: fixture.contextNote,
+      stubbed: fixture.stubbed ?? null,
     };
     await prisma.case.upsert({
       where: { id: fixture.id },

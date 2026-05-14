@@ -19,6 +19,8 @@ type PatchBody = {
   advisorName?: string;
   firmName?: string;
   tokenBudgetPerCase?: number;
+  /* null = inherit env STUB_MODE; true/false = explicit override. */
+  stubMode?: boolean | null;
 };
 
 export async function PATCH(request: Request) {

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { AnalysisTab } from "@/components/case-detail/AnalysisTab";
 import { BriefingTab } from "@/components/case-detail/BriefingTab";
 import { ChatPanel } from "@/components/case-detail/ChatPanel";
+import { CaseStubBadge } from "@/components/case-detail/CaseStubBadge";
 import { Lock, Download } from "@/components/chrome/Icons";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 import { transformRupeesDeep } from "@/lib/format/rupees";
@@ -140,6 +141,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
             <Lock size={11} />
             Frozen {frozen}
           </span>
+          <CaseStubBadge stubbed={c.stubbed} />
         </div>
         <div className="case-tabs">
           <Link

@@ -78,6 +78,11 @@ export function CaseList({ cases }: Props) {
                   <span className={`wf-tag ${c.workflow === "s1" ? "wt-s1" : "wt-s2"}`}>
                     {c.workflow === "s1" ? "prop" : "diag"}
                   </span>
+                  {c.stubbed === true && (
+                    <span className="stub-meta" title="Assembled from STUB_MODE replay">
+                      · stub
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="headline">{c.headline}</div>
