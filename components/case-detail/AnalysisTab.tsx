@@ -1,18 +1,33 @@
-import { SHAILESH_BHATT_CASE } from "@/lib/fixtures/shailesh-bhatt-case";
+import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 
-/* Analysis tab content. Renders the Shailesh Bhatt workbench view as static
- * fixture content per the approved orientation Q5 option a. The investor
- * name shown in the workbench header is the investor on the actual case
- * row (passed in via props) so the chrome reflects what the user picked;
- * the analytical body remains Shailesh-flavoured. */
+/* Analysis tab. Renders the pipeline's BriefingContent in workbench
+ * density. Sections 1 + 3 + 4 collapse into a single observations panel
+ * (each rendered as a card with severity colouring); section 2 is the
+ * allocation table; section 7 + the case's holdings reference make the
+ * audit table; coverage_note becomes the footer block. */
 
 type Props = {
   investorName: string;
   snapshotDate: string;
+  content: BriefingContent;
+  holdings: Array<{ instrument: string; sub_category: string; value_cr: number; weight_pct: number }>;
 };
 
-export function AnalysisTab({ investorName, snapshotDate }: Props) {
-  const f = SHAILESH_BHATT_CASE;
+type SeverityVariant = "ok" | "info" | "flag" | "escalate";
+
+function severityColor(sev: SeverityVariant): string {
+  return sev === "escalate"
+    ? "var(--color-neg)"
+    : sev === "flag"
+      ? "var(--color-warn)"
+      : sev === "info"
+        ? "var(--color-accent)"
+        : "var(--color-ink-5)";
+}
+
+export function AnalysisTab({ investorName, snapshotDate, content, holdings }: Props) {
+  const h = content.header;
+
   return (
     <div className="workbench-area">
       <div className="workbench-inner">
@@ -25,33 +40,33 @@ export function AnalysisTab({ investorName, snapshotDate }: Props) {
             <div className="workbench-head-meta">
               <span>Snapshot {snapshotDate}</span>
               <span style={{ color: "var(--color-ink-5)" }}>·</span>
-              <span>{f.header.liquidAumCr} liquid AUM</span>
+              <span>{h.liquid_aum_label}</span>
               <span style={{ color: "var(--color-ink-5)" }}>·</span>
-              <span>{f.header.holdingsLine}</span>
+              <span>{h.holdings_label}</span>
               <span style={{ color: "var(--color-ink-5)" }}>·</span>
-              <span>{f.header.statedRevealed}</span>
+              <span>{h.stated_revealed_label}</span>
             </div>
           </div>
           <div className="workbench-stats">
             <div className="workbench-stat">
               <span className="ws-mark" style={{ background: "var(--color-neg)" }} />
-              <span className="ws-val">{f.header.severityCounts.escalate}</span>
+              <span className="ws-val">{h.severity_counts.escalate}</span>
               <span className="ws-label">escalate</span>
             </div>
             <div className="workbench-stat">
               <span className="ws-mark" style={{ background: "var(--color-warn)" }} />
-              <span className="ws-val">{f.header.severityCounts.flag}</span>
+              <span className="ws-val">{h.severity_counts.flag}</span>
               <span className="ws-label">flag</span>
             </div>
             <div className="workbench-stat">
               <span className="ws-mark" style={{ background: "var(--color-ink-5)" }} />
-              <span className="ws-val">{f.header.severityCounts.total}</span>
+              <span className="ws-val">{h.severity_counts.total}</span>
               <span className="ws-label">total</span>
             </div>
           </div>
         </div>
 
-        <div className="workbench-lede">{f.workbenchLede}</div>
+        <div className="workbench-lede">{content.workbench_lede}</div>
 
         <section className="workbench-section">
           <div className="workbench-section-head">Asset class allocation vs model</div>
@@ -66,66 +81,96 @@ export function AnalysisTab({ investorName, snapshotDate }: Props) {
               </tr>
             </thead>
             <tbody>
-              {f.allocationTable.map((row) => (
-                <tr key={row.class}>
-                  <td>{row.class}</td>
-                  <td className="r">{row.actual}</td>
-                  <td className="r">{row.target}</td>
-                  <td className="r muted">{row.band}</td>
+              {content.section_2_portfolio_overview.rows.map((row) => (
+                <tr key={row.asset_class}>
+                  <td>{row.asset_class}</td>
+                  <td className="r">{row.actual_pct.toFixed(1)}%</td>
+                  <td className="r">{row.target_pct}%</td>
+                  <td className="r muted">{row.band[0]}-{row.band[1]}%</td>
                   <td
-                    className={`r${row.deviationTone === "muted" ? " muted" : ""}`}
-                    style={row.deviationTone === "warn" ? { color: "var(--color-warn)" } : undefined}
+                    className={`r${row.in_band ? " muted" : ""}`}
+                    style={!row.in_band ? { color: "var(--color-warn)" } : undefined}
                   >
-                    {row.deviation}
+                    {row.deviation_pp > 0 ? "+" : ""}{row.deviation_pp.toFixed(1)} pp {row.in_band ? "" : (row.deviation_pp > 0 ? "above band" : "below band")}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="mt-2 text-[11.5px] text-ink-4 font-mono">{f.liquidityLine}</div>
+          <div className="mt-2 text-[11.5px] text-ink-4 font-mono">
+            {content.section_2_portfolio_overview.liquidity_tier_line}
+          </div>
         </section>
 
         <section className="workbench-section">
           <div className="workbench-section-head">
-            Diagnostic observations · {f.observations.length} of {f.observations.length}
+            Headline observations · {content.section_1_headline_observations.length}
           </div>
-          {f.observations.map((obs, i) => (
+          {content.section_1_headline_observations.map((obs, i) => (
             <div key={i} className={`wb-obs sev-${obs.severity}`}>
               <div className="wb-obs-head">
                 <div className="wb-obs-title">
-                  <span className="wb-obs-name">{obs.name}</span>
+                  <span className="wb-obs-name">{obs.vocab.replace(/_/g, " ")}</span>
                   <span className="wb-obs-meta">
-                    {obs.category} · {obs.severity === "escalate" ? "Escalate" : "Flag"}
+                    source: {obs.source} · {obs.severity}
                   </span>
                 </div>
-                <span className="wb-obs-figure">{obs.figure}</span>
+                <span
+                  className="wb-obs-figure"
+                  style={{ color: severityColor(obs.severity as SeverityVariant) }}
+                >
+                  {obs.severity}
+                </span>
               </div>
-              <div className="wb-obs-body">
-                {obs.body}
-                {"bodyTail" in obs && obs.bodyTail ? (
-                  <em> {obs.bodyTail}</em>
-                ) : null}
-              </div>
-              {"evidence" in obs && obs.evidence ? (
-                <div className="wb-obs-evidence">
-                  <div className="wb-obs-ev-eye">{obs.evidence.eye}</div>
-                  <div className="wb-obs-ev-list">
-                    {obs.evidence.rows.map((row, j) => (
-                      <div className="wb-obs-ev-row" key={j}>
-                        <span className="ev-label">{row.label}</span>
-                        <span className="ev-val">{row.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : null}
+              <div className="wb-obs-body">{obs.one_line}</div>
             </div>
           ))}
         </section>
 
+        {content.section_3_concentration_analysis.length > 0 ? (
+          <section className="workbench-section">
+            <div className="workbench-section-head">
+              Concentration analysis · {content.section_3_concentration_analysis.length}
+            </div>
+            {content.section_3_concentration_analysis.map((br, i) => (
+              <div key={i} className={`wb-obs sev-${br.severity}`}>
+                <div className="wb-obs-head">
+                  <div className="wb-obs-title">
+                    <span className="wb-obs-name">{br.kind} concentration</span>
+                    <span className="wb-obs-meta">source: {br.source} · {br.severity}</span>
+                  </div>
+                  <span className="wb-obs-figure">{br.figure}</span>
+                </div>
+                <div className="wb-obs-body">
+                  {br.detail} <em>{br.evidence}</em>
+                </div>
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        {content.section_4_risk_flags.length > 0 ? (
+          <section className="workbench-section">
+            <div className="workbench-section-head">
+              Risk flags · {content.section_4_risk_flags.length}
+            </div>
+            {content.section_4_risk_flags.map((flag, i) => (
+              <div key={i} className={`wb-obs sev-${flag.severity}`}>
+                <div className="wb-obs-head">
+                  <div className="wb-obs-title">
+                    <span className="wb-obs-name">{flag.title}</span>
+                    <span className="wb-obs-meta">{flag.category} · source: {flag.source} · {flag.severity}</span>
+                  </div>
+                </div>
+                <div className="wb-obs-body">{flag.body}</div>
+              </div>
+            ))}
+          </section>
+        ) : null}
+
         <section className="workbench-section">
           <div className="workbench-section-head">
-            Holdings reference · {f.holdings.length} of {f.holdings.length} analysed
+            Holdings reference · {holdings.length} of {holdings.length} analysed
           </div>
           <table className="audit-holdings">
             <thead>
@@ -134,27 +179,19 @@ export function AnalysisTab({ investorName, snapshotDate }: Props) {
                 <th>Sub-category</th>
                 <th className="r">Value (Rs Cr)</th>
                 <th className="r">Weight</th>
-                <th className="r">Bucket</th>
               </tr>
             </thead>
             <tbody>
-              {f.holdings.map((h) => (
-                <tr key={h.name}>
-                  <td>{h.name}</td>
+              {holdings.map((row) => (
+                <tr key={row.instrument}>
+                  <td>{row.instrument}</td>
                   <td>
-                    <span className="sub-cat">{h.subCat}</span>
+                    <span className="sub-cat">{row.sub_category}</span>
                   </td>
-                  <td className="r">{h.value}</td>
-                  <td className="r">{h.weight}</td>
-                  <td className="r">{h.bucket}</td>
+                  <td className="r">{row.value_cr.toFixed(2)}</td>
+                  <td className="r">{row.weight_pct.toFixed(1)}%</td>
                 </tr>
               ))}
-              <tr className="subtotal">
-                <td colSpan={2}>Liquid AUM total</td>
-                <td className="r">{f.holdingsTotal.value}</td>
-                <td className="r">{f.holdingsTotal.weight}</td>
-                <td className="r" />
-              </tr>
             </tbody>
           </table>
         </section>
@@ -162,7 +199,7 @@ export function AnalysisTab({ investorName, snapshotDate }: Props) {
         <section className="workbench-section">
           <div className="workbench-section-head">Coverage notes</div>
           <p className="text-[12.5px] text-ink-3 leading-[1.6] max-w-[720px] m-0">
-            {f.coverageNote}
+            {content.coverage_note}
           </p>
         </section>
       </div>

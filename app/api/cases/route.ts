@@ -1,15 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { NEW_CASE_FIXTURE } from "@/lib/fixtures/new-case";
 import { generateCaseId } from "@/lib/case-id";
+import { runDiagnosticPipeline } from "@/lib/agents/pipeline";
 
 /* POST /api/cases
  *
  * Body: { investorId: string, snapshotId: string, contextNote?: string }
  *
- * Creates a case row with the fixture content (Shailesh Bhatt diagnostic
- * stand-in per the orientation Q5 option a). Returns the created case ID.
- * Real LLM reasoning replaces the fixture in slice 2.
+ * Creates a case row in status="generating" and fires the diagnostic
+ * pipeline as a background promise (fire-and-forget on the Node process,
+ * appropriate for the local single-user demo). Returns immediately with
+ * the case ID; the client polls /api/cases/[id]/status until status
+ * flips to "ready" or "failed".
  */
 
 type Body = {
@@ -53,13 +55,21 @@ export async function POST(request: Request) {
       id,
       investorId,
       snapshotId,
-      workflow: NEW_CASE_FIXTURE.workflow,
-      severity: NEW_CASE_FIXTURE.severity,
-      headline: NEW_CASE_FIXTURE.headline,
-      status: NEW_CASE_FIXTURE.status,
-      contentJson: JSON.stringify({ fixture: NEW_CASE_FIXTURE.contentTag }),
+      workflow: "s2",
+      severity: "info",
+      headline: "Diagnostic in progress",
+      status: "generating",
+      contentJson: "{}",
       contextNote: contextNote ?? null,
     },
+  });
+
+  /* Fire the pipeline as a background promise. Acceptable for the
+   * single-user local demo; a production deployment would queue this. */
+  void runDiagnosticPipeline({
+    caseId: created.id,
+    investorId,
+    snapshotId,
   });
 
   return NextResponse.json({ id: created.id }, { status: 201 });

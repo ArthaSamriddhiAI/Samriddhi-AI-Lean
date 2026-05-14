@@ -52,19 +52,24 @@ model Snapshot {
 }
 
 model Case {
-  id            String   @id
-  investorId    String
-  snapshotId    String
-  workflow      String
-  severity      String
-  headline      String
-  status        String?
-  frozenAt      DateTime @default(now())
-  contentJson   String
-  contextNote   String?
+  id              String   @id
+  investorId      String
+  snapshotId      String
+  workflow        String
+  severity        String
+  headline        String
+  // status: "generating" | "ready" | "failed" | "archived"
+  status          String?
+  frozenAt        DateTime @default(now())
+  contentJson     String
+  // Per-agent token usage rollup, JSON-encoded. Populated when status="ready".
+  tokenUsageJson  String?
+  // Populated when status="failed" with the human-readable cause.
+  errorMessage    String?
+  contextNote     String?
 
-  investor      Investor @relation(fields: [investorId], references: [id])
-  snapshot      Snapshot @relation(fields: [snapshotId], references: [id])
+  investor        Investor @relation(fields: [investorId], references: [id])
+  snapshot        Snapshot @relation(fields: [snapshotId], references: [id])
 
   @@index([investorId])
   @@index([snapshotId])
