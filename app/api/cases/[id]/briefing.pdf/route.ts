@@ -60,6 +60,7 @@ export async function GET(_request: Request, { params }: Params) {
     advisorName,
     firmName,
     generatedAt: formatGeneratedAt(generatedAtIso, c.frozenAt),
+    stubbed: c.stubbed,
   });
 
   const buffer = await renderToBuffer(pdfElement);

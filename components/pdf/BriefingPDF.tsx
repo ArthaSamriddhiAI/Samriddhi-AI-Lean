@@ -357,10 +357,14 @@ export type BriefingPDFProps = {
   advisorName: string;
   firmName: string;
   generatedAt: string;
+  /* True when the case was assembled from STUB_MODE replay. The footer
+   * right-line reads "Case <id> · Stubbed reasoning" in that case;
+   * otherwise it reads "Case <id> · Frozen artefact" per Slice 2. */
+  stubbed?: boolean | null;
 };
 
 export function BriefingPDF(props: BriefingPDFProps): ReactElement<DocumentProps> {
-  const { briefing, investorName, snapshotDate, caseId, advisorName, firmName, generatedAt } = props;
+  const { briefing, investorName, snapshotDate, caseId, advisorName, firmName, generatedAt, stubbed } = props;
   /* Render-time currency substitution. The data layer keeps "Rs"
    * verbatim from foundation and LLM outputs; here we walk the briefing
    * tree once and replace "Rs <digit>" → "₹<digit>". Applied inside the
@@ -574,7 +578,7 @@ export function BriefingPDF(props: BriefingPDFProps): ReactElement<DocumentProps
           {advisorName} · {firmName} · Prepared, not generated. Lean Samriddhi MVP.
         </Text>
         <Text style={styles.footerRight} fixed>
-          Case {caseId} · Frozen artefact
+          Case {caseId} · {stubbed ? "Stubbed reasoning" : "Frozen artefact"}
         </Text>
       </Page>
     </Document>

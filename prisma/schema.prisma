@@ -76,6 +76,12 @@ model Case {
   // Populated when status="failed" with the human-readable cause.
   errorMessage    String?
   contextNote     String?
+  // True when this case was assembled from STUB_MODE replay (pre-recorded
+  // agent responses), false when assembled from live SDK calls. Null on
+  // legacy cases generated before Slice 3 commit 8 added the column; the
+  // UI treats null as false (live). Drives the Case Detail "Stubbed
+  // reasoning" badge, the Case List signal, and the PDF footer line.
+  stubbed         Boolean?
 
   investor        Investor @relation(fields: [investorId], references: [id])
   snapshot        Snapshot @relation(fields: [snapshotId], references: [id])

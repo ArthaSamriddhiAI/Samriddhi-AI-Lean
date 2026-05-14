@@ -674,6 +674,36 @@
     gap: 6px;
     margin-left: 4px;
   }
+  /* Stub-mode badge. Same register as .frozen-pill — calm, institutional,
+   * present without being alarming. The dot is a muted accent rather than
+   * a status color; the goal is "this is honest provenance information",
+   * not "warning, this is fake". */
+  .stub-badge {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--color-ink-3);
+    padding: 2px 9px 2px 8px;
+    border-radius: var(--radius-1);
+    background: var(--color-paper-sunken);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 4px;
+    cursor: help;
+  }
+  .stub-badge .stub-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-ink-4);
+    display: inline-block;
+  }
+  .stub-meta {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--color-ink-4);
+    margin-left: 4px;
+  }
   .case-toolbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 
   .case-tabs { display: flex; align-items: center; gap: 0; margin-left: 12px; }
