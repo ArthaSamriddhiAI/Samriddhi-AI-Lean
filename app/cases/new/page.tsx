@@ -1,11 +1,21 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Lock } from "@/components/chrome/Icons";
 
-/* Step 0: workflow selection. Samriddhi 2 is selected by default and
- * routes to /cases/new/diagnostic. Samriddhi 1 is disabled with a
- * "Coming in slice 3" badge until the proposal evaluation slice lands. */
+/* Step 0: workflow selection. Two workflows available as of Slice 3:
+ *   Samriddhi 2 (portfolio diagnostic) routes to /cases/new/diagnostic.
+ *   Samriddhi 1 (proposal evaluation) routes to /cases/new/proposal. */
+
+type Workflow = "s2" | "s1";
 
 export default function NewCaseWorkflowPage() {
+  const [selected, setSelected] = useState<Workflow>("s2");
+  const continueHref = selected === "s1" ? "/cases/new/proposal" : "/cases/new/diagnostic";
+  const continueLabel =
+    selected === "s1" ? "Continue with Proposal evaluation" : "Continue with Portfolio diagnostic";
+
   return (
     <div className="new-case-page">
       <div className="nc-eyebrow">Cases / New</div>
@@ -15,7 +25,11 @@ export default function NewCaseWorkflowPage() {
       </p>
 
       <div className="wf-pick-grid">
-        <div className="wf-card is-selected">
+        <button
+          type="button"
+          className={`wf-card ${selected === "s2" ? "is-selected" : ""}`}
+          onClick={() => setSelected("s2")}
+        >
           <div className="wf-card-radio" />
           <div className="wf-card-id">Samriddhi 2</div>
           <div className="wf-card-name">Portfolio diagnostic</div>
@@ -25,9 +39,12 @@ export default function NewCaseWorkflowPage() {
             behaviour, fee drag, and deployment efficiency. Produces a briefing PDF and frozen
             case audit trail.
           </div>
-        </div>
-        <div className="wf-card is-disabled" aria-disabled="true">
-          <div className="wf-card-badge">Coming in slice 3</div>
+        </button>
+        <button
+          type="button"
+          className={`wf-card ${selected === "s1" ? "is-selected" : ""}`}
+          onClick={() => setSelected("s1")}
+        >
           <div className="wf-card-radio" />
           <div className="wf-card-id">Samriddhi 1</div>
           <div className="wf-card-name">Proposal evaluation</div>
@@ -36,7 +53,7 @@ export default function NewCaseWorkflowPage() {
             or redemption. Runs the EGA evidence framework across activated agents (E1 through
             E7), synthesis layer S1, governance gates G1 through G3, and advisory challenge A1.
           </div>
-        </div>
+        </button>
       </div>
 
       <div className="nc-foot">
@@ -48,8 +65,8 @@ export default function NewCaseWorkflowPage() {
           <Link href="/cases" className="btn btn-ghost no-underline">
             Cancel
           </Link>
-          <Link href="/cases/new/diagnostic" className="btn btn-primary btn-lg no-underline">
-            Continue with Portfolio diagnostic
+          <Link href={continueHref} className="btn btn-primary btn-lg no-underline">
+            {continueLabel}
           </Link>
         </div>
       </div>
