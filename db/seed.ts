@@ -17,6 +17,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { prisma } from "../lib/prisma";
 import { HOLDINGS_BY_INVESTOR } from "./fixtures/structured-holdings";
+import { MANDATES_BY_INVESTOR } from "./fixtures/structured-mandates";
 
 const CASE_FIXTURES_DIR = path.resolve(process.cwd(), "db", "fixtures", "cases");
 
@@ -438,7 +439,15 @@ export async function seedDatabase() {
     if (!holdings) {
       throw new Error(`No structured holdings for investor "${inv.id}". Add to db/fixtures/structured-holdings.ts.`);
     }
-    const record = { ...inv, holdingsJson: JSON.stringify(holdings) };
+    const mandate = MANDATES_BY_INVESTOR[inv.id];
+    if (!mandate) {
+      throw new Error(`No structured mandate for investor "${inv.id}". Add to db/fixtures/structured-mandates.ts.`);
+    }
+    const record = {
+      ...inv,
+      holdingsJson: JSON.stringify(holdings),
+      mandateJson: JSON.stringify(mandate),
+    };
     await prisma.investor.upsert({
       where: { id: inv.id },
       update: record,

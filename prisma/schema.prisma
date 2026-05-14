@@ -30,6 +30,15 @@ model Investor {
   // Drives deterministic metrics and snapshot look-through; the profileMd
   // remains the human-readable view.
   holdingsJson          String
+  // Structured mandate (asset-class bands, wrapper-count ceilings, position
+  // concentration limits, sector / instrument exclusions). JSON-encoded
+  // Mandate shape (db/fixtures/structured-mandates.ts). Read by Slice 3's
+  // G1 deterministic governance gate. Slice 2 ignored mandates; Slice 3
+  // adds this column with the schema lift confirmed in the orientation Q1
+  // scoping response. Nullable to allow additive db:push (seed populates
+  // every investor); G1 treats a null mandate as requires_clarification
+  // at runtime.
+  mandateJson           String?
   onboardingTranscript  String?
   createdAt             DateTime @default(now())
 
