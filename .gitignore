@@ -49,4 +49,7 @@ artha-fullfat/
 
 # Snapshot fixtures (copied locally by scripts/copy-fixtures.ts; ~99 MB total).
 # Anchored at root so db/fixtures/ (seed-time TypeScript data) is NOT ignored.
-/fixtures/
+# Stub-mode response fixtures under /fixtures/stub-responses/ are tracked
+# (small JSONs, demo-critical for STUB_MODE replay).
+/fixtures/*
+!/fixtures/stub-responses/

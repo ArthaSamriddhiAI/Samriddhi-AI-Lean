@@ -86,6 +86,12 @@ model Setting {
   // all agents in one diagnostic run. Sized as a guardrail against runaway
   // loops, not a budget target: routine cases come in well below this.
   tokenBudgetPerCase    Int      @default(250000)
+  // Stub mode override. null = inherit env STUB_MODE; true/false = explicit
+  // override set via Settings UI. When stub mode is active, stub-aware agent
+  // call sites load pre-recorded responses from fixtures/stub-responses/
+  // instead of calling the Anthropic SDK. Slice 3 commit 1 infrastructure;
+  // Settings UI toggle lands in commit 8.
+  stubMode              Boolean?
   updatedAt             DateTime @updatedAt
 
   @@map("settings")
