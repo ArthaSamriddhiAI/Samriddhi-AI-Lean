@@ -81,7 +81,7 @@ export const MALHOTRA_HOLDINGS: StructuredHoldings = {
   totalLiquidAumCr: 11.85,
   holdings: [
     { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 1.85, weightPct: 15.6 },
-    { instrument: "Axis Bluechip Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 1.40, weightPct: 11.8 },
+    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 1.40, weightPct: 11.8 },
     { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 1.68, weightPct: 14.2 },
     { instrument: "Kotak Emerging Equity Fund", assetClass: "Equity", subCategory: "mf_active_mid_cap", valueCr: 1.25, weightPct: 10.5 },
     { instrument: "NHAI Tax-Free Bonds 2032", assetClass: "Debt", subCategory: "tax_free_bond", valueCr: 2.15, weightPct: 18.1 },
@@ -97,18 +97,43 @@ export const IYENGAR_HOLDINGS: StructuredHoldings = {
     { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 0.93, weightPct: 27.3 },
     { instrument: "SBI FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 0.92, weightPct: 27.0 },
     { instrument: "Franklin India Corporate Debt Fund", assetClass: "Debt", subCategory: "mf_corporate_debt", valueCr: 0.35, weightPct: 10.3 },
-    { instrument: "Axis Bluechip Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 0.40, weightPct: 11.7 },
+    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 0.40, weightPct: 11.7 },
     { instrument: "HDFC Index Fund Nifty 50", assetClass: "Equity", subCategory: "mf_passive_index", valueCr: 0.48, weightPct: 14.1 },
-    { instrument: "ICICI Pru Balanced Advantage Fund", assetClass: "Equity", subCategory: "mf_hybrid_dynamic_aa", valueCr: 0.33, weightPct: 9.7 },
+    { instrument: "ICICI Prudential Balanced Advantage Fund", assetClass: "Equity", subCategory: "mf_hybrid_dynamic_aa", valueCr: 0.33, weightPct: 9.7 },
   ],
 };
 
+/* Snapshot-alignment cleanup, post-Gate 1.
+ *
+ * The foundation §4 archetype tables were authored independently of the
+ * snapshot's actual fund inventory. Four instrument labels diverged and
+ * were corrected here:
+ *
+ *   - Bhatt: "Motilal Oswal Value Strategy PMS" → "Motilal Oswal Value
+ *     Migration PMS" (snapshot has 7 Motilal Oswal PMS strategies;
+ *     "Value Migration" is the closest to the foundation's pms_value
+ *     intent. "Value Strategy" does not exist.)
+ *   - Bhatt: "Aditya Birla Arbitrage Fund" → "HDFC Arbitrage Fund"
+ *     (94 Aditya Birla funds in snapshot, none of them arbitrage; HDFC
+ *     Arbitrage Fund is a real fund that keeps Shailesh's mf_arbitrage
+ *     intent.)
+ *   - Malhotra / Iyengar / Surana: "Axis Bluechip Fund" → "Axis Large
+ *     Cap Fund" (the fund was renamed under SEBI category rebranding;
+ *     the snapshot reflects the post-rename "Axis Large Cap Fund".)
+ *   - Iyengar: "ICICI Pru Balanced Advantage Fund" → "ICICI Prudential
+ *     Balanced Advantage Fund" (snapshot uses the full "Prudential"
+ *     style.)
+ *
+ * The existing Shailesh case (c-2026-05-14-bhatt-01) was generated
+ * against the pre-cleanup labels and retains them in its frozen
+ * contentJson per "case is a frozen artefact" semantics. Subsequent
+ * cases generated after this cleanup will reference the corrected names. */
 export const BHATT_HOLDINGS: StructuredHoldings = {
   totalLiquidAumCr: 22.10,
   holdings: [
     { instrument: "Marcellus Consistent Compounder PMS", assetClass: "Equity", subCategory: "pms_concentrated_quality", valueCr: 2.50, weightPct: 11.3 },
     { instrument: "White Oak India Pioneers PMS", assetClass: "Equity", subCategory: "pms_growth_quality", valueCr: 2.20, weightPct: 10.0 },
-    { instrument: "Motilal Oswal Value Strategy PMS", assetClass: "Equity", subCategory: "pms_value", valueCr: 2.10, weightPct: 9.5 },
+    { instrument: "Motilal Oswal Value Migration PMS", assetClass: "Equity", subCategory: "pms_value", valueCr: 2.10, weightPct: 9.5 },
     { instrument: "Alchemy Smart Alpha 250 PMS", assetClass: "Equity", subCategory: "pms_focused_midcap", valueCr: 1.90, weightPct: 8.6 },
     { instrument: "Reliance Industries", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 2.70, weightPct: 12.2 },
     { instrument: "HDFC Bank", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 2.50, weightPct: 11.3 },
@@ -117,7 +142,7 @@ export const BHATT_HOLDINGS: StructuredHoldings = {
     { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 0.45, weightPct: 2.0 },
     { instrument: "Avendus Absolute Return Fund", assetClass: "Alternatives", subCategory: "aif_cat_iii_long_short", valueCr: 3.00, weightPct: 13.6 },
     { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 1.55, weightPct: 7.0 },
-    { instrument: "Aditya Birla Arbitrage Fund", assetClass: "Debt", subCategory: "mf_arbitrage", valueCr: 1.60, weightPct: 7.2 },
+    { instrument: "HDFC Arbitrage Fund", assetClass: "Debt", subCategory: "mf_arbitrage", valueCr: 1.60, weightPct: 7.2 },
   ],
 };
 
@@ -134,7 +159,7 @@ export const SURANA_HOLDINGS: StructuredHoldings = {
   totalLiquidAumCr: 34.50,
   holdings: [
     { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 4.00, weightPct: 11.6 },
-    { instrument: "Axis Bluechip Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.80, weightPct: 11.0 },
+    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.80, weightPct: 11.0 },
     { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.00, weightPct: 8.7 },
     { instrument: "Kotak Emerging Equity Fund", assetClass: "Equity", subCategory: "mf_active_mid_cap", valueCr: 3.00, weightPct: 8.7 },
     { instrument: "SBI Small Cap Fund", assetClass: "Equity", subCategory: "mf_active_small_cap", valueCr: 2.20, weightPct: 6.4 },
