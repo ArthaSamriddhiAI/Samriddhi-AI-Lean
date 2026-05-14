@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-05-14T18:13:49.561Z",
+  "model": "claude-sonnet-4-6 (parsed from verdicts.md)",
+  "skill_id": "e7_mutual_fund",
+  "case_fixture_id": "c-2026-05-14-sharma-01",
+  "text": "```json\n{\n  \"activation_status\": \"not_activated\",\n  \"reason_for_non_activation\": \"Per principles section 3.1, E7 activates when the proposed action specifically targets a mutual fund scheme or evaluates a specific scheme for inclusion, modification, or exit. The Sharma proposal targets a PMS wrapper; the household's three existing actively managed MF holdings are not the subject of this action, are not being added to, exited, switched, or rebalanced, and no material change to MF allocation results from the redirection of FD capital into the PMS. Where MF holdings contribute to the household's listed equity look-through, those names are handled by E1 at the per-stock level rather than by E7 at the scheme level. E7 will activate on a future case if and when the existing MF schemes are themselves the subject of action, or if a new MF scheme is proposed for inclusion.\"\n}\n```",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 4200,
+    "output_tokens": 1200
+  }
+}

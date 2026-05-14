@@ -77,10 +77,17 @@ Wired in this slice:
 
 After lift, the following invariants hold:
 - 21 skill files in `agents/` matching the source set verbatim.
-- 1 foundation document in `foundation/foundation.md` matching the source verbatim.
-- No edits to lifted files; the lean MVP operates on the source content unchanged.
+- 1 foundation document in `foundation/foundation.md` matching the source verbatim (Slice 3 commit 2a amends in place for case_intent enum and dual-workflow framing; the source has not been updated).
+- 1 evidence-verdicts reference file in `db/fixtures/raw/sharma_marcellus_evidence_verdicts.md` matching the source verbatim (Slice 3 commit 9 lift; consumed by the Sharma stub-fixture generation script).
+- No edits to lifted files; the lean MVP operates on the source content unchanged (except for the foundation amendment per above).
 
 If the user requests an edit to any lifted file (e.g., tuning `max_tokens` for a specific agent), the edit happens to the lean MVP copy; the source is not updated.
+
+### Slice 3 lift: Sharma + Marcellus evidence verdicts
+
+| Source path | Destination path | Notes |
+|---|---|---|
+| `../08 - Factual Foundation Continued/sharma_marcellus_evidence_verdicts.md` | `db/fixtures/raw/sharma_marcellus_evidence_verdicts.md` | Authored evidence verdicts for the canonical Sharma + Marcellus case. Slice 3 commit 9's stub generation script parses E1, E2, E3, E4, E6 sections into stub fixtures under `fixtures/stub-responses/c-2026-05-14-sharma-01/`. E5 and E7 sections document non-activation reasons; the runtime non-activation helper in `lib/agents/case/non-activation.ts` uses the parsed reasons preferentially when present. |
 
 ## Notes on the meta-spec confusion
 

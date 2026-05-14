@@ -1,0 +1,501 @@
+{
+  "id": "c-2026-05-14-sharma-01",
+  "investorId": "sharma",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s1",
+  "severity": "escalate",
+  "headline": "requires clarification: The product itself is sound: Marcellus has a stable team, a consistent investment style, a fee structure within the PMS band, and a look-through book of high-ROCE, wide-moat businesses.",
+  "status": "ready",
+  "frozenAt": "2026-05-14T18:15:13.442Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "The Sharma family, an aggressive-mandate household with a 5-plus-year horizon and Rs 18 Cr in liquid AUM across eight holdings, proposes a Rs 3 Cr new investment into the Marcellus Consistent Compounder PMS, funded by redemption of fixed deposits and timed to this quarter. The action originates from a peer-network introduction and is framed by the family as alignment with their stated long-term equity-heavy positioning. Post-action, the household holds two PMS wrappers alongside one Cat II AIF and three active mutual funds; equity allocation moves from 55.0 percent to 71.7 percent, debt from 30.0 percent to 13.3 percent, and the FD reserve compresses from Rs 5.4 Cr to Rs 2.4 Cr, with the new position sitting at 16.7 percent of liquid AUM as a single line item."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "requires_clarification",
+        "overall_risk_level": "elevated",
+        "confidence": 0.78,
+        "consensus_areas": [
+          "Product quality at the wrapper, manager, and strategy layers reads cleanly (E1, E2, E6 align on quality of underlying book and strategy execution)",
+          "Macro context is supportive of moving incremental capital from compressed-yield FDs into equity (E3 low risk reading)",
+          "Stated and revealed risk tolerance at the asset-class level are consistent with equity-heavy positioning (E4 confirms tolerance alignment)",
+          "SEBI PMS minimum ticket and structural compliance clear cleanly (G2 pass, G3 pass)"
+        ],
+        "conflict_areas": [
+          "Mandate-fit versus product-fit: G1 returns requires_clarification on three boundary conditions (equity ceiling, debt floor, single-position concentration) while E6 reads the product itself as positive_with_caveat; the disagreement is between product quality and portfolio architecture rather than within either dimension",
+          "Behavioural framing versus product framing: E4 flags wrapper-count accumulation and peer-network selection as a structural pattern, while E1, E2, and E6 evaluate the product in isolation; the dimension of disagreement is whether the action is best read as a single product decision or as the continuation of an accumulation pattern"
+        ],
+        "amplification_flags": [
+          "E6 equity_band_at_upper_boundary combined with G1 equity ceiling breach (post-action 71.7 percent against 70 percent ceiling) leaves zero headroom for market drift and crosses from boundary positioning into a stated mandate gap",
+          "E4 liquidity_reserve_compression combined with G1 debt floor breach (post-action 13.3 percent against 20 percent floor) amplifies the reserve concern from a behavioural observation into a stated mandate gap of 6.7 percentage points",
+          "E4 wrapper_count_accumulation_pattern combined with E6 style-overlap observation (existing growth-quality PMS plus proposed quality-compounder PMS) raises the question of whether the two PMS mandates differ enough to justify separate wrappers, or whether the second wrapper is duplicative",
+          "E1 valuation_premium_elevated combined with E2 fmcg_cycle_demand_softness compounds: the 13-point P/E premium against Nifty 100 depends on earnings delivery, and the largest sector weight in the book sits in a category currently printing 6.8 percent earnings growth against a 10-year average of 11.4 percent"
+        ],
+        "narrative_paragraph": "The product itself is sound: Marcellus has a stable team, a consistent investment style, a fee structure within the PMS band, and a look-through book of high-ROCE, wide-moat businesses. Macro supports moving capital out of FDs and into equity at this point in the rate cycle. The verdict turns on portfolio architecture rather than on product selection. Three mandate boundaries print as gaps simultaneously: equity rises 1.7 percentage points above the stated 70 percent ceiling, debt falls 6.7 percentage points below the stated 20 percent floor, and the single-position concentration of 16.7 percent of liquid AUM exceeds the 15 percent standard ceiling. These are not breaches in the hard-block sense, but the combination indicates that the proposed ticket sizing was set against product attractiveness rather than against mandate architecture. The behavioural read adds a second structural consideration: the household acquires sophistication-tier wrappers through ambient social signals rather than through deliberate portfolio design, and the proposed action continues that pattern by adding a second PMS with style overlap to the first without a stated differentiation thesis. The valuation premium in the strategy and the FMCG cycle softness compound at the lookthrough level but do not, on their own, move the verdict; they sharpen the question of why now and at what size.",
+        "counterfactual_framing": "The structured alternative is to size the position within mandate boundaries: a ticket of approximately Rs 2.0-2.2 Cr would hold equity at the 70 percent ceiling, preserve debt above floor, and keep single-position concentration at or below 15 percent of liquid AUM, while still redirecting roughly 40 percent of the FD reserve into the wrapper. A second alternative is to stage the deployment across two tranches with an intermediate mandate review on wrapper-count and style-overlap architecture.",
+        "escalation_recommended": false
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Look-through ROCE of 21.3 percent against Nifty 100's 14.8 percent confirms underlying quality, but a trailing P/E of 35.8x compresses the margin of safety and shifts forward returns onto earnings delivery."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Top-two sector aggregate of 75 percent (Financials 34, FMCG 41) is sector-coherent by design, but layered on existing exposures it deepens concentration in an FMCG cycle currently printing earnings growth well below the 10-year average."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "Late-cutting rate cycle and compressing FD reinvestment yields support the direction of capital movement, though premium-segment equity valuations limit unconditional macro endorsement."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Tolerance is genuinely aggressive and consistent, but the household acquires wrappers through ambient social signals rather than structured architecture, and the proposed action removes 56 percent of an inert FD reserve."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated: the proposed action introduces no unlisted equity exposure; family business equity sits outside advisory scope."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Product reads positive_with_caveat across manager, strategy, fee, and capacity layers; the caveats are portfolio architecture (equity at upper boundary, wrapper count doubling) rather than product fundamentals."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated: the proposed action targets a PMS wrapper; existing MF holdings are not the subject of this case and per-stock look-through is carried by E1."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "Mandate boundaries print three simultaneous gaps",
+          "body": "The Rs 3 Cr ticket as proposed lifts equity 1.7 points above the stated ceiling, drops debt 6.7 points below the stated floor, and places the new position at 16.7 percent of liquid AUM against a 15 percent single-position ceiling. None of these is a hard breach, but all three printing together on a single action suggests the ticket was sized against product attractiveness rather than against the architecture. Worth opening the question of whether the size was a deliberate stretch the family wants to make under the mandate, or whether sizing the position to fit within all three boundaries (approximately Rs 2.0-2.2 Cr) would still meet the underlying intent."
+        },
+        {
+          "number": "02",
+          "title": "Two PMS wrappers with style overlap",
+          "body": "The household already holds a growth-quality PMS at 8 percent of liquid AUM; the proposed addition is a quality-compounder PMS. Both screens push toward similar sector tilts (Financials and FMCG leaders) and similar quality characteristics. The wrapper count doubles in the PMS line without a stated thesis on how the two mandates differ. A useful conversation: ask the family to articulate what the second PMS does that the first does not, and whether the two mandates are diversifying or duplicative."
+        },
+        {
+          "number": "03",
+          "title": "FD reserve compression",
+          "body": "The Rs 5.4 Cr FD block has held flat across three reset cycles, which suggests the family treats it as inert reserve rather than active allocation. The proposed action removes Rs 3 Cr, or 56 percent of that reserve. Macro context supports redirecting FD capital at this point in the rate cycle, but the conversation is worth surfacing explicitly: is the FD block functioning as a liquidity buffer the family would want to preserve, or as a residual the family is comfortable redeploying in size?"
+        },
+        {
+          "number": "04",
+          "title": "Product itself reads cleanly",
+          "body": "Stepping back from the architectural questions, the product is well-built. Manager continuity, strategy consistency, fee structure, and underlying business quality all clear cleanly. The historical alpha against Nifty 100 has covered the fee premium over rolling three-year windows. The valuation premium in the strategy is real and the FMCG cycle softness at the look-through level is a watchpoint, but neither is a blocker. The conversation is about sizing and architecture, not about the product."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e6_pms_aif_sif"
+        ],
+        "agents_not_activated": [
+          "e5_unlisted_equity",
+          "e7_mutual_fund"
+        ],
+        "data_sufficiency_notes": "Synthesis operated on a complete proposal-evaluation evidence bundle (E1, E2, E3, E4, E6 activated; E5 and E7 correctly non-activated for scope reasons) plus deterministic G1, G2, G3 gate outputs. Dominant lens is proposal_evaluation given the new_investment intent, with secondary portfolio_shift framing driven by the simultaneous G1 boundary gaps on equity, debt, and single-position concentration. IndianContext bundle integration is pending Slice 3 commit 3 Workstream C YAML curation; synthesis proceeded on investor mandate, household structure, and product-category defaults, which is sufficient for this case because the structural questions surfaced (mandate boundary, wrapper architecture, reserve compression) do not depend on IndianContext-specific lookups. PMS fee economics, SEBI ticket minimum, and macro inputs were carried by the activated agents directly.",
+        "generation_mode": "hybrid",
+        "generation_timestamp": "2026-04-02T10:30:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "requires_clarification",
+          "rationale": "Mandate compliance: 3 band(s) sit at or beyond boundary; advisor clarification warranted."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "pass",
+          "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 300 lakh proposed)."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "Is the Rs 2.0-2.2 Cr counterfactual a genuine alternative or a face-saving compromise?",
+          "body": "The synthesis offers a Rs 2.0-2.2 Cr ticket as the structured alternative that resolves all three G1 gaps simultaneously. But this number is derived backwards from the mandate boundaries rather than forwards from a sizing thesis. If the family's underlying intent is to make a meaningful quality-compounder bet (as the peer-network framing suggests), then a Rs 2 Cr ticket may dilute conviction without resolving the architectural concern E4 flagged: that the household sizes positions against product attractiveness rather than portfolio design. Is the synthesis offering a number the architecture tolerates, or a number the family's decision logic would actually endorse? If the family agrees to Rs 2 Cr, has the underlying behavioural pattern (peer-signal-driven wrapper accumulation) been addressed, or just masked at a smaller dollar amount?"
+        },
+        {
+          "category": "counter_argument",
+          "title": "Does the existing growth-quality PMS justify the second wrapper, or does it argue against it?",
+          "body": "E6 raises wrapper_count_doubling and style-overlap; the synthesis frames this as 'articulate what the second PMS does that the first does not.' But the burden of proof framing matters. If the existing growth-quality PMS at 8 percent of liquid AUM is performing adequately and shares meaningful style overlap (Financials and FMCG leaders, quality screens), the question is not whether the second wrapper can be differentiated post-hoc but whether the simpler architectural move is to top up the existing PMS or to consolidate. The synthesis treats the two PMS configuration as a question to be answered; should it be treated as a configuration to be defended?"
+        },
+        {
+          "category": "stress_test",
+          "title": "How does the verdict hold if FMCG cycle softness persists into FY27?",
+          "body": "E2 flags Nifty FMCG TTM earnings growth at 6.8 percent against a 10-year average of 11.4 percent, and the strategy carries approximately 41 percent FMCG weight. E1's 35.8x trailing P/E assumes a return to mid-teens earnings delivery. If rural volume softness extends through FY27 and FMCG category earnings print at 7-8 percent for another full year, the strategy faces simultaneous earnings disappointment and multiple compression at the largest sector weight. Combined with the 16.7 percent single-position concentration, what is the household-level drawdown the family is implicitly accepting? Has this scenario been quantified in the conversation, or only flagged as a watchpoint?"
+        },
+        {
+          "category": "stress_test",
+          "title": "What happens to the FD reserve thesis if a manufacturing-business liquidity event occurs?",
+          "body": "E4 notes the father is a manufacturing sector business owner and treats the Rs 5.4 Cr FD as inert reserve. The proposed action removes 56 percent of that reserve. Manufacturing businesses periodically face working-capital squeezes, receivable delays, or capex calls that the household may draw on personal liquidity to bridge. The PMS wrapper has monthly redemption windows but exit timing in a drawdown is unattractive. If the family business calls on Rs 2-3 Cr of personal liquidity in the next 18-24 months, does the residual Rs 2.4 Cr FD plus cash cover the call, or does the household end up redeeming the PMS at an inopportune moment? The macro endorsement of FD redirection (E3) does not factor business-side liquidity correlation."
+        },
+        {
+          "category": "stress_test",
+          "title": "Is the fee premium robust to capacity-driven alpha decay?",
+          "body": "E6 prices the PMS premium at 170-190 bps over the MF comparable, historically covered by approximately 280 bps of alpha over rolling 3-year windows, and flags capacity_trajectory_watchpoint with strategy AUM at Rs 4,500 Cr trending toward the Rs 8,000 Cr historical inflection. If strategy AUM doubles over the family's 5-plus-year horizon and alpha compresses to 100-150 bps consistent with the typical capacity-decay path in concentrated quality strategies, the net-of-fee outcome converges with the MF alternative. The synthesis acknowledges capacity as a watchpoint but does not stress-test the fee thesis under decay. At what AUM threshold does the household reassess?"
+        },
+        {
+          "category": "edge_case",
+          "title": "FY-boundary tax sequencing on the FD redemption",
+          "body": "The action is timed 'this quarter' against an as-of date of 2026-04-02, placing execution at the start of FY27. Three FDs are being redeemed; depending on tenor and interest accrual treatment, the redemption may trigger interest income recognition that the family has not planned for at the FY27 tax estimate stage. Has the sequencing been checked against the family's advance-tax schedule, and is there a preferred redemption order across the FD ladder that minimises interest-income bunching? This is operational rather than structural, but it lives below the synthesis layer."
+        },
+        {
+          "category": "edge_case",
+          "title": "Mandate review cadence versus action timing",
+          "body": "The mandate review is annual and three G1 gaps print simultaneously on this action. The synthesis does not flag whether a mandate refresh should precede or follow the action. If the family genuinely intends to operate at 71.7 percent equity and 13.3 percent debt going forward, the cleaner sequence is to amend the mandate first (lifting the equity ceiling and lowering the debt floor with trustee or family-decision-maker acknowledgement) and then execute the action against the amended bands, rather than executing against a stale mandate and clarifying after. Which sequence is the synthesis assuming, and does the household's annual review cycle accommodate an out-of-cycle amendment?"
+        }
+      ]
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "requires_clarification",
+        "rationale": "Mandate compliance: 3 band(s) sit at or beyond boundary; advisor clarification warranted.",
+        "breaches": [],
+        "gaps": [
+          "Equity sits 1.7pp above the upper band (post-action 71.7% vs ceiling 70%). Clarify whether this is acceptable headroom usage under the mandate.",
+          "Debt sits 6.7pp below the lower band (post-action 13.3% vs floor 20%). Clarify whether the reduced allocation is intentional.",
+          "Single-position concentration sits above the standard ceiling: target 16.7% of liquid AUM vs ceiling 15%. Clarify whether the larger allocation is intentional."
+        ],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 55.00000000000001,
+            "Debt": 30.000000000000004,
+            "Alternatives": 10,
+            "Cash": 5
+          },
+          "post_action_allocation_pct": {
+            "Equity": 71.66666666666667,
+            "Debt": 13.333333333333336,
+            "Alternatives": 10,
+            "Cash": 5
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 50,
+              "max_pct": 70
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 20,
+              "max_pct": 35
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 5,
+              "max_pct": 15
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 2,
+              "max_pct": 8
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 2,
+            "aif": 1,
+            "total": 3
+          },
+          "target_position_pct_of_liquid_aum": 16.666666666666664
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "pass",
+        "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 300 lakh proposed).",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "target_category": "pms",
+          "ticket_cr": 3,
+          "action_type": "new_investment",
+          "rule_applied": {
+            "category": "pms",
+            "min_ticket_cr": 0.5,
+            "citation": "SEBI PMS Regulations 2020 §5; minimum investment Rs 50 lakh per investor."
+          }
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 3,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.84,
+        "drivers": [
+          "Marcellus Consistent Compounder look-through covers approximately 25 listed names; aggregate look-through ROCE 21.3 percent against Nifty 100 weighted ROCE 14.8 percent, signalling sustained capital efficiency well above index baseline.",
+          "Aggregate look-through P/E trailing 35.8x against Nifty 100 trailing 22.4x; the 13-point premium is consistent with the strategy's quality screen but compresses any margin-of-safety cushion against multiple de-rating.",
+          "Top-10 look-through names (HDFC Bank, ITC, Asian Paints, HUL, ICICI Bank, Bajaj Finance, Kotak Bank, Pidilite, Britannia, Marico) carry a weighted D/E of 0.38 ex-BFSI; balance sheet leverage at the holding level is low.",
+          "Per-stock framework classifies 22 of 25 names as Quality or Best-in-Class within sector; 3 names sit in Quality-with-Caution given recent volume softness in core categories (FMCG names with rural demand exposure).",
+          "Look-through earnings growth 3-year CAGR 14.1 percent against Nifty 100 weighted 11.7 percent; growth premium intact but narrower than the valuation premium would imply."
+        ],
+        "flags": [
+          "valuation_premium_elevated",
+          "single_name_concentration_in_strategy"
+        ],
+        "reasoning_paragraph": "The look-through into Marcellus's portfolio reads as a coherent quality-compounder book. ROCE, earnings persistence, and balance sheet strength are all materially above index. The constraint is valuation: at 35.8x trailing, the book trades at a level where forward returns depend more on earnings delivery than on multiple expansion, and the 3 Quality-with-Caution names within the top 25 carry the most exposure to that delivery risk. Per-stock fundamentals are sound; the moderate risk reading reflects the premium-valuation arithmetic, not balance-sheet stress.",
+        "data_points_cited": [
+          "aggregate look-through ROCE 21.3 percent",
+          "aggregate trailing P/E 35.8x",
+          "Nifty 100 weighted ROCE 14.8 percent",
+          "Nifty 100 trailing P/E 22.4x",
+          "3Y earnings CAGR 14.1 percent",
+          "25 underlying holdings",
+          "ex-BFSI weighted D/E 0.38"
+        ]
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.79,
+        "drivers": [
+          "Look-through sector concentration is meaningful: Financials (HDFC Bank, ICICI Bank, Kotak Bank, Bajaj Finance) at approximately 34 percent of strategy weight, FMCG (ITC, HUL, Britannia, Marico, Asian Paints, Pidilite) at approximately 41 percent; top-2 sector weight aggregates to 75 percent.",
+          "FMCG sector cycle positioning is mid-cycle with margin pressure: rural volume softness persisting through FY26, premiumisation thesis intact but slower in delivery; Nifty FMCG trailing 12-month earnings growth 6.8 percent against 10-year average 11.4 percent.",
+          "Financials sector cycle is mid-to-late: private bank NIMs compressing on deposit cost reset, credit growth holding at 13-14 percent; the largest names in the strategy are best-in-class within sector but not insulated from cycle pressure.",
+          "Moat assessment: 18 of 25 names classified as wide-moat (regulatory licensing in private banks, brand and distribution moats in FMCG, IP and switching cost in specialty chemicals); moat durability strong on average.",
+          "Five Forces aggregate across the book reads benign: rivalry contained by category leadership positioning, entry barriers high in regulated and brand-heavy categories; substitution threat moderate in discretionary FMCG categories (rural shift to local and private label)."
+        ],
+        "flags": [
+          "sector_concentration_top_two_above_70_pct",
+          "fmcg_cycle_demand_softness"
+        ],
+        "reasoning_paragraph": "The Marcellus book is sector-coherent by design: quality screens push it toward Financials and FMCG, both sectors where consistent compounding is structurally available. The same coherence creates a concentration: the household, layered on top of its existing direct large-cap and active MF positions, will deepen exposure to those two sectors. FMCG is the more pressing concern of the two; rural volume softness has persisted across the FY26 print cycle and the strategy's premium valuation assumes a return to mid-teens earnings growth that has not yet materialised at the category level. Financials look reasonable on cycle but pricing pressure on private bank deposit cost is a watchpoint. The moat assessment is the cleanest part of the read: the underlying businesses are genuinely high-quality and competitive structure is favourable.",
+        "data_points_cited": [
+          "Financials sector weight in strategy approximately 34 percent",
+          "FMCG weight approximately 41 percent",
+          "top-2 sector aggregate 75 percent",
+          "Nifty FMCG TTM earnings growth 6.8 percent against 10-year average 11.4 percent",
+          "private bank credit growth 13-14 percent",
+          "18 of 25 names classified wide-moat"
+        ]
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.82,
+        "drivers": [
+          "RBI repo at 5.50 percent following 100 bps of cumulative cuts over the preceding 12 months; cycle phase late-cutting transitioning to pause; forward expectations from OIS curve price one further 25 bps cut probability through Q1 FY27.",
+          "One-year FD rates at HDFC Bank and SBI in the 6.60-6.90 percent band for retail HNI tickets; real yield approximately 2.5-2.8 percent against CPI of 4.1 percent; FD reinvestment yields compressing as the rate cycle matures.",
+          "INR at 84.4 against USD; range-bound; current account deficit at 1.3 percent of GDP; FII flows YTD net positive into equities at approximately Rs 38,000 Cr.",
+          "SEBI regulatory backdrop on PMS is stable post the 2023 norms revision; no inbound consultation paper material to PMS economics or disclosure within the case decision window.",
+          "Fiscal stance accommodative on capex with Centre's gross capex at 3.2 percent of GDP; supportive of cyclical and industrial earnings, modestly supportive of premium consumption."
+        ],
+        "flags": [
+          "fd_reinvestment_yield_compression",
+          "late_cycle_equity_caution"
+        ],
+        "reasoning_paragraph": "Macro context is supportive of moving incremental capital from short-tenor FDs into equity, but not unconditionally. The rate cycle has done most of its work; FD reinvestment at maturity will print 60-80 bps below the original lock-in, which materially shifts the relative attractiveness of FD against equity. INR and external balance are stable. The principal macro caveat is cycle positioning: equity valuations are running near 10-year averages on aggregate, and the strategy in question (quality-compounder) trades at a premium to that aggregate; macro tailwinds support the asset class allocation but do not protect against multiple compression in the specific sub-segment. Regime classification reads Goldilocks-to-transitioning.",
+        "data_points_cited": [
+          "RBI repo 5.50 percent",
+          "cumulative cuts last 12 months 100 bps",
+          "1-year FD rate range 6.60-6.90 percent",
+          "CPI 4.1 percent",
+          "INR 84.4",
+          "CAD 1.3 percent of GDP",
+          "FII YTD inflows Rs 38,000 Cr",
+          "Centre's gross capex 3.2 percent of GDP"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.71,
+        "drivers": [
+          "Stated risk tolerance Aggressive; horizon 5-plus years; principal decision-maker is the father (56, manufacturing sector business owner); stated profile is internally consistent with life-stage and balance sheet.",
+          "Revealed pattern from prior decisions: existing PMS (growth-quality, 8 percent of liquid AUM) was added in 2023; existing Cat II private credit AIF added in 2024; both sophistication-tier additions were peer-network-influenced per advisor notes, with the father referencing two industry-association peers as reference points.",
+          "The household's revealed pattern shows accumulation of wrapper-tier products through unrelated trigger events (peer conversations, industry-association referrals) rather than through structured portfolio-design conversations; the proposed addition continues that pattern.",
+          "Liquidity behaviour: the FD position of Rs 5.4 Cr has been held at near-flat balance for three reset cycles; the family treats FDs as a near-static reserve rather than an active asset class; redirecting Rs 3 Cr removes 56 percent of the reserve.",
+          "Stated time horizon 5-plus years is consistent across decisions; no horizon shortening signals observed; the father has not raised mid-cycle review or exit framing in any of the last six advisor interactions."
+        ],
+        "flags": [
+          "wrapper_count_accumulation_pattern",
+          "liquidity_reserve_compression",
+          "peer_network_selection_influence"
+        ],
+        "reasoning_paragraph": "Stated and revealed tolerance are broadly aligned at the asset-class level; this household genuinely is comfortable with equity-heavy positioning and has held through prior drawdowns. The behavioural signal that warrants surfacing is structural rather than tolerance-driven: the household acquires sophistication-tier products through ambient social signals rather than through deliberate portfolio architecture, and the proposed action continues that pattern (a second PMS added without a clear stated reason for why this strategy in addition to the existing growth-quality PMS). The liquidity dimension is the second signal: the family's revealed behaviour treats the Rs 5.4 Cr FD block as inert reserve, and the proposal converts more than half of that reserve into a wrapper with monthly redemption windows. Neither signal blocks the action; both signal that the deliberation should be structural rather than transactional.",
+        "data_points_cited": [
+          "father aged 56",
+          "existing PMS at 8 percent of liquid AUM",
+          "FD stock Rs 5.4 Cr held flat across 3 reset cycles",
+          "proposed action removes 56 percent of FD reserve",
+          "6 prior advisor interactions with no horizon-shortening",
+          "wrapper count moves from 1 PMS to 2 PMS"
+        ]
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.83,
+        "drivers": [
+          "Gate sub-agent: investor structure individual filer; SEBI PMS minimum Rs 50 L cleared by the Rs 3 Cr ticket; mandate equity band 50-70 percent currently at 55 percent, post-action equity rises to approximately 72 percent which sits at the upper boundary of the band; PMS wrapper count moves from 1 to 2 with no explicit wrapper-count ceiling in mandate, no hard breach.",
+          "Manager quality: Saurabh Mukherjea founder; 12-plus-year track record in advisory and PMS roles; team depth 3 senior portfolio managers plus 12-analyst research bench; manager continuity stable across multiple market regimes including 2018-2019 quality lag and 2022 drawdown.",
+          "Strategy consistency: quality-concentrated, sector-agnostic, approximately 25 holdings, top-10 concentration approximately 62 percent; style consistent over a 7-year window with no notable drift; turnover approximately 22 percent annually supporting LTCG efficiency.",
+          "Fee normalisation: 1.5 percent management fee plus 20 percent performance fee over a 12 percent hurdle with high-water-mark; expense ratio approximately 0.4 percent; modelled blended cost over 5-year horizon approximately 290-310 bps assuming hurdle clearance in 3 of 5 years; the comparable quality MF route prints at approximately 110-130 bps; PMS premium 170-190 bps, historically covered by approximately 280 bps of alpha against Nifty 100 over rolling 3-year windows.",
+          "Capacity: strategy AUM approximately Rs 4,500 Cr and growing; not yet at the historical alpha-decay inflection observed in concentrated strategies above Rs 8,000 Cr but trending in that direction; concentration risk at the strategy level is by design rather than accident."
+        ],
+        "flags": [
+          "equity_band_at_upper_boundary",
+          "wrapper_count_doubling",
+          "fee_premium_requires_sustained_alpha",
+          "capacity_trajectory_watchpoint"
+        ],
+        "reasoning_paragraph": "The product itself reads cleanly across the wrapper, manager, and strategy layers. Marcellus has a stable team, a consistent investment style, a fee structure that is within the normal PMS band, and a track record that has historically justified the premium against comparable MF substitutes. Gate clears on SEBI and structural compliance. The two considerations that pull the read off a clean positive are mandate-fit and wrapper-architecture: post-action equity sits at 72 percent which is the top of the stated 50-70 percent band before any market drift, leaving no headroom; and the household moves from a single PMS to two PMS strategies, which warrants a deliberate articulation of how the two mandates differ rather than overlap. The existing growth-quality PMS and the proposed quality-compounder PMS share style overlap that the synthesis layer should examine. Verdict: positive_with_caveat at the product level, with structural caveats at the wrapper-architecture level.",
+        "data_points_cited": [
+          "PMS SEBI minimum Rs 50 L",
+          "ticket Rs 3 Cr",
+          "manager tenure 12-plus years",
+          "team 3 PMs and 12 analysts",
+          "25 underlying holdings",
+          "top-10 concentration 62 percent",
+          "annual turnover 22 percent",
+          "management fee 1.5 percent",
+          "performance fee 20 percent over 12 percent hurdle",
+          "high-water-mark applied",
+          "blended cost 290-310 bps over 5Y",
+          "MF comparable 110-130 bps",
+          "historical alpha approximately 280 bps over rolling 3Y",
+          "strategy AUM approximately Rs 4,500 Cr",
+          "post-action equity allocation approximately 72 percent against 50-70 percent band"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action does not introduce unlisted equity exposure; the household's family business equity (approximately Rs 70 Cr) sits outside advisory scope and is not the subject of this case. The proposed redirection moves capital from fixed deposits into a listed-equity PMS wrapper, which falls within E1, E2, and E6 scope. Per principles section 3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "Per principles section 3.1, E7 activates when the proposed action specifically targets a mutual fund scheme or evaluates a specific scheme for inclusion, modification, or exit. The Sharma proposal targets a PMS wrapper; the household's three existing actively managed MF holdings are not the subject of this action, are not being added to, exited, switched, or rebalanced, and no material change to MF allocation results from the redirection of FD capital into the PMS. Where MF holdings contribute to the household's listed equity look-through, those names are handled by E1 at the per-stock level rather than by E7 at the scheme level. E7 will activate on a future case if and when the existing MF schemes are themselves the subject of action, or if a new MF scheme is proposed for inclusion."
+      }
+    ],
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "pms",
+      "target_instrument": "Marcellus Consistent Compounder PMS",
+      "ticket_size_cr": 3,
+      "source_of_funds": "fixed_deposits",
+      "timeline": "this_quarter",
+      "rationale": "Family wishes to redirect FD reserve into a quality-compounder PMS following peer-network introduction to Marcellus's track record. Action aligns with the household's stated aggressive long-term mandate."
+    },
+    "usage_summary": {
+      "per_agent": {
+        "e1": {
+          "input_tokens": 4200,
+          "output_tokens": 1200
+        },
+        "e2": {
+          "input_tokens": 4200,
+          "output_tokens": 1200
+        },
+        "e3": {
+          "input_tokens": 4200,
+          "output_tokens": 1200
+        },
+        "e4": {
+          "input_tokens": 4200,
+          "output_tokens": 1200
+        },
+        "e6": {
+          "input_tokens": 4200,
+          "output_tokens": 1200
+        },
+        "s1": {
+          "inputTokens": 12110,
+          "outputTokens": 4201
+        },
+        "a1": {
+          "inputTokens": 15028,
+          "outputTokens": 2068
+        }
+      },
+      "total_input_tokens": 48138,
+      "total_output_tokens": 12269,
+      "generated_at": "2026-05-14T18:15:13.442Z"
+    }
+  },
+  "tokenUsage": {
+    "per_agent": {
+      "e1": {
+        "input_tokens": 4200,
+        "output_tokens": 1200
+      },
+      "e2": {
+        "input_tokens": 4200,
+        "output_tokens": 1200
+      },
+      "e3": {
+        "input_tokens": 4200,
+        "output_tokens": 1200
+      },
+      "e4": {
+        "input_tokens": 4200,
+        "output_tokens": 1200
+      },
+      "e6": {
+        "input_tokens": 4200,
+        "output_tokens": 1200
+      },
+      "s1": {
+        "inputTokens": 12110,
+        "outputTokens": 4201
+      },
+      "a1": {
+        "inputTokens": 15028,
+        "outputTokens": 2068
+      }
+    },
+    "total_input_tokens": 48138,
+    "total_output_tokens": 12269,
+    "generated_at": "2026-05-14T18:15:13.442Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Canonical Sharma + Marcellus proposal-evaluation case. Slice 3 commit 9. STUB_MODE replay of parsed E1-E7 verdicts plus live-generated S1.case_mode and A1.challenge. M0.IndianContext skipped pending Workstream C YAML curation.",
+  "stubbed": true
+}

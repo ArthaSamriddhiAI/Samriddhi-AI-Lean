@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-05-14T18:13:49.561Z",
+  "model": "claude-sonnet-4-6 (parsed from verdicts.md)",
+  "skill_id": "e5_unlisted_equity",
+  "case_fixture_id": "c-2026-05-14-sharma-01",
+  "text": "```json\n{\n  \"activation_status\": \"not_activated\",\n  \"reason_for_non_activation\": \"The proposed action does not introduce unlisted equity exposure; the household's family business equity (approximately Rs 70 Cr) sits outside advisory scope and is not the subject of this case. The proposed redirection moves capital from fixed deposits into a listed-equity PMS wrapper, which falls within E1, E2, and E6 scope. Per principles section 3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply.\"\n}\n```",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 4200,
+    "output_tokens": 1200
+  }
+}
