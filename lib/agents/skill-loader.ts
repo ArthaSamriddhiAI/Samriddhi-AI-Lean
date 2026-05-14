@@ -59,14 +59,18 @@ export type LoadedSkill = {
  * in Slice 2 (no LLM call). M0.PortfolioRiskAnalytics is deterministic too.
  */
 export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> = {
-  e1_listed_fundamental_equity: { llm_model: SONNET, max_tokens: 4000 },
-  e2_industry_business: { llm_model: SONNET, max_tokens: 3000 },
-  e3_macro_policy_news: { llm_model: SONNET, max_tokens: 3000 },
-  e4_behavioural_historical: { llm_model: SONNET, max_tokens: 2500 },
-  e5_unlisted_equity: { llm_model: SONNET, max_tokens: 2500 },
-  e6_pms_aif_sif: { llm_model: SONNET, max_tokens: 6000 },
-  e7_mutual_fund: { llm_model: SONNET, max_tokens: 3000 },
-  s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 4000 },
+  /* max_tokens kept at or near the skill-authored values; the demo
+   * economics saving is in the llm_model swap from Opus to Sonnet, not in
+   * starving the output budget. Tune downward later from empirical token
+   * usage logs if cases come in well under the ceilings. */
+  e1_listed_fundamental_equity: { llm_model: SONNET },
+  e2_industry_business: { llm_model: SONNET },
+  e3_macro_policy_news: { llm_model: SONNET },
+  e4_behavioural_historical: { llm_model: SONNET },
+  e5_unlisted_equity: { llm_model: SONNET },
+  e6_pms_aif_sif: { llm_model: SONNET },
+  e7_mutual_fund: { llm_model: SONNET },
+  s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 5000 },
 };
 
 function parseScalar(raw: string): unknown {
