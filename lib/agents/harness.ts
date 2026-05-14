@@ -63,13 +63,25 @@ export async function callAgent<T>(opts: AgentCallOptions<T>): Promise<AgentCall
   let lastRaw = "";
 
   for (let attempt = 1; attempt <= 2; attempt++) {
-    const response = await client.messages.create({
-      model: skill.llm_model,
-      max_tokens: skill.max_tokens,
-      temperature: skill.temperature,
-      system: skill.body,
-      messages,
-    });
+    /* Opus 4.x (4.5, 4.6, 4.7) does not accept temperature on
+     * messages.create; the API rejects with invalid_request_error. The
+     * skill files declare temperature for documentation; we honour it
+     * only when the underlying model supports it. */
+    const acceptsTemperature = !skill.llm_model.startsWith("claude-opus-4");
+    const response = acceptsTemperature
+      ? await client.messages.create({
+          model: skill.llm_model,
+          max_tokens: skill.max_tokens,
+          temperature: skill.temperature,
+          system: skill.body,
+          messages,
+        })
+      : await client.messages.create({
+          model: skill.llm_model,
+          max_tokens: skill.max_tokens,
+          system: skill.body,
+          messages,
+        });
     totalInput += response.usage.input_tokens;
     totalOutput += response.usage.output_tokens;
 
