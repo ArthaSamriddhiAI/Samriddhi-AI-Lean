@@ -12,6 +12,7 @@ import { prisma } from "@/lib/prisma";
 import { renderToBuffer } from "@react-pdf/renderer";
 import { BriefingPDF } from "@/components/pdf/BriefingPDF";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
+import { transformRupeesDeep } from "@/lib/format/rupees";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -45,7 +46,7 @@ export async function GET(_request: Request, { params }: Params) {
   let generatedAtIso: string | undefined;
   try {
     const parsed = JSON.parse(c.contentJson);
-    briefing = parsed.briefing as BriefingContent;
+    briefing = transformRupeesDeep(parsed.briefing as BriefingContent);
     generatedAtIso = parsed.usage_summary?.generated_at as string | undefined;
   } catch {
     return new Response("Case content malformed", { status: 500 });

@@ -177,7 +177,7 @@ export function AnalysisTab({ investorName, snapshotDate, content, holdings }: P
               <tr>
                 <th>Holding</th>
                 <th>Sub-category</th>
-                <th className="r">Value (Rs Cr)</th>
+                <th className="r">Value (₹ Cr)</th>
                 <th className="r">Weight</th>
               </tr>
             </thead>

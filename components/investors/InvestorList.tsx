@@ -36,7 +36,7 @@ export function InvestorList({ investors }: Props) {
                 {inv.timeHorizon} · {inv.liquidityTier}
               </span>
             </div>
-            <div className="r text-[14px] text-ink-1">Rs {inv.liquidAumCr.toFixed(2)} Cr</div>
+            <div className="r text-[14px] text-ink-1">₹{inv.liquidAumCr.toFixed(2)} Cr</div>
             <div className="r text-[13px] text-ink-2">
               <span className="mono">{inv.caseCount}</span>
               {inv.lastFindingLabel ? (
