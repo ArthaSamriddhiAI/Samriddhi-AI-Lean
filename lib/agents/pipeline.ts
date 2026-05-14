@@ -78,6 +78,12 @@ export async function runDiagnosticPipeline(opts: {
     const snapshotRow = await prisma.snapshot.findUnique({ where: { id: opts.snapshotId } });
     if (!snapshotRow) throw new Error(`Snapshot not found: ${opts.snapshotId}`);
 
+    /* Per-case token-budget circuit breaker. Sized as a guardrail (not a
+     * target). Routine cases land at 90-120k tokens combined; the default
+     * 250k gives generous headroom while catching runaway loops. */
+    const settings = await prisma.setting.findUnique({ where: { id: 1 } });
+    const tokenBudget = settings?.tokenBudgetPerCase ?? 250000;
+
     const holdings = JSON.parse(investor.holdingsJson) as StructuredHoldings;
     const snapshot = await loadSnapshot(opts.snapshotId);
     const asOfDate = snapshotRow.date.toISOString().slice(0, 10);
@@ -127,13 +133,22 @@ export async function runDiagnosticPipeline(opts: {
       tasks.push({ key: "e7", run: () => runE7({ asOfDate, investorName: investor.name, investorMandate: mandate, schemes: mfScope }) as Promise<AgentCallResult<unknown>> });
     }
 
+    let runningTokens = 0;
     for (const task of tasks) {
       console.log(`[pipeline] running ${task.key}...`);
       const result = await task.run();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       evidence[task.key] = result.output as any;
       usage[task.key] = result.usage;
-      console.log(`[pipeline] ${task.key} done: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out (attempt ${result.attemptCount})`);
+      runningTokens += result.usage.inputTokens + result.usage.outputTokens;
+      console.log(`[pipeline] ${task.key} done: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out (attempt ${result.attemptCount}); running total ${runningTokens}`);
+      if (runningTokens > tokenBudget) {
+        throw new Error(
+          `Token budget exceeded: used ${runningTokens} of ${tokenBudget} tokens (combined input + output). ` +
+            `Raise tokenBudgetPerCase in Settings or scope the case smaller. ` +
+            `This is a circuit breaker, not a budget target; routine cases run at 90-120k tokens.`,
+        );
+      }
     }
 
     const stitched = stitch({
@@ -160,6 +175,13 @@ export async function runDiagnosticPipeline(opts: {
 
     const s1Result = await runS1Diagnostic({ stitched, holdingsForAppendix });
     usage.s1 = s1Result.usage;
+    runningTokens += s1Result.usage.inputTokens + s1Result.usage.outputTokens;
+    if (runningTokens > tokenBudget) {
+      throw new Error(
+        `Token budget exceeded after S1 synthesis: used ${runningTokens} of ${tokenBudget} tokens. ` +
+          `Raise tokenBudgetPerCase in Settings or scope the case smaller.`,
+      );
+    }
 
     const briefing = s1Result.output;
     const headline = pickHeadline(briefing);

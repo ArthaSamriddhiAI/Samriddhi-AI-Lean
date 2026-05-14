@@ -77,12 +77,16 @@ model Case {
 }
 
 model Setting {
-  id              Int      @id @default(1)
-  apiKey          String?
-  modelChoice     String   @default("claude-opus-4-7")
-  advisorName     String   @default("Priya Nair")
-  firmName        String   @default("Anand Rathi Wealth · UHNI desk")
-  updatedAt       DateTime @updatedAt
+  id                    Int      @id @default(1)
+  apiKey                String?
+  modelChoice           String   @default("claude-opus-4-7")
+  advisorName           String   @default("Priya Nair")
+  firmName              String   @default("Anand Rathi Wealth · UHNI desk")
+  // Per-case token-budget circuit breaker. Combined input + output across
+  // all agents in one diagnostic run. Sized as a guardrail against runaway
+  // loops, not a budget target: routine cases come in well below this.
+  tokenBudgetPerCase    Int      @default(250000)
+  updatedAt             DateTime @updatedAt
 
   @@map("settings")
 }

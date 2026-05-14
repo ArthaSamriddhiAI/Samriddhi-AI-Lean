@@ -17,6 +17,7 @@ export default async function SettingsPage() {
     modelChoice: "claude-opus-4-7",
     advisorName: "Priya Nair",
     firmName: "Anand Rathi Wealth · UHNI desk",
+    tokenBudgetPerCase: 250000,
     updatedAt: new Date(),
   };
 
@@ -33,6 +34,7 @@ export default async function SettingsPage() {
           modelChoice: initial.modelChoice,
           advisorName: initial.advisorName,
           firmName: initial.firmName,
+          tokenBudgetPerCase: initial.tokenBudgetPerCase,
         }}
         initialCounts={{ investors, snapshots, cases }}
       />

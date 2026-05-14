@@ -8,6 +8,7 @@ type Setting = {
   modelChoice: string;
   advisorName: string;
   firmName: string;
+  tokenBudgetPerCase: number;
 };
 
 type Counts = { investors: number; snapshots: number; cases: number };
@@ -35,6 +36,7 @@ export function SettingsForm({ initialSetting, initialCounts }: Props) {
   const [modelChoice, setModelChoice] = useState(initialSetting.modelChoice);
   const [advisorName, setAdvisorName] = useState(initialSetting.advisorName);
   const [firmName, setFirmName] = useState(initialSetting.firmName);
+  const [tokenBudget, setTokenBudget] = useState(initialSetting.tokenBudgetPerCase);
   const [test, setTest] = useState<TestState>({ kind: "idle" });
   const [counts, setCounts] = useState<Counts>(initialCounts);
   const [busy, setBusy] = useState<"none" | "load" | "clear">("none");
@@ -161,6 +163,28 @@ export function SettingsForm({ initialSetting, initialCounts }: Props) {
                 </option>
               ))}
             </select>
+          </div>
+        </div>
+
+        <div className="kv-row">
+          <div className="k">
+            Token budget per case
+            <span className="helper">
+              Combined input + output across all agents. Circuit breaker against runaway
+              loops, not a budget target; routine cases run at 90-120k tokens.
+            </span>
+          </div>
+          <div className="v">
+            <input
+              type="number"
+              className="text-input mono"
+              value={tokenBudget}
+              min={10000}
+              step={10000}
+              onChange={(e) => setTokenBudget(Number(e.target.value))}
+              onBlur={() => saveField({ tokenBudgetPerCase: tokenBudget })}
+            />
+            <span className="text-[11.5px] text-ink-4 font-mono ml-2">tokens</span>
           </div>
         </div>
       </section>
