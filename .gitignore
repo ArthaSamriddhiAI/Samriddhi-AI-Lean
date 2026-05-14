@@ -46,3 +46,6 @@ build/
 
 # Full-fat repo clone (kept out of working tree if accidentally cloned in)
 artha-fullfat/
+
+# Snapshot fixtures (copied locally by scripts/copy-fixtures.ts; ~99 MB total)
+fixtures/
