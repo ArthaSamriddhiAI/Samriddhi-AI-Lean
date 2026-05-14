@@ -24,6 +24,7 @@ import {
 } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
 import type { BriefingContent, SourceTag } from "@/lib/agents/s1-diagnostic";
+import { transformRupeesDeep } from "@/lib/format/rupees";
 
 const COLOR_INK_1 = "#0f1419";
 const COLOR_INK_2 = "#3a4148";
@@ -360,7 +361,12 @@ export type BriefingPDFProps = {
 
 export function BriefingPDF(props: BriefingPDFProps): ReactElement<DocumentProps> {
   const { briefing, investorName, snapshotDate, caseId, advisorName, firmName, generatedAt } = props;
-  const b = briefing;
+  /* Render-time currency substitution. The data layer keeps "Rs"
+   * verbatim from foundation and LLM outputs; here we walk the briefing
+   * tree once and replace "Rs <digit>" → "₹<digit>". Applied inside the
+   * component so every PDF rendering caller (route, script) gets it
+   * automatically. */
+  const b = transformRupeesDeep(briefing);
 
   return (
     <Document title={`Briefing ${caseId} ${investorName}`} author={advisorName} producer="Lean Samriddhi MVP">

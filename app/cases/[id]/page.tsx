@@ -6,6 +6,7 @@ import { BriefingTab } from "@/components/case-detail/BriefingTab";
 import { ChatPanel } from "@/components/case-detail/ChatPanel";
 import { Lock, Download } from "@/components/chrome/Icons";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
+import { transformRupeesDeep } from "@/lib/format/rupees";
 
 type PageProps = {
   params: Promise<{ id: string }>;
@@ -74,7 +75,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
   try {
     const parsed = JSON.parse(c.contentJson);
     if (parsed && parsed.briefing) {
-      content = parsed.briefing as BriefingContent;
+      content = transformRupeesDeep(parsed.briefing as BriefingContent);
       usageSummary = parsed.usage_summary ?? null;
       if (usageSummary?.generated_at) {
         const d = new Date(usageSummary.generated_at);
