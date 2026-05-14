@@ -79,6 +79,17 @@ export async function callAgent<T>(opts: AgentCallOptions<T>): Promise<AgentCall
     }
     lastRaw = textBlock.text;
 
+    /* If the response stopped at max_tokens the JSON is almost certainly
+     * truncated; retrying with the same budget will fail the same way. Fail
+     * loudly with a clear error so the caller can raise the skill's
+     * max_tokens override. */
+    if (response.stop_reason === "max_tokens") {
+      throw new Error(
+        `Agent ${opts.skillId} hit max_tokens (${skill.max_tokens}) before finishing the JSON output. ` +
+          `Raise the max_tokens override in lib/agents/skill-loader.ts for "${opts.skillId}".`,
+      );
+    }
+
     try {
       const parsed = extractJSON(lastRaw);
       const output = opts.validate(parsed);
