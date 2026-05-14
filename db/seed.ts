@@ -14,6 +14,7 @@
  */
 
 import { prisma } from "../lib/prisma";
+import { HOLDINGS_BY_INVESTOR } from "./fixtures/structured-holdings";
 
 const SNAPSHOTS = [
   {
@@ -404,10 +405,15 @@ export async function seedDatabase() {
   }
 
   for (const inv of INVESTORS) {
+    const holdings = HOLDINGS_BY_INVESTOR[inv.id];
+    if (!holdings) {
+      throw new Error(`No structured holdings for investor "${inv.id}". Add to db/fixtures/structured-holdings.ts.`);
+    }
+    const record = { ...inv, holdingsJson: JSON.stringify(holdings) };
     await prisma.investor.upsert({
       where: { id: inv.id },
-      update: inv,
-      create: inv,
+      update: record,
+      create: record,
     });
   }
 

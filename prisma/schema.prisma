@@ -25,6 +25,11 @@ model Investor {
   liquidityTier         String
   location              String
   profileMd             String
+  // Structured portfolio holdings derived from foundation §4 tables.
+  // JSON-encoded StructuredHoldings shape (db/fixtures/structured-holdings.ts).
+  // Drives deterministic metrics and snapshot look-through; the profileMd
+  // remains the human-readable view.
+  holdingsJson          String
   onboardingTranscript  String?
   createdAt             DateTime @default(now())
 
