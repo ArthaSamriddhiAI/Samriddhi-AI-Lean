@@ -11,17 +11,29 @@
  * current serial Anthropic dispatch is roughly 3-5 minutes per case in
  * live mode; under STUB_MODE the replay completes in 1-2 seconds.
  *
- * STUB_MODE handling in this commit mirrors Slice 3's evidence agents:
- * the harness loads stub fixtures when STUB_MODE is active and a
- * stubKey was passed; missing stubs throw with the standard developer-
- * facing error. The sentinel-on-missing-stub branch lands in commit 3
- * so the Sharma case can render under STUB_MODE without IC1 stubs in
- * place (Option A funding-aware mode).
+ * STUB_MODE handling per Slice 4 orientation §7 and the scoping
+ * confirmation's sentinel shape Option (a):
  *
- * The pipeline is only invoked when materiality.fires=true; the
- * Samriddhi 1 orchestrator (pipeline-case.ts, wired in commit 3)
- * evaluates materiality first and short-circuits when fires=false,
- * persisting IC1Deliberation as { fires: false, materiality_reason }.
+ *   - In live mode (no stubKey or stub mode off), each runner makes a
+ *     real LLM call; failures throw and abort the pipeline.
+ *   - In stub mode, the orchestrator checks each role's stub presence
+ *     via shouldUseSentinel before invoking its runner. A missing stub
+ *     short-circuits to an "infrastructure_ready" sentinel payload for
+ *     that role with zero usage; a present stub flows through the
+ *     standard harness path (which loads the recorded response).
+ *
+ * Cascade rule for the sentinel state:
+ *   Step 2 (Devil's Advocate) is sentinel if its own stub is missing
+ *     OR Chair is sentinel.
+ *   Step 3 (Counterfactual Engine) is sentinel if its own stub is
+ *     missing OR Risk Assessor is sentinel.
+ *   Step 4 (Minutes Recorder) is sentinel if its own stub is missing
+ *     OR any of the four upstream is sentinel.
+ *
+ * This cascade matches the natural failure pattern of the live-mode
+ * sequential generation (a step-N failure leaves step-N+1...M unrun)
+ * and keeps the rendered surface honest: a downstream role that lacks
+ * its upstream's input cannot meaningfully exist as populated.
  */
 
 import type { CaseEvidenceVerdict } from "./case/case-verdict";
@@ -32,6 +44,8 @@ import type {
 } from "./case/briefing-case-content";
 import type { CaseAgentContext } from "./case/case-context";
 import type { MaterialityOutput } from "./materiality";
+import { shouldUseSentinel, type StubKey } from "./stub";
+import type { AgentCallResult, AgentUsage } from "./harness";
 import { runIC1Chair, type ChairOutput } from "./ic1/chair";
 import {
   runIC1DevilsAdvocate,
@@ -49,13 +63,18 @@ import {
   runIC1MinutesRecorder,
   type MinutesRecorderOutput,
 } from "./ic1/minutes-recorder";
-import type {
-  ChairPayload,
-  CounterfactualEnginePayload,
-  DevilsAdvocatePayload,
-  IC1Deliberation,
-  MinutesRecorderPayload,
-  RiskAssessorPayload,
+import {
+  sentinelChair,
+  sentinelCounterfactualEngine,
+  sentinelDevilsAdvocate,
+  sentinelMinutesRecorder,
+  sentinelRiskAssessor,
+  type ChairPayload,
+  type CounterfactualEnginePayload,
+  type DevilsAdvocatePayload,
+  type IC1Deliberation,
+  type MinutesRecorderPayload,
+  type RiskAssessorPayload,
 } from "./ic1/types";
 
 export type RunIC1Input = {
@@ -89,6 +108,39 @@ export type IC1PipelineResult = {
   usage: IC1Usage;
 };
 
+const ZERO_USAGE: AgentUsage = { inputTokens: 0, outputTokens: 0 };
+
+const ZERO_PIPELINE_USAGE: IC1Usage = {
+  ic1_chair_input: 0,
+  ic1_chair_output: 0,
+  ic1_devils_advocate_input: 0,
+  ic1_devils_advocate_output: 0,
+  ic1_risk_assessor_input: 0,
+  ic1_risk_assessor_output: 0,
+  ic1_counterfactual_engine_input: 0,
+  ic1_counterfactual_engine_output: 0,
+  ic1_minutes_recorder_input: 0,
+  ic1_minutes_recorder_output: 0,
+};
+
+/* Sentinel-aware role runner.
+ *
+ * In live mode (no stubKey resolved), always invokes the runner.
+ * In stub mode with the stub present, invokes the runner (which loads
+ *   from disk via the harness's STUB_MODE fast path).
+ * In stub mode with the stub missing, returns null + zero usage to
+ *   signal sentinel state. */
+async function runRoleOrSentinel<T>(args: {
+  stubKey: StubKey | null;
+  run: () => Promise<AgentCallResult<T>>;
+}): Promise<{ output: T | null; usage: AgentUsage }> {
+  if (args.stubKey && (await shouldUseSentinel(args.stubKey))) {
+    return { output: null, usage: ZERO_USAGE };
+  }
+  const r = await args.run();
+  return { output: r.output, usage: r.usage };
+}
+
 function chairToPayload(o: ChairOutput): ChairPayload {
   return { status: "populated", framing: o.framing, deliberation_question: o.deliberation_question };
 }
@@ -105,19 +157,6 @@ function minutesRecorderToPayload(o: MinutesRecorderOutput): MinutesRecorderPayl
   return { status: "populated", summary: o.summary };
 }
 
-const ZERO_USAGE: IC1Usage = {
-  ic1_chair_input: 0,
-  ic1_chair_output: 0,
-  ic1_devils_advocate_input: 0,
-  ic1_devils_advocate_output: 0,
-  ic1_risk_assessor_input: 0,
-  ic1_risk_assessor_output: 0,
-  ic1_counterfactual_engine_input: 0,
-  ic1_counterfactual_engine_output: 0,
-  ic1_minutes_recorder_input: 0,
-  ic1_minutes_recorder_output: 0,
-};
-
 export async function runIC1Pipeline(
   input: RunIC1Input,
   opts: RunIC1Opts = {},
@@ -128,11 +167,14 @@ export async function runIC1Pipeline(
         fires: false,
         materiality_reason: input.materiality.reason,
       },
-      usage: { ...ZERO_USAGE },
+      usage: { ...ZERO_PIPELINE_USAGE },
     };
   }
 
-  /* Step 1: Chair and Risk Assessor in parallel. */
+  const caseFixtureId = opts.stubKey?.caseFixtureId;
+  const stubKeyFor = (agentId: string): StubKey | null =>
+    caseFixtureId ? { caseFixtureId, agentId } : null;
+
   const baseRoleInput = {
     ctx: input.ctx,
     synthesis: input.synthesis,
@@ -141,58 +183,96 @@ export async function runIC1Pipeline(
     gates: input.gates,
     materiality: input.materiality,
   };
-  const [chairRes, riskRes] = await Promise.all([
-    runIC1Chair(baseRoleInput, opts),
-    runIC1RiskAssessor(baseRoleInput, opts),
+
+  /* Step 1: Chair and Risk Assessor in parallel. Independent of each
+   * other; sentinel for each is decided by its own stub presence. */
+  const [chair, risk] = await Promise.all([
+    runRoleOrSentinel({
+      stubKey: stubKeyFor("ic1_chair"),
+      run: () => runIC1Chair(baseRoleInput, opts),
+    }),
+    runRoleOrSentinel({
+      stubKey: stubKeyFor("ic1_risk_assessor"),
+      run: () => runIC1RiskAssessor(baseRoleInput, opts),
+    }),
   ]);
 
-  /* Step 2: Devil's Advocate, consuming Chair. */
-  const devilsRes = await runIC1DevilsAdvocate(
-    { ...baseRoleInput, chair: chairRes.output },
-    opts,
-  );
+  /* Step 2: Devil's Advocate. Cascade: sentinel if Chair is sentinel. */
+  const devils = chair.output === null
+    ? { output: null as DevilsAdvocateOutput | null, usage: ZERO_USAGE }
+    : await runRoleOrSentinel({
+        stubKey: stubKeyFor("ic1_devils_advocate"),
+        run: () =>
+          runIC1DevilsAdvocate({ ...baseRoleInput, chair: chair.output! }, opts),
+      });
 
-  /* Step 3: Counterfactual Engine, consuming Risk Assessor. */
-  const cfRes = await runIC1CounterfactualEngine(
-    { ...baseRoleInput, risk_assessor: riskRes.output },
-    opts,
-  );
+  /* Step 3: Counterfactual Engine. Cascade: sentinel if Risk Assessor is sentinel. */
+  const cf = risk.output === null
+    ? { output: null as CounterfactualEngineOutput | null, usage: ZERO_USAGE }
+    : await runRoleOrSentinel({
+        stubKey: stubKeyFor("ic1_counterfactual_engine"),
+        run: () =>
+          runIC1CounterfactualEngine(
+            { ...baseRoleInput, risk_assessor: risk.output! },
+            opts,
+          ),
+      });
 
-  /* Step 4: Minutes Recorder, consuming all four. */
-  const minutesRes = await runIC1MinutesRecorder(
-    {
-      ctx: input.ctx,
-      synthesis: input.synthesis,
-      briefing: input.briefing,
-      materiality: input.materiality,
-      chair: chairRes.output,
-      devils_advocate: devilsRes.output,
-      risk_assessor: riskRes.output,
-      counterfactual_engine: cfRes.output,
-    },
-    opts,
-  );
+  /* Step 4: Minutes Recorder. Cascade: sentinel if any of the four
+   * upstream is sentinel. */
+  const allUpstreamPopulated =
+    chair.output !== null &&
+    risk.output !== null &&
+    devils.output !== null &&
+    cf.output !== null;
+  const minutes = !allUpstreamPopulated
+    ? { output: null as MinutesRecorderOutput | null, usage: ZERO_USAGE }
+    : await runRoleOrSentinel({
+        stubKey: stubKeyFor("ic1_minutes_recorder"),
+        run: () =>
+          runIC1MinutesRecorder(
+            {
+              ctx: input.ctx,
+              synthesis: input.synthesis,
+              briefing: input.briefing,
+              materiality: input.materiality,
+              chair: chair.output!,
+              devils_advocate: devils.output!,
+              risk_assessor: risk.output!,
+              counterfactual_engine: cf.output!,
+            },
+            opts,
+          ),
+      });
 
   return {
     deliberation: {
       fires: true,
-      minutes_recorder: minutesRecorderToPayload(minutesRes.output),
-      chair: chairToPayload(chairRes.output),
-      devils_advocate: devilsAdvocateToPayload(devilsRes.output),
-      risk_assessor: riskAssessorToPayload(riskRes.output),
-      counterfactual_engine: counterfactualEngineToPayload(cfRes.output),
+      minutes_recorder: minutes.output
+        ? minutesRecorderToPayload(minutes.output)
+        : sentinelMinutesRecorder(),
+      chair: chair.output ? chairToPayload(chair.output) : sentinelChair(),
+      devils_advocate: devils.output
+        ? devilsAdvocateToPayload(devils.output)
+        : sentinelDevilsAdvocate(),
+      risk_assessor: risk.output
+        ? riskAssessorToPayload(risk.output)
+        : sentinelRiskAssessor(),
+      counterfactual_engine: cf.output
+        ? counterfactualEngineToPayload(cf.output)
+        : sentinelCounterfactualEngine(),
     },
     usage: {
-      ic1_chair_input: chairRes.usage.inputTokens,
-      ic1_chair_output: chairRes.usage.outputTokens,
-      ic1_devils_advocate_input: devilsRes.usage.inputTokens,
-      ic1_devils_advocate_output: devilsRes.usage.outputTokens,
-      ic1_risk_assessor_input: riskRes.usage.inputTokens,
-      ic1_risk_assessor_output: riskRes.usage.outputTokens,
-      ic1_counterfactual_engine_input: cfRes.usage.inputTokens,
-      ic1_counterfactual_engine_output: cfRes.usage.outputTokens,
-      ic1_minutes_recorder_input: minutesRes.usage.inputTokens,
-      ic1_minutes_recorder_output: minutesRes.usage.outputTokens,
+      ic1_chair_input: chair.usage.inputTokens,
+      ic1_chair_output: chair.usage.outputTokens,
+      ic1_devils_advocate_input: devils.usage.inputTokens,
+      ic1_devils_advocate_output: devils.usage.outputTokens,
+      ic1_risk_assessor_input: risk.usage.inputTokens,
+      ic1_risk_assessor_output: risk.usage.outputTokens,
+      ic1_counterfactual_engine_input: cf.usage.inputTokens,
+      ic1_counterfactual_engine_output: cf.usage.outputTokens,
+      ic1_minutes_recorder_input: minutes.usage.inputTokens,
+      ic1_minutes_recorder_output: minutes.usage.outputTokens,
     },
   };
 }

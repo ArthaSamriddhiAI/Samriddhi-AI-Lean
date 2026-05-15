@@ -50,6 +50,8 @@ import type {
   BriefingCaseContent,
   GovernanceStatusItem,
 } from "./case/briefing-case-content";
+import { evaluateMateriality } from "./materiality";
+import { runIC1Pipeline } from "./ic1-pipeline";
 
 type RunOpts = {
   caseId: string;
@@ -263,6 +265,33 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       section_5_advisory_challenges: a1Result.output.challenges,
     };
 
+    /* Materiality evaluation (Slice 4 commit 1). Deterministic; no LLM.
+     * The output gates IC1 invocation and persists for the Outcome tab's
+     * audit-trail rendering when materiality.fires=false. */
+    const materiality = evaluateMateriality({
+      synthesis: briefing.section_2_synthesis_verdict,
+      gates: gateResults,
+      evidence,
+      ticketSizeCr: proposal.ticket_size_cr,
+    });
+
+    /* IC1 deliberation pipeline (Slice 4 commits 2 and 3). Short-circuits
+     * to { fires: false, materiality_reason } when materiality.fires=false;
+     * otherwise runs the four-step sequential orchestrator. STUB_MODE
+     * with missing IC1 stubs returns per-role infrastructure_ready
+     * sentinels per the Option A funding-aware posture. */
+    const ic1Result = await runIC1Pipeline(
+      {
+        ctx,
+        synthesis: briefing.section_2_synthesis_verdict,
+        briefing,
+        evidence,
+        gates: gateResults,
+        materiality,
+      },
+      { stubKey },
+    );
+
     /* Derive headline and severity from synthesis verdict. */
     const sv = briefing.section_2_synthesis_verdict;
     const headline = `${sv.overall_verdict.replace(/_/g, " ")}: ${sv.narrative_paragraph.split(".")[0]}.`;
@@ -279,11 +308,14 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       gate_results: gateResults,
       evidence_verdicts: evidence,
       router_decision: routerDecision,
+      materiality,
+      ic1_deliberation: ic1Result.deliberation,
       usage_summary: {
         s1_input_tokens: s1Result.usage.inputTokens,
         s1_output_tokens: s1Result.usage.outputTokens,
         a1_input_tokens: a1Result.usage.inputTokens,
         a1_output_tokens: a1Result.usage.outputTokens,
+        ...ic1Result.usage,
         generated_at: new Date().toISOString(),
       },
     };
