@@ -424,6 +424,23 @@
       "timeline": "this_quarter",
       "rationale": "Family wishes to redirect FD reserve into a quality-compounder PMS following peer-network introduction to Marcellus's track record. Action aligns with the household's stated aggressive long-term mandate."
     },
+    "materiality": {
+      "fires": true,
+      "reason": "Verdict requires clarification at confidence 0.78 below 0.80 threshold. Verdict requires clarification with 3 simultaneous G1 band gaps. 4 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "verdict_with_low_confidence",
+        "verdict_with_band_gaps",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": { "status": "infrastructure_ready" },
+      "chair": { "status": "infrastructure_ready" },
+      "devils_advocate": { "status": "infrastructure_ready" },
+      "risk_assessor": { "status": "infrastructure_ready" },
+      "counterfactual_engine": { "status": "infrastructure_ready" }
+    },
     "usage_summary": {
       "per_agent": {
         "e1": {
@@ -496,6 +513,6 @@
     "generated_at": "2026-05-14T18:15:13.442Z"
   },
   "errorMessage": null,
-  "contextNote": "Canonical Sharma + Marcellus proposal-evaluation case. Slice 3 commit 9. STUB_MODE replay of parsed E1-E7 verdicts plus live-generated S1.case_mode and A1.challenge. M0.IndianContext skipped pending Workstream C YAML curation.",
+  "contextNote": "Canonical Sharma + Marcellus proposal-evaluation case. Slice 3 commit 9 base; Slice 4 commit 7 adds materiality output and IC1 deliberation sentinel state (all five roles infrastructure_ready). M0.IndianContext skipped pending Workstream C YAML curation. Live IC1 stub generation deferred per DEFERRED.md item 12.",
   "stubbed": true
 }
