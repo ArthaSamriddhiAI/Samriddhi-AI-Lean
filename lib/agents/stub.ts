@@ -74,8 +74,33 @@ function stubPath(key: StubKey): string {
   return path.join(STUB_DIR, key.caseFixtureId, `${key.agentId}.json`);
 }
 
+/* Decide whether the caller should short-circuit to a sentinel state.
+ *
+ * Added in Slice 4 for IC1 sentinel-on-missing-stub handling per
+ * orientation §2 and §7: when STUB_MODE is active and the stub fixture
+ * for a given role is missing, the IC1 orchestrator returns a
+ * structured "infrastructure ready, awaiting live generation" payload
+ * rather than throwing. Evidence-agent calls retain the throw-on-
+ * missing-stub behaviour and do not use this helper; the IC1 layer is
+ * the only consumer because Slice 4 ships code-complete-without-content
+ * for IC1 per the Option A funding-aware posture.
+ *
+ * Returns true ONLY if both: STUB_MODE is active AND the stub file is
+ * missing. In live mode or with the stub present, returns false (the
+ * caller proceeds to the runner). */
+export async function shouldUseSentinel(key: StubKey): Promise<boolean> {
+  if (!(await resolveStubMode())) return false;
+  const filePath = stubPath(key);
+  try {
+    await fs.access(filePath);
+    return false;
+  } catch {
+    return true;
+  }
+}
+
 /* Read a stub fixture from disk. Throws a clear, developer-facing error if
- * the fixture is missing — instructing the operator to disable STUB_MODE
+ * the fixture is missing, instructing the operator to disable STUB_MODE
  * and re-run live, or to record stubs first. */
 export async function loadStub(key: StubKey): Promise<StubResponse> {
   const filePath = stubPath(key);
