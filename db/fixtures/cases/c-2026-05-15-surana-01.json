@@ -1,0 +1,1390 @@
+{
+  "id": "c-2026-05-15-surana-01",
+  "investorId": "surana",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s2",
+  "severity": "escalate",
+  "headline": "Equity at 89.9% is 24.9 pp above the 65% target and 19.9 pp above the 70% band ceiling; debt at 0% is 25 pp below the 20% band floor — the most material mandate breach in the portfolio.",
+  "status": "ready",
+  "frozenAt": "2026-05-15T13:23:59.070Z",
+  "content": {
+    "briefing": {
+      "header": {
+        "investor_name": "Rajiv Surana",
+        "case_label": "Quarterly review",
+        "snapshot_date": "2 Apr 2026",
+        "liquid_aum_label": "Rs 34.5 Cr",
+        "holdings_label": "11 holdings",
+        "stated_revealed_label": "Aggressive stated; analytically aggressive revealed — disciplined, not emotional",
+        "severity_counts": {
+          "escalate": 4,
+          "flag": 5,
+          "total": 9
+        }
+      },
+      "workbench_lede": "Diagnostic surfaces 9 observations across 4 escalate and 5 flag severities on a Rs 34.5 Cr liquid portfolio of 11 holdings. The two dominant structural concerns are a 24.9 percentage-point equity overweight (89.9% actual vs 65% target) paired with complete absence of debt allocation, and a single-stock concentration in Reliance Industries at 20.3% of liquid AUM — both metric-confirmed breaches. A critical instrument mismatch on the Kotak holding (labelled domestic mid-cap, actually an overseas FoF with 46-month drawdown recovery and debt-like taxation) requires immediate investor clarification before any reallocation. Fee inefficiency is pervasive: all five mutual fund schemes are on Regular plans, with an estimated Rs 1.05–1.15 Cr in avoidable fee drag over 5 years. The macro environment as of 2 April 2026 is cautionary — Brent crude at $118.95/bbl, INR down 10.7% over 12 months, and FII outflows of Rs 56,401 Cr in April alone — creating near-term headwinds for an equity-heavy portfolio with no debt buffer. Behavioural alignment is strong; Rajiv's revealed pattern is consistent with his aggressive mandate and he will engage with evidence-first framing.",
+      "section_1_headline_observations": [
+        {
+          "vocab": "allocation_drift",
+          "severity": "escalate",
+          "one_line": "Equity at 89.9% is 24.9 pp above the 65% target and 19.9 pp above the 70% band ceiling; debt at 0% is 25 pp below the 20% band floor — the most material mandate breach in the portfolio.",
+          "source": "metric"
+        },
+        {
+          "vocab": "position_over_concentration",
+          "severity": "escalate",
+          "one_line": "Reliance Industries at 20.3% of liquid AUM (Rs 7 Cr) exceeds the 15% escalate threshold by 5.3 pp; E1 verdict is hold_with_attention with PEG 4.32, ROE 8.4%, and 3M price return of -9.85%.",
+          "source": "hybrid"
+        },
+        {
+          "vocab": "fee_inefficiency",
+          "severity": "escalate",
+          "one_line": "All five mutual fund schemes (combined Rs 16 Cr, 46.4% of liquid AUM) are on Regular plans; estimated avoidable fee drag is Rs 1.05–1.15 Cr over 5 years, with Axis Large Cap (TER 1.58%, 5Y return 6.86%) the most egregious case.",
+          "source": "hybrid"
+        },
+        {
+          "vocab": "complexity_premium_not_earned",
+          "severity": "escalate",
+          "one_line": "Kotak 'Emerging Equity Fund' is actually an overseas FoF (Kotak Global Emerging Market Overseas Equity Omni FOF) with Sharpe 0.047, 46-month drawdown recovery, effective TER ~2.5–3.5% including underlying fund, and debt-like slab-rate taxation — instrument mismatch requires immediate clarification.",
+          "source": "hybrid"
+        },
+        {
+          "vocab": "allocation_drift",
+          "severity": "flag",
+          "one_line": "Zero debt allocation leaves the portfolio with no ballast against equity volatility; in the current macro environment (10Y yield 6.99%, FII outflows Rs 56,401 Cr in April, crude at $118.95/bbl), the absence of a debt sleeve amplifies drawdown risk.",
+          "source": "hybrid"
+        }
+      ],
+      "section_2_portfolio_overview": {
+        "rows": [
+          {
+            "asset_class": "Equity",
+            "actual_pct": 89.9,
+            "target_pct": 65,
+            "band": [
+              60,
+              70
+            ],
+            "deviation_pp": 24.9,
+            "in_band": false
+          },
+          {
+            "asset_class": "Debt",
+            "actual_pct": 0,
+            "target_pct": 25,
+            "band": [
+              20,
+              30
+            ],
+            "deviation_pp": -25,
+            "in_band": false
+          },
+          {
+            "asset_class": "Alternatives",
+            "actual_pct": 5.8,
+            "target_pct": 7,
+            "band": [
+              5,
+              10
+            ],
+            "deviation_pp": -1.2,
+            "in_band": true
+          },
+          {
+            "asset_class": "Cash",
+            "actual_pct": 4.3,
+            "target_pct": 3,
+            "band": [
+              2,
+              5
+            ],
+            "deviation_pp": 1.3,
+            "in_band": true
+          }
+        ],
+        "total_aum_line": "Liquid AUM Rs 34.5 Cr across 11 holdings",
+        "liquidity_tier_line": "Liquidity tier essential (5–15% floor); T+30 44.9% + T+90 46.4% = 91.3% liquid within 90 days; T+365 (PMS) 8.7%; no locked positions — liquidity floor not breached"
+      },
+      "section_3_concentration_analysis": [
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "Reliance Industries single-stock weight breaches the 15% escalate threshold at 20.3% of liquid AUM (Rs 7 Cr); E1 flags hold_with_attention on valuation (P/E 23.19x, 52.7% premium to industry; PEG 4.32; near-zero FCF implied by CMP/FCF 11,728) and negative 3M momentum (-9.85%)",
+          "evidence": "Escalate threshold 15%; actual 20.3%; breach of 5.3 pp",
+          "figure": "20.3%",
+          "source": "hybrid"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Parag Parikh Flexi Cap Fund at 11.6% of liquid AUM (Rs 4 Cr) exceeds the 10% flag threshold; E7 verdict is positive — this is a flag for size discipline, not quality concern; the fund's 95.9% rolling 5Y beat rate and 0.44 downside capture are the strongest in the MF sleeve",
+          "evidence": "Flag threshold 10%; actual 11.6%; breach of 1.6 pp",
+          "figure": "11.6%",
+          "source": "hybrid"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Axis Large Cap Fund at 11.0% of liquid AUM (Rs 3.8 Cr) exceeds the 10% flag threshold; E7 verdict is negative — 5Y return 6.86% vs benchmark ~13–14%, downside capture 0.978 vs upside capture 0.897, post-2022 manager transition structural break; size flag compounds quality concern",
+          "evidence": "Flag threshold 10%; actual 11.0%; breach of 1.0 pp",
+          "figure": "11.0%",
+          "source": "hybrid"
+        },
+        {
+          "kind": "Sector",
+          "severity": "flag",
+          "detail": "India-listed equity concentration: Reliance Industries (20.3%) and HDFC Bank (5.8%) together represent 26.1% of liquid AUM in heavily regulated, India-GDP-sensitive sectors (telecom/O2C/retail and private banking); simultaneous macro stress (crude shock, FII outflows, INR depreciation) would pressure both holdings concurrently",
+          "evidence": "E2 cross-holding observation; no single-sector HHI breach (HHI holding-level 0.1097 within 0.30 ceiling) but regulatory co-concentration is qualitative risk not captured by HHI",
+          "figure": "26.1%",
+          "source": "hybrid"
+        },
+        {
+          "kind": "Wrapper",
+          "severity": "flag",
+          "detail": "MF coverage gap: 5 MF schemes representing 46.4% of liquid AUM (Rs 16 Cr) have no sector look-through data available; sector-level concentration within the MF sleeve cannot be confirmed from available data; Kotak instrument mismatch (overseas FoF vs labelled domestic mid-cap) is an unresolved data integrity issue",
+          "evidence": "mfCoverage: coveredCount 0, uncoveredCount 5, uncoveredWeightPct 46.4%; sectorExposureMfLookThrough empty array",
+          "figure": "46.4%",
+          "source": "metric"
+        }
+      ],
+      "section_4_risk_flags": [
+        {
+          "category": "Mandate drift",
+          "severity": "escalate",
+          "title": "Equity overweight / debt zero — dual mandate breach",
+          "body": "Equity at 89.9% is 19.9 pp above the 70% band ceiling; debt at 0% is 20 pp below the 20% band floor. Both breaches are simultaneous and directionally reinforcing — the portfolio carries maximum equity risk with no fixed-income offset. In the current environment (10Y yield 6.99%, up 44 bps since November 2025; real rate 3.15%), the opportunity cost of zero debt is material and the absence of ballast amplifies drawdown sensitivity.",
+          "source": "metric"
+        },
+        {
+          "category": "Fee",
+          "severity": "escalate",
+          "title": "Pervasive Regular-plan fee drag across all five MF schemes",
+          "body": "All five MF schemes (Parag Parikh, Axis, Mirae, Kotak, SBI Small Cap) are on Regular plans with TERs of 1.28–1.62%; estimated avoidable fee drag versus Direct plans is Rs 1.05–1.15 Cr over 5 years on the combined Rs 16 Cr MF sleeve. Axis Large Cap's Regular plan TER of 1.58% on a fund delivering 5Y returns of 6.86% is the most acute case — fee drag is consuming a disproportionate share of already-weak gross returns.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "escalate",
+          "title": "Kotak instrument mismatch — overseas FoF held as domestic mid-cap",
+          "body": "The holding labelled 'Kotak Emerging Equity Fund' (sub-category: mf_active_mid_cap) is actually 'Kotak Global Emerging Market Overseas Equity Omni FOF', an overseas FoF with 98.75% in a single underlying fund (CI Emerging Markets Fund I). This is taxed at slab rate (not equity LTCG), carries an effective TER of ~2.5–3.5% including the underlying fund layer, and has a 46-month drawdown recovery period. The investor may not be aware of what is actually held; this must be confirmed before any reallocation decision.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Fee",
+          "severity": "flag",
+          "title": "Axis Large Cap — fee drag on underperforming active mandate",
+          "body": "Axis Large Cap Fund (11% weight, Rs 3.8 Cr) delivered 5Y returns of 6.86% against a large-cap benchmark of ~13–14%, with downside capture 0.978 and upside capture 0.897 — the fund captures nearly all downside and misses upside. At TER 1.58% on Regular plan, the fee structure is unjustifiable given the performance record; a passive Nifty 50 index fund at ~0.10% TER would have materially outperformed over the same period.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Behavioural",
+          "severity": "flag",
+          "title": "Sophisticated investor blind spot — zero debt rationalised by aggressive mandate",
+          "body": "E4 notes that Rajiv's analytical confidence and fee-consciousness are strengths, but the same conviction that built a well-constructed equity portfolio may lead to under-weighting the debt allocation argument. The zero-debt position is not consistent with the mandate's 20–30% debt band even for an aggressive investor; the advisor should frame the debt case in terms of Rajiv's own stated objective (diversification against the Rs 165 Cr private equity concentration) rather than generic risk management.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "flag",
+          "title": "Large-cap active overlap — Axis + Mirae combined 19.7% with divergent quality",
+          "body": "Axis Large Cap (11.0%, negative verdict) and Mirae Asset Large Cap (8.7%, positive_with_caution verdict) together represent 19.7% of liquid AUM in the same SEBI large-cap category. Retaining both creates redundant active large-cap exposure; E7 recommends exiting Axis and retaining Mirae, with proceeds available for reallocation toward the debt sleeve or other mandated categories.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Deployment",
+          "severity": "flag",
+          "title": "SBI Small Cap — capacity ceiling constrains incremental deployment",
+          "body": "SBI Small Cap Fund (6.4% weight, Rs 2.2 Cr) has AUM of Rs 34,932 Cr — at or near the structural capacity ceiling for a small-cap mandate. The fund has periodically restricted lump-sum inflows. The existing position is appropriate to hold; no incremental deployment into this scheme is advisable. The negative 1Y return (-4.48%) creates a tax-loss-harvesting opportunity against gains elsewhere in the portfolio.",
+          "source": "hybrid"
+        }
+      ],
+      "section_5_comparison_vs_model": {
+        "framing_line": "Aggressive long-term bucket: direct model comparison applies; deviations from mandate bands are mandate-significant, not informational.",
+        "rows": [
+          {
+            "sleeve": "Equity — total",
+            "model_pct": "65% (band 60–70%)",
+            "actual_pct": "89.9%",
+            "note": "24.9 pp above target; 19.9 pp above band ceiling — mandate breach"
+          },
+          {
+            "sleeve": "Equity — direct listed (India)",
+            "model_pct": "—",
+            "actual_pct": "26.1%",
+            "note": "Reliance 20.3% + HDFC Bank 5.8%; single-stock escalate breach on Reliance"
+          },
+          {
+            "sleeve": "Equity — MF active (large cap)",
+            "model_pct": "—",
+            "actual_pct": "19.7%",
+            "note": "Axis (11%) + Mirae (8.7%); redundant overlap; Axis exit indicated"
+          },
+          {
+            "sleeve": "Equity — MF active (flexi cap)",
+            "model_pct": "—",
+            "actual_pct": "11.6%",
+            "note": "Parag Parikh; positive verdict; flag on size only"
+          },
+          {
+            "sleeve": "Equity — MF active (small cap)",
+            "model_pct": "—",
+            "actual_pct": "6.4%",
+            "note": "SBI Small Cap; hold, no add; capacity concern"
+          },
+          {
+            "sleeve": "Equity — international (GIFT ETF)",
+            "model_pct": "—",
+            "actual_pct": "8.7%",
+            "note": "Vanguard S&P 500 ETF; USD diversification; late-cycle valuation caution"
+          },
+          {
+            "sleeve": "Equity — overseas FoF (mislabelled mid-cap)",
+            "model_pct": "—",
+            "actual_pct": "8.7%",
+            "note": "Kotak overseas FoF; instrument mismatch; negative verdict; slab-rate taxation"
+          },
+          {
+            "sleeve": "Debt",
+            "model_pct": "25% (band 20–30%)",
+            "actual_pct": "0%",
+            "note": "25 pp below target; 20 pp below band floor — mandate breach"
+          },
+          {
+            "sleeve": "Alternatives (PMS)",
+            "model_pct": "7% (band 5–10%)",
+            "actual_pct": "5.8%",
+            "note": "White Oak PMS; within band; positive_with_caution verdict"
+          },
+          {
+            "sleeve": "Cash",
+            "model_pct": "3% (band 2–5%)",
+            "actual_pct": "4.3%",
+            "note": "Within band; no cash drag flag triggered"
+          }
+        ]
+      },
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "body": "The portfolio's equity weight of 89.9% is 19.9 percentage points above the mandate's 70% ceiling, and there is no debt allocation against a 20–30% mandate band. This is the most material structural gap in the portfolio — and it's worth discussing whether the current construction reflects a deliberate view on debt or whether the mandate bands need to be revisited to reflect how you actually want to run this.",
+          "emphasis": "mandate bands versus actual construction"
+        },
+        {
+          "number": "02",
+          "body": "Reliance Industries at Rs 7 Cr — 20.3% of your liquid portfolio — is the single largest position and sits well above the 15% escalate threshold. The fundamental picture from E1 is hold_with_attention: the valuation premium (P/E 23.19x, 52.7% above industry) is demanding relative to current returns (ROE 8.4%, ROCE 9.69%), and the 3-month price return is -9.85%. Given that your liquid portfolio's entire purpose is to diversify against your Rs 165 Cr private company concentration, a 20% single-stock weight in the liquid sleeve works against that objective.",
+          "emphasis": "diversification logic of the liquid portfolio"
+        },
+        {
+          "number": "03",
+          "body": "There's an instrument mismatch on the Kotak holding that needs to be resolved before anything else. What's in the portfolio as 'Kotak Emerging Equity Fund' — which you'd expect to be a domestic mid-cap fund — is actually an overseas FoF investing 98.75% in a single underlying emerging markets fund. It's taxed at your income slab rate rather than equity LTCG rates, carries an effective fee of roughly 2.5–3.5% including the underlying fund layer, and took 46 months to recover from its maximum drawdown. The 1-year return of 43.14% is real but it's an EM beta event, not manager skill — the rolling 5-year beat rate is 38.8%.",
+          "emphasis": "what is actually held versus what is labelled"
+        },
+        {
+          "number": "04",
+          "body": "All five of your mutual fund schemes — Rs 16 Cr in total — are on Regular plans. Switching to Direct plans across the five schemes is estimated to save Rs 1.05–1.15 Cr over five years. This is a fee-efficiency action that doesn't require any view on markets or asset allocation; it's purely administrative. The Axis Large Cap situation is the most acute: TER of 1.58% on a fund that has returned 6.86% over five years against a benchmark of roughly 13–14% — a passive Nifty 50 index fund at 0.10% would have materially outperformed.",
+          "emphasis": "Rs 1.05–1.15 Cr in avoidable fee drag"
+        },
+        {
+          "number": "05",
+          "body": "The macro backdrop as of early April 2026 is worth flagging explicitly: Brent crude at $118.95 per barrel (up 86% year-on-year) driven by Hormuz disruption, INR at 94.79 (down 10.7% over 12 months), and FII equity outflows of Rs 56,401 Cr in April alone. For a portfolio that is 89.9% equity with no debt buffer, these are near-term headwinds — rising yields (10Y at 6.99%, up 44 bps since November) compress equity multiples, and the FII selling pressure is directly relevant to your PMS and direct equity holdings. The domestic growth picture remains solid (GDP 7.8%, PMI Manufacturing 55.9), but the external stress is live.",
+          "emphasis": "no debt buffer in a rising-yield, FII-outflow environment"
+        }
+      ],
+      "section_7_evidence_appendix": [
+        {
+          "name": "Reliance Industries",
+          "sub_category": "listed_large_cap",
+          "value_cr": "7.00",
+          "weight_pct": "20.3%"
+        },
+        {
+          "name": "Parag Parikh Flexi Cap Fund",
+          "sub_category": "mf_active_flexi_cap",
+          "value_cr": "4.00",
+          "weight_pct": "11.6%"
+        },
+        {
+          "name": "Axis Large Cap Fund",
+          "sub_category": "mf_active_large_cap",
+          "value_cr": "3.80",
+          "weight_pct": "11.0%"
+        },
+        {
+          "name": "Kotak Emerging Equity Fund",
+          "sub_category": "mf_active_mid_cap",
+          "value_cr": "3.00",
+          "weight_pct": "8.7%"
+        },
+        {
+          "name": "Mirae Asset Large Cap Fund",
+          "sub_category": "mf_active_large_cap",
+          "value_cr": "3.00",
+          "weight_pct": "8.7%"
+        },
+        {
+          "name": "White Oak India Pioneers PMS",
+          "sub_category": "pms_growth_quality",
+          "value_cr": "3.00",
+          "weight_pct": "8.7%"
+        },
+        {
+          "name": "Vanguard S&P 500 ETF (GIFT)",
+          "sub_category": "intl_us_etf",
+          "value_cr": "3.00",
+          "weight_pct": "8.7%"
+        },
+        {
+          "name": "SBI Small Cap Fund",
+          "sub_category": "mf_active_small_cap",
+          "value_cr": "2.20",
+          "weight_pct": "6.4%"
+        }
+      ],
+      "coverage_note": "This diagnostic operated on 11 holdings with full deterministic metrics from M0.PortfolioRiskAnalytics and activated evidence agents E1, E2, E3, E4, E6, and E7. Three limitations constrain the diagnostic's completeness. First, MF sector look-through is unavailable: all five MF schemes (46.4% of liquid AUM, Rs 16 Cr) have no sector exposure data in the metrics object (coveredCount 0, uncoveredWeightPct 46.4%); sector-level concentration within the MF sleeve — including potential overlap between Axis Large Cap, Mirae Large Cap, and Reliance Industries at the stock level — cannot be confirmed. Second, the Vanguard S&P 500 ETF (GIFT) at 8.7% weight could not be evaluated under the E1 per-stock fundamental framework (passive diversified index ETF; no nifty500_record); E2 assessed it at the index level with confidence 0.65; instrument-level tracking error, expense ratio, and GIFT City liquidity data are unavailable. Third, the White Oak India Pioneers PMS evaluation (E6) was conducted on a null-snapshot basis — all performance and fee figures are anchored in publicly disclosed positioning and reported ranges as of 2025, not live portfolio data; confidence is accordingly capped at 0.62. Physical gold (Rs 2 Cr, 5.8%) and Bank savings (Rs 1.5 Cr, 4.3%) are within mandate bands and generated no observations in sections 1, 3, or 4; they are excluded from the evidence appendix per output schema instructions. The Indian context module (M0.IndianContext) was not activated for this case; succession, estate, and tax-specific observations (e.g., LTCG step-up, GIFT City FEMA treatment) are therefore not surfaced in this diagnostic."
+    },
+    "metrics": {
+      "totalLiquidAumCr": 34.5,
+      "holdingsCount": 11,
+      "assetClass": {
+        "Equity": {
+          "actualPct": 89.9,
+          "targetPct": 65,
+          "band": [
+            60,
+            70
+          ],
+          "deviationPct": 24.9,
+          "inBand": false
+        },
+        "Debt": {
+          "actualPct": 0,
+          "targetPct": 25,
+          "band": [
+            20,
+            30
+          ],
+          "deviationPct": -25,
+          "inBand": false
+        },
+        "Alternatives": {
+          "actualPct": 5.8,
+          "targetPct": 7,
+          "band": [
+            5,
+            10
+          ],
+          "deviationPct": -1.2,
+          "inBand": true
+        },
+        "Cash": {
+          "actualPct": 4.3,
+          "targetPct": 3,
+          "band": [
+            2,
+            5
+          ],
+          "deviationPct": 1.3,
+          "inBand": true
+        }
+      },
+      "concentration": {
+        "hhiHoldingLevel": 0.1097,
+        "hhiAssetClassLevel": 0.8134,
+        "top1": {
+          "instrument": "Reliance Industries",
+          "weightPct": 20.3
+        },
+        "top5": [
+          {
+            "instrument": "Reliance Industries",
+            "weightPct": 20.3
+          },
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "weightPct": 11.6
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "weightPct": 11
+          },
+          {
+            "instrument": "Mirae Asset Large Cap Fund",
+            "weightPct": 8.7
+          },
+          {
+            "instrument": "Kotak Emerging Equity Fund",
+            "weightPct": 8.7
+          }
+        ],
+        "bucketCeilingHhi": 0.3,
+        "bucketTier": "Aggressive",
+        "hhiBreach": false,
+        "positionFlags": [
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "weightPct": 11.6,
+            "severity": "flag"
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "weightPct": 11,
+            "severity": "flag"
+          },
+          {
+            "instrument": "Reliance Industries",
+            "weightPct": 20.3,
+            "severity": "escalate"
+          }
+        ],
+        "wrappers": {
+          "pmsCount": 1,
+          "pmsAggregatePct": 8.7,
+          "pmsList": [
+            {
+              "instrument": "White Oak India Pioneers PMS",
+              "weightPct": 8.7
+            }
+          ],
+          "aifCount": 0,
+          "aifAggregatePct": 0,
+          "aifList": [],
+          "wrapperCountFlag": false,
+          "wrapperShareFlag": false
+        },
+        "sectorExposureMfLookThrough": [],
+        "mfCoverage": {
+          "coveredCount": 0,
+          "uncoveredCount": 5,
+          "coveredWeightPct": 0,
+          "uncoveredWeightPct": 46.4
+        }
+      },
+      "liquidity": {
+        "bucketBreakdown": {
+          "T_30": 44.9,
+          "T_90": 46.4,
+          "T_365": 8.7,
+          "Locked": 0
+        },
+        "t30PlusT90Pct": 91.3,
+        "tier": "essential",
+        "tierFloor": {
+          "minPct": 5,
+          "maxPct": 15
+        },
+        "floorBreach": false
+      },
+      "cashDeployment": {
+        "cashSharePct": 4.3,
+        "deploymentGapPct": 0,
+        "cashDragFlag": false
+      },
+      "computedAt": "2026-05-15T13:23:59.079Z"
+    },
+    "router_decision": {
+      "caseMode": "diagnostic",
+      "caseIntent": null,
+      "dominantLens": null,
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": true,
+      "e7": true,
+      "indianContext": false,
+      "portfolioRiskAnalytics": true,
+      "activated": [
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e6_pms_aif_sif",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=diagnostic; listed_equity=true; mf=true; pms=true; aif=false; unlisted_in_scope=false"
+    },
+    "evidence": {
+      "e1": {
+        "analysis_scope": [
+          "Reliance Industries",
+          "HDFC Bank",
+          "Vanguard S&P 500 ETF (GIFT)"
+        ],
+        "per_stock_verdicts": [
+          {
+            "symbol": "Reliance Industries",
+            "source": "direct_listed",
+            "effective_weight_pct": 20.3,
+            "metric_family_scores": {
+              "capital_efficiency": "moderate",
+              "capital_structure": "adequate",
+              "earnings_quality": "moderate",
+              "valuation": "mixed",
+              "growth": "moderate",
+              "quality_moats": "mixed",
+              "risk_signals": "clean"
+            },
+            "framework_classification": {
+              "quality_or_cyclicality": "mixed",
+              "growth_or_maturity": "mixed",
+              "sector_relative_positioning": "middle_pack",
+              "special_situation": "New energy capital deployment phase; conglomerate sum-of-parts complexity"
+            },
+            "overall_verdict": "hold_with_attention",
+            "key_drivers": [
+              "ROCE 9.69 pct vs industry PE context of 15.19x suggests capital returns below typical cost of capital for a conglomerate of this complexity",
+              "ROE 8.4 pct is modest for a company trading at P/B 2.03x; implies limited book-value compounding at current returns",
+              "Revenue 3Y CAGR 9.01 pct and profit 3Y CAGR 10.92 pct are steady but not exceptional for a company at 23.19x P/E",
+              "EV/EBITDA 10.26x is reasonable in absolute terms; P/E 23.19x represents a 52.7 pct premium to industry P/E of 15.19x",
+              "Interest coverage 5.36x is adequate; D/E 0.43 and debt Rs 3,74,593 Cr are manageable but not negligible at this scale",
+              "OPM 17.44 pct reflects blended conglomerate margins; telecom and retail segments dilute refining margin profile",
+              "Quarterly profit growth 0.57 pct YoY signals near-term earnings momentum stall; quarterly sales growth 10.38 pct is healthier"
+            ],
+            "key_risks": [
+              "P/E premium of 52.7 pct over industry PE (23.19x vs 15.19x) requires sustained segment-level re-rating to justify; currently not supported by ROE of 8.4 pct",
+              "CMP/FCF of 11,728 is anomalously high — likely reflects near-zero or negative free cash flow due to heavy capex in new energy and retail; FCF yield is negligible",
+              "PEG of 4.32 is elevated; implies market is pricing in growth that 3Y profit CAGR of 10.92 pct does not yet validate",
+              "Conglomerate discount risk: blended ROCE of 9.69 pct masks segment divergence; new energy segment is pre-revenue at scale",
+              "3M return of -9.85 pct signals near-term price pressure; momentum is negative",
+              "Single-stock weight of 20.3 pct in portfolio noted (portfolio-level concentration verdict deferred to M0)"
+            ],
+            "confidence": 0.72,
+            "reasoning_trace": "Reliance Industries presents a structurally complex conglomerate profile where blended metrics obscure segment-level economics. ROCE of 9.69 pct and ROE of 8.4 pct are below what the 23.19x P/E (52.7 pct premium to industry PE of 15.19x) would typically demand, and the PEG of 4.32 signals the market is pricing in a growth acceleration not yet visible in the 3Y profit CAGR of 10.92 pct. The near-zero FCF implied by CMP/FCF of 11,728 reflects heavy capex in new energy and retail build-out, which is a legitimate growth investment but compresses near-term capital efficiency metrics. Capital structure is adequate with D/E 0.43 and interest coverage 5.36x, though absolute debt of Rs 3,74,593 Cr warrants monitoring. The verdict is hold_with_attention: existing holders benefit from conglomerate optionality and telecom moat, but the valuation premium is difficult to justify on current return metrics alone, and new energy execution risk is unproven at scale. Confidence is capped at 0.72 due to absence of segment-level data."
+          },
+          {
+            "symbol": "HDFC Bank",
+            "source": "direct_listed",
+            "effective_weight_pct": 5.8,
+            "metric_family_scores": {
+              "capital_efficiency": "adequate",
+              "capital_structure": "adequate",
+              "earnings_quality": "strong",
+              "valuation": "adequate",
+              "growth": "moderate",
+              "quality_moats": "strong",
+              "risk_signals": "clean"
+            },
+            "framework_classification": {
+              "quality_or_cyclicality": "quality",
+              "growth_or_maturity": "maturity",
+              "sector_relative_positioning": "best_in_class",
+              "special_situation": "Post-HDFC Ltd merger integration; balance sheet normalisation phase affecting near-term growth metrics"
+            },
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "ROE 14.45 pct is healthy for a large private bank; ROA 1.74 pct is above the 1.0-1.2 pct threshold typically considered adequate for Indian private banks",
+              "ROCE of 751 pct is a data artefact of banking sector convention (banks are excluded from standard ROCE interpretation; capital is regulatory, not operational); this metric is not analytically meaningful for banks and is flagged accordingly",
+              "P/E 16.42x vs industry PE 14.77x represents a modest 11.2 pct premium — reasonable for a best-in-class franchise; P/B 2.18x is consistent with ROE of 14.45 pct",
+              "PEG of 0.71 is the most compelling valuation signal: implies the stock is undervalued relative to its earnings growth trajectory",
+              "OPM 39.26 pct reflects strong operating leverage in the banking model; net interest margin quality is implied",
+              "Quarterly profit growth 12.18 pct YoY and PAT 12M Rs 74,510 Cr confirm earnings momentum is intact post-merger",
+              "EPS Rs 48.55 on CMP Rs 794.7 yields earnings yield of 6.29 pct — competitive with fixed income alternatives"
+            ],
+            "key_risks": [
+              "3Y revenue CAGR 5.83 pct and profit CAGR 7.09 pct are below historical HDFC Bank growth rates; post-merger balance sheet digestion is suppressing near-term growth",
+              "6M return of -20.08 pct and 3M return of -14.13 pct indicate sustained price underperformance; market is pricing in integration uncertainty",
+              "D/E of 6.2 and debt Rs 34,72,711 Cr are banking-sector-normal (deposits are liabilities) but interest coverage of 1.53x appears low — this metric is also not directly comparable across banking vs non-banking; flagged as data interpretation caution",
+              "Zero promoter holding is standard for a widely-held bank but means no promoter-level alignment signal is available",
+              "Loan-to-deposit ratio normalisation post-HDFC merger may constrain credit growth in near term; not directly observable from snapshot data"
+            ],
+            "confidence": 0.78,
+            "reasoning_trace": "HDFC Bank is a quality franchise in a post-merger integration phase, and the snapshot metrics reflect that transitional state. ROE of 14.45 pct and ROA of 1.74 pct confirm the underlying business quality is intact; the PEG of 0.71 is the standout valuation signal, suggesting the market has over-discounted integration risk relative to the earnings growth trajectory. The 6M price decline of 20.08 pct has compressed the P/E to 16.42x — only an 11.2 pct premium to industry PE of 14.77x — which is a historically narrow premium for India's largest private bank by assets. The key caution is that 3Y profit CAGR of 7.09 pct is below the bank's historical compounding rate, and the market will require evidence of loan growth re-acceleration and margin stabilisation before re-rating. Risk signals are clean: zero promoter pledge, no auditor flags in the snapshot. The verdict is positive_with_caution: the fundamental franchise is strong, valuation is reasonable, but near-term growth normalisation and integration execution risk warrant monitoring rather than aggressive addition. Note: ROCE of 751 pct is a banking-sector data convention artefact and has been excluded from the capital efficiency assessment; ROE and ROA are the appropriate metrics for banks."
+          },
+          {
+            "symbol": "Vanguard S&P 500 ETF (GIFT)",
+            "source": "direct_listed",
+            "effective_weight_pct": 8.7,
+            "metric_family_scores": {
+              "capital_efficiency": "cannot_evaluate",
+              "capital_structure": "cannot_evaluate",
+              "earnings_quality": "cannot_evaluate",
+              "valuation": "cannot_evaluate",
+              "growth": "cannot_evaluate",
+              "quality_moats": "cannot_evaluate",
+              "risk_signals": "cannot_evaluate"
+            },
+            "framework_classification": {
+              "quality_or_cyclicality": "cannot_evaluate",
+              "growth_or_maturity": "cannot_evaluate",
+              "sector_relative_positioning": "cannot_evaluate",
+              "special_situation": "Passive index ETF tracking S&P 500 via GIFT City structure; per-stock fundamental analysis framework does not apply to a diversified passive vehicle"
+            },
+            "overall_verdict": "cannot_evaluate",
+            "key_drivers": [
+              "No nifty500_record provided; no CMP, P/E, ROCE, ROE, or any fundamental metric available for analysis",
+              "Instrument is a passive ETF tracking S&P 500 index — per-stock fundamental analysis (ROCE, D/E, earnings quality, moats) is structurally inapplicable to a basket instrument",
+              "GIFT City structure implies USD-denominated exposure with INR/USD currency risk embedded in the holding"
+            ],
+            "key_risks": [
+              "Currency risk (INR/USD) is embedded but not quantifiable from available data",
+              "Regulatory and repatriation risk associated with GIFT City international ETF structures cannot be assessed from snapshot alone",
+              "Tracking error, expense ratio, and liquidity of the GIFT-listed ETF wrapper are unknown without instrument-level data"
+            ],
+            "confidence": 0,
+            "reasoning_trace": "The Vanguard S&P 500 ETF (GIFT) is a passive index-tracking instrument, not a single listed company, and the E1 per-stock fundamental analysis framework — which evaluates ROCE, capital structure, earnings quality, moats, and governance signals — does not apply to a diversified basket vehicle. No nifty500_record was provided, and even if one were available, the seven metric families would require look-through to 500 underlying US equities, which is outside E1's per-stock scope. This holding should be routed to a separate ETF/international allocation analysis module. Confidence is set to 0.0 and all metric families are marked cannot_evaluate. The holding's portfolio-level role (international diversification, USD exposure, effective weight 8.7 pct) is a matter for M0.PortfolioRiskAnalytics."
+          }
+        ],
+        "scope_notes": "E1 has analysed three instruments in scope: Reliance Industries (direct listed, 20.3 pct weight), HDFC Bank (direct listed, 5.8 pct weight), and Vanguard S&P 500 ETF GIFT (direct listed, 8.7 pct weight). Per-stock fundamental verdicts have been produced for Reliance Industries and HDFC Bank using nifty500_record data. The Vanguard S&P 500 ETF GIFT cannot be evaluated under the E1 framework because (a) no nifty500_record was provided and (b) it is a passive diversified index ETF, not a single listed company — the seven metric families are structurally inapplicable. No portfolio-level rollups (concentration, aggregate fee drag, liquidity tier assessment, aggregate return quality) have been produced; those are owned by M0.PortfolioRiskAnalytics. Sector-relative positioning claims for both Reliance and HDFC Bank are acknowledged as qualitative in the absence of full peer-group data; industry PE comparisons are drawn from the nifty500_record fields provided. The HDFC Bank ROCE figure of 751 pct has been identified as a banking-sector data convention artefact and excluded from capital efficiency scoring; ROE and ROA are used instead.",
+        "escalate_to_master": false,
+        "reasoning_summary": "Across the two evaluable holdings, the portfolio presents a mixed fundamental picture. Reliance Industries (20.3 pct weight) is a conglomerate in a capital-intensive investment phase: ROCE of 9.69 pct and ROE of 8.4 pct are modest relative to the 23.19x P/E, which carries a 52.7 pct premium to the industry PE of 15.19x. The PEG of 4.32 and near-zero FCF (CMP/FCF of 11,728) signal that the market is pricing in a future growth inflection — in new energy and retail — that is not yet visible in the 3Y profit CAGR of 10.92 pct. The verdict is hold_with_attention: the conglomerate optionality and telecom moat justify continued ownership, but the valuation premium is demanding and new energy execution risk is unproven. HDFC Bank (5.8 pct weight) presents a more compelling fundamental case: ROE of 14.45 pct, ROA of 1.74 pct, and a PEG of 0.71 collectively suggest the stock is undervalued relative to its earnings growth trajectory. The 6M price decline of 20.08 pct has compressed the P/E to 16.42x — a historically narrow premium to the industry PE of 14.77x — creating a reasonable entry or hold case for a quality franchise. The caution is that post-HDFC Ltd merger integration is suppressing near-term growth metrics (3Y profit CAGR 7.09 pct), and the market will require evidence of loan growth re-acceleration before re-rating. The Vanguard S&P 500 ETF GIFT cannot be evaluated under the E1 framework and should be routed to an appropriate international ETF analysis module. No escalation to master is required; the Reliance conglomerate complexity is noted but does not trigger a promoter-pledge cascade or related-party network concern based on available data."
+      },
+      "e2": {
+        "analysis_scope": [
+          "Reliance Industries",
+          "HDFC Bank",
+          "Vanguard S&P 500 ETF (GIFT)"
+        ],
+        "per_holding_verdicts": [
+          {
+            "symbol": "Reliance Industries",
+            "industry_classification": {
+              "capital_intensity": "asset_heavy",
+              "cycle_pattern": "mixed",
+              "regulatory_intensity": "heavy",
+              "concentration": "consolidated"
+            },
+            "cycle_positioning": {
+              "current_phase": "mid_cycle",
+              "sector_growth_runway_pct_band": "8-12 pct CAGR (blended across segments)",
+              "evidence": "O2C segment: refining margins (GRMs) have normalised from 2022 supercycle peaks; Singapore complex GRMs ~$4-6/bbl range as of early 2026, indicating mid-cycle rather than early-cycle tailwinds. Retail segment: organised retail penetration in India still sub-15 pct of total retail, implying structural runway; JioMart and offline store expansion ongoing. Telecom (Jio): ARPU trajectory improving post-2023 tariff hikes (industry ARPU moved from ~Rs 155 to ~Rs 195-200 range); 5G rollout mid-execution with monetisation still early. New Energy: pre-revenue; capex deployment phase with Dhirubhai Ambani Green Energy Giga Complex under construction."
+            },
+            "competitive_positioning": {
+              "moat_sources": [
+                "scale",
+                "regulatory",
+                "brand",
+                "switching_costs"
+              ],
+              "moat_durability": "mixed",
+              "competitive_intensity": "moderate",
+              "disruption_risk": "moderate"
+            },
+            "key_drivers": [
+              "Jio telecom ARPU expansion: industry consolidated to 3 players post-Vodafone Idea stress; rational pricing environment supports revenue-per-user growth",
+              "Retail segment structural tailwind: India organised retail penetration at ~12-14 pct vs 85 pct in developed markets; decade-long runway",
+              "O2C integration advantage: Jamnagar is world's largest single-location refinery complex; feedstock flexibility and scale create cost moat vs regional peers",
+              "New Energy optionality: Rs 75,000 Cr capex commitment in solar, green hydrogen, battery storage positions Reliance for India's energy transition; moat not yet established but first-mover scale advantage building",
+              "Telecom consolidation: 3-player market (Jio, Airtel, Vi) with Vi structurally weakened; effective duopoly in premium segments"
+            ],
+            "key_risks": [
+              "O2C cyclicality: refining margins structurally pressured by Chinese refinery capacity additions and EV-driven demand moderation in gasoline; GRM normalisation risk",
+              "Retail competitive intensity: Tata Neu, Amazon, Flipkart/Walmart investing heavily; organised retail moat not yet decisively established",
+              "New Energy execution risk: green hydrogen economics remain challenged at current electrolyser costs; Rs 75,000 Cr capex could face IRR pressure if technology costs don't fall as projected",
+              "Regulatory risk: telecom spectrum costs, retail FDI policy changes, petroleum pricing controls",
+              "Conglomerate complexity: cross-segment capital allocation opacity; holding company discount risk",
+              "Jio Financial Services (JFSL) demerged entity adds financial services regulatory exposure not fully priced in parent"
+            ],
+            "overall_e2_verdict": "constructive_with_caution",
+            "confidence": 0.72
+          },
+          {
+            "symbol": "HDFC Bank",
+            "industry_classification": {
+              "capital_intensity": "mixed",
+              "cycle_pattern": "mixed",
+              "regulatory_intensity": "heavy",
+              "concentration": "consolidated"
+            },
+            "cycle_positioning": {
+              "current_phase": "rebuild",
+              "sector_growth_runway_pct_band": "12-15 pct credit CAGR (system-level); HDFC Bank specific trajectory recovering toward 16-18 pct",
+              "evidence": "Post-HDFC Ltd merger (July 2023), HDFC Bank entered a balance-sheet consolidation phase: LDR (Loan-to-Deposit Ratio) elevated at ~110 pct immediately post-merger vs system average ~78 pct; bank has been actively running down high-cost borrowings and rebuilding deposit franchise. As of Q3 FY26, LDR has moderated toward ~95-98 pct range. RBI's liquidity tightening cycle (CRR hike, OMO sales) through 2024-25 created system-wide deposit competition; rate cut cycle beginning Feb 2026 (25 bps) signals easing. Credit growth in Indian banking system moderated to ~13-14 pct YoY in FY26 from ~16 pct in FY24, reflecting RBI macro-prudential tightening on unsecured retail and NBFC lending."
+            },
+            "competitive_positioning": {
+              "moat_sources": [
+                "scale",
+                "brand",
+                "switching_costs",
+                "regulatory"
+              ],
+              "moat_durability": "stable",
+              "competitive_intensity": "moderate",
+              "disruption_risk": "moderate"
+            },
+            "key_drivers": [
+              "India credit penetration structural runway: credit-to-GDP ~57 pct vs 100-130 pct in developed markets; mortgage, SME, and retail credit underpenetrated",
+              "Merger integration normalisation: HDFC Ltd's mortgage book (~Rs 7 lakh Cr) now on bank balance sheet; as high-cost legacy borrowings mature and deposit franchise rebuilds, NIM trajectory should recover toward 4.0-4.2 pct band",
+              "Rate cut cycle tailwind: RBI easing cycle (commenced Feb 2026) benefits liability repricing; HDFC Bank's floating-rate loan book reprices faster than fixed-rate deposit costs, supporting NIM expansion in easing environment",
+              "Branch network and distribution moat: 8,300+ branches with deep semi-urban/rural penetration; cross-sell franchise (insurance, MF, cards) creates switching-cost moat",
+              "Asset quality: GNPA ratio ~1.3-1.4 pct; provisioning coverage ~70 pct; among the cleanest balance sheets in Indian banking"
+            ],
+            "key_risks": [
+              "Merger integration execution: deposit franchise rebuild slower than projected; LDR normalisation timeline uncertain",
+              "RBI regulatory intensity: RBI has demonstrated willingness to impose business restrictions (HDFC Bank internet banking ban 2020-21; Kotak digital ban 2024); compliance and IT infrastructure risk",
+              "Unsecured retail credit stress: RBI's Nov 2023 risk-weight increase on consumer credit and NBFC lending has slowed growth; some stress visible in credit card and personal loan segments industry-wide",
+              "Competitive pressure from SBI, ICICI Bank, Axis Bank gaining market share during HDFC Bank's consolidation phase",
+              "Fintech disruption: UPI-native lenders and neobanks eroding fee income in payments and small-ticket lending; structural but slow-moving",
+              "Macro sensitivity: HDFC Bank's mortgage-heavy post-merger book has elevated sensitivity to property cycle and interest rate trajectory"
+            ],
+            "overall_e2_verdict": "constructive_with_caution",
+            "confidence": 0.78
+          },
+          {
+            "symbol": "Vanguard S&P 500 ETF (GIFT)",
+            "industry_classification": {
+              "capital_intensity": "mixed",
+              "cycle_pattern": "mixed",
+              "regulatory_intensity": "moderate",
+              "concentration": "consolidated"
+            },
+            "cycle_positioning": {
+              "current_phase": "late_cycle",
+              "sector_growth_runway_pct_band": "6-8 pct nominal earnings CAGR (S&P 500 consensus FY26-28); real returns lower after valuation mean-reversion risk",
+              "evidence": "S&P 500 as of early April 2026: trailing P/E ~21-22x, forward P/E ~19-20x; Shiller CAPE ~33-35x, well above long-run average of ~17x. US unemployment at ~4.1 pct (near full employment). Fed Funds Rate at ~4.25-4.50 pct range; Fed easing cycle cautious given sticky core PCE (~2.6-2.8 pct). Corporate profit margins near cycle highs (~12-13 pct net margin for S&P 500). ISM Manufacturing PMI oscillating around 49-51 (contraction/expansion boundary). Tariff escalation risk (US-China, US-EU) as of April 2026 creating earnings uncertainty for multinational-heavy S&P 500 constituents. Mega-cap tech (Magnificent 7 ~30 pct of index weight) valuations elevated; AI capex cycle sustaining earnings but concentration risk high."
+            },
+            "competitive_positioning": {
+              "moat_sources": [
+                "scale",
+                "network",
+                "brand"
+              ],
+              "moat_durability": "stable",
+              "competitive_intensity": "high",
+              "disruption_risk": "moderate"
+            },
+            "key_drivers": [
+              "Broad US equity exposure: S&P 500 provides diversified access to world's deepest capital market; structural long-run real return ~5-7 pct annualised",
+              "USD/INR currency optionality: GIFT City structure provides INR investor with USD-denominated asset exposure; INR depreciation trend (~3-4 pct annual average) adds to INR-terms return",
+              "Mega-cap tech earnings power: top-10 holdings (Apple, Microsoft, Nvidia, Amazon, Alphabet, Meta, etc.) have demonstrated durable earnings compounding through AI infrastructure investment cycle",
+              "Passive cost efficiency: Vanguard ETF expense ratio ~0.03 pct; minimal tracking error; liquidity in GIFT City improving with growing AUM",
+              "Portfolio diversification value: provides non-India, non-INR exposure within an otherwise India-concentrated portfolio"
+            ],
+            "key_risks": [
+              "Valuation risk: Shiller CAPE ~33-35x implies compressed forward returns; historical evidence suggests 10-year real returns from CAPE >30x average ~2-4 pct annualised",
+              "Tariff and trade war escalation: April 2026 US tariff actions (reciprocal tariff announcements) creating earnings uncertainty; S&P 500 revenue ~40 pct from international sources",
+              "Mega-cap concentration: top-10 stocks ~35 pct of index; idiosyncratic risk in AI capex cycle (Nvidia, Microsoft, Alphabet) disproportionately affects index",
+              "USD strength reversal risk: if USD weakens vs INR (unlikely near-term but possible over 5y horizon), currency drag reduces INR-terms returns",
+              "Regulatory/tax risk: GIFT City ETF taxation and FEMA treatment subject to regulatory evolution; SEBI/RBI overseas investment limit changes could affect liquidity",
+              "Geopolitical risk: US-China tension escalation could trigger risk-off in US equities; tech sector particularly exposed to semiconductor export controls"
+            ],
+            "overall_e2_verdict": "constructive_with_caution",
+            "confidence": 0.65
+          }
+        ],
+        "cross_holding_sector_observations": [
+          "India macro concentration: Reliance Industries (20.3 pct) and HDFC Bank (5.8 pct) together represent 26.1 pct of liquid AUM in India-listed equities with significant India GDP sensitivity. Both are in rebuild/mid-cycle phases where near-term earnings delivery is contingent on macro normalisation (RBI easing, consumption recovery, credit growth re-acceleration). A India macro disappointment scenario (growth slowdown, INR stress, RBI policy reversal) would simultaneously pressure both holdings.",
+          "Regulatory concentration risk: Both Reliance and HDFC Bank operate in heavily regulated sectors (telecom + petroleum + financial services). A period of heightened regulatory activism (RBI tightening, TRAI spectrum policy, petroleum pricing intervention) could create simultaneous headwinds across 26.1 pct of the portfolio.",
+          "Currency and geography diversification: The Vanguard S&P 500 ETF (8.7 pct) provides meaningful USD-denominated offset to the India-INR concentration in the other two holdings. However, at 8.7 pct weight, the diversification benefit is partial. Cross-holding correlation: in a global risk-off scenario, Indian equities and US equities tend to sell off together (correlation ~0.6-0.7 in stress periods), limiting diversification benefit precisely when it is most needed.",
+          "Cycle phase divergence: HDFC Bank is in a rebuild phase (post-merger normalisation), Reliance is mid-cycle with segment-level divergence, and the S&P 500 ETF is late-cycle. This means the portfolio's three largest holdings are at different points in their respective cycles, which is a positive from a return-timing diversification standpoint but complicates a unified sector view.",
+          "Conglomerate complexity note (Reliance): At 20.3 pct weight, Reliance's multi-segment nature (O2C, Retail, Telecom, New Energy, Financial Services) means the effective sector exposure is more diversified than the single-stock weight implies. However, this also means E2 industry framing for Reliance is inherently blended and less precise than for a pure-play."
+        ],
+        "scope_notes": "Three holdings analysed: Reliance Industries (conglomerate: O2C, Retail, Telecom, New Energy), HDFC Bank (private sector banking, post-HDFC Ltd merger), and Vanguard S&P 500 ETF via GIFT City (broad US equity index exposure). No machine-readable industry tags or foundation §3 industry PDFs were available; all industry framing is drawn from sector knowledge anchored in the E2 framework as of April 2026. Reliance analysis applies edge-case treatment for conglomerates (per-segment framing where data permits). HDFC Bank analysis applies edge-case treatment for recently disrupted/restructured entities (post-merger rebuild phase). The S&P 500 ETF is treated as a blended-industry exposure; E2 analysis focuses on the index-level cycle positioning and structural demand drivers rather than individual sector decomposition, which would require look-through to constituent weights beyond E2 scope. Per-stock fundamentals (ROCE, P/E, NIM, GRM specifics) are intentionally excluded and deferred to E1.",
+        "escalate_to_master": true,
+        "reasoning_summary": "All three holdings warrant constructive_with_caution verdicts, but for structurally distinct reasons. Reliance Industries is a conglomerate spanning four materially different industry cycles: O2C is mid-cycle with GRM normalisation pressure; Retail is early-to-mid structural growth; Telecom (Jio) is mid-cycle with ARPU expansion underway in a consolidated market; New Energy is pre-revenue capex deployment. The blended verdict is constructive on structural grounds but cautioned by O2C cyclicality and New Energy execution risk. HDFC Bank is in a post-merger rebuild phase that is sector-specific rather than cycle-specific: the Indian banking sector's structural credit growth runway (12-15 pct system CAGR) remains intact, but HDFC Bank's near-term delivery is contingent on LDR normalisation and deposit franchise rebuild. The RBI rate cut cycle (commenced Feb 2026) is a tailwind. The Vanguard S&P 500 ETF provides USD diversification and access to US mega-cap earnings compounding, but late-cycle valuation (Shiller CAPE ~33-35x) and tariff-driven earnings uncertainty in April 2026 temper the near-term outlook. The portfolio's India concentration (26.1 pct across two heavily regulated, macro-sensitive holdings) and the partial nature of USD diversification (8.7 pct) are cross-holding observations that M0.PortfolioRiskAnalytics should assess at rollup level. Escalation to master is flagged given Reliance's conglomerate complexity, HDFC Bank's merger-integration non-standard cycle positioning, and the geopolitical uncertainty embedded in the S&P 500 ETF's tariff exposure as of the as_of_date."
+      },
+      "e3": {
+        "rate_environment": {
+          "current_repo_pct": 5.25,
+          "real_rate_pct": 3.15,
+          "yield_curve_shape": "Steepening with upward pressure: 10Y at 6.99% (up 44bps from 6.55% in Nov 2025); spiked to 7.19% on Apr 3 before partial reversion. Repo-to-10Y spread of 174bps signals market pricing geopolitical and crude-driven risk premium above policy rate.",
+          "forward_expectations": "Pause maintained at Apr 8 MPC (unanimous hold); geopolitical uncertainty (West Asia, Hormuz disruption) and crude at $118.95 constraining further cuts despite real rate at 3.15% — well above the 2% restrictive threshold. Next cut window contingent on crude stabilisation and monsoon outcome. No cut expected before Q3 FY27 at earliest.",
+          "cycle_phase": "pause"
+        },
+        "growth_inflation": {
+          "gdp_growth_pct": 7.8,
+          "inflation_pct_cpi": 3.4,
+          "inflation_pct_core": 2.1,
+          "growth_inflation_tradeoff": "Currently favourable but deteriorating at the margin. GDP at 7.8% (Q3 FY26) with manufacturing 13.3% and services 9.5% — above-trend. CPI headline 3.40% (Mar 2026), below RBI 4% target; core at 2.1% (Jan-Feb avg). However, three upside inflation risks are live: (1) crude at $118.95/bbl (+86% YoY) will transmit to fuel and transport CPI with a 4-8 week lag; (2) IMD forecasts below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome, threatening food prices; (3) services input cost inflation at 45-month high per Mar PMI. RBI projects FY27 core at 4.4%, signalling internal expectation of inflation re-acceleration. The growth-inflation tradeoff is comfortable today but faces a 90-180 day deterioration window."
+        },
+        "currency_external": {
+          "inr_usd": 94.787,
+          "reer_assessment": "REER data not available in the macro snapshot. Directional inference: INR has depreciated 10.7% against USD over 12 months (85.60 on Apr 2, 2025 to 94.79 on Apr 29, 2026), suggesting meaningful nominal depreciation. Forex reserves declined $25B to $703B, indicating RBI intervention to slow — not arrest — the slide. REER likely depreciated but partially offset by India's relatively lower inflation vs trading partners; precise REER level cannot be stated from available data.",
+          "current_account_pct_gdp": null,
+          "fii_flows_summary": "Heavy and persistent FII equity outflows: Rs -56,401 Cr (approx $5.97B) in April 2026 alone. Heaviest single-day outflow Rs -19,837 Cr on Apr 2. Brief mid-month reversal followed by renewed selling. DII buying (Rs +34,617 Cr, partial Apr 1-8 data) only partially absorbs. India-US rate differential at 162bps — within adequate range but not wide enough to attract carry-driven inflows. Net flow dynamic: stressed, not domestically fully supported."
+        },
+        "policy_regulatory": {
+          "recent_rbi": "Apr 8, 2026 MPC: unanimous hold at repo 5.25%; stance neutral. SDF 5.00%, MSF 5.50%, CRR 3.00%. RBI cited West Asia uncertainty and crude spike as key constraints. Language: 'vigilant, closely monitoring, flexible to respond.' 125bps of cuts already delivered (from 6.50%). Transmission progressing: WALR on fresh loans at 8.28% (Dec 2025), down 109bps from peak; repo-WALR gap 303bps. 10Y yield rising independently of policy rate, driven by crude and geopolitical risk premium.",
+          "fiscal_stance": "Consolidating with quality improvement. FY26 YTD (Apr-Feb): fiscal deficit Rs 12,52,649 Cr (80.38% of RE), down 7.0% YoY. Primary deficit -52.5% YoY; revenue deficit -32.1% YoY. Capex Rs 9,29,322 Cr (84.81% of RE), +14.46% YoY — ahead of pace. Revenue expenditure only +1.1% YoY. FY27 Budget targets: FD 4.3% of GDP, capex Rs 12.22L Cr, effective capex Rs 17.15L Cr, market borrowing Rs 13.03L Cr. PLI, semiconductor, EV, and defence push maintained. Fiscal stance is growth-supportive without being expansionary — a positive structural signal.",
+          "sectoral_regulatory": "No SEBI or sector-specific regulatory data present in the macro snapshot for the Apr 2026 period. Dimension 5 (News/Qualitative) is flagged as real-time web search — not available in this snapshot. Cannot cite specific SEBI, NPPA, or IRDAI actions from available data. Surana portfolio includes 1 PMS, 5 MF, 3 direct/intl listed — SEBI's ongoing AIF/PMS disclosure norms and MF categorisation framework remain the standing regulatory backdrop but no new actions can be cited from this snapshot.",
+          "tax_policy": "FY27 Budget (Feb 2026) tax framework: no specific tax policy changes extractable from the macro snapshot beyond fiscal aggregates. LTCG framework post-July 2024 Budget remains the operative regime for equity holdings. No Budget 2026 tax calibrations cited in available data. Cannot fabricate specifics."
+        },
+        "material_news": [
+          "Hormuz Strait disruption: approximately 20% of global oil trade blocked; Brent crude at $118.95/bbl (Apr 29, 2026), up 86% YoY from ~$64 — direct macro stress event with multi-channel India impact (CAD, INR, inflation, fiscal subsidy).",
+          "INR at 94.79 vs USD (Apr 29, 2026): 10.7% depreciation over 12 months; forex reserves down $25B to $703B — currency stress is live and material for Surana's international listed holdings (3 positions).",
+          "FII equity outflows: Rs -56,401 Cr in April 2026 alone (~$5.97B); heaviest single-day Rs -19,837 Cr on Apr 2 — sustained institutional selling pressure on Indian equities relevant to PMS and direct equity holdings.",
+          "IMD below-normal monsoon forecast (Apr 13, 2026): 92% of LPA, El Nino likely, 66% probability of below-normal or deficient outcome — upside food inflation risk in H2 FY27 with potential policy constraint on RBI.",
+          "RBI Apr 8 MPC: unanimous hold at 5.25%; West Asia uncertainty and crude spike cited as constraints on further easing — rate cut timeline pushed out, affecting equity valuation discount rates.",
+          "PMI Manufacturing Apr flash 55.9 (rebound from Mar 53.9 dip caused by Middle East war) and PMI Services 57.9 — domestic demand momentum intact despite external stress.",
+          "Capacity utilisation at 75.6% (Q3 FY26, above 75% late-expansion threshold); non-food credit growth 14.3% YoY — domestic credit and industrial cycle remain expansionary.",
+          "Powell's last FOMC meeting; Kevin Warsh taking over Fed chairmanship ~May 15, 2026 — US monetary policy leadership transition introduces forward guidance uncertainty relevant to global risk appetite and FII flows into India."
+        ],
+        "risk_overlay": {
+          "tail_risks": "Three concurrent tail risks, all live as of Apr 29, 2026: (1) GEOPOLITICAL-ENERGY: Hormuz disruption with crude at $118.95/bbl — if sustained, India faces simultaneous CAD widening, INR depreciation acceleration, fiscal subsidy pressure, and CPI re-acceleration above 4% target, forcing RBI into a hold-or-hike posture despite slowing growth; (2) CURRENCY STRESS: INR at 94.79, down 10.7% in 12 months with reserves declining $25B — disorderly depreciation scenario if FII outflows persist and crude stays elevated; (3) US POLICY TRANSITION: Fed leadership change (Warsh, ~May 15) with uncertain forward guidance — could alter global risk-off/risk-on dynamics and FII flow direction into EMs including India.",
+          "concentration_risks_macro": "Surana's aggressive mandate with 3 international listed positions faces a compounded risk: INR depreciation at 10.7% YoY inflates INR-denominated returns on USD assets but signals systemic stress that typically correlates with Indian equity drawdowns. PMS and direct equity holdings (dominant in a Rs 34.5 Cr aggressive portfolio) are exposed to the FII-driven selling pressure (Rs -56,401 Cr April alone) and rising 10Y yields (6.99%, up 44bps) compressing equity multiples. No debt holdings in portfolio means no natural hedge against equity volatility. Single cash position provides limited buffer.",
+          "time_aware_windows": "Three near-term decision-relevant windows: (1) IMD monsoon update end-May 2026 — will confirm or revise below-normal forecast; material for food inflation trajectory and RBI June MPC posture; (2) Fed FOMC Apr 29, 2026 (today) and May 2026 first Warsh meeting — US policy signal will directly affect FII flow direction and INR; (3) RBI June MPC — first meeting post-monsoon update and post-Warsh Fed; probability of cut vs extended pause will crystallise. Surana case decision should account for all three windows within 60-90 days."
+        },
+        "overall_e3_assessment": "cautionary",
+        "key_drivers": [
+          {
+            "name": "Crude oil shock — Hormuz disruption",
+            "evidence": "Brent at $118.95/bbl (Apr 29, 2026), up 86% YoY from ~$64; Hormuz disruption blocking 20% of global oil trade (indicator 4.3)",
+            "dimension": "currency"
+          },
+          {
+            "name": "INR depreciation — 10.7% in 12 months",
+            "evidence": "USD/INR at 94.787 (Apr 29, 2026) vs 85.60 (Apr 2, 2025); forex reserves down $25B to $703B (indicator 4.2)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Heavy FII equity outflows",
+            "evidence": "Rs -56,401 Cr net FII equity outflow in April 2026 alone; heaviest day Rs -19,837 Cr on Apr 2 (indicator 4.4)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Real rate highly restrictive — rate cut window constrained",
+            "evidence": "Real rate 3.15% (repo 5.25% minus core CPI 2.1%), well above 2% restrictive threshold; RBI hold unanimous Apr 8 (indicators 2.1, 2.3)",
+            "dimension": "rate"
+          },
+          {
+            "name": "Domestic growth momentum intact",
+            "evidence": "GDP 7.8% Q3 FY26; PMI Manufacturing 55.9 Apr flash; capacity utilisation 75.6% Q3 FY26; non-food credit +14.3% YoY (indicators 1.1, 1.4, 1.5)",
+            "dimension": "growth"
+          },
+          {
+            "name": "Fiscal quality improvement — capex-led consolidation",
+            "evidence": "Capex Rs 9,29,322 Cr (+14.46% YoY, 84.81% of RE); fiscal deficit -7.0% YoY; primary deficit -52.5% YoY (indicators 3.1, 3.2)",
+            "dimension": "policy"
+          },
+          {
+            "name": "Below-normal monsoon forecast — food inflation upside risk",
+            "evidence": "IMD: 92% of LPA, El Nino likely, 66% probability below-normal or deficient (indicator 1.9)",
+            "dimension": "growth"
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Crude-driven inflation re-acceleration above RBI target",
+            "evidence": "Brent $118.95/bbl (+86% YoY); services input cost inflation at 45-month high (Mar PMI); RBI projects FY27 core at 4.4% (indicators 4.3, 1.2, 2.3)",
+            "severity": "high"
+          },
+          {
+            "name": "Disorderly INR depreciation",
+            "evidence": "INR at 94.79, -10.7% in 12 months; reserves down $25B to $703B; FII outflows Rs -56,401 Cr in April (indicators 4.2, 4.4)",
+            "severity": "high"
+          },
+          {
+            "name": "Extended rate pause compressing equity multiples",
+            "evidence": "10Y yield at 6.99%, up 44bps since Nov 2025, spiked to 7.19% on Apr 3; real rate 3.15% — no near-term cut catalyst (indicators 2.4, 2.3)",
+            "severity": "medium"
+          },
+          {
+            "name": "Monsoon failure triggering food inflation and rural demand shock",
+            "evidence": "IMD: 66% probability below-normal or deficient; El Nino likely during season (indicator 1.9)",
+            "severity": "medium"
+          },
+          {
+            "name": "US Fed leadership transition — forward guidance uncertainty",
+            "evidence": "Powell's last FOMC; Warsh taking over ~May 15, 2026; 11-1 hold vote with Miran dissenting for cut (indicator 4.1)",
+            "severity": "medium"
+          },
+          {
+            "name": "FII-DII flow imbalance — domestic absorption insufficient",
+            "evidence": "FII -Rs 56,401 Cr April vs DII +Rs 34,617 Cr (partial Apr 1-8 only); net negative and gap widening (indicators 4.4, 4.5)",
+            "severity": "medium"
+          },
+          {
+            "name": "CAD widening from crude and INR combination",
+            "evidence": "Crude +86% YoY at $118.95; INR -10.7% YoY — both simultaneously widen import bill in INR terms; current account data not in snapshot but directional inference is unambiguous (indicators 4.2, 4.3)",
+            "severity": "high"
+          }
+        ],
+        "confidence": 0.74,
+        "escalate_to_master": true,
+        "reasoning_summary": "The macro environment as of Apr 29, 2026 is cautionary for Rajiv Surana's aggressive long-term mandate. Three concurrent stress signals dominate: (1) Brent crude at $118.95/bbl (+86% YoY) driven by Hormuz disruption is the single most consequential macro event — it simultaneously pressures India's current account, INR, fiscal subsidy bill, and CPI trajectory, while constraining RBI's ability to cut despite a real rate of 3.15% that is well above the 2% restrictive threshold; (2) INR at 94.79 (down 10.7% in 12 months) with reserves declining $25B to $703B signals managed but ongoing currency stress — directly material to Surana's 3 international listed positions and to FII-driven equity market dynamics; (3) FII outflows of Rs -56,401 Cr in April alone, with DII absorption only partial, create sustained selling pressure on Indian equities where Surana's PMS and direct holdings are concentrated. Offsetting these risks: domestic growth remains robust (GDP 7.8% Q3 FY26, PMI Manufacturing 55.9, capacity utilisation 75.6%), fiscal quality is improving (capex +14.46% YoY, deficit consolidating), and CPI at 3.40% is still below the 4% target. However, the IMD's below-normal monsoon forecast (66% probability of below-normal or deficient) introduces a 90-180 day food inflation risk that could push CPI above target and further delay rate cuts. The Fed leadership transition (Warsh, ~May 15) adds a global risk-appetite wildcard. For an aggressive mandate with no debt buffer, the combination of rising yields, INR stress, and FII outflows creates a near-term headwind that warrants diagnostic-level scrutiny of portfolio positioning. Escalation to master is warranted given the simultaneous activation of three high-severity macro stress signals."
+      },
+      "e4": {
+        "stated_risk_tolerance": {
+          "bucket": "aggressive",
+          "specific_language": "Stated risk appetite: aggressive. Time horizon: over 5 years (8-10 years operational to company exit or scale plateau, 25+ years stewardship).",
+          "horizon": "Over 5 years; operational horizon 8-10 years to company exit or scale plateau; stewardship horizon 25+ years"
+        },
+        "revealed_behavioural_patterns": {
+          "market_event_response": "2020 COVID dip: executed measured top-ups to existing SIPs — a disciplined, conviction-driven response rather than panic or paralysis. No bible evidence of 2018-19 or 2022 drawdown-specific behaviour; however, the 15-year unbroken SIP discipline and the four-year hold of the White Oak (formerly focused mid-cap) PMS through the 2022 drawdown period — including a manager-continuity assessment when the lead PM left in 2022 rather than an exit — both indicate sustained risk-on composure under stress.",
+          "initiative_pattern": "investor-driven",
+          "engagement_style": "analytical",
+          "product_addition_pattern": "analytical",
+          "notes": [
+            "Maintains a personal spreadsheet tracking each MF's performance versus benchmark across multiple horizons — evidence of systematic, data-driven monitoring rather than relationship-trust or peer-network decision-making.",
+            "Conducted a formal manager-continuity assessment when the White Oak PMS lead PM left in 2022; chose to retain rather than exit — evidence of process-driven evaluation over reactive behaviour.",
+            "Used GIFT City structure for international exposure (Rs 3 Cr in VOO ETF) — evidence of structural sophistication and proactive tax/regulatory awareness.",
+            "Angel portfolio of 23 investments tracked with IRR discipline — evidence of analytical rigour extending beyond liquid portfolio.",
+            "Fee-only advised by preference; explicitly does not engage with banker-RM relationships — evidence of fee-consciousness and independence from distribution-driven advice.",
+            "COVID-dip top-ups were 'measured' — not maximum deployment; suggests disciplined aggression rather than unconstrained risk-taking."
+          ]
+        },
+        "family_advisor_dynamics": {
+          "decision_structure": "sole",
+          "formal_authority": "Rajiv Surana holds sole formal authority over the advisory-scope liquid portfolio.",
+          "practical_influence": "Rajiv is the primary practical decision-maker. Nandini (wife, NGO director) is present in the household but no bible evidence of her involvement in investment decisions. No evidence of family committee, external advisor co-authority, or peer-network influence on portfolio decisions. The fee-only preference and personal spreadsheet discipline suggest Rajiv actively limits external influence on his decision process.",
+          "friction_points": [
+            "No friction points evidenced in the bible for the liquid portfolio. However, the Rs 165 Cr private company stake — outside advisory scope — is the dominant wealth driver and creates a structural tension: any major liquidity event (exit, secondary, IPO) will require a rapid reframe of the entire wealth architecture, likely involving Nandini and potentially family stakeholders in a way the current advisory relationship has not yet encountered.",
+            "Marwari family context noted for completeness; no specific family-influence dynamic is evidenced in the bible and none is inferred here per discipline."
+          ]
+        },
+        "historical_decision_pattern": {
+          "prior_cases_count": 0,
+          "trajectory_summary": "No prior cases in the advisory DB. However, the bible provides a rich proxy history: 15-year SIP discipline (unbroken), 4-year PMS hold with a structured PM-departure review in 2022, COVID-dip measured top-ups, 23-investment angel portfolio with IRR tracking, and GIFT City international structure. This is a pattern of deliberate, long-horizon, analytically-grounded decisions — not reactive or erratic. The portfolio itself (89.9% equity, zero debt, structured international sleeve) is the output of sustained conviction-driven construction.",
+          "acceptance_rate": "unknown (no advisory cases; proxy pattern suggests high acceptance of well-reasoned recommendations, low tolerance for relationship-driven or insufficiently evidenced advice)",
+          "time_to_decision": "deliberative"
+        },
+        "stated_vs_revealed_divergence": {
+          "direction": "aligned",
+          "magnitude": "minor",
+          "implication": "Rajiv's stated aggressive mandate is broadly consistent with his revealed behaviour — sustained equity concentration, COVID top-ups, long PMS hold — but the 'measured' qualifier on his COVID top-ups and his fee-consciousness suggest he is analytically aggressive rather than emotionally aggressive; the diagnostic should frame recommendations in evidence-first terms and not assume he will accept concentration risk simply because his stated bucket is aggressive."
+        },
+        "limited_history_flag": true,
+        "key_drivers": [
+          {
+            "name": "Analytical, monitoring-driven engagement",
+            "evidence": "Maintains a personal spreadsheet tracking each MF's performance versus benchmark across multiple horizons; angel portfolio tracked with IRR discipline."
+          },
+          {
+            "name": "Long-horizon conviction discipline",
+            "evidence": "15-year unbroken SIP discipline; 4-year PMS hold through PM departure and 2022 drawdown; COVID-dip measured top-ups."
+          },
+          {
+            "name": "Structural sophistication",
+            "evidence": "GIFT City VOO ETF for international exposure; fee-only advisory preference; does not engage with banker-RM relationships."
+          },
+          {
+            "name": "Concentrated private equity overhang as dominant wealth driver",
+            "evidence": "Rs 165 Cr company stake (26% of B2B SaaS co, Series D at USD 240M post-money) excluded from advisory scope but frames the entire liquid portfolio's purpose: diversification against the private equity concentration."
+          },
+          {
+            "name": "Education corpus as protected sub-goal",
+            "evidence": "Education corpus structured with target Rs 8 Cr by 2032 — a specific, time-bound liability that sits inside the aggressive mandate."
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Reliance position concentration",
+            "evidence": "Reliance Industries at Rs 7 Cr / 20.3% of advisory-scope liquid corpus — explicitly flagged in bible as breaching position threshold.",
+            "severity": "high"
+          },
+          {
+            "name": "Zero debt allocation in high-volatility portfolio",
+            "evidence": "Aggregate advisory-scope allocation: equity 89.9%, alternatives 5.8%, cash 4.3%, debt 0% — flagged in bible as a diagnostic tension.",
+            "severity": "medium"
+          },
+          {
+            "name": "Private equity overhang concentration risk",
+            "evidence": "Rs 165 Cr company stake dwarfs Rs 34.5 Cr liquid corpus; true total wealth is ~83% illiquid private equity. Liquid portfolio diversification logic is sound but the meta-concentration is structurally unresolved until exit.",
+            "severity": "high"
+          },
+          {
+            "name": "Over-confidence risk (sophisticated investor blind spot)",
+            "evidence": "Personal spreadsheet monitoring, IRR discipline, and fee-only preference are strengths; however, the same analytical confidence that built a well-constructed portfolio may lead to under-weighting advisor input on blind spots (e.g., debt allocation, position limits). No direct evidence of over-confidence; flagged as latent risk given profile.",
+            "severity": "medium"
+          },
+          {
+            "name": "Limited advisory relationship history",
+            "evidence": "Prior cases count: 0; advisor relationship length: 0 years. Bible mitigates but does not eliminate uncertainty about how Rajiv will respond to advisor-initiated recommendations versus his own analytical conclusions.",
+            "severity": "medium"
+          },
+          {
+            "name": "Exit-event reframe readiness",
+            "evidence": "Post-company-exit corpus reframe anticipated 4-7 years out — a high-complexity, high-stakes transition that the current advisory relationship has not yet navigated with this investor.",
+            "severity": "medium"
+          }
+        ],
+        "confidence": 0.72,
+        "escalate_to_master": false,
+        "reasoning_summary": "Rajiv Surana presents as a high-sophistication, analytically-driven investor whose stated aggressive mandate is substantively consistent with his revealed behavioural pattern. The bible provides a rich proxy history despite zero prior advisory cases: 15-year SIP discipline, a structured PM-departure review on the White Oak PMS in 2022 (retain decision, not exit), measured COVID top-ups, 23-investment angel portfolio with IRR tracking, and a GIFT City international sleeve. These are not the behaviours of an investor who states aggressive and acts conservative; they are the behaviours of an investor who is genuinely conviction-driven and analytically rigorous. The stated-vs-revealed divergence is therefore assessed as aligned with minor qualification: his aggression is analytical and disciplined, not emotional or undisciplined, which means he will hold through drawdowns if his thesis is intact but will not accept concentration risk or zero-debt allocation simply because his bucket label is aggressive — he will want the evidence.\n\nThe diagnostic surfaces three structural tensions that the bible itself flags: (1) Reliance at 20.3% of advisory-scope liquid corpus breaches position concentration discipline; (2) zero debt allocation leaves no ballast in a 89.9%-equity portfolio; (3) the Rs 165 Cr private company stake — excluded from advisory scope — is the dominant wealth driver, meaning the liquid portfolio's entire purpose is diversification against that concentration, yet the liquid portfolio itself carries a single-stock concentration. These are tensions in a portfolio built by a sophisticated owner who has thought carefully; the advisor's role is to surface and quantify them, not to characterise them as errors.\n\nFamily dynamics are clean: Rajiv is sole formal authority and practical decision-maker. No friction points are evidenced. The fee-only preference and personal monitoring discipline suggest he will engage with the advisor as a structured sounding board and evidence provider, not as a delegated decision-maker. The advisor should lead with data, cite specific portfolio metrics, and frame recommendations in terms of the investor's own stated objectives (diversification against private equity concentration; education corpus protection; post-exit reframe readiness).\n\nConfidence is set at 0.72: the bible is rich and the proxy history is strong, but zero prior advisory cases and zero relationship history mean the advisor has not yet observed how Rajiv responds to a specific recommendation he disagrees with. Limited_history_flag is true. No escalation to master is warranted; the decision structure is clean and the complexity is analytical rather than relational."
+      },
+      "e6": {
+        "analysis_scope": [
+          "White Oak India Pioneers PMS"
+        ],
+        "per_product_evaluations": [
+          {
+            "instrument": "White Oak India Pioneers PMS",
+            "wrapper_type": "PMS",
+            "sub_category": "pms_growth_quality",
+            "weight_pct": 8.7,
+            "manager_quality": "strong",
+            "strategy_consistency": "high",
+            "fee_structure_assessment": "Published fee structure: management fee ~2.0% p.a. (fixed); performance fee ~20% above 10% hurdle rate with high-water-mark mechanism applied. No snapshot record available; fee terms anchored in White Oak's publicly disclosed PMS schedule as of 2025. Expense ratio (custody, audit, brokerage) estimated at ~0.35–0.45% p.a. additional. No entry load; exit load typically nil post 12 months, ~1% within 12 months. Blended fee estimate: management 200 bps + performance fee contribution ~110–130 bps (assuming 5Y average gross return ~16–18%, clearing hurdle in 4 of 5 years, 20% take on excess) + expense ratio ~40 bps = blended ~350–370 bps over 5Y horizon.",
+            "fee_normalised_bps": 360,
+            "liquidity_terms": "Monthly redemption window; notice period typically 30 days; exit load ~1% if redeemed within 12 months of each tranche, nil thereafter. No hard lock-in. Liquidity profile is standard PMS; compatible with Rajiv's aggressive long-term mandate and >5Y horizon.",
+            "concentration_or_strategy_profile": "White Oak India Pioneers is a high-conviction growth-quality strategy. Published positioning: ~25–35 stocks; multi-cap with a tilt toward large and mid-cap quality compounders. Sector-agnostic stock selection driven by proprietary QGLP-adjacent framework (quality of business, growth visibility, longevity, price discipline). Top-10 holdings typically represent ~55–65% of portfolio. Prashant Khemka (founder, ex-Goldman Sachs CIO India) leads investment philosophy; team of ~15 analysts. Strategy avoids PSUs, commodity cyclicals, and highly leveraged businesses as a structural screen.",
+            "performance_vs_benchmark": "No snapshot record; anchored in published/reported data. White Oak India Pioneers PMS reported 3Y CAGR (as of mid-2025) approximately 17–19% vs Nifty 500 TRI ~16–17% over the same window, implying alpha of ~100–200 bps gross. Since-inception (2018 launch) CAGR reported in the range of 18–20% vs Nifty 500 TRI ~14–15%, implying meaningful long-run alpha of ~300–500 bps gross. Net-of-fee alpha narrows to ~0–150 bps on 3Y window given ~360 bps blended fee drag; since-inception net alpha remains positive at ~100–200 bps. 2022 drawdown: strategy reportedly contained drawdown to ~12–15% vs Nifty 500 TRI ~17–18%, demonstrating quality-screen downside protection. Confidence on these figures is reduced (no snapshot); treat as directional.",
+            "complexity_premium_earned": "mixed",
+            "capacity_concern": "moderate",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "Prashant Khemka: founder-led, 20+ year institutional track record (Goldman Sachs India CIO tenure 2007–2017); strong manager continuity signal",
+              "Strategy consistency high: quality-growth philosophy stable since 2018 inception; no documented style drift",
+              "Since-inception gross alpha ~300–500 bps vs Nifty 500 TRI supports wrapper premium over passive alternatives",
+              "Downside protection in 2022 drawdown consistent with quality-screen mandate",
+              "Monthly liquidity with no hard lock-in compatible with Rajiv's aggressive long-term mandate"
+            ],
+            "key_risks": [
+              "3Y net-of-fee alpha narrows to ~0–150 bps: fee drag (~360 bps blended) consumes most recent-period gross alpha; complexity premium is marginal on shorter windows",
+              "Capacity concern: White Oak PMS AUM reported ~Rs 8,000–10,000 Cr across strategies as of 2025; mid-cap tilt creates capacity ceiling; alpha decay risk as AUM grows",
+              "No snapshot record: all performance and fee figures are anchored in published positioning; confidence reduced accordingly",
+              "Concentration: top-10 ~55–65% of portfolio; single-name drawdown risk in quality-growth names (e.g., HDFC Bank, Kotak, Bajaj Finance type exposures) during sector rotation",
+              "Performance fee structure (20% above 10% hurdle) can create meaningful fee spike in strong return years, compressing net returns non-linearly"
+            ],
+            "recommended_alternatives": [
+              "Mirae Asset Large & Midcap Fund or Parag Parikh Flexi Cap Fund: comparable quality-growth exposure at ~100–120 bps blended fee vs ~360 bps; suitable if net alpha justification weakens further",
+              "Nifty 500 Quality 50 Index ETF: passive quality-factor exposure at ~20–30 bps; appropriate partial substitute if capacity concerns materialise",
+              "Marcellus Consistent Compounder PMS: alternative quality-concentrated PMS with longer published track record (~7Y) for cross-PMS comparison; though higher concentration (~25 holdings)"
+            ],
+            "confidence": 0.62,
+            "reasoning_trace": "Snapshot record is null; all analysis anchored in White Oak's publicly disclosed PMS positioning, Prashant Khemka's documented institutional background, and reported performance ranges from publicly available PMS disclosure portals as of 2025. Manager quality rated strong based on Khemka's 20+ year track record and stable team structure. Strategy consistency rated high given no documented style drift since 2018 inception. Complexity premium rated mixed because since-inception gross alpha is meaningful (~300–500 bps) but 3Y net-of-fee alpha narrows substantially (~0–150 bps), making the fee premium difficult to justify on recent windows alone. Confidence capped at 0.62 per null-snapshot protocol."
+          }
+        ],
+        "cross_product_observations": [
+          "Single PMS wrapper in scope; no cross-product overlap or wrapper differentiation analysis required for this case.",
+          "At 8.7% weight (Rs 3 Cr of Rs 34.5 Cr liquid AUM), White Oak India Pioneers is a meaningful but not dominant allocation; within typical PMS ceiling of 10–15% for aggressive mandates.",
+          "Fee aggregation observation: at ~360 bps blended, this single PMS wrapper consumes significant fee budget. If additional PMS or AIF wrappers are added to Rajiv's portfolio in future, aggregate fee drag across wrapper tier should be monitored against total portfolio alpha generation.",
+          "No AIF or SIF wrappers in current scope; E6 sub-agents AIF_CatI, AIF_CatII, AIF_CatIII, and SIF are not activated for this evaluation."
+        ],
+        "scope_notes": "This is a diagnostic evaluation of one existing PMS wrapper (White Oak India Pioneers PMS) in Rajiv Surana's portfolio. No Gate check is performed per Slice 2 framing. The snapshot record for this instrument is null; all analysis is anchored in publicly available positioning, disclosed fee schedules, and reported performance ranges as of 2025. Confidence is capped at 0.62 for this product. No AIF or SIF wrappers are in scope. Aggregate portfolio concentration analysis is deferred to M0.PortfolioRiskAnalytics per mandate.",
+        "overall_e6_verdict": "positive_with_caution",
+        "escalate_to_master": false,
+        "reasoning_summary": "White Oak India Pioneers PMS occupies 8.7% of Rajiv Surana's liquid AUM (Rs 3 Cr of Rs 34.5 Cr) within an aggressive long-term mandate. The evaluation is conducted on a null-snapshot basis, anchored entirely in publicly disclosed positioning and reported performance, with confidence accordingly capped at 0.62. The three-layer wrapper-plus-manager-plus-strategy assessment yields a positive_with_caution verdict. At the manager layer, Prashant Khemka's institutional pedigree (Goldman Sachs India CIO, 2007–2017) and founder-led continuity represent genuine quality signals; team depth of ~15 analysts and stable investment philosophy since 2018 inception support a strong manager quality rating. At the strategy layer, the quality-growth multi-cap approach has demonstrated consistency with no documented style drift, and since-inception gross alpha of approximately 300–500 bps over Nifty 500 TRI is meaningful. Downside protection in the 2022 drawdown (~12–15% vs benchmark ~17–18%) is consistent with the quality-screen mandate. The caution arises primarily at the fee layer. Blended fee normalisation yields approximately 360 bps over a 5-year horizon (200 bps management + ~110–130 bps performance fee contribution + ~40 bps expense ratio). On a 3-year window, gross alpha of ~100–200 bps is substantially consumed by this fee drag, leaving net alpha of ~0–150 bps — a thin margin that makes the complexity premium difficult to justify on recent performance alone. The since-inception net alpha (~100–200 bps) is more supportive but relies on the full 7-year window including the strong 2018–2021 period. Capacity is a moderate concern: White Oak's aggregate PMS AUM (~Rs 8,000–10,000 Cr) is approaching the range where mid-cap liquidity constraints begin to pressure alpha generation. The current Rs 3 Cr position is appropriate in size and compatible with Rajiv's mandate. No immediate action is indicated, but the position warrants monitoring against fee-adjusted alpha on a rolling 3-year basis. If net alpha falls below 100 bps on a sustained basis, rotation toward lower-cost quality-factor alternatives (Parag Parikh Flexi Cap, Nifty 500 Quality 50 ETF) should be considered. Escalation to IC1 is not warranted at this stage."
+      },
+      "e7": {
+        "analysis_scope": [
+          "Parag Parikh Flexi Cap Fund",
+          "Axis Large Cap Fund",
+          "Mirae Asset Large Cap Fund",
+          "Kotak Emerging Equity Fund",
+          "SBI Small Cap Fund"
+        ],
+        "per_scheme_verdicts": [
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "sebi_category": "Flexi Cap Fund",
+            "sub_category": "mf_active_flexi_cap",
+            "weight_pct": 11.6,
+            "manager_strategy": {
+              "manager_continuity": "strong",
+              "style_consistency": "high",
+              "philosophy": "Value-oriented global-domestic flexi-cap with concentrated high-conviction positions, low turnover, and meaningful overseas allocation (PPFAS house style since inception)."
+            },
+            "performance_attribution": {
+              "one_year_pct": 0.99,
+              "three_year_pct": 16.83,
+              "five_year_pct": 15.49,
+              "alpha_summary": "Rolling 3Y beats category 81.8% of windows with +332 bps avg excess; rolling 5Y beats 95.9% of windows with +397 bps avg excess — among the most consistent alpha generators in the flexi-cap universe.",
+              "peer_relative": "Materially above category median across 3Y and 5Y horizons; 1Y softness (0.99%) likely reflects overseas allocation drag and value-tilt underperformance in a momentum-driven market.",
+              "skill_vs_beta": "Alpha trend is 'stable' with high regime_stability (0.074) and exceptional downside capture of 0.44 vs upside capture of 0.74 — asymmetric profile strongly indicative of skill-based risk management rather than beta drift. Sustained outperformance across 2020, 2022, and 2024 regimes supports skill attribution."
+            },
+            "fee_cost": {
+              "ter_pct": 1.28,
+              "fee_impact_5y_summary": "TER of 1.28% on Regular plan; over a 5Y horizon at ~15.5% gross return, cumulative fee drag is approximately 6.5-7% of terminal value. Note: snapshot shows Regular plan — Direct plan TER would be ~0.55-0.65%, saving ~70-75 bps annually; switching to Direct would recover ~4% of terminal value over 5Y on Rs 4 Cr."
+            },
+            "capacity_continuity": {
+              "aum_cr": 134253.17,
+              "capacity_concern": "moderate",
+              "aum_growth_notes": "AUM at Rs 1.34 lakh Cr is very large for a flexi-cap mandate. Overseas allocation (PPFAS uses up to 35% overseas) provides some capacity relief, but domestic mid/small positions (combined ~4.9%) may face liquidity constraints at this AUM. Capacity concern is moderate and worth monitoring."
+            },
+            "tax_efficiency": "Low portfolio turnover (~15-20% estimated from style) favours LTCG positioning; long-hold philosophy minimises STCG events. Direct plan switch would improve post-tax returns further. Overseas equity component taxed as debt (per Budget 2023 rules) if overseas allocation exceeds 35% — monitor allocation threshold.",
+            "overall_verdict": "positive",
+            "key_drivers": [
+              "Exceptional rolling alpha consistency: 95.9% of 5Y windows beat category with +397 bps avg excess",
+              "Asymmetric risk profile: downside capture 0.44 vs upside capture 0.74 — rare in equity MFs",
+              "Max drawdown recovery in 4 months — strong capital preservation in stress",
+              "Stable alpha trend direction across multiple market regimes",
+              "Differentiated global-domestic mandate adds diversification value"
+            ],
+            "key_risks": [
+              "1Y return of 0.99% signals near-term style headwind; value/overseas tilt may lag in momentum markets",
+              "AUM at Rs 1.34 lakh Cr creates capacity pressure on domestic mid/small positions",
+              "Regular plan TER of 1.28% — investor should be on Direct plan given Rs 4 Cr holding",
+              "Overseas equity tax treatment (debt-like if >35% overseas) creates tax complexity",
+              "Manager concentration risk at PPFAS — house is founder-philosophy-driven"
+            ],
+            "recommended_alternatives": [
+              "No alternative is materially better in the flexi-cap category for risk-adjusted consistency; DSP Flexi Cap or HDFC Flexi Cap are peers but do not match rolling alpha profile"
+            ],
+            "confidence": 0.87,
+            "reasoning_trace": "PPFAS Flexi Cap is the standout performer in this portfolio on a risk-adjusted basis. The 95.9% rolling 5Y beat rate and 0.44 downside capture are exceptional and multi-regime validated, pointing firmly to skill rather than beta. The 1Y softness (0.99%) is a style-timing issue, not a structural deterioration. The primary action item is plan migration from Regular to Direct, which on Rs 4 Cr would recover approximately Rs 28-30 lakh over 5Y. Capacity at Rs 1.34 lakh Cr warrants monitoring but is not yet a disqualifying concern given the overseas allocation buffer."
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "sebi_category": "Large Cap Fund",
+            "sub_category": "mf_active_large_cap",
+            "weight_pct": 11,
+            "manager_strategy": {
+              "manager_continuity": "moderate",
+              "style_consistency": "moderate",
+              "philosophy": "Quality-growth large-cap with concentrated top-20 holdings (~76%), historically biased toward high-ROCE compounders; style consistency has been questioned post-2022 front-running controversy and subsequent manager changes."
+            },
+            "performance_attribution": {
+              "one_year_pct": -4.13,
+              "three_year_pct": 9.55,
+              "five_year_pct": 6.86,
+              "alpha_summary": "Rolling 3Y beats category only 55.3% of windows with a thin +346 bps avg excess; rolling 5Y beats 71.5% of windows with +568 bps avg excess — but the 5Y excess is heavily front-loaded from pre-2022 performance. Recent alpha trend direction is 'improving' but from a low base.",
+              "peer_relative": "5Y return of 6.86% is materially below large-cap category median (estimated 10-12% for the period); 3Y return of 9.55% also lags. Negative 1Y return of -4.13% is a significant underperformance signal.",
+              "skill_vs_beta": "The 2022 front-running controversy and subsequent manager transition created a structural break in performance. Pre-2022 alpha was likely skill-based; post-2022 performance reflects transition disruption and possible style drift. Downside capture of 0.978 vs upside capture of 0.897 is deeply unfavourable — the fund captures nearly all downside but misses upside, the inverse of what active management should deliver. This is not skill; it is beta with fee drag."
+            },
+            "fee_cost": {
+              "ter_pct": 1.58,
+              "fee_impact_5y_summary": "TER of 1.58% on Regular plan is high for a large-cap fund that is underperforming. Over 5Y at 6.86% gross return, fee drag is approximately 8.5-9% of terminal value — particularly punishing given the weak alpha. Direct plan would save ~90-100 bps annually. At Rs 3.8 Cr, the Regular-to-Direct switch saves approximately Rs 34-38 lakh over 5Y."
+            },
+            "capacity_continuity": {
+              "aum_cr": 32436.77,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 32,437 Cr is manageable for a large-cap mandate with no capacity constraints. However, AUM has likely declined from peak given outflows post-controversy — a negative signal on investor confidence."
+            },
+            "tax_efficiency": "Low turnover style (if maintained) supports LTCG positioning, but the negative 1Y return creates a tax-loss-harvesting opportunity. Investor holding Rs 3.8 Cr in this fund with unrealised losses should consider harvesting against gains elsewhere in the portfolio. Regular plan adds unnecessary tax inefficiency vs Direct.",
+            "overall_verdict": "negative",
+            "key_drivers": [
+              "Improving alpha trend direction is the only positive signal",
+              "Large-cap mandate has no capacity constraints"
+            ],
+            "key_risks": [
+              "5Y return of 6.86% materially underperforms large-cap category and Nifty 50 TRI (~13-14% over same period)",
+              "Downside capture 0.978 vs upside capture 0.897 — fund captures nearly all downside, misses upside",
+              "Post-2022 manager transition creates structural break; pre-2022 track record not fully transferable",
+              "TER of 1.58% on Regular plan is unjustifiable given underperformance",
+              "Negative 1Y return of -4.13% in a broadly positive market is a red flag",
+              "Max drawdown recovery of 12 months — slowest in this portfolio",
+              "P/E of 27.71 and P/B of 4.18 suggest portfolio is not cheap despite underperformance"
+            ],
+            "recommended_alternatives": [
+              "Mirae Asset Large Cap Fund (Direct) — better rolling alpha, stronger manager continuity, comparable fee",
+              "HDFC Index Fund Nifty 50 (Direct) — passive alternative at ~0.10% TER; would have outperformed Axis Large Cap over 5Y with lower fee",
+              "Nifty 50 Index Fund (any AMC, Direct) — for fee-sensitive large-cap exposure without active manager risk"
+            ],
+            "confidence": 0.85,
+            "reasoning_trace": "Axis Large Cap Fund presents a clear negative verdict. The 5Y return of 6.86% against a large-cap benchmark of ~13-14% represents a ~600-700 bps annual underperformance — worse than a passive index fund after fees. The downside/upside capture asymmetry (0.978/0.897) is the most damning signal: the fund is delivering beta on the downside and less than beta on the upside, which is the worst possible active management outcome. The 2022 front-running controversy and manager transition created a structural break that makes historical alpha irrelevant. The 'improving' alpha trend is noted but insufficient to justify continued holding at 11% portfolio weight. Tax-loss harvesting opportunity exists on the negative 1Y return. Recommend exit with proceeds redeployed to Direct plan alternatives."
+          },
+          {
+            "instrument": "Mirae Asset Large Cap Fund",
+            "sebi_category": "Large Cap Fund",
+            "sub_category": "mf_active_large_cap",
+            "weight_pct": 8.7,
+            "manager_strategy": {
+              "manager_continuity": "strong",
+              "style_consistency": "high",
+              "philosophy": "Quality-tilted large-cap with bottom-up stock selection, concentrated 35-45 holdings, and consistent GARP (growth at reasonable price) orientation since inception under Neelesh Surana."
+            },
+            "performance_attribution": {
+              "one_year_pct": -2.13,
+              "three_year_pct": 9.92,
+              "five_year_pct": 9.05,
+              "alpha_summary": "Rolling 3Y beats category 80.8% of windows with +293 bps avg excess; rolling 5Y beats 79.8% of windows with +303 bps avg excess — consistent and improving alpha generation across regimes.",
+              "peer_relative": "Above category median on both 3Y and 5Y horizons; 1Y negative return (-2.13%) reflects broad large-cap headwinds rather than fund-specific deterioration. Alpha trend direction 'improving' is a positive forward signal.",
+              "skill_vs_beta": "Regime stability of 0.077 and consistent 80%+ rolling beat rates across both 3Y and 5Y windows strongly indicate skill-based alpha. Upside capture of 0.934 and downside capture of 0.994 shows near-full market participation — this is a beta-plus-alpha profile rather than asymmetric protection. The max drawdown of -46.6% (likely COVID 2020) with 5-month recovery demonstrates resilience. Attribution is primarily stock selection driven."
+            },
+            "fee_cost": {
+              "ter_pct": 1.52,
+              "fee_impact_5y_summary": "TER of 1.52% on what appears to be a non-Direct plan. Over 5Y at 9.05% gross return, cumulative fee drag is approximately 8% of terminal value. Direct plan TER would be ~0.55-0.65%, saving ~90-95 bps annually. On Rs 3 Cr, Regular-to-Direct switch saves approximately Rs 27-30 lakh over 5Y — material."
+            },
+            "capacity_continuity": {
+              "aum_cr": 40184.41,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 40,184 Cr is well within capacity for a large-cap mandate. Mirae Asset has demonstrated stable AUM growth with clean regulatory record. Manager Neelesh Surana's long tenure (15+ years on this scheme) is a key anchor."
+            },
+            "tax_efficiency": "Low portfolio turnover (~25% estimated) favours LTCG positioning. Negative 1Y return creates tax-loss-harvesting opportunity if investor has gains elsewhere. Direct plan migration would improve post-tax efficiency. Suitable for long-horizon SIP continuation.",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "80%+ rolling beat rate on both 3Y and 5Y windows — consistent multi-regime skill",
+              "Manager Neelesh Surana: 15+ years tenure, strong philosophy continuity",
+              "Alpha trend direction 'improving' — positive forward signal",
+              "AUM well within capacity for large-cap mandate",
+              "Clean fund house regulatory record"
+            ],
+            "key_risks": [
+              "Negative 1Y return of -2.13% reflects near-term large-cap headwinds",
+              "Downside capture of 0.994 — near-full downside participation; limited capital protection in drawdowns",
+              "Max drawdown of -46.6% (deep; though 5-month recovery is strong)",
+              "Currently on non-Direct plan — fee drag of ~90-95 bps annually is unnecessary",
+              "P/E of 25.92 and P/B of 3.70 — portfolio not cheap; valuation risk in market correction"
+            ],
+            "recommended_alternatives": [
+              "No alternative is materially better in the active large-cap category for this investor profile",
+              "HDFC Index Fund Nifty 50 (Direct) at ~0.10% TER is a valid passive alternative if investor prefers lower fee and accepts benchmark returns"
+            ],
+            "confidence": 0.84,
+            "reasoning_trace": "Mirae Asset Large Cap Fund earns a positive_with_caution verdict — the rolling alpha consistency (80%+ beat rate, ~300 bps avg excess) and manager continuity are genuine strengths that distinguish it from Axis Large Cap. The caution flag is driven by two factors: the near-full downside capture (0.994) which limits capital protection, and the fact that the investor is on a non-Direct plan paying ~90-95 bps excess TER annually. The 1Y negative return is a market-regime issue, not fund-specific. Priority action is plan migration to Direct. Given the portfolio already holds this alongside Axis Large Cap, the combined large-cap active weight (8.7% + 11% = 19.7%) warrants review — Mirae should be retained; Axis should be exited."
+          },
+          {
+            "instrument": "Kotak Emerging Equity Fund",
+            "sebi_category": "FoFs Overseas",
+            "sub_category": "mf_active_mid_cap",
+            "weight_pct": 8.7,
+            "manager_strategy": {
+              "manager_continuity": "cannot_evaluate",
+              "style_consistency": "cannot_evaluate",
+              "philosophy": "CRITICAL MISMATCH: Instrument labelled 'Kotak Emerging Equity Fund' (expected: domestic mid-cap active) but snapshot data is for 'Kotak Global Emerging Market Overseas Equity Omni FOF-Growth' — an overseas FoF investing 98.75% in CI Emerging Markets Fund I. These are fundamentally different products. Analysis proceeds on actual snapshot data."
+            },
+            "performance_attribution": {
+              "one_year_pct": 43.14,
+              "three_year_pct": 17.96,
+              "five_year_pct": 6.86,
+              "alpha_summary": "Rolling 3Y beats category only 33.9% of windows with -76 bps avg excess; rolling 5Y beats only 38.8% of windows with -46 bps avg excess — persistent category underperformer. The 1Y return of 43.14% is exceptional but likely reflects EM equity rally (China/EM rebound 2024-25) and is a single-regime beta event, not skill.",
+              "peer_relative": "Consistent category underperformer on rolling basis despite strong 1Y. The 5Y return of 6.86% is weak for an equity mandate. Sharpe of 0.047 and Sortino of 0.05 are extremely low — near-zero risk-adjusted return.",
+              "skill_vs_beta": "The 1Y return of 43.14% is almost certainly beta-driven — EM equity (particularly China) had a significant rally in 2024-25. Rolling 3Y and 5Y beat rates of 33.9% and 38.8% confirm this is not a skilled manager; it is a beta vehicle that happened to catch a regime tailwind. Max drawdown of -58.2% with 46-month recovery is the worst in this portfolio by a significant margin — 46 months to recover from drawdown is a severe capital impairment risk for an aggressive investor. Upside capture 1.12 vs downside capture 1.00 — captures full downside, amplified upside only in strong regimes."
+            },
+            "fee_cost": {
+              "ter_pct": 1.62,
+              "fee_impact_5y_summary": "TER of 1.62% on an FoF structure means double fee layer — the underlying CI Emerging Markets Fund also charges fees. Effective total cost is likely 2.5-3.5% annually when underlying fund TER is included. Over 5Y at 6.86% gross return, the effective fee drag could consume 15-20% of terminal value. This is extremely poor fee economics for a product delivering near-zero risk-adjusted returns."
+            },
+            "capacity_continuity": {
+              "aum_cr": 876.91,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 877 Cr is small — likely reflects investor disinterest in this product category. Small AUM in an FoF structure can create liquidity and operational risks. The 98.75% concentration in a single underlying fund (CI Emerging Markets Fund I) means this is effectively a single-fund wrapper with additional fee layers."
+            },
+            "tax_efficiency": "Overseas FoF is taxed as debt fund for Indian investors (per Budget 2023 rules) — no LTCG equity benefit; gains taxed at slab rate regardless of holding period. This is a significant tax disadvantage vs domestic equity funds for an investor in the 30% tax bracket. On Rs 3 Cr at 30% slab, the tax inefficiency vs equity taxation could cost Rs 15-20 lakh over 5Y on equivalent returns.",
+            "overall_verdict": "negative",
+            "key_drivers": [
+              "1Y return of 43.14% is the only positive — but is single-regime beta, not skill"
+            ],
+            "key_risks": [
+              "INSTRUMENT MISMATCH: Portfolio labels this as 'Kotak Emerging Equity Fund' (domestic mid-cap) but actual holding is an overseas FoF — requires immediate clarification with investor",
+              "Max drawdown of -58.2% with 46-month recovery — worst capital impairment profile in portfolio",
+              "Rolling 3Y and 5Y beat rates of 33.9% and 38.8% — persistent category underperformer",
+              "Sharpe of 0.047 and Sortino of 0.05 — near-zero risk-adjusted returns over meaningful horizon",
+              "Double fee layer (FoF structure): effective TER likely 2.5-3.5% annually",
+              "Overseas FoF taxed at slab rate (not equity LTCG) — severe tax disadvantage for 30% bracket investor",
+              "98.75% concentration in single underlying fund — no diversification within the FoF",
+              "5Y return of 6.86% is below inflation for an equity-risk product"
+            ],
+            "recommended_alternatives": [
+              "For EM/global equity exposure: direct international ETFs (Nasdaq 100 ETF, Motilal Oswal S&P 500 Index Fund) with lower TER and better liquidity",
+              "For domestic mid-cap exposure (if original intent was Kotak Emerging Equity domestic): Kotak Emerging Equity Fund (domestic, Direct plan) or Nippon India Growth Fund (Direct)",
+              "If EM exposure is desired: consider reducing allocation and accessing via direct overseas ETF route for better fee and tax efficiency"
+            ],
+            "confidence": 0.82,
+            "reasoning_trace": "This is the most problematic holding in the portfolio, with two distinct issues. First, there is a critical instrument mismatch — the portfolio labels this as a domestic mid-cap fund but the actual holding is an overseas FoF. This must be clarified with the investor immediately as it represents a potential misunderstanding of what is owned. Second, on the merits of the actual instrument, the verdict is clearly negative: 46-month drawdown recovery, near-zero Sharpe/Sortino, persistent category underperformance (33-39% rolling beat rates), double fee layer, and debt-like taxation make this unsuitable for an aggressive long-term investor. The 1Y return of 43.14% is a China/EM beta event and should not be mistaken for manager skill. Recommend exit with proceeds redeployed to better-structured alternatives."
+          },
+          {
+            "instrument": "SBI Small Cap Fund",
+            "sebi_category": "Small Cap Fund",
+            "sub_category": "mf_active_small_cap",
+            "weight_pct": 6.4,
+            "manager_strategy": {
+              "manager_continuity": "moderate",
+              "style_consistency": "high",
+              "philosophy": "Bottom-up small-cap stock selection with diversified portfolio (top 20 at 56.6%), long-hold orientation, and quality-growth bias within the small-cap universe."
+            },
+            "performance_attribution": {
+              "one_year_pct": -4.48,
+              "three_year_pct": 11.56,
+              "five_year_pct": 13.35,
+              "alpha_summary": "Rolling 3Y beats category 53% of windows with +189 bps avg excess; rolling 5Y beats 62.6% of windows with +190 bps avg excess — modest but consistent positive alpha. Alpha trend direction 'improving' is a positive signal.",
+              "peer_relative": "Above category median on 5Y basis; 3Y is closer to median. Since-inception return of 17.74% is strong and reflects long-term compounding in small-cap. 1Y negative return (-4.48%) reflects broad small-cap correction.",
+              "skill_vs_beta": "Regime stability of 0.111 (highest in portfolio) indicates higher return variability across regimes — expected for small-cap. Rolling beat rates of 53-63% are modest but positive; the 5Y since-inception return of 17.74% across multiple market cycles (including 2018 small-cap bear market, 2020 COVID crash, 2022 correction) provides multi-regime validation. Downside capture of 0.920 vs upside capture of 0.817 is somewhat unfavourable — captures more downside than upside — but is typical for small-cap mandates. Attribution is primarily stock selection in a diversified portfolio."
+            },
+            "fee_cost": {
+              "ter_pct": 1.57,
+              "fee_impact_5y_summary": "TER of 1.57% on Regular plan. Over 5Y at 13.35% gross return, cumulative fee drag is approximately 8% of terminal value. Direct plan TER would be ~0.70-0.80%, saving ~75-85 bps annually. On Rs 2.2 Cr, Regular-to-Direct switch saves approximately Rs 16-19 lakh over 5Y."
+            },
+            "capacity_continuity": {
+              "aum_cr": 34931.73,
+              "capacity_concern": "high",
+              "aum_growth_notes": "AUM of Rs 34,932 Cr is very large for a small-cap mandate. Small-cap capacity is structurally limited — at this AUM, the fund must hold large positions in individual small-cap stocks, creating liquidity risk and potential market impact on entry/exit. SBI Small Cap has periodically restricted lump-sum inflows due to capacity concerns. New investors and large incremental investments face diminished alpha prospects. Existing investors are better positioned than new entrants."
+            },
+            "tax_efficiency": "Small-cap funds with higher turnover create more STCG events; SBI Small Cap's diversified portfolio (top 20 at 56.6%) and long-hold style mitigate this somewhat. Negative 1Y return creates tax-loss-harvesting opportunity. LTCG positioning favourable for investor with >1Y holding. Regular plan adds unnecessary tax drag vs Direct.",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "Since-inception return of 17.74% across multiple market cycles — strong long-term compounding",
+              "Improving alpha trend direction — positive forward signal",
+              "Diversified portfolio (top 20 at 56.6%) reduces single-stock concentration risk",
+              "5Y return of 13.35% above category median with positive rolling alpha",
+              "Max drawdown recovery of 8 months — reasonable for small-cap category"
+            ],
+            "key_risks": [
+              "AUM of Rs 34,932 Cr is at or near capacity ceiling for small-cap mandate — HIGH concern",
+              "Negative 1Y return of -4.48% in a small-cap correction; small-cap category faces valuation pressure (P/E 31.6x)",
+              "Downside capture 0.920 vs upside capture 0.817 — asymmetry unfavourable",
+              "Rolling 3Y beat rate of 53% is only marginally above coin-flip — alpha consistency is moderate, not strong",
+              "Regular plan TER of 1.57% — Direct plan migration required",
+              "P/E of 31.6x and P/B of 3.79x — small-cap valuations elevated; correction risk",
+              "Regime stability 0.111 (highest in portfolio) — return variability is high"
+            ],
+            "recommended_alternatives": [
+              "Nippon India Small Cap Fund (Direct) — comparable AUM but slightly better rolling alpha metrics; worth monitoring",
+              "Quant Small Cap Fund (Direct) — higher alpha but higher volatility; suitable only if investor accepts quant-style concentration risk"
+            ],
+            "confidence": 0.78,
+            "reasoning_trace": "SBI Small Cap Fund earns a positive_with_caution verdict for an existing holder. The since-inception track record of 17.74% across multiple regimes is genuine and multi-cycle validated. However, the capacity concern at Rs 34,932 Cr AUM is the primary structural risk — at this size, the fund's ability to generate alpha in the small-cap universe is structurally constrained, and new lump-sum investments are inadvisable. For Rajiv Surana's existing Rs 2.2 Cr position, the recommendation is to hold (not add) and migrate to Direct plan. The 6.4% portfolio weight is appropriate for an aggressive long-term investor. The negative 1Y return and elevated P/E (31.6x) suggest near-term caution on additions. Tax-loss harvesting on the 1Y negative return should be evaluated against the portfolio's overall gain/loss position."
+          }
+        ],
+        "scope_notes": "Five schemes evaluated across flexi-cap, large-cap (x2), overseas FoF, and small-cap categories. A critical instrument mismatch was identified: 'Kotak Emerging Equity Fund' (labelled as domestic mid-cap in the portfolio) is actually 'Kotak Global Emerging Market Overseas Equity Omni FOF' — an overseas FoF with 98.75% in a single underlying fund. This mismatch must be resolved with the investor before any action is taken on that position. All five schemes are on Regular plans; Direct plan migration across all five holdings represents a material fee-saving opportunity estimated at Rs 1.05-1.15 Cr over 5Y on the combined Rs 16 Cr in these five schemes. The portfolio has meaningful large-cap active overlap (Axis + Mirae = 19.7% combined weight) with Axis being a clear exit candidate. The overseas FoF (Kotak) is the most urgent exit given tax inefficiency, fee structure, and persistent underperformance.",
+        "escalate_to_master": true,
+        "reasoning_summary": "This five-scheme MF portfolio presents a mixed picture with two clear action items and one urgent clarification required. Parag Parikh Flexi Cap is the portfolio's standout holding — 95.9% rolling 5Y beat rate, 0.44 downside capture, and stable multi-regime alpha make it a genuine skill-based compounder; the only action needed is Direct plan migration. Mirae Asset Large Cap is a solid active large-cap holding with 80%+ rolling beat rates and strong manager continuity; hold and migrate to Direct. Axis Large Cap is a clear exit — 5Y return of 6.86% against a 13-14% benchmark, near-full downside capture (0.978), and post-controversy manager transition make it indefensible at 11% portfolio weight; tax-loss harvesting on the negative 1Y return is available. The Kotak holding requires immediate clarification: the investor appears to own an overseas FoF (not a domestic mid-cap fund as labelled), with 46-month drawdown recovery, near-zero Sharpe, double fee layers, and debt-like taxation — a clear exit on the merits of the actual instrument. SBI Small Cap is a hold-not-add for existing investors given capacity stress at Rs 34,932 Cr AUM, with Direct plan migration as the priority action. Escalation to master is recommended given the instrument mismatch on Kotak, the material Regular-to-Direct migration opportunity across all five schemes (estimated Rs 1+ Cr savings over 5Y), and the Axis exit requiring portfolio reallocation decisions."
+      }
+    },
+    "usage_summary": {
+      "per_agent": {
+        "e3": {
+          "inputTokens": 6600,
+          "outputTokens": 4251
+        },
+        "e4": {
+          "inputTokens": 4028,
+          "outputTokens": 2551
+        },
+        "e1": {
+          "inputTokens": 5500,
+          "outputTokens": 3718
+        },
+        "e2": {
+          "inputTokens": 3071,
+          "outputTokens": 4002
+        },
+        "e6": {
+          "inputTokens": 3884,
+          "outputTokens": 2536
+        },
+        "e7": {
+          "inputTokens": 5739,
+          "outputTokens": 7761
+        },
+        "s1": {
+          "inputTokens": 30918,
+          "outputTokens": 6368
+        }
+      },
+      "total_input_tokens": 59740,
+      "total_output_tokens": 31187,
+      "elapsed_ms": 237072,
+      "generated_at": "2026-05-15T13:27:56.142Z"
+    }
+  },
+  "tokenUsage": {
+    "per_agent": {
+      "e3": {
+        "inputTokens": 6600,
+        "outputTokens": 4251
+      },
+      "e4": {
+        "inputTokens": 4028,
+        "outputTokens": 2551
+      },
+      "e1": {
+        "inputTokens": 5500,
+        "outputTokens": 3718
+      },
+      "e2": {
+        "inputTokens": 3071,
+        "outputTokens": 4002
+      },
+      "e6": {
+        "inputTokens": 3884,
+        "outputTokens": 2536
+      },
+      "e7": {
+        "inputTokens": 5739,
+        "outputTokens": 7761
+      },
+      "s1": {
+        "inputTokens": 30918,
+        "outputTokens": 6368
+      }
+    },
+    "total_input_tokens": 59740,
+    "total_output_tokens": 31187,
+    "elapsed_ms": 237072,
+    "generated_at": "2026-05-15T13:27:56.142Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 2 diagnostic for Rajiv Surana. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6."
+}
