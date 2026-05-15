@@ -154,7 +154,11 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
 
         <div className="case-body">
           {activeTab === "analyst" ? (
-            <AnalystReportsTab verdicts={evidence} />
+            <AnalystReportsTab
+              verdicts={evidence}
+              materiality={materiality}
+              ic1Deliberation={ic1Deliberation}
+            />
           ) : (
             <OutcomeTab
               caseId={id}
