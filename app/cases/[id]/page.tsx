@@ -13,6 +13,8 @@ import type { BriefingCaseContent } from "@/lib/agents/case/briefing-case-conten
 import type { CaseEvidenceVerdict } from "@/lib/agents/case/case-verdict";
 import type { Proposal } from "@/lib/agents/proposal";
 import type { CaseDecision } from "@/lib/format/case-decision";
+import type { MaterialityOutput } from "@/lib/agents/materiality";
+import type { IC1Deliberation } from "@/lib/agents/ic1/types";
 import { transformRupeesDeep } from "@/lib/format/rupees";
 
 type PageProps = {
@@ -78,6 +80,8 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
       briefing?: BriefingCaseContent;
       proposal?: Proposal;
       evidence_verdicts?: CaseEvidenceVerdict[];
+      materiality?: MaterialityOutput;
+      ic1_deliberation?: IC1Deliberation;
     } = {};
     try {
       parsed = JSON.parse(c.contentJson);
@@ -107,6 +111,8 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     const briefing = transformRupeesDeep(parsed.briefing);
     const proposal = parsed.proposal;
     const evidence = parsed.evidence_verdicts ?? [];
+    const materiality = parsed.materiality ?? null;
+    const ic1Deliberation = parsed.ic1_deliberation ?? null;
     const decision: CaseDecision | null = c.decisionJson ? (JSON.parse(c.decisionJson) as CaseDecision) : null;
     const activeTab: "outcome" | "analyst" = tab === "analyst" ? "analyst" : "outcome";
 
@@ -150,7 +156,14 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           {activeTab === "analyst" ? (
             <AnalystReportsTab verdicts={evidence} />
           ) : (
-            <OutcomeTab caseId={id} briefing={briefing} proposal={proposal} decision={decision} />
+            <OutcomeTab
+              caseId={id}
+              briefing={briefing}
+              proposal={proposal}
+              decision={decision}
+              materiality={materiality}
+              ic1Deliberation={ic1Deliberation}
+            />
           )}
           <ChatPanel />
         </div>
