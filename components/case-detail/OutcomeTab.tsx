@@ -18,14 +18,19 @@ import type {
 } from "@/lib/agents/case/briefing-case-content";
 import type { CaseDecision } from "@/lib/format/case-decision";
 import type { Proposal } from "@/lib/agents/proposal";
+import type { MaterialityOutput } from "@/lib/agents/materiality";
+import type { IC1Deliberation } from "@/lib/agents/ic1/types";
 import { labelFor } from "@/lib/format/case-intent";
 import { DecisionCapture } from "./DecisionCapture";
+import { IC1Section } from "./IC1Section";
 
 type Props = {
   caseId: string;
   briefing: BriefingCaseContent;
   proposal: Proposal;
   decision: CaseDecision | null;
+  materiality: MaterialityOutput | null;
+  ic1Deliberation: IC1Deliberation | null;
 };
 
 function verdictPillClass(v: SynthesisVerdictSection["overall_verdict"]): string {
@@ -53,7 +58,14 @@ function challengeCategoryLabel(c: AdvisoryChallengeItem["category"]): string {
   return "Edge case";
 }
 
-export function OutcomeTab({ caseId, briefing, proposal, decision }: Props) {
+export function OutcomeTab({
+  caseId,
+  briefing,
+  proposal,
+  decision,
+  materiality,
+  ic1Deliberation,
+}: Props) {
   const sv = briefing.section_2_synthesis_verdict;
 
   return (
@@ -174,9 +186,13 @@ export function OutcomeTab({ caseId, briefing, proposal, decision }: Props) {
           </div>
         </section>
 
+        {materiality && ic1Deliberation && (
+          <IC1Section materiality={materiality} deliberation={ic1Deliberation} />
+        )}
+
         <section className="pdf-section">
           <h2>
-            <span className="sec-num">05</span>Suggested talking points
+            <span className="sec-num">06</span>Suggested talking points
           </h2>
           <div className="talking-points">
             {briefing.section_6_talking_points.map((t) => (
@@ -195,7 +211,7 @@ export function OutcomeTab({ caseId, briefing, proposal, decision }: Props) {
 
         <section className="pdf-section coverage-note">
           <h2>
-            <span className="sec-num">07</span>Coverage and methodology
+            <span className="sec-num">08</span>Coverage and methodology
           </h2>
           <p className="case-paragraph">{briefing.section_7_coverage_methodology_note.data_sufficiency_notes}</p>
           <div className="text-[11.5px] text-ink-4 font-mono mt-2">

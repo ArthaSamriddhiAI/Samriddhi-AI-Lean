@@ -49,7 +49,7 @@ export function DecisionCapture({ caseId, initial }: Props) {
   return (
     <section className="decision-capture">
       <h2>
-        <span className="sec-num">06</span>Decision
+        <span className="sec-num">07</span>Decision
       </h2>
       <p className="section-sub">
         Capture the decision on this case. No downstream actioning in the MVP; the decision
