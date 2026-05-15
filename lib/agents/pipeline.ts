@@ -101,13 +101,10 @@ export async function runDiagnosticPipeline(opts: {
     const mandate = `risk_appetite: ${investor.riskAppetite}; time_horizon: ${investor.timeHorizon}; model_cell: ${investor.modelCell}; liquid AUM Rs ${investor.liquidAumCr} Cr; liquidity_tier: ${investor.liquidityTier}`;
     const scopeNarrative = describeScope(holdings);
 
-    /* Evidence agents serially. Tier-1 Anthropic rate limit on Sonnet 4.6
-     * is 10,000 input tokens per minute; each agent's input is roughly
-     * 5-15k tokens, so parallel dispatch trips the limit. Serial dispatch
-     * naturally spaces calls (each takes ~60-90s wall time, well under
-     * one-per-minute). When we move off tier-1, this collapses back into
-     * a Promise.all with no other changes; the EvidenceBundle / UsageBundle
-     * shape is unchanged. Slice 7 polish item. */
+    /* Evidence agents in parallel via Promise.all. Tier-2 rate limit (in place
+     * as of the deferred workstream cleanup, 2026-05-15) comfortably
+     * accommodates simultaneous dispatch. EvidenceBundle / UsageBundle shapes
+     * are unchanged from the serial-dispatch period. */
     const evidence: EvidenceBundle = { e1: null, e2: null, e3: null, e4: null, e6: null, e7: null };
     const usage: UsageBundle = {};
 
@@ -133,22 +130,28 @@ export async function runDiagnosticPipeline(opts: {
       tasks.push({ key: "e7", run: () => runE7({ asOfDate, investorName: investor.name, investorMandate: mandate, schemes: mfScope }) as Promise<AgentCallResult<unknown>> });
     }
 
+    const agentResults = await Promise.all(
+      tasks.map(async (task) => {
+        console.log(`[pipeline] running ${task.key}...`);
+        const result = await task.run();
+        console.log(`[pipeline] ${task.key} done: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out (attempt ${result.attemptCount})`);
+        return { key: task.key, result };
+      }),
+    );
+
     let runningTokens = 0;
-    for (const task of tasks) {
-      console.log(`[pipeline] running ${task.key}...`);
-      const result = await task.run();
+    for (const { key, result } of agentResults) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      evidence[task.key] = result.output as any;
-      usage[task.key] = result.usage;
+      evidence[key] = result.output as any;
+      usage[key] = result.usage;
       runningTokens += result.usage.inputTokens + result.usage.outputTokens;
-      console.log(`[pipeline] ${task.key} done: ${result.usage.inputTokens} in / ${result.usage.outputTokens} out (attempt ${result.attemptCount}); running total ${runningTokens}`);
-      if (runningTokens > tokenBudget) {
-        throw new Error(
-          `Token budget exceeded: used ${runningTokens} of ${tokenBudget} tokens (combined input + output). ` +
-            `Raise tokenBudgetPerCase in Settings or scope the case smaller. ` +
-            `This is a circuit breaker, not a budget target; routine cases run at 90-120k tokens.`,
-        );
-      }
+    }
+    if (runningTokens > tokenBudget) {
+      throw new Error(
+        `Token budget exceeded: used ${runningTokens} of ${tokenBudget} tokens (combined input + output). ` +
+          `Raise tokenBudgetPerCase in Settings or scope the case smaller. ` +
+          `This is a circuit breaker, not a budget target; routine cases run at 90-120k tokens.`,
+      );
     }
 
     const stitched = stitch({
