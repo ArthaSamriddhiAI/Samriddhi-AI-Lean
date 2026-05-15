@@ -118,21 +118,87 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Implement streaming reasoning output per the deferred Slice 2 Q1 framing. Per-agent completion surfaces in the generating screen via server-sent events. Parallel dispatch must already be active.
 
-### 8. M0.IndianContext activation
+### 8. M0.IndianContext activation (blocked on Workstream C)
 
-**What.** The `agents/m0_indian_context.md` skill is lifted but not wired. It carries tax and regulatory framing (NRE-resident conversion, HUF eligibility, LTCG step-up at inheritance).
+**What.** The `agents/m0_indian_context.md` skill is lifted but not wired. It carries tax and regulatory framing (NRE-resident conversion, HUF eligibility, LTCG step-up at inheritance) sourced from six YAML knowledge stores (tax_matrix, structure_matrix, sebi_boundaries, gift_city_routing, demat_mechanics, regulatory_changelog).
 
-**Why deferred.** Skipped in Slice 2 per orientation Q1. Becomes decision-relevant for Samriddhi 1 proposal evaluation (Slice 3) where tax-aware product framings drive specific verdicts.
+**Why deferred.** Slice 3 scoping response B revised orientation Q4: the curated YAML stores don't exist in the codebase, and LLM-as-knowledge-store would violate the platform's auditability USP. **Workstream C** (a parallel workstream running in a separate chat) curates the six YAML stores at demo fidelity with explicit "indicative reference data; not validated for production use" disclosure. Commit 3 of Slice 3 stays blocked until that workstream completes.
 
-**Estimated cost.** Roughly Rs 30-50 per Samriddhi 1 case (one additional agent call).
+**Estimated cost.** Roughly $0.30-0.50 for the Sharma + Marcellus IndianContext stub generation (one deterministic-with-LLM-fallback call) once Workstream C lands. Per-case cost in live mode similar.
 
-**Estimated runtime.** Roughly 1-2 hours for the integration; activates as part of Slice 3's broader build.
+**Estimated runtime.** Roughly 2-3 hours for the integration once Workstream C completes: wire the YAML loader, add the IndianContextOutput proper schema, populate `ctx.indianContext` in `lib/agents/pipeline-case.ts`, regenerate the Sharma IndianContext stub. Workstream C's curation timeline is its own; check the parallel chat for status.
 
-**Dependencies.** Naturally lands in Slice 3.
+**Dependencies.** Workstream C YAML curation. Until that's complete, Slice 3 agents proceed with `ctx.indianContext = null` and the "not yet integrated" sentinel in their prompts.
 
 **Trigger prompt.**
 
-> Wire M0.IndianContext into the Samriddhi 1 proposal-evaluation pipeline. Tax-aware product framings should surface in the briefing's risk flags. Activates per Slice 3 orientation.
+> Resume Slice 3 commit 3 from DEFERRED.md item 8. Workstream C has landed the six M0.IndianContext YAML knowledge stores. Wire the loader into `lib/agents/case/case-context.ts` (replace the placeholder IndianContextSummary with the curated schema), populate `ctx.indianContext` in `lib/agents/pipeline-case.ts` before the evidence agents fire, regenerate the Sharma `m0_indian_context.json` stub via a focused live-mode call, and verify the Sharma case briefing surfaces the tax / lock-in / regulatory framings in section 7's data sufficiency notes.
+
+## Deferred from Slice 3
+
+### 9. Real-mode Sharma + Marcellus case regeneration
+
+**What.** Replace the current hybrid Sharma fixture (E1-E7 parsed from authored verdicts, S1 + A1 live-generated) with an end-to-end real-mode case where every layer runs live against the canonical Sharma + Marcellus proposal. Records every stub as a side effect; the resulting fixture supersedes the parsed-stub version.
+
+**Why deferred.** Slice 3 orientation §funding context: parsed-from-verdicts shipping is the budget-aware path. Real-mode regeneration produces richer per-agent reasoning that exercises each skill's full prompt, but the parsed verdicts are demo-grade. Run when budget is comfortable.
+
+**Estimated cost.** $5-10 (eight LLM calls at Opus 4.7: E1, E2, E3, E4, E6 plus M0.IndianContext plus S1, A1; E5 and E7 stay deterministic non-activation).
+
+**Estimated runtime.** 10-15 minutes once parallel agent dispatch reverts (item 2); roughly 50 minutes at current serial dispatch.
+
+**Dependencies.** API budget. Benefits from item 2 (parallel) and item 8 (IndianContext) being resolved first; real-mode generation can also run without IndianContext if Workstream C is still mid-flight.
+
+**Trigger prompt.**
+
+> Resume DEFERRED item 9. Regenerate the Sharma + Marcellus case end-to-end in live mode via `scripts/generate-sharma-fixture.ts` adapted to call every layer through the orchestrator without the parse-from-verdicts shortcut. Set STUB_MODE=false, STUB_RECORD=true. Confirm budget before running. Replaces `db/fixtures/cases/c-2026-05-14-sharma-01.json` and every stub fixture under `fixtures/stub-responses/c-2026-05-14-sharma-01/`.
+
+### 10. Samriddhi 1 case-mode briefing PDF
+
+**What.** A React PDF renderer for the seven-section BriefingCaseContent, mirroring the Slice 2 BriefingPDF scaffolding. The Outcome tab on the web is the current primary surface; the Export briefing button is hidden on s1 cases. Adding the PDF re-enables the button and gives the advisor a take-into-the-meeting artefact.
+
+**Why deferred.** Slice 3 shipped the Outcome web view as the primary surface. Building the case-mode PDF was out of scope for the slice's budget envelope. The scaffolding is in place (`components/pdf/BriefingPDF.tsx` already handles `BriefingContent`; the case shape is structurally similar).
+
+**Estimated cost.** Zero (no API spend; component implementation).
+
+**Estimated runtime.** Roughly 3-5 hours: clone the diagnostic BriefingPDF, refactor it to consume `BriefingCaseContent`, lay out the seven sections (proposal summary, verdict, governance, challenges, talking points, evidence summary, coverage note), wire to `app/api/cases/[id]/briefing.pdf/route.ts` to detect workflow and route to the right renderer.
+
+**Dependencies.** None.
+
+**Trigger prompt.**
+
+> Implement the Samriddhi 1 case-mode briefing PDF per DEFERRED item 10. Build a `BriefingCasePDF` component mirroring the Slice 2 BriefingPDF scaffolding but consuming `BriefingCaseContent`. Update `app/api/cases/[id]/briefing.pdf/route.ts` to route workflow=s1 cases to the new renderer. Re-enable the Export briefing button on s1 cases in `app/cases/[id]/page.tsx`.
+
+### 11. Richer evidence-agent scope builders for live mode
+
+**What.** The Slice 3 orchestrator (`lib/agents/pipeline-case.ts`) builds short scope blocks for each evidence agent from the investor + proposal context (e.g., "Look-through universe of Marcellus Consistent Compounder PMS"). Adequate for stub replay; thin for live-mode runs on non-Sharma investors. Richer scope-builders would derive look-through stocks from the snapshot, compute sector weights, surface manager / strategy facts from a curated PMS/AIF database, etc.
+
+**Why deferred.** The Slice 3 MVP demo runs Sharma's case under stub replay (scope is ignored). Live-mode runs on non-Sharma investors would still produce reasonable verdicts informed by the LLM's world knowledge plus the generic scope; the gap is noticeable but not blocking.
+
+**Estimated cost.** Zero (code only).
+
+**Estimated runtime.** Roughly 6-10 hours: build `buildE1CaseScope`, `buildE6CaseScope`, etc. from holdings + snapshot data; verify against the Sharma case's verdicts file as the reference shape.
+
+**Dependencies.** None for the core; benefits from snapshot look-through coverage improvements (a separate Slice 7 polish item not currently in DEFERRED).
+
+**Trigger prompt.**
+
+> Implement richer evidence-agent scope builders per DEFERRED item 11. Replace the generic scope strings in `lib/agents/pipeline-case.ts` with per-agent scope-builder functions in `lib/agents/case/scope-builders.ts` that consume `StructuredHoldings`, `StructuredMandate`, and the snapshot data. Test against a Bhatt or Surana Samriddhi 1 case to verify the live-mode output matches the verdicts file's analytical depth.
+
+### 12. Multi-investor Samriddhi 1 case batch
+
+**What.** Generate Samriddhi 1 proposal-evaluation cases for the five investors beyond Sharma (Malhotra, Iyengar, Bhatt, Menon, Surana) with appropriate per-investor proposals (e.g., Bhatt's PMS-rationalisation rebalance, Surana's AIF Cat II addition, Iyengar's conservative-mandate-aware listed-bond entry). Export each as a JSON fixture; the seed loads all six s1 cases plus the existing six s2 cases.
+
+**Why deferred.** Slice 3 single-case scope per orientation Q5. Multi-investor cases require per-investor proposal authoring (which actions make sense for each archetype) plus the live-mode spend.
+
+**Estimated cost.** Roughly $25-50 for five cases at the Sharma per-case spend levels, assuming hybrid generation (parsed evidence verdicts where authored content exists, live for the rest). End-to-end live would be $25-50.
+
+**Estimated runtime.** Roughly 1-2 hours of authoring per case (proposal definition + manual verdict scaffolding); 50 minutes serial or 10 minutes parallel for live generation.
+
+**Dependencies.** Per-investor proposal authoring (a content task, not engineering); item 2 (parallel) for the runtime savings; API budget for the live spend.
+
+**Trigger prompt.**
+
+> Resume DEFERRED item 12, multi-investor Samriddhi 1 case batch. Author proposals for Malhotra, Iyengar, Bhatt, Menon, Surana (one canonical proposal per investor matching their mandate and life-stage), generate via `scripts/generate-sharma-fixture.ts` adapted as `scripts/generate-s1-batch.ts`, export each as a fixture in `db/fixtures/cases/`, verify the seed loads all eleven cases by default.
 
 ## Maintenance
 

@@ -30,15 +30,27 @@ Two PDF-specific items also deferred to DEFERRED: design-system font upgrade (So
 
 Model: **Opus** for Claude Code; pipeline uses **Sonnet** for evidence agents and **Opus** for S1 synthesis (the Sonnet reversion of S1 awaits tier upgrade).
 
-### Slice 3: Samriddhi 1 happy path with real evidence agents
+### Slice 3: Samriddhi 1 happy path with real evidence agents (complete)
 
-Proposal workflow goes live. The S1 New Case form (currently disabled) enables. M0 orchestrates E1-E7 in parallel with conditional activation; S1.case_mode synthesises; the three governance gates G1, G2, G3 fire deterministically against rules in the foundation document; A1 produces structured challenges. Sharma plus Marcellus becomes a real reasoning artefact, indistinguishable in shape from `sharma_marcellus_evidence_verdicts.md`.
+Proposal workflow live. The S1 New Case card on `/cases/new` is active and routes to a structured intake form capturing action type, target instrument, ticket size, source of funds, timeline, and rationale. M0.Router extends to `proposed_action` mode and dispatches E1-E7 evidence agents conditionally per the verdicts file activation profile (E1/E2/E3/E4/E6 for Sharma; E5/E7 deterministic non-activation). G1/G2/G3 governance gates fire deterministically — G1 against the structured mandate authored in `db/fixtures/structured-mandates.ts`, G2 against an MVP SEBI rules table, G3 as a single-advisor placeholder. S1.case_mode produces the seven-section verdict-shaped briefing per orientation Q1; A1 produces 3-7 structured challenges across counter-argument / stress test / edge case.
 
-Model: **Opus**.
+**STUB_MODE shipped as a permanent first-class feature**, not a workaround. Visual indicators across Case Detail badge, PDF footer, Case List signal, Settings toggle (tri-state: inherit env / force on / force off, native confirm modal). The harness branches on `stubKey`; agents replay from `fixtures/stub-responses/<case-fixture-id>/<agent-id>.json` when STUB_MODE is active. Slice 2's diagnostic pipeline is unaffected (no `stubKey` passed).
+
+**Canonical Sharma + Marcellus case** ships as `db/fixtures/cases/c-2026-05-14-sharma-01.json` with `stubbed=true`. Hybrid generation per the orientation budget envelope: E1-E7 verdicts parsed from `db/fixtures/raw/sharma_marcellus_evidence_verdicts.md` (lifted from the Factual Foundation folder); G1/G2/G3 computed deterministically; S1.case_mode and A1.challenge fired live (Opus 4.7, ~$0.89 total) and recorded as stubs for replay. The case's overall verdict came in as `requires_clarification` with elevated risk and confidence 0.78, surfacing three simultaneous mandate gaps (equity +1.7pp over the 70% ceiling, debt 6.7pp below the 20% floor, position concentration +1.7pp over the 15% ceiling). User reviewed at the Sharma quality gate and approved as the canonical demo verdict: the system catching the gaps is the institutional credibility move the platform is built around.
+
+**Case Detail rendering** for Samriddhi 1: Outcome tab (default) renders proposal summary + synthesis verdict (overall pill + risk/confidence/escalation meta + narrative + consensus / conflict / amplification + counterfactual) + governance pills (GATE PASSED / GATE BLOCKED / REQUIRES CLARIFICATION per orientation Q3) + advisory challenges + talking points + decision capture (four-radio action + rationale, PUT `/api/cases/[id]/decision`) + coverage note. Analyst Reports tab (secondary) stacks the seven evidence verdicts as institutional analyst memos with heading, risk pill, confidence, drivers, flags, reasoning paragraph, data points.
+
+**Foundation amendment** (commit 2a): removed the "diagnostic-only" lockout, added §1.1 Workflows and Case Intent with both case_mode entries and the four-value `case_intent` enum, rescoped §6.4 to the Samriddhi 2 diagnostic briefing, softened §7 Recommendation generation to "Proactive recommendation generation."
+
+12 commits landed (1, 2, 2a, 4, 5, 6, 7, 8, 9, 10, 11, 12), 1 blocked (commit 3, M0.IndianContext, awaiting Workstream C YAML knowledge-store curation). One Gate honored: stub fixture generation gate before commit 9 (user approved ~$0.89 Opus spend). One Gate honored: Sharma case quality review before commit 13 (user approved the assembled case as-is). Wrap-up artifacts in commit 13.
+
+Two new DEFERRED items: case-mode briefing PDF (item 10), real-mode Sharma case regeneration end-to-end (item 9); plus richer scope-builders (item 11) and multi-investor S1 batch (item 12). Existing DEFERRED items 1-7 unresolved (no tier-upgrade landed during the slice).
+
+Model: **Opus** for Claude Code; pipeline uses **Opus 4.7** for S1.case_mode and A1.challenge.
 
 ### Slice 4: IC1 deliberation layer
 
-When materiality thresholds fire (governance, severity, or specific construct combinations), IC1 activates. Five sub-roles deliberate inline: Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder. The deliberation surface renders inline in the Samriddhi 1 Case Detail screen with a collapsed-by-default reveal pattern.
+When materiality thresholds fire (governance failures, severity escalation, specific construct combinations), IC1 activates. Five sub-roles deliberate inline: Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder. The deliberation surface renders inline in the Samriddhi 1 Case Detail Outcome tab with a collapsed-by-default reveal pattern; the Analyst Reports tab gains an IC1 deliberation memo. Materiality logic is itself a deterministic rule evaluator (no LLM). Recommended next slice per `NEXT_SLICE_PROPOSAL.md`.
 
 Model: **Opus**.
 
