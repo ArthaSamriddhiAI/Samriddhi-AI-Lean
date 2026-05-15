@@ -11,6 +11,9 @@
  */
 
 import type { CaseEvidenceVerdict, CaseRiskLevel } from "@/lib/agents/case/case-verdict";
+import type { MaterialityOutput } from "@/lib/agents/materiality";
+import type { IC1Deliberation } from "@/lib/agents/ic1/types";
+import { IC1Memo } from "./IC1Memo";
 
 const AGENT_LABELS: Record<string, string> = {
   e1_listed_fundamental_equity: "E1, Listed and Fundamental Equity Analysis Agent",
@@ -31,9 +34,11 @@ function riskPillClass(level: CaseRiskLevel): string {
 
 type Props = {
   verdicts: CaseEvidenceVerdict[];
+  materiality: MaterialityOutput | null;
+  ic1Deliberation: IC1Deliberation | null;
 };
 
-export function AnalystReportsTab({ verdicts }: Props) {
+export function AnalystReportsTab({ verdicts, materiality, ic1Deliberation }: Props) {
   return (
     <div className="analyst-reports">
       <div className="analyst-reports-intro">
@@ -94,6 +99,9 @@ export function AnalystReportsTab({ verdicts }: Props) {
             )}
           </article>
         ))}
+        {materiality && ic1Deliberation && (
+          <IC1Memo materiality={materiality} deliberation={ic1Deliberation} />
+        )}
       </div>
     </div>
   );

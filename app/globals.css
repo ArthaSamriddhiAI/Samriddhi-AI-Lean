@@ -2002,4 +2002,25 @@
     color: var(--color-ink-4);
     margin-bottom: 8px;
   }
+
+  /* IC1 deliberation memo styling on the Analyst Reports tab. The memo
+   * follows the E1-E7 visual register; these are additive accents for
+   * the deliberation-question emphasis and the per-role pending state. */
+  .ic1-memo-deliberation-question {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-ink-1);
+    line-height: 1.55;
+    margin-top: 8px;
+  }
+  .ic1-memo-pending {
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    color: var(--color-ink-4);
+    background: var(--color-paper-sunken);
+    padding: 6px 10px;
+    border-radius: var(--radius-1);
+    display: inline-block;
+    margin: 0;
+  }
 }
