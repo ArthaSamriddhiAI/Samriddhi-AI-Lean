@@ -1,0 +1,743 @@
+{
+  "id": "c-2026-05-15-menon-01",
+  "investorId": "menon",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s2",
+  "severity": "escalate",
+  "headline": "Bank savings account at Rs 52.5 Cr (86.6% of liquid AUM) breaches the aggressive-bucket HHI ceiling of 0.30 with an HHI of 0.76 — the single largest position concentration flag in the portfolio.",
+  "status": "ready",
+  "frozenAt": "2026-05-15T13:21:10.025Z",
+  "content": {
+    "briefing": {
+      "header": {
+        "investor_name": "Arjun Menon",
+        "case_label": "Quarterly review",
+        "snapshot_date": "2 Apr 2026",
+        "liquid_aum_label": "Rs 60.65 Cr",
+        "holdings_label": "3 holdings",
+        "stated_revealed_label": "Aggressive stated; aligned revealed (single-geography, limited Indian market history)",
+        "severity_counts": {
+          "escalate": 3,
+          "flag": 4,
+          "total": 7
+        }
+      },
+      "workbench_lede": "This diagnostic surfaces 7 observations across 3 holdings totalling Rs 60.65 Cr liquid AUM. The portfolio is structurally undeployed: 86.6% sits in a bank savings account, producing an HHI of 0.76 against an aggressive-bucket ceiling of 0.30 and a cash drag of 81.6 percentage points against the 3% model target. All four asset classes are outside mandate bands — equity at 6.6% vs a 60–70% band, debt at 6.8% vs 20–30%, alternatives at 0% vs 5–10%, and cash at 86.6% vs 2–5%. Three observations are escalate-severity (position over-concentration in cash, cash drag, and equity allocation drift); four are flag-severity (debt drift, alternatives absence, US equity analytical opacity, and behavioural speed-preference risk). The macro environment (E3 cautionary: Brent at $118.95/bbl, INR at 94.787, FII outflows Rs 56,401 Cr in April) adds deployment-timing complexity but does not alter the structural diagnosis: the portfolio requires a staged deployment plan before it can be considered mandate-consistent.",
+      "section_1_headline_observations": [
+        {
+          "vocab": "position_over_concentration",
+          "severity": "escalate",
+          "one_line": "Bank savings account at Rs 52.5 Cr (86.6% of liquid AUM) breaches the aggressive-bucket HHI ceiling of 0.30 with an HHI of 0.76 — the single largest position concentration flag in the portfolio.",
+          "source": "metric"
+        },
+        {
+          "vocab": "cash_drag",
+          "severity": "escalate",
+          "one_line": "Cash share of 86.6% against a model target of 3% (ceiling 5%) produces a deployment gap of 81.6 percentage points, representing approximately Rs 49.5 Cr of uninvested capital in an aggressive long-term mandate.",
+          "source": "metric"
+        },
+        {
+          "vocab": "allocation_drift",
+          "severity": "escalate",
+          "one_line": "Equity allocation at 6.6% is 58.4 percentage points below the mandate band floor of 60%, the largest single asset-class deviation in the portfolio and the primary driver of mandate non-compliance.",
+          "source": "metric"
+        },
+        {
+          "vocab": "allocation_drift",
+          "severity": "flag",
+          "one_line": "Debt allocation at 6.8% is 13.2 percentage points below the mandate band floor of 20%; alternatives at 0% are entirely absent against a 5–10% mandate band.",
+          "source": "metric"
+        },
+        {
+          "vocab": "stated_revealed_divergence",
+          "severity": "flag",
+          "one_line": "Stated aggressive profile is directionally supported by eight years of no-panic US equity holding, but zero Indian market stress history and a documented speed-preference risk (E4 confidence 0.62) mean the mandate alignment is not fully confirmed for Indian-market deployment conditions.",
+          "source": "interpretation"
+        }
+      ],
+      "section_2_portfolio_overview": {
+        "rows": [
+          {
+            "asset_class": "Equity",
+            "actual_pct": 6.6,
+            "target_pct": 65,
+            "band": [
+              60,
+              70
+            ],
+            "deviation_pp": -58.4,
+            "in_band": false
+          },
+          {
+            "asset_class": "Debt",
+            "actual_pct": 6.8,
+            "target_pct": 25,
+            "band": [
+              20,
+              30
+            ],
+            "deviation_pp": -18.2,
+            "in_band": false
+          },
+          {
+            "asset_class": "Alternatives",
+            "actual_pct": 0,
+            "target_pct": 7,
+            "band": [
+              5,
+              10
+            ],
+            "deviation_pp": -7,
+            "in_band": false
+          },
+          {
+            "asset_class": "Cash",
+            "actual_pct": 86.6,
+            "target_pct": 3,
+            "band": [
+              2,
+              5
+            ],
+            "deviation_pp": 83.6,
+            "in_band": false
+          }
+        ],
+        "total_aum_line": "Liquid AUM Rs 60.65 Cr across 3 holdings",
+        "liquidity_tier_line": "Liquidity tier essential (5–15% floor); actual T+30 share 93.2% (bank savings account + FD breakable), T+365 share 6.8% (HDFC Bank FD); floor not breached but liquidity profile is structurally inverted relative to an aggressive mandate — excess liquidity, not insufficient."
+      },
+      "section_3_concentration_analysis": [
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "Bank savings account constitutes 86.6% of liquid AUM (Rs 52.5 Cr), a single-instrument cash position that drives the portfolio HHI to 0.76 against the aggressive-bucket ceiling of 0.30.",
+          "evidence": "HHI breach threshold for aggressive bucket: 0.30; actual HHI: 0.76; position flag threshold: escalate at >15%; actual weight: 86.6%.",
+          "figure": "86.6%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "US listed equities (legacy holding) at 6.6% (Rs 4.0 Cr) cannot be decomposed into constituent securities; E1 and E2 both returned cannot_evaluate with confidence 0.0 and 0.15 respectively. Internal composition (single stock vs diversified basket), sector weights, and embedded capital gains are unknown.",
+          "evidence": "E1 overall_verdict: cannot_evaluate; E2 overall_e2_verdict: cannot_evaluate; no ticker, ISIN, or constituent data provided; both agents escalated to master.",
+          "figure": "6.6%",
+          "source": "hybrid"
+        }
+      ],
+      "section_4_risk_flags": [
+        {
+          "category": "Deployment",
+          "severity": "escalate",
+          "title": "Cash drag — Rs 49.5 Cr uninvested against aggressive mandate",
+          "body": "At 86.6% cash against a 3% model target, approximately Rs 49.5 Cr is earning savings-account rates in a mandate designed for long-term equity and alternatives compounding. Every quarter of delay compounds the opportunity cost against the aggressive mandate's expected return profile.",
+          "source": "metric"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "escalate",
+          "title": "All four asset classes outside mandate bands simultaneously",
+          "body": "Equity (-58.4pp), debt (-18.2pp), alternatives (-7.0pp), and cash (+83.6pp) are all outside their respective mandate bands — a complete mandate non-compliance state. This is a structural deployment gap, not a drift event; the portfolio has not yet been invested to mandate.",
+          "source": "metric"
+        },
+        {
+          "category": "Behavioural",
+          "severity": "flag",
+          "title": "Speed-preference risk — deployment velocity may outpace due diligence",
+          "body": "E4 flags Arjun's documented impatience with slow processes ('chafes at slow processes') as a high-severity behavioural risk given Rs 52+ Cr in cash and an aggressive mandate. With zero prior Indian-market decision history, the first large deployment is an untested behavioural event; a deliberation checkpoint before single-tranche commitments above a defined threshold is warranted.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Liquidity",
+          "severity": "flag",
+          "title": "Property purchase reserve not ring-fenced — Rs 12–14 Cr earmark unstructured",
+          "body": "Arjun's stated intent to purchase a 4BHK in Sadashivanagar within 12 months (Rs 12–14 Cr) is not reflected as a ring-fenced reserve in the current portfolio structure. If deployment proceeds without isolating this earmark, a forced partial liquidation of recently deployed assets could crystallise losses and damage early advisor-investor trust.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "flag",
+          "title": "US equity holding analytically opaque — constituent decomposition required",
+          "body": "The Rs 4.0 Cr US listed equities legacy holding (6.6%) cannot be evaluated on any fundamental, industry, or risk dimension without constituent-level identification. Currency risk (USD/INR at 94.787, down 10.7% in 12 months) and potential embedded capital gains are present but unquantifiable at current data resolution.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "flag",
+          "title": "Macro deployment-timing complexity — cautionary E3 overlay",
+          "body": "E3 rates the macro environment cautionary: Brent at $118.95/bbl (+86% YoY), FII outflows Rs 56,401 Cr in April, 10Y G-Sec yield at 6.99% (+44bps from Nov 2025), and a 66% probability of below-normal monsoon. These conditions do not alter the structural deployment imperative but argue for staged deployment with defined tranches rather than a single large commitment.",
+          "source": "interpretation"
+        }
+      ],
+      "section_5_comparison_vs_model": {
+        "framing_line": "Direct model portfolio comparison applies: aggressive_long_term bucket mandate is the reference; current portfolio is pre-deployment and deviates from mandate on all four asset classes.",
+        "rows": [
+          {
+            "sleeve": "Listed equity (Indian + international)",
+            "model_pct": "65%",
+            "actual_pct": "6.6%",
+            "note": "Entire equity sleeve is the US legacy holding; Indian equity allocation is zero"
+          },
+          {
+            "sleeve": "Debt (FD + bonds + other)",
+            "model_pct": "25%",
+            "actual_pct": "6.8%",
+            "note": "Single HDFC Bank FD; no bond or other debt instruments"
+          },
+          {
+            "sleeve": "Alternatives (AIF Cat II / Cat III / PMS)",
+            "model_pct": "7%",
+            "actual_pct": "0%",
+            "note": "No alternatives exposure; mandate band 5–10% entirely unmet"
+          },
+          {
+            "sleeve": "Cash (operational buffer)",
+            "model_pct": "3%",
+            "actual_pct": "86.6%",
+            "note": "Structural overshoot; Rs 52.5 Cr in savings account pending deployment"
+          }
+        ]
+      },
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "body": "The portfolio is in a pre-deployment state, not a drifted state — all four asset classes are outside mandate bands because the capital from the business exit has not yet been invested. The diagnostic confirms the mandate is aggressive long-term and the structural gap is Rs 49.5 Cr. The first conversation is about staging: how much, in what sequence, and with what deliberation checkpoints.",
+          "emphasis": "staging, not urgency"
+        },
+        {
+          "number": "02",
+          "body": "Before any deployment tranche is committed, Rs 12–14 Cr for the Sadashivanagar property purchase and Rs 50 L for the parents-care fund should be ring-fenced in a separate, liquid instrument. This is not a constraint on the aggressive mandate — it is the precondition for deploying the remainder without a forced-liquidation risk within 12 months.",
+          "emphasis": "ring-fence first, deploy second"
+        },
+        {
+          "number": "03",
+          "body": "The US legacy holding at Rs 4.0 Cr (6.6%) is analytically opaque. Neither E1 nor E2 could evaluate it without constituent-level data. The conversation should surface what this holding actually contains — individual stocks, ETFs, or a brokerage basket — and whether the embedded gains, currency exposure (USD/INR at 94.787), and FEMA/LRS compliance dimensions have been reviewed since the RNOR-to-resident transition.",
+          "emphasis": "constituent decomposition and compliance review"
+        },
+        {
+          "number": "04",
+          "body": "The macro environment is cautionary but not a deployment veto. Brent at $118.95/bbl and FII outflows of Rs 56,401 Cr in April create near-term volatility, but for a 6–9 year horizon, staged entry into Indian equity during a risk-off period is structurally consistent with the aggressive mandate. The conversation is about tranche sizing and frequency, not whether to deploy.",
+          "emphasis": "cautionary macro, not a veto"
+        },
+        {
+          "number": "05",
+          "body": "Arjun's speed preference is documented and real. The advisor's role is not to slow the process but to structure it so that speed and deliberation are not in conflict — a pre-agreed deployment framework (tranche sizes, asset class sequence, decision thresholds) allows fast execution within a disciplined structure, and creates the first observed Indian-market decision events that will build the revealed-pattern record over time.",
+          "emphasis": "structured speed, not constrained speed"
+        }
+      ],
+      "section_7_evidence_appendix": [
+        {
+          "name": "Bank savings account",
+          "sub_category": "savings",
+          "value_cr": "52.50",
+          "weight_pct": "86.6%"
+        },
+        {
+          "name": "US listed equities (legacy holding)",
+          "sub_category": "intl_us_individual",
+          "value_cr": "4.00",
+          "weight_pct": "6.6%"
+        }
+      ],
+      "coverage_note": "This diagnostic operated on 3 holdings totalling Rs 60.65 Cr liquid AUM. The HDFC Bank FD (Rs 4.15 Cr, 6.8%) did not drive any headline observation and is excluded from the evidence appendix per schema instructions. The US listed equities holding (Rs 4.0 Cr, 6.6%) is analytically opaque: E1 and E2 both returned cannot_evaluate verdicts because no constituent-level identifiers (tickers, ISINs, fund names) were provided; all seven E1 metric families and all five E2 analytical dimensions are indeterminate. Currency risk (USD/INR), embedded capital gains, and FEMA/LRS compliance dimensions for this holding are outside E1/E2 scope and are flagged for M0.PortfolioRiskAnalytics resolution pending constituent decomposition. No PMS, AIF, or mutual fund holdings are present in this portfolio; PMS/AIF opacity and MF look-through caveats are therefore not applicable. Sector look-through analysis is not possible for the US equity holding without composition data. Performance attribution (net returns, benchmark-relative, risk-adjusted) cannot be produced: the portfolio is pre-deployment with no meaningful investment return history in its current structure, and E6/E7 manager performance agents were not activated. E3 confidence is 0.72 due to absent REER data, stale WALR data (~120 days), and incomplete April DII flow data. E4 confidence is 0.62 due to zero prior cases and zero advisor relationship history; the limited_history_flag is set true."
+    },
+    "metrics": {
+      "totalLiquidAumCr": 60.65,
+      "holdingsCount": 3,
+      "assetClass": {
+        "Equity": {
+          "actualPct": 6.6,
+          "targetPct": 65,
+          "band": [
+            60,
+            70
+          ],
+          "deviationPct": -58.4,
+          "inBand": false
+        },
+        "Debt": {
+          "actualPct": 6.8,
+          "targetPct": 25,
+          "band": [
+            20,
+            30
+          ],
+          "deviationPct": -18.2,
+          "inBand": false
+        },
+        "Alternatives": {
+          "actualPct": 0,
+          "targetPct": 7,
+          "band": [
+            5,
+            10
+          ],
+          "deviationPct": -7,
+          "inBand": false
+        },
+        "Cash": {
+          "actualPct": 86.6,
+          "targetPct": 3,
+          "band": [
+            2,
+            5
+          ],
+          "deviationPct": 83.6,
+          "inBand": false
+        }
+      },
+      "concentration": {
+        "hhiHoldingLevel": 0.7589,
+        "hhiAssetClassLevel": 0.7589,
+        "top1": {
+          "instrument": "Bank savings account",
+          "weightPct": 86.6
+        },
+        "top5": [
+          {
+            "instrument": "Bank savings account",
+            "weightPct": 86.6
+          },
+          {
+            "instrument": "HDFC Bank FD",
+            "weightPct": 6.8
+          },
+          {
+            "instrument": "US listed equities (legacy holding)",
+            "weightPct": 6.6
+          }
+        ],
+        "bucketCeilingHhi": 0.3,
+        "bucketTier": "Aggressive",
+        "hhiBreach": true,
+        "positionFlags": [
+          {
+            "instrument": "Bank savings account",
+            "weightPct": 86.6,
+            "severity": "escalate"
+          }
+        ],
+        "wrappers": {
+          "pmsCount": 0,
+          "pmsAggregatePct": 0,
+          "pmsList": [],
+          "aifCount": 0,
+          "aifAggregatePct": 0,
+          "aifList": [],
+          "wrapperCountFlag": false,
+          "wrapperShareFlag": false
+        },
+        "sectorExposureMfLookThrough": [],
+        "mfCoverage": {
+          "coveredCount": 0,
+          "uncoveredCount": 0,
+          "coveredWeightPct": 0,
+          "uncoveredWeightPct": 0
+        }
+      },
+      "liquidity": {
+        "bucketBreakdown": {
+          "T_30": 93.2,
+          "T_90": 0,
+          "T_365": 6.8,
+          "Locked": 0
+        },
+        "t30PlusT90Pct": 93.2,
+        "tier": "essential",
+        "tierFloor": {
+          "minPct": 5,
+          "maxPct": 15
+        },
+        "floorBreach": false
+      },
+      "cashDeployment": {
+        "cashSharePct": 86.6,
+        "deploymentGapPct": 81.6,
+        "cashDragFlag": true
+      },
+      "computedAt": "2026-05-15T13:21:10.027Z"
+    },
+    "router_decision": {
+      "caseMode": "diagnostic",
+      "caseIntent": null,
+      "dominantLens": null,
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": false,
+      "e7": false,
+      "indianContext": false,
+      "portfolioRiskAnalytics": true,
+      "activated": [
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical"
+      ],
+      "reasoning": "case_mode=diagnostic; listed_equity=true; mf=false; pms=false; aif=false; unlisted_in_scope=false"
+    },
+    "evidence": {
+      "e1": {
+        "analysis_scope": [
+          "US listed equities (legacy holding)"
+        ],
+        "per_stock_verdicts": [
+          {
+            "symbol": "US listed equities (legacy holding)",
+            "source": "direct_listed",
+            "effective_weight_pct": 6.6,
+            "metric_family_scores": {
+              "capital_efficiency": "cannot_evaluate",
+              "capital_structure": "cannot_evaluate",
+              "earnings_quality": "cannot_evaluate",
+              "valuation": "cannot_evaluate",
+              "growth": "cannot_evaluate",
+              "quality_moats": "cannot_evaluate",
+              "risk_signals": "cannot_evaluate"
+            },
+            "framework_classification": {
+              "quality_or_cyclicality": "cannot_evaluate",
+              "growth_or_maturity": "cannot_evaluate",
+              "sector_relative_positioning": "cannot_evaluate",
+              "special_situation": "Aggregated legacy holding label — no individual security identifiers provided; cannot decompose into constituent stocks for per-stock analysis"
+            },
+            "overall_verdict": "cannot_evaluate",
+            "key_drivers": [
+              "No nifty500_record attached; no ISIN, ticker, or constituent-level data provided",
+              "Holding is described as an aggregate label ('US listed equities (legacy holding)') rather than a named individual security",
+              "E1 scope is per-stock fundamental analysis; aggregate bucket labels are not analysable at the stock level"
+            ],
+            "key_risks": [
+              "Currency risk (USD/INR) is present but is a portfolio-level dimension owned by M0, not E1",
+              "Without constituent identification, concentration within the bucket (single stock vs diversified basket) is unknown",
+              "Legacy holding status suggests possible embedded capital gains or tax-lot complexity — not assessable without security-level data",
+              "Regulatory / FEMA / LRS compliance dimensions for US-listed holdings are outside E1 scope"
+            ],
+            "confidence": 0,
+            "reasoning_trace": "The input record carries the label 'US listed equities (legacy holding)' with a null nifty500_record and no individual security identifiers (no ticker, ISIN, or constituent list). E1 operates at the per-stock level and requires at minimum a named security with associated fundamental data to assign any of the seven metric family scores. Because this entry is an aggregated bucket descriptor rather than a discrete stock, all seven families are set to cannot_evaluate and confidence is 0.0. To enable E1 analysis, the holding must be decomposed into its constituent securities with individual tickers and, where available, fundamental data records."
+          }
+        ],
+        "scope_notes": "One stock symbol was submitted for E1 analysis: 'US listed equities (legacy holding)'. This entry does not represent a discrete listed security; it is an aggregated label for a bucket of US-listed equity positions held as a legacy allocation (effective weight 6.6 pct of liquid AUM). No nifty500_record is attached, and no constituent-level identifiers (tickers, ISINs, fund names) are provided. E1 cannot produce per-stock fundamental verdicts — capital efficiency, capital structure, earnings quality, valuation, growth, quality moats, or risk signals — without a named security and associated data. Portfolio-level dimensions arising from this holding (currency exposure, geographic concentration, liquidity tier, tax-lot complexity) are outside E1 scope and are owned by M0.PortfolioRiskAnalytics. This analysis is therefore a null-result pass: the holding is acknowledged, its analytical gap is documented, and escalation to master is flagged for constituent decomposition.",
+        "escalate_to_master": true,
+        "reasoning_summary": "The single holding submitted for E1 analysis — 'US listed equities (legacy holding)' at 6.6 pct effective weight — cannot be evaluated at the per-stock fundamental level because it is an aggregated bucket label rather than a named individual security. No nifty500_record is attached, and no constituent identifiers are available. All seven metric families (capital efficiency, capital structure, earnings quality, valuation, growth, quality moats, risk signals) are set to cannot_evaluate with confidence 0.0. The four per-stock frameworks (quality vs cyclicality, growth vs maturity, sector-relative positioning, special situation) are similarly indeterminate. The holding does carry analytically relevant characteristics that require resolution before E1 can proceed: it is described as a legacy holding, implying it may carry embedded gains, tax-lot complexity, or historical cost basis considerations; it is US-listed, implying USD/INR currency exposure and potential FEMA/LRS compliance dimensions; and its internal composition (single concentrated position vs diversified basket) is unknown, which has material implications for both per-stock analysis and portfolio-level risk. Escalation to master is set to true. The recommended resolution path is constituent decomposition: the holding should be broken into individual named securities with tickers, after which E1 can produce standard per-stock verdicts for each constituent. Until that decomposition is available, this holding remains analytically opaque at the stock level."
+      },
+      "e2": {
+        "analysis_scope": [
+          "US listed equities (legacy holding)"
+        ],
+        "per_holding_verdicts": [
+          {
+            "symbol": "US listed equities (legacy holding)",
+            "industry_classification": {
+              "capital_intensity": "mixed",
+              "cycle_pattern": "mixed",
+              "regulatory_intensity": "moderate",
+              "concentration": "in_transition"
+            },
+            "cycle_positioning": {
+              "current_phase": "mid_cycle",
+              "sector_growth_runway_pct_band": "cannot_determine — basket composition unknown",
+              "evidence": "No individual ticker or sector composition data provided. US equity markets broadly are mid-to-late cycle as of Q1 2026: Fed funds rate elevated but stabilising, S&P 500 earnings growth moderating to ~8-10 pct YoY, ISM manufacturing oscillating near 50, services sector resilient. Sector-specific cycle positioning cannot be determined without knowing the constituent holdings."
+            },
+            "competitive_positioning": {
+              "moat_sources": [],
+              "moat_durability": "mixed",
+              "competitive_intensity": "high",
+              "disruption_risk": "moderate"
+            },
+            "overall_e2_verdict": "cannot_evaluate",
+            "key_drivers": [
+              "US equity markets broadly mid-to-late cycle with moderating but positive earnings growth trajectory",
+              "USD-denominated asset provides currency diversification relative to INR-denominated Indian equity holdings",
+              "Legacy holding status suggests long holding period; potential embedded capital gains complicate exit decision",
+              "US large-cap equities (if that is the composition) benefit from deep liquidity and strong institutional market structure",
+              "AI-driven productivity tailwind supporting technology-heavy US indices structurally"
+            ],
+            "key_risks": [
+              "Basket composition entirely unknown — cannot assess sector concentration, cyclicality, or moat quality",
+              "USD/INR currency risk: INR appreciation would erode INR-equivalent returns for Indian-domiciled investor",
+              "US late-cycle risk: if Fed tightening cycle has lagged effects, earnings compression possible in 2026-2027",
+              "Regulatory and geopolitical risk: US-China trade tensions, tariff escalation affecting multinationals in basket",
+              "FBAR/PFIC/tax compliance complexity for Indian-resident investor holding US listed equities directly",
+              "At 6.6 pct effective weight, concentration risk is moderate but not dominant; however, without composition data, true sector overlap with Indian holdings cannot be assessed"
+            ],
+            "confidence": 0.15
+          }
+        ],
+        "cross_holding_sector_observations": [
+          "Only one holding is in scope for this E2 pass. Cross-holding sector observations are not applicable.",
+          "However, a portfolio-level note is warranted: the 'US listed equities (legacy holding)' label suggests this may be a residual position from a prior allocation strategy rather than an active conviction holding. Without ticker-level composition, E2 cannot assess whether this basket creates sector concentration overlap with the investor's Indian equity holdings (e.g., if the US basket is technology-heavy, it may amplify tech exposure already present in Indian MF or direct equity holdings). This should be surfaced to M0.PortfolioRiskAnalytics for cross-geography sector overlap analysis once composition is known."
+        ],
+        "scope_notes": "E2 cannot perform meaningful industry or business-model analysis on this holding as presented. The instrument is described only as 'US listed equities (legacy holding)' with no ticker symbols, fund names, ETF identifiers, or sector composition data. The five analytical dimensions (industry classification, cycle positioning, competitive structure, demand drivers, supply dynamics) all require knowing what businesses are actually held. The analysis above reflects only broad US equity market context as of Q1 2026, which is a weak proxy at best. To produce a proper E2 verdict, the following inputs are required: (1) individual ticker symbols or a fund/ETF identifier, (2) approximate sector weights within the basket, or (3) a reference to a portfolio statement that E2 can look through. Until that data is available, the verdict is 'cannot_evaluate' and confidence is set at 0.15 reflecting only the macro-level US market framing that can be offered. This holding should be flagged for data enrichment before the next diagnostic cycle.",
+        "escalate_to_master": true,
+        "reasoning_summary": "E2 has been asked to evaluate a holding labelled 'US listed equities (legacy holding)' representing 6.6 pct of Arjun Menon's liquid AUM. The fundamental problem is that no composition data exists: no tickers, no sector weights, no fund identifiers. E2's five analytical dimensions — industry classification, cycle positioning, competitive structure, demand drivers, and supply dynamics — all require knowing what underlying businesses are held. Without that, any industry verdict would be fabricated rather than analytical. What E2 can offer is the broad US equity market context as of Q1-Q2 2026: US markets are broadly mid-to-late cycle, with S&P 500 earnings growth moderating to high single digits, the Fed in a hold-or-cut posture after an extended tightening cycle, and structural tailwinds from AI-driven productivity investment supporting technology-heavy indices. Currency risk (USD/INR) is a real consideration for an Indian-domiciled investor. The 'legacy holding' characterisation raises a separate question about whether this position is actively managed or a residual from a prior strategy — which has implications for whether it should be maintained, restructured, or exited. Escalation to master is recommended to trigger a data-enrichment step: the case file should be updated with the actual composition of this US equity position before E1 or E2 can provide substantive analysis. The 0.15 confidence score reflects the near-total absence of actionable composition data."
+      },
+      "e3": {
+        "rate_environment": {
+          "current_repo_pct": 5.25,
+          "real_rate_pct": 3.15,
+          "yield_curve_shape": "Steepening-stressed: 10Y at 6.99% (up 44bps from 6.55% in Nov 2025); repo-10Y spread 174bps; curve spiked to 7.19% on Apr 3 before partial reversal. Short end anchored by repo; long end driven by crude-linked fiscal risk premium.",
+          "forward_expectations": "Pause maintained unanimously at Apr 8 MPC; West Asia uncertainty and crude spike cited as holding factors. Real rate at 3.15% (repo 5.25% minus core CPI 2.1%) is well above the +2% restrictive threshold, indicating room to cut exists but geopolitical uncertainty is the binding constraint. No cut expected before Q3 FY27 absent crude stabilisation.",
+          "cycle_phase": "pause"
+        },
+        "growth_inflation": {
+          "gdp_growth_pct": 7.8,
+          "inflation_pct_cpi": 3.4,
+          "inflation_pct_core": 2.1,
+          "growth_inflation_tradeoff": "Favourable on current readings but deteriorating on forward trajectory. GDP at 7.8% (Q3 FY26) with manufacturing 13.3% and services 9.5%; RBI projects FY26 full-year at 7.6%. CPI headline 3.40% (Mar 2026), below RBI 4% target; core 2.1% (Jan-Feb avg). However, three forward risks are compressing the tradeoff: (1) crude at $118.95/bbl (+86% YoY) will transmit into fuel and transport CPI with a 1-2 quarter lag; (2) IMD forecasts below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome, threatening food CPI which is already rising (3.87% Mar vs 3.47% Feb); (3) RBI itself projects FY27 core at 4.4%, signalling internal expectation of inflation re-acceleration. PMI services input costs at 45-month high in March. Growth-inflation comfort is a trailing signal; the forward picture is stagflationary-adjacent."
+        },
+        "currency_external": {
+          "inr_usd": 94.787,
+          "reer_assessment": "REER data not present in snapshot; cannot be evaluated. Directional inference only: 10.7% nominal depreciation (85.60 to 94.79) over 12 months driven by crude import bill expansion, FII outflows of Rs 56,401 Cr in April alone, and forex reserve drawdown of $25B to $703B. Nominal depreciation of this magnitude typically implies REER depreciation unless offset by differential inflation, which at current CPI levels is unlikely to be sufficient. INR under structural pressure.",
+          "current_account_pct_gdp": null,
+          "fii_flows_summary": "Heavy persistent outflows: FII net equity outflow Rs 56,401 Cr (~$5.97B) in April 2026 alone. Heaviest single day Apr 2 at Rs 19,837 Cr. Brief mid-month reversal followed by renewed selling. DII absorption partial: Rs 34,617 Cr (Apr 1-8 only, partial data). Net FII-DII dynamic is stressed and not fully domestically supported. India-US rate differential at 162bps (5.25% minus 3.625%) is in the adequate but not compelling range, insufficient to attract carry-driven FII reversal while crude and geopolitical risk remain elevated."
+        },
+        "policy_regulatory": {
+          "recent_rbi": "Apr 8, 2026 MPC: unanimous hold at repo 5.25%. Stance neutral, unchanged. SDF 5.00%, MSF 5.50%, CRR 3.00%. West Asia conflict and crude spike cited as primary uncertainty. RBI language: 'vigilant, closely monitoring, flexible to respond.' 125bps of cuts already delivered from 6.50% peak. Transmission progressing: WALR on fresh loans declined 109bps to 8.28% (Dec 2025) from 9.37% peak, representing 87% transmission rate. Q1 2026 WALR data pending (~120 days stale).",
+          "fiscal_stance": "Consolidating with quality improvement. FY26 YTD (Apr-Feb): fiscal deficit Rs 12,52,649 Cr = 80.38% of RE, down 7.0% YoY. Primary deficit -52.5% YoY; revenue deficit -32.1% YoY. Capex Rs 9,29,322 Cr = 84.81% of RE, +14.46% YoY. Revenue expenditure only +1.1% YoY — capex-heavy, revex-restrained mix. FY27 Budget: FD target 4.3% of GDP (from 4.4% RE FY26); capex Rs 12.22L Cr; effective capex Rs 17.15L Cr; market borrowing Rs 13.03L Cr. PLI, semiconductor, EV, and defence push maintained. Fiscal stance is growth-supportive and credibly consolidating.",
+          "sectoral_regulatory": "No SEBI, NPPA, or sector-specific regulatory data present in snapshot for Arjun Menon's specific holdings (1 direct/international listed equity, 1 debt instrument, 1 cash). Cannot evaluate product-level regulatory developments from available data. Macro-level: RBI OBICUS 72nd round data current; RBI Bulletin Table 19 now publishing core CPI series (methodological improvement). No AIF/PMS/MF regulatory items applicable given zero holdings in those categories.",
+          "tax_policy": "No Budget 2026 tax policy detail present in snapshot beyond fiscal aggregates. FY27 Budget at a Glance confirms MGNREGA restructured to VB-G RAM G at Rs 95,692 Cr. LTCG framework and direct tax changes not captured in available data block. Cannot evaluate tax policy implications for specific holdings without additional data."
+        },
+        "material_news": [
+          "Brent crude at $118.95/bbl (Apr 29, 2026), up 86% YoY from ~$64; Hormuz disruption blocking ~20% of global oil trade — primary macro stress driver for India as net oil importer",
+          "INR at 94.787 vs USD (Apr 29, 2026), 10.7% depreciation over 12 months; forex reserves down $25B to $703B — material for any international listed equity holding (currency translation risk)",
+          "FII net equity outflow Rs 56,401 Cr (~$5.97B) in April 2026 alone; heaviest single-day outflow Apr 2 at Rs 19,837 Cr — systemic equity market pressure",
+          "RBI MPC Apr 8, 2026: unanimous hold at 5.25%; neutral stance; West Asia conflict and crude cited as uncertainty anchors — rate cut timeline pushed out",
+          "IMD Apr 13, 2026: below-normal monsoon forecast at 92% LPA; El Nino likely; 66% probability of below-normal or deficient outcome — food inflation upside risk for H2 FY27",
+          "PMI Manufacturing Apr flash 55.9 (rebound from Mar 53.9 dip); PMI Services 57.9; Composite 58.3 — domestic demand resilient despite external stress",
+          "10Y G-Sec yield at 6.99% (Apr 17), up 44bps from Nov 2025; spiked to 7.19% on Apr 3 — debt holding mark-to-market pressure if duration is long",
+          "US Fed hold at 3.50-3.75% (Mar 18 FOMC); Powell's last meeting; Warsh taking over ~May 15 — Fed leadership transition adds policy uncertainty for global risk appetite",
+          "Non-food credit growth 14.3% YoY (Feb 2026), up from 11.1% a year ago — domestic credit cycle healthy, partially offsetting external headwinds",
+          "Capacity utilisation 75.6% (Q3 FY26), above 75% late-expansion threshold; new orders +10.3% YoY — domestic capex cycle intact"
+        ],
+        "risk_overlay": {
+          "tail_risks": "PRIMARY TAIL RISK: Hormuz disruption sustaining crude above $100/bbl. At $118.95/bbl, India's import bill expands by approximately $80-90B annualised vs FY25 baseline, compressing current account, weakening INR further, and reigniting CPI through fuel and transport channels. A sustained $120+ crude environment would force RBI to abandon the cutting cycle entirely and potentially tighten, reversing the 125bps of accommodation already delivered. SECONDARY TAIL RISK: Fed leadership transition (Warsh, ~May 15) introducing US monetary policy uncertainty; any hawkish pivot would widen rate differentials adversely and accelerate FII outflows from EMs including India. TERTIARY TAIL RISK: Below-normal monsoon materialising (66% probability per IMD) — food CPI acceleration in Q2-Q3 FY27 would compress RBI's policy space simultaneously with crude pressure.",
+          "concentration_risks_macro": "Arjun Menon's portfolio (Rs 60.65 Cr liquid AUM) is concentrated in 3 holdings: 1 direct/international listed equity, 1 debt instrument, 1 cash. The international listed equity holding faces a compounded macro risk: (1) INR depreciation of 10.7% over 12 months creates translation gains if USD-denominated but also exposes to further INR weakness; (2) global risk-off from crude shock and geopolitical uncertainty compresses international equity multiples; (3) FII outflow dynamic signals EM risk-off broadly. The debt holding faces mark-to-market risk from rising 10Y yields (6.99%, up 44bps); duration and instrument type unknown from available data but the yield environment is adverse for long-duration fixed income. Cash holding is macro-neutral but earns below real rate if inflation re-accelerates.",
+          "time_aware_windows": "IMMEDIATE (0-30 days): Apr 29 FOMC meeting (hold expected; Warsh transition imminent post-May 15 — watch for tone shift). May 2026: IMD monsoon forecast update (end-May) — critical for food inflation trajectory and RBI June MPC framing. NEAR-TERM (30-90 days): June 2026 MPC meeting — first post-monsoon-update policy decision; crude trajectory by then will determine whether RBI can resume cutting or must hold/tighten. Q1 FY27 GDP data (July 2026) will confirm whether crude shock is transmitting into growth slowdown. STRUCTURAL: West Asia conflict resolution or escalation is the single highest-impact binary event with no predictable timeline."
+        },
+        "overall_e3_assessment": "cautionary",
+        "key_drivers": [
+          {
+            "name": "Crude oil shock — Hormuz disruption",
+            "evidence": "Brent at $118.95/bbl (Apr 29, 2026), +86% YoY from ~$64; Hormuz disruption blocking 20% of global oil trade (indicator 4.3)",
+            "dimension": "currency"
+          },
+          {
+            "name": "INR depreciation — structural pressure",
+            "evidence": "USD/INR at 94.787 (Apr 29, 2026), 10.7% depreciation over 12 months; forex reserves down $25B to $703B (indicator 4.2)",
+            "dimension": "currency"
+          },
+          {
+            "name": "FII outflows — persistent and heavy",
+            "evidence": "FII net equity outflow Rs 56,401 Cr (~$5.97B) in April 2026; heaviest day Apr 2 at Rs 19,837 Cr; DII absorption only partial (indicators 4.4, 4.5)",
+            "dimension": "currency"
+          },
+          {
+            "name": "RBI pause — rate cut cycle interrupted",
+            "evidence": "Repo held at 5.25% unanimously Apr 8, 2026; real rate at 3.15% (repo minus core CPI 2.1%) well above restrictive threshold; West Asia cited as constraint (indicators 2.1, 2.2, 2.3)",
+            "dimension": "rate"
+          },
+          {
+            "name": "Domestic growth resilience — partial offset",
+            "evidence": "GDP 7.8% Q3 FY26; PMI Manufacturing 55.9 Apr flash; PMI Services 57.9; capacity utilisation 75.6% above late-expansion threshold (indicators 1.1, 1.2, 1.4, 1.5)",
+            "dimension": "growth"
+          },
+          {
+            "name": "Fiscal quality improvement — structural positive",
+            "evidence": "Capex +14.46% YoY at Rs 9,29,322 Cr (84.81% of RE); revenue expenditure only +1.1% YoY; primary deficit -52.5% YoY (indicator 3.2)",
+            "dimension": "policy"
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Crude-driven stagflation — CPI re-acceleration with growth slowdown",
+            "evidence": "Brent $118.95 (+86% YoY); PMI services input costs at 45-month high Mar 2026; RBI projects FY27 core at 4.4% vs current 2.1%; food CPI already rising to 3.87% (indicators 4.3, 1.2, 1.7, 1.8)",
+            "severity": "high"
+          },
+          {
+            "name": "INR further depreciation — import bill and EM risk-off",
+            "evidence": "USD/INR 94.787, 10.7% depreciation in 12 months; forex reserves down $25B to $703B; FII outflows Rs 56,401 Cr April alone (indicator 4.2, 4.4)",
+            "severity": "high"
+          },
+          {
+            "name": "Below-normal monsoon — food inflation and rural demand shock",
+            "evidence": "IMD Apr 13: 92% of LPA, El Nino likely, 66% probability below-normal or deficient (indicator 1.9)",
+            "severity": "high"
+          },
+          {
+            "name": "10Y yield rise — debt mark-to-market pressure",
+            "evidence": "10Y G-Sec at 6.99% (Apr 17), +44bps from Nov 2025; spiked to 7.19% Apr 3; crude-driven fiscal risk premium (indicator 2.4)",
+            "severity": "medium"
+          },
+          {
+            "name": "Fed leadership transition — US policy uncertainty",
+            "evidence": "Powell's last FOMC Mar 18; Warsh taking over ~May 15; 11-1 vote with dissent for cut signals internal Fed tension (indicator 4.1)",
+            "severity": "medium"
+          },
+          {
+            "name": "FII-DII imbalance — domestic absorption insufficient",
+            "evidence": "FII outflow Rs 56,401 Cr vs DII inflow Rs 34,617 Cr (partial Apr 1-8 only); net negative for equity market stability (indicators 4.4, 4.5)",
+            "severity": "medium"
+          }
+        ],
+        "confidence": 0.72,
+        "escalate_to_master": true,
+        "reasoning_summary": "The macro environment as of April 29, 2026 is cautionary for Arjun Menon's Rs 60.65 Cr aggressive long-term portfolio. The dominant macro stress is the crude oil shock: Brent at $118.95/bbl (+86% YoY) driven by Hormuz disruption is simultaneously weakening INR (now 94.787, down 10.7% in 12 months), compressing RBI's rate-cutting space, threatening CPI re-acceleration through fuel and transport channels, and driving FII outflows of Rs 56,401 Cr in April alone. The RBI held unanimously at 5.25% on April 8, citing West Asia uncertainty; the real rate at 3.15% (repo minus core CPI 2.1%) is well above the restrictive threshold, meaning monetary policy is tight even as the economy faces an external supply shock. The domestic growth picture remains strong — GDP 7.8% Q3 FY26, PMI composite 58.3, capacity utilisation above 75% — but these are trailing indicators; the forward trajectory is being compressed by crude, currency, and the IMD's below-normal monsoon forecast (66% probability). For Menon's specific holdings, the international listed equity faces compounded risk from INR depreciation and global risk-off; the debt holding faces mark-to-market pressure from rising 10Y yields (6.99%, up 44bps); cash is macro-neutral. The fiscal stance is a genuine positive — capex +14.46% YoY, primary deficit -52.5% YoY — but insufficient to offset the external shock magnitude. Escalation to master is warranted given the active geopolitical event (Hormuz disruption) materially altering the macro baseline mid-case. Confidence is 0.72 rather than higher due to absence of REER data, stale WALR data (120 days), and incomplete DII flow data for April."
+      },
+      "e4": {
+        "stated_risk_tolerance": {
+          "bucket": "aggressive",
+          "specific_language": "Stated risk appetite: aggressive. Comfort with complexity (understands Cat II AIF structures from Dubai exposure). High deployment readiness; chafes at slow processes.",
+          "horizon": "Over 5 years (6-9 years operational, multi-decade stewardship)"
+        },
+        "revealed_behavioural_patterns": {
+          "market_event_response": "No direct evidence of behaviour during 2018-19 corrections, 2020 COVID dip, or 2022 drawdown in Indian markets. However, the US brokerage legacy holding pattern shows eight years of disciplined behaviour with no panic selling — the single most material revealed-pattern data point available. This is a meaningful signal of composure under drawdown conditions, though it is a single asset class in a single geography.",
+          "initiative_pattern": "investor-driven",
+          "engagement_style": "analytical",
+          "product_addition_pattern": "analytical",
+          "notes": [
+            "Bible explicitly states Arjun 'optimised UAE-US-India sale routing himself', indicating high financial self-directedness and tax sophistication above median — consistent with investor-driven initiative pattern.",
+            "Eight years of no panic selling in US brokerage account is the only revealed market-stress data point; it supports stated aggressive tolerance but is a single-instrument, single-geography observation.",
+            "Bible notes 'speed preference is real; advisors must calibrate against it' — this is a behavioural risk flag, not a positive signal; speed preference can override deliberation in deployment decisions.",
+            "Comfort with Cat II AIF structures from Dubai exposure suggests analytical product engagement, not relationship-trust or peer-network driven decisions.",
+            "No Indian market event history is available; RNOR status means Arjun was not a resident investor during 2020 or 2022 drawdowns, so Indian-market revealed pattern is genuinely absent, not merely unrecorded."
+          ]
+        },
+        "family_advisor_dynamics": {
+          "decision_structure": "sole",
+          "formal_authority": "Arjun Menon (sole decision-maker; unmarried, partner Priya not yet co-habitant or financial co-decision-maker)",
+          "practical_influence": "Arjun Menon primarily; partner Priya (UX designer, relocating from Dubai by Q3 2026) may acquire practical influence on property and lifestyle decisions post-relocation but has no current financial decision role per bible. Parents in Kochi are financial dependents (Rs 30,000/month informal support; Rs 50 L care fund planned) — no evidence of parental influence on investment decisions.",
+          "friction_points": [
+            "Rs 8 Cr Kochi ancestral property is jointly held and not saleable without family consent — this is a latent family-authority friction point that could surface if liquidity needs shift or family dynamics change, though it is currently outside the liquid AUM scope.",
+            "Partner Priya's relocation by Q3 2026 introduces a near-term change in household decision structure; property purchase (Rs 12-14 Cr, 12-month horizon) may become a joint decision in practice even if Arjun holds formal authority.",
+            "Parents-care fund (Rs 50 L) is a planned but unexecuted earmark — no friction currently, but informal support dependency creates a soft obligation that could escalate if parental health needs change."
+          ]
+        },
+        "historical_decision_pattern": {
+          "prior_cases_count": 0,
+          "trajectory_summary": "No prior cases in DB. Bible provides proxy history: eight-year US brokerage holding with no panic selling; self-directed UAE-US-India tax optimisation on a USD 6.8M exit; proactive structuring of NRE deposits and cross-border remittance. These are high-complexity, high-stakes decisions executed without advisor intermediation, suggesting a deliberative-but-fast decision style when Arjun has sufficient information. No evidence of aborted or reversed decisions in the bible record.",
+          "acceptance_rate": "unknown",
+          "time_to_decision": "fast"
+        },
+        "stated_vs_revealed_divergence": {
+          "direction": "aligned",
+          "magnitude": "minor",
+          "implication": "Stated aggressive profile is broadly supported by the available revealed signals (eight-year no-panic US holding, self-directed complexity management, high deployment readiness), but the absence of Indian market stress history and the speed-preference risk mean the diagnostic case should not treat alignment as fully confirmed — the advisor must build in a deliberation checkpoint before large single-tranche deployments to test whether speed preference overrides risk discipline under Indian market conditions."
+        },
+        "limited_history_flag": true,
+        "key_drivers": [
+          {
+            "name": "High deployment readiness",
+            "evidence": "Bible: 'High deployment readiness; chafes at slow processes.' Portfolio is 86.6% cash — acute under-deployment creates strong internal pressure to act quickly."
+          },
+          {
+            "name": "Analytical self-direction",
+            "evidence": "Bible: 'tax-aware above median (optimised UAE-US-India sale routing himself)' and 'Comfort with complexity (understands Cat II AIF structures from Dubai exposure).' Arjun is likely to engage with product rationale at a technical level and will not defer to advisor authority alone."
+          },
+          {
+            "name": "Disciplined long-horizon behaviour (US brokerage)",
+            "evidence": "Bible: 'US brokerage holding pattern shows eight years of disciplined behaviour with no panic selling.' This is the primary revealed-pattern anchor for the aggressive mandate."
+          },
+          {
+            "name": "Property purchase earmark constraining deployment",
+            "evidence": "Bible: 'intent to purchase 4BHK in Sadashivanagar within 12 months (Rs 12-14 Cr range).' This creates a hard liquidity reserve requirement that must be ring-fenced before any deployment staging."
+          },
+          {
+            "name": "NRE-to-resident conversion mechanics",
+            "evidence": "Bible: 'NRE-to-resident conversion mechanics blocking some decisions' and 'transitioning from RNOR to resident in FY 2026-27.' This is a structural constraint on deployment timing, not a behavioural one, but it interacts with the speed-preference risk."
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Speed-preference overriding deliberation",
+            "evidence": "Bible: 'Speed preference is real; advisors must calibrate against it.' With Rs 52+ Cr in cash and an aggressive mandate, the risk is that deployment velocity exceeds the advisor's ability to conduct adequate due diligence on individual instruments.",
+            "severity": "high"
+          },
+          {
+            "name": "No Indian market stress history",
+            "evidence": "Arjun was RNOR/non-resident during 2020 COVID and 2022 drawdowns. His revealed composure is from US markets only. Indian market microstructure, liquidity, and drawdown dynamics differ materially. First Indian market stress event is an untested behavioural moment.",
+            "severity": "high"
+          },
+          {
+            "name": "Limited_history confidence reduction",
+            "evidence": "Prior cases count: 0. Advisor relationship length: 0 years. Bible mitigates but does not eliminate this gap. Revealed pattern is inferred from bible proxy events, not from advisor-observed decision behaviour.",
+            "severity": "medium"
+          },
+          {
+            "name": "Property purchase timing risk",
+            "evidence": "Bible: Rs 12-14 Cr property purchase within 12 months. If deployment proceeds without ring-fencing this reserve and property prices move or timeline accelerates, a forced partial liquidation of recently deployed assets could crystallise losses and damage early advisor-investor trust.",
+            "severity": "medium"
+          },
+          {
+            "name": "Partner Priya influence on property and lifestyle decisions",
+            "evidence": "Bible: 'partner Priya (UX designer) relocating from Dubai by Q3 2026.' Property purchase is a 12-month horizon decision that may coincide with or follow Priya's relocation, introducing an unmodelled co-decision dynamic at a high-stakes liquidity event.",
+            "severity": "low"
+          }
+        ],
+        "confidence": 0.62,
+        "escalate_to_master": false,
+        "reasoning_summary": "Arjun Menon presents a stated aggressive profile that is directionally supported by available revealed signals but cannot be fully confirmed due to zero prior cases and zero advisor relationship history. The most material revealed-pattern data point is the eight-year US brokerage holding with no panic selling — a genuine signal of drawdown composure, but limited to a single asset class in a single geography. Arjun has never been an active resident Indian investor during a material Indian market drawdown; his behavioural response to Indian equity or alternatives volatility is genuinely unknown. The bible's characterisation of him as analytically self-directed and tax-sophisticated is consistent with the aggressive mandate and supports the investor-driven, analytical engagement profile. However, the speed-preference flag is the most consequential behavioural risk in the current diagnostic context: with Rs 52+ Cr in cash and an aggressive mandate, the combination of high deployment readiness and impatience with slow processes creates a real risk that deployment velocity outpaces due diligence quality. The advisor's role in this diagnostic is not to validate the aggressive mandate — that is broadly credible — but to establish a deployment staging framework that satisfies Arjun's speed preference while building in deliberation checkpoints, ring-fencing the Rs 12-14 Cr property reserve and the Rs 50 L parents-care fund before any deployment begins, and creating the first observed Indian-market decision events that will allow the revealed-pattern signal to develop. The limited_history_flag is set true; confidence is reduced to 0.62 accordingly. Escalation to master is not warranted: the decision structure is sole, family dynamics are low-friction at present, and the diagnostic complexity is high but not structurally contested."
+      },
+      "e6": null,
+      "e7": null
+    },
+    "usage_summary": {
+      "per_agent": {
+        "e3": {
+          "inputTokens": 6607,
+          "outputTokens": 4341
+        },
+        "e4": {
+          "inputTokens": 3709,
+          "outputTokens": 2410
+        },
+        "e1": {
+          "inputTokens": 4269,
+          "outputTokens": 1209
+        },
+        "e2": {
+          "inputTokens": 2952,
+          "outputTokens": 1390
+        },
+        "s1": {
+          "inputTokens": 14825,
+          "outputTokens": 3955
+        }
+      },
+      "total_input_tokens": 32362,
+      "total_output_tokens": 13305,
+      "elapsed_ms": 169037,
+      "generated_at": "2026-05-15T13:23:59.062Z"
+    }
+  },
+  "tokenUsage": {
+    "per_agent": {
+      "e3": {
+        "inputTokens": 6607,
+        "outputTokens": 4341
+      },
+      "e4": {
+        "inputTokens": 3709,
+        "outputTokens": 2410
+      },
+      "e1": {
+        "inputTokens": 4269,
+        "outputTokens": 1209
+      },
+      "e2": {
+        "inputTokens": 2952,
+        "outputTokens": 1390
+      },
+      "s1": {
+        "inputTokens": 14825,
+        "outputTokens": 3955
+      }
+    },
+    "total_input_tokens": 32362,
+    "total_output_tokens": 13305,
+    "elapsed_ms": 169037,
+    "generated_at": "2026-05-15T13:23:59.062Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 2 diagnostic for Arjun Menon. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6."
+}

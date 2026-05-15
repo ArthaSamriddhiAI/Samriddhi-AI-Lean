@@ -1,0 +1,1078 @@
+{
+  "id": "c-2026-05-15-sharma-s2-01",
+  "investorId": "sharma",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s2",
+  "severity": "escalate",
+  "headline": "Equity allocation at 55.1% is 9.9 percentage points below the mandate floor of 60%, the only out-of-band asset class and the most material structural gap in the portfolio.",
+  "status": "ready",
+  "frozenAt": "2026-05-15T13:27:56.160Z",
+  "content": {
+    "briefing": {
+      "header": {
+        "investor_name": "Sharma family",
+        "case_label": "Quarterly review",
+        "snapshot_date": "2 Apr 2026",
+        "liquid_aum_label": "Rs 18 Cr",
+        "holdings_label": "8 holdings",
+        "stated_revealed_label": "Aggressive stated; moderate-aggressive revealed",
+        "severity_counts": {
+          "escalate": 6,
+          "flag": 5,
+          "total": 11
+        }
+      },
+      "workbench_lede": "This diagnostic covers Rs 18 Cr across 8 holdings for the Sharma family (aggressive long-term mandate) as of 2 Apr 2026. Nine observations are surfaced: six at escalate severity and five at flag severity, spanning allocation drift, position concentration, a negative-verdict fund holding, fee inefficiency, a behavioural stated-revealed divergence, and an unresolved AIF manager identity gap. The deterministic metrics layer (M0.PortfolioRiskAnalytics) drives the allocation and concentration findings; E7 drives the fund-quality and fee findings; E4 drives the behavioural finding; E6 drives the AIF governance finding; E3 provides a cautionary macro overlay. MF look-through data is unavailable for all three funds, limiting sector-level concentration analysis. The macro environment as of the snapshot date is materially stressed — Brent at $118.95/barrel, INR at 94.79, and FII outflows of Rs 56,401 Cr in April alone — which amplifies the urgency of the equity under-allocation finding.",
+      "section_1_headline_observations": [
+        {
+          "vocab": "allocation_drift",
+          "severity": "escalate",
+          "one_line": "Equity allocation at 55.1% is 9.9 percentage points below the mandate floor of 60%, the only out-of-band asset class and the most material structural gap in the portfolio.",
+          "source": "metric"
+        },
+        {
+          "vocab": "complexity_premium_not_earned",
+          "severity": "escalate",
+          "one_line": "Kotak Emerging Equity Fund (12.6%, Rs 2.26 Cr) — actually an overseas FoF — delivers a Sharpe of 0.047 and a rolling 5Y beat frequency of 38.8% against its category, while carrying an effective total fee load of 3–4% p.a. and slab-rate tax treatment; the complexity premium is not earned.",
+          "source": "hybrid"
+        },
+        {
+          "vocab": "position_over_concentration",
+          "severity": "escalate",
+          "one_line": "Five of eight holdings breach the 10% single-position flag threshold; three of those — Mirae Asset Large Cap Fund (17.8%), HDFC Bank FD (15.6%), and Parag Parikh Flexi Cap Fund (16.7%) — breach the 15% escalate threshold.",
+          "source": "metric"
+        },
+        {
+          "vocab": "stated_revealed_divergence",
+          "severity": "flag",
+          "one_line": "Stated aggressive mandate is contradicted by revealed behaviour: equity at the lower half of the mandate band, Rs 5.4 Cr FD block held flat across three reset cycles, and no mid-cycle review raised across six advisor interactions.",
+          "source": "interpretation"
+        },
+        {
+          "vocab": "fee_inefficiency",
+          "severity": "flag",
+          "one_line": "Parag Parikh Flexi Cap Fund (16.7%, Rs 3 Cr) is held in Regular Plan; switching to Direct Plan saves an estimated Rs 2.2 lakh per year (73 bps) on the highest-conviction positive holding in the portfolio.",
+          "source": "hybrid"
+        }
+      ],
+      "section_2_portfolio_overview": {
+        "rows": [
+          {
+            "asset_class": "Equity",
+            "actual_pct": 55.1,
+            "target_pct": 65,
+            "band": [
+              60,
+              70
+            ],
+            "deviation_pp": -9.9,
+            "in_band": false
+          },
+          {
+            "asset_class": "Debt",
+            "actual_pct": 30,
+            "target_pct": 25,
+            "band": [
+              20,
+              30
+            ],
+            "deviation_pp": 5,
+            "in_band": true
+          },
+          {
+            "asset_class": "Alternatives",
+            "actual_pct": 10,
+            "target_pct": 7,
+            "band": [
+              5,
+              10
+            ],
+            "deviation_pp": 3,
+            "in_band": true
+          },
+          {
+            "asset_class": "Cash",
+            "actual_pct": 5,
+            "target_pct": 3,
+            "band": [
+              2,
+              5
+            ],
+            "deviation_pp": 2,
+            "in_band": true
+          }
+        ],
+        "total_aum_line": "Liquid AUM Rs 18 Cr",
+        "liquidity_tier_line": "Liquidity tier essential (5–15% floor); T+30 share 5%, T+30+T+90 combined 52.1% — floor not breached; 10% illiquid AIF allocation (T+365+ / locked) is within mandate tolerance for a 5Y+ horizon but warrants stress-testing against potential liquidity events."
+      },
+      "section_3_concentration_analysis": [
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "Mirae Asset Large Cap Fund exceeds the 15% single-position escalate threshold",
+          "evidence": "Escalate threshold 15%; position at 17.8% of Rs 18 Cr AUM (Rs 3.2 Cr)",
+          "figure": "17.8%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "Parag Parikh Flexi Cap Fund exceeds the 15% single-position escalate threshold",
+          "evidence": "Escalate threshold 15%; position at 16.7% of Rs 18 Cr AUM (Rs 3 Cr)",
+          "figure": "16.7%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "HDFC Bank FD exceeds the 15% single-position escalate threshold",
+          "evidence": "Escalate threshold 15%; position at 15.6% of Rs 18 Cr AUM (Rs 2.8 Cr); FD block held flat across three reset cycles per E4",
+          "figure": "15.6%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Kotak Emerging Equity Fund (actual: overseas FoF) exceeds the 10% single-position flag threshold",
+          "evidence": "Flag threshold 10%; position at 12.6% of Rs 18 Cr AUM (Rs 2.26 Cr); instrument mislabelled in portfolio records — actual fund is Kotak Global Emerging Market Overseas Equity Omni FOF",
+          "figure": "12.6%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "SBI FD exceeds the 10% single-position flag threshold",
+          "evidence": "Flag threshold 10%; position at 14.4% of Rs 18 Cr AUM (Rs 2.6 Cr); combined FD block (HDFC + SBI) at Rs 5.4 Cr / 30% of AUM",
+          "figure": "14.4%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Cat II private credit AIF (2024 vintage) is at the 10% single-position flag threshold; manager identity unresolved",
+          "evidence": "Flag threshold 10%; position exactly at 10% of Rs 18 Cr AUM (Rs 1.8 Cr); E6 cannot evaluate manager quality due to absent manager identity — structural governance gap",
+          "figure": "10.0%",
+          "source": "hybrid"
+        },
+        {
+          "kind": "Wrapper",
+          "severity": "flag",
+          "detail": "Cat II AIF manager identity is absent; E6 evaluation is structurally incomplete for a Rs 1.8 Cr illiquid position with a 5–7 year lock-in",
+          "evidence": "Instrument identified only as 'Cat II private credit AIF (2024 vintage)'; no manager name, fund documents, or track record available; E6 confidence 0.35 — below the null-snapshot floor of 0.65 due to structural information gap, not merely data latency",
+          "figure": "10.0% / Rs 1.8 Cr",
+          "source": "interpretation"
+        }
+      ],
+      "section_4_risk_flags": [
+        {
+          "category": "Mandate drift",
+          "severity": "escalate",
+          "title": "Equity allocation 9.9pp below mandate floor",
+          "body": "Equity at 55.1% is the only asset class outside its mandate band; the floor is 60% and the target is 65%. The shortfall is structurally driven by the inert Rs 5.4 Cr FD block (30% of AUM) sitting at the top of the debt band. In the current macro environment — FII outflows of Rs 56,401 Cr in April, 10Y G-Sec yield spiked to 7.19% on 3 Apr — the under-allocation to equity and over-weight to rate-sensitive FDs compounds the mandate drift.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Fee",
+          "severity": "escalate",
+          "title": "Kotak overseas FoF: effective fee 3–4% p.a. on near-zero risk-adjusted returns",
+          "body": "The fund labelled Kotak Emerging Equity Fund is actually an overseas FoF (Kotak Global Emerging Market Overseas Equity Omni FOF) with a TER of 1.62% plus an estimated 1.5–2.5% underlying fund expense, yielding an effective total cost of 3–4% p.a. Against a 5Y gross return of 6.86% and a Sharpe of 0.047, the fee drag consumes 40–60% of gross returns. The fund is also taxed at slab rate (not LTCG), further eroding post-tax returns for a high-bracket investor.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Behavioural",
+          "severity": "flag",
+          "title": "Stated-revealed divergence: effective tolerance is moderate-aggressive, not fully aggressive",
+          "body": "E4 identifies a moderate stated-vs-revealed divergence: both sophistication-tier product additions (White Oak PMS 2023, Cat II AIF 2024) were peer-network-triggered via manufacturers' federation contacts rather than advisor-led architecture conversations; the Rs 5.4 Cr FD block has been held flat across three reset cycles; and no mid-cycle review has been raised across six advisor interactions. The effective risk tolerance should be treated as moderate-to-aggressive for diagnostic purposes.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Fee",
+          "severity": "flag",
+          "title": "Parag Parikh Flexi Cap Fund held in Regular Plan: Rs 2.2 lakh annual fee leakage",
+          "body": "E7 identifies the Parag Parikh Flexi Cap Fund snapshot as Regular Plan (TER 1.28%); the Direct Plan TER is estimated at approximately 0.55%, a saving of 73 bps. On the Rs 3 Cr position, this represents approximately Rs 2.2 lakh per year in avoidable fee drag, compounding to Rs 12–14 lakh over five years. This is the highest-conviction positive holding in the portfolio; the fee leakage is disproportionate.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "flag",
+          "title": "Instrument mislabelling: Kotak holding is an overseas FoF, not a domestic mid-cap fund",
+          "body": "The portfolio records label the third MF position as 'Kotak Emerging Equity Fund' (sub-category: mf_active_mid_cap), but the E7 snapshot corresponds to 'Kotak Global Emerging Market Overseas Equity Omni FOF' (SEBI category: FoFs Overseas). These are materially different products with different mandates, tax treatment, and fee structures. The portfolio data source must be verified before any action is taken on this position; the mislabelling also means the portfolio's domestic mid-cap exposure may be zero, not 12.6%.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Behavioural",
+          "severity": "flag",
+          "title": "Operating-business equity (Rs 40–60 Cr) unintegrated into liquid-corpus risk envelope",
+          "body": "E4 flags that the Sharma family's estimated Rs 40–60 Cr unlisted business equity sits outside advisory scope and has not been formally integrated into the liquid-corpus risk conversation. The true household concentration — with the operating business — may be materially higher than the liquid AUM alone implies. This is a structural advisory gap, not a portfolio metric breach.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Liquidity",
+          "severity": "flag",
+          "title": "Cat II AIF illiquidity not stress-tested against 5–7 year horizon events",
+          "body": "The Cat II private credit AIF (10%, Rs 1.8 Cr) is a closed-end structure with no redemption window and an effective lock-in of 5–7 years from first close (2024 vintage). The liquidity floor is not breached at the portfolio level, but the illiquid allocation has not been stress-tested against potential liquidity events — succession planning, business capital needs, or health contingencies — over the fund life. The absence of manager identity compounds this concern.",
+          "source": "hybrid"
+        }
+      ],
+      "section_5_comparison_vs_model": {
+        "framing_line": "Direct model comparison applies: Sharma family is in the aggressive long-term bucket; model portfolio sleeve targets are the reference. MF look-through data is unavailable for all three funds, so sleeve-level actuals are estimated from fund mandates rather than underlying holdings.",
+        "rows": [
+          {
+            "sleeve": "Large cap equity (active MF)",
+            "model_pct": "~30%",
+            "actual_pct": "17.8%",
+            "note": "Mirae Asset Large Cap Fund only; no passive large-cap sleeve present"
+          },
+          {
+            "sleeve": "Flexi / multi cap equity (active MF)",
+            "model_pct": "~20%",
+            "actual_pct": "16.7%",
+            "note": "Parag Parikh Flexi Cap Fund; Regular Plan flag applies"
+          },
+          {
+            "sleeve": "Mid / small cap equity",
+            "model_pct": "~15%",
+            "actual_pct": "0% (estimated)",
+            "note": "Kotak position is overseas FoF, not domestic mid-cap; domestic mid-cap exposure likely zero"
+          },
+          {
+            "sleeve": "International / global equity",
+            "model_pct": "~5%",
+            "actual_pct": "12.6% (estimated)",
+            "note": "Kotak overseas FoF provides EM international exposure; exceeds model sleeve if confirmed"
+          },
+          {
+            "sleeve": "PMS (quality-growth)",
+            "model_pct": "~10%",
+            "actual_pct": "8.0%",
+            "note": "White Oak India Pioneers PMS; within range; thin net alpha warrants monitoring"
+          },
+          {
+            "sleeve": "Debt (FD / fixed income)",
+            "model_pct": "~20–25%",
+            "actual_pct": "30.0%",
+            "note": "Rs 5.4 Cr FD block at top of debt band; inert across three reset cycles"
+          },
+          {
+            "sleeve": "Alternatives (private credit AIF)",
+            "model_pct": "~5–10%",
+            "actual_pct": "10.0%",
+            "note": "At band ceiling; manager identity unresolved"
+          },
+          {
+            "sleeve": "Cash / savings",
+            "model_pct": "~3%",
+            "actual_pct": "5.0%",
+            "note": "At band ceiling; no cash drag flag triggered"
+          }
+        ]
+      },
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "body": "The equity allocation is 9.9 percentage points below the mandate floor — the single most structurally significant gap in the portfolio. The FD block at Rs 5.4 Cr is the primary driver. Before we discuss any new additions, the architecture question is: what is the right path to bring equity back into band, and over what timeline?",
+          "emphasis": "mandate floor breach, not a preference gap"
+        },
+        {
+          "number": "02",
+          "body": "The Kotak position needs to be verified before we do anything else. The portfolio records show it as a domestic mid-cap fund, but the fund data corresponds to an overseas FoF — different mandate, different tax treatment, different fee structure. If the family is actually holding the overseas FoF, the domestic mid-cap sleeve is effectively zero, and the tax treatment on gains is slab rate, not LTCG. We need to confirm what is actually held.",
+          "emphasis": "data integrity first, then exit decision"
+        },
+        {
+          "number": "03",
+          "body": "Parag Parikh Flexi Cap Fund is the strongest holding in the portfolio on every risk-adjusted metric — 95.9% rolling 5Y beat frequency, 44% downside capture, Sharpe of 0.81. But the snapshot shows Regular Plan. Switching to Direct Plan on this position alone saves approximately Rs 2.2 lakh a year. That is a straightforward action that does not require any portfolio architecture decision.",
+          "emphasis": "Rs 2.2 lakh annual saving, no architecture decision required"
+        },
+        {
+          "number": "04",
+          "body": "The Cat II AIF is 10% of the portfolio — Rs 1.8 Cr in a closed-end structure with a 5–7 year lock-in — and we do not have the manager name or fund documents on file. That is a governance gap for an illiquid position of this size. The conversation with the family should surface who referred this, what documents they received at subscription, and whether we can get the fund factsheet and manager track record.",
+          "emphasis": "governance gap on an illiquid position"
+        },
+        {
+          "number": "05",
+          "body": "The macro context as of the snapshot date is materially stressed: Brent at $118.95, INR at 94.79, FII outflows of Rs 56,401 Cr in April alone, and the 10Y yield spiked to 7.19% on 3 April before partially reversing. The FD block is directly exposed to the yield environment, and the equity funds are exposed to FII-driven correction pressure. The succession planning conversation — the son's entry into business operations, the unintegrated Rs 40–60 Cr business equity — becomes more urgent in this context, not less.",
+          "emphasis": "macro stress amplifies existing structural gaps"
+        }
+      ],
+      "section_7_evidence_appendix": [
+        {
+          "name": "Mirae Asset Large Cap Fund",
+          "sub_category": "mf_active_large_cap",
+          "value_cr": "3.20",
+          "weight_pct": "17.8%"
+        },
+        {
+          "name": "Parag Parikh Flexi Cap Fund",
+          "sub_category": "mf_active_flexi_cap",
+          "value_cr": "3.00",
+          "weight_pct": "16.7%"
+        },
+        {
+          "name": "HDFC Bank FD",
+          "sub_category": "bank_fd",
+          "value_cr": "2.80",
+          "weight_pct": "15.6%"
+        },
+        {
+          "name": "Kotak Emerging Equity Fund",
+          "sub_category": "mf_active_mid_cap (labelled) / FoFs Overseas (actual per E7 snapshot)",
+          "value_cr": "2.26",
+          "weight_pct": "12.6%"
+        },
+        {
+          "name": "SBI FD",
+          "sub_category": "bank_fd",
+          "value_cr": "2.60",
+          "weight_pct": "14.4%"
+        },
+        {
+          "name": "Cat II private credit AIF (2024 vintage)",
+          "sub_category": "aif_cat_ii_private_credit",
+          "value_cr": "1.80",
+          "weight_pct": "10.0%"
+        },
+        {
+          "name": "White Oak India Pioneers PMS",
+          "sub_category": "pms_growth_quality",
+          "value_cr": "1.44",
+          "weight_pct": "8.0%"
+        }
+      ],
+      "coverage_note": "This diagnostic has material coverage limitations that the advisor should note. First, MF look-through data is unavailable for all three mutual fund holdings (Mirae Asset Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund): none of the three fall within the approximately 220-fund covered subset of the 1,773-fund reference universe that carries Top 5 Holdings data. As a result, E1 and E2 returned empty verdicts, sector-level concentration analysis is not possible, and the sleeve-level comparison in Section 5 is estimated from fund mandates rather than underlying holdings. Second, the Cat II private credit AIF is identified only by category and vintage; no manager name, fund documents, or track record are available. E6 confidence for this position is 0.35 — below the standard null-snapshot floor — because the absence of manager identity is a structural information gap, not a data latency issue. The AIF evaluation reflects category-level knowledge of 2024-vintage Indian private credit structures only. Third, the White Oak PMS evaluation (E6 confidence 0.62) is anchored in published PMS factsheets and publicly available performance disclosures as of late 2024; the snapshot record is null and actual portfolio-level data is unavailable. Fourth, the Kotak position carries a data integrity flag: the instrument label in the portfolio records does not match the fund identified in the E7 snapshot. All findings related to this position should be treated as provisional until the actual holding is confirmed. Fifth, the operating-business equity (estimated Rs 40–60 Cr) is outside advisory scope and has not been incorporated into any metric or evidence calculation; the household-level risk concentration is therefore understated throughout this diagnostic."
+    },
+    "metrics": {
+      "totalLiquidAumCr": 18,
+      "holdingsCount": 8,
+      "assetClass": {
+        "Equity": {
+          "actualPct": 55.1,
+          "targetPct": 65,
+          "band": [
+            60,
+            70
+          ],
+          "deviationPct": -9.9,
+          "inBand": false
+        },
+        "Debt": {
+          "actualPct": 30,
+          "targetPct": 25,
+          "band": [
+            20,
+            30
+          ],
+          "deviationPct": 5,
+          "inBand": true
+        },
+        "Alternatives": {
+          "actualPct": 10,
+          "targetPct": 7,
+          "band": [
+            5,
+            10
+          ],
+          "deviationPct": 3,
+          "inBand": true
+        },
+        "Cash": {
+          "actualPct": 5,
+          "targetPct": 3,
+          "band": [
+            2,
+            5
+          ],
+          "deviationPct": 2,
+          "inBand": true
+        }
+      },
+      "concentration": {
+        "hhiHoldingLevel": 0.1394,
+        "hhiAssetClassLevel": 0.4061,
+        "top1": {
+          "instrument": "Mirae Asset Large Cap Fund",
+          "weightPct": 17.8
+        },
+        "top5": [
+          {
+            "instrument": "Mirae Asset Large Cap Fund",
+            "weightPct": 17.8
+          },
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "weightPct": 16.7
+          },
+          {
+            "instrument": "HDFC Bank FD",
+            "weightPct": 15.6
+          },
+          {
+            "instrument": "SBI FD",
+            "weightPct": 14.4
+          },
+          {
+            "instrument": "Kotak Emerging Equity Fund",
+            "weightPct": 12.6
+          }
+        ],
+        "bucketCeilingHhi": 0.3,
+        "bucketTier": "Aggressive",
+        "hhiBreach": false,
+        "positionFlags": [
+          {
+            "instrument": "Mirae Asset Large Cap Fund",
+            "weightPct": 17.8,
+            "severity": "escalate"
+          },
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "weightPct": 16.7,
+            "severity": "escalate"
+          },
+          {
+            "instrument": "Kotak Emerging Equity Fund",
+            "weightPct": 12.6,
+            "severity": "flag"
+          },
+          {
+            "instrument": "HDFC Bank FD",
+            "weightPct": 15.6,
+            "severity": "escalate"
+          },
+          {
+            "instrument": "SBI FD",
+            "weightPct": 14.4,
+            "severity": "flag"
+          },
+          {
+            "instrument": "Cat II private credit AIF (2024 vintage)",
+            "weightPct": 10,
+            "severity": "flag"
+          }
+        ],
+        "wrappers": {
+          "pmsCount": 1,
+          "pmsAggregatePct": 8,
+          "pmsList": [
+            {
+              "instrument": "White Oak India Pioneers PMS",
+              "weightPct": 8
+            }
+          ],
+          "aifCount": 1,
+          "aifAggregatePct": 10,
+          "aifList": [
+            {
+              "instrument": "Cat II private credit AIF (2024 vintage)",
+              "weightPct": 10
+            }
+          ],
+          "wrapperCountFlag": false,
+          "wrapperShareFlag": false
+        },
+        "sectorExposureMfLookThrough": [],
+        "mfCoverage": {
+          "coveredCount": 0,
+          "uncoveredCount": 3,
+          "coveredWeightPct": 0,
+          "uncoveredWeightPct": 47.1
+        }
+      },
+      "liquidity": {
+        "bucketBreakdown": {
+          "T_30": 5,
+          "T_90": 47.1,
+          "T_365": 48,
+          "Locked": 0
+        },
+        "t30PlusT90Pct": 52.1,
+        "tier": "essential",
+        "tierFloor": {
+          "minPct": 5,
+          "maxPct": 15
+        },
+        "floorBreach": false
+      },
+      "cashDeployment": {
+        "cashSharePct": 5,
+        "deploymentGapPct": 0,
+        "cashDragFlag": false
+      },
+      "computedAt": "2026-05-15T13:27:56.164Z"
+    },
+    "router_decision": {
+      "caseMode": "diagnostic",
+      "caseIntent": null,
+      "dominantLens": null,
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": true,
+      "e7": true,
+      "indianContext": false,
+      "portfolioRiskAnalytics": true,
+      "activated": [
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e6_pms_aif_sif",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=diagnostic; listed_equity=false; mf=true; pms=true; aif=true; unlisted_in_scope=false"
+    },
+    "evidence": {
+      "e1": {
+        "analysis_scope": [],
+        "per_stock_verdicts": [],
+        "scope_notes": "No listed equity falls within analysable scope for this request. The Sharma family case presents no direct equity holdings, and MF look-through data is unavailable due to the foundation §3 coverage constraint: approximately 220 of 1,773 funds in the reference universe carry Top 5 Holdings data, and none of the funds held in this case fall within that covered subset. As a result, E1 has no per-stock records to evaluate across any of the seven metric families (capital efficiency, capital structure, earnings quality, valuation, growth, quality moats, risk signals) or the four per-stock frameworks (quality vs cyclicality, growth vs maturity, sector-relative positioning, special situations). Per_stock_verdicts is returned as an empty array. Portfolio-level rollup — including concentration, fee drag, liquidity, and deployment analysis — remains the responsibility of M0.PortfolioRiskAnalytics and is explicitly outside E1 scope.",
+        "escalate_to_master": false,
+        "reasoning_summary": "E1 activation criteria require at least one of: direct listed equity holdings in case scope, MF holdings with available look-through equity data, or PMS strategies with listed equity look-through. None of these conditions are satisfied for the Sharma family diagnostic case as of 2026-04-02. The MF look-through gap is a known structural limitation of the data foundation: the ~220-fund covered subset represents roughly 12 percent of the 1,773-fund universe, and the funds present in this case fall outside that covered subset. No inference or estimation of underlying holdings has been attempted, consistent with E1 discipline: insufficient data maps to cannot_evaluate, not to guesswork. If MF Top 5 Holdings data becomes available for the relevant funds — either through a data enrichment cycle or a manual look-through submission — E1 should be re-invoked with the enriched fixture. Until then, the per-stock layer of the analytical pipeline contributes a null result, and M0.PortfolioRiskAnalytics should be informed that E1 evidence is absent when constructing its portfolio-level risk verdict for this case."
+      },
+      "e2": {
+        "analysis_scope": [],
+        "per_holding_verdicts": [],
+        "cross_holding_sector_observations": [],
+        "scope_notes": "No listed equity holdings were present in the analysable scope for this diagnostic case. The Sharma family mandate covers liquid AUM of Rs 18 Cr with an aggressive long-term model cell, but the holdings submitted contain no direct listed equity, no mutual fund look-through with listed equity underlying, and no PMS look-through with listed equity underlying. E2 activates exclusively when case scope includes listed equity in one of those three forms. With zero qualifying instruments, per_holding_verdicts is returned empty and no industry or business-model framing can be produced. If the portfolio contains unlisted equity, AIF Cat II PE, or AIF Cat III without listed equity look-through, those instruments fall outside E2's activation criteria by design. Should listed equity be added to the portfolio or should MF/PMS look-through data become available, E2 should be re-invoked with the updated scope.",
+        "escalate_to_master": false,
+        "reasoning_summary": "E2 received a diagnostic-mode request for the Sharma family (aggressive long-term mandate, Rs 18 Cr liquid AUM) dated 2 April 2026. The activation check for E2 requires at least one listed equity instrument in scope, whether held directly, via mutual fund look-through, or via PMS look-through. The submitted scope contains no such instruments. Accordingly, the five analytical dimensions — industry classification, sector cycle positioning, competitive structure and moats, demand drivers, and supply-side dynamics — cannot be applied to any holding, and no verdict can be rendered. The empty per_holding_verdicts and empty cross_holding_sector_observations arrays are the correct and complete output for this configuration. No escalation to master is warranted because the absence of listed equity is a clean scope boundary condition, not a structural complexity requiring senior review. The case should proceed through other active agents (E1 will similarly find no scope; M0.PortfolioRiskAnalytics will handle portfolio-level rollup for whatever instruments are present). Re-activation of E2 is appropriate if and when listed equity enters the portfolio."
+      },
+      "e3": {
+        "rate_environment": {
+          "current_repo_pct": 5.25,
+          "real_rate_pct": 3.15,
+          "yield_curve_shape": "Steepening-stressed: 10Y at 6.99% (up 44bps from 6.55% in Nov 2025); repo-10Y spread 174bps; spiked to 7.19% on Apr 3 before partial reversal. Short end anchored by repo; long end driven by crude and geopolitical risk premium.",
+          "forward_expectations": "Pause maintained at Apr 8 MPC (unanimous hold); West Asia uncertainty and crude spike constraining further cuts despite real rate at 3.15% — well above restrictive threshold. Market pricing no cut before Q3 FY27 at earliest; Hormuz disruption and INR depreciation pressure reduce probability of near-term easing.",
+          "cycle_phase": "pause"
+        },
+        "growth_inflation": {
+          "gdp_growth_pct": 7.8,
+          "inflation_pct_cpi": 3.4,
+          "inflation_pct_core": 2.1,
+          "growth_inflation_tradeoff": "Currently favourable on headline numbers: GDP at 7.8% (Q3 FY26), CPI at 3.40% (Mar 2026, below RBI 4% target), core at 2.1%. However, the tradeoff is deteriorating forward-looking: Brent at $118.95 (+86% YoY) will transmit into fuel and transport CPI with a 1-2 quarter lag; IMD forecasts below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome (El Nino), creating food inflation upside risk. Services input cost inflation already at 45-month high (Mar PMI). RBI projects FY27 core at 4.4% — a near-doubling from current 2.1%. Growth-inflation comfort window is closing."
+        },
+        "currency_external": {
+          "inr_usd": 94.787,
+          "reer_assessment": "REER data not present in snapshot; cannot be derived. INR has depreciated 10.7% in 12 months (85.60 on Apr 2, 2025 to 94.79 on Apr 29, 2026). Forex reserves declined $25B to $703B. Depreciation pace is sharp and stress-level; RBI intervention capacity exists but reserves drawdown is ongoing.",
+          "current_account_pct_gdp": null,
+          "fii_flows_summary": "Heavy FII equity outflows: Rs -56,401 Cr in April 2026 alone (~$5.97B), heaviest single day Apr 2 at Rs -19,837 Cr. DII buying of Rs +34,617 Cr (Apr 1-8 partial) only partially absorbs. Net flow dynamic is stressed; domestic support insufficient to neutralise foreign selling pressure."
+        },
+        "policy_regulatory": {
+          "recent_rbi": "Apr 8, 2026 MPC: unanimous hold at repo 5.25%, stance neutral. SDF 5.00%, MSF 5.50%, CRR 3.00%. RBI cited West Asia uncertainty and crude spike as constraining factors. Stated 'vigilant, closely monitoring' with flexibility to respond. 125bps of cuts already delivered (from 6.50%). Transmission progressing: WALR on fresh loans at 8.28% (Dec 2025), down 109bps from peak, 87% transmission rate — though data is ~120 days stale.",
+          "fiscal_stance": "Consolidating with quality improvement. FY26 YTD fiscal deficit Rs 12,52,649 Cr (80.38% of RE), down 7.0% YoY. Capex Rs 9,29,322 Cr (+14.46% YoY, 84.81% of RE). Revenue expenditure only +1.1% YoY — capex-heavy, revex-restrained mix. FY27 targets: fiscal deficit 4.3% of GDP, capex Rs 12.22L Cr, effective capex Rs 17.15L Cr, market borrowing Rs 13.03L Cr. PLI, semiconductor, EV, defence push maintained. Fiscal stance is growth-supportive without being expansionary.",
+          "sectoral_regulatory": "No SEBI, IRDAI, or sector-specific regulatory data present in snapshot for PMS, AIF, or MF dimensions directly. Dimension 5 (news/qualitative) flagged as real-time web search — not available in this snapshot. Cannot cite specific regulatory developments for Sharma portfolio holdings without fabrication.",
+          "tax_policy": "No Budget FY27 tax policy changes specific to investment products cited in the snapshot beyond fiscal aggregates. LTCG framework status not updated in this data block. Cannot assert specific tax policy changes without fabrication."
+        },
+        "material_news": [
+          "Hormuz Strait disruption: ~20% of global oil trade blocked; Brent crude at $118.95/barrel (+86% YoY from ~$64 in Apr 2025) — direct macro stress event",
+          "INR at 94.79 vs USD as of Apr 29, 2026: 10.7% depreciation in 12 months; forex reserves down $25B to $703B",
+          "FII equity outflows: Rs -56,401 Cr in April 2026 alone; heaviest single-day outflow Apr 2 at Rs -19,837 Cr",
+          "RBI MPC Apr 8, 2026: unanimous hold at 5.25%; West Asia uncertainty and crude spike explicitly cited as constraining further cuts",
+          "IMD Apr 13, 2026: below-normal monsoon forecast at 92% of LPA; El Nino likely; 66% probability of below-normal or deficient season — food inflation upside risk for H2 FY27",
+          "Services PMI input cost inflation at 45-month high in March 2026 — leading indicator of services CPI pressure",
+          "10Y G-Sec yield spiked to 7.19% on Apr 3 before settling at 6.99% on Apr 17 — debt portfolio mark-to-market risk event",
+          "Manufacturing PMI rebounded to 55.9 (Apr flash) after Mar dip to 53.9 attributed to Middle East war — domestic demand resilient but geopolitical sensitivity confirmed",
+          "Non-food credit growth at 14.3% YoY (Feb 2026), up from 11.1% a year ago — credit cycle expanding, supports equity earnings but also inflation risk",
+          "Capacity utilisation at 75.6% (Q3 FY26) — above 75% late-expansion threshold; new orders +10.3% YoY"
+        ],
+        "risk_overlay": {
+          "tail_risks": "PRIMARY TAIL RISK: Hormuz disruption — Brent at $118.95 (+86% YoY). If sustained, transmits into: (1) fuel CPI spike breaking RBI's 4% target ceiling, (2) INR further depreciation beyond 94.79, (3) fiscal slippage via fuel subsidy pressure, (4) RBI forced into hawkish pivot despite growth. SECONDARY TAIL RISK: Below-normal monsoon (92% LPA, 66% probability of deficient outcome) — food CPI re-acceleration in H2 FY27. TERTIARY: Fed policy uncertainty — Powell's last meeting imminent, Warsh taking over ~May 15; policy direction shift risk. Combined scenario of crude shock + monsoon failure + Fed hawkishness = stagflationary stress for Indian equities.",
+          "concentration_risks_macro": "Sharma portfolio (Rs 18 Cr, aggressive mandate) holds 1 PMS + 1 AIF + 3 MF — all likely India-equity-heavy given aggressive mandate. Macro concentration risk: all holdings exposed simultaneously to (1) INR depreciation eroding real returns, (2) yield spike affecting debt holdings (2 debt instruments), (3) FII-driven equity market correction. No international diversification (0 direct/intl listed). Domestic-only portfolio in a stressed external environment is a concentration risk at the macro level.",
+          "time_aware_windows": "IMMEDIATE (0-30 days): Apr 29 FOMC meeting (hold expected but Warsh transition risk); RBI response to crude/INR trajectory. NEAR-TERM (30-90 days): May-end IMD monsoon update (critical for food inflation trajectory); Warsh Fed policy direction post-May 15 transition; Q4 FY26 GDP print (MOSPI). MEDIUM-TERM (90-180 days): Monsoon actual progress (June-September); FY27 H1 inflation trajectory; RBI June/August MPC decisions — first real window for cut or hawkish pivot depending on crude and monsoon outcomes. No domestic election event in immediate window."
+        },
+        "overall_e3_assessment": "cautionary",
+        "key_drivers": [
+          {
+            "name": "Crude oil shock — Hormuz disruption",
+            "evidence": "Brent at $118.95/barrel as of Apr 29, 2026; +86% YoY from ~$64; intraday high $119.76; 20% of global oil trade blocked (indicator 4.3)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Sharp INR depreciation",
+            "evidence": "USD/INR at 94.787 on Apr 29, 2026; 10.7% depreciation over 12 months from 85.60; forex reserves down $25B to $703B (indicator 4.2)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Heavy FII equity outflows",
+            "evidence": "Rs -56,401 Cr FII net equity outflow in April 2026; heaviest day Apr 2 at Rs -19,837 Cr; DII absorption only partial at Rs +34,617 Cr (Apr 1-8) (indicators 4.4, 4.5)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Real rate highly restrictive despite pause",
+            "evidence": "Real rate at 3.15% (repo 5.25% minus core CPI 2.1%); well above +2% restrictive threshold; highest in years (indicator 2.3)",
+            "dimension": "rate"
+          },
+          {
+            "name": "Strong domestic growth — partial buffer",
+            "evidence": "GDP Q3 FY26 at 7.8%; Manufacturing PMI Apr flash 55.9; capacity utilisation 75.6%; non-food credit growth 14.3% YoY (indicators 1.5, 1.1, 1.4, 1.3)",
+            "dimension": "growth"
+          },
+          {
+            "name": "Fiscal consolidation with capex quality",
+            "evidence": "Capex +14.46% YoY at Rs 9,29,322 Cr (84.81% of RE); revenue expenditure only +1.1% YoY; fiscal deficit -7.0% YoY (indicator 3.2, 3.1)",
+            "dimension": "policy"
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Crude-driven inflation reversal — RBI hawkish pivot risk",
+            "evidence": "Brent +86% YoY at $118.95; services input cost inflation at 45-month high (Mar PMI); RBI FY27 core projection 4.4% vs current 2.1% (indicators 4.3, 1.2, 2.3)",
+            "severity": "high"
+          },
+          {
+            "name": "INR depreciation — real return erosion and imported inflation",
+            "evidence": "10.7% depreciation in 12 months to 94.79; reserves down $25B to $703B; India-US rate differential only 162bps — insufficient for carry support (indicators 4.2, 4.1b)",
+            "severity": "high"
+          },
+          {
+            "name": "Monsoon failure — food CPI re-acceleration",
+            "evidence": "IMD Apr 13 forecast: 92% of LPA, El Nino likely, 66% probability of below-normal or deficient outcome (indicator 1.9)",
+            "severity": "high"
+          },
+          {
+            "name": "10Y yield spike — debt portfolio mark-to-market risk",
+            "evidence": "10Y G-Sec at 6.99%, up 44bps from 6.55% in Nov 2025; spiked to 7.19% on Apr 3 (indicator 2.4); Sharma portfolio holds 2 debt instruments",
+            "severity": "medium"
+          },
+          {
+            "name": "FII outflow continuation — equity market correction pressure",
+            "evidence": "Rs -56,401 Cr in April alone; DII absorption incomplete; no international diversification in Sharma portfolio to offset (indicators 4.4, 4.5)",
+            "severity": "medium"
+          },
+          {
+            "name": "Fed policy uncertainty — Warsh transition",
+            "evidence": "Powell's last FOMC meeting imminent; Warsh taking over ~May 15; Fed at 3.50-3.75% on indefinite hold per Deutsche Bank; direction risk post-transition (indicator 4.1)",
+            "severity": "medium"
+          },
+          {
+            "name": "Geopolitical escalation — Middle East war",
+            "evidence": "Mar PMI dip to 53.9 attributed to Middle East war; Hormuz disruption driving crude spike; RBI MPC Apr 8 explicitly cited West Asia uncertainty (indicators 1.1, 2.2, 4.3)",
+            "severity": "high"
+          }
+        ],
+        "confidence": 0.74,
+        "escalate_to_master": true,
+        "reasoning_summary": "The macro environment as of Apr 29, 2026 is materially stressed relative to the Sharma family's aggressive long-term mandate. Three concurrent shocks are active: (1) Hormuz disruption driving Brent to $118.95 (+86% YoY), (2) INR at 94.79 — a 10.7% depreciation over 12 months with reserves down $25B, and (3) FII equity outflows of Rs -56,401 Cr in April alone. These are not independent risks; they are mutually reinforcing through the current account and inflation channels. The domestic growth picture remains strong — GDP at 7.8% (Q3 FY26), PMI manufacturing at 55.9 (Apr flash), capacity utilisation above 75% — and fiscal quality is improving (capex +14.46% YoY, deficit consolidating). However, these positives are lagging indicators relative to the forward-looking stress signals. The real rate at 3.15% is highly restrictive, yet RBI cannot cut because crude and INR depreciation constrain easing. The IMD below-normal monsoon forecast (66% probability of deficient outcome) adds a food inflation tail risk for H2 FY27. For the Sharma portfolio — Rs 18 Cr, aggressive mandate, India-only (0 international), holding 2 debt instruments exposed to yield spike risk — the macro context is cautionary. The 10Y yield spike to 7.19% on Apr 3 (settling at 6.99%) is a direct mark-to-market event for the debt holdings. The FII-driven equity pressure affects PMS, AIF, and MF equity components simultaneously. escalate_to_master is set true because the Hormuz disruption constitutes a mid-case flash event of material severity — the crude shock and INR move since the case_as_of_date of Apr 2 represent a structural shift in the macro context that warrants master-level review before any diagnostic conclusion is finalised. REER and current account data are absent from the snapshot and cannot be derived; confidence is accordingly capped at 0.74."
+      },
+      "e4": {
+        "stated_risk_tolerance": {
+          "bucket": "aggressive",
+          "specific_language": "Stated risk appetite: aggressive. Mandate equity band 50-70%, current equity allocation 55%. Time horizon over 5 years.",
+          "horizon": "Over 5 years"
+        },
+        "revealed_behavioural_patterns": {
+          "market_event_response": "No direct evidence of investor behaviour during 2018-19 correction, 2020 COVID dip, or 2022 drawdown is available in the bible or case history. Limited_history_flag applies; market-event response cannot be assessed from available data.",
+          "initiative_pattern": "mixed — peer-network-driven for sophistication-tier additions (PMS in 2023, Cat II AIF in 2024 both added via industry-association peer referrals), but no evidence of investor-initiated mid-cycle reviews or exit framing across the last six advisor interactions, suggesting advisor-driven cadence for portfolio-level decisions.",
+          "engagement_style": "distant — has not raised mid-cycle review or exit framing in the last six advisor interactions per the bible; sophistication-tier product additions are peer-network-triggered rather than arising from structured portfolio-architecture conversations with the advisor.",
+          "product_addition_pattern": "peer_network — the White Oak India Pioneers PMS was added in 2023 after two manufacturers' federation peers mentioned their own PMS holdings; the Cat II private credit AIF was added in 2024 through a similar peer-referral path. Neither addition is described as arising from advisor-led architecture conversation.",
+          "notes": [
+            "The Rs 5.4 Cr FD block (HDFC Bank Rs 2.80 Cr + SBI Rs 2.60 Cr) has been held flat across three reset cycles per the bible's E4 finding, indicating inert-reserve treatment inconsistent with an actively managed aggressive mandate.",
+            "Equity allocation at 55% sits at the lower half of the 50-70% mandate band, suggesting revealed positioning is less aggressive than the stated bucket implies.",
+            "No mid-cycle review or exit framing raised in six advisor interactions — passive engagement pattern despite an aggressive stated mandate.",
+            "Peer-network influence on two material product additions (PMS, AIF) without documented structured due-diligence process raises the risk of wrapper accumulation without deliberate architecture."
+          ]
+        },
+        "family_advisor_dynamics": {
+          "decision_structure": "sole — the father (56) is the principal financial decision-maker per the bible's E4 finding; the household is structured as an individual tax filer despite the colloquial 'Sharma family' label.",
+          "formal_authority": "Father (56-year-old principal) holds formal authority; individual tax filer structure confirmed by E6 gate finding.",
+          "practical_influence": "Peer network (manufacturers' federation members) has demonstrated practical influence on sophistication-tier product additions — two material decisions (PMS 2023, AIF 2024) were peer-triggered. Son (28, recently joined business operations) is a nascent influence factor given active succession planning, but no financial decision influence is documented yet.",
+          "friction_points": [
+            "Succession planning is underway with the son's recent entry into business operations — the handover trajectory is flagged as a key concern in the bible but has not yet translated into a structured advisory conversation.",
+            "The operating-business equity (estimated Rs 40-60 Cr, outside advisory scope) has not been formally integrated into the liquid-corpus risk-envelope conversation — a structural gap the bible identifies as a key concern.",
+            "Peer-network influence on product additions creates a potential friction point if advisor-recommended architecture diverges from peer-referenced products (e.g., if Marcellus proposal is evaluated against peer-held alternatives)."
+          ]
+        },
+        "historical_decision_pattern": {
+          "prior_cases_count": 0,
+          "trajectory_summary": "No formal case history in the DB. Bible provides the following observable trajectory: two sophistication-tier product additions in 2023-2024 (both peer-network-triggered); FD block held flat across three reset cycles (inert-reserve behaviour); no mid-cycle reviews or exit framing raised across six advisor interactions. Pattern suggests low engagement frequency with the advisor on portfolio architecture, punctuated by peer-triggered product additions.",
+          "acceptance_rate": "unknown — no formal case verdicts available; bible does not document acceptance or override events.",
+          "time_to_decision": "unknown — no case history; bible does not document time-to-decision for prior product additions."
+        },
+        "stated_vs_revealed_divergence": {
+          "direction": "stated_more_aggressive_than_revealed",
+          "magnitude": "moderate",
+          "implication": "The investor states an aggressive mandate but reveals a passive, peer-reactive engagement style, an inert FD reserve at 30% of AUM (above the model's 25% debt target), and equity positioning at the lower half of the mandate band — the diagnostic case should treat the effective risk tolerance as moderate-to-aggressive rather than fully aggressive, and should not assume appetite for further sophistication-tier additions without a structured architecture conversation."
+        },
+        "limited_history_flag": true,
+        "key_drivers": [
+          {
+            "name": "Peer-network product influence",
+            "evidence": "White Oak PMS added in 2023 after two manufacturers' federation peers mentioned their own PMS holdings; Cat II AIF added in 2024 through a similar peer-referral path — both per the bible's behavioural attributes section."
+          },
+          {
+            "name": "Inert FD reserve behaviour",
+            "evidence": "The Rs 5.4 Cr FD block has been held flat across three reset cycles per the bible's E4 finding, indicating the investor treats fixed deposits as a near-static reserve rather than an active asset class."
+          },
+          {
+            "name": "Succession planning as emerging context",
+            "evidence": "Son (28) recently joined business operations; the bible flags the eventual handover trajectory as a key concern and identifies life_stage = transition (high confidence) in the I0 enrichment."
+          },
+          {
+            "name": "Operating-business equity outside advisory scope",
+            "evidence": "Estimated Rs 40-60 Cr unlisted business equity sits outside advisory scope; the bible identifies the structural question of how this should inform the liquid-corpus risk envelope as a key concern not yet addressed."
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Wrapper accumulation without architecture",
+            "evidence": "Bible explicitly flags: 'continuing the wrapper accumulation pattern without deliberate architecture' as a key concern; the Marcellus proposal would move the portfolio to 2 PMS strategies plus 1 AIF.",
+            "severity": "high"
+          },
+          {
+            "name": "Peer-network bias on product selection",
+            "evidence": "Both existing sophistication-tier products (PMS, AIF) were added via peer referral rather than structured portfolio-architecture conversations — pattern may repeat with Marcellus if peer-network is the trigger rather than advisor-led due diligence.",
+            "severity": "high"
+          },
+          {
+            "name": "Unintegrated business-equity risk",
+            "evidence": "Rs 40-60 Cr operating-business equity outside advisory scope has not been formally integrated into the liquid-corpus risk envelope per the bible's key concerns section — the true household risk concentration may be materially higher than the liquid AUM alone implies.",
+            "severity": "high"
+          },
+          {
+            "name": "Passive engagement masking tolerance misread",
+            "evidence": "No mid-cycle review or exit framing raised in six advisor interactions; equity at lower half of mandate band; FD block inert — passive engagement may mean the investor has not stress-tested his stated aggressive tolerance against actual drawdown scenarios.",
+            "severity": "medium"
+          },
+          {
+            "name": "Succession-transition risk to mandate",
+            "evidence": "Son's recent entry into business operations and the bible's identification of life_stage = transition (high confidence) suggest the mandate may need to evolve as succession planning progresses — an aggressive long-term mandate calibrated for a 56-year-old principal may require recalibration as the handover trajectory develops.",
+            "severity": "medium"
+          },
+          {
+            "name": "Limited history confidence reduction",
+            "evidence": "Prior cases in DB: 0; advisor relationship length: 0 years — revealed behavioural pattern cannot be confirmed from case history; bible provides the only behavioural signal.",
+            "severity": "medium"
+          }
+        ],
+        "confidence": 0.62,
+        "escalate_to_master": false,
+        "reasoning_summary": "The Sharma family diagnostic presents a moderate-confidence behavioural profile shaped almost entirely by the character bible, as no formal case history exists and the advisor relationship is new. The stated aggressive mandate is not fully supported by revealed behaviour. Three specific observations anchor this assessment. First, both sophistication-tier product additions in the prior 24 months — the White Oak PMS (2023) and the Cat II private credit AIF (2024) — were peer-network-triggered via manufacturers' federation contacts, not advisor-led architecture conversations. This is a material behavioural signal: the investor's product decisions at the margin are driven by social proof rather than structured due diligence. Second, the Rs 5.4 Cr FD block has been held flat across three reset cycles, representing 30% of AUM and sitting above the model's 25% debt target. This inert-reserve behaviour is inconsistent with an actively managed aggressive mandate and suggests the investor's effective risk tolerance is moderate-to-aggressive rather than fully aggressive. Third, the investor has not raised mid-cycle reviews or exit framing across six advisor interactions — a passive engagement pattern that, combined with equity positioning at the lower half of the 50-70% mandate band, reinforces the stated-vs-revealed divergence finding. The divergence direction is stated_more_aggressive_than_revealed at moderate magnitude. For the current diagnostic, this means the advisor should not treat the aggressive mandate label as a licence to recommend further sophistication-tier additions without first conducting a structured portfolio-architecture conversation — particularly given the Marcellus proposal would escalate the portfolio to two PMS strategies plus one AIF. The three structural concerns flagged in the bible — wrapper accumulation without architecture, the unintegrated operating-business equity (Rs 40-60 Cr outside advisory scope), and the nascent succession-planning trajectory — are all live and unresolved. The limited_history_flag is set true; the bible mitigates but does not eliminate the confidence reduction. Confidence is set at 0.62. Escalation to master is not warranted at this stage; no contested family decision dynamics are present, though the son's growing role in business operations warrants monitoring as a future influence factor."
+      },
+      "e6": {
+        "analysis_scope": [
+          "White Oak India Pioneers PMS",
+          "Cat II private credit AIF (2024 vintage)"
+        ],
+        "per_product_evaluations": [
+          {
+            "instrument": "White Oak India Pioneers PMS",
+            "wrapper_type": "PMS",
+            "sub_category": "pms_growth_quality",
+            "weight_pct": 8,
+            "manager_quality": "strong",
+            "strategy_consistency": "high",
+            "fee_structure_assessment": "Published fee structure: management fee ~1.5% p.a. on AUM; performance fee ~15–20% above a hurdle of ~10–12% with high-water-mark applied. Expense ratio estimated ~0.3–0.4% p.a. inclusive of custodian and audit. No front-end load; exit load typically nil post 12 months. Exact performance fee tier and hurdle rate not confirmed from snapshot (null); anchored in White Oak published PMS terms as of 2024–25.",
+            "fee_normalised_bps": 295,
+            "liquidity_terms": "Monthly redemption window; notice period typically 30 days; exit load nil post 12 months; partial redemptions permitted subject to minimum residual balance of Rs 50 L.",
+            "concentration_or_strategy_profile": "White Oak India Pioneers is a multi-cap growth-quality strategy. Published positioning: 30–40 holdings; sector-agnostic with quality and growth screens; significant weights historically in financials, consumer discretionary, and technology. Top-10 concentration estimated 45–55% of portfolio. Strategy targets businesses with high ROCE, low leverage, and visible earnings growth. Not a concentrated 15-stock portfolio; diversification is a stated design feature distinguishing it from Marcellus-style concentrated quality.",
+            "performance_vs_benchmark": "Snapshot record null; anchored in published positioning. White Oak India Pioneers PMS reported 3Y CAGR (as of Dec 2024) approximately 19–21% vs Nifty 500 TRI ~18–19% over the same period, implying modest but positive alpha of ~100–200 bps gross. Net-of-fee alpha narrows to approximately flat to +50 bps over 3Y on a blended fee basis. 1Y performance (FY2024–25) has been more competitive given mid/small-cap tailwinds in 2023–24 followed by correction; exact 1Y figure unavailable from snapshot. Prashant Khemka's prior track record at Goldman Sachs AMC (GS India Equity, 2007–2013) showed consistent alpha generation; White Oak PMS launched 2018 and has ~7-year live track record.",
+            "complexity_premium_earned": "mixed",
+            "capacity_concern": "moderate",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "Prashant Khemka founder-led; 7+ year live PMS track record post-2018 launch; prior Goldman Sachs AMC pedigree adds credibility",
+              "Strategy design (30–40 holdings, quality-growth screen) is internally consistent and has not shown documented style drift",
+              "Monthly liquidity window and nil exit load post 12 months appropriate for aggressive long-term mandate",
+              "8% weight (Rs 1.44 Cr) is within reasonable PMS allocation band for Rs 18 Cr AUM"
+            ],
+            "key_risks": [
+              "Net-of-fee alpha over 3Y is thin (~flat to +50 bps); fee premium of ~295 bps blended is only marginally justified by historical net alpha vs Nifty 500 TRI",
+              "White Oak PMS AUM has grown materially (estimated Rs 8,000–10,000 Cr across strategies as of 2025); capacity pressure on mid-cap ideas is a live concern",
+              "Snapshot record null: all performance figures anchored in published positioning; actual portfolio-level data unavailable, reducing precision",
+              "Multi-cap growth-quality space is crowded; strategy differentiation from comparable PMS (Motilal Osuda NTDOP, ASK Growth) is moderate, not high"
+            ],
+            "recommended_alternatives": [
+              "Mirae Asset Large & Midcap Fund (direct plan, ~80 bps blended) as lower-cost exposure to similar quality-growth universe if net alpha does not sustain",
+              "Motilal Oswal Nifty 500 Momentum 50 ETF (~15 bps) as passive alternative capturing similar multi-cap return profile at negligible cost"
+            ],
+            "confidence": 0.62,
+            "reasoning_trace": "Snapshot record is null; evaluation anchored in White Oak's published PMS factsheets and Prashant Khemka's documented investment philosophy. 3Y CAGR estimate of 19–21% vs Nifty 500 TRI ~18–19% is drawn from publicly available PMS performance disclosures as of late 2024; net-of-fee alpha is thin. Fee normalisation assumes 1.5% management fee, 17.5% performance fee applied in 3 of 5 years above 11% hurdle, 0.35% expense ratio, yielding ~295 bps blended over 5Y horizon. Capacity concern flagged at moderate given AUM growth trajectory. Confidence capped at 0.62 per null snapshot protocol."
+          },
+          {
+            "instrument": "Cat II private credit AIF (2024 vintage)",
+            "wrapper_type": "AIF",
+            "sub_category": "aif_cat_ii_private_credit",
+            "weight_pct": 10,
+            "manager_quality": "cannot_evaluate",
+            "strategy_consistency": "cannot_evaluate",
+            "fee_structure_assessment": "Cat II private credit AIFs typically carry: management fee 1.5–2.0% p.a. on committed capital during investment period, stepping to 1.0–1.5% on invested capital post-investment period; performance fee (carried interest) 15–20% above an 8–10% preferred return (hurdle) with catch-up clause; no high-water-mark in standard Cat II structure (carry is deal-level or fund-level IRR-based, not NAV-based). Expense ratio (fund admin, legal, audit, custodian) typically 0.3–0.5% p.a. additional. 2024 vintage: investment period likely 2–3 years; total fund life 5–7 years. Blended fee estimate: ~280–350 bps p.a. on invested capital over fund life, depending on performance fee crystallisation. Specific manager terms unavailable (instrument identified only as 'Cat II private credit AIF 2024 vintage'; no manager name provided).",
+            "fee_normalised_bps": 310,
+            "liquidity_terms": "Cat II AIF: closed-end structure; no redemption window during fund life. Capital calls drawn over 2–3 year investment period. Distributions expected from year 3–4 as credit positions mature or are refinanced. Secondary market for Cat II AIF units is illiquid; exit prior to fund maturity is structurally difficult. Lock-in effectively 5–7 years from first close. Liquidity tier for this position: illiquid. Incompatible with short-term liquidity needs; appropriate only if investor has confirmed 5Y+ horizon (Sharma family mandate states over 5Y — compatible).",
+            "concentration_or_strategy_profile": "Private credit Cat II AIFs (2024 vintage) in the Indian market typically deploy into: (a) structured mezzanine lending to mid-market corporates at 14–18% gross yield; (b) real estate construction finance at 16–20% gross yield; (c) NBFC on-lending structures. 2024 vintage context: RBI tightening on NBFC lending norms (Nov 2023 circular) has shifted some private credit demand toward AIF structures; deal flow has been active but credit quality screening is critical. Without manager identity, underlying portfolio composition, LTV ratios, borrower credit profiles, and covenant structures cannot be assessed. Rs 1.8 Cr commitment at 10% of Rs 18 Cr AUM is within SEBI Cat II minimum (Rs 1 Cr) and represents a reasonable allocation quantum.",
+            "performance_vs_benchmark": "2024 vintage: too early for meaningful performance data (fund likely in capital deployment phase as of April 2026; 12–18 months post-first-close). Target gross IRR for Indian private credit Cat II AIFs in this vintage is typically 15–18%; net IRR post fees ~12–15%. Comparable public market benchmark: Nifty AAA Corporate Bond Index (~7.5–8.0% p.a.); credit risk premium implied ~400–700 bps net. Cannot evaluate actual vs target at this stage. Historical private credit AIF vintage data (2019–2022 vintages) shows net IRR range of 11–14% for well-managed funds; 2024 vintage performance will depend heavily on credit cycle evolution 2025–2028.",
+            "complexity_premium_earned": "cannot_evaluate",
+            "capacity_concern": "cannot_evaluate",
+            "overall_verdict": "cannot_evaluate",
+            "key_drivers": [
+              "2024 vintage private credit is structurally sound for aggressive long-term mandate with 5Y+ horizon",
+              "10% allocation (Rs 1.8 Cr) is within reasonable illiquid alternatives band for Rs 18 Cr AUM",
+              "Private credit Cat II offers credit risk premium of ~400–700 bps net over AAA bonds, which is the structural rationale for inclusion",
+              "Closed-end structure and capital call mechanics are compatible with stated time horizon"
+            ],
+            "key_risks": [
+              "Manager identity not provided: cannot assess manager quality, track record, team depth, or prior vintage performance — this is the single largest evaluation gap",
+              "2024 vintage is in early deployment phase; no performance data available; credit quality of underlying borrowers unverifiable",
+              "RBI regulatory environment for private credit structures remains evolving; NBFC-linked structures face heightened scrutiny post-Nov 2023 circular",
+              "Illiquidity risk: no exit mechanism for 5–7 years; if Sharma family liquidity needs change, position cannot be unwound",
+              "Concentration within private credit: without look-through data, sector and borrower concentration unknown"
+            ],
+            "recommended_alternatives": [
+              "If manager identity and track record cannot be confirmed, consider deferring additional commitment until due diligence is complete",
+              "ICICI Prudential Credit Risk Fund or Nippon India Credit Risk Fund (MF wrapper) as liquid credit alternative at ~150–180 bps blended cost with daily liquidity",
+              "Listed NCD portfolio (direct) for comparable yield with full liquidity and transparency"
+            ],
+            "confidence": 0.35,
+            "reasoning_trace": "Instrument identified only as 'Cat II private credit AIF (2024 vintage)' with no manager name, fund documents, or snapshot record. Evaluation is anchored entirely in category-level knowledge of Indian private credit AIF structures as of 2024–25. Fee normalisation uses market-standard Cat II private credit terms (1.75% management fee, 17.5% carry above 9% hurdle, 0.4% expense ratio, performance fee crystallised in years 4–6). Confidence is set at 0.35 — below the null-snapshot floor of 0.65 — because the absence of manager identity prevents any manager quality, track record, or strategy consistency assessment; this is a structural information gap, not merely a snapshot gap. Escalation to master flagged for manager identity resolution."
+          }
+        ],
+        "cross_product_observations": [
+          "Both wrappers carry null snapshot records; the entire evaluation rests on published positioning and category-level knowledge. This is an unusual diagnostic posture: for a Rs 18 Cr portfolio with Rs 3.24 Cr across two wrapper-tier products (18% of AUM), the absence of fund-level documentation is a governance concern that should be surfaced to the Sharma family.",
+          "Wrapper differentiation is meaningful: White Oak PMS provides listed equity exposure with monthly liquidity; the Cat II private credit AIF provides illiquid credit exposure with 5–7 year lock-in. These are structurally non-overlapping, which is appropriate portfolio design.",
+          "Fee aggregation: blended normalised bps across both wrappers is approximately 295 bps (PMS) and 310 bps (AIF) on respective invested amounts. Combined fee drag on Rs 3.24 Cr is estimated Rs 9.5–10.0 L p.a. at steady state. This is material and should be weighed against alpha and illiquidity premium delivered.",
+          "Liquidity asymmetry: PMS (monthly redemption) and Cat II AIF (illiquid, 5–7Y) sit at opposite ends of the liquidity spectrum. For a family with Rs 18 Cr AUM and 'Essential' liquidity tier, the 10% illiquid AIF allocation should be stress-tested against potential liquidity events over the 5–7 year fund life.",
+          "No Cat III long-short AIF is present in this portfolio; the complexity_premium_earned field for Cat III is therefore not applicable to this case. The field is populated as 'cannot_evaluate' for the private credit AIF (different complexity dimension) and 'mixed' for the PMS (thin net alpha).",
+          "Manager identity gap in the Cat II AIF is the dominant unresolved issue across the two-wrapper portfolio. The PMS evaluation, while confidence-limited, is anchored in a named manager with a documented track record. The AIF evaluation has no such anchor."
+        ],
+        "scope_notes": "This is a diagnostic evaluation of two existing wrapper-tier positions in the Sharma family portfolio (liquid AUM Rs 18 Cr; aggressive long-term mandate). No Gate check was performed per Slice 2 framing instructions. Both snapshot records are null; evaluations are anchored in published positioning and category-level knowledge, with confidence capped accordingly. The Cat II AIF evaluation is further confidence-reduced below the standard null-snapshot floor of 0.65 due to the absence of manager identity — a structural information gap that prevents any manager quality or track record assessment. Fee normalisation uses 5-year horizon blended bps methodology per E6 FeeNormalisation sub-agent protocol. Performance vs benchmark figures for the PMS are drawn from publicly available White Oak PMS disclosures as of late 2024; the AIF is in early deployment and has no performance data. Aggregate concentration analysis is explicitly deferred to M0.PortfolioRiskAnalytics per scope instructions.",
+        "overall_e6_verdict": "positive_with_caution",
+        "escalate_to_master": true,
+        "reasoning_summary": "The Sharma family holds two wrapper-tier positions totalling Rs 3.24 Cr (18% of liquid AUM): White Oak India Pioneers PMS at 8% and an unnamed Cat II private credit AIF (2024 vintage) at 10%. The overall E6 verdict is positive_with_caution, driven by structural appropriateness of both wrappers for an aggressive long-term mandate, but qualified by two distinct concerns of different severity.\n\nFor the White Oak PMS, the evaluation is cautiously positive. Prashant Khemka's founder-led team has a 7+ year live PMS track record and a credible prior pedigree at Goldman Sachs AMC. The strategy is internally consistent — a 30–40 holding quality-growth multi-cap approach with no documented style drift. However, the net-of-fee alpha over 3 years is thin: estimated ~flat to +50 bps net versus Nifty 500 TRI, against a blended fee drag of approximately 295 bps. The fee premium is only marginally justified by historical performance, and growing AUM (estimated Rs 8,000–10,000 Cr across White Oak strategies) introduces a moderate capacity concern, particularly for mid-cap idea generation. The position is defensible at 8% of AUM but warrants monitoring of net alpha sustainability.\n\nFor the Cat II private credit AIF, the evaluation cannot be completed in any meaningful sense. The instrument is identified only by category and vintage; no manager name, fund documents, or track record are available. This is not a confidence-reduction scenario — it is a structural information gap. Private credit Cat II AIFs in the 2024 vintage carry a credible structural rationale (credit risk premium of 400–700 bps net over AAA bonds; compatibility with 5Y+ horizon), but without manager identity, the evaluation of manager quality, prior vintage performance, underlying portfolio credit quality, covenant structures, and concentration is impossible. The 10% allocation to an unidentified illiquid instrument in a family portfolio with an 'Essential' liquidity tier is a governance concern.\n\nEscalation to master is flagged on the basis of the Cat II AIF manager identity gap. Resolution of manager identity and provision of fund documents should precede any further diagnostic or advisory action on this position."
+      },
+      "e7": {
+        "analysis_scope": [
+          "Mirae Asset Large Cap Fund",
+          "Parag Parikh Flexi Cap Fund",
+          "Kotak Emerging Equity Fund"
+        ],
+        "per_scheme_verdicts": [
+          {
+            "instrument": "Mirae Asset Large Cap Fund",
+            "sebi_category": "Large Cap Fund",
+            "sub_category": "mf_active_large_cap",
+            "weight_pct": 17.8,
+            "manager_strategy": {
+              "manager_continuity": "strong",
+              "style_consistency": "high",
+              "philosophy": "Quality-tilted large-cap bottom-up stock selection with concentrated 35–45 stock portfolio; long-holding-period style with low turnover and disciplined sector allocation."
+            },
+            "performance_attribution": {
+              "one_year_pct": -2.13,
+              "three_year_pct": 9.92,
+              "five_year_pct": 9.05,
+              "alpha_summary": "Rolling 3Y beats category 80.8% of periods with avg excess return of +293 bps; rolling 5Y beats category 79.8% of periods with avg excess of +303 bps; alpha trend direction is improving, indicating sustained and strengthening outperformance vs peers.",
+              "peer_relative": "Consistently top-quartile vs large-cap category median across 3Y and 5Y rolling windows; 80%+ beat frequency is a high bar for an active large-cap fund.",
+              "skill_vs_beta": "The combination of high rolling beat frequency (>79% over both 3Y and 5Y windows), improving alpha trend, and low portfolio turnover strongly suggests skill-based stock selection rather than beta drift. The 1Y negative return (-2.1%) reflects broad large-cap market weakness rather than fund-specific deterioration. Upside capture of 93.4% vs downside capture of 99.4% over 3Y is the one soft spot — the fund participates nearly fully in drawdowns while capturing slightly less of the upside, which is consistent with a quality-tilt that can lag in momentum-driven rallies. Max drawdown of -46.6% (likely COVID-era) recovered in 5 months, demonstrating resilience."
+            },
+            "fee_cost": {
+              "ter_pct": 1.52,
+              "fee_impact_5y_summary": "At 1.52% TER on a Direct/Growth plan, cumulative fee drag over 5 years at 9% gross return is approximately 7.2% of terminal corpus. This is competitive for an active large-cap fund; the Direct plan saves ~80–100 bps annually vs Regular plan. For a Rs 3.2 Cr holding, annual fee cost is approximately Rs 4.9 lakh — material but justified given demonstrated alpha generation of ~300 bps above category."
+            },
+            "capacity_continuity": {
+              "aum_cr": 40184.4,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 40,184 Cr is large but appropriate for a large-cap mandate where the investable universe is deep and liquid. Large-cap funds do not face the structural capacity constraints of mid/small-cap strategies. AUM growth has been healthy without evidence of capacity stress. No concern."
+            },
+            "tax_efficiency": "Low portfolio turnover (~25% estimated) minimises short-term capital gains crystallisation within the fund, making it LTCG-efficient for investors holding beyond 1 year. Direct/Growth option avoids IDCW tax drag. Exit load of 1% within 1 year aligns incentives with long-horizon holding. Post-Budget 2024, equity LTCG at 12.5% above Rs 1.25 lakh threshold applies; the fund's low-churn style is well-suited to this regime.",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "Rolling 3Y and 5Y beat frequency >79% — top-quartile consistency in large-cap category",
+              "Improving alpha trend direction signals strengthening skill-based outperformance",
+              "Low portfolio turnover supports LTCG efficiency and long-horizon compounding",
+              "Adequate capacity for large-cap mandate at Rs 40,184 Cr AUM",
+              "Competitive TER of 1.52% for active large-cap with demonstrated alpha"
+            ],
+            "key_risks": [
+              "Downside capture ratio of 99.4% over 3Y — fund participates nearly fully in market drawdowns; limited downside protection",
+              "1Y return of -2.1% reflects near-term market weakness; large-cap alpha generation is structurally harder as markets become more efficient",
+              "Upside capture (93.4%) below downside capture (99.4%) — asymmetry unfavourable; quality tilt may lag in momentum-driven markets",
+              "Manager continuity risk: if lead manager departs, historical alpha track record may not transfer"
+            ],
+            "recommended_alternatives": [
+              "HDFC Index Fund Nifty 50 — passive alternative at ~0.20% TER for fee-sensitive investors willing to forgo active alpha",
+              "Axis Bluechip Fund — peer large-cap active fund for comparison; similar quality tilt but different manager and concentration profile"
+            ],
+            "confidence": 0.82,
+            "reasoning_trace": "Mirae Asset Large Cap Fund presents a strong multi-period track record with rolling beat frequencies above 79% across both 3Y and 5Y windows and an improving alpha trend, which together support a skill-based attribution rather than beta drift. The 1Y negative return is a market-level event, not fund-specific deterioration. The primary caution is the near-symmetric downside capture (99.4%) which limits the fund's defensive utility in sharp corrections — a relevant consideration for the Sharma family's Rs 3.2 Cr position. Overall verdict is positive_with_caution rather than outright positive due to this asymmetric capture profile and the structural difficulty of sustaining large-cap alpha at scale."
+          },
+          {
+            "instrument": "Parag Parikh Flexi Cap Fund",
+            "sebi_category": "Flexi Cap Fund",
+            "sub_category": "mf_active_flexi_cap",
+            "weight_pct": 16.7,
+            "manager_strategy": {
+              "manager_continuity": "moderate",
+              "style_consistency": "high",
+              "philosophy": "Long-only, value-oriented global-domestic flexi-cap strategy with significant international equity allocation (primarily US tech/quality), low turnover, and a strong emphasis on margin of safety and business quality over market-cap constraints."
+            },
+            "performance_attribution": {
+              "one_year_pct": 0.99,
+              "three_year_pct": 16.83,
+              "five_year_pct": 15.49,
+              "alpha_summary": "Rolling 3Y beats category 81.8% of periods with avg excess of +333 bps; rolling 5Y beats category 95.9% of periods with avg excess of +397 bps — exceptional consistency. Alpha trend is stable, indicating the outperformance is not a recent phenomenon but a durable feature of the strategy.",
+              "peer_relative": "Top-decile vs flexi-cap category across 5Y rolling windows (95.9% beat frequency is among the highest observable for any active equity fund in India). 3Y peer-relative also strong at 81.8%.",
+              "skill_vs_beta": "The evidence for skill is compelling and multi-dimensional: (1) 95.9% rolling 5Y beat frequency is near-definitive for skill attribution; (2) downside capture of only 44.0% over 3Y is exceptional — the fund participates in less than half the category's downside while capturing 74.5% of the upside; (3) max drawdown of -23.2% vs Mirae's -46.6% demonstrates structural downside protection; (4) recovery in 4 months from max drawdown; (5) Sharpe of 0.81 and Sortino of 0.98 are materially superior to peers. The international equity allocation (US-listed stocks) provides genuine diversification and has historically contributed to both alpha and downside protection. The low P/E of 18.45 vs Mirae's 25.92 reflects the value discipline. This is skill, not beta drift. Note: the snapshot shows Regular Plan (not Direct); TER of 1.28% for Regular Plan implies Direct Plan TER would be approximately 0.50–0.60%, making the fee economics even more attractive in Direct."
+            },
+            "fee_cost": {
+              "ter_pct": 1.28,
+              "fee_impact_5y_summary": "Regular Plan TER of 1.28% — if the Sharma family is invested in Regular Plan, switching to Direct Plan (estimated TER ~0.55%) would save approximately 73 bps annually. On Rs 3 Cr, this is approximately Rs 2.2 lakh per year in fee savings, compounding to approximately Rs 12–14 lakh over 5 years. This is a material action item. Even at Regular Plan TER, the fund's alpha generation of ~330–400 bps above category more than compensates for the fee. However, the Direct plan switch is strongly recommended."
+            },
+            "capacity_continuity": {
+              "aum_cr": 134253.2,
+              "capacity_concern": "moderate",
+              "aum_growth_notes": "AUM of Rs 1,34,253 Cr is very large for a flexi-cap fund. The international equity allocation provides some capacity relief (US markets are deep), but the domestic mid/small-cap sleeve (currently small at ~4.9% combined) could face capacity constraints if the fund increases domestic small/mid allocation. The fund's current large-cap tilt (63% large-cap) mitigates near-term capacity concern, but the sheer AUM size warrants monitoring. Capacity concern flagged as moderate — not an immediate problem but a structural watch item."
+            },
+            "tax_efficiency": "The international equity allocation (US-listed stocks) within the fund is treated as domestic equity for tax purposes since the fund is domiciled in India and invests via the LRS/overseas route within SEBI limits — LTCG at 12.5% applies for holdings >1 year. Low turnover (consistent with value philosophy) minimises STCG crystallisation. Regular Plan IDCW option would create unnecessary tax drag; Growth option is appropriate. Note: if invested in Regular Plan, the switch to Direct Plan also improves after-tax returns by reducing fee drag. Post-Budget 2024 indexation removal for debt/hybrid does not affect this equity fund.",
+            "overall_verdict": "positive",
+            "key_drivers": [
+              "Rolling 5Y beat frequency of 95.9% — near-definitive skill attribution; highest-quality alpha signal in this analysis",
+              "Downside capture of 44.0% over 3Y — exceptional downside protection; fund participates in less than half the category's drawdowns",
+              "Sharpe 0.81 / Sortino 0.98 — best risk-adjusted return profile among the three schemes",
+              "Max drawdown of -23.2% with 4-month recovery — structural resilience",
+              "Value discipline (P/E 18.45) provides margin of safety; international diversification adds genuine alpha source",
+              "Alpha trend stable — outperformance is durable, not regime-specific"
+            ],
+            "key_risks": [
+              "Regular Plan flag: if Sharma family is in Regular Plan, 73 bps annual fee leakage vs Direct Plan is a material drag — switch to Direct is a priority action",
+              "AUM of Rs 1,34,253 Cr is very large; capacity risk is moderate and warrants ongoing monitoring",
+              "International equity allocation creates currency risk (INR/USD) and regulatory risk (SEBI overseas investment limits have been periodically constrained)",
+              "Manager continuity: Rajeev Thakkar is the anchor; any transition would reduce confidence materially",
+              "Upside capture of 74.5% — the fund will lag in strong momentum-driven bull markets; not suitable as sole equity holding for aggressive investors seeking maximum upside"
+            ],
+            "recommended_alternatives": [
+              "No alternative is materially better in the flexi-cap category on a risk-adjusted basis at this time",
+              "For investors seeking higher upside capture at the cost of downside protection: Quant Flexi Cap Fund (higher beta, different philosophy)"
+            ],
+            "confidence": 0.91,
+            "reasoning_trace": "Parag Parikh Flexi Cap Fund is the highest-conviction holding in this analysis. The 95.9% rolling 5Y beat frequency combined with a 44% downside capture ratio represents a rare combination of consistent outperformance and structural downside protection — this is skill attribution with high confidence. The primary action item is the Regular Plan flag: the snapshot shows Regular Plan, and switching to Direct Plan would save approximately Rs 2.2 lakh annually on the Rs 3 Cr position. The AUM size at Rs 1,34,253 Cr is a watch item but not an immediate concern given the large-cap and international tilt. Verdict is positive with high confidence."
+          },
+          {
+            "instrument": "Kotak Emerging Equity Fund",
+            "sebi_category": "FoFs Overseas",
+            "sub_category": "mf_active_mid_cap",
+            "weight_pct": 12.6,
+            "manager_strategy": {
+              "manager_continuity": "cannot_evaluate",
+              "style_consistency": "cannot_evaluate",
+              "philosophy": "Fund-of-Funds structure investing 98.75% in CI Emerging Markets Fund I (overseas mutual fund); provides exposure to global emerging market equities via a single underlying fund; no direct stock selection by the Indian fund manager."
+            },
+            "performance_attribution": {
+              "one_year_pct": 43.14,
+              "three_year_pct": 17.96,
+              "five_year_pct": 6.86,
+              "alpha_summary": "Rolling 3Y beats category only 33.9% of periods with avg excess of -76 bps (negative alpha); rolling 5Y beats category only 38.8% of periods with avg excess of -46 bps (negative alpha). Despite the strong 1Y return of 43.1%, the fund is a persistent category underperformer over meaningful horizons.",
+              "peer_relative": "Bottom-third vs FoFs Overseas category on rolling 3Y and 5Y metrics. The 1Y return of 43.1% likely reflects a single-regime event (EM rally, USD weakness, or specific underlying fund positioning) rather than sustained skill.",
+              "skill_vs_beta": "The 1Y return of 43.1% is striking but must be evaluated against the rolling history: 33.9% beat frequency over 3Y and 38.8% over 5Y with negative average excess returns indicate that the recent 1Y outperformance is almost certainly beta drift — specifically, a cyclical EM rally — rather than skill. The alpha trend direction is listed as 'improving' but this is driven by the 1Y spike; the underlying 5Y return of only 6.86% is poor in absolute terms and vs the category. The max drawdown of -58.2% with a 46-month recovery period is severe — this is the worst drawdown profile in the analysis by a wide margin. The FoF structure (98.75% in a single underlying fund) means there is no diversification within the wrapper and two layers of fees. Sharpe of 0.047 and Sortino of 0.05 are near-zero — the fund is generating almost no risk-adjusted return."
+            },
+            "fee_cost": {
+              "ter_pct": 1.62,
+              "fee_impact_5y_summary": "TER of 1.62% on a FoF structure means the Sharma family pays this fee PLUS the underlying CI Emerging Markets Fund's own expense ratio (typically 1.5–2.5% for an active overseas fund). Total effective cost is likely 3.0–4.0% annually. On a 5Y gross return of 6.86%, the effective fee drag consumes 40–60% of gross returns. This is a deeply unfavourable fee structure for the returns delivered. On Rs 2.26 Cr, the annual fee cost at 3.5% effective TER is approximately Rs 7.9 lakh — for a fund generating near-zero risk-adjusted returns."
+            },
+            "capacity_continuity": {
+              "aum_cr": 876.9,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 877 Cr is small, which is consistent with investor outflows or limited inflows into this category. Small AUM in an overseas FoF is not a capacity concern per se, but it raises questions about fund house commitment to this product and potential for closure or merger. The small AUM relative to the category may also indicate the market has already voted against this fund."
+            },
+            "tax_efficiency": "FoFs Overseas are taxed as debt funds post-Budget 2024 changes — gains are taxed at slab rate regardless of holding period (no LTCG benefit, no indexation). This is a significant tax disadvantage vs domestic equity funds. For the Sharma family in a high tax bracket (likely 30%), all gains are taxed at 30% + surcharge, making the effective post-tax return materially worse than the already-poor pre-tax return. This tax treatment makes the fund structurally unattractive for high-net-worth investors.",
+            "overall_verdict": "negative",
+            "key_drivers": [],
+            "key_risks": [
+              "Critical data mismatch: instrument labelled 'Kotak Emerging Equity Fund' (mid-cap) but snapshot is 'Kotak Global Emerging Market Overseas Equity Omni FOF' (FoFs Overseas) — the portfolio classification as mf_active_mid_cap is incorrect; this is an overseas FoF, not a domestic mid-cap fund",
+              "Persistent category underperformance: rolling 3Y beat frequency 33.9%, rolling 5Y beat frequency 38.8%, both with negative average excess returns",
+              "Near-zero risk-adjusted returns: Sharpe 0.047, Sortino 0.05 — among the worst possible outcomes for an equity-oriented fund",
+              "Severe drawdown profile: max drawdown -58.2% with 46-month recovery — the fund took nearly 4 years to recover from its worst drawdown",
+              "Double fee layer: TER 1.62% plus underlying fund expenses; effective total cost likely 3.0–4.0% annually, consuming 40–60% of gross 5Y returns",
+              "Adverse tax treatment: FoFs Overseas taxed at slab rate (not LTCG), making post-tax returns even worse for high-bracket investors",
+              "1Y return of 43.1% is almost certainly a cyclical EM beta event, not skill — the rolling history confirms this",
+              "Single underlying fund concentration: 98.75% in CI Emerging Markets Fund I — no diversification within the FoF wrapper"
+            ],
+            "recommended_alternatives": [
+              "Mirae Asset NYSE FANG+ ETF FoF or Motilal Oswal Nasdaq 100 FoF — if EM/international equity exposure is desired, developed market alternatives have better long-term return profiles and similar tax treatment",
+              "If domestic mid-cap exposure was the original intent (given the mislabelling): Kotak Emerging Equity Fund (actual domestic mid-cap scheme), Nippon India Growth Fund, or HDFC Mid-Cap Opportunities Fund — all with genuine domestic mid-cap mandates, LTCG tax treatment, and superior risk-adjusted track records",
+              "Exit and redeploy into Parag Parikh Flexi Cap Fund (Direct Plan) for international diversification with superior risk-adjusted returns and LTCG tax treatment"
+            ],
+            "confidence": 0.88,
+            "reasoning_trace": "This scheme presents a critical data integrity issue: the instrument is labelled 'Kotak Emerging Equity Fund' (a domestic mid-cap fund) but the snapshot data corresponds to 'Kotak Global Emerging Market Overseas Equity Omni FOF' — an overseas Fund-of-Funds. The portfolio classification as mf_active_mid_cap is materially incorrect. Setting aside the labelling issue, the actual fund in the snapshot is a negative verdict on every analytical dimension: persistent category underperformance (rolling beat frequency <40% over both 3Y and 5Y), near-zero risk-adjusted returns (Sharpe 0.047), severe drawdown with 46-month recovery, double fee layer consuming 40–60% of gross returns, and adverse slab-rate tax treatment for FoFs Overseas. The 1Y return of 43.1% is a cyclical EM beta event confirmed by the rolling history showing negative average excess returns. The Sharma family should exit this position and redeploy; the data mismatch should be investigated with the portfolio data source before any action."
+          }
+        ],
+        "scope_notes": "Three schemes were evaluated. A critical data integrity issue was identified for the third instrument: the portfolio labels it 'Kotak Emerging Equity Fund' (sub_category: mf_active_mid_cap) but the snapshot_curated data corresponds to 'Kotak Global Emerging Market Overseas Equity Omni FOF' (SEBI category: FoFs Overseas). These are materially different products with different mandates, tax treatment, and fee structures. The analysis has been conducted on the actual snapshot data (FoFs Overseas) with the discrepancy flagged prominently. The Sharma family's portfolio team should verify which instrument is actually held before acting on the exit recommendation. Parag Parikh Flexi Cap Fund snapshot shows Regular Plan — if the family is invested in Regular Plan, a Direct Plan switch is a priority action item independent of the scheme verdict. All returns are as of 2026-04-02 snapshot date.",
+        "escalate_to_master": true,
+        "reasoning_summary": "The Sharma family's three mutual fund positions present a bifurcated picture. Mirae Asset Large Cap Fund (Rs 3.2 Cr, 17.8%) is a positive_with_caution verdict: rolling beat frequencies above 79% across 3Y and 5Y windows with an improving alpha trend confirm skill-based outperformance, but the near-symmetric downside capture (99.4%) limits defensive utility. Parag Parikh Flexi Cap Fund (Rs 3.0 Cr, 16.7%) is the highest-conviction positive in the analysis: a 95.9% rolling 5Y beat frequency combined with 44% downside capture and Sharpe of 0.81 represents a rare and durable combination of outperformance and downside protection. The immediate action item here is a Regular Plan to Direct Plan switch, which would save approximately Rs 2.2 lakh annually on this position. The third position — labelled Kotak Emerging Equity Fund but actually Kotak Global Emerging Market Overseas Equity Omni FOF (Rs 2.26 Cr, 12.6%) — is a clear negative verdict and the primary concern in this review. The fund is a persistent category underperformer (rolling beat frequency <40% over both horizons, negative average excess returns), generates near-zero risk-adjusted returns (Sharpe 0.047), carries a double fee layer with effective total cost of 3–4% annually, suffered a -58.2% max drawdown requiring 46 months to recover, and is taxed at slab rate rather than LTCG — a severe disadvantage for the Sharma family's tax bracket. The 1Y return of 43.1% is a cyclical EM beta event, not skill. Exit and redeployment is recommended, subject to first resolving the data labelling discrepancy. Escalation to master is flagged due to the instrument mislabelling issue and the material exit recommendation on a Rs 2.26 Cr position."
+      }
+    },
+    "usage_summary": {
+      "per_agent": {
+        "e3": {
+          "inputTokens": 6595,
+          "outputTokens": 3935
+        },
+        "e4": {
+          "inputTokens": 4004,
+          "outputTokens": 2554
+        },
+        "e1": {
+          "inputTokens": 4204,
+          "outputTokens": 516
+        },
+        "e2": {
+          "inputTokens": 2824,
+          "outputTokens": 510
+        },
+        "e6": {
+          "inputTokens": 3966,
+          "outputTokens": 4090
+        },
+        "e7": {
+          "inputTokens": 4729,
+          "outputTokens": 5809
+        },
+        "s1": {
+          "inputTokens": 23788,
+          "outputTokens": 5812
+        }
+      },
+      "total_input_tokens": 50110,
+      "total_output_tokens": 23226,
+      "elapsed_ms": 220625,
+      "generated_at": "2026-05-15T13:31:36.786Z"
+    }
+  },
+  "tokenUsage": {
+    "per_agent": {
+      "e3": {
+        "inputTokens": 6595,
+        "outputTokens": 3935
+      },
+      "e4": {
+        "inputTokens": 4004,
+        "outputTokens": 2554
+      },
+      "e1": {
+        "inputTokens": 4204,
+        "outputTokens": 516
+      },
+      "e2": {
+        "inputTokens": 2824,
+        "outputTokens": 510
+      },
+      "e6": {
+        "inputTokens": 3966,
+        "outputTokens": 4090
+      },
+      "e7": {
+        "inputTokens": 4729,
+        "outputTokens": 5809
+      },
+      "s1": {
+        "inputTokens": 23788,
+        "outputTokens": 5812
+      }
+    },
+    "total_input_tokens": 50110,
+    "total_output_tokens": 23226,
+    "elapsed_ms": 220625,
+    "generated_at": "2026-05-15T13:31:36.786Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 2 diagnostic for Sharma family. Separate from the Sharma S1 (proposal evaluation) case at c-2026-05-14-sharma-01. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6."
+}

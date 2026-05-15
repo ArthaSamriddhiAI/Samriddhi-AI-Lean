@@ -67,14 +67,14 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
    *   E3 used 4281 (room in skill default 5000)
    *   E4 used 2443 (room in skill default 4000)
    *   E6 at 5 wrappers used 6997 (near skill default 8000); bump to 9000
-   *   E7 at 3 schemes hit ceiling 4000; bump to 6000 */
+   *   E7 at 3 schemes hit ceiling 4000; at 4 schemes hit ceiling 6000; raised to 12000 for up to 5-scheme portfolios */
   e1_listed_fundamental_equity: { llm_model: SONNET },
   e2_industry_business: { llm_model: SONNET, max_tokens: 5500 },
   e3_macro_policy_news: { llm_model: SONNET },
   e4_behavioural_historical: { llm_model: SONNET },
   e5_unlisted_equity: { llm_model: SONNET },
   e6_pms_aif_sif: { llm_model: SONNET, max_tokens: 9000 },
-  e7_mutual_fund: { llm_model: SONNET, max_tokens: 6000 },
+  e7_mutual_fund: { llm_model: SONNET, max_tokens: 12000 },
   /* S1 reverted to Sonnet (deferred workstream cleanup, 2026-05-15). The
    * Tier-1 Sonnet rate limit that blocked S1 at Sonnet (10k input tokens /
    * minute, tight against S1's 15-25k input envelope) has lifted at Tier 2. */

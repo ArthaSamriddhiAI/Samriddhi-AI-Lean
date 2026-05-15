@@ -1,0 +1,983 @@
+{
+  "id": "c-2026-05-15-iyengar-01",
+  "investorId": "iyengar",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s2",
+  "severity": "escalate",
+  "headline": "HDFC Bank FD at 27.3% and SBI FD at 27.0% each exceed the 15% single-instrument escalate threshold; together they constitute 54.3% of liquid AUM (Rs 1.85 Cr) in two bank fixed deposits.",
+  "status": "ready",
+  "frozenAt": "2026-05-15T13:17:23.220Z",
+  "content": {
+    "briefing": {
+      "header": {
+        "investor_name": "Mrs. Lalitha Iyengar",
+        "case_label": "Quarterly review",
+        "snapshot_date": "2 Apr 2026",
+        "liquid_aum_label": "Rs 3.41 Cr",
+        "holdings_label": "6 holdings",
+        "stated_revealed_label": "Conservative stated; more conservative revealed (2022 panic-liquidation on record)",
+        "severity_counts": {
+          "escalate": 3,
+          "flag": 5,
+          "total": 8
+        }
+      },
+      "workbench_lede": "This diagnostic surfaces 8 observations across 6 holdings (Rs 3.41 Cr liquid AUM) in a conservative_medium_term mandate. Three observations carry escalate severity: both fixed-deposit positions breach the 15% single-instrument ceiling at 27.3% and 27.0% respectively, and the overall asset-class HHI of 0.5433 exceeds the conservative bucket ceiling of 0.20. Five flag-level observations cover equity under-allocation (-29.5 pp from mandate midpoint), debt over-allocation (+39.6 pp), a confirmed Regular Plan fee inefficiency on Axis Large Cap Fund, a behavioural stated-vs-revealed divergence, and a mark-to-market headwind on debt holdings from rising 10Y yields. The diagnostic is metric-anchored on concentration and allocation; E7 fund-level verdicts add interpretive depth on fee structure and manager quality; E3 macro context introduces a cautionary overlay on duration risk. E1 and E2 returned empty scope (no direct listed equity; MF look-through data unavailable for these four funds in the foundation §3 coverage universe).",
+      "section_1_headline_observations": [
+        {
+          "vocab": "position_over_concentration",
+          "severity": "escalate",
+          "one_line": "HDFC Bank FD at 27.3% and SBI FD at 27.0% each exceed the 15% single-instrument escalate threshold; together they constitute 54.3% of liquid AUM (Rs 1.85 Cr) in two bank fixed deposits.",
+          "source": "metric"
+        },
+        {
+          "vocab": "allocation_drift",
+          "severity": "flag",
+          "one_line": "Equity actual 35.5% is 29.5 pp below the mandate band floor of 60%; Debt actual 64.6% is 39.6 pp above the mandate band ceiling of 30% — both asset classes are materially outside mandate bands simultaneously.",
+          "source": "metric"
+        },
+        {
+          "vocab": "fee_inefficiency",
+          "severity": "flag",
+          "one_line": "Axis Large Cap Fund is held in Regular Plan (TER 1.58% vs Direct Plan ~0.60%); the ~98 bp annual drag implies approximately Rs 1.8–2.0 lakh in unnecessary distributor commission over 5 years on the Rs 0.40 Cr holding.",
+          "source": "hybrid"
+        },
+        {
+          "vocab": "stated_revealed_divergence",
+          "severity": "flag",
+          "one_line": "Revealed stress-tolerance is below the stated conservative label: in the 2022 drawdown Mrs. Iyengar withdrew Rs 30 L from equity MFs against advisor counsel, crystallising approximately Rs 4 L of realised loss.",
+          "source": "interpretation"
+        },
+        {
+          "vocab": "allocation_drift",
+          "severity": "flag",
+          "one_line": "10Y G-Sec yield has risen 44 bp to 6.99% since November 2025 (intraday spike 7.19% on 3 Apr); debt MF holdings carrying duration are exposed to mark-to-market NAV erosion in the current rate environment.",
+          "source": "hybrid"
+        }
+      ],
+      "section_2_portfolio_overview": {
+        "rows": [
+          {
+            "asset_class": "Equity",
+            "actual_pct": 35.5,
+            "target_pct": 65,
+            "band": [
+              60,
+              70
+            ],
+            "deviation_pp": -29.5,
+            "in_band": false
+          },
+          {
+            "asset_class": "Debt",
+            "actual_pct": 64.6,
+            "target_pct": 25,
+            "band": [
+              20,
+              30
+            ],
+            "deviation_pp": 39.6,
+            "in_band": false
+          },
+          {
+            "asset_class": "Alternatives",
+            "actual_pct": 0,
+            "target_pct": 7,
+            "band": [
+              5,
+              10
+            ],
+            "deviation_pp": -7,
+            "in_band": false
+          },
+          {
+            "asset_class": "Cash",
+            "actual_pct": 0,
+            "target_pct": 3,
+            "band": [
+              2,
+              5
+            ],
+            "deviation_pp": -3,
+            "in_band": false
+          }
+        ],
+        "total_aum_line": "Liquid AUM Rs 3.41 Cr across 6 holdings",
+        "liquidity_tier_line": "Liquidity tier secondary (15–30% floor); actual T+30 + T+90 share 45.8% (T+30: 14.1%, T+90: 31.7%), above the floor minimum — no liquidity floor breach. T+365 share 54.3% reflects FD maturities within 12 months; zero locked assets."
+      },
+      "section_3_concentration_analysis": [
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "HDFC Bank FD constitutes 27.3% of liquid AUM — 12.3 pp above the 15% single-instrument escalate threshold for the conservative bucket.",
+          "evidence": "Escalate threshold: 15%; actual: 27.3%; value Rs 0.93 Cr.",
+          "figure": "27.3%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "SBI FD constitutes 27.0% of liquid AUM — 12.0 pp above the 15% single-instrument escalate threshold; combined FD exposure with HDFC Bank FD is 54.3% of portfolio in two instruments of the same sub-category.",
+          "evidence": "Escalate threshold: 15%; actual: 27.0%; value Rs 0.92 Cr.",
+          "figure": "27.0%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "escalate",
+          "detail": "Asset-class HHI of 0.5433 materially exceeds the conservative bucket ceiling of 0.20, driven by the debt over-concentration; holding-level HHI of 0.201 is marginally above the 0.20 ceiling.",
+          "evidence": "Bucket HHI ceiling: 0.20; asset-class HHI actual: 0.5433; holding-level HHI: 0.201.",
+          "figure": "HHI 0.5433",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "HDFC Index Fund Nifty 50 at 14.1% is above the 10% flag threshold but below the 15% escalate threshold; within acceptable range but warrants monitoring given the conservative mandate's equity volatility sensitivity.",
+          "evidence": "Flag threshold: 10%; escalate threshold: 15%; actual: 14.1%; value Rs 0.48 Cr.",
+          "figure": "14.1%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Axis Large Cap Fund at 11.7% exceeds the 10% flag threshold; the Regular Plan fee structure compounds the position-level concern.",
+          "evidence": "Flag threshold: 10%; actual: 11.7%; value Rs 0.40 Cr.",
+          "figure": "11.7%",
+          "source": "metric"
+        },
+        {
+          "kind": "Position",
+          "severity": "flag",
+          "detail": "Franklin India Corporate Debt Fund at 10.3% is at the flag threshold boundary; the 2020 wind-up legacy and marginally below-median rolling peer performance (-27 bp average excess) are noted alongside the position size.",
+          "evidence": "Flag threshold: 10%; actual: 10.3%; value Rs 0.35 Cr.",
+          "figure": "10.3%",
+          "source": "hybrid"
+        }
+      ],
+      "section_4_risk_flags": [
+        {
+          "category": "Mandate drift",
+          "severity": "escalate",
+          "title": "Debt over-allocation and equity under-allocation — both outside mandate bands",
+          "body": "Debt at 64.6% is 34.6 pp above the mandate ceiling of 30%; equity at 35.5% is 24.5 pp below the mandate floor of 60%. All four asset classes (Equity, Debt, Alternatives, Cash) are outside their mandate bands simultaneously. The portfolio as constituted does not reflect the conservative_medium_term mandate's stated allocation.",
+          "source": "metric"
+        },
+        {
+          "category": "Fee",
+          "severity": "flag",
+          "title": "Axis Large Cap Fund — Regular Plan confirmed, Direct Plan switch actionable",
+          "body": "TER of 1.58% (Regular) vs approximately 0.60% (Direct) implies ~98 bp annual fee drag. On Rs 0.40 Cr over 5 years at 9–10% gross returns, the cumulative cost differential is approximately Rs 1.8–2.0 lakh. ICICI Prudential Balanced Advantage Fund plan designation is unconfirmed at TER 1.43%; if Regular, an additional ~55–60 bp drag applies on Rs 0.33 Cr.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Behavioural",
+          "severity": "flag",
+          "title": "Stated-vs-revealed divergence — actual stress-tolerance below conservative label",
+          "body": "The 2022 drawdown event (Rs 30 L withdrawal, Rs 4 L realised loss, against advisor counsel) establishes that Mrs. Iyengar's panic threshold is below the conservative label. Emotional attachment to inherited equity MF corpus (built by late husband, never modified) creates a structural constraint on any equity-side rebalancing recommendation. The son's operational distance (Singapore-based) is a latent co-decision risk under stress scenarios.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "flag",
+          "title": "Duration risk on debt holdings — rising yield environment",
+          "body": "10Y G-Sec yield rose 44 bp to 6.99% between November 2025 and April 2026 (intraday spike 7.19% on 3 Apr). Franklin India Corporate Debt Fund (10.3% of AUM) carries duration exposure; NAV erosion from mark-to-market repricing is a live risk. RBI is on hold at 5.25% with no near-term cut window; E3 flags H2 FY27 at earliest for rate relief.",
+          "source": "hybrid"
+        },
+        {
+          "category": "Liquidity",
+          "severity": "info",
+          "title": "FD maturity coordination — reinvestment risk if maturities unladdered",
+          "body": "HDFC Bank FD (Rs 0.93 Cr) and SBI FD (Rs 0.92 Cr) together constitute 54.3% of AUM in the T+365 liquidity bucket. If maturities are uncoordinated or cluster in the same window, reinvestment risk and potential liquidity gaps arise — particularly relevant given Mrs. Iyengar's medical contingency uncertainty. Maturity schedule should be confirmed and laddered if not already structured.",
+          "source": "interpretation"
+        },
+        {
+          "category": "Mandate drift",
+          "severity": "info",
+          "title": "Alternatives and Cash — zero allocation against mandate targets",
+          "body": "Alternatives actual 0% vs mandate target 7% (band 5–10%); Cash actual 0% vs mandate target 3% (band 2–5%). Both are outside bands but the absence of Alternatives and Cash in a conservative mandate is directionally consistent with the debt over-weight; these gaps are secondary to the primary equity/debt drift.",
+          "source": "metric"
+        }
+      ],
+      "section_5_comparison_vs_model": {
+        "framing_line": "Comparison is informational only: Mrs. Iyengar's conservative_medium_term mandate has explicit allocation bands; the model portfolio framework provides sub-sleeve context but the mandate bands are the primary reference.",
+        "rows": [
+          {
+            "sleeve": "Passive large-cap equity (HDFC Nifty 50)",
+            "model_pct": "~20–25% of equity sleeve",
+            "actual_pct": "14.1% of total AUM",
+            "note": "Direct Plan, TER 0.20% — correctly structured; weight is within reasonable range for the equity sleeve given total equity under-allocation"
+          },
+          {
+            "sleeve": "Active large-cap equity (Axis Large Cap)",
+            "model_pct": "~20–25% of equity sleeve",
+            "actual_pct": "11.7% of total AUM",
+            "note": "Regular Plan fee inefficiency is the primary concern; underlying strategy has 5Y skill signal (71.5% rolling beat rate)"
+          },
+          {
+            "sleeve": "Dynamic allocation hybrid (ICICI Pru BAF)",
+            "model_pct": "Appropriate bridge for conservative-medium mandates",
+            "actual_pct": "9.7% of total AUM",
+            "note": "Top-decile BAF performer (97.1% rolling 5Y beat rate, +207 bp average excess); plan designation unconfirmed — must verify Direct vs Regular"
+          },
+          {
+            "sleeve": "Corporate debt MF (Franklin)",
+            "model_pct": "Debt sleeve sub-allocation",
+            "actual_pct": "10.3% of total AUM",
+            "note": "Hold verdict; ultra-low TER (0.072%); below-median rolling peer performance; post-Budget 2024 slab-rate taxation reduces relative attractiveness"
+          },
+          {
+            "sleeve": "Bank FDs (HDFC + SBI)",
+            "model_pct": "Debt sleeve — typically 10–15% per instrument ceiling",
+            "actual_pct": "54.3% of total AUM combined",
+            "note": "Materially over-concentrated; both positions exceed escalate threshold individually; laddering and partial redeployment warranted"
+          },
+          {
+            "sleeve": "Alternatives",
+            "model_pct": "5–10% of total AUM (mandate band)",
+            "actual_pct": "0%",
+            "note": "Zero allocation; 7 pp below mandate target; not addressed in current portfolio"
+          }
+        ]
+      },
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "body": "The two FDs — HDFC Bank at 27.3% and SBI at 27.0% — together account for Rs 1.85 Cr, more than half the portfolio in two instruments of the same type. That's the single most important structural fact to put on the table: the portfolio is carrying bank FD concentration that's well above what the mandate contemplates, and the question is how we want to think about laddering or partial redeployment over the next 12 months.",
+          "emphasis": "54.3% in two bank FDs"
+        },
+        {
+          "number": "02",
+          "body": "The Axis Large Cap holding is in the Regular Plan — TER 1.58% versus roughly 0.60% in Direct. That's approximately Rs 1.8–2.0 lakh in distributor commission over five years on a Rs 40 lakh holding. This is a straightforward switch with no change to the underlying fund or strategy; it's worth doing before the next review cycle.",
+          "emphasis": "~Rs 1.8–2.0 lakh avoidable cost over 5 years"
+        },
+        {
+          "number": "03",
+          "body": "The equity allocation is at 35.5% against a mandate floor of 60% — that's a 24.5 pp gap. Before we discuss whether to close that gap, it's worth acknowledging that the inherited equity MF positions carry real emotional weight for Mrs. Iyengar, and the 2022 withdrawal tells us her actual stress-tolerance is lower than the conservative label might suggest. Any equity-side conversation needs to start from that reality, not from the mandate gap alone.",
+          "emphasis": "Emotional constraint on inherited corpus — not a standard rebalancing conversation"
+        },
+        {
+          "number": "04",
+          "body": "The macro backdrop is cautionary for the debt side specifically: the 10Y yield has moved up 44 basis points since November and the RBI is on hold with no near-term cut window. Franklin Corporate Debt is carrying duration exposure, and the mark-to-market pressure is live. It's worth confirming the duration profile of that holding and whether the accrual return is adequate compensation for the current rate environment.",
+          "emphasis": "10Y at 6.99%, up 44 bp — duration headwind is not theoretical"
+        },
+        {
+          "number": "05",
+          "body": "ICICI Prudential BAF is the standout in the MF sleeve — 97.1% rolling 5Y beat rate against category peers, positive 1Y return of 4.75% in a year when both pure equity funds in the portfolio were negative. The one open question is whether it's in the Direct Plan; the TER of 1.43% in the snapshot is ambiguous. That needs to be confirmed before the next review.",
+          "emphasis": "Confirm Direct vs Regular — potential Rs 1 lakh+ saving over 5 years"
+        }
+      ],
+      "section_7_evidence_appendix": [
+        {
+          "name": "HDFC Bank FD",
+          "sub_category": "bank_fd",
+          "value_cr": "0.93",
+          "weight_pct": "27.3%"
+        },
+        {
+          "name": "SBI FD",
+          "sub_category": "bank_fd",
+          "value_cr": "0.92",
+          "weight_pct": "27.0%"
+        },
+        {
+          "name": "HDFC Index Fund Nifty 50",
+          "sub_category": "mf_passive_index",
+          "value_cr": "0.48",
+          "weight_pct": "14.1%"
+        },
+        {
+          "name": "Axis Large Cap Fund",
+          "sub_category": "mf_active_large_cap",
+          "value_cr": "0.40",
+          "weight_pct": "11.7%"
+        },
+        {
+          "name": "Franklin India Corporate Debt Fund",
+          "sub_category": "mf_corporate_debt",
+          "value_cr": "0.35",
+          "weight_pct": "10.3%"
+        },
+        {
+          "name": "ICICI Prudential Balanced Advantage Fund",
+          "sub_category": "mf_hybrid_dynamic_aa",
+          "value_cr": "0.33",
+          "weight_pct": "9.7%"
+        }
+      ],
+      "coverage_note": "E1 and E2 returned empty scope: no direct listed equity is held, and MF look-through data is unavailable for all four fund holdings — the foundation §3 reference universe covers approximately 220 of 1,773 funds on Top 5 Holdings data, and none of the four funds in this portfolio fall within that covered set. Sector-level look-through (sectorExposureMfLookThrough) is therefore empty; underlying equity exposures within Axis Large Cap, HDFC Nifty 50, and ICICI Pru BAF cannot be decomposed at the stock or sector level from this diagnostic. The mfCoverage object confirms 0 of 4 MF holdings covered, representing 45.8% of AUM with no look-through visibility. Concentration analysis at the holding and asset-class level is fully metric-grounded; fund-level quality assessments (E7) are based on published performance data and SEBI category classification. No PMS or AIF wrappers are present. The ICICI Prudential Balanced Advantage Fund plan designation (Regular vs Direct) is unresolved from the snapshot name alone and requires advisor confirmation before the fee-inefficiency finding can be finalised for that holding. All return figures cited are as provided in the E7 snapshot metadata as of 2 Apr 2026."
+    },
+    "metrics": {
+      "totalLiquidAumCr": 3.41,
+      "holdingsCount": 6,
+      "assetClass": {
+        "Equity": {
+          "actualPct": 35.5,
+          "targetPct": 65,
+          "band": [
+            60,
+            70
+          ],
+          "deviationPct": -29.5,
+          "inBand": false
+        },
+        "Debt": {
+          "actualPct": 64.6,
+          "targetPct": 25,
+          "band": [
+            20,
+            30
+          ],
+          "deviationPct": 39.6,
+          "inBand": false
+        },
+        "Alternatives": {
+          "actualPct": 0,
+          "targetPct": 7,
+          "band": [
+            5,
+            10
+          ],
+          "deviationPct": -7,
+          "inBand": false
+        },
+        "Cash": {
+          "actualPct": 0,
+          "targetPct": 3,
+          "band": [
+            2,
+            5
+          ],
+          "deviationPct": -3,
+          "inBand": false
+        }
+      },
+      "concentration": {
+        "hhiHoldingLevel": 0.201,
+        "hhiAssetClassLevel": 0.5433,
+        "top1": {
+          "instrument": "HDFC Bank FD",
+          "weightPct": 27.3
+        },
+        "top5": [
+          {
+            "instrument": "HDFC Bank FD",
+            "weightPct": 27.3
+          },
+          {
+            "instrument": "SBI FD",
+            "weightPct": 27
+          },
+          {
+            "instrument": "HDFC Index Fund Nifty 50",
+            "weightPct": 14.1
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "weightPct": 11.7
+          },
+          {
+            "instrument": "Franklin India Corporate Debt Fund",
+            "weightPct": 10.3
+          }
+        ],
+        "bucketCeilingHhi": 0.2,
+        "bucketTier": "Conservative",
+        "hhiBreach": true,
+        "positionFlags": [
+          {
+            "instrument": "HDFC Bank FD",
+            "weightPct": 27.3,
+            "severity": "escalate"
+          },
+          {
+            "instrument": "SBI FD",
+            "weightPct": 27,
+            "severity": "escalate"
+          },
+          {
+            "instrument": "Franklin India Corporate Debt Fund",
+            "weightPct": 10.3,
+            "severity": "flag"
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "weightPct": 11.7,
+            "severity": "flag"
+          },
+          {
+            "instrument": "HDFC Index Fund Nifty 50",
+            "weightPct": 14.1,
+            "severity": "flag"
+          }
+        ],
+        "wrappers": {
+          "pmsCount": 0,
+          "pmsAggregatePct": 0,
+          "pmsList": [],
+          "aifCount": 0,
+          "aifAggregatePct": 0,
+          "aifList": [],
+          "wrapperCountFlag": false,
+          "wrapperShareFlag": false
+        },
+        "sectorExposureMfLookThrough": [],
+        "mfCoverage": {
+          "coveredCount": 0,
+          "uncoveredCount": 4,
+          "coveredWeightPct": 0,
+          "uncoveredWeightPct": 45.8
+        }
+      },
+      "liquidity": {
+        "bucketBreakdown": {
+          "T_30": 14.1,
+          "T_90": 31.7,
+          "T_365": 54.3,
+          "Locked": 0
+        },
+        "t30PlusT90Pct": 45.8,
+        "tier": "secondary",
+        "tierFloor": {
+          "minPct": 15,
+          "maxPct": 30
+        },
+        "floorBreach": false
+      },
+      "cashDeployment": {
+        "cashSharePct": 0,
+        "deploymentGapPct": 0,
+        "cashDragFlag": false
+      },
+      "computedAt": "2026-05-15T13:17:23.223Z"
+    },
+    "router_decision": {
+      "caseMode": "diagnostic",
+      "caseIntent": null,
+      "dominantLens": null,
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": false,
+      "e7": true,
+      "indianContext": false,
+      "portfolioRiskAnalytics": true,
+      "activated": [
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=diagnostic; listed_equity=false; mf=true; pms=false; aif=false; unlisted_in_scope=false"
+    },
+    "evidence": {
+      "e1": {
+        "analysis_scope": [],
+        "per_stock_verdicts": [],
+        "scope_notes": "No listed equity falls within the analysable scope for this case. Mrs. Lalitha Iyengar's portfolio contains no direct equity holdings, and the mutual fund look-through is constrained by the foundation §3 coverage limitation: approximately 220 of 1,773 funds in the reference universe carry Top 5 Holdings data, and none of the funds held in this portfolio are among those 220 covered funds. Consequently, no individual stock-level records from the Nifty 500 universe are available as inputs to E1 analysis. Per-stock verdicts require at minimum one identifiable listed equity position with associated fundamental data; that condition is not met here. E1 returns an empty per_stock_verdicts array. Portfolio-level risk assessment, including concentration, liquidity, and fee drag, remains the responsibility of M0.PortfolioRiskAnalytics and is outside E1 scope regardless.",
+        "escalate_to_master": false,
+        "reasoning_summary": "E1 has no analytical work product to deliver for this case. The case_mode is diagnostic and the investor profile is Mrs. Lalitha Iyengar with a conservative mandate, a 3–5 year operational horizon, and liquid AUM of Rs 3.41 Cr in the secondary liquidity tier. However, the scope boundary established in the request is unambiguous: no direct listed equity holdings are present, and MF look-through data is unavailable due to the foundation §3 coverage constraint affecting roughly 1,553 of 1,773 funds in the reference universe. E1 activates only when at least one listed equity position is identifiable with associated fundamental records; neither condition is satisfied. No per-stock verdicts across any of the seven metric families (capital efficiency, capital structure, earnings quality, valuation, growth, quality moats, risk signals) can be produced, nor can any of the four per-stock frameworks (quality vs cyclicality, growth vs maturity, sector-relative positioning, special situations) be applied. escalate_to_master is set to false because the absence of scope is a clean data-coverage constraint, not a structural complexity requiring orchestrator-level coordination. If MF look-through data becomes available for the funds held in this portfolio, E1 should be re-invoked with the enriched fixture to produce stock-level verdicts."
+      },
+      "e2": {
+        "analysis_scope": [],
+        "per_holding_verdicts": [],
+        "cross_holding_sector_observations": [],
+        "scope_notes": "No listed equity holdings are present in the analysable scope for Mrs. Lalitha Iyengar's portfolio as of 2026-04-02. The mandate is classified as conservative_medium_term with a liquidity tier of Secondary and liquid AUM of Rs 3.41 Cr. E2 activates only when case scope includes listed equity — whether held directly, or accessible via mutual fund look-through or PMS look-through. Since no such instruments are present in scope, per_holding_verdicts is returned empty. If the portfolio contains debt mutual funds, fixed deposits, bonds, or unlisted instruments, those fall outside E2's analytical boundary and are handled by other agents. Should listed equity be added to the portfolio or if a look-through exercise surfaces underlying listed equity exposure in any fund holdings, E2 should be re-invoked with the updated scope.",
+        "escalate_to_master": false,
+        "reasoning_summary": "E2's activation condition — the presence of listed equity in analysable scope, whether direct or via MF/PMS look-through — is not satisfied for this case. Mrs. Lalitha Iyengar's portfolio, as presented, contains no listed equity instruments requiring industry and business-model framing. The conservative mandate and secondary liquidity tier are consistent with a portfolio weighted toward debt, fixed income, or cash-equivalent instruments, none of which fall within E2's analytical remit. No industry classification, cycle positioning, competitive structure, or demand-driver analysis can be meaningfully produced without an underlying equity holding to frame. The cross_holding_sector_observations array is likewise empty because there are no sector exposures to observe or comment upon. Escalation to master is not warranted; this is a clean scope-exclusion outcome, not a case of structural complexity or analytical uncertainty. If the portfolio composition changes — for example, if a diagnostic review surfaces equity mutual fund holdings requiring look-through, or if direct equity positions are added — E2 should be re-run against the updated holding set."
+      },
+      "e3": {
+        "rate_environment": {
+          "current_repo_pct": 5.25,
+          "real_rate_pct": 3.15,
+          "yield_curve_shape": "Steepening with stress: 10Y at 6.99% (up 44bps from 6.55% in Nov 2025); repo at 5.25%; term premium 174bps. 10Y spiked to 7.19% on Apr 3 before partial reversal. Curve shape reflects geopolitical risk premium, not growth optimism.",
+          "forward_expectations": "RBI unanimous hold at Apr 8 MPC; neutral stance maintained. West Asia uncertainty and crude spike cited as constraining factors. Real rate at 3.15% (repo 5.25% minus core CPI 2.1%) is well above the 2% restrictive threshold, indicating room to cut exists but geopolitical and INR pressure is delaying action. Next cut window: H2 FY27 at earliest if crude stabilises and INR recovers.",
+          "cycle_phase": "pause"
+        },
+        "growth_inflation": {
+          "gdp_growth_pct": 7.8,
+          "inflation_pct_cpi": 3.4,
+          "inflation_pct_core": 2.1,
+          "growth_inflation_tradeoff": "Headline CPI at 3.40% (Mar 2026) is below RBI 4% target; core at 2.1% (Jan-Feb avg) is benign. However, food CPI rising to 3.87% with IMD forecasting below-normal monsoon (92% of LPA, 66% probability of below-normal or deficient outcome) creates a credible upside inflation risk in H2 FY27. GDP growth at 7.8% (Q3 FY26) with RBI projecting 7.6% for full FY26 is above trend. PMI Manufacturing rebounded to 55.9 (Apr flash) after Mar dip to 53.9; Services PMI at 57.9. Capacity utilisation at 75.6% signals late-expansion. Growth is strong; inflation is currently comfortable but monsoon risk is a live threat. Tradeoff is favourable today but deteriorating on the inflation side via external shocks."
+        },
+        "currency_external": {
+          "inr_usd": 94.787,
+          "reer_assessment": "REER data not present in snapshot. Directional inference: INR has depreciated 10.7% against USD over 12 months (85.60 on Apr 2, 2025 to 94.79 on Apr 29, 2026). Forex reserves declined $25B to $703B. Sharp nominal depreciation combined with reserve drawdown indicates RBI has been intervening but not fully defending. REER likely depreciated meaningfully; India's export competitiveness improved but import cost inflation (especially crude) is severe.",
+          "current_account_pct_gdp": null,
+          "fii_flows_summary": "FII net equity outflows of Rs 56,401 Cr (~$5.97B) in April 2026 alone; heaviest single-day outflow Rs 19,837 Cr on Apr 2. DII buying of Rs 34,617 Cr (partial Apr 1-8 data) only partially absorbs. India-US rate differential at 162bps is in the adequate range but not compelling for carry inflows. FII flow dynamic is stressed and not domestically offset."
+        },
+        "policy_regulatory": {
+          "recent_rbi": "RBI MPC Apr 8, 2026: unanimous hold at repo 5.25%; stance neutral. SDF 5.00%, MSF 5.50%, CRR 3.00%. Cumulative 125bps of cuts from 6.50% executed in 2025 are now paused. RBI language: 'vigilant, closely monitoring'; cited West Asia uncertainty. WALR on fresh loans at 8.28% (Dec 2025) reflects 109bps transmission of the 125bps cut cycle; 87% transmission rate. 10Y bond yield at 6.99% has risen 44bps since Nov 2025, compressing mark-to-market gains on existing debt holdings.",
+          "fiscal_stance": "FY26 YTD (Apr-Feb): fiscal deficit Rs 12,52,649 Cr = 80.38% of RE, down 7.0% YoY. Primary deficit down 52.5% YoY; revenue deficit down 32.1% YoY. Capex at Rs 9,29,322 Cr = 84.81% of RE, up 14.46% YoY. Quality of expenditure improving (capex up, revenue expenditure flat at +1.1%). FY27 Budget targets: fiscal deficit 4.3% of GDP, capex Rs 12.22L Cr, effective capex Rs 17.15L Cr. Market borrowing Rs 13.03L Cr. Fiscal consolidation on track; government not adding to inflationary pressure.",
+          "sectoral_regulatory": "No MF-specific or debt-fund-specific regulatory events present in the snapshot data. SEBI and RBI regulatory items not flagged in the provided macro block for this case scope. Non-food credit growth at 14.3% YoY (Feb 2026) indicates healthy banking system transmission. No NBFC stress signals in available data.",
+          "tax_policy": "No Budget FY27 tax policy changes material to MF or debt holdings flagged in the snapshot. LTCG framework assumed stable (no contrary data in snapshot). FY27 Budget at a Glance cited for fiscal targets only; no MF taxation changes noted."
+        },
+        "material_news": [
+          "Brent crude at $118.95/barrel (Apr 29, 2026), up 86% YoY from ~$64; Hormuz disruption blocking 20% of global oil trade — direct upside risk to India's import bill, current account, and CPI fuel component",
+          "INR at 94.79 vs USD (Apr 29, 2026), 10.7% depreciation over 12 months; forex reserves down $25B to $703B — imported inflation risk and portfolio repatriation pressure",
+          "FII equity outflows Rs 56,401 Cr in April 2026 alone (~$5.97B); heaviest single-day Apr 2 at Rs 19,837 Cr — risk-off sentiment, equity market pressure",
+          "IMD Apr 13 forecast: below-normal monsoon at 92% of LPA, 66% probability of below-normal or deficient outcome; El Nino likely — food inflation upside risk in H2 FY27",
+          "10Y G-Sec yield rose to 6.99% (Apr 17) from 6.55% (Nov 2025), spiked to 7.19% on Apr 3 — mark-to-market headwind for existing debt MF holdings",
+          "RBI MPC Apr 8: unanimous hold, neutral stance; West Asia geopolitical uncertainty cited as key constraint on further rate cuts",
+          "PMI Manufacturing Apr flash 55.9 (rebound from Mar 53.9 dip caused by Middle East war); Services PMI 57.9; Composite 58.3 — domestic growth momentum intact despite external stress",
+          "US Fed hold at 3.50-3.75% (Mar 18 FOMC); Powell's last meeting; Warsh taking over ~May 15 — US policy uncertainty adds to global risk-off backdrop"
+        ],
+        "risk_overlay": {
+          "tail_risks": "PRIMARY TAIL RISK: Hormuz disruption sustaining Brent above $100/barrel. At $118.95 (Apr 29), India's oil import bill is severely elevated. Sustained crude at these levels would: (1) widen current account deficit materially, (2) push CPI fuel component higher, (3) force RBI to delay cuts further or reverse stance, (4) accelerate INR depreciation beyond 94.79. SECONDARY TAIL RISK: INR depreciation spiral if FII outflows persist and RBI reserve intervention capacity is tested ($703B reserves, down $25B). TERTIARY: Below-normal monsoon materialising into food inflation spike in Q2-Q3 FY27, compressing real incomes and forcing RBI hawkishness.",
+          "concentration_risks_macro": "For Mrs. Iyengar's conservative mandate with 4 MF holdings and 2 debt holdings: (1) Rising 10Y yield (6.99%, up 44bps) creates mark-to-market risk on any duration-bearing debt MF holdings — a conservative investor in debt funds faces NAV erosion if yields continue rising. (2) INR depreciation at 10.7% over 12 months has no direct impact on domestic MF/debt holdings but signals macro stress that historically correlates with equity market volatility and credit spread widening. (3) No AIF or PMS exposure limits illiquidity risk, which is appropriate for conservative mandate.",
+          "time_aware_windows": "IMMEDIATE (0-30 days): Apr 29 FOMC meeting (Fed hold expected; Warsh transition ~May 15 creates US policy uncertainty). NEAR-TERM (30-60 days): IMD monsoon update end-May — if forecast worsens, food inflation risk escalates materially. RBI next MPC: June 2026 — if crude remains elevated and INR weak, hold is near-certain; any cut would be a positive surprise for debt funds. MEDIUM-TERM (60-120 days): FY27 Q1 GDP data; monsoon progress; crude trajectory post-Hormuz resolution or escalation."
+        },
+        "overall_e3_assessment": "cautionary",
+        "key_drivers": [
+          {
+            "name": "Crude oil shock — Hormuz disruption",
+            "evidence": "Brent at $118.95/barrel (Apr 29, 2026), up 86% YoY from ~$64; Hormuz disruption blocking 20% of global oil trade (indicator 4.3)",
+            "dimension": "currency"
+          },
+          {
+            "name": "INR depreciation — 10.7% over 12 months",
+            "evidence": "USD/INR at 94.787 (Apr 29, 2026) vs 85.60 (Apr 2, 2025); forex reserves down $25B to $703B (indicator 4.2)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Rising 10Y yield — mark-to-market headwind for debt holdings",
+            "evidence": "10Y G-Sec at 6.99% (Apr 17), up 44bps from 6.55% (Nov 2025); spiked to 7.19% on Apr 3 (indicator 2.4)",
+            "dimension": "rate"
+          },
+          {
+            "name": "RBI on hold — rate cut cycle paused",
+            "evidence": "Repo at 5.25%; unanimous hold Apr 8 MPC; neutral stance; West Asia uncertainty cited (indicators 2.1, 2.2)",
+            "dimension": "rate"
+          },
+          {
+            "name": "FII heavy outflows — risk-off signal",
+            "evidence": "Rs 56,401 Cr FII equity outflows in April 2026; heaviest single-day Rs 19,837 Cr on Apr 2 (indicator 4.4)",
+            "dimension": "currency"
+          },
+          {
+            "name": "Monsoon below-normal forecast — food inflation upside risk",
+            "evidence": "IMD Apr 13: 92% of LPA, 66% probability below-normal or deficient; El Nino likely (indicator 1.9)",
+            "dimension": "growth"
+          },
+          {
+            "name": "Domestic growth momentum intact",
+            "evidence": "GDP Q3 FY26 at 7.8%; PMI Manufacturing 55.9 (Apr flash); Capacity utilisation 75.6% (Q3 FY26) (indicators 1.5, 1.1, 1.4)",
+            "dimension": "growth"
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Sustained crude shock forcing RBI stance reversal and yield spike",
+            "evidence": "Brent $118.95 (indicator 4.3); 10Y already at 6.99% and rising (indicator 2.4); real rate 3.15% (indicator 2.3) — if crude forces CPI above 5%, RBI neutral stance could shift hawkish",
+            "severity": "high"
+          },
+          {
+            "name": "INR depreciation accelerating — imported inflation and portfolio stress",
+            "evidence": "INR at 94.79, down 10.7% YoY (indicator 4.2); FII outflows Rs 56,401 Cr April alone (indicator 4.4); reserves down $25B (indicator 4.2)",
+            "severity": "high"
+          },
+          {
+            "name": "Mark-to-market losses on debt MF holdings from rising yields",
+            "evidence": "10Y yield up 44bps to 6.99% in 5 months (indicator 2.4); conservative mandate with 2 debt holdings directly exposed to duration risk",
+            "severity": "medium"
+          },
+          {
+            "name": "Below-normal monsoon materialising into food inflation spike",
+            "evidence": "IMD 66% probability below-normal/deficient (indicator 1.9); food CPI already rising to 3.87% (indicator 1.8); could push headline CPI above 4% target",
+            "severity": "medium"
+          },
+          {
+            "name": "US policy uncertainty — Warsh Fed transition",
+            "evidence": "Powell's last FOMC Mar 18; Warsh taking over ~May 15 (indicator 4.1); potential shift in Fed communication tone affecting global risk appetite and FII flows to India",
+            "severity": "medium"
+          },
+          {
+            "name": "FII outflow persistence — equity market correction risk",
+            "evidence": "Rs 56,401 Cr outflows in April (indicator 4.4); DII buying only partially absorbing (indicator 4.5); relevant to any equity MF holdings in the 4-MF portfolio",
+            "severity": "medium"
+          }
+        ],
+        "confidence": 0.74,
+        "escalate_to_master": true,
+        "reasoning_summary": "The macro environment as of April 29, 2026 is cautionary for Mrs. Iyengar's conservative, 3-5 year mandate. Two acute external shocks dominate the picture. First, Brent crude at $118.95/barrel — up 86% YoY — driven by Hormuz disruption is the single most consequential macro variable. It simultaneously pressures INR (now at 94.79, down 10.7% over 12 months), widens the current account deficit, and creates upside CPI risk that constrains RBI's ability to cut further. Second, FII outflows of Rs 56,401 Cr in April alone signal risk-off positioning that is not being fully absorbed by DII buying. The 10Y G-Sec yield has risen 44bps to 6.99% since November 2025, with an intraday spike to 7.19% on April 3. For a conservative investor with 2 debt holdings, this is a direct mark-to-market headwind; duration-bearing funds will have experienced NAV pressure. The RBI is on hold at 5.25% with a neutral stance — the real rate at 3.15% (repo minus core CPI of 2.1%) is well above restrictive territory, but geopolitical constraints prevent cuts. The IMD's below-normal monsoon forecast (66% probability of below-normal or deficient outcome) adds a medium-term food inflation risk. Domestic fundamentals remain sound — GDP at 7.8%, PMI Composite at 58.3, capacity utilisation above 75% — but these are insufficient to offset the severity of external shocks. Escalation to master is warranted given the combination of live geopolitical tail risk, INR stress, and yield volatility occurring simultaneously within the case window."
+      },
+      "e4": {
+        "stated_risk_tolerance": {
+          "bucket": "conservative",
+          "specific_language": "Stated risk appetite: conservative. Time horizon: 3 to 5 years operational (medical trajectory uncertain), perpetual stewardship beyond.",
+          "horizon": "3–5 years operational; perpetual stewardship horizon beyond that, with medical trajectory explicitly flagged as uncertain"
+        },
+        "revealed_behavioural_patterns": {
+          "market_event_response": "2022 drawdown: Lalitha requested partial withdrawal of Rs 30 L from equity MFs, locking in approximately Rs 4 L of realised loss against the prevailing advisor position. No specific bible evidence for 2018–19 or 2020 COVID behaviour; those events predate the current advisor relationship and are not documented in the character bible.",
+          "initiative_pattern": "advisor-driven",
+          "engagement_style": "deferential",
+          "product_addition_pattern": "relationship_trust",
+          "notes": [
+            "Bible states: 'Reactive engagement pattern; defers most active decisions.' No investor-initiated product proposals on record.",
+            "Bible states: 'Has never proposed a new product type.' This is a strong signal of low initiative and high advisor dependence.",
+            "The 2022 Rs 30 L withdrawal was investor-initiated but reactive to market stress, not a proactive portfolio decision — consistent with anxiety-driven override rather than analytical engagement.",
+            "Bible notes the inherited equity MF positions carry emotional weight: 'the MFs were built by her late husband and she has never modified them.' This introduces a non-financial constraint on any equity-side recommendation."
+          ]
+        },
+        "family_advisor_dynamics": {
+          "decision_structure": "sole",
+          "formal_authority": "Lalitha Iyengar is the sole formal decision-maker.",
+          "practical_influence": "Son (38, Singapore-based) is supportive but operationally distant. Bible notes 'son's distance versus stated independence' as a key concern, implying the son's views carry emotional weight even without operational involvement. No other documented influence sources.",
+          "friction_points": [
+            "Son's geographic distance creates a latent tension: Lalitha states independence but the bible flags the distance as a concern, suggesting she may seek or feel the absence of his validation on significant decisions.",
+            "Emotional attachment to inherited equity MF corpus (built by late husband) creates a structural friction point: any recommendation touching those positions must navigate grief and identity, not just financial logic.",
+            "Medical contingency uncertainty introduces time-pressure asymmetry: liquidity needs could accelerate beyond the stated 3–5 year horizon without warning, which may cause reactive decisions under stress."
+          ]
+        },
+        "historical_decision_pattern": {
+          "prior_cases_count": 0,
+          "trajectory_summary": "No prior cases in the DB under the current advisor relationship. However, the character bible documents a prior behavioural event: the 2022 Rs 30 L equity MF withdrawal at a loss, which occurred under a prior advisor relationship context. The bible also notes she has never modified the inherited equity MF positions otherwise, suggesting a pattern of inertia punctuated by stress-driven reactive moves rather than deliberate portfolio management.",
+          "acceptance_rate": "unknown",
+          "time_to_decision": "unknown"
+        },
+        "stated_vs_revealed_divergence": {
+          "direction": "stated_more_aggressive_than_revealed",
+          "magnitude": "moderate",
+          "implication": "Lalitha's stated conservative profile already sits at the cautious end of the spectrum, but her revealed behaviour in the 2022 drawdown — withdrawing Rs 30 L at a realised loss against advisor counsel — indicates her actual stress-tolerance is more conservative than her stated label implies, meaning the diagnostic should not treat 'conservative' as a floor but as a ceiling, and any liquidity or equity-side recommendation must be stress-tested against her demonstrated panic threshold."
+        },
+        "limited_history_flag": true,
+        "key_drivers": [
+          {
+            "name": "Capital preservation imperative",
+            "evidence": "Bible: 'Stated risk appetite: conservative. Time horizon: 3 to 5 years operational (medical trajectory uncertain).' Monthly outflows run marginally negative before investment income, making income continuity structurally critical."
+          },
+          {
+            "name": "Medical contingency liquidity need",
+            "evidence": "Bible explicitly flags 'medical contingency' as a key concern and the diagnostic interest includes 'liquidity profile against medical contingency.' At 67 with uncertain medical trajectory, unplanned large outflows are a credible near-term scenario."
+          },
+          {
+            "name": "Trust-based advisory dependency",
+            "evidence": "Bible: 'Trust-based advisory relationship with Priya Nair. Reactive engagement pattern; defers most active decisions.' Advisor is the primary decision-enabler; loss of that trust or advisory continuity would be destabilising."
+          },
+          {
+            "name": "Emotional constraint on inherited equity corpus",
+            "evidence": "Bible: 'the MFs were built by her late husband and she has never modified them.' This is not a financial driver but a behavioural one that materially constrains the action space on the equity side."
+          }
+        ],
+        "key_risks": [
+          {
+            "name": "Loss aversion / panic-driven liquidation",
+            "evidence": "Bible: '2022 drawdown she requested partial withdrawal of Rs 30 L from equity MFs, locking in approximately Rs 4 L of realised loss.' Demonstrated willingness to crystallise losses under market stress.",
+            "severity": "high"
+          },
+          {
+            "name": "Inertia risk on inherited positions",
+            "evidence": "Bible: 'she has never modified them' (inherited equity MFs). Emotional attachment may prevent rational rebalancing even when the diagnostic recommends it, creating portfolio drift risk over time.",
+            "severity": "medium"
+          },
+          {
+            "name": "Absent co-decision-maker under stress",
+            "evidence": "Bible: 'son's distance versus stated independence' flagged as a key concern. Under a medical or financial stress event, the absence of a proximate trusted co-decision-maker increases the probability of unilateral reactive decisions.",
+            "severity": "medium"
+          },
+          {
+            "name": "Limited revealed-pattern history with current advisor",
+            "evidence": "Prior cases count: 0; advisor relationship length: 0 years. The bible provides behavioural evidence but the current advisor has no direct observational history of how Lalitha responds to their specific counsel style.",
+            "severity": "medium"
+          },
+          {
+            "name": "FD concentration and maturity cliff risk",
+            "evidence": "Bible: HDFC Bank FD Rs 0.93 Cr and SBI FD Rs 0.92 Cr together constitute 54.3% of liquid AUM. Uncoordinated maturities could create reinvestment risk or liquidity gaps if not actively laddered.",
+            "severity": "low"
+          }
+        ],
+        "confidence": 0.68,
+        "escalate_to_master": false,
+        "reasoning_summary": "Lalitha Iyengar presents a behaviourally coherent but stress-fragile conservative profile. Her stated risk appetite is conservative, and her revealed behaviour is consistent with that label in direction — but the 2022 drawdown event (Rs 30 L withdrawal, Rs 4 L realised loss) demonstrates that her actual stress-tolerance sits meaningfully below even the conservative label. She did not hold through a drawdown; she liquidated at loss against advisor counsel. This is the single most important revealed-pattern data point available and must anchor the diagnostic framing.\n\nThe limited_history_flag is set true: zero prior cases under the current advisor relationship and zero years of relationship history. The character bible partially mitigates this — it provides a documented behavioural event and a stable personality profile — but the current advisor (Priya Nair) has no direct observational record of how Lalitha responds to their specific counsel, framing style, or recommendations. Confidence is therefore set at 0.68, reflecting bible-informed but relationship-unvalidated assessment.\n\nThe stated-vs-revealed divergence is the most consequential finding: Lalitha is more conservative than her stated label implies. The diagnostic should not treat 'conservative' as a floor; it is effectively a ceiling. Any recommendation — particularly around the inherited equity MF corpus or FD laddering — must be framed around capital safety and income continuity, not return optimisation. The emotional weight attached to the inherited equity positions (built by her late husband, never modified) is a structural constraint that is not captured in standard risk-tolerance frameworks and must be handled with explicit care.\n\nFamily dynamics are structurally simple (sole decision-maker) but emotionally complex. The son's operational distance is a latent risk: under a medical or financial stress event, Lalitha may seek his input but be unable to reach timely consensus, increasing the probability of unilateral reactive decisions. The advisor's role is therefore not merely advisory but stabilising — the relationship with Priya Nair is the primary anchor against panic-driven action. Escalation to master is not warranted; there is no contested family dynamic or structural complexity requiring senior intervention."
+      },
+      "e6": null,
+      "e7": {
+        "analysis_scope": [
+          "Franklin India Corporate Debt Fund",
+          "Axis Large Cap Fund",
+          "HDFC Index Fund Nifty 50",
+          "ICICI Prudential Balanced Advantage Fund"
+        ],
+        "per_scheme_verdicts": [
+          {
+            "instrument": "Franklin India Corporate Debt Fund",
+            "sebi_category": "Corporate Bond Fund",
+            "sub_category": "mf_corporate_debt",
+            "weight_pct": 10.3,
+            "manager_strategy": {
+              "manager_continuity": "cannot_evaluate",
+              "style_consistency": "moderate",
+              "philosophy": "Invests predominantly in AA+ and above rated corporate bonds targeting accrual-driven returns with credit quality discipline; post-2020 wind-up episode the fund has operated with a more conservative credit posture."
+            },
+            "performance_attribution": {
+              "one_year_pct": 6.95,
+              "three_year_pct": 7.33,
+              "five_year_pct": 5.99,
+              "alpha_summary": "Rolling 3Y beat-category rate of 50.2% with average excess return of -27.6 bps; rolling 5Y beat-category rate of 48.6% with average excess of -25.4 bps — marginally below category median on both horizons. Benchmark-relative alpha is slightly negative on a sustained basis.",
+              "peer_relative": "Marginally below category median on both 3Y and 5Y rolling windows; the fund is a median-or-below performer within Corporate Bond category peers.",
+              "skill_vs_beta": "Alpha trend is flagged 'stable' but the rolling excess is consistently negative (-27 to -25 bps), suggesting the fund is not generating skill-based outperformance over peers. The 5Y return of 5.99% is notably lower than the 3Y of 7.33%, indicating the 2020 wind-up episode depressed the 5Y figure materially — this is a legacy beta-drag from credit events rather than current strategy failure. Downside capture of only 9.4% over 3Y is exceptional and reflects the current conservative credit posture; upside capture of 104.7% is also strong, suggesting the fund participates well in rising-rate recoveries. Regime stability score of 3.39 is elevated relative to equity peers, consistent with low-volatility debt profile."
+            },
+            "fee_cost": {
+              "ter_pct": 0.072,
+              "fee_impact_5y_summary": "TER of 0.072% is extremely competitive for an actively managed corporate bond fund. Over a 5Y horizon at ~7% gross return, cumulative fee drag is approximately 0.36% of corpus — negligible. This is effectively near-index-fund pricing for an active debt strategy."
+            },
+            "capacity_continuity": {
+              "aum_cr": 1247.49,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 1,247 Cr is modest for a corporate bond fund; no capacity constraints. Post-2020 wind-up the fund has rebuilt AUM gradually, which is a positive signal of restored investor confidence, though AUM remains well below pre-crisis levels."
+            },
+            "tax_efficiency": "Post-Budget 2024, debt fund gains (irrespective of holding period) are taxed at slab rate — indexation benefit removed for debt MFs purchased after April 2023. For Mrs. Iyengar's 3-5Y horizon, LTCG advantage is absent; returns are fully slab-taxable. The fund's low turnover and accrual-dominant strategy minimise intra-fund tax events. Direct/Growth option assumed; no IDCW tax drag.",
+            "overall_verdict": "hold",
+            "key_drivers": [
+              "Exceptionally low TER of 0.072% — near-passive pricing for active corporate bond management",
+              "Very low volatility (2.4%) and max drawdown of -4.1% with 4-month recovery — appropriate for conservative mandate",
+              "Downside capture of 9.4% over 3Y is outstanding; strong capital preservation in adverse credit environments",
+              "Upside capture of 104.7% suggests the fund participates adequately in favourable credit spreads"
+            ],
+            "key_risks": [
+              "Franklin's 2020 wind-up episode remains a reputational and operational legacy risk; institutional memory of that event may affect investor confidence",
+              "Rolling peer-relative performance is marginally negative (-27 bps average excess) — the fund does not consistently beat category median",
+              "5Y return of 5.99% is depressed by the 2020 episode; forward-looking return potential may be better but historical 5Y is misleading",
+              "Post-Budget 2024 debt taxation removes indexation benefit; slab-rate taxation reduces net-of-tax attractiveness vs pre-2023 regime",
+              "Manager continuity data not available in snapshot; cannot assess team stability post-restructuring"
+            ],
+            "recommended_alternatives": [
+              "HDFC Corporate Bond Fund (Direct/Growth) — larger AUM, consistent top-quartile peer performance, comparable TER",
+              "Kotak Corporate Bond Fund (Direct/Growth) — strong credit quality discipline, above-median rolling alpha",
+              "Aditya Birla Sun Life Corporate Bond Fund (Direct/Growth) — category leader by AUM and rolling performance consistency"
+            ],
+            "confidence": 0.68,
+            "reasoning_trace": "Franklin Corporate Debt is a structurally sound, ultra-low-cost corporate bond fund with excellent downside protection metrics. However, the 2020 wind-up legacy, marginally below-median rolling peer performance, and absence of manager continuity data reduce conviction. For Mrs. Iyengar's conservative 3-5Y mandate, the fund's capital preservation characteristics are appropriate, but the peer-relative underperformance and reputational overhang warrant a 'hold' rather than positive verdict. The post-2024 debt tax regime further reduces the relative attractiveness of this category. Confidence is moderated to 0.68 due to manager continuity data gap."
+          },
+          {
+            "instrument": "Axis Large Cap Fund",
+            "sebi_category": "Large Cap Fund",
+            "sub_category": "mf_active_large_cap",
+            "weight_pct": 11.7,
+            "manager_strategy": {
+              "manager_continuity": "moderate",
+              "style_consistency": "moderate",
+              "philosophy": "Quality-growth large-cap strategy with concentrated portfolio (top 10 at 55.4%), historically biased toward high-ROCE, low-leverage businesses; the fund experienced significant style pressure during 2021-2023 value rotation and has been rebuilding alpha since."
+            },
+            "performance_attribution": {
+              "one_year_pct": -4.13,
+              "three_year_pct": 9.55,
+              "five_year_pct": 6.86,
+              "alpha_summary": "Rolling 3Y beat-category rate of 55.3% with average excess of +34.6 bps; rolling 5Y beat-category rate of 71.5% with average excess of +56.8 bps. Alpha trend direction is 'improving', suggesting the fund is recovering from its 2021-2023 underperformance trough. The 1Y return of -4.13% is negative in absolute terms, likely reflecting the broader large-cap correction in 2025-26.",
+              "peer_relative": "Above category median on 5Y rolling (71.5% beat rate) and modestly above on 3Y (55.3%). The improving alpha trend is a positive signal. However, the 1Y absolute return of -4.13% suggests near-term headwinds.",
+              "skill_vs_beta": "The 5Y rolling beat rate of 71.5% with +56.8 bps average excess across multiple market regimes (including the 2020 COVID crash, 2022 rate-hike cycle, and 2023-24 value rotation) provides reasonable evidence of skill rather than pure beta drift. However, the 2021-2023 period of significant underperformance (quality factor de-rating) exposed style concentration risk. The improving alpha trend post-2023 suggests the quality-growth style is reasserting. Downside capture of 97.8% over 3Y is high — the fund does not provide meaningful downside protection relative to benchmark, which is a concern for a conservative investor. Upside capture of 89.7% is below 100%, meaning the fund underperforms in strong rallies — a quality-tilt characteristic."
+            },
+            "fee_cost": {
+              "ter_pct": 1.58,
+              "fee_impact_5y_summary": "CRITICAL FLAG: This is the Regular Plan with TER of 1.58%. The Direct Plan TER for Axis Large Cap is approximately 0.55-0.65% — implying a Regular-to-Direct delta of approximately 90-100 bps annually. Over a 5Y horizon at 9-10% gross returns, the cumulative fee drag from Regular vs Direct is approximately 4.5-5.0% of corpus. On Rs 0.40 Cr, this represents approximately Rs 1.8-2.0 lakh of unnecessary distributor commission over 5 years. This is a material fee inefficiency that should be addressed immediately."
+            },
+            "capacity_continuity": {
+              "aum_cr": 32436.77,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 32,437 Cr is large for a large-cap fund; no capacity constraints given the large-cap universe's depth and liquidity. AUM has grown substantially, reflecting the fund's brand recognition despite the 2021-2023 underperformance period."
+            },
+            "tax_efficiency": "Large-cap equity fund; LTCG at 12.5% (post-Budget 2024) on gains above Rs 1.25 lakh per year after 1Y holding. STCG at 20% within 1Y. For Mrs. Iyengar's 3-5Y horizon, LTCG treatment applies — tax-efficient relative to debt. The Regular Plan structure introduces an additional inefficiency: distributor commissions are embedded in NAV, reducing compounding. Switching to Direct Plan would improve both fee and tax efficiency (higher NAV base in Direct means lower embedded cost).",
+            "overall_verdict": "positive_with_caution",
+            "key_drivers": [
+              "5Y rolling beat rate of 71.5% with +56.8 bps average excess — above-median skill signal across multiple regimes",
+              "Alpha trend direction 'improving' — fund recovering from 2021-2023 quality-factor headwinds",
+              "Large AUM (Rs 32,437 Cr) with no capacity constraints; fund house stability strong",
+              "Quality-growth philosophy is well-suited to 3-5Y equity allocation within a conservative-medium-term mandate"
+            ],
+            "key_risks": [
+              "CRITICAL: Regular Plan TER of 1.58% vs Direct Plan ~0.60% — approximately 90-100 bps annual fee drag; Rs 1.8-2.0 lakh cumulative cost over 5Y on current holding. Immediate switch to Direct Plan recommended.",
+              "1Y return of -4.13% is negative; near-term momentum is adverse",
+              "Downside capture of 97.8% over 3Y — fund provides minimal downside protection; high equity volatility (14.7%) is elevated for a conservative investor",
+              "Style concentration in quality-growth; vulnerable to value-rotation regimes as demonstrated 2021-2023",
+              "Manager continuity: Axis has experienced some senior fund manager transitions in recent years; continuity risk is moderate"
+            ],
+            "recommended_alternatives": [
+              "Axis Large Cap Fund - Direct Plan (same fund, switch from Regular to Direct — immediate priority)",
+              "Mirae Asset Large Cap Fund (Direct/Growth) — comparable quality-tilt, 15+ year manager tenure, TER ~0.55%",
+              "HDFC Index Fund Nifty 50 (Direct) — passive alternative at TER 0.20% if active management premium not justified for conservative mandate"
+            ],
+            "confidence": 0.72,
+            "reasoning_trace": "Axis Large Cap has a credible 5Y skill signal (71.5% rolling beat rate) with an improving alpha trend, suggesting the quality-growth style is recovering post-2021-2023 headwinds. However, the Regular Plan structure is a significant and actionable fee inefficiency — the ~100 bps annual drag is the single most important issue to address. For Mrs. Iyengar's conservative mandate, the fund's high downside capture (97.8%) and equity volatility (14.7%) are concerns; this is not a capital-preservation instrument. The verdict is positive_with_caution: the underlying strategy has merit, but the Regular Plan fee structure and equity volatility profile require attention. Confidence is 0.72, moderated by the Regular Plan flag and near-term negative 1Y return."
+          },
+          {
+            "instrument": "HDFC Index Fund Nifty 50",
+            "sebi_category": "Equity Index Funds",
+            "sub_category": "mf_passive_index",
+            "weight_pct": 14.1,
+            "manager_strategy": {
+              "manager_continuity": "strong",
+              "style_consistency": "high",
+              "philosophy": "Full-replication passive index fund tracking Nifty 50 TRI; no active stock selection; returns are benchmark returns minus tracking error and TER; manager risk is structurally minimal."
+            },
+            "performance_attribution": {
+              "one_year_pct": -1.79,
+              "three_year_pct": 10.34,
+              "five_year_pct": 9.82,
+              "alpha_summary": "By design, the fund targets zero alpha vs Nifty 50 TRI. Rolling 3Y beat-category rate of 48.0% with average excess of -115 bps vs category — this is expected for a passive fund measured against an active-fund category median (active funds in the category include mid-cap tilted flexi-cap peers; the comparison is category-level, not benchmark-level). Vs Nifty 50 TRI benchmark directly, tracking error is the only source of deviation.",
+              "peer_relative": "The -115 bps rolling 3Y average excess vs category is misleading in isolation — this reflects the passive fund being compared against an active large-cap category that may include funds with mid-cap tilts. Vs pure large-cap active peers, the fund's 3Y return of 10.34% is competitive. The 5Y return of 9.82% is strong.",
+              "skill_vs_beta": "Not applicable — this is a passive instrument. Returns are pure Nifty 50 beta. The alpha_trend_direction of 'improving' reflects improving tracking efficiency (lower tracking error over time) rather than active skill. The fund's value is in cost efficiency and benchmark fidelity, not alpha generation. Downside capture of 88.8% and upside capture of 77.2% over 3Y vs category suggest the fund underperforms active peers in strong rallies but provides better downside protection than the category average — consistent with passive large-cap vs active large-cap-plus-mid-cap category dynamics."
+            },
+            "fee_cost": {
+              "ter_pct": 0.2,
+              "fee_impact_5y_summary": "TER of 0.20% is among the lowest in the Indian MF universe for equity. Over 5Y at ~10% gross Nifty 50 returns, cumulative fee drag is approximately 1.0% of corpus — minimal. This is the correct plan (Direct) already. The fee advantage over active large-cap funds (TER delta of ~35-140 bps vs active peers) compounds meaningfully over 5Y: at 100 bps delta, the fee saving on Rs 0.48 Cr over 5Y is approximately Rs 2.5-3.0 lakh."
+            },
+            "capacity_continuity": {
+              "aum_cr": 22324.27,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 22,324 Cr is large and growing; passive index funds have no capacity constraints by design — the fund simply buys Nifty 50 constituents in proportion. HDFC AMC is the largest AMC in India by equity AUM; fund house stability is very high."
+            },
+            "tax_efficiency": "Equity fund; LTCG at 12.5% on gains above Rs 1.25 lakh per year after 1Y holding. Low portfolio turnover (index rebalancing only, ~5-10% annually) minimises intra-fund capital gains distributions. Direct/Growth option confirmed — no IDCW tax drag. The fund is highly tax-efficient for a 3-5Y equity holding. Tax-loss harvesting is feasible given the fund's liquidity and low exit load.",
+            "overall_verdict": "positive",
+            "key_drivers": [
+              "Ultra-low TER of 0.20% — lowest cost equity exposure available; fee advantage compounds significantly over 3-5Y",
+              "Direct Plan confirmed — no distributor commission drag",
+              "Strong 5Y return of 9.82% reflecting Nifty 50 performance; 3Y of 10.34% competitive",
+              "No manager continuity risk — passive structure eliminates key-person dependency",
+              "HDFC AMC institutional strength; very low tracking error; high fund house stability",
+              "Low portfolio turnover maximises tax efficiency"
+            ],
+            "key_risks": [
+              "Pure Nifty 50 beta — no downside protection beyond index; max drawdown of -29.4% with 8-month recovery is significant for a conservative investor",
+              "1Y return of -1.79% reflects near-term Nifty 50 weakness; no active management to navigate adverse markets",
+              "Nifty 50 concentration in financials (~35%) and IT (~13%) creates sector concentration risk",
+              "No alpha generation by design; in strong active-management environments, active peers may outperform",
+              "Equity volatility of 15.9% is high for Mrs. Iyengar's conservative risk appetite"
+            ],
+            "recommended_alternatives": [
+              "No alternative is materially better for pure passive Nifty 50 exposure at this cost level",
+              "UTI Nifty 50 Index Fund (Direct) — comparable TER ~0.20%, alternative if fund house diversification desired",
+              "ICICI Prudential Nifty 50 Index Fund (Direct) — comparable passive alternative"
+            ],
+            "confidence": 0.85,
+            "reasoning_trace": "HDFC Nifty 50 Index Fund is a well-executed passive instrument with the lowest-cost equity exposure available in the Indian MF universe. The Direct Plan structure, ultra-low TER, and HDFC AMC's institutional quality make this a high-confidence positive verdict. The primary concern for Mrs. Iyengar is the equity volatility profile (15.9%, max drawdown -29.4%) relative to her conservative mandate — this is a portfolio construction question (appropriate weight) rather than a fund quality issue. The fund itself is correctly structured and efficiently managed. Confidence is 0.85; the slight reduction from maximum reflects the equity volatility mismatch with the conservative mandate and the near-term negative 1Y return context."
+          },
+          {
+            "instrument": "ICICI Prudential Balanced Advantage Fund",
+            "sebi_category": "Dynamic Asset Allocation or Balanced Advantage",
+            "sub_category": "mf_hybrid_dynamic_aa",
+            "weight_pct": 9.7,
+            "manager_strategy": {
+              "manager_continuity": "strong",
+              "style_consistency": "high",
+              "philosophy": "Dynamically allocates between equity and debt using a proprietary valuation model (P/B-based equity allocation framework); reduces equity exposure when markets are expensive and increases it when cheap, providing systematic volatility dampening with equity upside participation."
+            },
+            "performance_attribution": {
+              "one_year_pct": 4.75,
+              "three_year_pct": 11.44,
+              "five_year_pct": 10.35,
+              "alpha_summary": "Rolling 3Y beat-category rate of 87.3% with average excess of +179.7 bps; rolling 5Y beat-category rate of 97.1% with average excess of +207 bps. These are exceptional peer-relative metrics — the fund is a consistent top-quartile performer within the Balanced Advantage category across both 3Y and 5Y rolling windows.",
+              "peer_relative": "Top-decile performer within Balanced Advantage category. 97.1% rolling 5Y beat rate with +207 bps average excess is among the strongest peer-relative signals in this analysis. The fund has demonstrated consistent outperformance across multiple market regimes.",
+              "skill_vs_beta": "The 97.1% rolling 5Y beat rate with +207 bps average excess across multiple regimes (2020 COVID crash, 2021-22 bull market, 2022 rate-hike correction, 2023-24 mid-cap rally, 2025-26 correction) is strong evidence of skill rather than beta drift. The proprietary valuation-based allocation model has demonstrably added value through dynamic equity-debt switching. Alpha trend direction is 'improving'. Critically, downside capture of 63.8% over 3Y is excellent — the fund captures only 63.8% of category downside while capturing 93.0% of upside, a highly asymmetric return profile. This asymmetry is the hallmark of a well-functioning dynamic allocation model. The max drawdown of -40.4% with 20-month recovery is the key risk flag — this is higher than expected for a 'balanced' fund and reflects the fund's equity exposure during the 2020 COVID crash when the model may have been slow to de-risk."
+            },
+            "fee_cost": {
+              "ter_pct": 1.43,
+              "fee_impact_5y_summary": "TER of 1.43% — need to verify if this is Regular or Direct Plan. The snapshot fund name is 'ICICI Prudential Balanced Advantage Fund - Growth' without explicit Direct/Regular designation. If Regular Plan, the Direct Plan TER is approximately 0.80-0.90%, implying a ~55-60 bps annual drag. Over 5Y at ~10% gross returns on Rs 0.33 Cr, the Regular-to-Direct switch would save approximately Rs 1.0-1.1 lakh. If already Direct Plan at 1.43%, this is within acceptable range for a dynamic allocation strategy. Plan designation should be confirmed and switched to Direct if Regular."
+            },
+            "capacity_continuity": {
+              "aum_cr": 71150.75,
+              "capacity_concern": "low",
+              "aum_growth_notes": "AUM of Rs 71,151 Cr is the largest in this analysis and one of the largest single equity/hybrid funds in India. For a dynamic allocation fund investing primarily in large-cap equities and debt instruments, this AUM level does not create capacity constraints — the investable universe is sufficiently deep. ICICI Prudential AMC is among India's top-3 AMCs by AUM; institutional stability is very high. The large AUM is itself a signal of sustained investor confidence."
+            },
+            "tax_efficiency": "Balanced Advantage / Dynamic Asset Allocation funds with equity exposure >65% are taxed as equity funds: LTCG at 12.5% after 1Y holding (above Rs 1.25 lakh threshold), STCG at 20% within 1Y. ICICI Pru BAF maintains equity exposure (including derivatives hedging) above 65% to qualify for equity taxation — this is a significant tax advantage over pure debt or hybrid funds taxed at slab rate. For Mrs. Iyengar's 3-5Y horizon, equity taxation treatment is materially beneficial. The fund's dynamic allocation also means lower portfolio turnover in stable markets, further improving tax efficiency.",
+            "overall_verdict": "positive",
+            "key_drivers": [
+              "Exceptional peer-relative performance: 97.1% rolling 5Y beat rate with +207 bps average excess — top-decile in category",
+              "Asymmetric return profile: 93.0% upside capture vs 63.8% downside capture over 3Y — strong risk-adjusted value",
+              "Alpha trend 'improving' — sustained skill signal across multiple market regimes",
+              "Equity taxation treatment (>65% equity) provides significant tax advantage for 3-5Y horizon",
+              "Largest BAF fund in India (Rs 71,151 Cr) — institutional quality, deep team, proven model",
+              "1Y return of +4.75% positive in a year when pure equity funds (Axis Large Cap: -4.13%, HDFC Nifty 50: -1.79%) were negative — dynamic allocation working as intended",
+              "Volatility of 11.9% is meaningfully lower than pure equity funds (14.7-15.9%) — better fit for conservative mandate"
+            ],
+            "key_risks": [
+              "Max drawdown of -40.4% with 20-month recovery is higher than expected for a balanced fund — the 2020 COVID crash exposed model lag risk",
+              "TER of 1.43% — plan designation (Regular vs Direct) must be confirmed; if Regular, switch to Direct is a priority",
+              "Dynamic allocation model is proprietary and opaque; model failure or regime change could impair the allocation signal",
+              "P/E of 28.76 and P/B of 4.39 on equity portion suggest current equity allocation is at moderate-to-high valuation; model may reduce equity exposure",
+              "Large AUM (Rs 71,151 Cr) may create execution friction in rapid allocation shifts, though this is manageable given large-cap focus"
+            ],
+            "recommended_alternatives": [
+              "No alternative is materially better within the Balanced Advantage category given the fund's exceptional peer-relative metrics",
+              "HDFC Balanced Advantage Fund (Direct) — second-largest BAF, comparable dynamic allocation model, alternative for fund house diversification",
+              "Edelweiss Balanced Advantage Fund (Direct) — smaller AUM, strong rolling performance, alternative if ICICI Pru concentration is a concern"
+            ],
+            "confidence": 0.82,
+            "reasoning_trace": "ICICI Prudential BAF is the standout performer in this analysis — its 97.1% rolling 5Y beat rate with +207 bps average excess, combined with asymmetric downside capture (63.8%) and positive 1Y return in a down-equity-market year, provides strong evidence of a well-functioning dynamic allocation model. For Mrs. Iyengar's conservative 3-5Y mandate, this fund's lower volatility (11.9% vs 14.7-15.9% for pure equity peers) and equity taxation treatment make it the most appropriate equity-linked holding in the portfolio. The primary concerns are the max drawdown of -40.4% (model lag in extreme events), the unconfirmed plan designation (Regular vs Direct), and the proprietary model opacity. Confidence is 0.82; the slight reduction reflects the plan designation uncertainty and the max drawdown tail risk."
+          }
+        ],
+        "scope_notes": "Four schemes evaluated for Mrs. Lalitha Iyengar (conservative, 3-5Y horizon, Rs 3.41 Cr liquid AUM). The portfolio mix spans corporate debt (Franklin, 10.3%), active large-cap equity (Axis, 11.7%), passive large-cap equity (HDFC Nifty 50, 14.1%), and dynamic allocation hybrid (ICICI Pru BAF, 9.7%) — totalling 45.8% of liquid AUM in these four schemes. Two critical plan-level flags: (1) Axis Large Cap is confirmed Regular Plan (TER 1.58%) — immediate switch to Direct Plan is the highest-priority actionable finding, saving ~90-100 bps annually; (2) ICICI Pru BAF plan designation is ambiguous from snapshot name — must be confirmed and switched to Direct if Regular. Manager continuity data was not available in the snapshot for Franklin India Corporate Debt Fund, reducing confidence on that scheme. All return figures are as provided in snapshot metadata; no returns were fabricated. The as_of_date of 2026-04-02 is noted; all rolling metrics and returns are interpreted as of that date.",
+        "escalate_to_master": false,
+        "reasoning_summary": "Across the four schemes, the portfolio presents a mixed picture with one clear action item and two positive holdings. The most urgent finding is the Axis Large Cap Regular Plan fee inefficiency: at TER 1.58% vs Direct Plan ~0.60%, Mrs. Iyengar is paying approximately Rs 1.8-2.0 lakh in unnecessary distributor commissions over 5 years on a Rs 0.40 Cr holding — this should be switched to Direct Plan immediately. ICICI Prudential BAF is the highest-conviction holding: its 97.1% rolling 5Y beat rate, asymmetric downside capture (63.8%), positive 1Y return in a down-equity-market year, and equity taxation treatment make it the most appropriate equity-linked instrument for a conservative 3-5Y mandate. HDFC Nifty 50 Index Fund (Direct) is correctly structured at ultra-low cost (TER 0.20%) and provides efficient Nifty 50 beta; the primary concern is equity volatility relative to the conservative mandate, which is a portfolio construction question rather than a fund quality issue. Franklin India Corporate Debt Fund is a 'hold' — its capital preservation metrics are strong (downside capture 9.4%, max drawdown -4.1%) and TER is negligible (0.072%), but the 2020 wind-up legacy, marginally below-median rolling peer performance, and post-Budget 2024 slab-rate debt taxation reduce its attractiveness. The overall portfolio allocation to equity (Axis + HDFC Nifty 50 + BAF equity portion) warrants review against Mrs. Iyengar's conservative risk appetite given combined equity volatility exposure. No escalation to master IC required; findings are actionable at E7 level."
+      }
+    },
+    "usage_summary": {
+      "per_agent": {
+        "e3": {
+          "inputTokens": 6605,
+          "outputTokens": 3961
+        },
+        "e4": {
+          "inputTokens": 3664,
+          "outputTokens": 2197
+        },
+        "e1": {
+          "inputTokens": 4212,
+          "outputTokens": 560
+        },
+        "e2": {
+          "inputTokens": 2832,
+          "outputTokens": 490
+        },
+        "e7": {
+          "inputTokens": 5069,
+          "outputTokens": 7369
+        },
+        "s1": {
+          "inputTokens": 20927,
+          "outputTokens": 5229
+        }
+      },
+      "total_input_tokens": 43309,
+      "total_output_tokens": 19806,
+      "elapsed_ms": 226788,
+      "generated_at": "2026-05-15T13:21:10.009Z"
+    }
+  },
+  "tokenUsage": {
+    "per_agent": {
+      "e3": {
+        "inputTokens": 6605,
+        "outputTokens": 3961
+      },
+      "e4": {
+        "inputTokens": 3664,
+        "outputTokens": 2197
+      },
+      "e1": {
+        "inputTokens": 4212,
+        "outputTokens": 560
+      },
+      "e2": {
+        "inputTokens": 2832,
+        "outputTokens": 490
+      },
+      "e7": {
+        "inputTokens": 5069,
+        "outputTokens": 7369
+      },
+      "s1": {
+        "inputTokens": 20927,
+        "outputTokens": 5229
+      }
+    },
+    "total_input_tokens": 43309,
+    "total_output_tokens": 19806,
+    "elapsed_ms": 226788,
+    "generated_at": "2026-05-15T13:21:10.009Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 2 diagnostic for Mrs. Lalitha Iyengar. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6."
+}
