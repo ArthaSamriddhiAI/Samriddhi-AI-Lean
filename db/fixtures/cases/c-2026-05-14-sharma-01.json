@@ -6,7 +6,7 @@
   "severity": "escalate",
   "headline": "requires clarification: The product itself is sound: Marcellus has a stable team, a consistent investment style, a fee structure within the PMS band, and a look-through book of high-ROCE, wide-moat businesses.",
   "status": "ready",
-  "frozenAt": "2026-05-14T18:15:13.442Z",
+  "frozenAt": "2026-05-15T13:34:45.095Z",
   "content": {
     "briefing": {
       "section_1_proposal_summary": {
@@ -435,11 +435,145 @@
     },
     "ic1_deliberation": {
       "fires": true,
-      "minutes_recorder": { "status": "infrastructure_ready" },
-      "chair": { "status": "infrastructure_ready" },
-      "devils_advocate": { "status": "infrastructure_ready" },
-      "risk_assessor": { "status": "infrastructure_ready" },
-      "counterfactual_engine": { "status": "infrastructure_ready" }
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The central deliberation question is whether the quality of the Marcellus product and the macro case for redeploying FD capital justify the proposed Rs 3 Cr sizing, or whether the simultaneous three-band mandate gap and the wrapper-count progression require the action to be resized or restructured before deployment. The product itself reads cleanly across all evaluation layers: Marcellus demonstrates stable team depth, consistent investment style, fee structure within the PMS band, and a look-through book of high-ROCE, wide-moat businesses. Macro context supports moving capital out of compressing FD yields into equity. The tension that has pulled the synthesis verdict to requires_clarification does not sit inside product selection; it sits at the seam between product-fit and portfolio architecture.",
+          "The Risk Assessor's evaluation and the Devil's Advocate's position converge on a structural concern: the Rs 3 Cr ticket produces three coincident G1 gaps (equity at 71.7 percent against a 70 percent ceiling, debt at 13.3 percent against a 20 percent floor, single-position concentration at 16.7 percent of liquid AUM against the 15 percent standard ceiling) whose simultaneity signals that the ticket was sized against product attractiveness rather than derived from the mandate envelope. The Risk Assessor identifies zero post-action headroom against the equity ceiling on the trade date itself, meaning any equity outperformance from day one widens the breach rather than tightens it, and flags compound concentration risks at the single-name, sector, and wrapper levels. The Devil's Advocate adds that approving the ticket at the proposed size implicitly ratifies a decision process in which product thesis sets sizing and mandate architecture is accommodated afterward, converting an ambient pattern into an endorsed architecture. Both sub-roles identify a second structural concern: the household moves from one PMS to two PMS without a stated differentiation thesis between the existing growth-quality mandate and the proposed quality-compounder mandate, and E6 flags style overlap explicitly while E4 reads the progression as a continuation of peer-network accumulation rather than deliberate portfolio design.",
+          "The Counterfactual Engine surfaces three non-exclusive resolution paths: a mandate-sized ticket at Rs 2.0-2.2 Cr that holds equity at the ceiling rather than past it while still redirecting roughly 40 percent of the FD reserve; a two-tranche staged deployment with the residual contingent on a structured wrapper-count and style-overlap review; and partial MF substitution to address the fee-premium-dependent-on-sustained-alpha risk and the capacity-trajectory watchpoint. The Risk Assessor's recommended conditions cluster around sizing and staging rather than rejection, with monitoring conditions including quarterly mandate-band review with a structured rebalance trigger and annual capacity-tracking on the strategy's AUM trajectory relative to the alpha-decay inflection. No material dissent exists between the sub-roles on the product quality or the macro case; the divergence is between product-layer evaluation (which reads cleanly) and portfolio-architecture evaluation (which surfaces three simultaneous mandate gaps and a wrapper-duplication question). The committee's task is not to evaluate the product but to determine whether the proposed sizing, the wrapper-count progression, and the simultaneous three-band mandate gap are acceptable as stated, warrant resizing, or warrant a structural pause on wrapper-architecture before deployment."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "This case activates IC1 not on the strength of any single concern but on a compound pattern: the synthesis verdict sits at 0.78 confidence below the 0.80 threshold, three G1 mandate bands print as gaps simultaneously, and four amplification flags compound in the synthesis layer. The product layer reads cleanly across E1, E2, and E6: Marcellus is a coherent quality-compounder strategy with a stable team, fee structure within the PMS band, and historical alpha that has justified the wrapper premium. The macro layer (E3) supports moving capital out of compressing FD yields into equity. The tension that has pulled the verdict to requires_clarification does not sit inside product selection; it sits at the seam between product-fit and portfolio architecture.",
+          "Three mandate boundaries move simultaneously as gaps rather than breaches: equity rises to 71.7 percent against a 70 percent ceiling, debt falls to 13.3 percent against a 20 percent floor, and the single-position concentration prints at 16.7 percent of liquid AUM against a 15 percent standard ceiling. None of these is a hard-block in isolation; together they indicate the Rs 3 Cr ticket was sized against product attractiveness rather than against the architecture of the household's stated mandate. E4 adds a structural behavioural read on top: the household acquires sophistication-tier wrappers through peer-network signals rather than through deliberate portfolio design, and the proposed action would move from one PMS to two PMS with style overlap that has not been explicitly differentiated. The FD reserve, treated as inert across three reset cycles, would be reduced by 56 percent in a single move.",
+          "The counterfactual is already framed by S1: a Rs 2.0-2.2 Cr ticket would hold equity at the ceiling, preserve debt above the floor, and keep single-position concentration within standard limits while still redirecting roughly 40 percent of the FD reserve into the wrapper. The committee's task is not to evaluate the product (that work is done) but to determine whether the proposed sizing, the wrapper-count progression, and the simultaneous three-band mandate gap are acceptable as stated, warrant resizing, or warrant a structural pause on wrapper-architecture before deployment."
+        ],
+        "deliberation_question": "Does the quality of the Marcellus product and the macro case for redeploying FD capital justify the proposed Rs 3 Cr sizing, or does the simultaneous three-band mandate gap and the wrapper-count progression require the action to be resized or restructured before deployment?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The case against this proposal as currently framed is not that the product is wrong; it is that the sizing was set against product attractiveness rather than against the architecture of the household's stated mandate. Three G1 bands print simultaneously at or beyond boundary: equity at 71.7 percent against a 70 percent ceiling, debt at 13.3 percent against a 20 percent floor, and single-position concentration at 16.7 percent of liquid AUM against the 15 percent standard ceiling. None of these is a hard-block in isolation; the structural concern is that their simultaneity is a signal about process. A ticket that respected the mandate architecture would not have produced three coincident gaps; the fact that this one does indicates the Rs 3 Cr figure was anchored to the FD reserve and to the product thesis rather than derived from the band structure. Approving the ticket at the proposed size implicitly ratifies that sequencing for future decisions.",
+          "The wrapper-architecture concern compounds the sizing concern and is, in this committee's reading, the more structurally important of the two. The household moves from one PMS to two PMS without a stated differentiation thesis between the existing growth-quality mandate and the proposed quality-compounder mandate; E6 flags style overlap explicitly and E4 reads the progression as a continuation of a peer-network accumulation pattern rather than as deliberate portfolio design. Approving the action without first resolving whether the second wrapper is differentiated or duplicative converts an ambient pattern into an endorsed architecture. The committee should be uncomfortable with that conversion regardless of how cleanly the product itself reads at E1, E2, and E6.",
+          "The strongest version of the counter-position is therefore not rejection of the product but a structural pause on sizing and wrapper-architecture before deployment. The S1 counterfactual of Rs 2.0-2.2 Cr is one mechanical resolution; a staged deployment with an intermediate wrapper-architecture review is another. What the committee should not do is approve Rs 3 Cr as proposed, because doing so resolves the three-band gap and the wrapper-count progression by deferral rather than by deliberation, and the case was activated precisely because those two structural questions warrant deliberation."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Sizing was set against product, not against mandate",
+            "body": "The Rs 3 Cr ticket produces three coincident G1 gaps (equity 1.7pp above ceiling, debt 6.7pp below floor, single-position 1.7pp above the 15 percent concentration ceiling). The committee should resolve whether to approve a ticket whose sizing process is revealed, by the simultaneity of those gaps, to have been anchored to the FD reserve rather than to the band architecture."
+          },
+          {
+            "title": "Wrapper-count progression lacks a differentiation thesis",
+            "body": "E6 flags style overlap between the existing growth-quality PMS and the proposed quality-compounder PMS, and E4 reads the addition as a continuation of peer-network accumulation. The committee should require an explicit articulation of how the two PMS mandates differ in style, factor exposure, or look-through before endorsing a second wrapper, rather than allow the second wrapper to be ratified by the deployment decision itself."
+          },
+          {
+            "title": "Zero post-action headroom against the equity ceiling",
+            "body": "Post-action equity at 71.7 percent leaves negative headroom against the stated 70 percent band before any market drift; a 5 percent upward drift in equity prices pushes the breach toward 3-4 percentage points. The committee should resolve whether the mandate's upper band is intended to function as a ceiling or as a soft reference, because the proposal as sized treats it as the latter without that having been explicitly stated."
+          },
+          {
+            "title": "FD reserve reduction of 56 percent in a single move",
+            "body": "The household has treated the Rs 5.4 Cr FD block as inert reserve across three reset cycles per E4; the proposal removes 56 percent of that reserve in one action and pushes debt 6.7pp below the mandate floor. The committee should resolve whether the floor breach reflects a deliberate reframing of the reserve's role or an unconsidered consequence of sizing the ticket against the FD balance."
+          },
+          {
+            "title": "Look-through sector concentration compounds at the household level",
+            "body": "E2 reads top-2 sector weight in the strategy at 75 percent (Financials 34 percent, FMCG 41 percent), layered onto existing direct large-cap and MF positions that the case has not look-through-aggregated. The committee should resolve household-level sector concentration before approval rather than rely on strategy-level moat quality to carry the sector-concentration question."
+          },
+          {
+            "title": "Valuation premium depends on earnings delivery in a softening category",
+            "body": "E1 prints aggregate look-through P/E at 35.8x against Nifty 100 at 22.4x, and E2 prints FMCG trailing earnings growth at 6.8 percent against a 10-year average of 11.4 percent; the largest sector in the book is precisely where the delivery risk on the premium sits. The committee should resolve whether the macro case for redeploying FD capital justifies entry at a 13-point premium into a strategy whose largest exposure faces a softening category."
+          },
+          {
+            "title": "Approval at proposed size ratifies process for future decisions",
+            "body": "Endorsing Rs 3 Cr as proposed implicitly endorses the sequencing in which product attractiveness sets ticket size and mandate architecture is accommodated afterward. The committee should resolve whether that sequencing is the household's intended decision process or an artefact of peer-network framing, because the answer governs how future sophistication-tier additions are sized."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposed Rs 3 Cr Marcellus PMS allocation passes regulatory and product-quality stress tests but fails structural mandate stress on three simultaneous boundary conditions. Under Scenario 1 (timing), the deployment lands inside the case decision window with no headroom for adverse market drift: post-action equity prints 71.7 percent against a 70 percent ceiling on the trade date itself, meaning a single quarter of equity outperformance or debt drawdown pushes the breach wider rather than the deliberation finding the breach narrowing into compliance through passage of time. Under Scenario 2 (concentration), three layers of concentration develop simultaneously, single-position concentration at 16.7 percent of liquid AUM against the 15 percent standard ceiling, look-through sector concentration at 75 percent in the top-two sectors (Financials 34 percent, FMCG 41 percent), and wrapper-level concentration moving from one PMS to two PMS with style overlap that the evidence layer flags but does not resolve. None of these are individually unbounded; the compound is the issue.",
+          "Under Scenario 3 (liquidity), the proposal converts 56 percent of the FD reserve (Rs 3 Cr of Rs 5.4 Cr) into a wrapper with monthly redemption windows, dropping debt to 13.3 percent against a 20 percent floor with a 6.7 percentage point gap. PMS monthly redemption is technically liquid but practically constrained by tax efficiency considerations, exit-load asymmetry, and the behavioural reality that the household has held the FD block static across three reset cycles; the reserve is being repositioned from inert-reliable to active-but-rarely-touched. Stress liquidity demand (family business capex acceleration, medical event, mandate-driven rebalance to restore debt floor) would have to be met from the remaining Rs 2.4 Cr FD block plus cash, which is workable but materially thinner than the current reserve. Under Scenario 4 (manager/counterparty), Marcellus shows team depth (3 PMs, 12 analysts) and 12-plus-year manager tenure, so key-person stress is bounded; the watchpoint is capacity trajectory rather than departure risk, with strategy AUM at Rs 4,500 Cr trending toward the Rs 8,000 Cr historical alpha-decay inflection on a multi-year horizon.",
+          "The recommended conditions cluster around sizing and staging rather than rejection: a tranche structure (Rs 2.0-2.2 Cr initial, residual contingent on a mandate-architecture review covering wrapper-count and style-overlap) holds equity at the ceiling rather than past it, preserves debt above floor, and keeps single-position concentration at or below the standard 15 percent ceiling. Monitoring conditions should include quarterly mandate-band review with a structured rebalance trigger if equity drifts beyond 72 percent or debt falls below 13 percent, and an annual capacity-tracking note on the strategy's AUM trajectory relative to the alpha-decay inflection."
+        ],
+        "specific_risks": [
+          {
+            "title": "Zero-headroom equity ceiling on trade date",
+            "body": "Post-action equity at 71.7 percent against a 70 percent ceiling leaves no buffer for market drift; any equity outperformance from day one widens the gap rather than tightens it, and the mandate review cadence is annual, so the breach trajectory has structural rather than transient character."
+          },
+          {
+            "title": "Debt floor breach amplifies reserve compression",
+            "body": "Debt falls 6.7 percentage points below the 20 percent floor (13.3 percent post-action), compounding E4's liquidity_reserve_compression flag; the gap is wide enough that incremental FD maturity reinvestment into equity (which the household's revealed behaviour does not suggest, but which the macro yield-compression environment incentivises) would deepen rather than close it."
+          },
+          {
+            "title": "Compound single-name concentration",
+            "body": "The Rs 3 Cr ticket prints at 16.7 percent of liquid AUM against the 15 percent standard ceiling, and the underlying strategy itself runs top-10 concentration at 62 percent across 25 names; the household's exposure to any single Marcellus top-10 name (e.g., HDFC Bank, ITC) compounds at the wrapper-plus-look-through level rather than at the wrapper level alone."
+          },
+          {
+            "title": "Look-through sector concentration in top-two sectors",
+            "body": "Financials at 34 percent and FMCG at 41 percent of strategy weight aggregate to 75 percent top-two sector exposure (E2 sector_concentration flag); layered on the household's existing PMS, AIF, and MF holdings, the look-through sector concentration at the household level likely exceeds prudent sector-diversification thresholds, though the precise aggregation would require a household-level look-through that is not in the bundle."
+          },
+          {
+            "title": "FMCG cycle softness against premium valuation",
+            "body": "The strategy's 41 percent FMCG weight depends on a return to mid-teens earnings growth that has not yet materialised; Nifty FMCG TTM earnings growth prints 6.8 percent against 10-year average 11.4 percent, and the strategy's 35.8x trailing P/E carries minimal cushion against multiple compression if rural volume softness persists beyond FY26."
+          },
+          {
+            "title": "Wrapper duplication without differentiation thesis",
+            "body": "The household moves from one PMS to two PMS, with E6 flagging style overlap between the existing growth-quality mandate and the proposed quality-compounder mandate; no stated differentiation thesis appears in the rationale, raising the question of whether the second wrapper meaningfully diversifies or merely accumulates fees on an overlapping book."
+          },
+          {
+            "title": "Peer-network selection pattern continuation",
+            "body": "E4's wrapper_count_accumulation_pattern flag identifies that prior sophistication-tier additions (2023 PMS, 2024 AIF) were peer-network influenced; the current proposal continues that pattern rather than emerging from structured portfolio-design conversation, which is a process risk rather than a product risk but warrants surfacing because it predicts future similar additions absent structural intervention."
+          },
+          {
+            "title": "Fee premium dependent on sustained alpha",
+            "body": "Modelled blended cost 290-310 bps against MF comparable 110-130 bps requires the historical 280 bps rolling 3Y alpha to persist; capacity trajectory at Rs 4,500 Cr trending toward the Rs 8,000 Cr alpha-decay inflection is the principal multi-year watchpoint, and the fee premium structurally erodes total return if alpha compresses before the strategy closes to new flows."
+          },
+          {
+            "title": "FD reinvestment yield compression alters relative attractiveness",
+            "body": "Macro context (RBI repo 5.50 percent, FD reinvestment 60-80 bps below original lock-in) materially supports moving capital out of FDs, but the same compression incentivises further FD-to-equity redirection in subsequent quarters; without a structural conversation about the reserve floor, the trajectory points toward repeated breaches of the debt minimum at each FD maturity."
+          },
+          {
+            "title": "Tax-amplified risk reading on PMS structure and FD redirection",
+            "body": "context_not_yet_available"
+          },
+          {
+            "title": "Regulatory-driven risk reading on PMS disclosure and reporting",
+            "body": "context_not_yet_available"
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal fails no hard gate and the product itself reads cleanly at the wrapper, manager, and strategy layers; the question the alternatives must address is one of portfolio architecture rather than product selection. Three mandate boundaries print as gaps simultaneously (equity ceiling 1.7pp above, debt floor 6.7pp below, single-position concentration 1.7pp above the 15 percent standard), and a wrapper-architecture question sits behind them (one PMS becoming two PMS with style overlap and no stated differentiation thesis). Alternatives therefore split along three axes: sizing the ticket against the mandate envelope rather than against product attractiveness, sequencing the deployment to allow structural questions to resolve before full commitment, and substituting the wrapper itself where the same exposure is available at lower architectural cost.",
+          "Sizing alternatives address the three simultaneous G1 gaps directly: a smaller ticket (in the Rs 2.0-2.2 Cr range) holds equity at the 70 percent ceiling, preserves debt above the 20 percent floor, and keeps single-position concentration at or below the standard 15 percent ceiling, while still redirecting roughly 40 percent of the FD reserve. Staging alternatives address the wrapper-count-accumulation pattern and the style-overlap question by separating the deployment decision from the architecture decision, so that the second tranche becomes contingent on a structured wrapper-count and style-overlap review rather than flowing automatically from the first. Substitution alternatives address the fee-premium-dependent-on-sustained-alpha risk and the capacity-trajectory watchpoint by routing the same quality-compounder exposure through a lower-cost wrapper, accepting that the alpha profile differs.",
+          "The alternatives below are non-exclusive in principle: sizing and staging can compose, and the substitution path can be partial. The Counterfactual Engine surfaces the structural choices; advisor and household select against household preference dimensions (concentration discipline vs conviction allocation, governance simplification vs tax efficiency, fee tolerance vs alpha expectation)."
+        ],
+        "alternative_paths": [
+          {
+            "label": "Mandate-sized ticket at Rs 2.0-2.2 Cr",
+            "description": "Reduce the ticket to approximately Rs 2.0-2.2 Cr so that post-action equity holds at the 70 percent ceiling rather than 1.7pp above it, debt remains above the 20 percent floor, and single-position concentration stays at or below the 15 percent standard. Addresses the zero-headroom equity ceiling, the debt floor breach, and the compound single-name concentration risks in a single sizing change."
+          },
+          {
+            "label": "Two-tranche staged deployment with intermediate architecture review",
+            "description": "Deploy a Rs 2.0 Cr initial tranche now, with the residual Rs 1.0 Cr contingent on a structured wrapper-count and style-overlap review covering the existing growth-quality PMS against the proposed quality-compounder mandate. Addresses the wrapper-duplication-without-differentiation-thesis risk and the peer-network-selection-pattern-continuation risk by separating the deployment decision from the architecture decision."
+          },
+          {
+            "label": "MF substitution for partial allocation",
+            "description": "Route Rs 1.5 Cr through a quality-style large-cap MF (e.g., the household's existing actively managed sleeve or a comparable quality-screen scheme) and Rs 1.0-1.5 Cr through the Marcellus PMS, capturing the quality-compounder thesis at a blended cost materially below the 290-310 bps PMS print. Addresses the fee-premium-dependent-on-sustained-alpha risk and the capacity-trajectory watchpoint, at the cost of diluting the concentrated-conviction expression."
+          },
+          {
+            "label": "Preserve debt floor by partial FD redirection",
+            "description": "Cap the FD redirection at Rs 2.0 Cr (37 percent of the reserve rather than 56 percent), holding debt at or above the 20 percent floor and leaving Rs 3.4 Cr of FD reserve intact against family-business-capex, medical, or rebalance-driven liquidity demand. Addresses the debt-floor-breach-amplifies-reserve-compression risk and the FD-reinvestment-yield-compression-alters-relative-attractiveness risk by keeping the reserve floor as a deliberate structural choice rather than letting it erode through successive maturity events."
+          },
+          {
+            "label": "Tax-optimized deployment sequencing across FY boundary",
+            "description": "context_not_yet_available"
+          }
+        ]
+      }
     },
     "usage_summary": {
       "per_agent": {
@@ -513,6 +647,6 @@
     "generated_at": "2026-05-14T18:15:13.442Z"
   },
   "errorMessage": null,
-  "contextNote": "Canonical Sharma + Marcellus proposal-evaluation case. Slice 3 commit 9 base; Slice 4 commit 7 adds materiality output and IC1 deliberation sentinel state (all five roles infrastructure_ready). M0.IndianContext skipped pending Workstream C YAML curation. Live IC1 stub generation deferred per DEFERRED.md item 12.",
+  "contextNote": "Canonical Sharma + Marcellus proposal-evaluation case. Slice 3 commit 9 base; Slice 4 commit 7 adds materiality output and IC1 deliberation sentinel state (all five roles infrastructure_ready). M0.IndianContext skipped pending Workstream C YAML curation. Live IC1 stub generation deferred per DEFERRED.md item 12. IC1 populated 2026-05-15 via live generation (deferred workstream cleanup).",
   "stubbed": true
 }
