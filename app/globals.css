@@ -1855,6 +1855,39 @@
     display: inline-block;
     margin-top: 4px;
   }
+  /* IC1 counterfactual supersession block, sitting inside the synthesis
+   * verdict section's .verdict-subblock structure. Visual treatment
+   * subtly differentiates from S1's single-paragraph counterfactual:
+   * structured alternative paths render as a discrete list with a
+   * left-border accent. */
+  .ic1-counterfactual {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 12px;
+  }
+  .ic1-alternative-paths {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ic1-alternative-paths li {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--color-ink-2);
+    line-height: 1.55;
+    padding-left: 12px;
+    position: relative;
+  }
+  .ic1-alternative-paths li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-ink-4);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
 
   /* Talking points (case-mode). */
   .talking-points { display: flex; flex-direction: column; gap: 14px; }
