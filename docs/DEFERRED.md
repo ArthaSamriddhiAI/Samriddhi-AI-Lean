@@ -4,9 +4,11 @@ Structured backlog of items deferred from completed slices. Each item lists what
 
 The trigger prompts assume the responder will read this document for context. They are intentionally short; the surrounding entry carries the detail.
 
+**Cleared in deferred workstream cleanup, 2026-05-15, pre-Slice-4.5 design preparation: items 1, 2, 3, 12.**
+
 ## Deferred from Slice 2
 
-### 1. Five-case batch generation (originally commit 20)
+### 1. Five-case batch generation (originally commit 20) **[RESOLVED 2026-05-15]**
 
 **What.** Generate Samriddhi 2 diagnostic cases for the five remaining investors (Malhotra, Iyengar, Menon, Surana, Sharma) via the existing pipeline, export each as a JSON fixture in `db/fixtures/cases/`, and have the seed load all six fixtures by default.
 
@@ -22,7 +24,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Resume commit 20 from DEFERRED.md, generate the five remaining Samriddhi 2 cases (Malhotra, Iyengar, Menon, Surana, Sharma) via `runDiagnosticPipeline`, export each as a fixture in `db/fixtures/cases/` via `scripts/export-case-fixture.ts`, verify the seed loads all six fixtures by default.
 
-### 2. Parallel agent dispatch reversion
+### 2. Parallel agent dispatch reversion **[RESOLVED 2026-05-15]**
 
 **What.** `lib/agents/pipeline.ts` currently runs evidence agents serially (one at a time) instead of in parallel via `Promise.all`. Revert to parallel; the `EvidenceBundle` / `UsageBundle` shape is unchanged.
 
@@ -38,7 +40,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Revert the serial-dispatch refactor in `lib/agents/pipeline.ts` to parallel `Promise.all`; the rate-limit constraint has lifted. Verify by running the existing Shailesh case generation and confirming wall-clock drops from roughly 10 minutes to roughly 90 seconds.
 
-### 3. S1-to-Sonnet reversion
+### 3. S1-to-Sonnet reversion **[RESOLVED 2026-05-15]**
 
 **What.** `LEAN_RUNTIME_OVERRIDES` currently leaves `s1_diagnostic_mode` on its skill-authored Opus 4.7. The intended Slice 2 economics-driven default was Sonnet 4.6 for every evidence agent and S1. Revert S1 to Sonnet.
 
@@ -188,7 +190,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 ## Deferred from Slice 4
 
-### 12. Live IC1 stub generation for the Sharma case
+### 12. Live IC1 stub generation for the Sharma case **[RESOLVED 2026-05-15]**
 
 **What.** Run the IC1 four-step orchestrator (Chair, Risk Assessor, Devil's Advocate, Counterfactual Engine, Minutes Recorder) end-to-end live against the canonical Sharma + Marcellus case content. Each successful call records a stub fixture at `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_<role>.json`; the Sharma case fixture's `ic1_deliberation` block updates from all-sentinel to all-populated; the Outcome tab and Analyst Reports tab surfaces resolve from sentinel state to actual deliberation content automatically (no code change required, just file additions in the fixture directory plus the fixture refresh).
 
