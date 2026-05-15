@@ -186,6 +186,40 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Add `fee_estimate_blended_pct` field to `BriefingContent` schema (`lib/agents/s1-diagnostic.ts`), update the S1.diagnostic_mode prompt to populate it from the fee analysis, regenerate the Bhatt fixture to verify, and replace the heuristic `extractBlendedFee()` parsing in `components/pdf/BriefingPDF.tsx` with a structured field read. The KPI strip should then show the correct blended fee (~2.1% for Bhatt) on the briefing PDF.
 
+## Deferred from Slice 4
+
+### 12. Live IC1 stub generation for the Sharma case
+
+**What.** Run the IC1 four-step orchestrator (Chair, Risk Assessor, Devil's Advocate, Counterfactual Engine, Minutes Recorder) end-to-end live against the canonical Sharma + Marcellus case content. Each successful call records a stub fixture at `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_<role>.json`; the Sharma case fixture's `ic1_deliberation` block updates from all-sentinel to all-populated; the Outcome tab and Analyst Reports tab surfaces resolve from sentinel state to actual deliberation content automatically (no code change required, just file additions in the fixture directory plus the fixture refresh).
+
+**Why deferred.** Slice 4 ran under Option A funding-aware mode: API budget remaining at slice start was approximately $1.54 in console; the five-call IC1 generation at Opus 4.7 was estimated at $2-4 and exceeded that envelope. The architecture ships code-complete; the demo content is a single-shot operation gated on budget clearance.
+
+**Estimated cost.** $2-4 (five sequential Opus 4.7 calls; per-call input dominated by case context + JSON-stringified evidence + gates + upstream-role outputs).
+
+**Estimated runtime.** Roughly 3-5 minutes wall-clock at current serial Anthropic dispatch (item 2's parallel reversion does not apply; IC1's sequential pattern is by design per orientation Q3).
+
+**Dependencies.** API budget. No code dependency; the orchestrator and sentinel cascade are in place. Optionally benefits from item 6 (M0.IndianContext) landing first: Risk Assessor and Counterfactual Engine prompts include the `context_not_yet_available` sentinel placeholder; with IndianContext wired, those fields populate with real tax/lock-in framings.
+
+**Trigger prompt.**
+
+> Resume DEFERRED item 12. Run the IC1 four-step orchestrator live against the Sharma + Marcellus case via `runIC1Pipeline` with `STUB_RECORD=true` and `STUB_MODE=false`. Use the case content already on disk at `db/fixtures/cases/c-2026-05-14-sharma-01.json` for materiality, synthesis, gates, and evidence inputs. Confirm budget (~$2-4) before running. On success, five stub fixtures land at `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_*.json` and the Sharma fixture's `ic1_deliberation` block is regenerated from disk-loaded stubs to replace the sentinel state. Verify the Outcome tab and Analyst Reports tab render the populated deliberation in place of the sentinel.
+
+### 13. Multi-investor IC1 deliberation cases
+
+**What.** Generate IC1 deliberation surfaces for the five non-Sharma Samriddhi 1 cases (Malhotra, Iyengar, Bhatt, Menon, Surana) once those cases themselves exist per DEFERRED item 10. Each material case triggers a five-call IC1 pipeline; the resulting stubs persist alongside the case fixture; the rendered surface follows the same conditional pattern as Sharma's.
+
+**Why deferred.** Post-MVP scope. The Slice 4 single-case rule (orientation §boundary-protections) keeps the surface area tight. Batch IC1 generation requires items 10 (multi-investor S1 cases exist), 12 (Sharma live IC1 pattern proven), and possibly 6 (IndianContext) to be resolved first.
+
+**Estimated cost.** Roughly $10-20 (five cases at $2-4 each; some materiality firings may not require IC1 if their conditions don't trigger, lowering the bound).
+
+**Estimated runtime.** Roughly 20-30 minutes wall-clock across all material cases at current serial Anthropic dispatch.
+
+**Dependencies.** Items 10 (multi-investor S1 cases) and 12 (Sharma IC1 stubs as the proven pattern). Item 6 (IndianContext) is desirable but not blocking; missing IndianContext continues to emit the `context_not_yet_available` sentinel.
+
+**Trigger prompt.**
+
+> Resume DEFERRED item 13, multi-investor IC1 deliberation cases. For each Samriddhi 1 case where materiality fires=true (verified by `evaluateMateriality` on the loaded fixture content), run the IC1 four-step orchestrator live and record stubs at `fixtures/stub-responses/<case-fixture-id>/ic1_*.json`. Update each case fixture's `ic1_deliberation` block to reflect the populated stubs. Confirm budget (~$10-20) before running.
+
 ## Maintenance
 
 When an item is resolved, remove its entry. When new items defer from future slices, add them here following the same shape. The pattern: a short trigger prompt is the operational handle; the entry around it is the context.
