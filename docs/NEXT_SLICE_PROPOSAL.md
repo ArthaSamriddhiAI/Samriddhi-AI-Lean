@@ -1,63 +1,61 @@
 # Next slice proposal
 
-## Recommended next slice, Slice 4, IC1 deliberation layer
+## Recommended next slice, Slice 5, Model Portfolio and Data Explorer Dashboard
 
 ### Why this slice next
 
-Slice 3 closed with the Samriddhi 1 proposal-evaluation pipeline functional end-to-end: New Case → router → evidence agents → governance gates → S1 synthesis → A1 adversarial challenge → seven-section briefing → Outcome and Analyst Reports tabs. The canonical Sharma + Marcellus case loads via the seed and renders cleanly.
+Slice 4 closed with the IC1 deliberation layer code-complete and the Sharma case rendering its sentinel state on both the Outcome and Analyst Reports tabs. The materiality threshold rule fires correctly; the five-role orchestrator runs four sequential steps and degrades gracefully to per-role sentinels under STUB_MODE without throwing on missing stubs. Live IC1 stub generation is deferred (DEFERRED item 12) pending API budget clearance; the architecture is real, demonstrable, and resumable as a single-shot operation.
 
-What Slice 3 deliberately did **not** include: the IC1 (Investment Committee) deliberation layer. Per the Slice 3 orientation boundary protection: "IC1 stays dormant. The materiality firing logic is Slice 4 work. For Slice 3, treat materiality as always false."
+What remains in the EGA framework: nothing. Slice 1 shipped the chrome; Slices 2-3 shipped the diagnostic and proposal workflows; Slice 4 shipped IC1. The next functional layer is the Explorer surface, which the Slice 1 chrome scaffolded as a coming-soon stub.
 
-Slice 4 turns the materiality threshold check live and wires the five IC1 sub-roles. When materiality fires (governance failures, severity escalation, specific construct combinations), the case detail surfaces an inline deliberation between the IC1 sub-agents alongside the existing Outcome view.
+Slice 5 turns Screen 6 (Explorer) live. The Model Portfolio visualisation and Data Explorer Dashboard are the primary surfaces; firm-level customisation persistence and snapshot inspection round out the slice.
 
 ### Recommendation
 
-Take **Slice 4** before Slice 5 (Explorer dashboard), Slice 6 (read-only chat), and Slice 7 (polish). The orchestration runtime now has every supporting layer in place; IC1 is the last unfinished piece of the EGA framework's decision-grade workflow.
+Take **Slice 5** before Slice 6 (read-only chat) and Slice 7 (polish). With IC1's architecture in place, the demo's institutional credibility surface is complete; the Explorer is what closes the demo loop by showing the user the data the agents are reasoning over.
 
-### Scope of Slice 4
+### Scope of Slice 5
 
-1. **Materiality threshold logic.** A deterministic rule evaluator that reads the case's gate results, severity, and synthesis verdict, and decides whether IC1 fires. Triggers: G1 fail, S1 escalation_recommended, specific construct combinations (band breach + behavioural concern + low confidence, etc.). For the Sharma case, materiality would fire under the current `requires_clarification` + elevated risk + escalation_recommended=false combination — likely yes given three simultaneous gaps; the threshold tuning is part of Slice 4.
+1. **Model Portfolio visualisation.** The 65/25/7/3 split (Equity/Debt/Alt/Cash with sleeve breakdowns per foundation §4). Renders the indicative model as a stacked bar or pie with sleeve drill-down. Firms swap the indicative model for their own; persistence lives in `Setting` row or a new `FirmModelPortfolio` table.
 
-2. **IC1 sub-agent harness for the five roles.** Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder. Skills are already lifted in `/agents/`. Each fires conditionally per the deliberation rules; outputs assemble into a structured `IC1Deliberation` payload.
+2. **Data Explorer Dashboard.** Snapshot inspection surfaces: which holdings drive which observations, which snapshots are loaded, look-through coverage maps (named stocks vs aggregated weight; per-fund coverage percentage). Renders the existing fixture data; no new pipeline. Hooks to the case-detail Outcome tab so an advisor can trace an observation back to the underlying data.
 
-3. **Inline deliberation surface on the Case Detail Outcome tab.** A new collapsible section between Advisory challenges and Decision capture. Default collapsed (calm-by-default principle); expanded shows Chair's framing, Devil's Advocate position, Risk Assessor's posture, Counterfactual Engine alternatives, Minutes Recorder's summary. The Analyst Reports tab gains an IC1 deliberation memo with per-role contributions.
+3. **Investor-level mandate tweaks** (if foundation supports). The Slice 3 mandates are authored statically in `db/fixtures/structured-mandates.ts`. A firm should be able to amend the mandate per investor and have G1 re-evaluate cleanly. This is a UI on `/investors/[id]` plus a `mandateJson` write-back through the existing nullable column.
 
-4. **Materiality not-fired case.** When materiality fires false, IC1 stays dormant; the section renders a short "Materiality threshold not reached" line for transparency. Important: the visual treatment must signal "deliberation did not fire" rather than "no deliberation available."
+4. **Look-through coverage signal on Case Detail.** A small badge or footnote on the Outcome tab indicating coverage depth (named stocks for X% of look-through weight; aggregated weight for the remainder). Surfaces the honest provenance the agents already cite in their data-points-cited bullets.
 
-5. **Sharma case re-generation under IC1 active.** Once the materiality logic is wired and the IC1 stubs exist, regenerate the Sharma case so the demo carries the full deliberation surface. Following the Slice 3 pattern: parse from authored content where available, live-generate where not, record stubs, export the case fixture, commit.
+### Single-screen scope
 
-### Single-case scope, again
+Slice 5's primary new surface is `/explorer`. Investor mandate tweaks land on `/investors/[id]`. The coverage signal is a small Case Detail accent. No new pipelines, no new agents; the slice is rendering + persistence + read-back.
 
-Slice 4 generates the IC1 deliberation for **one** canonical case (Sharma + Marcellus). Other investors / proposals don't get IC1 deliberation surfaces in this slice (they would generate live or fail under STUB_MODE per the existing pattern). Batch generation of IC1 deliberations across investors is a DEFERRED item after Slice 4 closes.
+### Open questions to resolve at Slice 5 orientation
 
-### Open questions to resolve at Slice 4 orientation
+1. **Model Portfolio firm-customisation persistence.** New table (`FirmModelPortfolio` with foreign key to `Setting`) or a JSON blob field on `Setting`? Recommendation: a JSON blob field for the MVP; a proper table only when multi-firm tenancy lands (not in scope).
 
-1. **Materiality threshold tuning.** What specific combinations fire IC1 vs leave it dormant? Slice 4 orientation should specify a deterministic rule set; revisit after the Sharma re-generation surfaces the IC1 output and the user evaluates whether the firing condition feels right.
+2. **Investor mandate edit semantics.** Live edit with immediate G1 re-evaluation across existing cases (risk: existing case decisions become contradictory), or copy-on-write with a mandate revision history (more honest, more work)? Recommendation: copy-on-write with a one-row revision history; case G1 evaluations reference the mandate revision they were computed against.
 
-2. **IC1 deliberation output shape.** The skill files describe five sub-agent roles but the orientation Q1 equivalent — "what does the IC1 deliberation render as on the Outcome tab" — needs locking. Recommendation: a structured `IC1Deliberation` with per-role contributions (each carrying a heading + paragraph + optional structured bullets), plus a Minutes Recorder consolidated summary.
+3. **Look-through coverage data source.** The existing snapshot fixtures have per-fund stock weights; coverage is computable but the aggregation pattern (which stocks count as "named" vs "aggregated") needs locking. Recommendation: a stock counts as "named" if its weight in the look-through is at least 1.0%; aggregate the long tail.
 
-3. **Sequential vs parallel IC1 firing.** The five roles could fire in parallel (saving wall-clock time) or sequential with each role consuming prior output (richer narrative). Recommendation: sequential, mirroring how an actual investment committee deliberation unfolds. Cost increment over parallel is small; quality increment is meaningful.
-
-4. **Counterfactual surfacing relative to S1's existing counterfactual.** S1.case_mode already produces a `counterfactual_framing` string (per Slice 3). IC1's Counterfactual Engine would produce a richer structured counterfactual. The Outcome tab needs to handle the relationship — likely the IC1 counterfactual supersedes when present; otherwise S1's brief framing.
-
-5. **API budget for live-mode IC1 stub generation.** Five LLM calls per case (one per sub-agent). At Opus 4.7 pricing, roughly $2-4 per case. Budget gate similar to Slice 3 commit 9.
+4. **Snapshot management UI.** The Explorer could surface "which snapshot is loaded; when was it generated" or could keep that implicit. Recommendation: surface explicitly, with a sample-only "Refresh snapshot" button (disabled in the MVP; future slice wires it).
 
 ### Funding state at close
 
-API budget remaining: roughly $1.84 - $0.89 (Slice 3 commit 9 spend) ≈ $0.95 in console. Slice 4's budget gate for IC1 stub generation will need a top-up unless Workstream C lands and brings Anthropic credit with it. If budget remains constrained at Slice 4 orientation time, the partial-fallback path (orientation Q7 pattern) is available: ship IC1 with parsed or hand-authored stubs and defer live-mode generation.
+API budget remaining at Slice 4 close: approximately $1.54 in console (unchanged from Slice 4 open; no LLM calls fired during the slice). Slice 5 is also a no-LLM slice: rendering + persistence + read-back. Budget remains available for the deferred operations (DEFERRED items 7, 10, 12, 13) and for Slice 6 chat (which is read-only Q&A and will consume modest budget per query).
 
-### Boundary protections (Slice 4 should not include)
+### Boundary protections (Slice 5 should not include)
 
-- Real-mode Sharma case regeneration without IC1. That's a DEFERRED item.
-- Multi-investor IC1 deliberation cases. Single-case Sharma is the scope.
-- Real-mode M0.IndianContext integration. That's commit 3, blocked on Workstream C; resolves whenever the YAML stores curate.
-- Case-mode briefing PDF. DEFERRED from Slice 3; pick up in Slice 7 polish or a focused micro-slice.
-- Multi-role permission gates in G3. Slice 4 keeps G3 as the placeholder.
+- Live IC1 stub generation for the Sharma case. DEFERRED item 12; one-shot operation gated on budget clearance.
+- Multi-investor IC1 deliberation cases. DEFERRED item 13.
+- Real-mode Sharma case regeneration end-to-end. DEFERRED item 7.
+- M0.IndianContext integration. Blocked on Workstream C YAML curation per DEFERRED item 6.
+- Case-mode briefing PDF. DEFERRED item 8; pick up in Slice 7 or its own micro-slice.
+- Snapshot refresh wiring. The Explorer surfaces snapshot status; the refresh button stays disabled in the MVP.
+- Multi-firm tenancy in model-portfolio customisation. JSON blob on `Setting` for the MVP; a proper table when tenancy ships.
 
 ## Alternatives considered
 
-- **Slice 5 (Explorer dashboard) ahead of Slice 4.** Would unlock the model-portfolio visualisation and firm-level customisation. Argument against: IC1 is the last EGA framework piece and the demo's institutional credibility depends on the deliberation surface; Explorer is a secondary surface that can wait.
-- **Slice 7 (polish) ahead of Slice 4.** Would fix the case-mode briefing PDF, design fonts, page-numbering. Argument against: polish before the last functional layer (IC1) lands creates rework if IC1 changes the briefing shape.
-- **Skip IC1 entirely.** The current pipeline (Slice 3) is already decision-grade with G1/G2/G3 + A1. IC1 adds depth but not strictly missing functionality. Argument against: IC1 is what makes the demo feel like an institutional committee process, not just a single-analyst workflow. Skipping reads as a gap.
+- **Slice 6 (read-only chat) ahead of Slice 5.** Would activate the ChatPanel surface on Case Detail. Argument against: chat depends on having something to chat about; the Explorer surfaces the underlying data that the chat would reference. Ordering Explorer first keeps the demo coherent.
+- **Live IC1 stub generation for Sharma instead of Slice 5.** Would resolve DEFERRED item 12 and complete the canonical demo's IC1 surface. Argument against: it is a single-shot operation gated on budget clearance, not a slice. When budget clears, the deferred operation runs in isolation; meanwhile the architecture is demonstrable on the sentinel state.
+- **Slice 7 (polish) before Slice 5.** Would tighten the existing surfaces before adding new ones. Argument against: polish before the last functional layer (Explorer) lands creates rework if the Explorer's interactions touch the same surfaces.
 
-Default is **Slice 4 (IC1)**. The platform's institutional credibility positioning depends on the full deliberation surface.
+Default is **Slice 5 (Model Portfolio and Data Explorer Dashboard)**. The Explorer is what closes the demo loop; with IC1 in place, no other functional layer remains in scope.

@@ -48,15 +48,23 @@ Two new DEFERRED items: case-mode briefing PDF (item 10), real-mode Sharma case 
 
 Model: **Opus** for Claude Code; pipeline uses **Opus 4.7** for S1.case_mode and A1.challenge.
 
-### Slice 4: IC1 deliberation layer
+### Slice 4: IC1 deliberation layer (complete)
 
-When materiality thresholds fire (governance failures, severity escalation, specific construct combinations), IC1 activates. Five sub-roles deliberate inline: Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder. The deliberation surface renders inline in the Samriddhi 1 Case Detail Outcome tab with a collapsed-by-default reveal pattern; the Analyst Reports tab gains an IC1 deliberation memo. Materiality logic is itself a deterministic rule evaluator (no LLM). Recommended next slice per `NEXT_SLICE_PROPOSAL.md`.
+The materiality threshold rule evaluator and the IC1 four-step sequential orchestrator (Chair + Risk Assessor parallel, then Devil's Advocate, then Counterfactual Engine, then Minutes Recorder) land. Materiality logic is deterministic (no LLM) with four firing conditions: any governance gate `fail`, verdict `requires_clarification` or `negative` combined with severity flag / low confidence / band gaps, ticket size at or above Rs 5 Cr, or three or more amplification flags. For the Sharma case, materiality fires on three secondary signals (confidence 0.78, three G1 band gaps, four amplification flags).
 
-Model: **Opus**.
+Five IC1 sub-agent runners under `lib/agents/ic1/` dispatch through the standard harness with the existing skill-loader. Per-role status discriminator pattern (Slice 4 scoping confirmation Option a): each role's IC1Deliberation payload carries `status: "populated" | "infrastructure_ready"`. The renderer forks on the discriminator. Cascade rule for the sentinel state matches sequential-failure: downstream is sentinel when upstream is sentinel.
+
+**Option A funding-aware delivery shape.** API budget at slice start was approximately $1.54 in console; live IC1 stub generation (~$2-4 for five sequential Opus calls) exceeded the envelope. The slice ships the IC1 architecture code-complete with sentinel state for the Sharma case; live deliberation content is deferred to DEFERRED.md item 12 with a trigger prompt for one-shot resumption when budget clears.
+
+Outcome tab gains an IC1 deliberation section at position 05 between Advisory challenges (04) and Suggested talking points (renumbered to 06; Decision to 07; Coverage to 08). Three rendering paths: materiality-not-reached prose, sentinel-state eyebrow + body, populated Minutes Recorder summary with expandable per-role contributions. Analyst Reports tab gains an IC1 Committee Deliberation memo after the seven E1-E7 memos, same institutional voice; sentinel state renders a one-line pending message with the DEFERRED item reference. Counterfactual supersession on the synthesis section: IC1's multi-path structured alternatives replace S1's single-string `counterfactual_framing` when materiality fires AND `ic1_deliberation.counterfactual_engine.status === "populated"`; falls back to S1's framing on sentinel state.
+
+8 commits landed (1, 2, 3, 4, 5, 6, 7, 8), zero Gates (no live stub generation in this slice). Two new DEFERRED items: live IC1 stub generation for Sharma (item 12), multi-investor IC1 deliberation cases (item 13). Existing DEFERRED items 1-11 unresolved (no tier-upgrade landed during the slice).
+
+Model: **Opus** for Claude Code; pipeline would use **Opus 4.7** for the five IC1 sub-agent calls when DEFERRED item 12 resumes.
 
 ### Slice 5: Model Portfolio and Data Explorer Dashboard
 
-Screen 6 (Explorer) goes live. Model portfolio visualisation (the 65/25/7/3 split with sleeve breakdowns), firm-level customisation persistence (a firm can swap the indicative model for its own), investor-level mandate tweaks if the foundation document supports them. Snapshot inspection: which holdings drive which observations, look-through coverage maps.
+Screen 6 (Explorer) goes live. Model portfolio visualisation (the 65/25/7/3 split with sleeve breakdowns), firm-level customisation persistence (a firm can swap the indicative model for its own), investor-level mandate tweaks if the foundation document supports them. Snapshot inspection: which holdings drive which observations, look-through coverage maps. Recommended next slice per `NEXT_SLICE_PROPOSAL.md`.
 
 Model: **Sonnet**.
 
