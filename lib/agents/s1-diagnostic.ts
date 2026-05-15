@@ -19,7 +19,7 @@
 import { callAgent, type AgentCallResult } from "./harness";
 import type { StitchedContext } from "./stitcher";
 
-export type SourceTag = "metric" | "interpretation" | "hybrid";
+export type SourceTag = "metric" | "interpretation" | "hybrid" | "evidence_agent";
 
 export type HeadlineObservation = {
   vocab: string;
