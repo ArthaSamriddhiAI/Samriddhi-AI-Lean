@@ -75,12 +75,10 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
   e5_unlisted_equity: { llm_model: SONNET },
   e6_pms_aif_sif: { llm_model: SONNET, max_tokens: 9000 },
   e7_mutual_fund: { llm_model: SONNET, max_tokens: 6000 },
-  /* S1 keeps its skill-authored Opus model. Tier-1 rate limits on Sonnet
-   * (10k input tokens / minute) are tight; S1's input is the largest in
-   * the pipeline (full stitched context) and the call is consequential
-   * (synthesis quality drives the whole briefing). The cost premium for
-   * one Opus call per case is small compared to the seven evidence calls. */
-  s1_diagnostic_mode: { max_tokens: 8000 },
+  /* S1 reverted to Sonnet (deferred workstream cleanup, 2026-05-15). The
+   * Tier-1 Sonnet rate limit that blocked S1 at Sonnet (10k input tokens /
+   * minute, tight against S1's 15-25k input envelope) has lifted at Tier 2. */
+  s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 8000 },
 };
 
 function parseScalar(raw: string): unknown {
