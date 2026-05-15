@@ -1,87 +1,63 @@
 # Next slice proposal
 
-## Recommended next slice, Slice 3, Samriddhi 1 happy path with real evidence agents
+## Recommended next slice, Slice 4, IC1 deliberation layer
 
 ### Why this slice next
 
-Slice 2 closed with the diagnostic engine functional end-to-end: New Case → real reasoning → seven-section briefing → React PDF download. The Samriddhi 1 surface (proposal evaluation) is currently disabled in the New Case workflow selector. Slice 3 makes that surface real.
+Slice 3 closed with the Samriddhi 1 proposal-evaluation pipeline functional end-to-end: New Case → router → evidence agents → governance gates → S1 synthesis → A1 adversarial challenge → seven-section briefing → Outcome and Analyst Reports tabs. The canonical Sharma + Marcellus case loads via the seed and renders cleanly.
 
-The canonical demo case is **Sharma + Marcellus**, per the BUILD_ROADMAP. The Factual Foundation folder ships a worked example at `../08 - Factual Foundation Continued/sharma_marcellus_evidence_verdicts.md` that defines the expected shape: E1-E7 verdicts on the Marcellus PMS proposal for the Sharma family, S1.case_mode synthesis, three governance gates fired, A1 challenge surfaced. Slice 3 produces a real Sharma + Marcellus case indistinguishable in shape from that worked example.
+What Slice 3 deliberately did **not** include: the IC1 (Investment Committee) deliberation layer. Per the Slice 3 orientation boundary protection: "IC1 stays dormant. The materiality firing logic is Slice 4 work. For Slice 3, treat materiality as always false."
+
+Slice 4 turns the materiality threshold check live and wires the five IC1 sub-roles. When materiality fires (governance failures, severity escalation, specific construct combinations), the case detail surfaces an inline deliberation between the IC1 sub-agents alongside the existing Outcome view.
 
 ### Recommendation
 
-Take **Slice 3** before Slice 4 (IC1 deliberation), Slice 5 (Explorer dashboard), and Slice 6 (read-only chat). The orchestration runtime from Slice 2 is the foundation; Slice 3 adds the conditional Samriddhi 1 layers on top:
+Take **Slice 4** before Slice 5 (Explorer dashboard), Slice 6 (read-only chat), and Slice 7 (polish). The orchestration runtime now has every supporting layer in place; IC1 is the last unfinished piece of the EGA framework's decision-grade workflow.
 
-- **S1.case_mode synthesis** (different output structure from S1.diagnostic_mode; the briefing for a proposal is verdict-shaped rather than observation-shaped)
-- **G1 / G2 / G3 governance gates** (deterministic rules from the foundation document)
-- **A1 adversarial challenge** (one structured pass after synthesis)
-- **M0.IndianContext** (the tax/regulatory framing agent skipped in Slice 2 per orientation Q1)
-- **Proposed-action intake form** (the currently-disabled S1 New Case form becomes functional)
+### Scope of Slice 4
 
-IC1 (Slice 4) is layered on top of this; the materiality threshold check fires after governance and only escalates to IC1 when warranted. Slice 3 ships the happy path without IC1; Slice 4 wires the deliberation surface.
+1. **Materiality threshold logic.** A deterministic rule evaluator that reads the case's gate results, severity, and synthesis verdict, and decides whether IC1 fires. Triggers: G1 fail, S1 escalation_recommended, specific construct combinations (band breach + behavioural concern + low confidence, etc.). For the Sharma case, materiality would fire under the current `requires_clarification` + elevated risk + escalation_recommended=false combination — likely yes given three simultaneous gaps; the threshold tuning is part of Slice 4.
 
-### Scope of Slice 3
+2. **IC1 sub-agent harness for the five roles.** Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder. Skills are already lifted in `/agents/`. Each fires conditionally per the deliberation rules; outputs assemble into a structured `IC1Deliberation` payload.
 
-Concrete deliverables:
+3. **Inline deliberation surface on the Case Detail Outcome tab.** A new collapsible section between Advisory challenges and Decision capture. Default collapsed (calm-by-default principle); expanded shows Chair's framing, Devil's Advocate position, Risk Assessor's posture, Counterfactual Engine alternatives, Minutes Recorder's summary. The Analyst Reports tab gains an IC1 deliberation memo with per-role contributions.
 
-1. **Samriddhi 1 New Case form** enabled. Inputs: investor (existing six), proposed product (free-text plus structured fields where applicable, e.g., ticket size, lock-in horizon), proposed action label (rebalance / new_investment / exit_position / etc. per the foundation's case_intent enum).
+4. **Materiality not-fired case.** When materiality fires false, IC1 stays dormant; the section renders a short "Materiality threshold not reached" line for transparency. Important: the visual treatment must signal "deliberation did not fire" rather than "no deliberation available."
 
-2. **M0.Router for proposed_action mode.** Activates the appropriate evidence vector. The Slice 2 router already handles diagnostic mode; extending to proposed_action follows the same skill specification.
+5. **Sharma case re-generation under IC1 active.** Once the materiality logic is wired and the IC1 stubs exist, regenerate the Sharma case so the demo carries the full deliberation surface. Following the Slice 3 pattern: parse from authored content where available, live-generate where not, record stubs, export the case fixture, commit.
 
-3. **M0.IndianContext.** Activates on every proposed_action where tax structure is decision-relevant. Outputs structured framings (LTCG eligibility, indexation, NRE-resident conversion, HUF eligibility) that feed S1 and the governance gates.
+### Single-case scope, again
 
-4. **S1.case_mode synthesis.** A different output structure from S1.diagnostic_mode. Foundation §6 doesn't fully specify Samriddhi 1 briefing shape; will need to align with the verdict-style output that `sharma_marcellus_evidence_verdicts.md` exemplifies. Likely sections: proposal summary, evidence verdicts per agent, governance gate results, A1 challenges, S1 consolidated verdict, advisor talking points.
+Slice 4 generates the IC1 deliberation for **one** canonical case (Sharma + Marcellus). Other investors / proposals don't get IC1 deliberation surfaces in this slice (they would generate live or fail under STUB_MODE per the existing pattern). Batch generation of IC1 deliberations across investors is a DEFERRED item after Slice 4 closes.
 
-5. **G1 / G2 / G3 governance gates.** Deterministic per the foundation document. Fire after evidence agents complete. Each gate produces a pass / fail / requires_clarification verdict with structured rationale.
+### Open questions to resolve at Slice 4 orientation
 
-6. **A1 adversarial challenge.** One LLM call after S1.case_mode; produces structured challenges (questions or counterpoints that a critical reviewer would raise). Surfaces in the case detail.
+1. **Materiality threshold tuning.** What specific combinations fire IC1 vs leave it dormant? Slice 4 orientation should specify a deterministic rule set; revisit after the Sharma re-generation surfaces the IC1 output and the user evaluates whether the firing condition feels right.
 
-7. **Sharma + Marcellus canonical case generation.** Generate via pipeline, export as `db/fixtures/cases/c-YYYY-MM-DD-sharma-NN.json`, seed loads it alongside the Shailesh fixture. The case becomes the demonstration centrepiece of Samriddhi 1.
+2. **IC1 deliberation output shape.** The skill files describe five sub-agent roles but the orientation Q1 equivalent — "what does the IC1 deliberation render as on the Outcome tab" — needs locking. Recommendation: a structured `IC1Deliberation` with per-role contributions (each carrying a heading + paragraph + optional structured bullets), plus a Minutes Recorder consolidated summary.
 
-8. **Case Detail rendering for Samriddhi 1.** New Analysis / Briefing tab structure for proposal evaluations. Distinct enough from the diagnostic tabs that a viewer immediately sees this is a different artifact type, but consistent enough in chrome that it feels like the same product.
+3. **Sequential vs parallel IC1 firing.** The five roles could fire in parallel (saving wall-clock time) or sequential with each role consuming prior output (richer narrative). Recommendation: sequential, mirroring how an actual investment committee deliberation unfolds. Cost increment over parallel is small; quality increment is meaningful.
 
-### Single-case scope, no batch generation
+4. **Counterfactual surfacing relative to S1's existing counterfactual.** S1.case_mode already produces a `counterfactual_framing` string (per Slice 3). IC1's Counterfactual Engine would produce a richer structured counterfactual. The Outcome tab needs to handle the relationship — likely the IC1 counterfactual supersedes when present; otherwise S1's brief framing.
 
-Slice 3 generates **one** canonical case (Sharma + Marcellus) following the same fixture-export pattern as Slice 2's commit 19. Not a batch.
+5. **API budget for live-mode IC1 stub generation.** Five LLM calls per case (one per sub-agent). At Opus 4.7 pricing, roughly $2-4 per case. Budget gate similar to Slice 3 commit 9.
 
-Reasoning:
-- API budget remains constrained after Slice 2.
-- Sharma + Marcellus is the canonical demo case; one well-tested run is more valuable than a batch of imperfect ones.
-- Multi-investor proposal cases can land post-funding via a Slice 3-style DEFERRED item, following the established pattern.
+### Funding state at close
 
-### Out of scope for Slice 3
+API budget remaining: roughly $1.84 - $0.89 (Slice 3 commit 9 spend) ≈ $0.95 in console. Slice 4's budget gate for IC1 stub generation will need a top-up unless Workstream C lands and brings Anthropic credit with it. If budget remains constrained at Slice 4 orientation time, the partial-fallback path (orientation Q7 pattern) is available: ship IC1 with parsed or hand-authored stubs and defer live-mode generation.
 
-Deferred to later slices:
+### Boundary protections (Slice 4 should not include)
 
-- **IC1 deliberation layer** (Slice 4). The five sub-roles (Chair, Devil's Advocate, Risk Assessor, Counterfactual Engine, Minutes Recorder) activate only on material cases. Slice 3's happy-path Sharma + Marcellus should not be material in the IC1 sense; the materiality check returns false and IC1 stays dormant.
-- **Multi-snapshot regression** (Slice 5 / Slice 7).
-- **Explorer dashboard** (Slice 5).
-- **Read-only chat** (Slice 6).
-- **Polish, accessibility** (Slice 7).
-- **Resolution of Slice 2 DEFERRED items** unless they naturally land alongside (e.g., parallel dispatch reversion if tier upgrade happens during Slice 3 work).
+- Real-mode Sharma case regeneration without IC1. That's a DEFERRED item.
+- Multi-investor IC1 deliberation cases. Single-case Sharma is the scope.
+- Real-mode M0.IndianContext integration. That's commit 3, blocked on Workstream C; resolves whenever the YAML stores curate.
+- Case-mode briefing PDF. DEFERRED from Slice 3; pick up in Slice 7 polish or a focused micro-slice.
+- Multi-role permission gates in G3. Slice 4 keeps G3 as the placeholder.
 
-### Open questions for Slice 3 orientation
+## Alternatives considered
 
-These come up at the slice boundary and are best resolved before starting:
+- **Slice 5 (Explorer dashboard) ahead of Slice 4.** Would unlock the model-portfolio visualisation and firm-level customisation. Argument against: IC1 is the last EGA framework piece and the demo's institutional credibility depends on the deliberation surface; Explorer is a secondary surface that can wait.
+- **Slice 7 (polish) ahead of Slice 4.** Would fix the case-mode briefing PDF, design fonts, page-numbering. Argument against: polish before the last functional layer (IC1) lands creates rework if IC1 changes the briefing shape.
+- **Skip IC1 entirely.** The current pipeline (Slice 3) is already decision-grade with G1/G2/G3 + A1. IC1 adds depth but not strictly missing functionality. Argument against: IC1 is what makes the demo feel like an institutional committee process, not just a single-analyst workflow. Skipping reads as a gap.
 
-1. **S1.case_mode output shape.** Foundation §6 doesn't fully specify Samriddhi 1 briefing structure. The `sharma_marcellus_evidence_verdicts.md` worked example is verdict-style. Align on whether the briefing PDF follows the same seven-section structure as diagnostic (with sections renamed and repurposed), or adopts a different verdict-style layout. Trade-off: visual consistency across product surfaces versus structural fidelity to what proposal evaluation actually looks like.
-
-2. **Governance gate determinism.** G1-G3 are deterministic per the skill files. The rules sit in the foundation document. Confirm the rule set is complete enough to implement without LLM fallback for Slice 3, or identify the ambiguity zones where LLM judgment is required.
-
-3. **A1 placement.** A1 fires after S1 synthesis. Does A1's challenge feed back into S1 for a second-pass synthesis, or does it stand alone alongside S1's output (the briefing shows both)? Latter is simpler; former is more rigorous.
-
-4. **M0.IndianContext timing.** The skill lifts cleanly. Does it activate before evidence agents (providing tax framing as context) or in parallel (so evidence agents reason without bias and IndianContext supplements)? Latter is closer to the foundation's evidence-independence principle.
-
-5. **Sharma's existing holdings vs the proposed action.** Sharma currently holds 1 PMS + 1 AIF + 3 MFs + 2 FDs + savings (per Slice 1 seed). The Marcellus proposal is to add Marcellus Consistent Compounder PMS. This would take her PMS count from 1 to 2 (still under the 4+ wrapper threshold) and her wrapper-tier share from 18% to roughly 26%. The diagnostic shape is "additive concentration without breach" rather than the dramatic "wrapper over-accumulation" of Shailesh. Confirm this is the intended Slice 3 demo shape, or adjust Sharma's pre-proposal holdings to make the case more dramatic.
-
-6. **DEFERRED resolution priority.** If tier upgrade clears during Slice 3, the parallel + Sonnet items (DEFERRED 2, 3) become easy wins. Confirm whether to fold them into Slice 3 or hold for a dedicated cleanup pass.
-
-### Working principles to inherit from Slice 2
-
-Slice 2's working principles transfer wholesale:
-
-- Foundation §3 vocabulary discipline (no invented observation names; this extends to proposed_action vocabulary like `rebalance_proposal`, `new_investment`, `exit_position`).
-- Source tagging on every observation (`metric` / `interpretation` / `hybrid` / `evidence_agent`).
-- Deterministic-vs-LLM honesty boundary (governance gates are deterministic; A1 challenges are LLM).
-- Persistent fixture pattern for every generated case.
-- Skill files stay byte-identical on disk; runtime overrides handle tuning.
+Default is **Slice 4 (IC1)**. The platform's institutional credibility positioning depends on the full deliberation surface.
