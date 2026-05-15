@@ -144,12 +144,47 @@ export function OutcomeTab({
               </ul>
             </div>
           )}
-          {sv.counterfactual_framing && (
-            <div className="verdict-subblock">
-              <h4>Counterfactual framing</h4>
-              <p className="case-paragraph">{sv.counterfactual_framing}</p>
-            </div>
-          )}
+          {(() => {
+            /* Counterfactual supersession (Slice 4 commit 6, orientation Q4):
+             * IC1's structured alternative paths supersede S1's
+             * counterfactual_framing when IC1 fires AND the
+             * counterfactual_engine is populated. When IC1 is in
+             * sentinel state (materiality fired but no live content
+             * yet) we fall back to S1's existing framing. */
+            const ic1CfPopulated =
+              ic1Deliberation &&
+              ic1Deliberation.fires &&
+              ic1Deliberation.counterfactual_engine.status === "populated"
+                ? ic1Deliberation.counterfactual_engine
+                : null;
+            if (ic1CfPopulated) {
+              return (
+                <div className="verdict-subblock ic1-counterfactual">
+                  <h4>IC1 counterfactual</h4>
+                  {ic1CfPopulated.framing.map((p, i) => (
+                    <p key={i} className="case-paragraph">
+                      {p}
+                    </p>
+                  ))}
+                  <ul className="ic1-alternative-paths">
+                    {ic1CfPopulated.alternative_paths.map((a, i) => (
+                      <li key={i}>
+                        <span className="ic1-bullet-title">{a.label}.</span> {a.description}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            }
+            return (
+              sv.counterfactual_framing && (
+                <div className="verdict-subblock">
+                  <h4>Counterfactual framing</h4>
+                  <p className="case-paragraph">{sv.counterfactual_framing}</p>
+                </div>
+              )
+            );
+          })()}
         </section>
 
         <section className="pdf-section">
