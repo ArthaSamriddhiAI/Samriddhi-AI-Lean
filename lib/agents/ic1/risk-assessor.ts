@@ -77,7 +77,11 @@ function buildPrompt(input: RiskAssessorInput): string {
     "",
     "## Your output (renderer shape)",
     "",
-    "Produce a two-to-three paragraph evaluation that names the structural, concentration, and timing risks the committee should weigh. Surface specific risks as discrete bullets each with a short title and a one-or-two sentence body. Where M0.IndianContext would have informed a tax-amplified or regulatory-driven risk reading, mark that bullet's body with the literal sentinel string `context_not_yet_available` instead of hallucinating IndianContext-driven content; the integration is pending Workstream C YAML curation per DEFERRED item 6.",
+    `Produce a two-to-three paragraph evaluation that names the structural, concentration, and timing risks the committee should weigh. Surface specific risks as discrete bullets each with a short title and a one-or-two sentence body. ${
+      input.ctx.indianContext
+        ? "Where the INDIAN CONTEXT block in the case context informs a tax-amplified or regulatory-driven risk reading (surcharge interaction, lock-in or liquidity-window exposure, structure eligibility, a time-aware regulatory event), ground that bullet in the cited entry. Treat any framing flagged confidence=indicative as practitioner practice, not authoritative."
+        : "Where M0.IndianContext would have informed a tax-amplified or regulatory-driven risk reading, mark that bullet's body with the literal sentinel string `context_not_yet_available` instead of hallucinating IndianContext-driven content; the integration is pending Workstream C YAML curation per DEFERRED item 6."
+    }`,
     "",
     "Return a single fenced JSON block with this exact shape:",
     "",

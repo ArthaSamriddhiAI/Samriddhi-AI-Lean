@@ -199,4 +199,89 @@ up the populated bundle.
 
 ## Piece 5: Sharma IC1 changes
 
-_(appended in the Piece 5 commit)_
+**The Sharma IC1 four-step deliberation was re-run live with the
+populated M0.IndianContext bundle. All `context_not_yet_available`
+sentinels are gone; the Risk Assessor and Counterfactual Engine now
+reason with full context and correctly carry the curation honesty
+discipline forward.**
+
+### Sentinel-instruction change
+
+`lib/agents/ic1/risk-assessor.ts` and `lib/agents/ic1/counterfactual-engine.ts`
+build their prompts; both carried an instruction to emit the literal
+`context_not_yet_available` sentinel "pending Workstream C YAML curation
+per DEFERRED item 6." That instruction is now conditional on
+`input.ctx.indianContext`: when the bundle is present the prompt
+instructs the model to ground the relevant bullet or path in the cited
+entry and to treat `confidence=indicative` framings as practitioner
+practice, not authoritative; when absent the original sentinel
+instruction is retained. The other three IC1 runners (Chair, Devil's
+Advocate, Minutes Recorder) had no sentinel instruction; they already
+render the populated block via `formatCaseContextHeader` and pick up the
+grounded context naturally.
+
+### Re-run
+
+`scripts/regenerate-sharma-ic1-grounded.ts` rebuilds ctx with the real
+bundle, re-grounds the gate_results (verdicts unchanged, G2 now
+sebi_001-cited), deletes the five existing IC1 stubs (recordStubIfMissing
+never overwrites), runs the four-step orchestrator live, asserts all five
+roles populated and zero sentinels, then refreshes the fixture and stubs.
+
+One guarded false start, then success:
+
+- First attempt short-circuited every role to the `infrastructure_ready`
+  sentinel at zero token spend. Cause: the base `.env` carries the local
+  dev convention `STUB_MODE=true`, which the tsx process loads;
+  resolveStubMode fell through to it (Setting.stubMode is null). The
+  script's all-roles-populated assertion caught this before any fixture
+  write, so no corruption and no spend. Fix: the script now sets
+  `process.env.STUB_MODE="false"` at module scope, which the runtime
+  flag resolution honors.
+- Second attempt ran live: five sequential Opus 4.7 calls, 64,529 input
+  / 7,814 output tokens, 128s wall-clock, approximately USD 1.55 (within
+  the USD 2-4 estimate and the budget envelope).
+
+### Result quality (watch items)
+
+- **Sentinels cleared.** Risk Assessor went from 2 sentinels to 0;
+  Counterfactual Engine from 1 to 0. The grounded re-run produces real
+  content in those fields.
+- **Curation honesty discipline carried end-to-end.** The deterministic
+  M0.IndianContext flagged `pmlt_001` (PMS pass-through) and `dem_012`
+  (PMS exit window) as `confidence=indicative` / `practitioner_practice`.
+  The Risk Assessor independently surfaced two risks naming exactly these
+  entries and explicitly cautioning the committee not to treat them as
+  authoritative. Deterministic retrieval plus honest LLM reasoning over
+  it; no hallucinated authority.
+- **Counterfactual supersession renders with full content.** The
+  Counterfactual Engine produced five concrete structured alternative
+  paths (ticket recalibration to the mandate ceiling, staged two-tranche
+  deployment, hybrid PMS plus quality MF, existing-PMS consolidation,
+  reserve-preserving partial deployment), no sentinels. These supersede
+  S1's counterfactual_framing on the Outcome tab when materiality fires.
+
+### Fixture and stub state
+
+`db/fixtures/cases/c-2026-05-14-sharma-01.json` now carries
+`indian_context` (the bulk bundle), `gate_results` re-grounded to
+sebi_boundaries (same verdicts), and the new `ic1_deliberation`. The
+five `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_*.json` stubs
+are re-recorded so STUB_MODE replay reproduces the post-integration
+state exactly.
+
+---
+
+## Summary
+
+| Piece | Outcome | API spend |
+|---|---|---|
+| 1. Wire skill | Done: deterministic agent, six stores, schema, pipeline, dry-run | 0 |
+| 2. E1-E7 inspection | E1-E7 do not consume the bundle; S1 and IC1 do | 0 |
+| 3. Governance re-grounding | All verdicts stable; G2 now sebi_001-grounded | 0 |
+| 4. S1 re-run | Skipped (no verdict shifts) | 0 |
+| 5. Sharma IC1 re-run | Re-run grounded; sentinels cleared; discipline held | ~USD 1.55 |
+
+DEFERRED item 6 is resolved. The deterministic-vs-LLM honesty discipline
+held throughout: M0.IndianContext and the governance gates are
+deterministic; only the Sharma IC1 re-run incurred spend.
