@@ -133,11 +133,69 @@ governance verdict shifts (Piece 4); Sharma IC1 is re-run (Piece 5).
 
 ## Piece 3: Governance comparison
 
-_(appended in the Piece 3 commit)_
+**Finding: all governance verdicts are stable across every fixture. The
+curated sebi_boundaries store and the prior hardcoded MVP table agree on
+the major regulatory facts.**
+
+### Scope reconciliation
+
+The integration contract describes "the 6 case fixtures, re-run G1/G2/G3."
+The codebase reality: governance gates G1/G2/G3 exist only in the
+Samriddhi 1 pipeline (`pipeline-case.ts`). Of the seven case fixtures on
+disk, exactly one is Samriddhi 1 (`c-2026-05-14-sharma-01`); the other
+six (bhatt, sharma-s2, surana, iyengar, malhotra, menon) are Samriddhi 2
+diagnostic cases whose content carries no `gate_results`. So the
+governance re-grounding has exactly one case to re-evaluate; the six
+diagnostic cases have no governance state to compare. This is the honest
+mapping of the contract onto the codebase, not a deviation from intent.
+
+### Which gate's reference data actually changed
+
+| Gate | Reference data | Effect of YAML grounding |
+|---|---|---|
+| G1 mandate | investor mandate bands, holdings | None. G1 does not consult regulatory reference data; logic unchanged. |
+| G2 SEBI | SEBI minimum-ticket table | Source of truth moved from a hardcoded MVP table to sebi_boundaries via M0.IndianContext. The curated minima (sebi_001 PMS Rs 50 lakh, sebi_009 AIF Rs 1 crore) are byte-identical to the prior MVP values, so the verdict is unchanged; the citation is now the audit-grade YAML citation and the rule_trace records the source entry_id. |
+| G3 permission | firm permission policy | None. Single-advisor MVP; always passes. |
+
+### Per-case comparison (deterministic, zero API spend)
+
+Verified by `scripts/_verify-governance-regrounding.ts`:
+
+| Case | Workflow | G1 | G2 | G3 | Verdict shift |
+|---|---|---|---|---|---|
+| c-2026-05-14-sharma-01 | s1 | requires_clarification -> requires_clarification | pass -> pass | pass -> pass | none |
+| c-2026-05-14-bhatt-01 | s2 | no gates | no gates | no gates | n/a |
+| c-2026-05-15-sharma-s2-01 | s2 | no gates | no gates | no gates | n/a |
+| c-2026-05-15-surana-01 | s2 | no gates | no gates | no gates | n/a |
+| c-2026-05-15-iyengar-01 | s2 | no gates | no gates | no gates | n/a |
+| c-2026-05-15-malhotra-01 | s2 | no gates | no gates | no gates | n/a |
+| c-2026-05-15-menon-01 | s2 | no gates | no gates | no gates | n/a |
+
+Sharma G2 was already PASS (PMS ticket Rs 3 Cr, well above the Rs 50 lakh
+minimum). Post-grounding it is still PASS with rationale wording
+unchanged (the YAML minimum is identical to the MVP value), now carrying
+the sebi_001 citation and `reference_data_source: m0_indian_context` in
+the rule_trace. No previously-passing gate now fails or vice versa. The
+"governance verdict stability" watch item holds: the MVP table and the
+curated YAMLs agree, so neither has an error to flag.
 
 ## Piece 4: S1 re-run scope
 
-_(appended in the Piece 4 commit)_
+**Skipped, correctly.** No case had a governance verdict shift in Piece 3,
+so per the integration contract S1 synthesis is not re-run for any case.
+The Sharma S1.case_mode synthesis remains valid against its (unchanged)
+governance state. Zero API spend on this piece. The expected commit 4
+(`feat: re-run S1 synthesis for cases with shifted governance verdicts`)
+does not exist because there were no shifts.
+
+Note: S1.case_mode does consume the M0.IndianContext bundle (skill line
+23). Sharma's S1 was generated pre-integration with the "not yet
+integrated" sentinel in its context. It is NOT re-run here because the
+integration contract scopes the S1 re-run strictly to governance verdict
+shifts (of which there are none); a full Sharma S1 re-grounding is a
+larger operation that belongs with the Phase 5 case regeneration, outside
+this session's contained scope. The Sharma IC1 re-run (Piece 5) does pick
+up the populated bundle.
 
 ## Piece 5: Sharma IC1 changes
 
