@@ -78,6 +78,8 @@ Model: **Sonnet**.
 
 Error states, empty states, loading states, micro-interactions, accessibility audit (focus rings, ARIA, keyboard nav), copy polish. The `npm audit` issues from slice 1 clear during this pass. Settings PDF letterhead upload functional. Filter pills on Case List functional.
 
+**Product debt audit** lands here as a polish item: a four-category audit (Tech, Product, Data, Design) over `docs/PRODUCT_DEBT_LOG.md`, producing a production-readiness punch list. The audit triages and sequences debt entries against current `main`; it does not by itself resolve them (resolution happens in the workstream that owns each area). It also produces a RAG roadmap entry per the log's Tech-section RAG scoping note.
+
 Model: **Sonnet**, occasionally Haiku for mechanical bits (renames, label tweaks).
 
 ### Slice 8 (optional): Landing page lift and adapt
@@ -89,6 +91,22 @@ Model: **Sonnet**.
 ### Slice 9 (out of scope for the MVP): Deployment
 
 AWS free tier or similar. Deferred until the product is demo-ready and stakeholders ask for a hosted link.
+
+## Cross-slice workstreams
+
+Some work spans slices or runs on its own branch rather than inside a single slice conversation. Tracked here so the slice entries stay focused.
+
+### M0.IndianContext integration (complete)
+
+Resolved DEFERRED item 6 (Slice 3 commit 3, previously blocked on Workstream C). Six curated YAML knowledge stores (tax_matrix v1.1, sebi_boundaries v1.2, structure_matrix, demat_mechanics, gift_city_routing, regulatory_changelog; 107 entries) land at `agents/m0_indian_context/data/`. The deterministic agent `lib/agents/m0-indian-context.ts` wires them into the Samriddhi 1 pipeline after M0.Router and before evidence agents and gates; G2 grounds its SEBI minimum-ticket reference data in `sebi_boundaries` (verdicts unchanged, now sebi_001-cited); the Sharma fixture carries `indian_context` and a live-re-run IC1 with sentinels cleared. Built on branch `features/m0-indian-context`, squash-merged to `main` via PR #1 (commit `330084f`) on 2026-05-17. Full detail in `docs/BUILD_NOTES_M0_INDIAN_CONTEXT.md`.
+
+### Samriddhi 1 case batch (upcoming)
+
+Generate 4-6 additional Samriddhi 1 cases covering distinct proposal shapes: capital deployment with short, medium, and long timelines, in addition to the specific-proposal evaluation shape the Sharma case already exercises. Broadens Samriddhi 1 robustness and credibility across investor archetypes. NRI / RNOR / HUF structural exotica are explicitly deferred from this batch (tracked as product debt, not a case-batch line item). Relates to DEFERRED item 10 (multi-investor Samriddhi 1 case batch); this workstream is the planned vehicle for it.
+
+## Product framing note
+
+**Samriddhi 2 primacy.** Spokesperson feedback confirms Samriddhi 2 is the primary value driver for wealth-firm conversion; Samriddhi 1 adds robustness and credibility but is not the sale anchor. Design and capability work should prioritize Samriddhi 2 polish; Samriddhi 1 stays functional and credible but does not need polish-tier love.
 
 ## Ordering note
 
