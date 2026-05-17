@@ -1,0 +1,144 @@
+# Build Notes: M0.IndianContext Integration
+
+**Workstream:** Slice 3 commit 3, deferred per DEFERRED.md item 6, resolved here.
+**Branch:** `features/m0-indian-context`
+**Date:** 2026-05-17
+**Trigger:** Workstream C (six curated YAML knowledge stores) closed 2026-05-17.
+
+This document covers the five pieces of work: what was wired, the E1-E7
+skill consumption finding, governance comparison results per case, S1
+re-run scope, and the Sharma IC1 changes.
+
+No em dashes, en dashes, or long dashes are used in this document or in
+the code and commits, per the standing project convention.
+
+---
+
+## Piece 1: Wiring M0.IndianContext into the pipeline
+
+### Curated stores placed
+
+The six final-package YAML stores from Workstream C landed at the
+canonical path `agents/m0_indian_context/data/` alongside the curation
+README and BUILD_NOTES:
+
+| Store | Version | Entries |
+|---|---|---|
+| tax_matrix.yaml | v1.1 | 36 |
+| sebi_boundaries.yaml | v1.2 | 25 |
+| structure_matrix.yaml | v1.0 | 11 |
+| demat_mechanics.yaml | v1.0 | 15 |
+| gift_city_routing.yaml | v1.0 | 8 |
+| regulatory_changelog.yaml | v1.0 | 12 |
+
+107 entries total, matching the Workstream C BUILD_NOTES inventory and
+the per-store version pins in README section 9.
+
+### Deterministic agent
+
+`lib/agents/m0-indian-context.ts` is a new rule-based agent (no LLM call,
+consistent with the deterministic-vs-LLM honesty discipline). It:
+
+- Parses the six stores with `js-yaml` (added as a runtime dependency;
+  the existing hand-written frontmatter parser in `skill-loader.ts` is
+  deliberately minimal and not suitable for the nested store schema, so a
+  focused YAML parser was the correct call). Stores are cached after
+  first load.
+- `buildIndianContext()` assembles the bulk bundle: resolves the
+  investor structure onto the canonical structure_type / residency axes,
+  applies the `legacy_term_aliases` table for cross-store lookups, filters
+  each store by its own keying axis (tax_matrix and sebi_boundaries by
+  product plus investor_type; structure_matrix by structure; demat_
+  mechanics by asset_class; gift_city_routing by product plus residency),
+  surfaces `confidence: indicative` entries with an explicit flag rather
+  than presenting them as authoritative, and consults regulatory_changelog
+  for events effective on or before the case decision date via the
+  `rule_pointer.affected_entries` inverse-reference pattern.
+- `getSebiTicketRule()` is the inline surface G2 consumes.
+
+The output schema (`IndianContextSummary`) supersedes the Slice 3
+placeholder. It carries the human-readable framing strings the
+evidence and IC1 prompts already render, plus structured audit-grade
+fields: `sebi_minimums`, `citations` (every entry the bundle drew on
+with its source entry_id and citation_source_type), `indicative_flags`,
+`applicable_regulatory_changes`, `store_versions`, and
+`edge_cases_flagged`. The curated type lives with the agent and is
+re-exported from `case-context.ts` so existing imports keep resolving.
+
+### Activation order
+
+In `lib/agents/pipeline-case.ts`, `ctx.indianContext` is populated by
+`buildIndianContext()` immediately after `routeProposedAction` routes
+the case and before any evidence agent or governance gate runs, exactly
+per the integration contract. The bundle persists on case content as
+`indian_context` (the content shape is an opaque JSON blob on
+`Case.contentJson`; no Prisma column change is needed, the seed
+re-stringifies the content object verbatim).
+
+### Dry-run verification
+
+`scripts/_verify-indian-context.ts` (deterministic, zero API spend)
+confirms against the canonical Sharma input: all six stores parse
+(36, 25, 11, 15, 8, 12 entries); the bundle is structured per the skill
+contract; the investor structure resolves to individual / resident with
+the `resident_individual` alias applied; 14 entries match the PMS
+proposal (2 indicative: pmlt_001 PMS pass-through and dem_012 PMS exit
+window, both correctly flagged); four regulatory_changelog events are
+in scope; G2 verdict is stable (PASS) carrying the sebi_001 citation;
+and `formatCaseContextHeader` renders the block so downstream agents
+receive it. Typecheck is clean.
+
+---
+
+## Piece 2: E1-E7 skill consumption finding
+
+**Finding: E1-E7 do NOT consume the M0.IndianContext bundle as a
+structured input. No halt condition triggered.**
+
+Inspection of each evidence-agent skill file in `agents/`:
+
+| Skill | M0.IndianContext references | Consumes the bundle? |
+|---|---|---|
+| e1_listed_fundamental_equity | 2 incidental: a "(Indian context: pledged promoter shares ...)" descriptive parenthetical in the risk-signals family, and Edge case 4 "Indian-context-specific risk concentrations" as an escalation risk category | No |
+| e2_industry_business | none | No |
+| e3_macro_policy_news | none | No |
+| e4_behavioural_historical | none | No |
+| e5_unlisted_equity | 1 incidental: Edge case 4 "coordinate with M0.IndianContext for cross-border pass-through" as an escalation note | No |
+| e6_pms_aif_sif | none | No |
+| e7_mutual_fund | none | No |
+
+The E1 and E5 mentions are advisory escalation notes inside edge-case
+sections; neither reads the bundle's fields as a structured input. The
+actual structured consumers are S1.case_mode (skill line 23 input list,
+line 91 worked example) and the IC1 sub-agents (Chair and Devil's
+Advocate reference the bundle in their skills; Risk Assessor and
+Counterfactual Engine consume it via their runner prompts).
+
+Mechanically, the shared case-mode runner (`lib/agents/case/runner.ts`)
+injects `formatCaseContextHeader`, which now carries the populated
+IndianContext block, into every E1-E7 case-mode user prompt. This does
+not change the finding: the E1-E7 skill system prompts do not direct the
+model to reason over IndianContext, so the block is ambient context, not
+a consumed input. Furthermore, no E1-E7 re-run is warranted because the
+only Samriddhi 1 fixture (sharma-01) replays frozen E1-E7 stubs, and the
+six Samriddhi 2 fixtures use the diagnostic pipeline, which does not use
+the case-mode agents or IndianContext at all.
+
+Per the integration contract decision rule, since E1-E7 do not consume
+IndianContext: E1-E7 re-runs are skipped; governance gates are
+re-evaluated deterministically (Piece 3); S1 is re-run only if a
+governance verdict shifts (Piece 4); Sharma IC1 is re-run (Piece 5).
+
+---
+
+## Piece 3: Governance comparison
+
+_(appended in the Piece 3 commit)_
+
+## Piece 4: S1 re-run scope
+
+_(appended in the Piece 4 commit)_
+
+## Piece 5: Sharma IC1 changes
+
+_(appended in the Piece 5 commit)_
