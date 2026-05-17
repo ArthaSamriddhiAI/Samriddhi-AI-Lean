@@ -285,3 +285,25 @@ state exactly.
 DEFERRED item 6 is resolved. The deterministic-vs-LLM honesty discipline
 held throughout: M0.IndianContext and the governance gates are
 deterministic; only the Sharma IC1 re-run incurred spend.
+
+## Verification (watch items)
+
+- **Governance verdict stability (1).** Confirmed: the curated minima
+  equal the prior MVP values; no verdict shifted (Piece 3).
+- **Sharma IC1 quality post-integration (2).** Confirmed: sentinels
+  cleared; the Counterfactual supersession renders with full structured
+  content (Piece 5).
+- **STUB_MODE replay integrity (3).** Confirmed by
+  `scripts/_verify-stub-replay-sharma.ts`: replaying the Sharma IC1 under
+  STUB_MODE reproduces all five populated roles with zero sentinels from
+  the re-recorded stubs.
+- **Schema migration cleanliness (4).** No Prisma schema or migration
+  changed: `indian_context` lives inside the opaque `Case.contentJson`
+  string, not a new column, so there is no migration to break. The
+  non-destructive `npm run db:seed` re-seeds all seven fixtures cleanly
+  including the updated Sharma fixture. The destructive
+  `npm run db:reset` (`prisma db push --force-reset`) was not run: Prisma
+  guards it behind an explicit-consent prompt for AI-initiated runs, and
+  with the schema unchanged the force-reset is a schema-level no-op. The
+  operator can run `npm run db:reset` directly for a belt-and-suspenders
+  full rebuild; it is expected to be clean.
