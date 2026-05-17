@@ -26,6 +26,7 @@ import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
 import type { Mandate } from "@/db/fixtures/structured-mandates";
 import { loadSnapshot } from "./snapshot-loader";
 import { routeProposedAction } from "./router";
+import { buildIndianContext } from "./m0-indian-context";
 import type { Proposal } from "./proposal";
 import type { CaseAgentContext } from "./case/case-context";
 import type {
@@ -117,6 +118,23 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
     };
 
     const routerDecision = routeProposedAction(holdings, proposal);
+
+    /* M0.IndianContext activation. Deterministic (no LLM): retrieves and
+     * structures the six curated YAML stores against the case context.
+     * Activation order per the integration contract: after M0.Router
+     * routes the case, before any evidence agent fires, before the
+     * governance gates evaluate. The bundle becomes part of the case
+     * context object passed downstream (S1.case_mode and the IC1 sub-
+     * agents consume it; E1-E7 do not). G2 separately grounds its SEBI
+     * minimum-ticket reference data in the same store. */
+    ctx.indianContext = await buildIndianContext({
+      caseId,
+      asOfDate,
+      investorStructureLine: investor.structureLine,
+      proposalCategory: proposal.target_category,
+      proposalInstrument: proposal.target_instrument,
+      ticketSizeCr: proposal.ticket_size_cr,
+    });
 
     /* Run activated evidence agents. Each agent gets a generic scope
      * block; for the canonical Sharma stub replay, the scope is unused
@@ -225,7 +243,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       mandate,
       proposal,
     });
-    const g2 = runG2({ proposal });
+    const g2 = await runG2({ proposal });
     const settings = await prisma.setting.findUnique({ where: { id: 1 } });
     const advisorName = settings?.advisorName ?? "Priya Nair";
     const g3 = runG3({ proposal, advisorName });
@@ -308,6 +326,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       gate_results: gateResults,
       evidence_verdicts: evidence,
       router_decision: routerDecision,
+      indian_context: ctx.indianContext,
       materiality,
       ic1_deliberation: ic1Result.deliberation,
       usage_summary: {

@@ -1,0 +1,825 @@
+# =============================================================================
+# tax_matrix.yaml
+# =============================================================================
+# Indian tax reference data for M0.IndianContext rule-based reasoning.
+#
+# DISCLOSURE: This is indicative reference data for demonstration purposes,
+# not validated by credentialed domain experts as a whole. Each entry's
+# `citation_source_type` discloses its trust posture. Production deployment
+# requires the firm's compliance team to validate, supplement, or replace
+# entries before reliance.
+#
+# Citation taxonomy:
+#   statute_section      : Income Tax Act, Companies Act, etc. with section
+#   regulatory_circular  : Dated SEBI/RBI/CBDT/etc. circular reference
+#   web_verified         : Confirmed against authoritative public source on a date
+#   foundation_internal  : Drawn from project foundation docs (AI-curated, unvalidated)
+#   practitioner_practice: Established Indian wealth-management practice, named source
+#
+# Confidence enum:
+#   authoritative : statute, regulatory_circular, web_verified from gov source
+#   indicative    : web_verified from practitioner, foundation_internal, practitioner_practice
+#
+# Sections: capital_gains, surcharge, aif_passthrough, mf_classification,
+#           nri_treaty, indexation, pms_lookthrough (entry_id prefix pmlt_), tds
+# =============================================================================
+
+metadata:
+  store_id: tax_matrix
+  version: "1.1"
+  curated_at: "2026-05-17"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+  effective_as_of_assessment_year: "AY 2026-27 (FY 2025-26), with Budget 2026 changes where applicable"
+  changelog:
+    - "v1.0 2026-05-14: initial population, 36 entries across 8 sections"
+    - "v1.1 2026-05-17: Step 8 cross-store consistency fix; sur_006 web_verified citation augmented with verification date (2026-05-14) to align with §6.1 audit cycle 2 convention requiring verification_date plus gov.in domain for all web_verified entries"
+
+# =============================================================================
+# SECTION: capital_gains
+# LTCG and STCG by asset class and holding period.
+# =============================================================================
+capital_gains:
+
+  - entry_id: cg_001
+    topic: "Listed equity LTCG, base rate post Budget 2024"
+    applicability:
+      asset_class: listed_equity
+      holding_period: ge_12_months
+      investor_type: [individual, huf, nri, aop, boi]
+      tax_section: "112A"
+    rule:
+      base_rate_pct: 12.5
+      annual_exemption_inr: 125000
+      indexation_available: false
+      surcharge_cap_applies: true
+      surcharge_cap_pct: 15
+      cess_pct: 4
+      effective_from: "2024-07-23"
+      stt_required: true
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112A, as amended by Finance (No. 2) Act 2024"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Pre-Budget 2024 rate was 10 percent on gains above Rs 1 lakh; Budget 2024 raised to 12.5 percent and exemption to Rs 1.25 lakh. The 15 percent surcharge cap on 112A income is the operative HNI tax-planning fact. Pull surcharge from the surcharge section to compute effective rate for a specific investor income band."
+
+  - entry_id: cg_002
+    topic: "Listed equity STCG, base rate post Budget 2024"
+    applicability:
+      asset_class: listed_equity
+      holding_period: lt_12_months
+      investor_type: [individual, huf, nri, aop, boi]
+      tax_section: "111A"
+    rule:
+      base_rate_pct: 20.0
+      annual_exemption_inr: 0
+      indexation_available: false
+      surcharge_cap_applies: true
+      surcharge_cap_pct: 15
+      cess_pct: 4
+      effective_from: "2024-07-23"
+      stt_required: true
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 111A, as amended by Finance (No. 2) Act 2024"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Budget 2024 raised STCG on STT-paid listed equity from 15 to 20 percent. Surcharge cap of 15 percent applies. High portfolio turnover in PMS or active equity strategies generates persistent STCG drag at this rate; see pmlt_001 for the look-through implication."
+
+  - entry_id: cg_003
+    topic: "Unlisted equity LTCG, post Budget 2024 indexation removal"
+    applicability:
+      asset_class: unlisted_equity
+      holding_period: ge_24_months
+      investor_type: [individual, huf, nri, aop, boi]
+      tax_section: "112"
+    rule:
+      base_rate_pct: 12.5
+      annual_exemption_inr: 0
+      indexation_available: false
+      surcharge_cap_applies: true
+      surcharge_cap_pct: 15
+      cess_pct: 4
+      effective_from: "2024-07-23"
+      pre_change_rate_pct: 20.0
+      pre_change_indexation_available: true
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112, as amended by Finance (No. 2) Act 2024"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Material regime shift: pre-Budget 2024 was 20 percent with indexation; post is 12.5 percent without. Net impact on a specific transaction depends on holding period and CII movement. For NRIs, see cg_004 which has the same structural rule but with TDS implications under Section 195."
+
+  - entry_id: cg_004
+    topic: "Unlisted equity STCG"
+    applicability:
+      asset_class: unlisted_equity
+      holding_period: lt_24_months
+      investor_type: [individual, huf, nri, aop, boi]
+      tax_section: "slab_rate"
+    rule:
+      base_rate_basis: "applicable slab rate of investor"
+      indexation_available: false
+      surcharge_cap_applies: false
+      cess_pct: 4
+      effective_from: "2024-07-23"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 2(42A) read with slab rates per Finance Act 2025 for AY 2026-27"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "STCG on unlisted equity is added to total income and taxed at applicable slab rate plus full surcharge (no 15 percent cap) plus cess. For UHNW investors above Rs 5 Cr income in old regime, effective rate can reach 42.74 percent. The structural penalty for selling unlisted before 24 months is large."
+
+  - entry_id: cg_005
+    topic: "Real estate LTCG, post Budget 2024 with transitional grandfathering"
+    applicability:
+      asset_class: real_estate
+      holding_period: ge_24_months
+      investor_type: [individual, huf, nri, aop, boi]
+      tax_section: "112"
+    rule:
+      post_change_rate_pct: 12.5
+      post_change_indexation_available: false
+      pre_change_rate_pct: 20.0
+      pre_change_indexation_available: true
+      transitional_choice: "for assets acquired before 2024-07-23, taxpayer may choose lower of (12.5 percent without indexation) or (20 percent with indexation)"
+      surcharge_cap_applies: false
+      cess_pct: 4
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112; Finance (No. 2) Act 2024 transitional provisions"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Real estate retains transitional choice; this is the only asset class with this concession. Acquisitions on or after 2024-07-23 follow the new regime with no choice. Section 54, 54EC, 54F exemptions remain available regardless of regime choice."
+
+  - entry_id: cg_006
+    topic: "Gold ETF and physical gold LTCG, post Budget 2024"
+    applicability:
+      asset_class: gold
+      sub_class: [physical_gold, gold_etf, sovereign_gold_bond]
+      holding_period: ge_24_months
+      investor_type: [individual, huf, nri]
+    rule:
+      base_rate_pct: 12.5
+      indexation_available: false
+      surcharge_cap_applies: false
+      cess_pct: 4
+      sgb_special_treatment: "Sovereign Gold Bonds held to maturity are exempt under Section 47(viic); applies to early redemption otherwise"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112 as amended by Finance (No. 2) Act 2024; Section 47(viic) for SGB maturity exemption"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Pre-Budget 2024 holding period for gold was 36 months for LTCG with indexation at 20 percent; Budget 2024 reduced to 24 months and changed to 12.5 percent without indexation. STCG on gold is at slab rate."
+
+  - entry_id: cg_007
+    topic: "Foreign equity, direct holding via LRS"
+    applicability:
+      asset_class: foreign_equity
+      acquisition_route: lrs_direct
+      holding_period: ge_24_months
+      investor_type: [individual]
+    rule:
+      base_rate_pct: 12.5
+      indexation_available: false
+      surcharge_cap_applies: false
+      cess_pct: 4
+      stcg_treatment: "slab rate if held less than 24 months"
+      foreign_tax_credit_available: "yes, subject to DTAA with country of source"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112 read with Section 48 (cost in foreign currency provisions); Section 90/91 for FTC"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Foreign equity is taxed in India as worldwide income of a resident. LRS routes foreign purchases; see gift_city_routing entries gcr_001 and gcr_004 for routing constraints. FTC available via Form 67 filing. NRIs do not face this taxation on foreign equity income not received in India."
+
+# =============================================================================
+# SECTION: surcharge
+# Surcharge bands by total income tier and regime.
+# VERIFIED 2026-05-14 against incometax.gov.in (Salaried Individuals AY 2026-27)
+# and Income Tax Department Tax Rates tutorial PDF as amended by Finance Act 2025.
+# =============================================================================
+surcharge:
+
+  - entry_id: sur_001
+    topic: "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr"
+    applicability:
+      investor_type: [individual, huf, aop, boi, artificial_juridical_person]
+      tax_regime: [old, new]
+      total_income_inr_min: 5000000
+      total_income_inr_max: 10000000
+    rule:
+      surcharge_rate_pct: 10
+      capped_categories: ["Section 111A income", "Section 112 income", "Section 112A income", "Section 115AD income", "dividend income"]
+      cap_rate_pct: 10
+      cap_note: "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands"
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Cap on enhanced surcharge for 111A/112/112A/115AD/dividend income becomes operationally relevant at the next band upward. Marginal relief applies where surcharge causes disproportionate tax increase at the threshold."
+
+  - entry_id: sur_002
+    topic: "Surcharge band, individual filer, income above Rs 1 Cr up to Rs 2 Cr"
+    applicability:
+      investor_type: [individual, huf, aop, boi, artificial_juridical_person]
+      tax_regime: [old, new]
+      total_income_inr_min: 10000000
+      total_income_inr_max: 20000000
+    rule:
+      surcharge_rate_pct: 15
+      capped_categories: ["Section 111A income", "Section 112 income", "Section 112A income", "Section 115AD income", "dividend income"]
+      cap_rate_pct: 15
+      cap_note: "the 15 percent rate matches the cap; non-binding here"
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Worked effective rate for listed LTCG at this band: 12.5 percent base x 1.15 (surcharge) x 1.04 (cess) = 14.95 percent."
+
+  - entry_id: sur_003
+    topic: "Surcharge band, individual filer, income above Rs 2 Cr up to Rs 5 Cr"
+    applicability:
+      investor_type: [individual, huf, aop, boi, artificial_juridical_person]
+      tax_regime: [old, new]
+      total_income_inr_min: 20000000
+      total_income_inr_max: 50000000
+    rule:
+      surcharge_rate_pct: 25
+      capped_categories: ["Section 111A income", "Section 112 income", "Section 112A income", "Section 115AD income", "dividend income"]
+      cap_rate_pct: 15
+      cap_binding: true
+      cap_note: "investor pays 15 percent surcharge on capped categories, full 25 percent on uncapped income"
+      uncapped_treatment: "applies full 25 percent surcharge"
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "First band where the 15 percent cap on 111A/112/112A/115AD/dividend becomes binding. Worked effective rate for listed LTCG: 12.5 percent x 1.15 x 1.04 = 14.95 percent; for unlisted STCG (slab plus full surcharge): 30 percent x 1.25 x 1.04 = 39.00 percent."
+
+  - entry_id: sur_004
+    topic: "Surcharge band, individual filer above Rs 5 Cr, Old Tax Regime"
+    applicability:
+      investor_type: [individual, huf, aop, boi, artificial_juridical_person]
+      tax_regime: old
+      total_income_inr_min: 50000000
+      total_income_inr_max: null
+    rule:
+      surcharge_rate_pct: 37
+      capped_categories: ["Section 111A income", "Section 112 income", "Section 112A income", "Section 115AD income", "dividend income"]
+      cap_rate_pct: 15
+      cap_binding: true
+      cap_note: "investor pays 15 percent surcharge on capped categories, full 37 percent on uncapped income"
+      uncapped_treatment: "applies full 37 percent surcharge"
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Worked effective rates at this band, Old Regime: listed LTCG 12.5 x 1.15 x 1.04 = 14.95 percent; unlisted STCG slab plus full surcharge 30 x 1.37 x 1.04 = 42.74 percent. The 42.74 percent figure is the foundation document's UHNW upper bound on non-capped income; cross-reference pms_aif_advisory_reference_v2.md Section 3.2.1."
+
+  - entry_id: sur_005
+    topic: "Surcharge band, individual filer above Rs 5 Cr, New Tax Regime"
+    applicability:
+      investor_type: [individual, huf, aop, boi, artificial_juridical_person]
+      tax_regime: new
+      total_income_inr_min: 50000000
+      total_income_inr_max: null
+    rule:
+      surcharge_rate_pct: 25
+      cap_note: "maximum surcharge under New Regime is capped at 25 percent regardless of income, not 37 percent"
+      capped_categories: ["Section 111A income", "Section 112 income", "Section 112A income", "Section 115AD income", "dividend income"]
+      cap_rate_pct: 15
+      cap_binding: true
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; Budget 2023 capped New Regime surcharge at 25 percent"
+    effective_date: "2023-04-01"
+    confidence: authoritative
+    notes: "Critical distinction from Old Regime. Budget 2023 capped New Regime maximum surcharge at 25 percent. For UHNW investor in New Regime above Rs 5 Cr, effective rate on uncapped income (e.g., business income): 30 x 1.25 x 1.04 = 39.00 percent, not 42.74 percent. This makes New Regime materially more attractive for UHNW with high non-capital-gain income. Regime choice analysis is a material part of UHNW case planning."
+
+  - entry_id: sur_006
+    topic: "Surcharge for domestic companies under normal tax regime"
+    applicability:
+      investor_type: [domestic_company_normal_tax]
+      total_income_inr_min: 10000000
+      total_income_inr_max: 100000000
+    rule:
+      surcharge_rate_pct: 7
+      higher_band_rate_pct: 12
+      higher_band_threshold_inr: 100000000
+      cess_pct_on_tax_plus_surcharge: 4
+    citation_source_type: web_verified
+    citation: "incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025; verified 2026-05-14"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Companies under Section 115BAA (22 percent concessional) and 115BAB (15 percent for new manufacturing) face flat 10 percent surcharge regardless of income. Foreign companies: 2 percent (Rs 1 Cr to Rs 10 Cr), 5 percent (above Rs 10 Cr). Surcharge for company-structured Cat III AIF is calculated at corporate rates, materially different from trust-structured Cat III."
+
+# =============================================================================
+# SECTION: aif_passthrough
+# AIF Category I, II, III taxation rules.
+# =============================================================================
+aif_passthrough:
+
+  - entry_id: aif_001
+    topic: "AIF Category I and II, pass-through under Section 115UB"
+    applicability:
+      aif_category: ["I", "II"]
+      legal_structure: [trust, llp, company]
+      investor_type: [individual, huf, nri, corporate, partnership]
+      income_type: "non-business income"
+    rule:
+      taxed_at_level: investor
+      pass_through_to_investor: true
+      character_retention: true
+      fund_level_exemption_section: "10(23FBA)"
+      investor_taxation_section: "115UB"
+      treatment: "any non-business income earned by fund is exempt at fund level under Section 10(23FBA) and taxable directly in investor hands under Section 115UB in the same manner as if invested directly"
+      loss_passthrough: "Section 115UB(2) restricts loss pass-through; losses carry at fund level except long-term losses where investor held units 12+ months get pass-through (Finance Act 2019)"
+      business_income_treatment: "taxed at fund level at rate per legal form of fund (company rate for company, slab/MMR for trust)"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 115UB and Section 10(23FBA); Finance Act 2015 (introduction), Finance Act 2019 (loss pass-through amendment)"
+    effective_date: "2015-06-01"
+    confidence: authoritative
+    notes: "Character retention is the operative feature: if fund earns LTCG on listed equity, investor is taxed as if directly receiving 112A LTCG; if fund earns interest, investor taxed at slab on interest. For NRI investors, see nri_treaty section for TDS and DTAA interplay. Form 64C is the AIF's annual statement of pass-through income to investors."
+
+  - entry_id: aif_002
+    topic: "AIF Category III, irrevocable determinate trust structure"
+    applicability:
+      aif_category: "III"
+      legal_structure: irrevocable_determinate_trust
+      investor_type: [individual, huf, nri, corporate]
+    rule:
+      taxed_at_level: fund
+      tax_basis: "trustee assessed as Representative Assessee under Section 161; beneficiary brackets flow through to fund-level liability"
+      pass_through_to_investor: false
+      investor_receives: "post-tax distribution"
+      no_double_taxation: "investor not taxed again on distributed amount"
+      typical_effective_rate_high_bracket_pct: 42.74
+      typical_effective_rate_low_bracket_pct: 31.20
+      character_passthrough: false
+      determinate_test: "beneficiaries and their respective shares identifiable as on date of trust deed"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 161 (Representative Assessee), Section 164 (indeterminate trusts); SEBI (AIF) Regulations 2012 for fund classification"
+    effective_date: "2012-05-21"
+    confidence: authoritative
+    notes: "Section 115UB does not extend to Cat III. Most Cat III AIFs are structured as determinate trusts. Delhi High Court ruling 2025 in Equity Intelligence AIF Trust case held that non-disclosure of investor names in the original trust deed does not automatically make the trust indeterminate, overriding CBDT Circular 13/2014. Investor characteristics (income band, residency) determine effective rate. Cross-reference foundation_internal pms_aif_advisory_reference_v2.md Section 3.2.2 for structural detail."
+
+  - entry_id: aif_003
+    topic: "AIF Category III, irrevocable indeterminate trust structure"
+    applicability:
+      aif_category: "III"
+      legal_structure: irrevocable_indeterminate_trust
+      investor_type: [individual, huf, nri, corporate]
+    rule:
+      taxed_at_level: fund
+      tax_basis: "assessed at Maximum Marginal Rate (MMR) under Section 164"
+      pass_through_to_investor: false
+      mmr_effective_rate_pct: 42.74
+      character_passthrough: false
+      indeterminate_test: "beneficiaries or their shares not identifiable as on trust indenture date; subject to Delhi HC 2025 ruling refinement"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 164; CBDT Circular 13/2014 (partially overridden by Delhi HC 2025 Equity Intelligence ruling)"
+    effective_date: "2014-01-01"
+    confidence: authoritative
+    notes: "Worse tax outcome than determinate trust for most investors. The Delhi HC 2025 ruling narrowed the circumstances under which a Cat III trust is treated as indeterminate. Before applying this entry to a specific fund, M0.IndianContext should verify the fund's trust structure from PPM and check whether the fund has reorganized in response to the HC ruling."
+
+  - entry_id: aif_004
+    topic: "AIF Category III, LLP structured"
+    applicability:
+      aif_category: "III"
+      legal_structure: llp
+      investor_type: [individual, huf, nri, corporate]
+    rule:
+      taxed_at_level: fund
+      tax_basis: "LLP taxed at 30 percent plus applicable surcharge"
+      llp_surcharge_pct: 12
+      llp_threshold_for_surcharge_inr: 10000000
+      pass_through_to_investor: false
+      partner_share_treatment: "exempt in partners hands under Section 10(2A) once LLP has paid"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 167C (LLP taxation provisions); Section 10(2A) for partner exemption"
+    effective_date: "2010-04-01"
+    confidence: authoritative
+    notes: "LLP Cat III structure is less common than trust structure but offers tax predictability. Effective rate at fund level approximately 34.94 percent including cess. Less variable than determinate trust where beneficiary brackets flow through."
+
+  - entry_id: aif_005
+    topic: "AIF Category III, business income at fund level"
+    applicability:
+      aif_category: "III"
+      legal_structure: any
+      income_type: business_income
+    rule:
+      taxed_at_level: fund
+      business_income_treatment: "derivative-heavy strategies, high-frequency trading, short-term trading patterns are typically characterized as business income"
+      effective_rate_basis: "fund's legal form determines base rate; surcharge and cess overlay"
+      worked_estimate_company_pct: 34.94
+      worked_estimate_trust_top_bracket_pct: 42.74
+    citation_source_type: practitioner_practice
+    citation: "Income Tax Act 1961 general provisions on business income characterization; established characterization practice for Cat III strategies"
+    effective_date: "2015-06-01"
+    confidence: indicative
+    notes: "Whether a Cat III strategy generates business income vs capital gains is fact-specific and depends on transaction frequency, holding patterns, and CBDT circulars. The 4-6 percentage point gap between PMS and Cat III post-tax for high-bracket investors in foundation document pms_aif_advisory_reference_v2.md Section 3.2 is driven primarily by this characterization. Compliance review should verify the specific fund's income characterization from its annual statement."
+
+# =============================================================================
+# SECTION: mf_classification
+# Mutual Fund tax treatment by classification.
+# =============================================================================
+mf_classification:
+
+  - entry_id: mf_001
+    topic: "Equity-oriented mutual fund, long-term holding, tax treatment"
+    applicability:
+      mf_category: "equity_oriented"
+      equity_allocation_min_pct: 65
+      holding_period: ge_12_months
+      investor_type: [individual, huf, nri]
+    rule:
+      classification_basis: "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity"
+      ltcg_rate_pct: 12.5
+      ltcg_exemption_inr: 125000
+      stcg_rate_pct: 20
+      stcg_threshold_months: 12
+      surcharge_cap_applies: true
+      cess_pct: 4
+      stt_required: true
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Equity-oriented threshold of 65 percent in domestic equity is the operative test. Funds investing primarily in foreign equity, or hybrid funds with mid-range equity allocation, do not qualify; see mf_002, mf_003."
+
+  - entry_id: mf_002
+    topic: "Specified Mutual Fund (debt MF), units acquired on or after 2023-04-01"
+    applicability:
+      mf_category: "specified_mutual_fund"
+      acquisition_date_min: "2023-04-01"
+      holding_period: any
+      investor_type: [individual, huf, nri, corporate]
+    rule:
+      classification_basis: "Section 50AA: mutual fund where not more than 35 percent of total proceeds invested in equity shares of domestic companies; revised definition effective 2026-04-01 redefines as fund investing more than 65 percent in debt/money market or 65 percent or more in units of such a fund"
+      treatment: "deemed short-term capital gains regardless of holding period"
+      tax_rate_basis: "applicable slab rate of investor"
+      indexation_available: false
+      surcharge_cap_applies: false
+      cess_pct: 4
+      pre_change_treatment: "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months; STCG at slab if held less"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; definition revised by Finance Act 2025 effective 2026-04-01"
+    effective_date: "2023-04-01"
+    confidence: authoritative
+    notes: "Material regime shift. Pre-2023-04-01 acquisitions retain old treatment until sale; new acquisitions are slab-rated regardless of holding. The 2026-04-01 redefinition reclassifies funds: previously some hybrid/arbitrage/gold ETF/foreign FoF were caught by the 35 percent rule; now only true debt/money-market funds and FoFs of such are within Section 50AA. Compliance review should verify the specific fund's classification against the operative definition for the acquisition date."
+
+  - entry_id: mf_003
+    topic: "Hybrid mutual fund, mid-equity allocation, post-2024-07-23 acquisition"
+    applicability:
+      mf_category: "hybrid_balanced"
+      equity_allocation_range: "35 percent to 65 percent"
+      acquisition_date_min: "2024-07-23"
+      holding_period: ge_24_months
+      investor_type: [individual, huf, nri]
+    rule:
+      classification_basis: "not equity-oriented (below 65 percent) and not specified mutual fund (above 35 percent equity for pre-2026-04-01 definition; below 65 percent debt for post-2026-04-01 definition); falls under residual mutual fund category"
+      ltcg_rate_pct: 12.5
+      ltcg_holding_period_months: 24
+      stcg_treatment: "applicable slab rate of investor"
+      indexation_available: false
+      surcharge_cap_applies: false
+      cess_pct: 4
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112 read with definition exclusions in Section 2(42A); Finance (No. 2) Act 2024 amendments"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Hybrid funds in the 35-65 percent equity range are taxed less favourably than either pure-equity or pure-debt classification. The 24-month holding for LTCG and 12.5 percent rate without indexation match the Section 112 treatment for residual capital assets. For asset allocation decisions, M0.IndianContext should flag this disfavoured tax bracket."
+
+  - entry_id: mf_004
+    topic: "Arbitrage fund, post-2026-04-01 classification clarity"
+    applicability:
+      mf_category: "arbitrage"
+      acquisition_date_min: "2026-04-01"
+      holding_period: ge_12_months
+      investor_type: [individual, huf, nri]
+    rule:
+      classification_basis: "Arbitrage funds typically maintain 65+ percent gross equity exposure with offsetting derivative hedges; classified as equity-oriented under Section 112A for tax purposes if the equity threshold is met"
+      ltcg_rate_pct: 12.5
+      ltcg_exemption_inr: 125000
+      stcg_rate_pct: 20
+      surcharge_cap_applies: true
+      cess_pct: 4
+    citation_source_type: practitioner_practice
+    citation: "AMFI taxation guidance; CBDT clarifications on arbitrage fund classification"
+    effective_date: "2024-07-23"
+    confidence: indicative
+    notes: "Arbitrage funds are a structurally distinct case: gross equity high (qualifies as equity-oriented) but economic exposure low (delta-hedged). Tax treatment follows form (equity-oriented at 112A rates) not substance (debt-like returns). M0.IndianContext should flag this asymmetry; advisor may use arbitrage funds as tax-efficient parking instruments for short to medium term."
+
+# =============================================================================
+# SECTION: nri_treaty
+# DTAA and treaty-specific treatment for major treaty countries.
+# =============================================================================
+nri_treaty:
+
+  - entry_id: nri_001
+    topic: "NRI base TDS rates on Indian-source capital gains, listed equity"
+    applicability:
+      investor_type: nri
+      country_of_residence: any
+      asset_class: listed_equity
+      gain_type: [ltcg, stcg]
+    rule:
+      tds_section: "Section 195 read with rates from Section 111A, 112A"
+      tds_rate_ltcg_base_pct: 12.5
+      tds_rate_stcg_base_pct: 20
+      surcharge_applies_to_tds: true
+      cess_applies_to_tds: true
+      cess_pct: 4
+      collected_by: "transferee or broker at point of sale"
+      refund_route: "NRI files India ITR to claim refund of excess TDS"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 195 read with Sections 111A, 112A and First Schedule to Finance Act"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "TDS at higher non-resident rate is the starting point. DTAA may reduce, see entries nri_002, nri_003, nri_004 for specific treaty countries. For NRI clients, the cash flow gap between TDS deduction and final tax can be material; advisor should plan for the working capital implication."
+
+  - entry_id: nri_002
+    topic: "NRI in United States, India-US DTAA, capital gains on listed Indian equity"
+    applicability:
+      investor_type: nri
+      country_of_residence: "United States"
+      asset_class: listed_equity
+    rule:
+      treaty_reference: "India-US DTAA effective 1990, as amended; Article 13 (Gains)"
+      india_taxing_right: "yes, India taxes Indian-source capital gains; treaty does not displace"
+      tds_applicable_in_india: true
+      tds_rate_ltcg_pct: 12.5
+      tds_rate_stcg_pct: 20
+      surcharge_and_cess_apply: true
+      foreign_tax_credit_in_us: "available subject to US IRC Section 901; claimed via Form 1116"
+      tax_residency_certificate_required: true
+      form_10f_required: true
+    citation_source_type: regulatory_circular
+    citation: "India-US Double Taxation Avoidance Agreement (Convention), in force since December 1990; CBDT notification series; IRC Section 901"
+    effective_date: "1990-12-18"
+    confidence: authoritative
+    notes: "US Persons (citizens, green card holders, long-term residents) face additional FATCA-related product access constraints in Indian PMS/AIF, distinct from tax treatment. See foundation_internal pms_aif_advisory_reference_v2.md Section 8.6.3. Product access governed by structure_matrix and gift_city_routing entries."
+
+  - entry_id: nri_003
+    topic: "NRI in UAE, India-UAE DTAA, capital gains on listed Indian equity"
+    applicability:
+      investor_type: nri
+      country_of_residence: "United Arab Emirates"
+      asset_class: listed_equity
+    rule:
+      treaty_reference: "India-UAE DTAA, Article 13 (Capital Gains)"
+      india_taxing_right: "yes; treaty does not exempt"
+      tds_applicable_in_india: true
+      tds_rate_ltcg_pct: 12.5
+      tds_rate_stcg_pct: 20
+      surcharge_and_cess_apply: true
+      foreign_tax_credit_in_uae: "not applicable in same form; UAE has no personal income tax for individuals"
+      tax_residency_certificate_required: true
+    citation_source_type: regulatory_circular
+    citation: "India-UAE Double Taxation Avoidance Agreement, as amended"
+    effective_date: "1993-09-29"
+    confidence: authoritative
+    notes: "UAE is a major NRI destination for India HNI clients. No personal income tax in UAE means no FTC mechanism in the home country, but also no double taxation issue. India TDS is the operative tax burden. Tax Residency Certificate from UAE is required to claim treaty benefits in India."
+
+  - entry_id: nri_004
+    topic: "NRI in Singapore, India-Singapore DTAA, capital gains on listed Indian equity"
+    applicability:
+      investor_type: nri
+      country_of_residence: "Singapore"
+      asset_class: listed_equity
+    rule:
+      treaty_reference: "India-Singapore DTAA, Article 13 (Capital Gains), as amended by 2017 Protocol"
+      india_taxing_right: "yes for transactions on or after 2017-04-01; pre-2017 enjoyed Singapore-source exemption per old treaty"
+      tds_applicable_in_india: true
+      tds_rate_ltcg_pct: 12.5
+      tds_rate_stcg_pct: 20
+      surcharge_and_cess_apply: true
+      foreign_tax_credit_in_singapore: "available subject to Singapore tax code"
+      tax_residency_certificate_required: true
+    citation_source_type: regulatory_circular
+    citation: "India-Singapore DTAA as amended by 2017 Protocol effective 2017-04-01"
+    effective_date: "2017-04-01"
+    confidence: authoritative
+    notes: "The 2017 Protocol removed the historic Singapore-source exemption for capital gains on Indian shares, aligning Singapore treaty treatment with most other DTAAs. Pre-2017 acquisitions retained grandfathered treatment for a transition window; transactions on or after 2017-04-01 follow current treaty."
+
+  - entry_id: nri_005
+    topic: "NRI in UK, India-UK DTAA, capital gains on listed Indian equity"
+    applicability:
+      investor_type: nri
+      country_of_residence: "United Kingdom"
+      asset_class: listed_equity
+    rule:
+      treaty_reference: "India-UK DTAA, Article 14 (Capital Gains)"
+      india_taxing_right: "yes; treaty does not exempt"
+      tds_applicable_in_india: true
+      tds_rate_ltcg_pct: 12.5
+      tds_rate_stcg_pct: 20
+      surcharge_and_cess_apply: true
+      foreign_tax_credit_in_uk: "available subject to UK FTC rules; UK taxes worldwide income of UK residents"
+      tax_residency_certificate_required: true
+    citation_source_type: regulatory_circular
+    citation: "India-UK Double Taxation Avoidance Agreement, in force since October 1993"
+    effective_date: "1993-10-25"
+    confidence: authoritative
+    notes: "UK domiciled-but-non-resident status (remittance basis) materially affects the analysis; UK resident-non-domiciled clients may have different exposure than UK resident-and-domiciled clients. Cross-reference with UK domicile rules before applying TDS treatment."
+
+# =============================================================================
+# SECTION: indexation
+# Indexation rules across asset classes.
+# =============================================================================
+indexation:
+
+  - entry_id: idx_001
+    topic: "Indexation for unlisted equity, post Budget 2024 removal"
+    applicability:
+      asset_class: unlisted_equity
+      holding_period: ge_24_months
+      acquisition_date_min: null
+      acquisition_date_max: null
+    rule:
+      indexation_available: false
+      pre_change_rate_pct: 20
+      pre_change_indexation: true
+      post_change_rate_pct: 12.5
+      post_change_indexation: false
+      grandfathering: "none for unlisted equity; transactions on or after 2024-07-23 follow new regime"
+      transitional_choice_available: false
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112, as amended by Finance (No. 2) Act 2024"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Material loss for high-CII assets held over long periods. The 12.5 percent without indexation is favourable for short long-term holdings but unfavourable for very long holdings where CII would have compounded. Tax planning implication: investor model portfolios should not assume indexation as a tax shield for unlisted equity."
+
+  - entry_id: idx_002
+    topic: "Indexation for real estate, transitional choice for pre-2024-07-23 acquisitions"
+    applicability:
+      asset_class: real_estate
+      holding_period: ge_24_months
+      acquisition_date_max: "2024-07-23"
+    rule:
+      transitional_choice_available: true
+      option_1: "12.5 percent without indexation"
+      option_2: "20 percent with indexation"
+      taxpayer_election: "may choose lower computed tax"
+      grandfathering: "only for assets acquired before 2024-07-23"
+      post_acquisition_date: "for acquisitions on or after 2024-07-23, indexation not available, 12.5 percent without indexation applies"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 112; Finance (No. 2) Act 2024 transitional provisions; CBDT guidance"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Only asset class with transitional taxpayer choice. The breakeven CII multiplier above which 12.5 percent flat beats 20 percent with indexation depends on holding period and CII movement. Sections 54, 54EC, 54F exemptions remain available regardless of regime choice."
+
+  - entry_id: idx_003
+    topic: "Indexation for debt MF, removed in 2023 then further codified in 2024"
+    applicability:
+      asset_class: debt_mutual_fund
+      acquisition_date_min: "2023-04-01"
+    rule:
+      indexation_available: false
+      treatment: "Section 50AA deems all gains as short-term, taxed at slab rate regardless of holding period"
+      pre_change_treatment_2023: "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months"
+      pre_2014_treatment: "before 2014-07-11: LTCG at 10 percent without or 20 percent with indexation"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; further refined by Finance (No. 2) Act 2024"
+    effective_date: "2023-04-01"
+    confidence: authoritative
+    notes: "Debt MF indexation removal preceded the broader Budget 2024 indexation removal by 16 months. Pre-2023-04-01 acquisitions retain old indexation treatment if held to LTCG. Cross-reference mf_002 for the comprehensive Specified Mutual Fund treatment."
+
+# =============================================================================
+# SECTION: pms_lookthrough
+# PMS taxation: investor taxed at underlying instrument level.
+# Entry ID prefix `pmlt_` to avoid collision with sub-category vocabulary.
+# =============================================================================
+pms_lookthrough:
+
+  - entry_id: pmlt_001
+    topic: "PMS gains taxed at underlying instrument level, pass-through to investor"
+    applicability:
+      product: "pms"
+      investor_type: [individual, huf, nri, corporate, partnership, trust]
+    rule:
+      tax_treatment: "pass-through; investor taxed as if executed every underlying trade directly"
+      wrapper_taxation: false
+      gain_characterization: "follows underlying instrument; listed equity gains at 111A/112A rates, unlisted at 112, debt at slab"
+      tax_section_used: "follows instrument: 111A for listed STCG, 112A for listed LTCG, 112 for unlisted, slab for debt instruments"
+      stt_required: "applicable per instrument and exchange rules"
+      turnover_drag_warning: "high-turnover PMS generates persistent STCG drag; foundation document estimates 2.4 to 4.8 percent annual drag for 180 percent turnover at Rs 2 Cr+ income"
+      losses: "investor can offset PMS losses against gains in own portfolio per normal capital loss rules"
+    citation_source_type: practitioner_practice
+    citation: "SEBI (Portfolio Managers) Regulations 2020 establish the pass-through legal structure; CBDT communications; Income Tax Act 1961 Sections 111A, 112, 112A apply to underlying instruments"
+    effective_date: "2020-01-16"
+    confidence: indicative
+    notes: "PMS taxation is not codified in a single statute section but follows from the legal pass-through structure: the investor holds securities directly in own demat. Listed equity tax sections apply directly. Turnover drag estimate cites foundation_internal pms_aif_advisory_reference_v2.md Section 3.2.1; the estimate is illustrative, actual drag depends on specific strategy realized turnover. Compliance review may want to validate the turnover drag math against firm-specific PMS portfolios."
+
+  - entry_id: pmlt_002
+    topic: "PMS surcharge cap interaction"
+    applicability:
+      product: "pms"
+      investor_type: [individual, huf, nri]
+      gain_type: [stcg_listed, ltcg_listed, dividend]
+    rule:
+      surcharge_cap_applies: true
+      cap_rate_pct: 15
+      basis: "PMS gains on listed equity inherit the 111A/112A character; the 15 percent surcharge cap applies as it would for direct equity"
+      non_listed_treatment: "PMS gains on unlisted holdings, debt instruments do not get the cap; full surcharge applies"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Sections 111A, 112A, First Schedule to Finance Act 2025; established PMS pass-through application"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Critical fact for UHNW PMS investors above Rs 5 Cr income: their effective rate on listed PMS gains is capped at 14.95 percent (12.5 percent base x 1.15 x 1.04), not 17.81 percent that full surcharge would produce. This makes PMS structurally tax-efficient for the UHNW segment relative to instruments lacking the cap."
+
+# =============================================================================
+# SECTION: tds
+# TDS implications for major asset class payouts and gain realizations.
+# =============================================================================
+tds:
+
+  - entry_id: tds_001
+    topic: "TDS on resident investor capital gains on listed equity"
+    applicability:
+      investor_type: [resident_individual, huf]
+      asset_class: listed_equity
+      gain_type: [ltcg, stcg]
+    rule:
+      tds_applies: false
+      basis: "no TDS on capital gains for resident investors on listed equity; investor pays advance tax or self-assessment"
+      stt_applies: true
+      advance_tax_required: "yes if total tax liability exceeds Rs 10,000 in FY"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Sections 194-209 (TDS provisions); STT under Securities Transaction Tax Act 2004"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "Resident investors face advance tax on listed equity gains, not TDS. Failure to pay advance tax attracts interest under Sections 234B/234C. Cross-reference with surcharge section for effective rate calculation when planning advance tax."
+
+  - entry_id: tds_002
+    topic: "TDS on NRI capital gains on listed equity LTCG"
+    applicability:
+      investor_type: nri
+      asset_class: listed_equity
+      gain_type: ltcg
+    rule:
+      tds_section: "Section 195"
+      tds_rate_base_pct: 12.5
+      surcharge_applies: true
+      cess_applies: true
+      cess_pct: 4
+      threshold_inr: 125000
+      collected_by: "transferee or broker"
+      excess_recovery: "NRI files India ITR to claim refund"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 195 (TDS on non-resident); Section 112A for base rate"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "TDS on NRI gains is at the higher non-resident rate plus surcharge and cess. NRI may claim refund or FTC in residence country depending on DTAA; see nri_treaty section. Working capital implication for NRI clients: TDS may exceed final tax liability, creating refund timing gap of 6 to 18 months."
+
+  - entry_id: tds_003
+    topic: "TDS on dividend income, resident shareholder"
+    applicability:
+      investor_type: [resident_individual, huf, corporate]
+      asset_class: listed_equity
+      income_type: dividend
+    rule:
+      tds_section: "Section 194"
+      tds_rate_pct: 10
+      threshold_inr: 5000
+      threshold_basis: "per company per FY for resident; aggregate across companies for NRI"
+      pan_required: true
+      no_pan_penalty: "TDS at 20 percent under Section 206AA if PAN not furnished"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 194 (TDS on dividends); abolition of DDT effective FY 2020-21 shifted tax burden to recipient"
+    effective_date: "2020-04-01"
+    confidence: authoritative
+    notes: "Dividend Distribution Tax (DDT) abolished effective FY 2020-21; dividend now taxable in shareholder hands at slab rate. The 15 percent surcharge cap applies to dividend income; for UHNW clients, this is one of the operative tax-planning facts. Cross-reference with surcharge section."
+
+  - entry_id: tds_004
+    topic: "TDS on AIF Cat I/II pass-through income to investor"
+    applicability:
+      investor_type: [resident_individual, huf, corporate, nri]
+      product: [aif_cat_i, aif_cat_ii]
+      income_type: pass_through_income
+    rule:
+      tds_section: "Section 194LBB"
+      tds_rate_resident_pct: 10
+      tds_rate_nri_basis: "rates per nature of income (LTCG at 12.5 percent, interest at 30 percent, etc.) plus surcharge and cess"
+      collected_by: "AIF or its manager at time of credit/payment"
+      threshold: "no minimum threshold for resident"
+      effective_from: "2015-06-01"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 194LBB introduced by Finance Act 2015"
+    effective_date: "2015-06-01"
+    confidence: authoritative
+    notes: "AIF Cat I/II pass-through income is TDS'd at AIF level at 10 percent for residents, higher rates for NRIs by nature of income. Form 64C is the annual statement; investor reconciles in own ITR. Business income at AIF level is taxed at AIF not at investor; no investor-level TDS for business income share."
+
+# =============================================================================
+# END OF tax_matrix.yaml
+# Entry count: 32 entries across 8 sections
+#   capital_gains: 7
+#   surcharge: 6
+#   aif_passthrough: 5
+#   mf_classification: 4
+#   nri_treaty: 5
+#   indexation: 3
+#   pms_lookthrough: 2
+#   tds: 4
+# Coverage target was 25-40; 32 lands in the upper-mid range.
+# =============================================================================

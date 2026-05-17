@@ -42,7 +42,9 @@ Proposal workflow live. The S1 New Case card on `/cases/new` is active and route
 
 12 commits landed (1, 2, 2a, 4, 5, 6, 7, 8, 9, 10, 11, 12), 1 blocked (commit 3, M0.IndianContext, awaiting Workstream C YAML knowledge-store curation). One Gate honored: stub fixture generation gate before commit 9 (user approved ~$0.89 Opus spend). One Gate honored: Sharma case quality review before commit 13 (user approved the assembled case as-is). Wrap-up artifacts in commit 13.
 
-Two new DEFERRED items: case-mode briefing PDF (item 10), real-mode Sharma case regeneration end-to-end (item 9); plus richer scope-builders (item 11) and multi-investor S1 batch (item 12). Existing DEFERRED items 1-7 unresolved (no tier-upgrade landed during the slice).
+**Commit 3 (M0.IndianContext) cleared 2026-05-17** on branch `features/m0-indian-context` after Workstream C closed. The six curated YAML stores are wired deterministically into the pipeline and into G2's reference data; the Sharma case fixture is updated to the YAML-grounded state (`indian_context` bundle, sebi_001-grounded gates, IC1 re-run with full context). Governance verdicts were stable (no S1 re-run). Detail in `docs/BUILD_NOTES_M0_INDIAN_CONTEXT.md`.
+
+Two new DEFERRED items: case-mode briefing PDF (item 10), real-mode Sharma case regeneration end-to-end (item 9); plus richer scope-builders (item 11) and multi-investor S1 batch (item 12). DEFERRED items 1, 2, 3, 12 cleared in the 2026-05-15 cleanup; item 6 (M0.IndianContext) cleared 2026-05-17 in the integration workstream; items 4, 5, 7-11, 13 remain.
 
 Model: **Opus** for Claude Code; pipeline uses **Opus 4.7** for S1.case_mode and A1.challenge.
 

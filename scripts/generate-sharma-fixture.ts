@@ -307,7 +307,7 @@ async function main() {
     mandate,
     proposal: SHARMA_PROPOSAL,
   });
-  const g2 = runG2({ proposal: SHARMA_PROPOSAL });
+  const g2 = await runG2({ proposal: SHARMA_PROPOSAL });
   const g3 = runG3({ proposal: SHARMA_PROPOSAL, advisorName: ADVISOR_NAME });
   const gateResults: GateResult[] = [g1, g2, g3];
   console.log(`  G1: ${g1.status} (${g1.rationale})`);
