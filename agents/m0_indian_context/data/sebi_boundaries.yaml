@@ -1,0 +1,570 @@
+# =============================================================================
+# sebi_boundaries.yaml
+# =============================================================================
+# SEBI rules, category boundaries, and product-specific norms for
+# M0.IndianContext rule-based reasoning.
+#
+# DISCLOSURE: Indicative reference data for demonstration purposes; not
+# validated by credentialed domain experts as a whole. Each entry's
+# `citation_source_type` discloses its trust posture. Production deployment
+# requires the firm's compliance team to validate, supplement, or replace
+# entries before reliance.
+#
+# Citation taxonomy (same as tax_matrix.yaml):
+#   statute_section      : SEBI Act, Companies Act, etc.
+#   regulatory_circular  : Dated SEBI/RBI/CBDT circular reference
+#   web_verified         : Confirmed against authoritative source on a date
+#   foundation_internal  : Drawn from project foundation docs (not used for rate-specific)
+#   practitioner_practice: Established practice with named source
+#
+# Confidence enum:
+#   authoritative : statute, regulatory_circular, web_verified from gov source
+#   indicative    : web_verified from practitioner, foundation_internal, practitioner_practice
+#
+# Structure: flat list of entries with `rule_type` enum.
+# Entry IDs prefixed `sebi_`.
+# =============================================================================
+
+metadata:
+  store_id: sebi_boundaries
+  version: "1.2"
+  curated_at: "2026-05-17"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+  effective_as_of: "May 2026; reflects regulatory state including SEBI (AIF) Third Amendment 2025 (notified 2025-11-18) and SIF framework (effective 2025-04-01)"
+  changelog:
+    - "v1.0 2026-05-14: initial population, 25 entries"
+    - "v1.1 2026-05-15: mid-curation audit fix; sebi_019 citation_source_type reclassified from web_verified to regulatory_circular (primary authority is the SEBI regulation/circular, not a gov-domain web verification action); secondary Business Standard reporting moved from citation to notes"
+    - "v1.2 2026-05-17: Step 8 cross-store consistency refinement; sebi_010 reframed as AIOF (Accredited Investors only Fund) umbrella category with explicit Regulation 13(5) LVF subsumption; sebi_011 reframed as LVF sub-category of AIOF with parent_category reference; brings sebi_boundaries into alignment with chg_011 regulatory_changelog framing"
+  rule_type_enum:
+    - minimum_ticket
+    - fund_corpus_minimum
+    - investor_count_cap
+    - leverage_cap
+    - associate_transaction_cap
+    - fee_structure
+    - performance_fee_norm
+    - exit_load_cap
+    - disclosure_norm
+    - category_definition
+    - accreditation_threshold
+    - registration_requirement
+    - operational_constraint
+
+entries:
+
+# -----------------------------------------------------------------------------
+# PMS rules under SEBI (Portfolio Managers) Regulations 2020
+# -----------------------------------------------------------------------------
+
+  - entry_id: sebi_001
+    topic: "PMS minimum investment per client per portfolio manager"
+    applicability:
+      product: pms
+      rule_type: minimum_ticket
+      investor_type: [individual, huf, corporate, partnership, llp, trust, nri]
+    rule:
+      threshold_inr: 5000000
+      threshold_basis: "per investor per portfolio manager, not per strategy"
+      maintenance_requirement: "value must be maintained; partial withdrawals cannot reduce below threshold; market drawdowns do not trigger top-up"
+      revision_history:
+        - "1993: introduced at Rs 5 lakh"
+        - "2012: raised to Rs 25 lakh"
+        - "2020-01-16: raised to Rs 50 lakh, current"
+      securities_alternative: "minimum may be met by securities valued at Rs 50 lakh at the time of acceptance"
+    citation_source_type: web_verified
+    citation: "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "Verified through direct SEBI source (investor portal and FAQ PDF). The 'per portfolio manager not per strategy' framing is the correct SEBI interpretation; a single PM running multiple strategies for one client needs only one Rs 50 lakh minimum at the manager level. NRI eligibility confirmed; eligible investors include HNIs, NRIs, trusts, corporates, partnerships."
+
+  - entry_id: sebi_002
+    topic: "PMS portfolio manager minimum net worth"
+    applicability:
+      product: pms
+      rule_type: registration_requirement
+      entity: portfolio_manager
+    rule:
+      minimum_net_worth_inr: 50000000
+      revision_history:
+        - "pre-2020: Rs 2 crore"
+        - "2020-01-16: raised to Rs 5 crore"
+      transition_period_for_existing_pms_months: 36
+      certification_required: "chartered accountant certificate not older than 3 months at application; annual CA certification thereafter"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "The net worth raise from Rs 2 Cr to Rs 5 Cr was a major filter against non-serious PMS operators. Existing PMS firms had 36 months to comply; transition period ended in January 2023. Affects advisor due diligence on PMS firms: any PMS without Rs 5 Cr net worth post-2023 is operating in violation."
+
+  - entry_id: sebi_003
+    topic: "PMS leverage prohibition for equity portfolios"
+    applicability:
+      product: pms
+      rule_type: leverage_cap
+      sub_product: discretionary_pms
+    rule:
+      leverage_allowed: false
+      hedging_derivatives_allowed: true
+      hedging_basis: "derivatives permitted only for hedging purposes, not to create leveraged exposure"
+      borrowing_prohibited: "portfolio manager cannot borrow funds or securities on client's behalf"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020, Regulation 24(4); SEBI PMS FAQ 2020-10-28"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "No leverage permitted for equity portfolios; this is a structural difference from AIF Cat III (which permits 2x NAV leverage per CIR/IMD/DF/10/2013) and from SIF (which permits unhedged short via derivatives up to 25 percent of net assets). For HNI tax-planning, the absence of leverage in PMS removes a tool but reduces complexity."
+
+  - entry_id: sebi_004
+    topic: "PMS unlisted securities restriction in discretionary PMS"
+    applicability:
+      product: pms
+      rule_type: operational_constraint
+      sub_product: discretionary_pms
+    rule:
+      unlisted_investment_allowed: false
+      non_discretionary_pms_allowed: true
+      non_discretionary_aggregate_limit: "up to 25 percent of AUM in unlisted securities"
+      exception: "applies only to discretionary PMS; non-discretionary and advisory PMS have separate rules"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020, Regulation 24; SEBI PMS FAQ"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "Discretionary PMS clients receive only listed-securities exposure as discretionary actions. For unlisted exposure via PMS, the client must use non-discretionary PMS and approve each transaction. Foundation document pms_aif_advisory_reference_v2.md Section 4 covers this constraint in advisor decision flow."
+
+  - entry_id: sebi_005
+    topic: "PMS associate transaction cap, 20 percent per associate per service"
+    applicability:
+      product: pms
+      rule_type: associate_transaction_cap
+    rule:
+      cap_basis: "by value; per associate; per service category"
+      cap_pct: 20
+      services_covered: [broking, demat, custody, depository_services]
+      pricing_constraint: "charges to associate cannot exceed those paid to non-associates for same service"
+      associate_definition: "any entity holding 20 percent+ of paid-up equity or partnership interest in the PM, or in which PM holds 20 percent+"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020, Regulation 22(3C); SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13"
+    effective_date: "2020-02-13"
+    confidence: authoritative
+    notes: "Prevents PMS firms from routing all transactions to in-house associates at potentially inflated rates. Compliance review of any PMS firm should verify the firm's actual associate transaction percentages; concentrations above 20 percent are reportable violations. Cross-reference to E1/E6 evidence agents that audit PMS fee structures."
+
+  - entry_id: sebi_006
+    topic: "PMS fee structure, no upfront fees, high-water mark mandatory"
+    applicability:
+      product: pms
+      rule_type: fee_structure
+    rule:
+      upfront_fees_allowed: false
+      management_fee_typical_range_pct: "0.25 to 2.5 per annum on AUM"
+      performance_fee_typical_range_pct: "10 to 20 percent of profits above hurdle"
+      high_water_mark_required: true
+      high_water_mark_basis: "over life of investment; performance fees only on new gains above previous peak portfolio value"
+      hurdle_rate_practice: "typical 8 to 10 percent; not SEBI-mandated, set per investment approach"
+      operating_expense_cap_pct: 0.50
+      operating_expense_basis: "per annum of average AUM, excluding management and performance fees"
+      brokerage_cap_pct_of_turnover: 0.50
+      brokerage_basis: "per transaction"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular dated 2010-08 introducing high-water mark; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13 reaffirming fee discipline"
+    effective_date: "2010-11-01"
+    confidence: authoritative
+    notes: "High-water mark protects client from paying performance fees on portfolio recovery after a loss. The 0.50 percent operating expense cap (separate from management and performance fees) is a critical fee-discipline boundary; PMS firms charging operational expenses above this cap are in violation. Direct on-boarding option (no distributor) is mandatory disclosure under Reg 2020."
+
+  - entry_id: sebi_007
+    topic: "PMS exit load cap, reducing schedule, nil after three years"
+    applicability:
+      product: pms
+      rule_type: exit_load_cap
+    rule:
+      exit_load_period_years: 3
+      year_1_cap_pct: 3.0
+      year_2_cap_pct: 2.0
+      year_3_cap_pct: 1.0
+      beyond_year_3: "no exit load permitted"
+      lock_in_prohibited: "portfolio managers cannot impose mandatory lock-in, but may charge exit load per agreement"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26"
+    effective_date: "2020-02-13"
+    confidence: authoritative
+    notes: "Exit load is a fee on early redemption, not a lock-in. The reducing schedule across three years and the prohibition of exit load beyond year 3 are SEBI-mandated. Advisor should verify the specific PMS firm's exit load schedule against these caps before client subscription."
+
+  - entry_id: sebi_008
+    topic: "PMS distributor registration with APMI, mandatory from 2025-01-01"
+    applicability:
+      product: pms
+      rule_type: registration_requirement
+      entity: distributor
+    rule:
+      registration_body: "Association of Portfolio Managers in India (APMI)"
+      mandatory_from: "2025-01-01"
+      eligibility_rules_announced: "2024-07"
+      certification_required: "NISM Series-V-A or equivalent; AMFI Registration Number eligible alternative for some categories"
+      pre_2025_state: "minimal regulatory scrutiny on distributors; many anonymous referral arrangements"
+    citation_source_type: regulatory_circular
+    citation: "SEBI mandate; APMI eligibility rules announced July 2024; effective 2025-01-01"
+    effective_date: "2025-01-01"
+    confidence: authoritative
+    notes: "Major industry shift; previously PMS distribution was largely unregulated. Compliance review of any PMS subscription post-2025-01-01 should verify distributor APMI registration. Cross-reference to advisor due diligence checklist."
+
+# -----------------------------------------------------------------------------
+# AIF rules under SEBI (AIF) Regulations 2012
+# -----------------------------------------------------------------------------
+
+  - entry_id: sebi_009
+    topic: "AIF minimum investment per investor, Cat I/II/III standard"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: minimum_ticket
+      investor_type: [individual, huf, corporate, partnership, nri, family_trust]
+    rule:
+      standard_minimum_inr: 10000000
+      manager_employee_minimum_inr: 2500000
+      manager_employee_basis: "employees and directors of the AIF and of the manager only"
+      maintenance_requirement: "first lumpsum payment must be at least the minimum investment amount per Master Circular 2024-05-07 clause 4.7"
+      revision_status: "stable at Rs 1 Cr since AIF Regulations 2012; no recent changes"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Alternative Investment Funds) Regulations 2012; SEBI Master Circular for AIFs dated 2024-05-07"
+    effective_date: "2012-05-21"
+    confidence: authoritative
+    notes: "Rs 1 Cr minimum applies to all three categories (I, II, III) as standard. Manager/employee carve-out at Rs 25 lakh allows fund employees to align skin-in-the-game without HNI capital. Cross-reference accreditation_threshold (sebi_017) and AI-only fund (sebi_010) for waiver scenarios."
+
+  - entry_id: sebi_010
+    topic: "Accredited Investors only Fund (AIOF), unified umbrella category post 2025 Third Amendment"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: category_definition
+      sub_product: aiof_scheme
+      includes_subset: lvf_scheme
+    rule:
+      regulatory_term: "Accredited Investors only Fund (AIOF)"
+      eligibility: "every investor (other than sponsor, manager, and their employees/directors) must qualify as Accredited Investor"
+      minimum_investment_waived_for_ais: true
+      pari_passu_exemption: "exemption from strict pari-passu requirement under Regulation 20(22) extended to AIOFs"
+      nism_certification_waived_for_kit: "professional certification requirement under Regulation 4(g)(i) does not apply"
+      investor_cap_modification: "1000-investor cap does not include AIs in AIOF schemes"
+      angel_funds_restriction: "angel funds restricted exclusively to AIs (per Second Amendment Regulations 2025)"
+      lvf_subsumption: "Regulation 13(5) replaced the term 'large value fund for accredited investors' (LVF) with 'Accredited Investors only fund'; LVF is now a sub-category of AIOF with the higher Rs 25 Cr per-investor commitment threshold per sebi_011"
+      notification_date: "2025-11-18"
+      circular_date: "2025-12-08"
+      conversion_path: "existing AIFs may convert to AIOF subject to specified conditions and 15-day reporting to SEBI; depository name change required"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Alternative Investment Funds) (Third Amendment) Regulations 2025 notified 2025-11-18; SEBI Circular dated 2025-12-08 on operational guidelines for AIOF migration; Regulation 13(5) replacement"
+    effective_date: "2025-11-18"
+    confidence: authoritative
+    notes: "v1.2 refinement post-Step 8: the 2025 Third Amendment unified what were previously framed as separate 'AI-only' and 'LVF' categories under a single AIOF umbrella. The v1.1 framing described them as separate; the v1.2 framing reflects the Regulation 13(5) unification. LVF (sebi_011) is now a sub-category of AIOF with the higher Rs 25 Cr per-investor commitment threshold. Cross-reference chg_011 for the regulatory event. Material for case structuring: HNI advisor must distinguish base AIOF (no minimum per-investor for AIs) from AIOF-LVF (Rs 25 Cr per-investor with additional PPM template exemption). Conversion of existing schemes to AIOF is permitted subject to investor consent."
+
+  - entry_id: sebi_011
+    topic: "Large Value Fund (LVF), AIOF sub-category with Rs 25 Cr per-investor threshold"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: minimum_ticket
+      sub_product: lvf_scheme
+      parent_category: aiof_scheme
+    rule:
+      threshold_inr: 250000000
+      threshold_inr_prior: 700000000
+      revision_date: "2025-11-18"
+      regulatory_term: "Large Value Fund (LVF), sub-category of Accredited Investors only Fund (AIOF) per Regulation 13(5) as amended by 2025 Third Amendment"
+      lvf_status_post_2025_third_amendment: "LVF is now a sub-set of AIOF; Regulation 13(5) replaced the term 'large value fund for accredited investors' with 'Accredited Investors only fund', and LVF refers to the higher-threshold sub-category"
+      eligibility: "each investor (other than sponsor, manager, employees/directors) must qualify as Accredited Investor AND commit at least Rs 25 Cr"
+      ppm_exemption: "exempted from standard PPM template requirement"
+      annual_audit_of_ppm_exemption: true
+      investment_committee_responsibility: "members of investment committee released from certain responsibilities (subject to undertaking)"
+      undertaking_format: "Annexure 11 of AIF Master Circular"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) (Third Amendment) Regulations 2025 notified 2025-11-18; AIF Master Circular dated 2024-05-07 (clause 2.4.4); Regulation 13(5) as amended"
+    effective_date: "2025-11-18"
+    confidence: authoritative
+    notes: "v1.2 refinement post-Step 8: the 2025 Third Amendment formally unified LVF under the AIOF umbrella via Regulation 13(5). The v1.1 framing described LVF as a separate category with reduced threshold; the v1.2 framing reflects LVF as the higher-threshold sub-category of AIOF (Rs 25 Cr per-investor vs no per-investor minimum for base AIOF). Reduction from Rs 70 Cr to Rs 25 Cr expands LVF eligibility to a broader pool of family offices and smaller institutions. Cross-reference sebi_010 for the AIOF umbrella framework and chg_011 for the regulatory event. For UHNW cases above Rs 25 Cr commitment, the LVF sub-category offers additional regulatory relaxations on top of base AIOF treatment."
+
+  - entry_id: sebi_012
+    topic: "AIF fund corpus minimum"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: fund_corpus_minimum
+      entity: aif_fund
+    rule:
+      standard_corpus_minimum_inr: 200000000
+      angel_fund_corpus_minimum_inr: 100000000
+      first_close_requirement: "fund must achieve minimum corpus within 12 months of scheme launch"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012, Regulation 10; SEBI AIF FAQs"
+    effective_date: "2012-05-21"
+    confidence: authoritative
+    notes: "Rs 20 Cr fund-level minimum is distinct from Rs 1 Cr investor-level minimum. A fund with only 20 LPs at Rs 1 Cr each meets the corpus minimum. Angel funds get a lower Rs 10 Cr corpus minimum given their early-stage focus."
+
+  - entry_id: sebi_013
+    topic: "AIF Category III leverage cap"
+    applicability:
+      product: aif_cat_iii
+      rule_type: leverage_cap
+    rule:
+      leverage_cap_basis: "2 times Net Asset Value (NAV) of fund"
+      cat_i_ii_leverage: "not permitted except as specifically allowed"
+      derivatives_use: "Cat III can employ complex strategies including derivatives and leverage within the 2x NAV cap"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular CIR/IMD/DF/10/2013 dated 2013-07-29"
+    effective_date: "2013-07-29"
+    confidence: authoritative
+    notes: "The 2x NAV leverage cap is the structural feature distinguishing Cat III from Cat I/II (which cannot use leverage broadly). Cat III hedge fund strategies operate within this constraint. Foundation document pms_aif_advisory_reference_v2.md covers how the leverage availability factors into Cat III risk and return."
+
+  - entry_id: sebi_014
+    topic: "AIF investor count cap, 1000 per scheme"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: investor_count_cap
+      entity: aif_scheme
+    rule:
+      investor_cap_per_scheme: 1000
+      angel_fund_cap: "up to 200 investors"
+      ai_only_exception: "AIs are excluded from the 1000-investor cap in AI-only schemes (per 2025 Third Amendment)"
+      cap_basis: "per scheme of an AIF, not per fund"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012, Regulation 10(f); SEBI (AIF) (Third Amendment) Regulations 2025 for AI-only modification"
+    effective_date: "2012-05-21"
+    confidence: authoritative
+    notes: "The 1000-investor cap is a SEBI-imposed scarcity that supports the 'sophisticated investor' framing. Family offices and HNIs are not retail substitutes for this cap. Angel funds capped lower at 200. AI-only schemes effectively remove the cap by excluding AIs."
+
+  - entry_id: sebi_015
+    topic: "AIF Category I and II close-ended requirement"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii]
+      rule_type: operational_constraint
+    rule:
+      structure: "close-ended only"
+      minimum_tenure_years: 3
+      tenure_extension_allowed: "up to 2 years with approval of 2/3 of unit holders by value"
+      liquidation_after_tenure: "if no extension approved, fund must liquidate within 1 year of original or extended tenure end"
+      cat_iii_structure_options: "may be open-ended or close-ended"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012, Regulation 13"
+    effective_date: "2012-05-21"
+    confidence: authoritative
+    notes: "Cat I/II close-ended structure means investors cannot redeem at-will; capital is committed for fund tenure. This is a material liquidity constraint for case planning. Cross-reference foundation_internal pms_aif_advisory_reference_v2.md Section on liquidity matching."
+
+  - entry_id: sebi_016
+    topic: "AIF mandatory dematerialisation of units"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: operational_constraint
+      entity: aif_unit
+    rule:
+      demat_required: true
+      effective_year: 2023
+      depositories: ["NSDL", "CDSL"]
+      previous_state: "physical unit certificates permitted; now eliminated"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular on AIF unit dematerialisation 2023"
+    effective_date: "2023-01-01"
+    confidence: authoritative
+    notes: "Demat eligibility for AIF units is now mandatory rather than optional. Affects demat_mechanics.yaml entries: AIF units now in scope for unified demat reporting. Implication for advisor case briefings: AIF unit movements are now visible through standard demat statements."
+
+# -----------------------------------------------------------------------------
+# Accredited Investor framework
+# -----------------------------------------------------------------------------
+
+  - entry_id: sebi_017
+    topic: "Accredited Investor eligibility, individual filer"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii, pms, sif]
+      rule_type: accreditation_threshold
+      investor_type: [individual, huf, family_trust, sole_proprietorship]
+    rule:
+      certification_required: "certificate of accreditation by SEBI-approved accreditation agency"
+      eligibility_routes:
+        - basis: "annual income"
+          threshold_inr: 20000000
+          notes: "annual income of Rs 2 Cr or more"
+        - basis: "net worth"
+          threshold_inr: 75000000
+          financial_assets_minimum_inr: 37500000
+          notes: "net worth at least Rs 7.5 Cr, of which at least Rs 3.75 Cr in financial assets"
+        - basis: "combination"
+          income_threshold_inr: 10000000
+          net_worth_threshold_inr: 50000000
+          notes: "annual income at least Rs 1 Cr AND net worth at least Rs 5 Cr"
+      verification_validity_years: 1
+      verification_renewal_required: true
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012, Regulation 2(ab); SEBI Master Circular for AIFs dated 2024-05-07 (Chapter 12 Framework for Accredited Investors); SEBI Circular dated 2021-08-26"
+    effective_date: "2021-08-26"
+    confidence: authoritative
+    notes: "AI status provides regulatory flexibilities including waiver of minimum investment in some AIF schemes (AI-only schemes per sebi_010), product access expansion, and lighter compliance requirements. Verification through SEBI-approved accreditation agencies (currently a list of recognized agencies; growing list). Status valid for one year, renewable."
+
+  - entry_id: sebi_018
+    topic: "Accredited Investor eligibility, body corporate"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii, pms]
+      rule_type: accreditation_threshold
+      investor_type: [private_limited_company, public_limited_company, llp]
+    rule:
+      net_worth_threshold_inr: 500000000
+      basis: "audited financial statements"
+      verification_validity_years: 1
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012, Regulation 2(ab); SEBI Master Circular for AIFs 2024-05-07"
+    effective_date: "2021-08-26"
+    confidence: authoritative
+    notes: "Corporate AI threshold (Rs 50 Cr net worth) is significantly higher than individual AI. Family offices structured as private limited companies must meet corporate threshold, not individual. Material for case structuring decisions on family office incorporation."
+
+# -----------------------------------------------------------------------------
+# SIF (Specialised Investment Fund) rules under SEBI MF Regs 1996, amended 2025
+# -----------------------------------------------------------------------------
+
+  - entry_id: sebi_019
+    topic: "SIF minimum investment per investor per AMC"
+    applicability:
+      product: sif
+      rule_type: minimum_ticket
+      investor_type: [individual, huf, corporate, family_trust, nri]
+    rule:
+      threshold_inr: 1000000
+      threshold_basis: "per investor per AMC, aggregated across all SIF strategies of that AMC at PAN level"
+      ai_exemption: "Accredited Investors are exempt from minimum investment threshold per SEBI clarification"
+      systematic_investment_compatibility: "SIP, SWP, STP permitted provided overall investment meets threshold"
+      excludes_regular_mf: "the Rs 10 lakh threshold applies exclusively to SIF investments, not regular MF schemes of same AMC"
+      active_breach_handling: "if investor-initiated transaction reduces aggregate value below threshold, scheme defines redemption rules; market-driven drawdown does not trigger breach"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Mutual Funds) Regulations 1996 amended Feb 2025; SEBI SIF framework circular dated 2025-02-27; effective 2025-04-01"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "SIF bridges the gap between MF (Rs 500 entry) and PMS (Rs 50 lakh entry) for sophisticated investors. PAN-level aggregation prevents fragmenting investments across strategies to evade threshold. AI exemption opens SIF to AIs without minimum, mirroring AIF AI-only flexibility. New product category for AIF and PMS positioning analysis. The PAN-level aggregation interpretation was clarified by SEBI per a circular reported in Business Standard 2025-06-19; secondary reporting, not the primary authority."
+
+  - entry_id: sebi_020
+    topic: "SIF AMC eligibility criteria for launching"
+    applicability:
+      product: sif
+      rule_type: registration_requirement
+      entity: asset_management_company
+    rule:
+      route_1_track_record:
+        operation_years_min: 3
+        aum_average_inr: 100000000000
+        aum_basis: "average over preceding 3 years"
+        regulatory_clean_record_years: 3
+      route_2_personnel:
+        cio_requirement: "Chief Investment Officer with 10+ years fund management experience and average AUM Rs 5,000 Cr"
+        fund_manager_requirement: "Fund Manager with 3+ years experience and average AUM Rs 500 Cr"
+        regulatory_clean_record_years: 3
+      approval: "prior SEBI approval required before establishing SIF"
+    citation_source_type: regulatory_circular
+    citation: "SEBI circular on SIF framework dated 2025-02-27; effective 2025-04-01"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Dual-route eligibility (track record OR personnel quality) lets newer fund houses with experienced personnel offer SIF. Track record route requires Rs 10,000 Cr AUM; personnel route is the alternative for younger AMCs with star fund managers."
+
+  - entry_id: sebi_021
+    topic: "SIF investment strategy framework"
+    applicability:
+      product: sif
+      rule_type: operational_constraint
+    rule:
+      strategy_categories: [equity_oriented, debt_oriented, hybrid]
+      equity_strategies: ["Equity Long-Short Fund", "Equity Ex-Top 100 Long-Short Fund", "Sector Rotation Long-Short Fund"]
+      debt_strategies: ["Debt Long-Short Fund", "Sectoral Debt Long-Short Fund"]
+      hybrid_strategies: ["Active Asset Allocator Long Short Fund"]
+      unhedged_short_exposure_cap_pct_of_net_assets: 25
+      derivative_use: "permitted within prescribed limits; can take long and short positions"
+      single_sector_cap_pct: 25
+      sectoral_debt_single_sector_cap_pct: 75
+      benchmark: "single-tier benchmark required (Nifty 50 for equity, debt indices for debt)"
+      risk_band_levels: 5
+    citation_source_type: regulatory_circular
+    citation: "SEBI circular on SIF framework dated 2025-02-27"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "SIF strategies span the long-short spectrum that mutual funds traditionally cannot access. The 25 percent unhedged short cap distinguishes SIF from hedge-fund-style Cat III AIF (which can leverage up to 2x NAV). Material for HNI cases comparing SIF vs Cat III for hedge-style exposure."
+
+# -----------------------------------------------------------------------------
+# Recent SEBI revisions, summary entries
+# -----------------------------------------------------------------------------
+
+  - entry_id: sebi_022
+    topic: "SEBI 2024 AIF Master Circular consolidation"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: disclosure_norm
+    rule:
+      consolidation_date: "2024-05-07"
+      scope: "consolidates all prior AIF circulars into single reference document"
+      sections_covered: ["investments", "valuations", "reporting", "compliance"]
+      complementary_amendments_2024:
+        - "Enhanced due diligence norms for large-value funds"
+        - "Revised valuation methodology guidelines"
+        - "Updated investor consent requirements for key decisions"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Master Circular for AIFs dated 2024-05-07"
+    effective_date: "2024-05-07"
+    confidence: authoritative
+    notes: "The 2024 Master Circular is the operative consolidated reference for AIF compliance. Pre-2024-05-07 individual circulars remain valid as historical references but are superseded for current operations by the Master Circular."
+
+  - entry_id: sebi_023
+    topic: "SEBI 2024 pro-rata pari-passu rights for AIF investors"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii, aif_cat_iii]
+      rule_type: operational_constraint
+    rule:
+      pro_rata_principle: "investors of an AIF scheme shall have rights pro-rata to their commitment, in each investment and in distribution"
+      pari_passu_principle: "investors in same scheme treated on pari-passu basis"
+      regulation_reference: "Regulation 20(21) and 20(22) of AIF Regulations 2012"
+      notification_date: "2024-11-18"
+      circular_date: "2024-12-13"
+      exemptions_documented: "specific carve-outs per circular"
+      ai_only_exemption: "AI-only schemes exempted from strict pari-passu requirement per 2025 Third Amendment"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) (Amendment) Regulations 2024 notified 2024-11-18; SEBI Circular dated 2024-12-13 on pro-rata and pari-passu rights"
+    effective_date: "2024-11-18"
+    confidence: authoritative
+    notes: "Codifies a long-standing principle that AIF investors must be treated proportionally to their commitment. Subsequent 2025 amendments permit differential treatment via side letters in AI-only schemes. Tightens disclosure on AIF investor side-letter arrangements."
+
+  - entry_id: sebi_024
+    topic: "SEBI 2025 Co-Investment Vehicle (CIV) framework for AIF Cat I/II"
+    applicability:
+      product: [aif_cat_i, aif_cat_ii]
+      rule_type: category_definition
+      sub_product: civ_scheme
+    rule:
+      framework_date: "2025-09-09"
+      eligibility: "Cat I and Cat II AIFs may offer co-investment through separate CIV schemes within the AIF structure to Accredited Investors"
+      exclusive_route_constraint: "AIF managers must choose either PMS route or CIV scheme route for a given co-investment, not both"
+      shelf_placement_memorandum_required: true
+      industry_standards_body: "Standard Setting Forum of AIFs in consultation with SEBI; published by IVCA/PEVCCFO/Trustee Association"
+      leverage: "prohibited in CIVs"
+      ring_fenced_assets: true
+      proportional_cost_sharing_required: true
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular on CIV framework dated 2025-09-09"
+    effective_date: "2025-09-09"
+    confidence: authoritative
+    notes: "Formalises co-investment alongside main AIF scheme, providing alternative to PMS route. Material for case structuring of co-investment opportunities; the exclusive-route constraint (PMS or CIV, not both) is a structuring decision the advisor must make up-front."
+
+  - entry_id: sebi_025
+    topic: "InvIT minimum investment, revised October 2025"
+    applicability:
+      product: invit
+      rule_type: minimum_ticket
+      investor_type: [individual, huf, corporate, nri]
+    rule:
+      threshold_inr: 2500000
+      threshold_inr_prior: 10000000
+      revision_date: "2025-10-15"
+      institutional_invit_separate_threshold: "earlier Rs 25 Cr threshold for certain InvITs removed"
+      distribution_cash_flow_rule: "HoldCo can offset negative distributable cash flows against SPV inflows, subject to disclosure to unitholders"
+      high_leverage_invit_definition: "InvITs with borrowing over 49 percent must provide quarterly reports"
+    citation_source_type: regulatory_circular
+    citation: "SEBI amendments to InvIT Regulations October 2025"
+    effective_date: "2025-10-15"
+    confidence: authoritative
+    notes: "Material reduction in minimum (10x reduction from Rs 1 Cr to Rs 25 lakh) expands InvIT eligibility to a broader HNI investor base. Material for case structuring on real-estate-adjacent yield exposure. Cross-reference with foundation_internal pms_aif_advisory_reference_v2.md for InvIT vs REIT positioning."
+
+# =============================================================================
+# END OF sebi_boundaries.yaml
+# Entry count: 25 entries
+#   PMS rules: 8 (sebi_001 to sebi_008)
+#   AIF rules: 8 (sebi_009 to sebi_016)
+#   Accreditation: 2 (sebi_017, sebi_018)
+#   SIF: 3 (sebi_019 to sebi_021)
+#   Recent revisions: 4 (sebi_022 to sebi_025)
+# Coverage target was 15-25; 25 lands at upper bound.
+# =============================================================================

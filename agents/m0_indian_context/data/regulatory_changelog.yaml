@@ -1,0 +1,315 @@
+# =============================================================================
+# regulatory_changelog.yaml
+# =============================================================================
+# Time-aware index of consequential regulatory events affecting M0.IndianContext
+# case reasoning. Each entry is a regulatory event (Budget, SEBI amendment,
+# circular, MCA notification, etc.) with an effective date, the substantive
+# change, and an inverse-reference index of which entries in OTHER stores
+# the event affects (via rule_pointer.affected_entries).
+#
+# DISCLOSURE: Indicative reference for demonstration. See README for trust
+# tier taxonomy. Not validated by credentialed domain experts as a whole.
+#
+# Citation taxonomy and confidence enum follow tax_matrix.yaml and
+# sebi_boundaries.yaml conventions. Uses canonical structure-type
+# vocabulary from structure_matrix.yaml.
+#
+# Time-ordered by effective_date (ascending).
+# Entry IDs prefixed `chg_`.
+# =============================================================================
+
+metadata:
+  store_id: regulatory_changelog
+  version: "1.0"
+  curated_at: "2026-05-15"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md; Step4 canonical vocabulary lock in structure_matrix.yaml; C9 audit cycle 2 baseline"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+  effective_as_of: "May 2026; captures consequential regulatory events 2019-2026 affecting Indian HNI wealth advisory"
+  inverse_reference_pattern: "Each entry's rule_pointer.affected_entries lists entry_ids in OTHER stores affected by this regulatory event. Source stores do NOT carry forward chg_NNN references in their notes fields; the changelog centralises the temporal index."
+  coverage_note: "12 entries selected from 19+ accumulated cross-reference targets. Lower-impact events captured via revision_history fields in source entries (e.g., sebi_001 carries PMS minimum revision history 1993/2012/2020 inline; not duplicated here)."
+
+entries:
+
+# -----------------------------------------------------------------------------
+# CHG_001: Listed securities mandatory dematerialisation (2019)
+# Foundational regime context predating most current entries.
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_001
+    topic: "Listed securities mandatory dematerialisation for transfer"
+    applicability:
+      affected_areas: [demat, listed_equity]
+      investor_types_affected: [individual, huf, llp, private_limited_company, public_limited_company, family_trust, private_discretionary_trust, charitable_trust, partnership_firm]
+      residency: [resident, non_resident]
+    change_summary: "SEBI LODR (Amendment) Regulations 2018 effective 2019-04-01 mandated dematerialisation for transfer of all listed securities. Physical share certificates of listed companies cannot be transferred from 2019-04-01 onwards; existing physical holdings require dematerialisation before any transfer. Universal demat mandate for listed equity, debt instruments, mutual fund units (where opted), and other listed securities."
+    rule_pointer:
+      affected_entries: [dem_001, dem_002, dem_003]
+      replaces_prior_regime: true
+      grandfathering: "existing physical holdings retained but cannot be transferred without first dematerialising"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Listing Obligations and Disclosure Requirements) (Amendment) Regulations 2018; SEBI Circular SEBI/HO/MIRSD/DOS3/CIR/P/2018/139 dated 2018-11-06; Companies Act 2013 Section 29(1A)"
+    effective_date: "2019-04-01"
+    confidence: authoritative
+    notes: "Foundational demat regime context. Predates most current entries but remains operative. For HNI cases involving inherited or legacy physical share certificates, dematerialisation is a prerequisite before any further transaction."
+
+# -----------------------------------------------------------------------------
+# CHG_002: PMS Regulations 2020 overhaul (2020)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_002
+    topic: "SEBI (Portfolio Managers) Regulations 2020 overhaul"
+    applicability:
+      affected_areas: [pms, portfolio_manager_compliance]
+      investor_types_affected: [individual, huf, llp, private_limited_company, public_limited_company, family_trust, private_discretionary_trust, partnership_firm]
+      residency: [resident, non_resident]
+    change_summary: "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16 represented a comprehensive overhaul of the PMS regulatory framework. Material changes included: minimum investment per investor per portfolio manager raised from Rs 25 lakh to Rs 50 lakh; portfolio manager minimum net worth raised from Rs 2 crore to Rs 5 crore (with 36-month transition period); explicit prohibition of upfront fees; mandatory high-water mark for performance fees; associate transaction cap at 20 percent by value per service category; exit load reducing schedule capped at 3 years; ban on leverage for discretionary PMS; restriction on unlisted securities in discretionary PMS; comprehensive client agreement requirements."
+    rule_pointer:
+      affected_entries: [sebi_001, sebi_002, sebi_003, sebi_004, sebi_005, sebi_006, sebi_007, pmlt_001, pmlt_002]
+      replaces_prior_regime: true
+      grandfathering: "existing PMS clients retained under prior contracts; new subscriptions and contract renewals follow 2020 Regulations; portfolio managers had 36 months to comply with raised net worth requirement (transition ended January 2023)"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "The single most important regulatory development for the Indian PMS industry in the past decade. The Rs 50 lakh minimum effectively repositioned PMS as a HNI-only product; the Rs 5 crore manager net worth requirement filtered out non-serious operators. For any PMS subscription analysis post-2020, this is the operative regulatory framework. Cross-reference sebi_001 revision_history field which carries the inline change record (1993, 2012, 2020)."
+
+# -----------------------------------------------------------------------------
+# CHG_003: IPO Anchor lock-in extension to 90 days (2022)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_003
+    topic: "IPO anchor lock-in extended to split 30 and 90 days"
+    applicability:
+      affected_areas: [ipo, listed_equity, lock_in]
+      investor_types_affected: [individual, family_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "SEBI (ICDR) (Amendment) Regulations 2022 effective 2022-04-01 extended the anchor investor lock-in. Prior regime: 30-day lock-in for 100 percent of anchor allocation. New regime: 50 percent of anchor allocation locked for 30 days, remaining 50 percent locked for 90 days from date of allotment. Depository auto-marks shares non-transferable during lock-in; auto-releases on expiry."
+    rule_pointer:
+      affected_entries: [dem_013]
+      replaces_prior_regime: true
+      grandfathering: "IPOs with prospectus filed before 2022-04-01 retained the 30-day flat regime"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Issue of Capital and Disclosure Requirements) (Amendment) Regulations 2022 effective 2022-04-01; ICDR Regulations 2018 Schedule XIII Part A as amended"
+    effective_date: "2022-04-01"
+    confidence: authoritative
+    notes: "Material for HNI cases involving anchor allotment via PMS, family-office routes, or AIF-backed anchor positions. The 90-day tail on 50 percent of allocation is the operative constraint. For Sharma case or seeded investor cases with IPO anchor exposure, exit timing planning must factor this dual-tranche unlock schedule."
+
+# -----------------------------------------------------------------------------
+# CHG_005: AIF units mandatory dematerialisation (2023)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_004
+    topic: "AIF units mandatory dematerialisation"
+    applicability:
+      affected_areas: [aif_cat_i, aif_cat_ii, aif_cat_iii, demat]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "SEBI mandated dematerialisation of AIF units effective 2023-01-01, eliminating the prior pattern of physical unit certificates. All Categories (I, II, III) of AIF schemes now hold units in NSDL or CDSL. Existing AIF investors had transition window to dematerialise existing holdings."
+    rule_pointer:
+      affected_entries: [sebi_016, dem_009]
+      replaces_prior_regime: true
+      grandfathering: "transition window provided for dematerialisation of pre-existing physical unit certificates"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular on AIF unit dematerialisation 2023"
+    effective_date: "2023-01-01"
+    confidence: authoritative
+    notes: "Foundation document treats AIF unit holdings as if they were in physical form (legacy pattern); demat-mandate makes AIF unit movements visible through standard demat statements. For Sharma case Marcellus position and similar HNI AIF holdings, demat-resident treatment is now the default."
+
+# -----------------------------------------------------------------------------
+# CHG_006: Listed equity T+1 settlement (2023)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_005
+    topic: "Listed equity T+1 settlement cycle"
+    applicability:
+      affected_areas: [listed_equity, demat, settlement]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, charitable_trust, llp, private_limited_company, public_limited_company, partnership_firm]
+      residency: [resident, non_resident]
+    change_summary: "SEBI implemented mandatory T+1 settlement for all listed equity trades by 2023-01-27, replacing the prior T+2 cycle. Phased rollout began September 2022 with scrip-by-scrip transition; universal T+1 effective end of January 2023. India became one of the first major markets globally to operate at T+1. SEBI subsequently introduced optional T+0 settlement for select scrips in March 2024 (beta phase, not universal)."
+    rule_pointer:
+      affected_entries: [dem_002]
+      replaces_prior_regime: true
+      grandfathering: "none required; settlement timeline applies to all trades post effective date"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular SEBI/HO/MRD/MRD-PoD-2/P/CIR/2022/123 dated 2022-09-07 (T+1 rollout framework); subsequent SEBI circulars completing phased implementation 2023-01-27"
+    effective_date: "2023-01-27"
+    confidence: authoritative
+    notes: "Operational improvement for liquidity engineering. Funds available T+2 after T+1 settlement is the practical timeline for cash redeployment. The T+0 beta phase is optional and scrip-limited; not a universal regime. Material for HNI cash management cases."
+
+# -----------------------------------------------------------------------------
+# CHG_004: Section 50AA debt MF slab taxation (2023)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_006
+    topic: "Section 50AA Specified Mutual Fund slab-rate taxation"
+    applicability:
+      affected_areas: [tax, mutual_fund, debt_mf, indexation, capital_gains]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "Finance Act 2023 introduced Section 50AA in the Income Tax Act 1961 effective 2023-04-01, deeming Specified Mutual Fund (originally: fund where not more than 35 percent in equity of domestic companies) gains as short-term capital gains regardless of holding period, taxed at investor's slab rate. Removed indexation benefit and 36-month LTCG threshold for debt MF. Finance Act 2025 (effective 2026-04-01) further refined the Section 50AA definition, redefining Specified Mutual Fund as fund investing more than 65 percent in debt and money market instruments, or 65 percent or more in units of such funds. The redefinition reclassifies arbitrage funds, hybrid funds, and gold/foreign FoFs."
+    rule_pointer:
+      affected_entries: [mf_002, idx_003, cg_006]
+      replaces_prior_regime: true
+      grandfathering: "units acquired before 2023-04-01 retain prior treatment (20 percent LTCG with indexation if held 36+ months); new acquisitions on or after 2023-04-01 follow Section 50AA; 2026-04-01 redefinition refines classification but does not retroactively change pre-existing holdings"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; definition refined by Finance Act 2025 effective 2026-04-01"
+    effective_date: "2023-04-01"
+    confidence: authoritative
+    notes: "Two distinct dates: 2023-04-01 (debt MF slab-rate regime introduced) and 2026-04-01 (definition redefinition refines which funds fall within scope). For case reasoning involving MF transactions across these dates, M0.IndianContext must apply the operative regime for each holding's acquisition date."
+
+# -----------------------------------------------------------------------------
+# CHG_008: AIF Master Circular consolidation + pro-rata pari-passu (2024)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_007
+    topic: "AIF Master Circular consolidation and pro-rata pari-passu codification"
+    applicability:
+      affected_areas: [aif_cat_i, aif_cat_ii, aif_cat_iii, disclosure, governance]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "Two-part 2024 SEBI AIF regulatory consolidation: (1) AIF Master Circular dated 2024-05-07 consolidated all prior AIF circulars into a single reference document covering investments, valuations, reporting, and compliance, with enhanced due diligence for large-value funds, revised valuation methodology guidelines, and updated investor consent requirements for key decisions. (2) SEBI (AIF) (Amendment) Regulations 2024 notified 2024-11-18, followed by SEBI Circular dated 2024-12-13, codified the principle of pro-rata distribution and pari-passu treatment of investors under Regulations 20(21) and 20(22), tightening disclosure on side-letter arrangements."
+    rule_pointer:
+      affected_entries: [sebi_022, sebi_023, sebi_010]
+      replaces_prior_regime: false
+      grandfathering: "Master Circular consolidates prior valid circulars; pari-passu principle existed in practice, was codified explicitly; AI-only schemes per 2025 Third Amendment subsequently received exemption from strict pari-passu requirement"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Master Circular for AIFs dated 2024-05-07; SEBI (AIF) (Amendment) Regulations 2024 notified 2024-11-18; SEBI Circular dated 2024-12-13 on pro-rata and pari-passu rights"
+    effective_date: "2024-05-07"
+    confidence: authoritative
+    notes: "The 2024 Master Circular is the operative consolidated reference for AIF compliance; pre-2024-05-07 individual circulars remain valid as historical references but are superseded for current operations. The pari-passu codification subsequently received exemptions for AI-only schemes per chg_011 (Third Amendment 2025); this is an example of where regulatory framing evolved within a 12-month period."
+
+# -----------------------------------------------------------------------------
+# CHG_007: Budget 2024 capital gains regime overhaul (2024)
+# Most cross-referenced single event.
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_008
+    topic: "Budget 2024 capital gains regime overhaul"
+    applicability:
+      affected_areas: [tax, capital_gains, indexation, listed_equity, unlisted_equity, real_estate, gold, foreign_equity, mf, aif]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company, public_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "Finance (No. 2) Act 2024 effective 2024-07-23 fundamentally restructured the Indian capital gains tax regime. Headline changes: (1) Listed equity LTCG raised from 10 to 12.5 percent; annual exemption raised from Rs 1 lakh to Rs 1.25 lakh under Section 112A. (2) Listed equity STCG raised from 15 to 20 percent under Section 111A. (3) Unlisted equity LTCG changed from 20 percent with indexation to 12.5 percent without indexation under Section 112. (4) Real estate LTCG 12.5 percent without indexation; transitional choice for pre-2024-07-23 acquisitions (lower of 12.5 percent without or 20 percent with indexation). (5) Gold and other long-term capital assets: 12.5 percent without indexation; gold holding period reduced from 36 to 24 months for LTCG. (6) Foreign equity treated under amended Section 112. (7) STT increased on F&O segment. Surcharge cap of 15 percent on 111A/112A income (with 115AD and dividends) retained for HNI relief."
+    rule_pointer:
+      affected_entries: [cg_001, cg_002, cg_003, cg_005, cg_006, cg_007, idx_001, idx_002, mf_001, mf_003, sur_001, sur_002, sur_003, sur_004, sur_005, pmlt_002]
+      replaces_prior_regime: true
+      grandfathering: "transactions on or after 2024-07-23 follow new regime; pre-cutoff transactions follow prior regime; real estate has explicit transitional choice for assets acquired before 2024-07-23"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, Sections 111A, 112, 112A as amended by Finance (No. 2) Act 2024; CBDT circulars 2024 series for transitional guidance"
+    effective_date: "2024-07-23"
+    confidence: authoritative
+    notes: "The most cross-referenced single regulatory event in the changelog. For case reasoning involving capital gains computations near 2024-07-23, M0.IndianContext must determine which regime applies based on transaction date. For real estate specifically, the transitional choice for pre-2024-07-23 acquisitions is the only asset class with explicit taxpayer election; the breakeven CII multiplier above which 12.5 percent flat beats 20 percent with indexation depends on holding period and CII movement. For NRIs, the new rates apply identically; DTAA treaty relief overlays per nri_treaty section."
+
+# -----------------------------------------------------------------------------
+# CHG_009: SIF framework introduction (2025)
+# New product category.
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_009
+    topic: "SIF (Specialised Investment Fund) framework introduction"
+    applicability:
+      affected_areas: [mf, sif, new_product_category]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "SEBI (Mutual Funds) Regulations 1996 amended February 2025 introduced the Specialised Investment Fund (SIF) framework, effective 2025-04-01. SIF is a new product category structurally between MF (Rs 500 entry) and PMS (Rs 50 lakh entry), with Rs 10 lakh minimum per investor per AMC aggregated at PAN level, AI exemption from minimum, permission for long-short strategies including unhedged short exposure up to 25 percent of net assets, sector rotation, and active asset allocation. AMC eligibility via two routes: track record (Rs 10,000 Cr AUM over 3 years) OR personnel quality (CIO with 10 years experience and Rs 5,000 Cr AUM track record). SEBI prior approval required before launching SIF."
+    rule_pointer:
+      affected_entries: [sebi_019, sebi_020, sebi_021, str_001]
+      replaces_prior_regime: false
+      grandfathering: "none; SIF is a new product category, no pre-existing schemes to grandfather"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Mutual Funds) Regulations 1996 amended February 2025; SEBI circular on SIF framework dated 2025-02-27 effective 2025-04-01"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Material new product class. For HNI case planning, SIF bridges a structural gap and offers long-short strategies previously accessible only via Cat III AIF. The Rs 10 lakh entry democratises long-short exposure to upper-mass-affluent and HNI segments below Cat III AIF Rs 1 Cr threshold. PAN-level aggregation prevents fragmenting investments across strategies to evade threshold. New product category for AIF and PMS positioning analysis; the SIF question (use SIF vs Cat III AIF for long-short exposure) will likely appear in seeded investor cases."
+
+# -----------------------------------------------------------------------------
+# CHG_011: MCA Rule 9B private company demat mandate (2024-2025)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_010
+    topic: "MCA Rule 9B non-small private company demat mandate"
+    applicability:
+      affected_areas: [unlisted_equity, demat, corporate_compliance]
+      investor_types_affected: [individual, huf, family_trust, private_discretionary_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "MCA Companies (Prospectus and Allotment of Securities) Second Amendment Rules 2023 dated 2023-10-27 inserted Rule 9B mandating dematerialisation of securities by non-small private companies. Original deadline 2024-09-30; extended by MCA notification dated 2025-02-12 to 2025-06-30. Mandate excludes: small companies (turnover not exceeding Rs 40 Cr AND paid-up capital not exceeding Rs 4 Cr), government companies, and producer companies. Form PAS-6 reconciliation of share capital audit required twice yearly starting March 2025. Non-compliant company cannot issue rights, bonus, or buyback; share transfers restricted."
+    rule_pointer:
+      affected_entries: [dem_004]
+      replaces_prior_regime: true
+      grandfathering: "non-small private companies must complete dematerialisation by 2025-06-30; subsequent share transfers and issuances require dematerialised form"
+    citation_source_type: regulatory_circular
+    citation: "MCA Companies (Prospectus and Allotment of Securities) Second Amendment Rules 2023 dated 2023-10-27; MCA notification dated 2025-02-12 extending timeline"
+    effective_date: "2025-06-30"
+    confidence: authoritative
+    notes: "Major operational shift for HNI cases involving unlisted equity in non-small private companies (founder equity, ESOP exercises, angel investments). For seeded cases with such holdings, demat-resident treatment is now the default; physical share certificates are no longer transferable. Small private companies retain physical-certificate option."
+
+# -----------------------------------------------------------------------------
+# CHG_010: SEBI AIF Third Amendment 2025 (AIOF + LVF unification)
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_011
+    topic: "SEBI AIF Third Amendment Regulations 2025 (AIOF framework, LVF unification, threshold reduction)"
+    applicability:
+      affected_areas: [aif_cat_i, aif_cat_ii, aif_cat_iii, accreditation, lvf, governance]
+      investor_types_affected: [individual, huf, family_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+    change_summary: "SEBI (AIF) (Third Amendment) Regulations 2025 notified 2025-11-18 with follow-up circular dated 2025-12-08 introduced major structural reforms: (1) New 'Accredited Investors only Fund' (AIOF) category covering AIFs where every investor (other than sponsor, manager, employees, directors) is an accredited investor; lighter regulatory regime including exemption from strict pari-passu under Regulation 20(22), waiver of NISM certification requirement under Regulation 4(g)(i), and exclusion of AIs from the 1000-investor cap. (2) Large Value Fund (LVF) threshold per investor reduced from Rs 70 crore to Rs 25 crore (with the term 'LVF' now formally subsumed under AIOF in Regulation 13(5)). (3) Existing AIFs may convert to AIOF or LVF subject to investor consent and operational reporting requirements. (4) Angel funds restricted exclusively to AIs."
+    rule_pointer:
+      affected_entries: [sebi_010, sebi_011, sebi_014, sebi_017]
+      replaces_prior_regime: false
+      grandfathering: "existing AIFs may convert to AIOF subject to specified conditions and 15-day reporting; pre-existing LVFs at Rs 70 Cr threshold may convert to AIOF or operate under transitional framework"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Alternative Investment Funds) (Third Amendment) Regulations 2025 notified 2025-11-18; SEBI Circular dated 2025-12-08 on operational guidelines for AIOF migration"
+    effective_date: "2025-11-18"
+    confidence: authoritative
+    notes: "Substantial AIF framework reform. Important: the Third Amendment formally unified LVF under the AIOF umbrella (Regulation 13(5) replaced 'large value fund for accredited investors' with 'Accredited Investors only fund'). Source entries sebi_010 and sebi_011 currently frame these as separate categories; Step 8 cross-store consistency check may flag for v1.2 refinement of these entries to reflect the AIOF unification. For HNI case planning, the choice of regular AIF vs AIOF vs LVF subset is a structuring decision; AI status is a prerequisite for the latter two."
+
+# -----------------------------------------------------------------------------
+# CHG_012: Budget 2026 TCS rationalisation + Income Tax Act 2025 consolidation
+# -----------------------------------------------------------------------------
+
+  - entry_id: chg_012
+    topic: "Budget 2026 TCS rationalisation on LRS under new Income Tax Act 2025"
+    applicability:
+      affected_areas: [tax, lrs, foreign_remittance, gift_city_ifsca]
+      investor_types_affected: [individual]
+      residency: [resident]
+    change_summary: "Finance Act 2026 effective 2026-04-01 rationalised TCS on LRS remittances under Section 394 of the new Income Tax Act 2025 (which consolidates and replaces Section 206C(1G) of the Income Tax Act 1961). Material changes: (1) Education above Rs 10 lakh: TCS cut from 5 percent to 2 percent. (2) Medical above Rs 10 lakh: TCS cut from 5 percent to 2 percent. (3) Overseas tour packages: TCS flat 2 percent from first rupee, no threshold (replacing prior 5 percent up to Rs 10 lakh and 20 percent above). (4) Education loans under Section 80E: TCS zero (exempted). (5) Other remittances (foreign equity investment, real estate, etc.) above Rs 10 lakh: TCS 20 percent (unchanged). Form 27D replaced by Form 133 as TCS certificate. Rs 10 lakh aggregate threshold per FY across LRS retained (raised from Rs 7 lakh in Budget 2025)."
+    rule_pointer:
+      affected_entries: [gcr_001, gcr_002, gcr_005, gcr_007]
+      replaces_prior_regime: true
+      grandfathering: "TCS rates applicable based on transaction date; pre-2026-04-01 transactions retain prior TCS rates; new framework applies to transactions on or after 2026-04-01"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 2025, Section 394; Finance Act 2026 effective 2026-04-01"
+    effective_date: "2026-04-01"
+    confidence: authoritative
+    notes: "Operational easing for HNI cash flow on foreign remittance. The 20 percent TCS on investment-purpose LRS (foreign equity, real estate, GIFT City IFSC investments) remains the binding cash-flow consideration for HNI foreign-allocation decisions, but is creditable against ITR liability. The Income Tax Act 2025 consolidation is itself a structural development worth noting: it replaces the Income Tax Act 1961's scattered TCS provisions with a single Section 394 tabular format, simplifying compliance reasoning."
+
+# =============================================================================
+# END OF regulatory_changelog.yaml
+# Entry count: 12 entries, ordered ascending by effective_date
+#   2019: chg_001 listed equity demat mandate (2019-04-01)
+#   2020: chg_002 PMS Regulations 2020 overhaul (2020-01-16)
+#   2022: chg_003 IPO anchor lock-in 30/90 split (2022-04-01)
+#   2023: chg_004 AIF unit demat mandate (2023-01-01)
+#         chg_005 listed equity T+1 settlement (2023-01-27)
+#         chg_006 Section 50AA debt MF slab taxation (2023-04-01)
+#   2024: chg_007 AIF Master Circular + pro-rata (2024-05-07)
+#         chg_008 Budget 2024 capital gains overhaul (2024-07-23)
+#   2025: chg_009 SIF framework introduction (2025-04-01)
+#         chg_010 MCA Rule 9B private company demat (2025-06-30)
+#         chg_011 AIF Third Amendment (AIOF + LVF) (2025-11-18)
+#   2026: chg_012 Budget 2026 TCS rationalisation (2026-04-01)
+# Coverage target was 10-12; 12 lands at upper bound.
+#
+# Cumulative cross-reference resolution (51 references, all resolve):
+#   tax_matrix entries affected: cg_001, cg_002, cg_003, cg_005, cg_006, cg_007,
+#       idx_001, idx_002, idx_003, mf_001, mf_002, mf_003, sur_001 to sur_005,
+#       pmlt_001, pmlt_002
+#   sebi_boundaries entries affected: sebi_001 to sebi_007, sebi_010, sebi_011,
+#       sebi_014, sebi_016, sebi_017, sebi_019, sebi_020, sebi_021, sebi_022, sebi_023
+#   structure_matrix entries affected: str_001
+#   demat_mechanics entries affected: dem_001, dem_002, dem_003, dem_004, dem_009, dem_013
+#   gift_city_routing entries affected: gcr_001, gcr_002, gcr_005, gcr_007
+# =============================================================================

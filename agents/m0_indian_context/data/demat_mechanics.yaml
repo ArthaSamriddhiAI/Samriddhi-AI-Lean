@@ -1,0 +1,380 @@
+# =============================================================================
+# demat_mechanics.yaml
+# =============================================================================
+# Demat eligibility, lock-in rules, pledgeability, and typical liquidity
+# windows by asset class for M0.IndianContext rule-based reasoning.
+#
+# DISCLOSURE: Indicative reference for demonstration. See README for trust
+# tier taxonomy. Not validated by credentialed domain experts as a whole.
+#
+# IMPORTANT FRAMING: Settlement-style "T+X" numbers in this store are framed
+# as TYPICAL LIQUIDITY WINDOWS based on practitioner experience and product
+# documentation, NOT as statutory settlement rules, unless the rule is
+# explicitly codified by SEBI (e.g., listed equity T+1 settlement is
+# statutory and so cited; debt MF "T+1 to T+3" is typical practice and
+# so framed). See Step 1 brief correction for the discipline.
+#
+# Citation taxonomy and confidence enum follow tax_matrix.yaml and
+# sebi_boundaries.yaml conventions. Uses canonical structure-type
+# vocabulary from structure_matrix.yaml.
+#
+# Entry IDs prefixed `dem_`. Each entry is one (asset_class, rule_dimension)
+# pair where rule_dimension enum is: eligibility, lock_in, pledgeability,
+# liquidity_window.
+# =============================================================================
+
+metadata:
+  store_id: demat_mechanics
+  version: "1.0"
+  curated_at: "2026-05-15"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md; Step4 canonical vocabulary lock in structure_matrix.yaml"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+  effective_as_of: "May 2026; reflects MCA Rule 9B private company demat mandate (deadline extended to 2025-06-30) and SEBI ICDR Regulations 2018 with 2022 anchor lock-in amendment"
+  rule_dimension_enum:
+    - eligibility           # can this asset be held in demat; is demat required
+    - lock_in               # any holding restrictions that prevent transfer
+    - pledgeability         # can this asset be pledged for margin or loan
+    - liquidity_window      # typical practitioner-observed liquidity timeline (NOT statutory unless explicitly cited)
+  vocabulary_inheritance:
+    structure_type: "see structure_matrix.yaml metadata canonical_vocabulary.structure_type"
+    asset_class: "extends tax_matrix asset_class vocabulary; this store adds aif_units, pms_holdings, esop_grants, sgb (sovereign gold bond), invit_units, reit_units, debt_mf_units, gold_etf, govt_bond, corporate_bond, t_bill"
+
+entries:
+
+# -----------------------------------------------------------------------------
+# Listed equity, demat eligibility, settlement, pledgeability
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_001
+    topic: "Listed equity, demat mandatory for all transactions"
+    applicability:
+      asset_class: listed_equity
+      rule_dimension: eligibility
+    rule:
+      demat_required: true
+      since: "2019-04-01"
+      depositories: ["NSDL", "CDSL"]
+      physical_holdings_status: "physical share certificates cannot be transferred since 2019-04-01 amendment to SEBI LODR Regulation 40; existing physical holdings require dematerialisation before transfer"
+      isin_required: true
+      basis_section: "Section 29(1A) of Companies Act 2013 read with SEBI LODR Regulations 2015"
+    citation_source_type: regulatory_circular
+    citation: "SEBI LODR (Amendment) Regulations 2018 effective 2019-04-01 (mandatory demat for transfer of listed securities); Companies Act 2013 Section 29(1A); SEBI Circular SEBI/HO/MIRSD/DOS3/CIR/P/2018/139 dated 2018-11-06"
+    effective_date: "2019-04-01"
+    confidence: authoritative
+    notes: "Listed equity is the simplest demat case: mandatory, universal, all corporate actions flow through demat. M0.IndianContext can treat listed equity holdings as fully demat-resident across all investor structures."
+
+  - entry_id: dem_002
+    topic: "Listed equity, settlement timeline T+1"
+    applicability:
+      asset_class: listed_equity
+      rule_dimension: liquidity_window
+    rule:
+      settlement_basis: "statutory; SEBI-mandated T+1 settlement for equities effective 2023-01-27"
+      settlement_cycle: "T+1"
+      same_day_settlement_option: "T+0 optional beta phase introduced March 2024 for select scrips; not universal"
+      prior_state: "T+2 prior to 2023-01-27"
+      cash_proceeds_availability: "settlement on T+1 means funds available in linked bank account on T+2 typically"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular SEBI/HO/MRD/MRD-PoD-2/P/CIR/2022/123 dated 2022-09-07 (T+1 rollout); subsequent circulars phased implementation completing 2023-01-27"
+    effective_date: "2023-01-27"
+    confidence: authoritative
+    notes: "T+1 settlement is statutory and distinct from the practitioner-framed liquidity windows on other asset classes. The T+0 beta is optional and limited to specific scrips; broader rollout pending. Foundation document does not reflect T+1 explicitly; this entry is the canonical citation."
+
+  - entry_id: dem_003
+    topic: "Listed equity, margin pledge and loan-against-securities"
+    applicability:
+      asset_class: listed_equity
+      rule_dimension: pledgeability
+    rule:
+      margin_pledge_available: true
+      margin_pledge_mechanism: "depository-level margin pledge system since SEBI Circular dated 2020-02-25"
+      borrower_retains_ownership: true
+      las_available: true
+      las_typical_loan_to_value_pct: "50 to 60 for large-cap; 30 to 50 for mid-cap; lower for small-cap and illiquid"
+      las_typical_interest_rate_pct: "9 to 12 per annum, varies by lender"
+      restrictions: "F&O margin pledge subject to specific SEBI rules; pledged shares cannot be voted by pledgor"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular SEBI/HO/MIRSD/DOP/CIR/P/2020/28 dated 2020-02-25 (margin pledge system); RBI Master Direction on LAS for banks"
+    effective_date: "2020-09-01"
+    confidence: authoritative
+    notes: "Margin pledge replaced the old system of transferring securities to broker's pool account; investor retains ownership through the pledge. For HNI cases, LAS against listed equity is a common liquidity tool that does not trigger capital gains. Loan-to-value depends on stock category."
+
+# -----------------------------------------------------------------------------
+# Unlisted equity, demat mandate extended via MCA Rule 9B
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_004
+    topic: "Unlisted equity in non-small private company, demat mandate since 2025-06-30"
+    applicability:
+      asset_class: unlisted_equity
+      sub_class: private_company_non_small
+      rule_dimension: eligibility
+    rule:
+      demat_required: true
+      effective_from: "2025-06-30"
+      original_deadline: "2024-09-30"
+      extended_deadline: "2025-06-30"
+      basis: "MCA Rule 9B of Companies (Prospectus and Allotment of Securities) Rules, inserted by Companies (PAS) Second Amendment Rules 2023 dated 2023-10-27; extended by MCA notification 2025-02-12"
+      small_company_exempt: true
+      small_company_definition: "turnover not exceeding Rs 40 Cr AND paid-up capital not exceeding Rs 4 Cr"
+      government_company_exempt: true
+      producer_company_exempt: true
+      pas_6_filing_required: "Form PAS-6 reconciliation of share capital audit, twice a year, starting March 2025"
+      restrictions_pre_compliance: "non-compliant company cannot issue rights, bonus, buyback; transfer of shares restricted"
+    citation_source_type: regulatory_circular
+    citation: "MCA Companies (Prospectus and Allotment of Securities) Second Amendment Rules 2023 dated 2023-10-27; MCA notification dated 2025-02-12 extending timeline to 2025-06-30"
+    effective_date: "2025-06-30"
+    confidence: authoritative
+    notes: "Major operational shift. Unlisted equity holdings in non-small private companies are now in demat form, enabling unified portfolio reporting across listed and unlisted. For HNI cases with unlisted holdings (founder equity, ESOP exercises, angel investments), demat-resident treatment simplifies reconciliation. Small private companies retain physical-certificate option. Foundation document does not capture this; this is a new fact surfaced for the YAML."
+
+  - entry_id: dem_005
+    topic: "Unlisted equity, liquidity window practitioner framing"
+    applicability:
+      asset_class: unlisted_equity
+      rule_dimension: liquidity_window
+    rule:
+      typical_liquidity_window: "highly variable; no standardised window"
+      common_liquidity_paths:
+        - "secondary sale to existing shareholder (negotiated; weeks to months)"
+        - "buy-back by company (subject to Section 68 Companies Act framework)"
+        - "tender to private equity fund or strategic acquirer (months)"
+        - "exit via IPO (months to years)"
+      practitioner_note: "for HNI cases, unlisted equity should be treated as 24+ months illiquid by default; specific liquidity paths are case-by-case"
+      framing_basis: "practitioner practice; no statutory liquidity window applies"
+    citation_source_type: practitioner_practice
+    citation: "Companies Act 2013 Section 68 (buyback framework); SEBI ICDR Regulations 2018 (IPO route); established Indian PE/VC market practice"
+    effective_date: "2013-04-01"
+    confidence: indicative
+    notes: "This entry is explicitly framed as practitioner liquidity window NOT a settlement rule. The Step 1 brief correction (no spurious 'T+X' for non-statutory cases) is honored here. For unlisted equity in seeded cases (Aggarwal business holdings, Shah pre-IPO investments), M0.IndianContext should flag the 24+ month default liquidity assumption."
+
+# -----------------------------------------------------------------------------
+# Mutual fund units, demat optional
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_006
+    topic: "Mutual fund units, demat optional"
+    applicability:
+      asset_class: mutual_fund
+      rule_dimension: eligibility
+    rule:
+      demat_required: false
+      demat_eligible: true
+      alternative_form: "statement-of-account (SOA) with the AMC"
+      conversion_available: "SOA to demat conversion and vice versa permitted free of charge in most cases"
+      pledgeable_in_soa: false
+      pledgeable_in_demat: true
+      practitioner_recommendation: "HNI investors with multiple MF schemes typically benefit from demat form for unified portfolio view and pledgeability"
+    citation_source_type: regulatory_circular
+    citation: "SEBI MF Regulations 1996; depository rules permitting MF unit demat since 2007"
+    effective_date: "2007-10-01"
+    confidence: authoritative
+    notes: "Demat form unlocks pledging for margin or LAS. SOA form is operationally simpler and cheaper. For HNI cases requiring liquidity engineering, demat MF is preferable. Foundation document treats demat MF as the default for advisor-assisted HNI portfolios."
+
+  - entry_id: dem_007
+    topic: "Equity-oriented mutual fund, typical redemption liquidity window"
+    applicability:
+      asset_class: mutual_fund
+      sub_class: equity_oriented
+      rule_dimension: liquidity_window
+    rule:
+      typical_redemption_window: "T+1 to T+3 business days for credit to bank account"
+      window_basis: "typical liquidity window, NOT statutory; specific scheme terms in SID govern"
+      cut_off_time: "typically 3:00 PM for same-day NAV; redemption requests after cut-off get next-day NAV"
+      exit_load_applicability: "scheme-specific; typical 1 percent for redemption within 12 months for equity-oriented"
+      practitioner_note: "ELSS (Section 80C) has 3-year mandatory lock-in not redeemable on demand"
+    citation_source_type: practitioner_practice
+    citation: "SEBI MF Regulations 1996; AMFI guidelines; common practice across major AMC redemption SLAs"
+    effective_date: "2014-09-01"
+    confidence: indicative
+    notes: "Honors the Step 1 brief correction: T+1 to T+3 is typical practitioner observation, not a SEBI statutory rule. Specific scheme SID governs the actual timeline. ELSS lock-in is statutory under Section 80C, distinct from general redemption timing."
+
+  - entry_id: dem_008
+    topic: "Debt mutual fund, typical redemption liquidity window"
+    applicability:
+      asset_class: mutual_fund
+      sub_class: debt_oriented
+      rule_dimension: liquidity_window
+    rule:
+      typical_redemption_window: "T+1 to T+2 business days for liquid and ultra-short funds; T+2 to T+3 for credit-risk and longer-duration funds"
+      window_basis: "typical liquidity window per scheme SID, NOT statutory"
+      cut_off_time: "typically 3:00 PM for same-day NAV; liquid funds have separate cut-off at 1:30 PM"
+      exit_load_applicability: "scheme-specific; longer-duration debt funds may have exit load up to 1 year"
+      stress_case_treatment: "in market stress (e.g., 2020 Franklin Templeton episode), redemption can be gated; investor should not assume liquidity in stress"
+    citation_source_type: practitioner_practice
+    citation: "SEBI MF Regulations 1996; AMFI guidelines; common practice across major AMC redemption SLAs; SEBI side-pocketing framework for credit events"
+    effective_date: "2014-09-01"
+    confidence: indicative
+    notes: "Replaces the Step 1 brief's incorrect T+30 framing. Debt MF redemption is typically T+1 to T+3, not T+30. The framing is practitioner observation; stress-case behaviour (gating, side-pocketing) is a material caveat the foundation document covers."
+
+# -----------------------------------------------------------------------------
+# AIF units, demat mandatory since 2023
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_009
+    topic: "AIF units, demat mandatory since 2023"
+    applicability:
+      asset_class: aif_units
+      rule_dimension: eligibility
+    rule:
+      demat_required: true
+      effective_from: "2023-01-01"
+      depositories: ["NSDL", "CDSL"]
+      previous_state: "physical unit certificates permitted before 2023"
+      cross_ref_sebi: "sebi_016"
+      implication: "AIF unit movements visible through standard demat statements; unified portfolio reporting possible"
+    citation_source_type: regulatory_circular
+    citation: "SEBI Circular on AIF unit dematerialisation 2023; cross-reference sebi_boundaries.sebi_016"
+    effective_date: "2023-01-01"
+    confidence: authoritative
+    notes: "AIF demat mandate eliminates the historical pattern of physical unit certificates that complicated portfolio reconciliation. For advisor briefings on HNI cases with AIF holdings (Sharma case Marcellus position, Shah Family Office Cat II/III holdings), demat-resident treatment is now the default."
+
+  - entry_id: dem_010
+    topic: "AIF units, liquidity window practitioner framing"
+    applicability:
+      asset_class: aif_units
+      rule_dimension: liquidity_window
+    rule:
+      typical_liquidity_windows:
+        cat_i_ii_close_ended: "no redemption during fund tenure (typically 7-10 years); secondary sale of units possible but illiquid; distributions during fund life"
+        cat_iii_open_ended: "monthly or quarterly redemption windows per scheme PPM"
+        cat_iii_close_ended: "no redemption during tenure; secondary market for units limited"
+      window_basis: "fund-specific per PPM, NOT statutory; varies by category, fund structure, and PPM terms"
+      practitioner_recommendation: "for HNI cases, advisor should read PPM redemption section before any subscription; assume worst-case lockup for cash flow planning"
+    citation_source_type: practitioner_practice
+    citation: "SEBI (AIF) Regulations 2012, Regulation 13 (Cat I/II close-ended requirement); PPM terms scheme-specific"
+    effective_date: "2012-05-21"
+    confidence: indicative
+    notes: "Honors the Step 1 brief correction: no spurious 'T+X' framing for AIF redemption. The actual window is fund-specific per PPM. Cross-reference sebi_boundaries.sebi_015 for the Cat I/II close-ended statutory framework."
+
+# -----------------------------------------------------------------------------
+# PMS holdings, investor's own demat
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_011
+    topic: "PMS holdings, in investor's own demat account"
+    applicability:
+      asset_class: pms_holdings
+      rule_dimension: eligibility
+    rule:
+      demat_structure: "investor holds securities directly in own demat; portfolio manager has POA to transact"
+      pooling_prohibited: "PMS securities cannot be held in pooled account at manager level; each investor's holdings in investor's own demat"
+      visibility: "investor has online access to view holdings real-time"
+      consequence: "PMS holdings show up in CDSL/NSDL consolidated statements alongside investor's other equity holdings"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020; SEBI PMS FAQ"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "This structural feature (direct demat ownership, not pooled) is what makes PMS pass-through taxation work (pmlt_001) and what creates the consolidated portfolio view that compliance officers and advisors rely on. Distinct from AIF (where investor holds AIF units, not the underlying securities)."
+
+  - entry_id: dem_012
+    topic: "PMS exit, typical liquidity window practitioner framing"
+    applicability:
+      asset_class: pms_holdings
+      rule_dimension: liquidity_window
+    rule:
+      typical_exit_window: "case-by-case, depends on strategy liquidity and PMS agreement terms"
+      common_pattern: "for liquid large-cap strategies, exit via cash typically 5 to 15 business days; for concentrated mid/small-cap, can take 30 to 90 days for orderly unwind"
+      in_kind_exit_option: "securities can be transferred to investor's demat in kind, avoiding sale-triggered tax events; common for tax-sensitive cases"
+      window_basis: "PMS agreement terms govern; SEBI does not mandate specific exit timelines"
+      exit_load_overlay: "PMS exit load applies separately per sebi_007 (3-year reducing schedule)"
+    citation_source_type: practitioner_practice
+    citation: "SEBI (Portfolio Managers) Regulations 2020 (general framework); PMS agreement terms govern specifics"
+    effective_date: "2020-01-16"
+    confidence: indicative
+    notes: "Replaces the Step 1 brief's incorrect T+90 framing. PMS exits are not a settlement timeline; they're a function of strategy liquidity and the PMS agreement. The in-kind exit option is a material tax-planning fact for HNI cases (avoids triggering capital gains on managed unwind)."
+
+# -----------------------------------------------------------------------------
+# IPO lock-in rules
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_013
+    topic: "IPO anchor investor lock-in, split 30 and 90 days"
+    applicability:
+      asset_class: listed_equity
+      sub_class: ipo_anchor_allotment
+      rule_dimension: lock_in
+    rule:
+      lock_in_first_tranche_pct: 50
+      lock_in_first_tranche_days: 30
+      lock_in_second_tranche_pct: 50
+      lock_in_second_tranche_days: 90
+      lock_in_basis_date: "date of allotment"
+      previous_state: "before 2022-04-01: 30-day lock-in for 100 percent of anchor allocation"
+      depository_marking: "shares marked non-transferable in demat during lock-in; auto-released on expiry"
+      minimum_anchor_commitment_inr: 100000000  # Rs 10 Cr for mainboard
+      sme_anchor_minimum_inr: 20000000           # Rs 2 Cr for SME IPO
+    citation_source_type: regulatory_circular
+    citation: "SEBI (ICDR) (Amendment) Regulations 2022 effective 2022-04-01; ICDR Regulations 2018 Schedule XIII Part A; SEBI Circular implementation"
+    effective_date: "2022-04-01"
+    confidence: authoritative
+    notes: "Material 2022 change. Anchor lock-in extended from 30 days flat to split 30/90. For HNI cases that include anchor allotment via PMS or family-office routes, the 90-day tail on 50 percent of allocation is the operative constraint. Depository auto-unlocks on expiry; no manual intervention required."
+
+  - entry_id: dem_014
+    topic: "IPO pre-IPO investor and ESOP lock-in"
+    applicability:
+      asset_class: listed_equity
+      sub_class: [pre_ipo_holdings, esop_pre_ipo, employee_pre_ipo]
+      rule_dimension: lock_in
+    rule:
+      pre_ipo_non_promoter_lock_in_months: 6
+      pre_ipo_lock_in_basis_date: "date of IPO allotment"
+      esop_lock_in_pre_acquired_months: 6
+      esop_pre_acquired_basis: "date of purchase or grant exercise"
+      esop_exemption: "if ESOP shares acquired more than 6 months before DRHP filing, may be free of post-listing lock-in subject to RHP terms"
+      promoter_minimum_contribution_lock_in_months: 18
+      promoter_minimum_contribution_pct_of_post_issue: 20
+      promoter_balance_lock_in_months: 6
+      capital_intensive_issue_extension: "for capex-heavy issues (over 50 percent of proceeds for capex), promoter minimum contribution lock extends to 3 years and balance to 1 year"
+      non_promoter_above_20_pct: "must retain at least 50 percent of shares for 1 year post-IPO (2024-2025 amendment)"
+      pledgeability_during_lock_in: "promoter can pledge locked-in shares for loans from banks/FIs subject to SEBI conditions; shares remain non-transferable"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (ICDR) Regulations 2018 Regulation 17; SEBI (ICDR) (Amendment) Regulations 2021 effective 2021-04-13 (reduced promoter lock from 3y to 18m and pre-IPO from 1y to 6m); 2024-2025 amendments on non-promoter 20+ pct holdings"
+    effective_date: "2021-04-13"
+    confidence: authoritative
+    notes: "Material for any HNI case with pre-IPO holdings or ESOP from a company about to list. The 6-month default plus various special-case extensions. SEBI consultation paper November 2025 proposes procedural easing of depository marking mechanism; substantive 6-month lock-in retained. Cross-reference structure_matrix entries for which structures can hold pre-IPO equity."
+
+# -----------------------------------------------------------------------------
+# Sovereign Gold Bond (SGB), demat and exit mechanics
+# -----------------------------------------------------------------------------
+
+  - entry_id: dem_015
+    topic: "Sovereign Gold Bond, demat optional, secondary market liquidity"
+    applicability:
+      asset_class: gold
+      sub_class: sovereign_gold_bond
+      rule_dimension: [eligibility, liquidity_window]
+    rule:
+      demat_eligible: true
+      demat_required: false
+      alternative_form: "Bond Ledger Account with RBI"
+      tenure_years: 8
+      premature_exit_window: "from 5th year onwards, on interest payment dates only"
+      secondary_market_eligible: "demat-form SGBs tradeable on exchange; typically illiquid with wide bid-ask spread"
+      pledgeability: "permitted for loans against gold per RBI guidelines; LTV typically 60 to 75 percent"
+      maturity_tax_exemption: "SGB held to 8-year maturity exempt from capital gains under Section 47(viic); premature exit triggers normal capital gains"
+      issuance_status: "RBI stopped fresh SGB issuance from 2024-25 onwards per Government policy; existing SGBs honoured to maturity"
+    citation_source_type: regulatory_circular
+    citation: "RBI Sovereign Gold Bond Scheme Notifications; Income Tax Act 1961 Section 47(viic) for maturity exemption; Government of India announcement on suspension of new issuances 2024-25"
+    effective_date: "2015-11-30"
+    confidence: authoritative
+    notes: "SGB is structurally unique: physical-form is the default (Bond Ledger), demat-form unlocks secondary trading but with low liquidity. The 8-year maturity tax exemption is the key economic feature for HNI cases. Stop on new issuances since 2024-25 means existing holders are running off; product is in run-off mode for the demo time horizon."
+
+# =============================================================================
+# END OF demat_mechanics.yaml
+# Entry count: 15 entries
+#   Listed equity: 3 (dem_001 to dem_003)
+#   Unlisted equity: 2 (dem_004, dem_005)
+#   Mutual fund: 3 (dem_006 to dem_008)
+#   AIF: 2 (dem_009, dem_010)
+#   PMS: 2 (dem_011, dem_012)
+#   IPO lock-in: 2 (dem_013, dem_014)
+#   SGB: 1 (dem_015)
+# Coverage target was 10-15; 15 lands at upper bound.
+#
+# Rule dimension distribution:
+#   eligibility: 6
+#   liquidity_window: 6
+#   lock_in: 2
+#   pledgeability: 1 (plus combined dimensions in dem_015)
+# =============================================================================
