@@ -11,23 +11,14 @@
  */
 
 import type { Proposal } from "../proposal";
+import type { IndianContextSummary } from "../m0-indian-context";
 
-/* Placeholder for M0.IndianContext output. Commit 3 (blocked on
- * Workstream C YAML knowledge stores) replaces this with the
- * deterministic schema derived from the curated stores. Until then,
- * commits 4-7 carry IndianContext as a nullable optional context
- * field; agents include it in their prompts when present and proceed
- * without it when null. BUILD_NOTES at slice close documents this
- * soft dependency. */
-export type IndianContextSummary = {
-  tax_structure?: string;
-  lock_in_mechanics?: string;
-  regulatory_eligibility?: string;
-  surcharge_implications?: string;
-  structure_specific_considerations?: string;
-  /** Escape hatch for fields the commit-3 schema may introduce. */
-  raw?: Record<string, unknown>;
-};
+/* M0.IndianContext output. The Slice 3 placeholder is superseded: the
+ * curated deterministic schema now lives with the agent in
+ * lib/agents/m0-indian-context.ts (Workstream C closed 2026-05-17,
+ * DEFERRED item 6 resolved). Re-exported here so existing call sites
+ * importing the type from case-context keep resolving. */
+export type { IndianContextSummary };
 
 export type CaseAgentContext = {
   caseId: string;
@@ -65,15 +56,42 @@ export function formatProposalBlock(p: Proposal): string {
 
 export function formatIndianContextBlock(ic: IndianContextSummary | null): string {
   if (!ic) {
-    return "INDIAN CONTEXT\nNot yet integrated (Slice 3 commit 3 pending Workstream C YAML curation). Proceed using investor mandate, structure, and product-category defaults.";
+    return "INDIAN CONTEXT\nNot available for this case. Proceed using investor mandate, structure, and product-category defaults.";
   }
-  const lines: string[] = ["INDIAN CONTEXT"];
-  if (ic.tax_structure) lines.push(`Tax structure: ${ic.tax_structure}`);
-  if (ic.lock_in_mechanics) lines.push(`Lock-in mechanics: ${ic.lock_in_mechanics}`);
-  if (ic.regulatory_eligibility) lines.push(`Regulatory eligibility: ${ic.regulatory_eligibility}`);
-  if (ic.surcharge_implications) lines.push(`Surcharge implications: ${ic.surcharge_implications}`);
-  if (ic.structure_specific_considerations) {
-    lines.push(`Structure-specific considerations: ${ic.structure_specific_considerations}`);
+  const lines: string[] = [
+    "INDIAN CONTEXT",
+    `Source: M0.IndianContext (deterministic; curated YAML stores tax_matrix v${ic.store_versions.tax_matrix}, sebi_boundaries v${ic.store_versions.sebi_boundaries}, structure_matrix v${ic.store_versions.structure_matrix}, demat_mechanics v${ic.store_versions.demat_mechanics}, gift_city_routing v${ic.store_versions.gift_city_routing}, regulatory_changelog v${ic.store_versions.regulatory_changelog}). Indicative reference data; not validated by credentialed domain experts as a whole.`,
+    `Investor structure: ${ic.investor_structure.structure_type} / ${ic.investor_structure.residency}${ic.investor_structure.legacy_alias_applied ? ` (alias: ${ic.investor_structure.legacy_alias_applied})` : ""}`,
+    `Tax structure: ${ic.tax_structure}`,
+    `Surcharge implications: ${ic.surcharge_implications}`,
+    `Lock-in mechanics: ${ic.lock_in_mechanics}`,
+    `Regulatory eligibility: ${ic.regulatory_eligibility}`,
+    `Structure-specific considerations: ${ic.structure_specific_considerations}`,
+  ];
+  if (ic.sebi_minimums.length > 0) {
+    lines.push(
+      `SEBI minimum tickets: ${ic.sebi_minimums
+        .map(
+          (m) =>
+            `${m.product} Rs ${(m.min_ticket_inr / 100000).toFixed(0)} lakh [${m.source_entry_id}, ${m.confidence}]`,
+        )
+        .join("; ")}`,
+    );
+  }
+  if (ic.applicable_regulatory_changes.length > 0) {
+    lines.push(
+      `Time-aware regulatory events on/before the decision date: ${ic.applicable_regulatory_changes
+        .map((c) => `${c.entry_id} ${c.topic} (eff ${c.effective_date})`)
+        .join("; ")}`,
+    );
+  }
+  if (ic.indicative_flags.length > 0) {
+    lines.push(
+      `Indicative-confidence framings (treat as practitioner practice, not authoritative): ${ic.indicative_flags.join(" | ")}`,
+    );
+  }
+  if (ic.edge_cases_flagged.length > 0) {
+    lines.push(`Edge cases flagged: ${ic.edge_cases_flagged.join(" | ")}`);
   }
   return lines.join("\n");
 }

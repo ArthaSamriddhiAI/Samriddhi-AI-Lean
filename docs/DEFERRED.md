@@ -6,6 +6,8 @@ The trigger prompts assume the responder will read this document for context. Th
 
 **Cleared in deferred workstream cleanup, 2026-05-15, pre-Slice-4.5 design preparation: items 1, 2, 3, 12.**
 
+**Cleared in the M0.IndianContext integration workstream, 2026-05-17 (branch `features/m0-indian-context`): item 6. Workstream C closed; the six curated YAML stores are wired deterministically into the Samriddhi 1 pipeline and governance, and the Sharma IC1 deliberation is re-grounded. See `docs/BUILD_NOTES_M0_INDIAN_CONTEXT.md`.**
+
 ## Deferred from Slice 2
 
 ### 1. Five-case batch generation (originally commit 20) **[RESOLVED 2026-05-15]**
@@ -88,7 +90,9 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Implement streaming reasoning output per the deferred Slice 2 Q1 framing. Per-agent completion surfaces in the generating screen via server-sent events. Parallel dispatch must already be active.
 
-### 6. M0.IndianContext activation (blocked on Workstream C)
+### 6. M0.IndianContext activation (blocked on Workstream C) **[RESOLVED 2026-05-17]**
+
+**Resolution.** Workstream C closed (six curated YAML stores, 107 entries). The deterministic agent `lib/agents/m0-indian-context.ts` wires the stores into the Samriddhi 1 pipeline after M0.Router and before evidence agents and gates; the placeholder schema is superseded; G2 grounds its SEBI minimum-ticket reference data in `sebi_boundaries` (verdicts unchanged, now sebi_001-cited); the Sharma fixture carries `indian_context` and re-grounded gates; the Sharma IC1 was re-run live so the Risk Assessor and Counterfactual Engine reason with full context (sentinels cleared). E1-E7 do not consume the bundle (verified). No governance verdict shifted so no S1 re-run was needed. Full detail in `docs/BUILD_NOTES_M0_INDIAN_CONTEXT.md`. Original entry retained below for provenance.
 
 **What.** The `agents/m0_indian_context.md` skill is lifted but not wired. It carries tax and regulatory framing (NRE-resident conversion, HUF eligibility, LTCG step-up at inheritance) sourced from six YAML knowledge stores (tax_matrix, structure_matrix, sebi_boundaries, gift_city_routing, demat_mechanics, regulatory_changelog).
 

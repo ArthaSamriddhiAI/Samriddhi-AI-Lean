@@ -1,0 +1,306 @@
+# =============================================================================
+# gift_city_routing.yaml
+# =============================================================================
+# Foreign-exposure routing, FEMA, IFSCA/GIFT City, NRE/NRO/PIS, and FATCA
+# routing alternatives for M0.IndianContext rule-based reasoning.
+#
+# DISCLOSURE: Indicative reference for demonstration. See README for trust
+# tier taxonomy. Not validated by credentialed domain experts as a whole.
+#
+# Citation taxonomy and confidence enum follow tax_matrix.yaml and
+# sebi_boundaries.yaml conventions. Uses canonical structure-type
+# vocabulary from structure_matrix.yaml.
+#
+# Entry IDs prefixed `gcr_`.
+# =============================================================================
+
+metadata:
+  store_id: gift_city_routing
+  version: "1.0"
+  curated_at: "2026-05-15"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md; Step4 canonical vocabulary lock in structure_matrix.yaml"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+  effective_as_of: "May 2026; reflects Budget 2026 TCS rationalisation (effective 2026-04-01 under Section 394 of Income Tax Act 2025), IFSCA AIF minimum reduction from USD 150,000 to USD 75,000 (Feb 2025), and current LRS framework"
+
+entries:
+
+# -----------------------------------------------------------------------------
+# LRS framework, central to all resident individual foreign exposure
+# -----------------------------------------------------------------------------
+
+  - entry_id: gcr_001
+    topic: "LRS annual limit, resident individual, FY 2026-27"
+    applicability:
+      structure_type: individual
+      residency: resident
+      routing_path: lrs
+      transaction_type: outward_remittance
+    rule:
+      annual_limit_usd: 250000
+      financial_year_basis: "April 1 to March 31"
+      aggregation: "across all authorized dealers, all purposes, all banks; PAN-tracked"
+      eligible_purposes:
+        - "investment in foreign securities, real estate, or businesses"
+        - "education abroad"
+        - "medical treatment abroad"
+        - "overseas tour packages"
+        - "gifts and donations"
+        - "maintenance of close relatives abroad"
+      prohibited_purposes:
+        - "cryptocurrency or virtual digital asset acquisition"
+        - "lottery, gambling, betting"
+        - "purchase of FCCBs of Indian companies in secondary market"
+        - "margin trading abroad"
+      structure_exclusions:
+        - huf
+        - private_discretionary_trust
+        - charitable_trust
+        - partnership_firm
+        - llp
+        - private_limited_company
+        - public_limited_company
+      carry_forward: false
+      minors_eligible: "yes, with guardian; minor's LRS limit is distinct from guardian's"
+      family_pooling: "permitted only when each member independently complies; pooled investment must name all members as co-owners with proportional contribution traceable"
+    citation_source_type: regulatory_circular
+    citation: "RBI Master Direction on Liberalised Remittance Scheme (Master Direction No. 7/2015-16, as amended through 2024); FEMA 1999 framework; verified against RBI publications on 2026-05-15"
+    effective_date: "2015-04-01"
+    confidence: authoritative
+    notes: "Verified figure: USD 250,000 per individual per FY. The structure_exclusions list is structurally critical: HUF, trusts, partnerships, LLPs, and corporates cannot use LRS. These structures must use Overseas Direct Investment (ODI) or other FEMA routes for foreign remittances. Cross-reference structure_matrix str_002 (NRI), str_003 (HUF), str_007 (Pvt Ltd), str_008 (LLP) for the structure-specific routing implications."
+
+  - entry_id: gcr_002
+    topic: "TCS on LRS remittances, post Budget 2026"
+    applicability:
+      structure_type: individual
+      residency: resident
+      routing_path: lrs
+      regime_basis: "Income Tax Act 2025, Section 394 (replaces Section 206C(1G) of Income Tax Act 1961)"
+    rule:
+      threshold_inr_aggregate_per_fy: 1000000
+      threshold_basis: "Rs 10 lakh aggregate across LRS in a financial year; tracked by Form 15CC for authorized dealers"
+      tcs_rates_effective_2026_04_01:
+        education_above_threshold_pct: 2
+        education_below_threshold_pct: 0
+        education_loan_section_80e_pct: 0
+        medical_above_threshold_pct: 2
+        medical_below_threshold_pct: 0
+        overseas_tour_package_flat_pct: 2
+        overseas_tour_package_threshold: "no threshold; flat from first rupee"
+        other_remittances_above_threshold_pct: 20
+        other_remittances_below_threshold_pct: 0
+      prior_state_pre_2026_04_01:
+        education_above_threshold_pct: 5
+        medical_above_threshold_pct: 5
+        overseas_tour_below_10l_pct: 5
+        overseas_tour_above_10l_pct: 20
+        other_remittances_above_threshold_pct: 20
+        threshold_basis_prior: "Rs 10 lakh from Budget 2025 (previously Rs 7 lakh in earlier years)"
+      tcs_creditable: "TCS is creditable against final income tax liability via ITR; reflected in Form 26AS and Form 133 (replacing Form 27D); not an additional tax"
+      gst_applicability_on_tcs: "no GST on TCS itself; GST applies on currency conversion service charge separately"
+    citation_source_type: regulatory_circular
+    citation: "Income Tax Act 2025, Section 394; Finance Act 2026 (effective 2026-04-01); Standard Chartered LRS TCS implementation notice 2026; verified against multiple bank/tax-advisory publications on 2026-05-15"
+    effective_date: "2026-04-01"
+    confidence: authoritative
+    notes: "Material Budget 2026 change. The 75 percent reduction in education and medical TCS (5 to 2 percent) and the unified flat 2 percent for tour packages are operational easings for HNI cash flow planning. Other remittances (foreign equity investment, real estate abroad) retain 20 percent TCS above Rs 10 lakh; this is the operative TCS rate for HNI foreign-equity allocation under LRS. Cross-reference regulatory_changelog Step 7 for the Budget 2026 TCS rationalisation as a tracked regulatory change."
+
+# -----------------------------------------------------------------------------
+# NRI routing framework, NRE/NRO/PIS
+# -----------------------------------------------------------------------------
+
+  - entry_id: gcr_003
+    topic: "NRE and NRO account routing for NRI investor flows"
+    applicability:
+      structure_type: individual
+      residency: non_resident
+      routing_path: nre_nro
+    rule:
+      nre_account:
+        full_name: "Non-Resident External account"
+        currency: INR
+        source_of_funds: "foreign income only; cannot accept Indian-source income"
+        principal_repatriability: "fully repatriable"
+        interest_repatriability: "fully repatriable"
+        interest_taxability_in_india: "exempt under Section 10(4)(ii)"
+        joint_holding: "with another NRI permitted; with resident only on former-or-survivor basis"
+      nro_account:
+        full_name: "Non-Resident Ordinary account"
+        currency: INR
+        source_of_funds: "Indian-source income (rent, dividend, pension, capital gains) and foreign income"
+        principal_repatriability: "limited to USD 1 million per FY net of taxes"
+        interest_repatriability: "fully repatriable subject to TDS"
+        interest_taxability_in_india: "taxable at slab rate plus TDS"
+        joint_holding: "with NRI or resident permitted"
+      pis_account:
+        full_name: "Portfolio Investment Scheme account"
+        purpose: "RBI-routed account for NRI investments in Indian stock market"
+        linked_to: "either NRE (repatriable PIS) or NRO (non-repatriable PIS)"
+        single_designated_bank: "NRI must designate one bank for all PIS transactions in India; only one PIS account permitted per NRI"
+        applicable_to: "secondary market purchase and sale of listed Indian equity; primary market IPO subscription"
+        not_required_for: "mutual fund subscription; debt instruments; non-PIS routes"
+      fema_compliance: "NRI must report Indian-source income via NRO; foreign income may flow through NRE; mixing prohibited"
+    citation_source_type: regulatory_circular
+    citation: "RBI Master Direction on Deposits and Accounts (Master Direction No. 14/2015-16); RBI Master Direction on Foreign Investment in India; FEMA 1999"
+    effective_date: "2015-01-01"
+    confidence: authoritative
+    notes: "The NRE/NRO/PIS triad is the operational plumbing for NRI investment in India. For HNI NRI cases, advisor must map source of funds to correct account type; mixing creates compliance issues. PIS is mandatory for secondary market equity but NOT for MF subscription, which is a common confusion. Cross-reference structure_matrix str_002 for NRI product eligibility."
+
+  - entry_id: gcr_004
+    topic: "NRI repatriation limits and tax treatment overlay"
+    applicability:
+      structure_type: individual
+      residency: non_resident
+      routing_path: nri_repatriation
+    rule:
+      nro_repatriation_limit_usd_per_fy: 1000000
+      nro_repatriation_basis: "net of applicable taxes; per NRI, not per account"
+      nre_repatriation: "fully repatriable, no limit; principal and interest both"
+      certificate_required: "Form 15CA and Form 15CB (CA certificate) for remittances; Form 15CB exempt for remittances up to Rs 5 lakh per transaction"
+      sale_proceeds_of_immovable_property: "up to two residential properties; subject to NRO repatriation limit"
+      sale_proceeds_of_assets_inherited: "fully repatriable subject to documentation"
+      tds_overlay: "TDS under Section 195 applies to most NRI income; TDS rates may differ from final tax liability; refund via ITR"
+      dtaa_overlay: "applicable DTAA may reduce TDS rate; requires Tax Residency Certificate and Form 10F"
+    citation_source_type: regulatory_circular
+    citation: "RBI Master Direction on Remittance of Assets (Master Direction No. 13/2015-16); CBDT notifications on Form 15CA/15CB; Income Tax Act 1961 Section 195"
+    effective_date: "2015-01-01"
+    confidence: authoritative
+    notes: "USD 1 million per FY NRO repatriation cap is the binding constraint for most NRI cases. The Form 15CA/CB compliance is operational; CB certification from Indian CA is required for non-exempt remittances. Cross-reference tax_matrix.nri_treaty entries (nri_002 to nri_005) for DTAA specifics by country."
+
+# -----------------------------------------------------------------------------
+# GIFT City IFSCA framework
+# -----------------------------------------------------------------------------
+
+  - entry_id: gcr_005
+    topic: "GIFT City IFSCA framework, resident investor access via LRS"
+    applicability:
+      structure_type: individual
+      residency: resident
+      routing_path: ifsc_via_lrs
+    rule:
+      regulatory_authority: "International Financial Services Centres Authority (IFSCA), established 2020-04-27"
+      jurisdiction_classification: "deemed offshore for FEMA purposes; physically located in Gandhinagar, Gujarat"
+      access_route_for_residents: "LRS only; subject to USD 250,000 annual limit per individual"
+      foreign_currency_account: "resident individual may open Foreign Currency Account (FCA) at IFSC Banking Unit; idle FCA funds beyond 15 days must repatriate to domestic INR account"
+      qualified_investor_threshold_usd: 1000000
+      qualified_investor_basis: "net worth at least USD 1 million; enables certain banking and investment products"
+      eligible_investments:
+        - "IFSC-listed stocks (India INX, NSE IX exchanges)"
+        - "IFSC-domiciled mutual funds and AIFs"
+        - "Foreign equities accessible through IFSC brokers (US, UK, etc.)"
+        - "Bullion via India International Bullion Exchange (IIBX)"
+        - "IFSC bonds and debt instruments"
+      ineligible_investments:
+        - "cryptocurrencies or virtual digital assets"
+        - "securities issued by entities resident in India outside IFSC"
+      tax_treatment_overlay: "GIFT City investments are foreign assets for ITR disclosure (Schedule FA); GST exemption on IFSC intermediary services; certain IFSC products enjoy specific tax exemptions under Section 47/Section 10"
+      tcs_on_lrs_to_gift_city: "TCS at 20 percent on remittances above Rs 10 lakh; treated as 'other remittance' purpose, not education or medical"
+    citation_source_type: regulatory_circular
+    citation: "International Financial Services Centres Authority Act 2019; IFSCA (Banking) Regulations 2020; RBI Circular permitting LRS to IFSC dated 2021; verified against IFSCA publications on 2026-05-15"
+    effective_date: "2020-04-27"
+    confidence: authoritative
+    notes: "GIFT City IFSCA is the central offshore-onshore bridge for HNI cases. For Sharma case and seeded investors evaluating global diversification, IFSC route offers regulatory clarity, USD denomination, and unified IFSCA oversight (no juggling SEBI/RBI/IRDAI separately). The 20 percent TCS overlay on investment-purpose LRS to IFSC is a cash-flow consideration but creditable against ITR liability. Foundation document pms_aif_advisory_reference_v2.md does not cover GIFT City in detail."
+
+  - entry_id: gcr_006
+    topic: "GIFT City AIF minimum investment, post Feb 2025 reduction"
+    applicability:
+      structure_type: [individual, family_trust, llp, private_limited_company]
+      residency: [resident, non_resident]
+      routing_path: ifsc_aif
+    rule:
+      minimum_per_investor_usd: 75000
+      prior_minimum_usd: 150000
+      revision_date: "2025-02-01"
+      revision_basis: "IFSCA Fund Management Regulations amended February 2025"
+      manager_employee_minimum_usd: 25000
+      typical_lock_in_years: 3
+      categories: ["I", "II", "III"]
+      pms_minimum_proposed_usd: 75000
+      ifsca_minimum_corpus_reduction: "fund-level minimum corpus reduced from USD 5 million to USD 3 million; open-ended funds can commence with USD 1 million and scale to USD 3 million within 12 months"
+    citation_source_type: regulatory_circular
+    citation: "IFSCA (Fund Management) Regulations amended February 2025; IFSCA notifications 2025; cross-reference sebi_boundaries.sebi_009 for domestic AIF minimum framework"
+    effective_date: "2025-02-01"
+    confidence: authoritative
+    notes: "Material 2025 change. IFSCA halved the AIF minimum to make GIFT City more accessible to HNI investors. For comparison: domestic AIF minimum is Rs 1 Cr (approximately USD 120,000 at current rates); IFSCA AIF minimum is USD 75,000 (approximately Rs 62 lakh). The IFSCA route is now structurally more accessible than the domestic route in INR terms, plus offers USD denomination. Cross-reference structure_matrix str_007 / str_008 for corporate access; family_trust eligible per AI status."
+
+# -----------------------------------------------------------------------------
+# US-listed equity routing for resident individuals
+# -----------------------------------------------------------------------------
+
+  - entry_id: gcr_007
+    topic: "US-listed equity, resident individual routing options"
+    applicability:
+      structure_type: individual
+      residency: resident
+      routing_path: [lrs_direct_us, lrs_ifsc_feeder, opi_via_indian_mf]
+    rule:
+      route_1_lrs_direct_us_brokerage:
+        description: "open account with US brokerage (Interactive Brokers, etc.); remit via LRS"
+        annual_limit_usd: 250000
+        tcs_overlay_pct: 20
+        tcs_threshold_inr: 1000000
+        currency_held: USD
+        tax_treatment: "FTC for any US withholding; Indian capital gains tax per cg_007 (12.5 percent LTCG without indexation if held 24+ months)"
+        operational_complexity: "moderate; investor manages own US tax filings (none typically required for capital gains by non-resident alien except W-8BEN)"
+        suitability: "investor comfortable with US tax framework and willing to handle reporting"
+      route_2_lrs_via_ifsc_feeder:
+        description: "invest via IFSC-domiciled outbound fund that holds US equities (e.g., PPFAS GIFT City fund)"
+        annual_limit_usd: 250000
+        tcs_overlay_pct: 20
+        tcs_threshold_inr: 1000000
+        currency_held: USD
+        tax_treatment: "fund-level taxation under IFSC regime; investor receives after-tax proceeds; simpler ITR compliance"
+        operational_complexity: "low; mutual-fund-like simplicity"
+        suitability: "investor seeking global exposure with operational ease"
+      route_3_opi_or_indian_mf_with_foreign_exposure:
+        description: "subscribe to Indian-domiciled mutual fund that invests in foreign equity (subject to SEBI overseas cap of USD 7 billion total for industry)"
+        annual_limit_no_lrs: "not LRS-dependent; INR investment in Indian MF"
+        tcs_overlay: "none, INR investment within India"
+        currency_held: INR
+        tax_treatment: "Indian MF tax treatment per mf_classification; capital gains in INR"
+        operational_complexity: "low; standard MF subscription"
+        constraint: "SEBI industry cap of USD 7 billion has been hit; new foreign-equity-invested MF schemes paused or limited"
+        suitability: "investor wanting INR-denominated exposure to global equity without LRS or USD account management"
+    citation_source_type: regulatory_circular
+    citation: "RBI LRS Master Direction; IFSCA Banking Regulations 2020; SEBI overseas investment caps for MFs; Income Tax Act 1961 Section 90/91 for FTC; Section 47 for IFSC tax exemptions"
+    effective_date: "2021-04-01"
+    confidence: authoritative
+    notes: "Three distinct routes with different cost, complexity, and tax profiles. The Indian-MF route (Route 3) is constrained by SEBI's USD 7 billion industry cap which has been hit; new schemes paused. The IFSC feeder route (Route 2) is the emerging structural alternative for HNI cases seeking operational simplicity. Direct US brokerage (Route 1) offers maximum control but most complex compliance. Cross-reference tax_matrix.cg_007 for foreign equity LTCG treatment."
+
+# -----------------------------------------------------------------------------
+# US Person FATCA routing constraints
+# -----------------------------------------------------------------------------
+
+  - entry_id: gcr_008
+    topic: "US Person FATCA routing, structural alternatives where India PMS/AIF declined"
+    applicability:
+      structure_type: individual
+      residency: non_resident
+      us_person_status: true
+      routing_path: fatca_compliant
+    rule:
+      india_product_decline_baseline: "most Indian PMS, AIF Cat I/II/III decline US Persons due to FATCA compliance burden per structure_matrix str_009"
+      gift_city_pfic_constraint: "GIFT City mutual funds and AIFs typically trigger US PFIC treatment under IRC Section 1297; Form 8621 filings mandatory; mark-to-market adverse taxation"
+      fbar_reporting_threshold_usd: 10000
+      fbar_basis: "aggregate foreign account balances; reported on FinCEN Form 114"
+      compliant_alternative_routes:
+        - "direct US-domiciled ETF holding Indian equity (e.g., INDA, EPI) avoids PFIC for US Person"
+        - "GIFT City products structured as US-compliant (rare; specific products with FATCA-friendly structure)"
+        - "Indian listed equity via PIS account, with US Person KYC accepted (some brokers; not universal)"
+      structural_recommendation: "specialized cross-border advisor required; standard HNI advisory inadequate for US Person clients with material India exposure"
+      tax_overlay: "US worldwide income taxation applies; India-US DTAA per nri_002 governs treaty relief"
+    citation_source_type: regulatory_circular
+    citation: "US-India FATCA Intergovernmental Agreement signed 2015-07-09; US IRC Sections 1471-1474 (FATCA), 1297 (PFIC); FinCEN Form 114 FBAR requirements"
+    effective_date: "2015-09-30"
+    confidence: authoritative
+    notes: "US Person status is a hard constraint that severely limits standard India HNI advisory product set. The PFIC overlay on Indian MFs/AIFs makes most Indian pooled vehicles tax-inefficient for US Persons regardless of FATCA acceptance. US-domiciled India-exposure ETFs (INDA, EPI, etc.) are the cleanest workaround for US Persons wanting India exposure. Cross-reference structure_matrix str_009 for product-access patterns and tax_matrix nri_002 for India-US DTAA tax treatment."
+
+# =============================================================================
+# END OF gift_city_routing.yaml
+# Entry count: 8 entries
+#   LRS framework: 2 (gcr_001, gcr_002)
+#   NRI routing: 2 (gcr_003, gcr_004)
+#   GIFT City IFSCA: 2 (gcr_005, gcr_006)
+#   US-listed equity routing: 1 (gcr_007)
+#   US Person FATCA: 1 (gcr_008)
+# Coverage target was 5-10; 8 lands mid-range.
+# =============================================================================

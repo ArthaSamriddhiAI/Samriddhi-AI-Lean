@@ -1,76 +1,88 @@
 /* G2, SEBI and regulatory gate.
  *
- * Deterministic rule evaluation against SEBI tables for the proposal's
- * target category. Slice 3 MVP scope:
- *   - PMS: minimum ticket Rs 50 lakh (PMS Regulations 2020 §5)
- *   - AIF Cat I / II / III: minimum ticket Rs 1 Cr (AIF Regulations 2012)
+ * Deterministic rule evaluation against SEBI minimum-ticket rules for the
+ * proposal's target category. The deterministic logic is unchanged from
+ * the Slice 3 MVP; only the SOURCE OF TRUTH moved: the PMS / AIF minimum
+ * ticket and its citation now come from the curated sebi_boundaries store
+ * via M0.IndianContext.getSebiTicketRule (Workstream C closed 2026-05-17,
+ * DEFERRED item 6 resolved) instead of a hardcoded MVP table.
+ *
+ *   - PMS: minimum ticket from sebi_boundaries sebi_001 (Rs 50 lakh)
+ *   - AIF Cat I / II / III: minimum ticket from sebi_009 (Rs 1 crore)
  *   - Mutual funds: no SEBI per-investor minimum (scheme-level minimums
  *     vary by scheme; handled by E7 in the live-mode path)
  *   - Listed equity, FDs, cash, gold: no SEBI ticket gates
  *
- * Future additions (out of scope for Slice 3): AIF Cat II structure-fit
- * (HUF eligibility, NRI routing through GIFT city), SIF scheme-level
- * rules when SIF activates, MF scheme rules from M0.IndianContext
- * sebi_boundaries YAML once Workstream C completes.
+ * The curated YAML minima are byte-identical to the prior MVP table
+ * values (PMS Rs 50 lakh, AIF Rs 1 crore), so no verdict shifts; the
+ * gate now emits the audit-grade YAML citation and source entry_id in
+ * its rule_trace rather than a short hardcoded string.
+ *
+ * Future additions (out of scope): AIF Cat II structure-fit (HUF
+ * eligibility, NRI routing through GIFT city), SIF scheme-level rules
+ * when SIF activates, MF scheme rules from sebi_boundaries.
  */
 
-import type { Proposal, TargetCategory } from "../../proposal";
+import type { Proposal } from "../../proposal";
+import { getSebiTicketRule } from "../../m0-indian-context";
 import { failResult, passResult, requiresClarificationResult, type GateResult } from "./types";
 
-type SebiTicketRule = {
-  category: TargetCategory;
-  min_ticket_cr: number;
-  citation: string;
-};
-
-const SEBI_TICKET_RULES: SebiTicketRule[] = [
-  { category: "pms", min_ticket_cr: 0.5, citation: "SEBI PMS Regulations 2020 §5; minimum investment Rs 50 lakh per investor." },
-  { category: "aif", min_ticket_cr: 1.0, citation: "SEBI AIF Regulations 2012; minimum investment Rs 1 crore (Rs 25 lakh for employees / directors of the manager, not covered here)." },
-];
-
-export function runG2(opts: { proposal: Proposal }): GateResult {
+export async function runG2(opts: { proposal: Proposal }): Promise<GateResult> {
   const trace: Record<string, unknown> = {
     target_category: opts.proposal.target_category,
     ticket_cr: opts.proposal.ticket_size_cr,
     action_type: opts.proposal.action_type,
+    reference_data_source: "m0_indian_context:sebi_boundaries",
   };
 
-  const ticketRule = SEBI_TICKET_RULES.find((r) => r.category === opts.proposal.target_category);
+  const ticketRule = await getSebiTicketRule(opts.proposal.target_category);
   if (ticketRule) {
+    const ruleApplied = {
+      category: opts.proposal.target_category,
+      min_ticket_cr: ticketRule.min_ticket_cr,
+      source_store: ticketRule.source_store,
+      source_entry_id: ticketRule.source_entry_id,
+      confidence: ticketRule.confidence,
+      citation: ticketRule.citation,
+    };
     if (opts.proposal.ticket_size_cr < ticketRule.min_ticket_cr) {
       const breach = `${opts.proposal.target_category.toUpperCase()} minimum ticket: SEBI requires Rs ${ticketRule.min_ticket_cr * 100} lakh; proposed Rs ${(opts.proposal.ticket_size_cr * 100).toFixed(0)} lakh.`;
       return failResult(
         "g2_sebi_regulatory",
         breach,
         [breach, ticketRule.citation],
-        { ...trace, rule_applied: ticketRule },
+        { ...trace, rule_applied: ruleApplied },
       );
     }
     return passResult(
       "g2_sebi_regulatory",
       `SEBI ${opts.proposal.target_category.toUpperCase()} minimum ticket cleared (Rs ${ticketRule.min_ticket_cr * 100} lakh required, Rs ${(opts.proposal.ticket_size_cr * 100).toFixed(0)} lakh proposed).`,
-      { ...trace, rule_applied: ticketRule },
+      { ...trace, rule_applied: ruleApplied },
     );
   }
 
-  /* Targets without a SEBI ticket rule in the MVP table. Categories that
-   * appear in SEBI_TICKET_RULES (pms, aif) are handled above and listed
-   * here only so the switch is exhaustive. */
+  /* Targets without a SEBI minimum-ticket rule in sebi_boundaries. */
   switch (opts.proposal.target_category) {
     case "pms":
     case "aif":
-      // unreachable; the ticketRule branch returned above.
-      return passResult(
+      /* Unreachable in practice: sebi_001 / sebi_009 always resolve for
+       * these. Retained so the switch stays exhaustive and the gate
+       * fails closed (clarification, not silent pass) if the curated
+       * store ever lacks the minimum-ticket entry. */
+      return requiresClarificationResult(
         "g2_sebi_regulatory",
-        "SEBI ticket rule applied above.",
+        `SEBI minimum-ticket rule for ${opts.proposal.target_category.toUpperCase()} not found in the curated sebi_boundaries store; cannot evaluate the ticket gate.`,
+        [
+          `Expected a minimum_ticket entry for ${opts.proposal.target_category} in agents/m0_indian_context/data/sebi_boundaries.yaml. Validate the store before opening this case.`,
+        ],
         trace,
       );
     case "mutual_fund":
       return requiresClarificationResult(
         "g2_sebi_regulatory",
-        "SEBI MF scheme-level rules not in MVP rules table; clarification on the specific scheme's SEBI category and minimum applies.",
+        "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies.",
         [
-          "MVP G2 does not yet evaluate scheme-level SEBI rules for mutual funds (category, sub-scheme limits, exit load tiers). E7 handles scheme-level analysis in the evidence layer; G2 will activate scheme-level rules in a future slice.",
+          "M0.IndianContext sebi_boundaries does not carry scheme-level SEBI rules for mutual funds (category, sub-scheme limits, exit load tiers). E7 handles scheme-level analysis in the evidence layer; G2 will activate scheme-level rules in a future slice.",
         ],
         trace,
       );

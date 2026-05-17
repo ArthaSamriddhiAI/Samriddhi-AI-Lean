@@ -1,0 +1,472 @@
+# =============================================================================
+# structure_matrix.yaml
+# =============================================================================
+# Indian tax-legal structures and their product eligibility for
+# M0.IndianContext rule-based reasoning.
+#
+# Per the Mid-Curation Audit (Steps 1 to 3), this file ALSO carries the
+# canonical structure-type vocabulary that controls cross-store usage from
+# Step 4 onward. Steps 5 to 7 use this controlled vocabulary; Step 8
+# cross-store consistency check validates.
+#
+# DISCLOSURE: Indicative reference for demonstration. See README for trust
+# tier taxonomy. Not validated by credentialed domain experts as a whole.
+#
+# Citation taxonomy and confidence enum follow tax_matrix.yaml and
+# sebi_boundaries.yaml conventions.
+#
+# Entry IDs prefixed `str_`.
+# =============================================================================
+
+metadata:
+  store_id: structure_matrix
+  version: "1.0"
+  curated_at: "2026-05-15"
+  curated_by: "samriddhi_ai_curation"
+  schema_ref: "Step1_YAML_Schema_Design.md; Mid_Curation_Audit_Steps_1_to_3.md §5 (vocabulary commitments)"
+  disclosure: "Indicative reference for demonstration. See README for trust tier taxonomy. Not validated by credentialed domain experts as a whole."
+
+  # -------------------------------------------------------------------------
+  # Canonical structure-type vocabulary, locked by Step 4
+  # -------------------------------------------------------------------------
+  # All YAML stores in this knowledge base should use these structure-type
+  # identifiers going forward. Steps 5-7 use this controlled list; Step 8
+  # cross-store consistency check validates and aliases any legacy usage.
+  # -------------------------------------------------------------------------
+  canonical_vocabulary:
+
+    structure_type:
+      individual:
+        description: "Natural person filing tax in their own name"
+        residency_axis_applies: true
+      huf:
+        description: "Hindu Undivided Family with separate PAN, managed through Karta"
+        residency_axis_applies: false
+        notes: "HUF is not eligible for LRS per RBI regulations"
+      private_discretionary_trust:
+        description: "Private discretionary trust where trustees have discretion over distribution to beneficiaries"
+        residency_axis_applies: false
+      family_trust:
+        description: "Trust set up by family for family member beneficiaries; SEBI AI-eligible structure under Reg 2(ab)"
+        residency_axis_applies: false
+        sub_type_of: "trust"
+        ai_eligibility_route: "yes, per sebi_017"
+      charitable_trust:
+        description: "Public charitable trust registered under Section 12A/80G; income tax-exempt subject to compliance"
+        residency_axis_applies: false
+      irrevocable_determinate_trust:
+        description: "Trust where beneficiaries and their respective shares are identifiable as on date of trust deed"
+        residency_axis_applies: false
+        tax_treatment_ref: "tax_matrix.aif_passthrough.aif_002 for Cat III determinate trust framework"
+      irrevocable_indeterminate_trust:
+        description: "Trust where beneficiaries or shares not identifiable as on trust deed date; taxed at MMR under Section 164"
+        residency_axis_applies: false
+        tax_treatment_ref: "tax_matrix.aif_passthrough.aif_003"
+      partnership_firm:
+        description: "Traditional partnership firm registered under Partnership Act 1932"
+        residency_axis_applies: false
+      llp:
+        description: "Limited Liability Partnership under LLP Act 2008"
+        residency_axis_applies: false
+        ai_corporate_threshold_applies: true
+      private_limited_company:
+        description: "Private limited company under Companies Act 2013"
+        residency_axis_applies: false
+        ai_corporate_threshold_applies: true
+        tax_treatment_ref: "tax_matrix.surcharge.sur_006 for domestic company surcharge"
+      public_limited_company:
+        description: "Public limited company under Companies Act 2013"
+        residency_axis_applies: false
+        ai_corporate_threshold_applies: true
+      foreign_company:
+        description: "Company incorporated outside India; taxed differently per Section 115JB MAT and Section 195 TDS"
+        residency_axis_applies: false
+        ai_corporate_threshold_applies: true
+      senior_citizen:
+        description: "Individual aged 60+ years; certain tax slabs and exemptions differ"
+        residency_axis_applies: true
+        sub_type_of: "individual"
+        applies_above_age: 60
+      super_senior_citizen:
+        description: "Individual aged 80+ years; higher exemption thresholds"
+        residency_axis_applies: true
+        sub_type_of: "individual"
+        applies_above_age: 80
+
+    # Residency is an orthogonal axis on structures where it applies.
+    # Not embedded in the structure_type name (e.g., no 'nri_resident_individual').
+    residency:
+      resident:
+        description: "Resident in India per Income Tax Act Section 6"
+      non_resident:
+        description: "Non-resident for tax purposes; typically NRI maintaining residency outside India"
+      rnor:
+        description: "Resident but Not Ordinarily Resident; transitional status with limited Indian taxation on foreign income"
+
+    # Cross-reference index: legacy terms in earlier stores and their canonical mapping
+    legacy_term_aliases:
+      "individual + residency=resident": "tax_matrix.yaml entries using 'resident_individual' (e.g., tds_001) and gift_city forward references"
+      "individual + residency=non_resident": "tax_matrix.yaml entries using 'nri' (e.g., nri_001 to nri_005); sebi_017 'family_trust' for AI"
+      "trust (broad)": "sebi_001 PMS investor_type list; pmlt_001 PMS investor_type list; intended to include all trust sub-types"
+      "corporate (broad)": "sebi_001 PMS investor_type list; intended to include private_limited_company, public_limited_company, llp, partnership_firm"
+      "family_trust": "sebi_017 AI eligibility; aligned with canonical family_trust entry"
+      "domestic_company_normal_tax": "tax_matrix.surcharge.sur_006; aligned with canonical private_limited_company / public_limited_company under normal tax regime"
+
+  # -------------------------------------------------------------------------
+  # Product vocabulary used in this store
+  # -------------------------------------------------------------------------
+  product_vocabulary:
+    - pms                       # Portfolio Management Service
+    - aif_cat_i                 # AIF Category I (VCF, infrastructure, social, angel)
+    - aif_cat_ii                # AIF Category II (PE, debt, fund-of-funds)
+    - aif_cat_iii               # AIF Category III (hedge fund, PIPE, long-short)
+    - sif                       # Specialised Investment Fund
+    - mutual_fund               # Standard mutual fund schemes (all classifications)
+    - listed_equity_direct      # Direct holding of listed equity in own demat
+    - unlisted_equity           # Pre-IPO, private company equity
+    - real_estate               # Direct property holding
+    - gold                      # Physical, ETF, SGB
+    - invit                     # Infrastructure Investment Trust
+    - reit                      # Real Estate Investment Trust
+    - foreign_equity            # Direct foreign equity via LRS or feeder route
+
+entries:
+
+# -----------------------------------------------------------------------------
+# Individual filer baseline, the default case
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_001
+    topic: "Individual resident, baseline product eligibility"
+    applicability:
+      structure_type: individual
+      residency: resident
+    rule:
+      eligible_products:
+        - pms
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - sif
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity
+        - real_estate
+        - gold
+        - invit
+        - reit
+        - foreign_equity
+      lrs_eligible: true
+      ai_eligibility_routes: "income Rs 2 Cr+, net worth Rs 7.5 Cr+ with Rs 3.75 Cr financial assets, or combination Rs 1 Cr income AND Rs 5 Cr net worth"
+      ticket_size_minima: "PMS Rs 50 L, AIF Rs 1 Cr, SIF Rs 10 L (AI exempt), other products no SEBI-mandated minima"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020 (PMS eligibility); SEBI (AIF) Regulations 2012 (AIF eligibility); SEBI (Mutual Funds) Regulations 1996 amended 2025 (SIF eligibility); SEBI Master Circular for AIFs 2024-05-07 (Chapter 12 AI Framework)"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Resident individual is the most permissive structure for product access; all SEBI-regulated products are accessible subject to minimum tickets. The AI eligibility routes open additional regulatory flexibilities (AI-only AIF schemes per sebi_010, SIF minimum waiver per sebi_019). Foundation document pms_aif_advisory_reference_v2.md treats this as the default case in case studies."
+
+# -----------------------------------------------------------------------------
+# Non-resident individual (NRI) eligibility constraints
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_002
+    topic: "Individual non-resident (NRI), product eligibility constraints"
+    applicability:
+      structure_type: individual
+      residency: non_resident
+    rule:
+      eligible_products:
+        - pms                      # via NRE/NRO/PIS account routes
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - mutual_fund              # via NRE/NRO route
+        - listed_equity_direct     # via Portfolio Investment Scheme (PIS) account
+        - real_estate              # restricted, see notes
+        - gold
+        - foreign_equity           # via home country broker, not LRS
+      lrs_eligible: false
+      lrs_alternative: "NRI uses NRE/NRO accounts and home country investment routes per FEMA, not LRS"
+      sif_eligibility: "permitted; SIF framework does not exclude NRI but specific AMC policies vary"
+      real_estate_constraints: "NRI cannot purchase agricultural land, plantation property, or farmhouse per FEMA; residential and commercial real estate permitted"
+      pms_special_handling: "NRI PMS requires NRE/NRO/PIS account; some PMS providers decline NRI clients due to KYC complexity; specialised NRI PMS providers exist"
+      fatca_constraints_for_us_persons: "US Persons (citizens, green card holders, long-term residents) face additional FATCA-related restrictions; many Indian PMS and AIF firms decline US Person clients"
+      tax_treatment_ref: "tax_matrix.nri_treaty section for DTAA-specific treatment"
+    citation_source_type: regulatory_circular
+    citation: "FEMA 1999 and Master Direction on Investment Activities; SEBI (Portfolio Managers) Regulations 2020 client eligibility; RBI Master Direction on NRE/NRO accounts"
+    effective_date: "1999-06-01"
+    confidence: authoritative
+    notes: "NRI eligibility is broad in principle but operationally constrained by KYC complexity, FATCA (for US Persons), and product-specific provider policies. The foundation document pms_aif_advisory_reference_v2.md §8.5 and §8.6 cover the operational workflow layer. Cross-reference structure_matrix entries str_007 (US Person edge case) and tax_matrix nri_002 (US DTAA tax)."
+
+# -----------------------------------------------------------------------------
+# HUF eligibility, central to several seeded investor cases
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_003
+    topic: "HUF product eligibility, including direct PMS subscription"
+    applicability:
+      structure_type: huf
+    rule:
+      eligible_products:
+        - pms                      # directly, through Karta as authorised signatory
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity
+        - real_estate
+        - gold
+        - invit
+        - reit
+      ineligible_products:
+        - sif                      # SIF eligible investors per SEBI MF Regs; HUF eligibility being confirmed at product level by AMCs
+      lrs_eligible: false
+      lrs_basis: "RBI LRS Master Direction excludes HUFs from LRS scheme; HUF is not a resident individual"
+      foreign_equity_basis: "HUF cannot use LRS; foreign equity access requires alternative FEMA route or via individual member account"
+      pms_subscription_basis: "HUF can subscribe to PMS directly in HUF name through Karta as authorised signatory; tax at HUF level (separate PAN)"
+      ai_eligibility: "HUF is eligible for AI status per SEBI Reg 2(ab); same thresholds as individual filer"
+      coparcener_considerations: "HUF investment decisions affect all coparceners including married daughters post-2005 Hindu Succession Amendment; partition can trigger tax and family disputes"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020 (HUF in eligible client list per disclosure documents of SEBI-registered PMs); RBI LRS Master Direction (HUF exclusion); Hindu Succession Act 1956 amended 2005 (coparcener rights)"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "HUF can directly subscribe to PMS; this corrects an earlier draft assumption that HUF required individual member account routing. Verified against SEBI-registered PMS disclosure documents (e.g., Banyan Tree Advisors) and PMS eligibility guidance (Anand Rathi PMS guide, verified 2026-05-15). The LRS exclusion is structurally important: HUF foreign equity access requires routing through individual member's LRS or alternative FEMA paths. Cross-reference Aggarwal HUF seeded case (Sandeep Krishnan archetype with Rs 9 Cr HUF corpus) for the operational pattern."
+
+# -----------------------------------------------------------------------------
+# Trust structures
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_004
+    topic: "Private discretionary trust, product eligibility"
+    applicability:
+      structure_type: private_discretionary_trust
+    rule:
+      eligible_products:
+        - pms
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity
+        - real_estate
+        - gold
+        - invit
+        - reit
+      lrs_eligible: false
+      lrs_basis: "RBI LRS excludes trusts; foreign equity exposure requires alternative routing"
+      ai_eligibility_path: "via family_trust sub-type if conditions met (Reg 2(ab) applies to family trusts)"
+      tax_treatment_dependency: "tax treatment depends on whether trust is determinate (beneficiaries identifiable) or indeterminate; see tax_matrix.aif_passthrough aif_002, aif_003"
+      pms_subscription_basis: "trust can subscribe to PMS in trust's own name; SEBI-registered PMS firms accept trust clients per Reg 2020 client eligibility framework"
+      corpus_donor_documentation: "private trust setups require careful documentation of corpus contributions, beneficiary designations, and trustee powers; foundation document pms_aif_advisory_reference_v2.md §8.5 covers"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (Portfolio Managers) Regulations 2020 client eligibility; SEBI (AIF) Regulations 2012; Indian Trusts Act 1882 (private trusts); Income Tax Act 1961 Sections 161, 164 (trust taxation)"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "Private discretionary trust is a common HNI structure for multi-generational wealth (e.g., Shah Family Office seeded case). The determinate vs indeterminate distinction is the tax-defining axis: determinate gets beneficiary-bracket flow-through, indeterminate gets MMR. Trust deeds drafted post-2014 should review against Delhi HC 2025 Equity Intelligence ruling which narrowed the indeterminate test."
+
+  - entry_id: str_005
+    topic: "Charitable trust, product eligibility and tax-exempt status"
+    applicability:
+      structure_type: charitable_trust
+    rule:
+      eligible_products:
+        - mutual_fund
+        - listed_equity_direct
+        - aif_cat_i              # subject to restrictions per Income Tax Section 11
+        - aif_cat_ii             # subject to same restrictions
+        - real_estate
+        - gold
+      ineligible_or_restricted:
+        - aif_cat_iii            # restricted under Section 11(5) prescribed investment modes
+        - pms                    # restricted under prescribed investment modes
+        - foreign_equity         # generally restricted; specific donations permitted
+      prescribed_investment_modes: "Section 11(5) of Income Tax Act 1961 prescribes specific investment modes for charitable trusts; PMS, Cat III AIF, derivatives typically outside prescribed list"
+      tax_status: "tax-exempt subject to Section 12A registration and 85 percent application of income to charitable purposes per Section 11"
+      compliance_burden: "annual ITR-7 filing, Form 10B audit, 12AB renewal periodic"
+      lrs_eligible: false
+      pms_eligibility_basis: "while SEBI permits trust clients, charitable trust's own investment policy under Section 11(5) typically excludes PMS and high-risk products"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961 Sections 11, 11(5), 12A, 12AB, 13(1)(d); SEBI (Portfolio Managers) Regulations 2020 (broad eligibility)"
+    effective_date: "2022-04-01"
+    confidence: authoritative
+    notes: "Charitable trust eligibility is more constrained than other trusts because of the Section 11(5) prescribed-investment-mode restrictions. PMS and Cat III AIF are eligible from SEBI's side but typically excluded by the trust's own compliance requirements. Foundation document references the Shah Family charitable trust (Rs 5 Cr corpus) as part of the seeded multi-generational case."
+
+  - entry_id: str_006
+    topic: "Family trust as AI-eligible structure"
+    applicability:
+      structure_type: family_trust
+    rule:
+      eligible_products: "all products available to private_discretionary_trust per str_004"
+      ai_eligibility_basis: "Reg 2(ab) of SEBI AIF Regulations 2012 explicitly names family trust as AI-eligible structure (alongside individual, HUF, sole proprietorship)"
+      ai_thresholds_per_individual_route: "annual income Rs 2 Cr+, OR net worth Rs 7.5 Cr+ with Rs 3.75 Cr financial assets, OR combination Rs 1 Cr income AND Rs 5 Cr net worth"
+      ai_certification_required: "SEBI-approved accreditation agency; certificate valid 1 year, renewable"
+      light_touch_access: "AI status unlocks AI-only AIF schemes (sebi_010), LVF reduced threshold (sebi_011), SIF minimum waiver (sebi_019)"
+      foundation_role: "common structure for second-generation wealth where family trust holds dynastic assets; Mahendra case archetype documents this pattern"
+    citation_source_type: regulatory_circular
+    citation: "SEBI (AIF) Regulations 2012 Regulation 2(ab); SEBI Master Circular for AIFs 2024-05-07 Chapter 12 Framework for Accredited Investors"
+    effective_date: "2021-08-26"
+    confidence: authoritative
+    notes: "Family trust is structurally distinct from generic private discretionary trust because of explicit AI-eligibility recognition. For multi-generational HNI cases, the family trust route is the natural carrier for AI status. The 1-year validity and renewal requirement is operational discipline that family office must maintain."
+
+# -----------------------------------------------------------------------------
+# Corporate-style structures (LLP, Pvt Ltd)
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_007
+    topic: "Private limited company, product eligibility"
+    applicability:
+      structure_type: private_limited_company
+    rule:
+      eligible_products:
+        - pms
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - sif
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity        # subject to Companies Act 2013 investment restrictions
+        - real_estate
+        - gold
+        - invit
+        - reit
+      lrs_eligible: false
+      lrs_basis: "LRS excludes corporates; Overseas Direct Investment (ODI) is the corporate route per FEMA"
+      ai_eligibility_basis: "corporate AI threshold of Rs 50 Cr net worth per sebi_018"
+      tax_treatment: "company tax (22 percent under Section 115BAA concessional or 25/30 percent normal) plus surcharge per sur_006"
+      esg_reporting: "BRSR mandatory for top 1000 listed companies; private companies typically exempt"
+      family_office_use: "common structure for formalised family offices; Shah Family Office seeded case uses this structure"
+    citation_source_type: regulatory_circular
+    citation: "Companies Act 2013 (corporate framework); Income Tax Act 1961 Section 115BAA, 115BAB (corporate tax rates); SEBI (Portfolio Managers) Regulations 2020 (PMS eligibility); FEMA 1999 (ODI for corporates)"
+    effective_date: "2020-01-16"
+    confidence: authoritative
+    notes: "Private limited company structure is popular for family offices seeking corporate governance overlay. Tax treatment at company level is materially different from individual: company surcharge is lower (7-12 percent vs up to 37 percent for individual) but cap on 111A/112A/dividend income does NOT apply (no 15 percent cap). For UHNW family planning, the structure-vs-individual tax analysis is case-specific."
+
+  - entry_id: str_008
+    topic: "LLP product eligibility and tax pass-through"
+    applicability:
+      structure_type: llp
+    rule:
+      eligible_products:
+        - pms
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - sif
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity
+        - real_estate
+        - gold
+      lrs_eligible: false
+      lrs_basis: "LRS excludes partnership firms and LLPs; ODI route applies"
+      ai_eligibility_basis: "corporate AI threshold of Rs 50 Cr net worth per sebi_018"
+      tax_treatment: "LLP taxed at 30 percent plus 12 percent surcharge if income exceeds Rs 1 Cr plus cess; partner share exempt under Section 10(2A) once LLP has paid"
+      effective_rate_at_top_band_pct: 34.94
+      partnership_alternative: "LLP is the modern equivalent of partnership firm with limited liability for partners; for AIF Cat III LLP structure see aif_004"
+      operational_advantage: "tax predictability vs trust structure where beneficiary brackets flow through"
+    citation_source_type: statute_section
+    citation: "Limited Liability Partnership Act 2008; Income Tax Act 1961 Sections 167C (LLP tax), 10(2A) (partner exemption); SEBI (AIF) Regulations 2012"
+    effective_date: "2010-04-01"
+    confidence: authoritative
+    notes: "LLP structure provides corporate governance overlay with partnership tax flow-through; useful for family-pooled investment vehicles. The fixed effective rate (approximately 35 percent including cess) provides tax predictability that determinate trust structures lack (which flow beneficiary brackets through). Cross-reference tax_matrix aif_004 for Cat III LLP structure tax treatment."
+
+# -----------------------------------------------------------------------------
+# US Person edge case (special FATCA-driven constraints)
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_009
+    topic: "US Person, FATCA-driven product access constraints in India"
+    applicability:
+      structure_type: individual
+      residency: non_resident
+      us_person_status: true
+    rule:
+      eligible_products:
+        - mutual_fund                    # subject to AMC policy; most retail MFs exclude US Persons
+        - listed_equity_direct           # subject to broker policy
+      restricted_or_declined_products:
+        - pms                            # most PMS firms decline US Persons due to FATCA reporting burden
+        - aif_cat_i                      # most Cat I AIFs decline US Persons
+        - aif_cat_ii                     # most Cat II AIFs decline US Persons
+        - aif_cat_iii                    # most Cat III AIFs decline US Persons
+      basis: "FATCA (Foreign Account Tax Compliance Act, US 2010) requires Indian financial institutions to report US Person accounts to IRS; many Indian product providers decline US Persons to avoid compliance burden"
+      pfic_constraint: "US Persons holding Indian MF or AIF face Passive Foreign Investment Company (PFIC) treatment under US tax code, creating onerous reporting (Form 8621) and adverse mark-to-market taxation"
+      gift_city_alternative: "GIFT City IFSCA-regulated products may offer US-Person-friendly routing for some exposures"
+      tax_treatment_ref: "tax_matrix.nri_treaty.nri_002 for India-US DTAA framework"
+      structural_recommendation: "for US Person clients with material India exposure, specialised cross-border advisor required; standard HNI advisory inadequate"
+    citation_source_type: regulatory_circular
+    citation: "FATCA Intergovernmental Agreement (IGA) between US and India signed 2015-07-09; US Internal Revenue Code Sections 1471-1474 (FATCA); IRS PFIC regulations under IRC Section 1297"
+    effective_date: "2015-09-30"
+    confidence: authoritative
+    notes: "US Person status is a hard constraint, distinct from generic NRI. Many wealth advisors and PMS/AIF firms cannot serve US Persons at all. Foundation document pms_aif_advisory_reference_v2.md §8.6.3 covers cross-border workflow. For US Person seeded cases, the structural reality is that India product access is severely curtailed; GIFT City and global brokerage routes are the practical alternatives."
+
+# -----------------------------------------------------------------------------
+# Senior citizen sub-type (individual + age axis)
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_010
+    topic: "Senior citizen (60+) and super senior citizen (80+), tax-specific exemptions"
+    applicability:
+      structure_type: [senior_citizen, super_senior_citizen]
+      residency: resident
+    rule:
+      product_eligibility: "same as individual resident; no product access changes per age"
+      tax_advantages:
+        senior_citizen_basic_exemption_old_regime_inr: 300000
+        super_senior_citizen_basic_exemption_old_regime_inr: 500000
+        senior_citizen_basic_exemption_new_regime_inr: 400000   # parity with general under new regime per Budget 2025 slabs
+        section_80ttb_interest_exemption_inr: 50000              # bank/FD interest exemption for senior citizens (old regime)
+        senior_citizen_advance_tax_basis: "no advance tax required if no business income"
+      product_recommendations_per_age: "shift toward debt-heavy, income-yielding, liquid products; foundation document §7 covers life-stage advisory approach"
+    citation_source_type: statute_section
+    citation: "Income Tax Act 1961, First Schedule slab structure for senior citizens; Section 80TTB; Section 207 (advance tax exemption); Finance Act 2025 for current AY 2026-27 slabs"
+    effective_date: "2025-04-01"
+    confidence: authoritative
+    notes: "Senior citizen status affects tax slabs in Old Regime but New Regime treats all individuals uniformly above the rebate threshold. Product access does not change; allocation recommendations shift toward income-yielding instruments. Pratap Singh Rathore seeded case (semi-retired Rajput patriarch) exemplifies this pattern."
+
+# -----------------------------------------------------------------------------
+# Partnership firm (traditional structure)
+# -----------------------------------------------------------------------------
+
+  - entry_id: str_011
+    topic: "Partnership firm, product eligibility"
+    applicability:
+      structure_type: partnership_firm
+    rule:
+      eligible_products:
+        - pms
+        - aif_cat_i
+        - aif_cat_ii
+        - aif_cat_iii
+        - mutual_fund
+        - listed_equity_direct
+        - unlisted_equity
+        - real_estate
+        - gold
+      lrs_eligible: false
+      lrs_basis: "LRS excludes partnership firms; ODI route applies"
+      ai_eligibility_basis: "corporate AI threshold of Rs 50 Cr net worth per sebi_018"
+      tax_treatment: "partnership firm taxed at 30 percent plus surcharge if income exceeds Rs 1 Cr; partner share exempt under Section 10(2A) once firm has paid"
+      llp_alternative: "LLP is the modern equivalent with limited liability; partnership firm structure now less common for new HNI vehicles"
+      structural_use_case: "traditional family businesses retain partnership structure for legacy reasons; new wealth typically uses LLP or corporate"
+    citation_source_type: statute_section
+    citation: "Indian Partnership Act 1932; Income Tax Act 1961 Section 184 (partnership firm taxation), Section 10(2A) (partner exemption); SEBI (Portfolio Managers) Regulations 2020"
+    effective_date: "1932-10-01"
+    confidence: authoritative
+    notes: "Partnership firm is largely a legacy structure for HNI wealth; new wealth typically uses LLP or corporate form. Tax framework parallels LLP. For seeded cases involving legacy partnership firms (e.g., Aggarwal business structures), the structure is operational reality but not the recommended structure for new wealth accumulation."
+
+# =============================================================================
+# END OF structure_matrix.yaml
+# Entry count: 11 entries
+#   Individual: 1 (str_001 resident)
+#   NRI: 1 (str_002 non-resident)
+#   HUF: 1 (str_003)
+#   Trust: 3 (str_004 private discretionary, str_005 charitable, str_006 family AI-eligible)
+#   Corporate: 2 (str_007 pvt ltd, str_008 LLP)
+#   Edge cases: 2 (str_009 US Person, str_010 senior citizen)
+#   Partnership: 1 (str_011)
+# Coverage target was 10-15; 11 lands in range.
+# =============================================================================

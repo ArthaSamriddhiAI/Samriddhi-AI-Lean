@@ -91,7 +91,9 @@ function buildPrompt(input: CounterfactualEngineInput): string {
     "",
     "Produce a two-to-three paragraph framing of the alternative-paths question, and a structured list of alternative paths that specifically address the risks the Risk Assessor named. Your output supersedes S1's counterfactual_framing on the rendered Outcome tab when materiality fires.",
     "",
-    "Where M0.IndianContext would have informed a tax-optimized alternative path, mark that path's description with the literal sentinel string `context_not_yet_available` instead of hallucinating IndianContext-driven content; the integration is pending Workstream C YAML curation per DEFERRED item 6.",
+    input.ctx.indianContext
+      ? "Where the INDIAN CONTEXT block in the case context supports a tax-optimized or regulation-aware alternative path (a structure-eligibility route, a lock-in or liquidity-window timing path, a surcharge-efficient sizing), ground that path's description in the cited entry. Treat any framing flagged confidence=indicative as practitioner practice, not authoritative; do not overstate certainty."
+      : "Where M0.IndianContext would have informed a tax-optimized alternative path, mark that path's description with the literal sentinel string `context_not_yet_available` instead of hallucinating IndianContext-driven content; the integration is pending Workstream C YAML curation per DEFERRED item 6.",
     "",
     "Return a single fenced JSON block with this exact shape:",
     "",
