@@ -8,6 +8,8 @@ The trigger prompts assume the responder will read this document for context. Th
 
 **Cleared in the M0.IndianContext integration workstream, 2026-05-17 (branch `features/m0-indian-context`): item 6. Workstream C closed; the six curated YAML stores are wired deterministically into the Samriddhi 1 pipeline and governance, and the Sharma IC1 deliberation is re-grounded. See `docs/BUILD_NOTES_M0_INDIAN_CONTEXT.md`.**
 
+**Triage principle (post-M0.IndianContext).** M0.IndianContext landed on `main` via PR #1 (squash commit `330084f`, 2026-05-17). Deferred items are reconciled against current `main` state, not assumed from their original deferral context. Before resuming any item below, confirm its status against `main`: workstreams that land after an item is written can implicitly advance or supersede it (item 6 resolved by M0.IndianContext; item 12's stubs re-recorded under the same workstream; item 7 partially advanced). Status markers on each entry (RESOLVED / ACTIVE / BLOCKED) reflect the 2026-05-17 reconciliation; the doc keeps its slice-grouped structure rather than re-sorting by status.
+
 ## Deferred from Slice 2
 
 ### 1. Five-case batch generation (originally commit 20) **[RESOLVED 2026-05-15]**
@@ -58,7 +60,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Restore S1 to Sonnet via `LEAN_RUNTIME_OVERRIDES` in `lib/agents/skill-loader.ts`; the rate-limit constraint has lifted. Verify by regenerating the Shailesh case.
 
-### 4. Frozen holdings on case detail
+### 4. Frozen holdings on case detail **[ACTIVE]**
 
 **What.** The Case Detail page's "Holdings reference" table currently reads from `Investor.holdingsJson` (the live state). The briefing's section 7 evidence appendix is part of `Case.contentJson` and was frozen at generation time. After Slice 2's structured-holdings cleanup (commit 18), these two paths can diverge for Shailesh: the live record now shows "HDFC Arbitrage Fund" while the briefing's appendix still shows "Aditya Birla Arbitrage Fund". The case is the frozen artefact; the analysis tab should freeze with it.
 
@@ -74,7 +76,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Freeze holdings at case generation time. Snapshot `Investor.holdingsJson` into `Case.contentJson.holdings_at_generation`; have the Case Detail AnalysisTab read from there with a fallback to the live record for older cases.
 
-### 5. Streaming reasoning output
+### 5. Streaming reasoning output **[ACTIVE]**
 
 **What.** The orientation Q1 deferred streaming. The pipeline returns one complete result; the generating screen polls until ready and renders the full briefing on completion. Streaming would surface observations as agents finish.
 
@@ -110,7 +112,9 @@ The trigger prompts assume the responder will read this document for context. Th
 
 ## Deferred from Slice 3
 
-### 7. Real-mode Sharma + Marcellus case regeneration
+### 7. Real-mode Sharma + Marcellus case regeneration **[ACTIVE]**
+
+**Reconciliation 2026-05-17.** The Sharma fixture is now YAML-grounded with a live IC1 deliberation (via the M0.IndianContext workstream): it carries `indian_context`, sebi_001-grounded gate results, and a live-run IC1 with sentinels cleared. However, E1-E7 remain parsed-from-verdicts and S1 / A1 were not re-run (governance verdicts were stable, so no re-run was triggered). The core of this item, a full end-to-end live regeneration of every layer, is unchanged and still open.
 
 **What.** Replace the current hybrid Sharma fixture (E1-E7 parsed from authored verdicts, S1 + A1 live-generated) with an end-to-end real-mode case where every layer runs live against the canonical Sharma + Marcellus proposal. Records every stub as a side effect; the resulting fixture supersedes the parsed-stub version.
 
@@ -126,7 +130,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Resume DEFERRED item 7. Regenerate the Sharma + Marcellus case end-to-end in live mode via `scripts/generate-sharma-fixture.ts` adapted to call every layer through the orchestrator without the parse-from-verdicts shortcut. Set STUB_MODE=false, STUB_RECORD=true. Confirm budget before running. Replaces `db/fixtures/cases/c-2026-05-14-sharma-01.json` and every stub fixture under `fixtures/stub-responses/c-2026-05-14-sharma-01/`.
 
-### 8. Samriddhi 1 case-mode briefing PDF
+### 8. Samriddhi 1 case-mode briefing PDF **[ACTIVE]**
 
 **What.** A React PDF renderer for the seven-section BriefingCaseContent, mirroring the Slice 2 BriefingPDF scaffolding. The Outcome tab on the web is the current primary surface; the Export briefing button is hidden on s1 cases. Adding the PDF re-enables the button and gives the advisor a take-into-the-meeting artefact.
 
@@ -142,7 +146,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Implement the Samriddhi 1 case-mode briefing PDF per DEFERRED item 8. Build a `BriefingCasePDF` component mirroring the Slice 2 BriefingPDF scaffolding but consuming `BriefingCaseContent`. Update `app/api/cases/[id]/briefing.pdf/route.ts` to route workflow=s1 cases to the new renderer. Re-enable the Export briefing button on s1 cases in `app/cases/[id]/page.tsx`.
 
-### 9. Richer evidence-agent scope builders for live mode
+### 9. Richer evidence-agent scope builders for live mode **[ACTIVE]**
 
 **What.** The Slice 3 orchestrator (`lib/agents/pipeline-case.ts`) builds short scope blocks for each evidence agent from the investor + proposal context (e.g., "Look-through universe of Marcellus Consistent Compounder PMS"). Adequate for stub replay; thin for live-mode runs on non-Sharma investors. Richer scope-builders would derive look-through stocks from the snapshot, compute sector weights, surface manager / strategy facts from a curated PMS/AIF database, etc.
 
@@ -158,7 +162,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Implement richer evidence-agent scope builders per DEFERRED item 9. Replace the generic scope strings in `lib/agents/pipeline-case.ts` with per-agent scope-builder functions in `lib/agents/case/scope-builders.ts` that consume `StructuredHoldings`, `StructuredMandate`, and the snapshot data. Test against a Bhatt or Surana Samriddhi 1 case to verify the live-mode output matches the verdicts file's analytical depth.
 
-### 10. Multi-investor Samriddhi 1 case batch
+### 10. Multi-investor Samriddhi 1 case batch **[ACTIVE]**
 
 **What.** Generate Samriddhi 1 proposal-evaluation cases for the five investors beyond Sharma (Malhotra, Iyengar, Bhatt, Menon, Surana) with appropriate per-investor proposals (e.g., Bhatt's PMS-rationalisation rebalance, Surana's AIF Cat II addition, Iyengar's conservative-mandate-aware listed-bond entry). Export each as a JSON fixture; the seed loads all six s1 cases plus the existing six s2 cases.
 
@@ -176,7 +180,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 ## Deferred from PDF polish micro-slice
 
-### 11. Structured blended-fee field on BriefingContent
+### 11. Structured blended-fee field on BriefingContent **[ACTIVE]**
 
 **What.** The KPI strip's "Blended fee est." cell on the briefing PDF currently derives its value via heuristic regex parsing of Fee-category risk flag bodies (`extractBlendedFee()` in `components/pdf/BriefingPDF.tsx`). The heuristic is wrong on the bhatt-01 fixture: it returns `~0.72%`, which is a since-inception alpha figure parsed from the first Fee flag, rather than the `~2.1%` blended fee load that the diagnostic actually identifies elsewhere in the risk flags. Proper fix is a structured `fee_estimate_blended_pct` field on `BriefingContent`, populated by S1 synthesis, with the KPI strip reading the structured field instead of prose-parsing.
 
@@ -196,6 +200,8 @@ The trigger prompts assume the responder will read this document for context. Th
 
 ### 12. Live IC1 stub generation for the Sharma case **[RESOLVED 2026-05-15]**
 
+**Note 2026-05-17.** The five Sharma IC1 stubs were re-recorded under the M0.IndianContext workstream so the Risk Assessor and Counterfactual Engine reason with the curated context (sentinels cleared). The original 2026-05-15 resolution stands; the stub content is superseded by the grounded re-run.
+
 **What.** Run the IC1 four-step orchestrator (Chair, Risk Assessor, Devil's Advocate, Counterfactual Engine, Minutes Recorder) end-to-end live against the canonical Sharma + Marcellus case content. Each successful call records a stub fixture at `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_<role>.json`; the Sharma case fixture's `ic1_deliberation` block updates from all-sentinel to all-populated; the Outcome tab and Analyst Reports tab surfaces resolve from sentinel state to actual deliberation content automatically (no code change required, just file additions in the fixture directory plus the fixture refresh).
 
 **Why deferred.** Slice 4 ran under Option A funding-aware mode: API budget remaining at slice start was approximately $1.54 in console; the five-call IC1 generation at Opus 4.7 was estimated at $2-4 and exceeded that envelope. The architecture ships code-complete; the demo content is a single-shot operation gated on budget clearance.
@@ -210,7 +216,7 @@ The trigger prompts assume the responder will read this document for context. Th
 
 > Resume DEFERRED item 12. Run the IC1 four-step orchestrator live against the Sharma + Marcellus case via `runIC1Pipeline` with `STUB_RECORD=true` and `STUB_MODE=false`. Use the case content already on disk at `db/fixtures/cases/c-2026-05-14-sharma-01.json` for materiality, synthesis, gates, and evidence inputs. Confirm budget (~$2-4) before running. On success, five stub fixtures land at `fixtures/stub-responses/c-2026-05-14-sharma-01/ic1_*.json` and the Sharma fixture's `ic1_deliberation` block is regenerated from disk-loaded stubs to replace the sentinel state. Verify the Outcome tab and Analyst Reports tab render the populated deliberation in place of the sentinel.
 
-### 13. Multi-investor IC1 deliberation cases
+### 13. Multi-investor IC1 deliberation cases **[BLOCKED on item 10]**
 
 **What.** Generate IC1 deliberation surfaces for the five non-Sharma Samriddhi 1 cases (Malhotra, Iyengar, Bhatt, Menon, Surana) once those cases themselves exist per DEFERRED item 10. Each material case triggers a five-call IC1 pipeline; the resulting stubs persist alongside the case fixture; the rendered surface follows the same conditional pattern as Sharma's.
 
