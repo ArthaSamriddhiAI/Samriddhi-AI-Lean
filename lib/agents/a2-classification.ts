@@ -202,14 +202,29 @@ function normalise(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
-/* Conservative bidirectional containment match. Used to join an evidence
- * row keyed by instrument/symbol to a holding row. If no confident match
- * exists, A2 attaches no thesis driver rather than mis-attributing one. */
-function instrumentMatch(a: string, b: string): boolean {
+/* Position flags, E6, and E7 rows are keyed off the same holdings list,
+ * so exact (case- and spacing-insensitive) instrument equality is the
+ * correct join. A bare substring test cross-matches distinct instruments
+ * that share a name stem: "HDFC Bank FD" (a debt row) would inherit the
+ * listed "HDFC Bank" position flag. Exact equality removes that class. */
+function instrumentExact(a: string, b: string): boolean {
   const x = normalise(a);
   const y = normalise(b);
+  return x.length > 0 && x === y;
+}
+
+/* E1 keys by stock symbol, which can be a ticker or a short form of the
+ * holding name, so exact equality is too strict. A prefix match in either
+ * direction handles "Reliance" vs "Reliance Industries" while still
+ * rejecting the mid-string collisions a bare substring test allows. E1
+ * runs only for listed holdings, so a debt row such as an FD never
+ * reaches this path. If no confident match exists, A2 attaches no thesis
+ * driver rather than mis-attributing one. */
+function instrumentMatchE1(symbol: string, instrument: string): boolean {
+  const x = normalise(symbol);
+  const y = normalise(instrument);
   if (!x || !y) return false;
-  return x === y || x.includes(y) || y.includes(x);
+  return x === y || x.startsWith(y) || y.startsWith(x);
 }
 
 /* ----- Layer 1: deterministic verdict assignment ----- */
@@ -302,7 +317,7 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
     // Position weight vs foundation §3 (flag 10%, escalate 15%). Anchored
     // to M0's positionFlags so the threshold has one source of truth.
     const pf = metrics.concentration.positionFlags.find((p) =>
-      instrumentMatch(p.instrument, h.instrument),
+      instrumentExact(p.instrument, h.instrument),
     );
     if (pf) {
       drivers.push({
@@ -322,7 +337,7 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
     // (skill edge case 1, normal), not a thesis concern: no driver.
     if (isPMS(h.subCategory) || isAIF(h.subCategory)) {
       const p = evidence.e6?.per_product_evaluations.find((x) =>
-        instrumentMatch(x.instrument, h.instrument),
+        instrumentExact(x.instrument, h.instrument),
       );
       if (p) {
         if (p.complexity_premium_earned === "no") {
@@ -364,7 +379,7 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
       }
     } else if (isMF(h.subCategory)) {
       const p = evidence.e7?.per_scheme_verdicts.find((x) =>
-        instrumentMatch(x.instrument, h.instrument),
+        instrumentExact(x.instrument, h.instrument),
       );
       if (p) {
         const t = thesisFromVerdict(p.overall_verdict);
@@ -383,7 +398,7 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
       }
     } else if (isListed(h.subCategory)) {
       const p = evidence.e1?.per_stock_verdicts.find((x) =>
-        instrumentMatch(x.symbol, h.instrument),
+        instrumentMatchE1(x.symbol, h.instrument),
       );
       if (p) {
         const t = thesisFromE1Verdict(p.overall_verdict);
@@ -541,6 +556,22 @@ function thesisFromE1Verdict(
   }
 }
 
+/* Repo hard rule: no em, en, or any long dash in committed content. The
+ * Layer 2 prompt forbids them, but the model is not trusted to comply;
+ * this deterministic pass is the guarantee before anything is persisted.
+ * Ordinary hyphen-minus (U+002D) is preserved: "moderate-aggressive" and
+ * "positive-with-caution" must survive. A long dash is replaced with a
+ * comma separator, then doubled or stranded punctuation is tidied. */
+export function stripLongDashes(s: string): string {
+  return s
+    .replace(/\s*[‒–—―−]\s*/g, ", ")
+    .replace(/\s+,/g, ",")
+    .replace(/,\s*,/g, ",")
+    .replace(/,\s*\./g, ".")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
 /* ----- Layer 2: LLM-glossed reason text ----- */
 
 type A2ReasonRow = { holding_ref: string; driver_index: number; reason: string };
@@ -595,7 +626,9 @@ function buildReasonPrompt(
     `For every driver below, write a one-sentence reason. Cite the specific`,
     `numbers in \`facts\` and the threshold context, in the language of the`,
     `diagnostic vocabulary. No recommendation language: state why the`,
-    `conversation is on the agenda, never what trade to make. Propagated`,
+    `conversation is on the agenda, never what trade to make. Use only`,
+    `commas, semicolons, colons, or periods as separators; never an em`,
+    `dash, en dash, or any other long dash. Propagated`,
     `wrapper or sector drivers that repeat across holdings should read with`,
     `the same wrapper-level or sector-level framing each time (the`,
     `repetition is the intended signal).`,
@@ -712,7 +745,7 @@ export async function runA2Diagnostic(
           severity: d.severity,
           scope: d.scope,
           source_observation: d.source_observation,
-          reason,
+          reason: stripLongDashes(reason),
         };
       }),
     }),
@@ -725,9 +758,9 @@ export async function runA2Diagnostic(
     holding_verdicts,
     summary: {
       ...layer1.summary,
-      one_line_characterization: payload.one_line_characterization,
+      one_line_characterization: stripLongDashes(payload.one_line_characterization),
     },
-    reasoning_summary: payload.reasoning_summary,
+    reasoning_summary: stripLongDashes(payload.reasoning_summary),
   };
 
   return { output, usage: reasonResult.usage };

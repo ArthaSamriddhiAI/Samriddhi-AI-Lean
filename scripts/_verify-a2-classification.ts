@@ -27,6 +27,7 @@
 
 import {
   classifyHoldings,
+  stripLongDashes,
   type A2ClassifyInput,
   type A2Layer1Result,
 } from "../lib/agents/a2-classification";
@@ -425,9 +426,65 @@ assert(
 );
 
 /* ---------------------------------------------------------------- */
+/* Test 7: instrument-match precision. A debt FD must not inherit    */
+/* the listed equity's position flag via name-stem containment.      */
+/* ---------------------------------------------------------------- */
+
+const matchInput: A2ClassifyInput = {
+  caseId: "verify-match",
+  asOfDate: "2026-04-02",
+  holdings: {
+    totalLiquidAumCr: 22.1,
+    holdings: [
+      { instrument: "HDFC Bank", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 2.5, weightPct: 11.3 },
+      { instrument: "HDFC Bank FD", assetClass: "Debt" as AssetClass, subCategory: "bank_fd" as SubCategory, valueCr: 1.55, weightPct: 7.0 },
+    ],
+  },
+  // M0 only flags the listed position (11.3% >= 10%); the FD at 7% is not flagged.
+  metrics: makeMetrics({
+    positionFlags: [{ instrument: "HDFC Bank", weightPct: 11.3, severity: "flag" }],
+  }),
+  evidence: EMPTY_EVIDENCE,
+};
+const rMatch = classifyHoldings(matchInput);
+assert(
+  verdictOf(rMatch, "HDFC Bank") === "discuss" &&
+    driverTypes(rMatch, "HDFC Bank")[0] === "position_concentration",
+  "match:listed-flagged",
+  `expected HDFC Bank discuss with position_concentration, got ${verdictOf(rMatch, "HDFC Bank")} / ${JSON.stringify(driverTypes(rMatch, "HDFC Bank"))}`,
+);
+assert(
+  verdictOf(rMatch, "HDFC Bank FD") === "maintain" &&
+    driverTypes(rMatch, "HDFC Bank FD").length === 0,
+  "match:fd-not-cross-flagged",
+  `the FD (7%, below 10%) must not inherit the listed HDFC Bank flag, got ${verdictOf(rMatch, "HDFC Bank FD")} / ${JSON.stringify(driverTypes(rMatch, "HDFC Bank FD"))}`,
+);
+
+/* ---------------------------------------------------------------- */
+/* Test 8: long-dash sanitizer. Hard repo rule: no long dash in      */
+/* committed content; ordinary hyphen-minus must survive.            */
+/* ---------------------------------------------------------------- */
+
+const dashy =
+  "No Review verdicts attach — nothing escalated; stated–revealed gap is moderate−to‐none.";
+const cleaned = stripLongDashes(dashy);
+assert(
+  !/[‒–—―−]/.test(cleaned),
+  "sanitizer:strips-long-dashes",
+  `long dash survived sanitization: ${JSON.stringify(cleaned)}`,
+);
+assert(
+  stripLongDashes("moderate-aggressive positive-with-caution").includes(
+    "moderate-aggressive",
+  ),
+  "sanitizer:preserves-hyphen",
+  `ordinary hyphen-minus must be preserved, got ${JSON.stringify(stripLongDashes("moderate-aggressive positive-with-caution"))}`,
+);
+
+/* ---------------------------------------------------------------- */
 
 if (failures.length === 0) {
-  console.log("PASS: A2 Layer 1 verification (6 tests, all assertions green)");
+  console.log("PASS: A2 Layer 1 verification (8 tests, all assertions green)");
   process.exit(0);
 } else {
   console.error(`FAIL: ${failures.length} assertion(s) failed:`);
