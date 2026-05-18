@@ -31,6 +31,7 @@ import { runE4 } from "./e4-behavioural";
 import { runE6 } from "./e6-wrappers";
 import { runE7 } from "./e7-mutual-fund";
 import { runS1Diagnostic } from "./s1-diagnostic";
+import { runA2Diagnostic } from "./a2-classification";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -189,6 +190,29 @@ export async function runDiagnosticPipeline(opts: {
     const briefing = s1Result.output;
     const headline = pickHeadline(briefing);
     const severity = pickSeverity(briefing);
+
+    /* A2.classification: per-holding meeting-behaviour verdicts. S2
+     * diagnostic path only, after S1, consuming the metrics and evidence
+     * already in scope. Layer 1 is deterministic; Layer 2 writes the
+     * reason text (one Claude call per case). Ships as data only
+     * (content.a2_classification); the S2 renderer reads only briefing and
+     * never touches this key. */
+    const a2Result = await runA2Diagnostic({
+      caseId: opts.caseId,
+      asOfDate,
+      holdings,
+      metrics,
+      evidence,
+    });
+    usage.a2 = a2Result.usage;
+    runningTokens += a2Result.usage.inputTokens + a2Result.usage.outputTokens;
+    if (runningTokens > tokenBudget) {
+      throw new Error(
+        `Token budget exceeded after A2 classification: used ${runningTokens} of ${tokenBudget} tokens. ` +
+          `Raise tokenBudgetPerCase in Settings or scope the case smaller.`,
+      );
+    }
+
     const elapsedMs = Date.now() - startedAt;
 
     /* Persist contentJson with the briefing plus diagnostic provenance:
@@ -201,10 +225,17 @@ export async function runDiagnosticPipeline(opts: {
       metrics,
       router_decision: routerDecision,
       evidence,
+      a2_classification: a2Result.output,
       usage_summary: {
         per_agent: usage,
-        total_input_tokens: stitched.usage_summary.total_input_tokens + (usage.s1?.inputTokens ?? 0),
-        total_output_tokens: stitched.usage_summary.total_output_tokens + (usage.s1?.outputTokens ?? 0),
+        total_input_tokens:
+          stitched.usage_summary.total_input_tokens +
+          (usage.s1?.inputTokens ?? 0) +
+          (usage.a2?.inputTokens ?? 0),
+        total_output_tokens:
+          stitched.usage_summary.total_output_tokens +
+          (usage.s1?.outputTokens ?? 0) +
+          (usage.a2?.outputTokens ?? 0),
         elapsed_ms: elapsedMs,
         generated_at: new Date().toISOString(),
       },

@@ -50,7 +50,7 @@ export const HHI_CEILING_BY_TIER: Record<string, number> = {
 
 export type LiquidityBucket = "T_30" | "T_90" | "T_365" | "Locked";
 
-const BUCKET_BY_SUBCATEGORY: Record<SubCategory, LiquidityBucket> = {
+export const BUCKET_BY_SUBCATEGORY: Record<SubCategory, LiquidityBucket> = {
   // Equity
   mf_active_large_cap: "T_90",
   mf_passive_index: "T_30",
