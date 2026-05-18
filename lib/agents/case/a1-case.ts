@@ -77,7 +77,8 @@ function buildPrompt(input: A1CaseInput): string {
     `    {`,
     `      "category": "<${CATEGORIES.join(" | ")}>",`,
     `      "title": "<short headline; sentence case; specific to this case (not generic)>",`,
-    `      "body": "<one paragraph posing the challenge as a question the synthesis should be ready to answer; cite specific evidence from the verdicts or gates where relevant; institutional voice, no rhetoric>"`,
+    `      "body": "<one paragraph posing the challenge as a question the synthesis should be ready to answer; cite specific evidence from the verdicts or gates where relevant; institutional voice, no rhetoric>",`,
+    `      "headline_takeaway": "<one sentence naming the watch-item this challenge raises; active voice, present tense; specific, not generic; starts with the thing itself>"`,
     `    }`,
     `  ]`,
     `}`,
@@ -114,6 +115,12 @@ function validate(raw: unknown): A1Output {
     }
     if (typeof c.body !== "string" || c.body.trim().length === 0) {
       throw new Error("A1 challenge body missing or empty");
+    }
+    /* headline_takeaway is the forward contract; type-if-present so
+     * stubs recorded before this field are not retroactively invalid.
+     * The fixture backfill supplies it for the rendered case set. */
+    if (c.headline_takeaway !== undefined && typeof c.headline_takeaway !== "string") {
+      throw new Error("A1 challenge headline_takeaway must be a string");
     }
   }
   return { challenges: o.challenges as AdvisoryChallengeItem[] };

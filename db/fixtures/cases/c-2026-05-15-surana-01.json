@@ -15,7 +15,7 @@
         "snapshot_date": "2 Apr 2026",
         "liquid_aum_label": "Rs 34.5 Cr",
         "holdings_label": "11 holdings",
-        "stated_revealed_label": "Aggressive stated; analytically aggressive revealed — disciplined, not emotional",
+        "stated_revealed_label": "Says aggressive, behaves aggressive: stated appetite and revealed temperament align.",
         "severity_counts": {
           "escalate": 4,
           "flag": 5,
@@ -28,31 +28,36 @@
           "vocab": "allocation_drift",
           "severity": "escalate",
           "one_line": "Equity at 89.9% is 24.9 pp above the 65% target and 19.9 pp above the 70% band ceiling; debt at 0% is 25 pp below the 20% band floor — the most material mandate breach in the portfolio.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Equity at 89.9% is 19.9 pp above the 70% ceiling; debt at 0% is 25 pp below its floor, the most material breach."
         },
         {
           "vocab": "position_over_concentration",
           "severity": "escalate",
           "one_line": "Reliance Industries at 20.3% of liquid AUM (Rs 7 Cr) exceeds the 15% escalate threshold by 5.3 pp; E1 verdict is hold_with_attention with PEG 4.32, ROE 8.4%, and 3M price return of -9.85%.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Reliance Industries at 20.3% of AUM (Rs 7 Cr) clears the 15% line by 5.3 pp; E1 holds with attention."
         },
         {
           "vocab": "fee_inefficiency",
           "severity": "escalate",
           "one_line": "All five mutual fund schemes (combined Rs 16 Cr, 46.4% of liquid AUM) are on Regular plans; estimated avoidable fee drag is Rs 1.05–1.15 Cr over 5 years, with Axis Large Cap (TER 1.58%, 5Y return 6.86%) the most egregious case.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "All five MF schemes (46.4% of AUM) on Regular plans leak an estimated Rs 1.05 to 1.15 Cr over 5 years."
         },
         {
           "vocab": "complexity_premium_not_earned",
           "severity": "escalate",
           "one_line": "Kotak 'Emerging Equity Fund' is actually an overseas FoF (Kotak Global Emerging Market Overseas Equity Omni FOF) with Sharpe 0.047, 46-month drawdown recovery, effective TER ~2.5–3.5% including underlying fund, and debt-like slab-rate taxation — instrument mismatch requires immediate clarification.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Kotak 'Emerging Equity' is an overseas FoF: Sharpe 0.047, 46-month recovery, ~2.5 to 3.5% all-in, debt-taxed."
         },
         {
           "vocab": "allocation_drift",
           "severity": "flag",
           "one_line": "Zero debt allocation leaves the portfolio with no ballast against equity volatility; in the current macro environment (10Y yield 6.99%, FII outflows Rs 56,401 Cr in April, crude at $118.95/bbl), the absence of a debt sleeve amplifies drawdown risk.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Zero debt leaves no ballast; in a stressed macro the absence of a debt sleeve amplifies drawdown risk."
         }
       ],
       "section_2_portfolio_overview": {
@@ -340,7 +345,18 @@
           "weight_pct": "6.4%"
         }
       ],
-      "coverage_note": "This diagnostic operated on 11 holdings with full deterministic metrics from M0.PortfolioRiskAnalytics and activated evidence agents E1, E2, E3, E4, E6, and E7. Three limitations constrain the diagnostic's completeness. First, MF sector look-through is unavailable: all five MF schemes (46.4% of liquid AUM, Rs 16 Cr) have no sector exposure data in the metrics object (coveredCount 0, uncoveredWeightPct 46.4%); sector-level concentration within the MF sleeve — including potential overlap between Axis Large Cap, Mirae Large Cap, and Reliance Industries at the stock level — cannot be confirmed. Second, the Vanguard S&P 500 ETF (GIFT) at 8.7% weight could not be evaluated under the E1 per-stock fundamental framework (passive diversified index ETF; no nifty500_record); E2 assessed it at the index level with confidence 0.65; instrument-level tracking error, expense ratio, and GIFT City liquidity data are unavailable. Third, the White Oak India Pioneers PMS evaluation (E6) was conducted on a null-snapshot basis — all performance and fee figures are anchored in publicly disclosed positioning and reported ranges as of 2025, not live portfolio data; confidence is accordingly capped at 0.62. Physical gold (Rs 2 Cr, 5.8%) and Bank savings (Rs 1.5 Cr, 4.3%) are within mandate bands and generated no observations in sections 1, 3, or 4; they are excluded from the evidence appendix per output schema instructions. The Indian context module (M0.IndianContext) was not activated for this case; succession, estate, and tax-specific observations (e.g., LTCG step-up, GIFT City FEMA treatment) are therefore not surfaced in this diagnostic."
+      "coverage_note": "This diagnostic operated on 11 holdings with full deterministic metrics from M0.PortfolioRiskAnalytics and activated evidence agents E1, E2, E3, E4, E6, and E7. Three limitations constrain the diagnostic's completeness. First, MF sector look-through is unavailable: all five MF schemes (46.4% of liquid AUM, Rs 16 Cr) have no sector exposure data in the metrics object (coveredCount 0, uncoveredWeightPct 46.4%); sector-level concentration within the MF sleeve — including potential overlap between Axis Large Cap, Mirae Large Cap, and Reliance Industries at the stock level — cannot be confirmed. Second, the Vanguard S&P 500 ETF (GIFT) at 8.7% weight could not be evaluated under the E1 per-stock fundamental framework (passive diversified index ETF; no nifty500_record); E2 assessed it at the index level with confidence 0.65; instrument-level tracking error, expense ratio, and GIFT City liquidity data are unavailable. Third, the White Oak India Pioneers PMS evaluation (E6) was conducted on a null-snapshot basis — all performance and fee figures are anchored in publicly disclosed positioning and reported ranges as of 2025, not live portfolio data; confidence is accordingly capped at 0.62. Physical gold (Rs 2 Cr, 5.8%) and Bank savings (Rs 1.5 Cr, 4.3%) are within mandate bands and generated no observations in sections 1, 3, or 4; they are excluded from the evidence appendix per output schema instructions. The Indian context module (M0.IndianContext) was not activated for this case; succession, estate, and tax-specific observations (e.g., LTCG step-up, GIFT City FEMA treatment) are therefore not surfaced in this diagnostic.",
+      "section_headlines": {
+        "summary": "Nine observations, four escalate: a 24.9 pp equity overweight with zero debt, a 20.3% single stock, pervasive Regular-plan drag, and a mislabelled overseas FoF.",
+        "portfolio": "Asset-class actuals against the aggressive mandate bands: equity far above the ceiling, debt absent.",
+        "headline_observations": "Nine observations, four escalate led by the equity overweight and the zero-debt breach.",
+        "concentration": "Five concentration breaches, the escalate one Reliance at 20.3% of liquid AUM.",
+        "risk_flags": "Seven risk flags, three escalate: the dual mandate breach, Regular-plan fee drag, and the Kotak instrument mismatch.",
+        "comparison": "Direct comparison applies: mandate-band deviations are mandate-significant, not informational.",
+        "talking": "Five conversation openers, led by the equity overweight against the 70% ceiling.",
+        "appendix": "Eight holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage spans full deterministic metrics and six evidence agents; MF sector look-through, the GIFT-City ETF, and a null-snapshot PMS remain unresolved."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 34.5,

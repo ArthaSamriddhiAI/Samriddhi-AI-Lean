@@ -15,7 +15,7 @@
         "snapshot_date": "2 Apr 2026",
         "liquid_aum_label": "Rs 60.65 Cr",
         "holdings_label": "3 holdings",
-        "stated_revealed_label": "Aggressive stated; aligned revealed (single-geography, limited Indian market history)",
+        "stated_revealed_label": "Says aggressive, behaves aggressive: stated appetite and revealed temperament align, on single-geography history with a limited Indian-market record.",
         "severity_counts": {
           "escalate": 3,
           "flag": 4,
@@ -28,31 +28,36 @@
           "vocab": "position_over_concentration",
           "severity": "escalate",
           "one_line": "Bank savings account at Rs 52.5 Cr (86.6% of liquid AUM) breaches the aggressive-bucket HHI ceiling of 0.30 with an HHI of 0.76 — the single largest position concentration flag in the portfolio.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Bank savings at Rs 52.5 Cr (86.6% of AUM) drives portfolio HHI to 0.76 against the 0.30 ceiling."
         },
         {
           "vocab": "cash_drag",
           "severity": "escalate",
           "one_line": "Cash share of 86.6% against a model target of 3% (ceiling 5%) produces a deployment gap of 81.6 percentage points, representing approximately Rs 49.5 Cr of uninvested capital in an aggressive long-term mandate.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Cash at 86.6% vs a 3% target leaves about Rs 49.5 Cr uninvested in an aggressive long-term mandate."
         },
         {
           "vocab": "allocation_drift",
           "severity": "escalate",
           "one_line": "Equity allocation at 6.6% is 58.4 percentage points below the mandate band floor of 60%, the largest single asset-class deviation in the portfolio and the primary driver of mandate non-compliance.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Equity at 6.6% is 58.4 pp below the 60% floor, the largest asset-class deviation and the driver of non-compliance."
         },
         {
           "vocab": "allocation_drift",
           "severity": "flag",
           "one_line": "Debt allocation at 6.8% is 13.2 percentage points below the mandate band floor of 20%; alternatives at 0% are entirely absent against a 5–10% mandate band.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Debt 13.2 pp below its floor; alternatives entirely absent against a 5 to 10% band."
         },
         {
           "vocab": "stated_revealed_divergence",
           "severity": "flag",
           "one_line": "Stated aggressive profile is directionally supported by eight years of no-panic US equity holding, but zero Indian market stress history and a documented speed-preference risk (E4 confidence 0.62) mean the mandate alignment is not fully confirmed for Indian-market deployment conditions.",
-          "source": "interpretation"
+          "source": "interpretation",
+          "short_form": "Eight years of no-panic US equity supports the aggressive label, but zero Indian-market stress history leaves alignment unconfirmed."
         }
       ],
       "section_2_portfolio_overview": {
@@ -237,7 +242,18 @@
           "weight_pct": "6.6%"
         }
       ],
-      "coverage_note": "This diagnostic operated on 3 holdings totalling Rs 60.65 Cr liquid AUM. The HDFC Bank FD (Rs 4.15 Cr, 6.8%) did not drive any headline observation and is excluded from the evidence appendix per schema instructions. The US listed equities holding (Rs 4.0 Cr, 6.6%) is analytically opaque: E1 and E2 both returned cannot_evaluate verdicts because no constituent-level identifiers (tickers, ISINs, fund names) were provided; all seven E1 metric families and all five E2 analytical dimensions are indeterminate. Currency risk (USD/INR), embedded capital gains, and FEMA/LRS compliance dimensions for this holding are outside E1/E2 scope and are flagged for M0.PortfolioRiskAnalytics resolution pending constituent decomposition. No PMS, AIF, or mutual fund holdings are present in this portfolio; PMS/AIF opacity and MF look-through caveats are therefore not applicable. Sector look-through analysis is not possible for the US equity holding without composition data. Performance attribution (net returns, benchmark-relative, risk-adjusted) cannot be produced: the portfolio is pre-deployment with no meaningful investment return history in its current structure, and E6/E7 manager performance agents were not activated. E3 confidence is 0.72 due to absent REER data, stale WALR data (~120 days), and incomplete April DII flow data. E4 confidence is 0.62 due to zero prior cases and zero advisor relationship history; the limited_history_flag is set true."
+      "coverage_note": "This diagnostic operated on 3 holdings totalling Rs 60.65 Cr liquid AUM. The HDFC Bank FD (Rs 4.15 Cr, 6.8%) did not drive any headline observation and is excluded from the evidence appendix per schema instructions. The US listed equities holding (Rs 4.0 Cr, 6.6%) is analytically opaque: E1 and E2 both returned cannot_evaluate verdicts because no constituent-level identifiers (tickers, ISINs, fund names) were provided; all seven E1 metric families and all five E2 analytical dimensions are indeterminate. Currency risk (USD/INR), embedded capital gains, and FEMA/LRS compliance dimensions for this holding are outside E1/E2 scope and are flagged for M0.PortfolioRiskAnalytics resolution pending constituent decomposition. No PMS, AIF, or mutual fund holdings are present in this portfolio; PMS/AIF opacity and MF look-through caveats are therefore not applicable. Sector look-through analysis is not possible for the US equity holding without composition data. Performance attribution (net returns, benchmark-relative, risk-adjusted) cannot be produced: the portfolio is pre-deployment with no meaningful investment return history in its current structure, and E6/E7 manager performance agents were not activated. E3 confidence is 0.72 due to absent REER data, stale WALR data (~120 days), and incomplete April DII flow data. E4 confidence is 0.62 due to zero prior cases and zero advisor relationship history; the limited_history_flag is set true.",
+      "section_headlines": {
+        "summary": "The portfolio is undeployed: 86.6% in a savings account, equity 58.4 pp below floor, all four classes out of band.",
+        "portfolio": "Asset-class actuals against the aggressive mandate bands: all four classes outside their bands, pre-deployment.",
+        "headline_observations": "Seven observations, three escalate on cash over-concentration, cash drag, and equity under-allocation.",
+        "concentration": "Two concentration breaches, the escalate one an 86.6% single-instrument cash position.",
+        "risk_flags": "Six risk flags, two escalate: the cash drag and all four asset classes out of band.",
+        "comparison": "Direct comparison applies: a pre-deployment portfolio against the aggressive long-term model.",
+        "talking": "Five conversation openers, led by the pre-deployment framing.",
+        "appendix": "Two holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage is metric-grounded; the US equity holding is analytically opaque without constituent data, and the portfolio is pre-deployment so no performance attribution is possible."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 60.65,

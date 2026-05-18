@@ -40,33 +40,36 @@ type Props = {
 const PENDING_BODY =
   "IC1 deliberation pending; infrastructure ready; awaiting live generation per DEFERRED item 12.";
 
-export function IC1Memo({ materiality, deliberation }: Props) {
+/* Body-only: on the Analyst Reports tab IC1 is one accordion row (locked
+ * decision A); the row supplies the "IC1, Committee Deliberation" title.
+ * Returns null when materiality did not fire, so the caller can omit the
+ * row entirely. */
+export function IC1MemoBody({ materiality, deliberation }: Props) {
   if (!materiality.fires || !deliberation.fires) return null;
 
-  const allSentinel =
+  const sentinel =
     deliberation.chair.status === "infrastructure_ready" &&
     deliberation.devils_advocate.status === "infrastructure_ready" &&
     deliberation.risk_assessor.status === "infrastructure_ready" &&
     deliberation.counterfactual_engine.status === "infrastructure_ready" &&
     deliberation.minutes_recorder.status === "infrastructure_ready";
 
+  if (sentinel) {
+    return (
+      <div className="agent-memo-block">
+        <p>{PENDING_BODY}</p>
+      </div>
+    );
+  }
+
   return (
-    <article className="agent-memo">
-      <h2 className="agent-memo-heading">IC1, Committee Deliberation</h2>
-      {allSentinel ? (
-        <div className="agent-memo-block">
-          <p>{PENDING_BODY}</p>
-        </div>
-      ) : (
-        <>
-          <MinutesRecorderBlock payload={deliberation.minutes_recorder} />
-          <ChairBlock payload={deliberation.chair} />
-          <DevilsAdvocateBlock payload={deliberation.devils_advocate} />
-          <RiskAssessorBlock payload={deliberation.risk_assessor} />
-          <CounterfactualEngineBlock payload={deliberation.counterfactual_engine} />
-        </>
-      )}
-    </article>
+    <>
+      <MinutesRecorderBlock payload={deliberation.minutes_recorder} />
+      <ChairBlock payload={deliberation.chair} />
+      <DevilsAdvocateBlock payload={deliberation.devils_advocate} />
+      <RiskAssessorBlock payload={deliberation.risk_assessor} />
+      <CounterfactualEngineBlock payload={deliberation.counterfactual_engine} />
+    </>
   );
 }
 

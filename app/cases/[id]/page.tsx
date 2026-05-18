@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { AnalysisTab } from "@/components/case-detail/AnalysisTab";
-import { BriefingTab } from "@/components/case-detail/BriefingTab";
 import { ChatPanel } from "@/components/case-detail/ChatPanel";
 import { CaseStubBadge } from "@/components/case-detail/CaseStubBadge";
 import { OutcomeTab } from "@/components/case-detail/OutcomeTab";
@@ -116,6 +115,14 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     const decision: CaseDecision | null = c.decisionJson ? (JSON.parse(c.decisionJson) as CaseDecision) : null;
     const activeTab: "outcome" | "analyst" = tab === "analyst" ? "analyst" : "outcome";
 
+    /* Data-driven tab count: activated evidence verdicts of total. Reads
+     * off the persisted evidence_verdicts, never hardcoded against a
+     * fixture. Sharma (canonical S1) resolves to "5 of 7" (E1,E2,E3,E4,E6
+     * activated; E5,E7 not). A case with a different activation pattern
+     * renders its own value. */
+    const activatedAgents = evidence.filter((v) => v.activation_status === "activated").length;
+    const analystTabCount = `${activatedAgents} of ${evidence.length}`;
+
     return (
       <div className="case-detail h-[calc(100vh-52px)]">
         <div className="case-toolbar">
@@ -127,7 +134,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
             <span className="crumb-current">{c.investor.name} · Proposal evaluation</span>
             <span className="frozen-pill">
               <Lock size={11} />
-              Frozen {frozen}
+              Case Frozen {frozen}
             </span>
             <CaseStubBadge stubbed={c.stubbed} />
           </div>
@@ -142,13 +149,9 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
               href={`/cases/${id}?tab=analyst`}
               className={`case-tab ${activeTab === "analyst" ? "is-active" : ""}`}
             >
-              Analyst Reports
+              Analyst reports
+              <span className="tab-count">{analystTabCount}</span>
             </Link>
-          </div>
-          <div className="case-toolbar-right">
-            <button type="button" className="btn btn-ghost btn-sm" disabled>
-              Share link
-            </button>
           </div>
         </div>
 
@@ -156,6 +159,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           {activeTab === "analyst" ? (
             <AnalystReportsTab
               verdicts={evidence}
+              summaries={briefing.section_3_evidence_summary}
               materiality={materiality}
               ic1Deliberation={ic1Deliberation}
             />
@@ -175,20 +179,14 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     );
   }
 
-  /* Samriddhi 2 diagnostic branch (Slice 2; unchanged). */
-  const activeTab: "analysis" | "briefing" = tab === "briefing" ? "briefing" : "analysis";
+  /* Samriddhi 2 diagnostic branch. Concept C: the analysis surface is the
+   * page; there is no tab strip. The former "Briefing PDF" tab is now a
+   * "Download slide deck" toolbar button wired to the existing PDF path. */
   let content: BriefingContent | null = null;
-  let generatedAt = frozen;
-  let usageSummary: { total_input_tokens?: number; total_output_tokens?: number; elapsed_ms?: number; generated_at?: string } | null = null;
   try {
     const parsed = JSON.parse(c.contentJson);
     if (parsed && parsed.briefing) {
       content = transformRupeesDeep(parsed.briefing as BriefingContent);
-      usageSummary = parsed.usage_summary ?? null;
-      if (usageSummary?.generated_at) {
-        const d = new Date(usageSummary.generated_at);
-        generatedAt = formatFrozen(d);
-      }
     }
   } catch {
     /* fallthrough: content stays null */
@@ -244,56 +242,29 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           </span>
           <span className="frozen-pill">
             <Lock size={11} />
-            Frozen {frozen}
+            Case Frozen {frozen}
           </span>
           <CaseStubBadge stubbed={c.stubbed} />
         </div>
-        <div className="case-tabs">
-          <Link
-            href={`/cases/${id}`}
-            className={`case-tab ${activeTab === "analysis" ? "is-active" : ""}`}
-          >
-            Analysis
-          </Link>
-          <Link
-            href={`/cases/${id}?tab=briefing`}
-            className={`case-tab ${activeTab === "briefing" ? "is-active" : ""}`}
-          >
-            Briefing PDF
-          </Link>
-        </div>
         <div className="case-toolbar-right">
-          <button type="button" className="btn btn-ghost btn-sm" disabled>
-            Share link
-          </button>
           <a
             href={`/api/cases/${id}/briefing.pdf`}
             className="btn btn-primary btn-sm"
             download={`briefing-${id}.pdf`}
           >
             <Download size={13} />
-            Export briefing
+            Download slide deck
           </a>
         </div>
       </div>
 
       <div className="case-body">
-        {activeTab === "briefing" ? (
-          <BriefingTab
-            investorName={c.investor.name}
-            snapshotDate={snapshotDate}
-            caseId={id}
-            content={content}
-            generatedAt={generatedAt}
-          />
-        ) : (
-          <AnalysisTab
-            investorName={c.investor.name}
-            snapshotDate={snapshotDate}
-            content={content}
-            holdings={holdings}
-          />
-        )}
+        <AnalysisTab
+          investorName={c.investor.name}
+          snapshotDate={snapshotDate}
+          content={content}
+          holdings={holdings}
+        />
         <ChatPanel />
       </div>
     </div>

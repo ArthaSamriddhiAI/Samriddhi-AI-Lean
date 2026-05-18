@@ -15,7 +15,7 @@
         "snapshot_date": "2 Apr 2026",
         "liquid_aum_label": "Rs 18 Cr",
         "holdings_label": "8 holdings",
-        "stated_revealed_label": "Aggressive stated; moderate-aggressive revealed",
+        "stated_revealed_label": "Says aggressive, behaves moderate-aggressive: stated appetite and revealed temperament partially align.",
         "severity_counts": {
           "escalate": 6,
           "flag": 5,
@@ -28,31 +28,36 @@
           "vocab": "allocation_drift",
           "severity": "escalate",
           "one_line": "Equity allocation at 55.1% is 9.9 percentage points below the mandate floor of 60%, the only out-of-band asset class and the most material structural gap in the portfolio.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Equity at 55.1% is 9.9 pp below the 60% floor, the only out-of-band class and the most material gap."
         },
         {
           "vocab": "complexity_premium_not_earned",
           "severity": "escalate",
           "one_line": "Kotak Emerging Equity Fund (12.6%, Rs 2.26 Cr) — actually an overseas FoF — delivers a Sharpe of 0.047 and a rolling 5Y beat frequency of 38.8% against its category, while carrying an effective total fee load of 3–4% p.a. and slab-rate tax treatment; the complexity premium is not earned.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Kotak Emerging Equity (12.6%), actually an overseas FoF, returns Sharpe 0.047 at a 3 to 4% all-in fee: the premium is not earned."
         },
         {
           "vocab": "position_over_concentration",
           "severity": "escalate",
           "one_line": "Five of eight holdings breach the 10% single-position flag threshold; three of those — Mirae Asset Large Cap Fund (17.8%), HDFC Bank FD (15.6%), and Parag Parikh Flexi Cap Fund (16.7%) — breach the 15% escalate threshold.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Five of eight holdings past the 10% line; Mirae 17.8%, Parag Parikh 16.7%, and the HDFC Bank FD 15.6% clear the 15% line."
         },
         {
           "vocab": "stated_revealed_divergence",
           "severity": "flag",
           "one_line": "Stated aggressive mandate is contradicted by revealed behaviour: equity at the lower half of the mandate band, Rs 5.4 Cr FD block held flat across three reset cycles, and no mid-cycle review raised across six advisor interactions.",
-          "source": "interpretation"
+          "source": "interpretation",
+          "short_form": "Aggressive mandate contradicted by lower-band equity and a Rs 5.4 Cr FD block held flat across three reset cycles."
         },
         {
           "vocab": "fee_inefficiency",
           "severity": "flag",
           "one_line": "Parag Parikh Flexi Cap Fund (16.7%, Rs 3 Cr) is held in Regular Plan; switching to Direct Plan saves an estimated Rs 2.2 lakh per year (73 bps) on the highest-conviction positive holding in the portfolio.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Parag Parikh Flexi Cap (16.7%) on Regular plan leaks about Rs 2.2 lakh a year on the top-conviction holding."
         }
       ],
       "section_2_portfolio_overview": {
@@ -338,7 +343,18 @@
           "weight_pct": "8.0%"
         }
       ],
-      "coverage_note": "This diagnostic has material coverage limitations that the advisor should note. First, MF look-through data is unavailable for all three mutual fund holdings (Mirae Asset Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund): none of the three fall within the approximately 220-fund covered subset of the 1,773-fund reference universe that carries Top 5 Holdings data. As a result, E1 and E2 returned empty verdicts, sector-level concentration analysis is not possible, and the sleeve-level comparison in Section 5 is estimated from fund mandates rather than underlying holdings. Second, the Cat II private credit AIF is identified only by category and vintage; no manager name, fund documents, or track record are available. E6 confidence for this position is 0.35 — below the standard null-snapshot floor — because the absence of manager identity is a structural information gap, not a data latency issue. The AIF evaluation reflects category-level knowledge of 2024-vintage Indian private credit structures only. Third, the White Oak PMS evaluation (E6 confidence 0.62) is anchored in published PMS factsheets and publicly available performance disclosures as of late 2024; the snapshot record is null and actual portfolio-level data is unavailable. Fourth, the Kotak position carries a data integrity flag: the instrument label in the portfolio records does not match the fund identified in the E7 snapshot. All findings related to this position should be treated as provisional until the actual holding is confirmed. Fifth, the operating-business equity (estimated Rs 40–60 Cr) is outside advisory scope and has not been incorporated into any metric or evidence calculation; the household-level risk concentration is therefore understated throughout this diagnostic."
+      "coverage_note": "This diagnostic has material coverage limitations that the advisor should note. First, MF look-through data is unavailable for all three mutual fund holdings (Mirae Asset Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund): none of the three fall within the approximately 220-fund covered subset of the 1,773-fund reference universe that carries Top 5 Holdings data. As a result, E1 and E2 returned empty verdicts, sector-level concentration analysis is not possible, and the sleeve-level comparison in Section 5 is estimated from fund mandates rather than underlying holdings. Second, the Cat II private credit AIF is identified only by category and vintage; no manager name, fund documents, or track record are available. E6 confidence for this position is 0.35 — below the standard null-snapshot floor — because the absence of manager identity is a structural information gap, not a data latency issue. The AIF evaluation reflects category-level knowledge of 2024-vintage Indian private credit structures only. Third, the White Oak PMS evaluation (E6 confidence 0.62) is anchored in published PMS factsheets and publicly available performance disclosures as of late 2024; the snapshot record is null and actual portfolio-level data is unavailable. Fourth, the Kotak position carries a data integrity flag: the instrument label in the portfolio records does not match the fund identified in the E7 snapshot. All findings related to this position should be treated as provisional until the actual holding is confirmed. Fifth, the operating-business equity (estimated Rs 40–60 Cr) is outside advisory scope and has not been incorporated into any metric or evidence calculation; the household-level risk concentration is therefore understated throughout this diagnostic.",
+      "section_headlines": {
+        "summary": "Nine observations, six escalate: equity below floor, an unearned-premium overseas FoF, and three positions past the 15% line.",
+        "portfolio": "Asset-class actuals against the aggressive mandate bands: equity the only out-of-band class.",
+        "headline_observations": "Nine observations, six escalate led by the 9.9 pp equity under-allocation.",
+        "concentration": "Seven concentration breaches, three escalate on Mirae, Parag Parikh, and the HDFC Bank FD.",
+        "risk_flags": "Seven risk flags, two escalate: the equity under-allocation and the overseas-FoF fee load.",
+        "comparison": "Direct comparison applies; sleeve actuals estimated from fund mandates as MF look-through is unavailable.",
+        "talking": "Five conversation openers, led by the equity under-allocation against the mandate floor.",
+        "appendix": "Seven holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage is materially limited: zero MF look-through on three funds, an unidentified Cat II AIF manager, and a Kotak label mismatch all left provisional."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 18,

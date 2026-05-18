@@ -41,6 +41,7 @@ import type {
   StructuredAlternative,
   StructuredBullet,
 } from "@/lib/agents/ic1/types";
+import { ic1AllSentinel } from "@/lib/format/case-accordion";
 
 type Props = {
   materiality: MaterialityOutput;
@@ -50,48 +51,26 @@ type Props = {
 const SENTINEL_BODY =
   "IC1 deliberation infrastructure is wired and ready. Live deliberation content for this case is scheduled to populate when the firm enables live committee mode. The architecture renders on this surface; the deliberation roles, materiality threshold logic, and synthesis surface are all in place.";
 
-export function IC1Section({ materiality, deliberation }: Props) {
+/* Body-only: the accordion row supplies the title and chevron. */
+export function IC1Body({ materiality, deliberation }: Props) {
   const [expanded, setExpanded] = useState(false);
 
-  /* Branch 1: materiality threshold not reached. */
   if (!materiality.fires || !deliberation.fires) {
-    return (
-      <section className="pdf-section">
-        <h2>
-          <span className="sec-num">05</span>IC1 deliberation
-        </h2>
-        <p className="ic1-not-reached">{materiality.reason}</p>
-      </section>
-    );
+    return <p className="ic1-not-reached">{materiality.reason}</p>;
   }
 
-  const allSentinel =
-    deliberation.chair.status === "infrastructure_ready" &&
-    deliberation.devils_advocate.status === "infrastructure_ready" &&
-    deliberation.risk_assessor.status === "infrastructure_ready" &&
-    deliberation.counterfactual_engine.status === "infrastructure_ready" &&
-    deliberation.minutes_recorder.status === "infrastructure_ready";
-
-  /* Branch 2: full sentinel state. */
-  if (allSentinel) {
+  if (ic1AllSentinel(deliberation)) {
     return (
-      <section className="pdf-section">
-        <h2>
-          <span className="sec-num">05</span>IC1 deliberation
-        </h2>
+      <>
         <div className="ic1-pending-eyebrow">IC1 DELIBERATION PENDING</div>
         <p className="case-paragraph">{SENTINEL_BODY}</p>
-      </section>
+      </>
     );
   }
 
-  /* Branch 3: any role populated. */
   const minutes = deliberation.minutes_recorder;
   return (
-    <section className="pdf-section">
-      <h2>
-        <span className="sec-num">05</span>IC1 deliberation
-      </h2>
+    <>
       <p className="section-sub">
         Committee-level analysis surfaced because materiality fired on this case.
       </p>
@@ -122,7 +101,7 @@ export function IC1Section({ materiality, deliberation }: Props) {
           <CounterfactualEngineBlock payload={deliberation.counterfactual_engine} />
         </div>
       )}
-    </section>
+    </>
   );
 }
 

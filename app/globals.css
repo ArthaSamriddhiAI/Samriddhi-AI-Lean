@@ -718,8 +718,9 @@
   .case-tab:hover { color: var(--color-ink-1); background: var(--color-paper-hover); text-decoration: none; }
   .case-tab.is-active { color: var(--color-ink-1); background: var(--color-paper-sunken); font-weight: 500; }
 
-  .case-body { display: grid; grid-template-columns: 1fr 360px; min-height: 0; }
-  .case-body.chat-closed { grid-template-columns: 1fr 52px; }
+  /* Second track sizes to the chat panel's own width: 360px open, a thin
+     rail when collapsed, so the page reclaims the space. */
+  .case-body { display: grid; grid-template-columns: 1fr auto; min-height: 0; }
 
   /* ---- Workbench (Analysis tab) ---- */
   .workbench-area {
@@ -1155,6 +1156,7 @@
 
   /* ---- Chat panel ---- */
   .chat-panel {
+    width: 360px;
     background: var(--color-paper-raised);
     border-left: 1px solid var(--color-rule);
     display: flex;
@@ -1163,6 +1165,7 @@
     min-height: 0;
   }
   .chat-panel-collapsed {
+    width: 44px;
     background: var(--color-paper);
     border-left: 1px solid var(--color-rule);
     display: flex;
@@ -2055,5 +2058,248 @@
     border-radius: var(--radius-1);
     display: inline-block;
     margin: 0;
+  }
+
+  /* ===========================================================================
+     Concept C accordion (locked accordion redesign). Transcribed from the
+     locked mockup; tokens mapped to this repo's --color-* / --radius-* /
+     --duration-* namespace. Shell + always-visible band + bulk controls +
+     the signal-led pill row. Bodies keep their existing section classes.
+     =========================================================================== */
+  .ar-shell { flex: 1; overflow-y: auto; background: var(--color-paper); }
+  .ar-shell::-webkit-scrollbar { width: 8px; }
+  .ar-shell::-webkit-scrollbar-thumb { background: var(--color-rule-strong); border-radius: 4px; }
+
+  .ar-inner { max-width: 880px; margin: 0 auto; padding: 36px 48px 96px; }
+
+  .ar-case-head {
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--color-rule);
+    margin-bottom: 24px;
+  }
+  .ar-case-head .eye {
+    font-family: var(--font-sans); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--color-ink-3); font-weight: 500;
+    margin-bottom: 6px;
+  }
+  .ar-case-head h2 {
+    font-family: var(--font-serif); font-size: 26px;
+    font-weight: 400; letter-spacing: -0.014em;
+    color: var(--color-ink-1); margin: 0 0 8px;
+  }
+  .ar-case-meta {
+    font-family: var(--font-mono); font-size: 11.5px;
+    color: var(--color-ink-3); display: flex; flex-wrap: wrap;
+    gap: 8px; align-items: center;
+  }
+  .ar-case-meta .sep { color: var(--color-ink-5); }
+
+  /* Verdict band (S1) and diagnostic band (S2): always visible. */
+  .ar-verdict {
+    display: grid;
+    grid-template-columns: minmax(240px, auto) 1fr;
+    gap: 28px;
+    padding: 22px 24px;
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-2);
+    margin-top: 18px;
+    align-items: start;
+  }
+  .ar-verdict .ar-vlabel {
+    font-family: var(--font-sans); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--color-ink-4); font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .ar-verdict .ar-vsplit { border-right: 1px solid var(--color-rule); padding-right: 28px; }
+  .ar-vrisk {
+    font-family: var(--font-serif); font-size: 22px;
+    font-weight: 400; letter-spacing: -0.012em; line-height: 1.1;
+  }
+  .ar-vrisk.moderate { color: var(--color-warn); }
+  .ar-vrisk.elevated { color: var(--color-warn); }
+  .ar-vrisk.low      { color: var(--color-pos); }
+  .ar-vrisk.high     { color: var(--color-neg); }
+  .ar-vmeta {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--color-ink-4); margin-top: 10px;
+    display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  }
+  .ar-vmeta .v { color: var(--color-ink-1); }
+  .ar-vmeta .sep { color: var(--color-ink-5); }
+  .ar-gov-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .ar-gov-pill {
+    font-family: var(--font-sans); font-size: 11px;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 11px; border-radius: var(--radius-1);
+    border: 1px solid var(--color-rule);
+    background: var(--color-paper); color: var(--color-ink-2);
+  }
+  .ar-gov-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-pos); }
+  .ar-gov-pill.fail .dot { background: var(--color-neg); }
+  .ar-gov-pill.clarify .dot { background: var(--color-warn); }
+  .ar-gov-pill .code {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--color-ink-4); letter-spacing: 0.02em;
+  }
+  .ar-gov-pill .status { color: var(--color-pos); font-weight: 500; }
+  .ar-gov-pill.fail .status { color: var(--color-neg); }
+  .ar-gov-pill.clarify .status { color: var(--color-warn); }
+  .ar-gov-pill .note { color: var(--color-ink-4); font-size: 10.5px; }
+
+  .ar-diag {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 28px;
+    padding: 22px 24px;
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-2);
+    margin-top: 18px;
+  }
+  .ar-diag-headline {
+    font-family: var(--font-serif); font-size: 18px;
+    font-weight: 400; line-height: 1.4;
+    color: var(--color-ink-1); letter-spacing: -0.005em;
+    text-wrap: pretty; max-width: 560px;
+  }
+  .ar-diag-headline em { font-style: normal; color: var(--color-ink-3); }
+  .ar-diag-tally {
+    display: flex; align-items: stretch; gap: 0;
+    padding-left: 24px; border-left: 1px solid var(--color-rule);
+  }
+  .ar-diag-tally .t {
+    display: flex; flex-direction: column;
+    align-items: flex-end; gap: 2px; padding: 0 14px;
+  }
+  .ar-diag-tally .t + .t { border-left: 1px solid var(--color-rule-faint); }
+  .ar-diag-tally .v {
+    font-family: var(--font-mono); font-size: 20px;
+    font-weight: 500; color: var(--color-ink-1);
+    font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+  }
+  .ar-diag-tally .v.esc { color: var(--color-neg); }
+  .ar-diag-tally .v.flg { color: var(--color-warn); }
+  .ar-diag-tally .l {
+    font-family: var(--font-sans); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--color-ink-3);
+  }
+
+  /* Section controls: eyebrow + count, expand-all / collapse-all. */
+  .ar-controls {
+    display: flex; justify-content: space-between;
+    align-items: center; gap: 16px;
+    margin: 28px 0 4px; padding: 0 2px;
+  }
+  .ar-controls .eye {
+    font-family: var(--font-sans); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--color-ink-4); font-weight: 500;
+  }
+  .ar-controls .eye .ct {
+    font-family: var(--font-mono); margin-left: 6px;
+    letter-spacing: 0.02em; color: var(--color-ink-4);
+  }
+  .ar-bulk {
+    display: flex; align-items: center;
+    font-family: var(--font-sans); font-size: 11.5px;
+    color: var(--color-ink-4);
+  }
+  .ar-bulk button {
+    font: inherit; color: var(--color-ink-3);
+    background: transparent; border: 0; cursor: pointer;
+    padding: 4px 10px; border-radius: var(--radius-1);
+    transition: all var(--duration-1);
+  }
+  .ar-bulk button:hover { background: var(--color-paper-hover); color: var(--color-ink-1); }
+  .ar-bulk .sep { color: var(--color-ink-5); padding: 0 2px; }
+
+  /* Signal-led pill row. */
+  .ar-c { display: flex; flex-direction: column; gap: 8px; }
+  .ar-c-item {
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-rule-strong);
+    border-radius: var(--radius-2);
+    background: var(--color-paper-raised);
+    overflow: hidden;
+  }
+  .ar-c-item.sev-esc { border-left-color: var(--color-neg); }
+  .ar-c-item.sev-flg { border-left-color: var(--color-warn); }
+  .ar-c-item.sev-inf { border-left-color: var(--color-accent); }
+  .ar-c-item.sev-ok  { border-left-color: var(--color-pos); }
+  .ar-c-head {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 16px 18px;
+    text-align: left;
+    background: transparent;
+    border: 0; cursor: pointer;
+    transition: background var(--duration-1);
+  }
+  .ar-c-head:hover { background: var(--color-paper-hover); }
+  .ar-c-pill {
+    font-family: var(--font-sans); font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    font-weight: 600;
+    padding: 4px 10px; border-radius: var(--radius-1);
+    white-space: nowrap;
+    align-self: center;
+    border: 1px solid transparent;
+    min-width: 76px; text-align: center;
+  }
+  .ar-c-pill.esc { color: var(--color-neg); background: var(--color-neg-tint); }
+  .ar-c-pill.flg { color: var(--color-warn); background: var(--color-warn-tint); }
+  .ar-c-pill.inf { color: var(--color-accent); background: var(--color-accent-tint); }
+  .ar-c-pill.ok  { color: var(--color-pos); background: var(--color-pos-tint); }
+  .ar-c-pill.mut { color: var(--color-ink-4); background: transparent; border-color: var(--color-rule); }
+  .ar-c-titleblock { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .ar-c-title-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .ar-c-num {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--color-ink-4); letter-spacing: 0.02em;
+  }
+  .ar-c-title { font-size: 14px; font-weight: 500; color: var(--color-ink-1); line-height: 1.3; }
+  .ar-c-headline {
+    font-family: var(--font-serif); font-size: 14.5px;
+    color: var(--color-ink-2); line-height: 1.45;
+    font-weight: 400; letter-spacing: -0.003em;
+    text-wrap: pretty; max-width: 600px;
+  }
+  .ar-c-headline em { font-style: italic; color: var(--color-ink-1); }
+  .ar-c-aside {
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--font-mono); font-size: 12px;
+    color: var(--color-ink-2); font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em; white-space: nowrap;
+  }
+  .ar-c-aside .chev { color: var(--color-ink-4); transition: transform var(--duration-2) var(--ease-out-quad); }
+  .ar-c-item.is-open .ar-c-aside .chev { transform: rotate(90deg); color: var(--color-ink-1); }
+  .ar-c-body {
+    display: none;
+    padding: 4px 22px 22px 22px;
+    border-top: 1px solid var(--color-rule-faint);
+  }
+  .ar-c-item.is-open .ar-c-body { display: block; }
+
+  /* Data-driven tab count on the S1 "Analyst reports" tab. */
+  .case-tab .tab-count {
+    font-family: var(--font-mono); font-size: 10.5px;
+    color: var(--color-ink-4); margin-left: 6px;
+  }
+  .case-tab.is-active .tab-count { color: var(--color-ink-3); }
+
+  /* Per-item advisory-challenge headline takeaway, rendered as the
+     challenge's Source Serif lead once the fixture backfill lands. */
+  .challenge-headline {
+    font-family: var(--font-serif); font-size: 13.5px;
+    color: var(--color-ink-2); line-height: 1.45;
+    letter-spacing: -0.003em; text-wrap: pretty;
+    margin: 2px 0 4px;
   }
 }
