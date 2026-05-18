@@ -28,31 +28,36 @@
           "vocab": "wrapper_over_accumulation",
           "severity": "escalate",
           "one_line": "Four PMS strategies aggregate 39.4% of liquid AUM; combined PMS + AIF wrapper-tier exposure is 53.0% (Rs 11.7 Cr) at blended fee load ~340-350 bps weighted average.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Four PMS strategies stack to 39.4% of liquid AUM; total wrapper tier hits 53.0% at ~340 bps."
         },
         {
           "vocab": "complexity_premium_not_earned",
           "severity": "escalate",
           "one_line": "Motilal Oswal Value Strategy PMS (9.5% weight) shows since-inception alpha of -0.72% net of fees vs BSE 500 TRI at the highest fixed management fee in the sleeve (2.5% p.a., ~360 bps blended).",
-          "source": "evidence_agent"
+          "source": "evidence_agent",
+          "short_form": "Motilal Oswal Value Strategy PMS runs negative since-inception alpha (-0.72%) at the sleeve's highest fee (2.5%)."
         },
         {
           "vocab": "allocation_drift",
           "severity": "flag",
           "one_line": "Debt allocation at 14.2% sits 10.8 pp below the 20-30% mandate band; equity at 72.2% breaches the 60-70% ceiling by 2.2 pp.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Debt sits 10.8 pp below the 20-30% band; equity breaches the 60-70% ceiling by 2.2 pp."
         },
         {
           "vocab": "stated_revealed_divergence",
           "severity": "flag",
           "one_line": "Stated aggressive risk appetite diverges materially from revealed moderate-aggressive pattern across six years of relationship-trust PMS accumulation without benchmarking.",
-          "source": "interpretation"
+          "source": "interpretation",
+          "short_form": "Stated aggressive appetite diverges from six years of unbenchmarked relationship-trust PMS accumulation."
         },
         {
           "vocab": "position_over_concentration",
           "severity": "flag",
           "one_line": "Five positions breach the 10% single-instrument flag: Avendus AIF 13.6%, Reliance 12.2%, Marcellus PMS 11.3%, HDFC Bank 11.3%, White Oak PMS 10.0%.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Five positions breach the 10% line: Avendus 13.6%, Reliance 12.2%, Marcellus 11.3%, HDFC Bank 11.3%, White Oak 10.0%."
         }
       ],
       "section_2_portfolio_overview": {
@@ -362,7 +367,18 @@
           "weight_pct": "7.2%"
         }
       ],
-      "coverage_note": "The diagnostic operated on deterministic metrics for all twelve holdings and evidence-agent verdicts for the five wrapper-tier products (E6) and three mutual funds (E7) plus three direct listed names (E1/E2). Three of five wrapper products (Marcellus, White Oak, Alchemy, Avendus) carry null snapshot records — fee, performance, and strategy claims for these rely on published positioning with confidence capped at 0.55-0.65. Two critical data-integrity flags require resolution before action: the Motilal Oswal snapshot fund name ('Ethical Strategy') does not match the instrument name ('Value Strategy'), and the Aditya Birla position is labelled 'Arbitrage Fund' but the snapshot identifies it as a Large & Mid Cap Fund — fundamentally different product categories. MF look-through coverage is 0% (three uncovered funds at 11.5% weight); sector concentration via mutual fund holdings cannot be assessed. Plan-type (Direct vs Regular) is confirmed only for Parag Parikh; Mirae remains ambiguous. The macro overlay from E3 (Brent $118.95, INR 94.79, heavy FII outflows) is an active stress environment, not a latent risk, and shapes the read on the zero-cash deployment gap."
+      "coverage_note": "The diagnostic operated on deterministic metrics for all twelve holdings and evidence-agent verdicts for the five wrapper-tier products (E6) and three mutual funds (E7) plus three direct listed names (E1/E2). Three of five wrapper products (Marcellus, White Oak, Alchemy, Avendus) carry null snapshot records — fee, performance, and strategy claims for these rely on published positioning with confidence capped at 0.55-0.65. Two critical data-integrity flags require resolution before action: the Motilal Oswal snapshot fund name ('Ethical Strategy') does not match the instrument name ('Value Strategy'), and the Aditya Birla position is labelled 'Arbitrage Fund' but the snapshot identifies it as a Large & Mid Cap Fund — fundamentally different product categories. MF look-through coverage is 0% (three uncovered funds at 11.5% weight); sector concentration via mutual fund holdings cannot be assessed. Plan-type (Direct vs Regular) is confirmed only for Parag Parikh; Mirae remains ambiguous. The macro overlay from E3 (Brent $118.95, INR 94.79, heavy FII outflows) is an active stress environment, not a latent risk, and shapes the read on the zero-cash deployment gap.",
+      "section_headlines": {
+        "summary": "Two escalate items dominate: four PMS strategies over-accumulate at 39.4% of AUM, and Motilal Oswal PMS charges the top fee for negative since-inception alpha.",
+        "portfolio": "Asset-class actuals against the mandate bands: equity above the ceiling, debt below the floor.",
+        "headline_observations": "Nine observations, two escalate: wrapper over-accumulation and an unearned complexity premium at the top fee load.",
+        "concentration": "Seven concentration breaches, the escalate one a wrapper-tier sleeve at 53.0% of liquid AUM.",
+        "risk_flags": "Eight risk flags, two escalate on fees: the unearned complexity premium and the Aditya Birla labelling mismatch.",
+        "comparison": "Sleeve weights and wrapper sequencing measured against the aggressive long-term model portfolio.",
+        "talking": "Six conversation openers, led by the four-PMS consolidation question.",
+        "appendix": "Ten holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage rests on deterministic metrics for all twelve holdings, with three wrapper products on published positioning only and two snapshot-name mismatches still open."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 22.1,

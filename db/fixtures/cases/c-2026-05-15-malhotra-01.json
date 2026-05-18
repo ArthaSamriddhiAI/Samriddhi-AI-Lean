@@ -28,31 +28,36 @@
           "vocab": "allocation_drift",
           "severity": "escalate",
           "one_line": "Equity at 52.1% is 7.9 pp below the mandate floor of 60% and 12.9 pp below the 65% target; debt at 39.4% is 9.4 pp above the mandate ceiling of 30% — both breaches are simultaneous and material.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Equity 7.9 pp below the 60% floor; debt 9.4 pp above the 30% ceiling, both breached simultaneously."
         },
         {
           "vocab": "position_over_concentration",
           "severity": "escalate",
           "one_line": "NHAI Tax-Free Bonds 2032 at 18.1% of liquid AUM (Rs 2.15 Cr) is the single largest position in the portfolio, exceeding the escalate threshold of 15% in a single instrument within an already over-weight debt sleeve.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "NHAI Tax-Free Bonds 2032 at 18.1% of AUM is the largest position, past the 15% line in an over-weight debt sleeve."
         },
         {
           "vocab": "fee_inefficiency",
           "severity": "escalate",
           "one_line": "Kotak overseas FoF (10.5% weight, Rs 1.25 Cr) carries an estimated total cost of ownership of 2.5–3.5% p.a. (Kotak TER 1.62% plus underlying CI fund fees), delivers negative rolling alpha on both 3Y (−76 bps avg excess) and 5Y (−46 bps avg excess) horizons, and is taxed as a debt fund — making it the most value-destructive holding in the portfolio on a fee-adjusted, tax-adjusted basis.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Kotak overseas FoF (10.5%) runs negative 3Y and 5Y alpha at 2.5 to 3.5% all-in, taxed as debt: the most value-destructive holding."
         },
         {
           "vocab": "stated_revealed_divergence",
           "severity": "flag",
           "one_line": "Stated mandate is aggressive (60–70% equity target) and behavioural evidence confirms genuine stress-tolerance (COVID SIP increase, 12-year unbroken SIP discipline), yet the portfolio's 52.1% equity and zero PMS/AIF/international exposure reflect a revealed-conservative execution pattern inconsistent with both the mandate and the investor's demonstrated behaviour.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Aggressive mandate and proven SIP discipline, yet 52.1% equity and zero PMS/AIF read as conservative by execution."
         },
         {
           "vocab": "fee_inefficiency",
           "severity": "flag",
           "one_line": "Axis Large Cap Fund (11.8% weight, Rs 1.40 Cr) is on a Regular plan at TER 1.58% p.a. with a rolling 3Y alpha of only +35 bps avg excess — the active fee premium is almost entirely consumed by the Regular plan cost, delivering near-index returns at active-fund pricing.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Axis Large Cap on Regular plan at 1.58% TER delivers near-index returns at active pricing."
         }
       ],
       "section_2_portfolio_overview": {
@@ -311,7 +316,18 @@
           "weight_pct": "10.5%"
         }
       ],
-      "coverage_note": "This diagnostic operated on 8 holdings totalling Rs 11.85 Cr liquid AUM. E1 and E2 returned empty scopes: no direct equity holdings are present, and MF look-through data is unavailable for all four MF positions (none of the four funds are among the approximately 220 of 1,773 funds in the reference universe carrying Top 5 Holdings data). Consequently, no stock-level fundamental or sector analysis could be conducted; sector concentration cannot be assessed from available data. E7 evaluated all four MF schemes using scheme-level performance, rolling alpha, and fee data — this is the primary source of fund-level quality assessment. The fourth holding is labeled 'Kotak Emerging Equity Fund' (sub_category: mf_active_mid_cap) in the case data but the snapshot identifies it as Kotak Global Emerging Market Overseas Equity Omni FOF (SEBI category: FoFs Overseas) — a materially different product with different fee structure, tax treatment, and benchmark. All E7 analysis for this instrument is based on the actual snapshot data (FoFs Overseas); the instrument identity discrepancy must be reconciled before any portfolio-level action is taken on this position. The debt holdings (NHAI Tax-Free Bonds 2032, PFC Tax-Free Bonds 2031, HDFC Bank FD) and physical gold were not within E7 scope; their assessment is based on M0.PortfolioRiskAnalytics metrics and E3 macro context only. No PMS or AIF wrappers are present; wrapper opacity is not a constraint in this case. IndianContext bundle was not activated in this diagnostic run; succession, estate, and tax-policy dimensions are not assessed here."
+      "coverage_note": "This diagnostic operated on 8 holdings totalling Rs 11.85 Cr liquid AUM. E1 and E2 returned empty scopes: no direct equity holdings are present, and MF look-through data is unavailable for all four MF positions (none of the four funds are among the approximately 220 of 1,773 funds in the reference universe carrying Top 5 Holdings data). Consequently, no stock-level fundamental or sector analysis could be conducted; sector concentration cannot be assessed from available data. E7 evaluated all four MF schemes using scheme-level performance, rolling alpha, and fee data — this is the primary source of fund-level quality assessment. The fourth holding is labeled 'Kotak Emerging Equity Fund' (sub_category: mf_active_mid_cap) in the case data but the snapshot identifies it as Kotak Global Emerging Market Overseas Equity Omni FOF (SEBI category: FoFs Overseas) — a materially different product with different fee structure, tax treatment, and benchmark. All E7 analysis for this instrument is based on the actual snapshot data (FoFs Overseas); the instrument identity discrepancy must be reconciled before any portfolio-level action is taken on this position. The debt holdings (NHAI Tax-Free Bonds 2032, PFC Tax-Free Bonds 2031, HDFC Bank FD) and physical gold were not within E7 scope; their assessment is based on M0.PortfolioRiskAnalytics metrics and E3 macro context only. No PMS or AIF wrappers are present; wrapper opacity is not a constraint in this case. IndianContext bundle was not activated in this diagnostic run; succession, estate, and tax-policy dimensions are not assessed here.",
+      "section_headlines": {
+        "summary": "Ten observations, four escalate: a dual mandate breach, two position concentrations, and a value-destructive overseas FoF.",
+        "portfolio": "Asset-class actuals against the aggressive mandate bands: equity below the floor, debt above the ceiling.",
+        "headline_observations": "Ten observations, four escalate led by equity under-allocation breaching the band on both sides.",
+        "concentration": "Six concentration breaches, two escalate on NHAI Tax-Free Bonds and Mirae Large Cap.",
+        "risk_flags": "Six risk flags, two escalate: the dual mandate breach and the double-fee overseas FoF.",
+        "comparison": "Direct comparison applies: actual sleeve weights against the aggressive long-term model targets.",
+        "talking": "Five conversation openers, led by the dual-direction allocation drift.",
+        "appendix": "Six holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage is metric and E7 grounded; no MF look-through on four funds, and a Kotak instrument-identity mismatch must reconcile before action."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 11.85,

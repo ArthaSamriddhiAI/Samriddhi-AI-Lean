@@ -28,31 +28,36 @@
           "vocab": "position_over_concentration",
           "severity": "escalate",
           "one_line": "HDFC Bank FD at 27.3% and SBI FD at 27.0% each exceed the 15% single-instrument escalate threshold; together they constitute 54.3% of liquid AUM (Rs 1.85 Cr) in two bank fixed deposits.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "HDFC Bank FD 27.3% and SBI FD 27.0% each clear the 15% line; together 54.3% of AUM sits in two bank FDs."
         },
         {
           "vocab": "allocation_drift",
           "severity": "flag",
           "one_line": "Equity actual 35.5% is 29.5 pp below the mandate band floor of 60%; Debt actual 64.6% is 39.6 pp above the mandate band ceiling of 30% — both asset classes are materially outside mandate bands simultaneously.",
-          "source": "metric"
+          "source": "metric",
+          "short_form": "Equity 29.5 pp below the 60% floor; debt 39.6 pp above the 30% ceiling, both out of band at once."
         },
         {
           "vocab": "fee_inefficiency",
           "severity": "flag",
           "one_line": "Axis Large Cap Fund is held in Regular Plan (TER 1.58% vs Direct Plan ~0.60%); the ~98 bp annual drag implies approximately Rs 1.8–2.0 lakh in unnecessary distributor commission over 5 years on the Rs 0.40 Cr holding.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "Axis Large Cap held in Regular plan; ~98 bp annual drag, about Rs 1.8 to 2.0 lakh over 5 years."
         },
         {
           "vocab": "stated_revealed_divergence",
           "severity": "flag",
           "one_line": "Revealed stress-tolerance is below the stated conservative label: in the 2022 drawdown Mrs. Iyengar withdrew Rs 30 L from equity MFs against advisor counsel, crystallising approximately Rs 4 L of realised loss.",
-          "source": "interpretation"
+          "source": "interpretation",
+          "short_form": "2022 drawdown: Mrs. Iyengar withdrew Rs 30 L against counsel, crystallising about Rs 4 L of loss below the conservative label."
         },
         {
           "vocab": "allocation_drift",
           "severity": "flag",
           "one_line": "10Y G-Sec yield has risen 44 bp to 6.99% since November 2025 (intraday spike 7.19% on 3 Apr); debt MF holdings carrying duration are exposed to mark-to-market NAV erosion in the current rate environment.",
-          "source": "hybrid"
+          "source": "hybrid",
+          "short_form": "10Y G-Sec up 44 bp to 6.99%; duration-carrying debt MF holdings face mark-to-market NAV erosion."
         }
       ],
       "section_2_portfolio_overview": {
@@ -305,7 +310,18 @@
           "weight_pct": "9.7%"
         }
       ],
-      "coverage_note": "E1 and E2 returned empty scope: no direct listed equity is held, and MF look-through data is unavailable for all four fund holdings — the foundation §3 reference universe covers approximately 220 of 1,773 funds on Top 5 Holdings data, and none of the four funds in this portfolio fall within that covered set. Sector-level look-through (sectorExposureMfLookThrough) is therefore empty; underlying equity exposures within Axis Large Cap, HDFC Nifty 50, and ICICI Pru BAF cannot be decomposed at the stock or sector level from this diagnostic. The mfCoverage object confirms 0 of 4 MF holdings covered, representing 45.8% of AUM with no look-through visibility. Concentration analysis at the holding and asset-class level is fully metric-grounded; fund-level quality assessments (E7) are based on published performance data and SEBI category classification. No PMS or AIF wrappers are present. The ICICI Prudential Balanced Advantage Fund plan designation (Regular vs Direct) is unresolved from the snapshot name alone and requires advisor confirmation before the fee-inefficiency finding can be finalised for that holding. All return figures cited are as provided in the E7 snapshot metadata as of 2 Apr 2026."
+      "coverage_note": "E1 and E2 returned empty scope: no direct listed equity is held, and MF look-through data is unavailable for all four fund holdings — the foundation §3 reference universe covers approximately 220 of 1,773 funds on Top 5 Holdings data, and none of the four funds in this portfolio fall within that covered set. Sector-level look-through (sectorExposureMfLookThrough) is therefore empty; underlying equity exposures within Axis Large Cap, HDFC Nifty 50, and ICICI Pru BAF cannot be decomposed at the stock or sector level from this diagnostic. The mfCoverage object confirms 0 of 4 MF holdings covered, representing 45.8% of AUM with no look-through visibility. Concentration analysis at the holding and asset-class level is fully metric-grounded; fund-level quality assessments (E7) are based on published performance data and SEBI category classification. No PMS or AIF wrappers are present. The ICICI Prudential Balanced Advantage Fund plan designation (Regular vs Direct) is unresolved from the snapshot name alone and requires advisor confirmation before the fee-inefficiency finding can be finalised for that holding. All return figures cited are as provided in the E7 snapshot metadata as of 2 Apr 2026.",
+      "section_headlines": {
+        "summary": "Three escalate items: both FDs breach the 15% ceiling and asset-class HHI at 0.54 exceeds the conservative 0.20 limit.",
+        "portfolio": "Asset-class actuals against the conservative mandate bands: equity below the floor, debt above the ceiling.",
+        "headline_observations": "Eight observations, three escalate on twin FD over-concentration and asset-class HHI.",
+        "concentration": "Six concentration breaches, three escalate on the two bank FDs at 27% each.",
+        "risk_flags": "Six risk flags, the escalate one a simultaneous debt over- and equity under-allocation.",
+        "comparison": "Informational only: the conservative mandate bands are the primary reference, model sleeves give sub-context.",
+        "talking": "Five conversation openers, led by the twin-FD concentration.",
+        "appendix": "Six holdings audited against the observations that drove the diagnostic.",
+        "coverage": "Coverage is metric-grounded; no PMS or AIF, but all four MF holdings (45.8% of AUM) carry zero look-through and one plan-type is unresolved."
+      }
     },
     "metrics": {
       "totalLiquidAumCr": 3.41,
