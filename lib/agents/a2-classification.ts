@@ -227,6 +227,50 @@ function instrumentMatchE1(symbol: string, instrument: string): boolean {
   return x === y || x.startsWith(y) || y.startsWith(x);
 }
 
+/* ----- Threshold-boundary convention (ADR 0005) -----
+ *
+ * Checkpoint 2 taste call 1: strictly greater than a threshold triggers
+ * that severity; exactly at the threshold is one tier lower (the flag
+ * boundary becomes watch, the escalate boundary becomes flag); below the
+ * threshold is no driver. A2 interprets M0's foundation thresholds this
+ * way. M0's own positionFlags uses `>=`, so A2 and M0 diverge by one
+ * severity tier exactly at a boundary. This divergence is intentional and
+ * recorded in docs/decisions/0005_a2_threshold_boundary_convention.md. */
+
+function positionSeverity(weightPct: number): A2DriverSeverity | null {
+  if (weightPct > POSITION_ESCALATE_PCT) return "escalate";
+  if (weightPct > POSITION_FLAG_PCT) return "flag";
+  if (weightPct === POSITION_FLAG_PCT) return "watch";
+  return null;
+}
+
+function sectorSeverity(weightPct: number): A2DriverSeverity | null {
+  if (weightPct > SECTOR_ESCALATE_PCT) return "escalate";
+  if (weightPct > SECTOR_FLAG_PCT) return "flag";
+  if (weightPct === SECTOR_FLAG_PCT) return "watch";
+  return null;
+}
+
+/* "4+ PMS strategies" is a literal count (four or more is the trigger by
+ * definition, not a boundary ambiguity), so it stays a count test and
+ * yields flag. "Any wrapper above 25%" follows the ADR 0005 convention. */
+function wrapperPmsSeverity(
+  w: PortfolioMetrics["concentration"]["wrappers"],
+): A2DriverSeverity | null {
+  if (w.wrapperCountFlag) return "flag";
+  if (w.pmsAggregatePct > WRAPPER_SHARE_FLAG_PCT) return "flag";
+  if (w.pmsAggregatePct === WRAPPER_SHARE_FLAG_PCT) return "watch";
+  return null;
+}
+
+function wrapperAifSeverity(
+  w: PortfolioMetrics["concentration"]["wrappers"],
+): A2DriverSeverity | null {
+  if (w.aifAggregatePct > WRAPPER_SHARE_FLAG_PCT) return "flag";
+  if (w.aifAggregatePct === WRAPPER_SHARE_FLAG_PCT) return "watch";
+  return null;
+}
+
 /* ----- Layer 1: deterministic verdict assignment ----- */
 
 export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
@@ -275,14 +319,13 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
   const e4Material =
     !!e4 && e4.stated_vs_revealed_divergence?.magnitude === "material";
 
-  /* Sector over-concentration: foundation §3 flag 25%, escalate 35%.
-   * Propagates to every holding the MF look-through attributes to that
-   * sector. Built once, applied per holding below. */
+  /* Sector over-concentration: foundation §3, flag 25%, escalate 35%,
+   * applied with the ADR 0005 boundary convention. Propagates to every
+   * holding the MF look-through attributes to that sector. Built once,
+   * applied per holding below. */
   const sectorDriversByInstrument = new Map<string, A2DriverComputed[]>();
   for (const s of metrics.concentration.sectorExposureMfLookThrough) {
-    let severity: A2DriverSeverity | null = null;
-    if (s.weightPct >= SECTOR_ESCALATE_PCT) severity = "escalate";
-    else if (s.weightPct >= SECTOR_FLAG_PCT) severity = "flag";
+    const severity = sectorSeverity(s.weightPct);
     if (!severity) continue;
     for (const inst of s.coveredFunds) {
       const list = sectorDriversByInstrument.get(inst) ?? [];
@@ -294,7 +337,8 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
         facts: {
           sector: s.sector,
           sector_weight_pct: s.weightPct,
-          threshold: "flag 25%, escalate 35%",
+          threshold:
+            "above 25% flags, above 35% escalates; exactly at a threshold is one tier lower (ADR 0005)",
         },
       });
       sectorDriversByInstrument.set(inst, list);
@@ -303,33 +347,40 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
 
   /* Wrapper over-accumulation: foundation §3, 4+ PMS strategies or any
    * wrapper aggregate above 25%. Per the skill propagation table every
-   * holding in the triggered wrapper set gets a flag (Discuss) driver. */
+   * holding in the triggered wrapper set gets the same driver; severity
+   * follows the ADR 0005 boundary convention on the 25% share rule. */
   const w = metrics.concentration.wrappers;
-  const pmsTriggered =
-    w.wrapperCountFlag || w.pmsAggregatePct > WRAPPER_SHARE_FLAG_PCT;
-  const aifTriggered = w.aifAggregatePct > WRAPPER_SHARE_FLAG_PCT;
+  const pmsWrapperSeverity = wrapperPmsSeverity(w);
+  const aifWrapperSeverity = wrapperAifSeverity(w);
 
   const holding_verdicts: A2HoldingComputed[] = [];
 
   for (const h of holdings.holdings) {
     const drivers: A2DriverComputed[] = [];
 
-    // Position weight vs foundation §3 (flag 10%, escalate 15%). Anchored
-    // to M0's positionFlags so the threshold has one source of truth.
+    // Position weight vs foundation §3 (flag 10%, escalate 15%). The
+    // instrument set is anchored to M0's positionFlags (single source of
+    // truth for which holdings clear 10%); the severity is re-derived
+    // here under the ADR 0005 boundary convention rather than inherited
+    // from M0's `>=` severity.
     const pf = metrics.concentration.positionFlags.find((p) =>
       instrumentExact(p.instrument, h.instrument),
     );
     if (pf) {
-      drivers.push({
-        driver_type: "position_concentration",
-        severity: pf.severity === "escalate" ? "escalate" : "flag",
-        scope: "holding",
-        source_observation: "position_over_concentration",
-        facts: {
-          weight_pct: pf.weightPct,
-          threshold: "flag 10%, escalate 15%",
-        },
-      });
+      const severity = positionSeverity(pf.weightPct);
+      if (severity) {
+        drivers.push({
+          driver_type: "position_concentration",
+          severity,
+          scope: "holding",
+          source_observation: "position_over_concentration",
+          facts: {
+            weight_pct: pf.weightPct,
+            threshold:
+              "above 10% flags, above 15% escalates; exactly at a threshold is one tier lower (ADR 0005)",
+          },
+        });
+      }
     }
 
     // Thesis intactness and complexity premium, per the relevant evidence
@@ -445,23 +496,24 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
     }
 
     // Wrapper propagation.
-    if (pmsTriggered && isPMS(h.subCategory)) {
+    if (pmsWrapperSeverity && isPMS(h.subCategory)) {
       drivers.push({
         driver_type: "wrapper_over_accumulation",
-        severity: "flag",
+        severity: pmsWrapperSeverity,
         scope: "portfolio_propagated",
         source_observation: "wrapper_over_accumulation",
         facts: {
           pms_count: w.pmsCount,
           pms_aggregate_pct: w.pmsAggregatePct,
-          threshold: "4+ PMS strategies, or any wrapper > 25% of liquid AUM",
+          threshold:
+            "4+ PMS strategies, or any wrapper above 25% of liquid AUM (boundary-exact one tier lower, ADR 0005)",
         },
       });
     }
-    if (aifTriggered && isAIF(h.subCategory)) {
+    if (aifWrapperSeverity && isAIF(h.subCategory)) {
       drivers.push({
         driver_type: "wrapper_over_accumulation",
-        severity: "flag",
+        severity: aifWrapperSeverity,
         scope: "portfolio_propagated",
         source_observation: "wrapper_over_accumulation",
         facts: {
@@ -561,10 +613,18 @@ function thesisFromE1Verdict(
  * this deterministic pass is the guarantee before anything is persisted.
  * Ordinary hyphen-minus (U+002D) is preserved: "moderate-aggressive" and
  * "positive-with-caution" must survive. A long dash is replaced with a
- * comma separator, then doubled or stranded punctuation is tidied. */
+ * comma separator, then doubled or stranded punctuation is tidied.
+ *
+ * The dash set is declared via \u escapes (a normal string literal) so
+ * this source file contains no literal long-dash glyph: U+2012 figure
+ * dash, U+2013 en dash, U+2014 em dash, U+2015 horizontal bar, U+2212
+ * minus sign. */
+const LONG_DASH_CHARS = String.fromCharCode(0x2012, 0x2013, 0x2014, 0x2015, 0x2212);
+const LONG_DASH_RE = new RegExp(`\\s*[${LONG_DASH_CHARS}]\\s*`, "g");
+
 export function stripLongDashes(s: string): string {
   return s
-    .replace(/\s*[‒–—―−]\s*/g, ", ")
+    .replace(LONG_DASH_RE, ", ")
     .replace(/\s+,/g, ",")
     .replace(/,\s*,/g, ",")
     .replace(/,\s*\./g, ".")

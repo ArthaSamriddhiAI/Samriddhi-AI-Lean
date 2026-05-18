@@ -18,11 +18,11 @@
  * Reconciliation note: the skill's Worked Example prose says "Motilal 10%"
  * but its Layer 1 table gives Motilal no position driver, and the same
  * paragraph states the weights are "approximately ... between 8% and 11%".
- * A2 anchors the position threshold to M0.PortfolioRiskAnalytics (flag at
- * >= 10%, the single source of truth; A2 does not invent thresholds), so
- * this fixture uses Motilal 9.8% to reproduce the table's intended driver
- * set without diverging from the M0 boundary. Surfaced for the Checkpoint 2
- * candidate review.
+ * Under the ADR 0005 boundary convention exactly 10% would be a watch
+ * driver, which still differs from the table's no-driver, so this fixture
+ * uses Motilal 9.8% (below 10%, no driver) to reproduce the table's
+ * intended set. The underlying skill self-inconsistency is tracked as
+ * PRODUCT_DEBT_LOG P10 for the next skill revision.
  */
 
 import {
@@ -465,11 +465,13 @@ assert(
 /* committed content; ordinary hyphen-minus must survive.            */
 /* ---------------------------------------------------------------- */
 
+const D = String.fromCharCode(0x2012, 0x2013, 0x2014, 0x2015, 0x2212);
 const dashy =
-  "No Review verdicts attach — nothing escalated; stated–revealed gap is moderate−to‐none.";
+  "No Review verdicts attach " + D[2] + " nothing escalated; stated" +
+  D[1] + "revealed gap is moderate" + D[4] + "to none.";
 const cleaned = stripLongDashes(dashy);
 assert(
-  !/[‒–—―−]/.test(cleaned),
+  !new RegExp(`[${D}]`).test(cleaned),
   "sanitizer:strips-long-dashes",
   `long dash survived sanitization: ${JSON.stringify(cleaned)}`,
 );
@@ -482,9 +484,118 @@ assert(
 );
 
 /* ---------------------------------------------------------------- */
+/* Test 9: ADR 0005 position boundary convention.                    */
+/*   > 10 flag (Discuss); == 10 watch (Monitor); == 15 flag           */
+/*   (one tier below escalate); > 15 escalate (Review).               */
+/* ---------------------------------------------------------------- */
+
+const posBoundaryInput: A2ClassifyInput = {
+  caseId: "verify-pos-boundary",
+  asOfDate: "2026-04-02",
+  holdings: {
+    totalLiquidAumCr: 100,
+    holdings: [
+      { instrument: "Pos At 10", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 10, weightPct: 10.0 },
+      { instrument: "Pos Above 10", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 11, weightPct: 10.5 },
+      { instrument: "Pos At 15", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 15, weightPct: 15.0 },
+      { instrument: "Pos Above 15", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 16, weightPct: 15.5 },
+    ],
+  },
+  metrics: makeMetrics({
+    positionFlags: [
+      { instrument: "Pos At 10", weightPct: 10.0, severity: "flag" },
+      { instrument: "Pos Above 10", weightPct: 10.5, severity: "flag" },
+      { instrument: "Pos At 15", weightPct: 15.0, severity: "escalate" },
+      { instrument: "Pos Above 15", weightPct: 15.5, severity: "escalate" },
+    ],
+  }),
+  evidence: EMPTY_EVIDENCE,
+};
+const rPos = classifyHoldings(posBoundaryInput);
+function posSev(ref: string): string {
+  const h = rPos.holding_verdicts.find((x) => x.holding_ref === ref);
+  const d = h?.drivers.find((x) => x.driver_type === "position_concentration");
+  return d ? d.severity : "<none>";
+}
+assert(
+  posSev("Pos At 10") === "watch" && verdictOf(rPos, "Pos At 10") === "monitor",
+  "pos-boundary:eq10-watch",
+  `exactly 10% must be watch/Monitor, got ${posSev("Pos At 10")} / ${verdictOf(rPos, "Pos At 10")}`,
+);
+assert(
+  posSev("Pos Above 10") === "flag" && verdictOf(rPos, "Pos Above 10") === "discuss",
+  "pos-boundary:gt10-flag",
+  `above 10% must be flag/Discuss, got ${posSev("Pos Above 10")} / ${verdictOf(rPos, "Pos Above 10")}`,
+);
+assert(
+  posSev("Pos At 15") === "flag" && verdictOf(rPos, "Pos At 15") === "discuss",
+  "pos-boundary:eq15-flag",
+  `exactly 15% must be flag/Discuss (one tier below escalate), got ${posSev("Pos At 15")} / ${verdictOf(rPos, "Pos At 15")}`,
+);
+assert(
+  posSev("Pos Above 15") === "escalate" && verdictOf(rPos, "Pos Above 15") === "review",
+  "pos-boundary:gt15-escalate",
+  `above 15% must be escalate/Review, got ${posSev("Pos Above 15")} / ${verdictOf(rPos, "Pos Above 15")}`,
+);
+
+/* ---------------------------------------------------------------- */
+/* Test 10: ADR 0005 sector boundary convention.                     */
+/*   > 25 flag; == 25 watch; == 35 flag; > 35 escalate.              */
+/* ---------------------------------------------------------------- */
+
+const secBoundaryInput: A2ClassifyInput = {
+  caseId: "verify-sec-boundary",
+  asOfDate: "2026-04-02",
+  holdings: {
+    totalLiquidAumCr: 100,
+    holdings: [
+      { instrument: "Fund Sec 25", assetClass: "Equity" as AssetClass, subCategory: "mf_active_large_cap" as SubCategory, valueCr: 5, weightPct: 5 },
+      { instrument: "Fund Sec 25p", assetClass: "Equity" as AssetClass, subCategory: "mf_active_large_cap" as SubCategory, valueCr: 5, weightPct: 5 },
+      { instrument: "Fund Sec 35", assetClass: "Equity" as AssetClass, subCategory: "mf_active_large_cap" as SubCategory, valueCr: 5, weightPct: 5 },
+      { instrument: "Fund Sec 35p", assetClass: "Equity" as AssetClass, subCategory: "mf_active_large_cap" as SubCategory, valueCr: 5, weightPct: 5 },
+    ],
+  },
+  metrics: makeMetrics({
+    sector: [
+      { sector: "Banking", weightPct: 25.0, coveredFunds: ["Fund Sec 25"] },
+      { sector: "IT", weightPct: 25.5, coveredFunds: ["Fund Sec 25p"] },
+      { sector: "Pharma", weightPct: 35.0, coveredFunds: ["Fund Sec 35"] },
+      { sector: "Auto", weightPct: 35.5, coveredFunds: ["Fund Sec 35p"] },
+    ],
+  }),
+  evidence: EMPTY_EVIDENCE,
+};
+const rSec = classifyHoldings(secBoundaryInput);
+function secSev(ref: string): string {
+  const h = rSec.holding_verdicts.find((x) => x.holding_ref === ref);
+  const d = h?.drivers.find((x) => x.driver_type === "sector_concentration");
+  return d ? d.severity : "<none>";
+}
+assert(
+  secSev("Fund Sec 25") === "watch" && verdictOf(rSec, "Fund Sec 25") === "monitor",
+  "sec-boundary:eq25-watch",
+  `sector exactly 25% must be watch/Monitor, got ${secSev("Fund Sec 25")} / ${verdictOf(rSec, "Fund Sec 25")}`,
+);
+assert(
+  secSev("Fund Sec 25p") === "flag" && verdictOf(rSec, "Fund Sec 25p") === "discuss",
+  "sec-boundary:gt25-flag",
+  `sector above 25% must be flag/Discuss, got ${secSev("Fund Sec 25p")} / ${verdictOf(rSec, "Fund Sec 25p")}`,
+);
+assert(
+  secSev("Fund Sec 35") === "flag" && verdictOf(rSec, "Fund Sec 35") === "discuss",
+  "sec-boundary:eq35-flag",
+  `sector exactly 35% must be flag/Discuss (one tier below escalate), got ${secSev("Fund Sec 35")} / ${verdictOf(rSec, "Fund Sec 35")}`,
+);
+assert(
+  secSev("Fund Sec 35p") === "escalate" && verdictOf(rSec, "Fund Sec 35p") === "review",
+  "sec-boundary:gt35-escalate",
+  `sector above 35% must be escalate/Review, got ${secSev("Fund Sec 35p")} / ${verdictOf(rSec, "Fund Sec 35p")}`,
+);
+
+/* ---------------------------------------------------------------- */
 
 if (failures.length === 0) {
-  console.log("PASS: A2 Layer 1 verification (8 tests, all assertions green)");
+  console.log("PASS: A2 Layer 1 verification (10 tests, all assertions green)");
   process.exit(0);
 } else {
   console.error(`FAIL: ${failures.length} assertion(s) failed:`);
