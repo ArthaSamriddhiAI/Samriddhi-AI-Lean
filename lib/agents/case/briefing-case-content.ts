@@ -61,6 +61,10 @@ export type SynthesisVerdictSection = {
    * resolve at its layer (mandate vs evidence contradiction, data
    * gap, agent escalation cascade). Per the skill Output 6. */
   escalation_recommended: boolean;
+  /** One sentence, the dominant tension or finding of the synthesis.
+   * Renders in Source Serif as the closed-state takeaway on the S1
+   * Outcome Synthesis accordion row. */
+  headline_takeaway: string;
 };
 
 export type EvidenceSummaryItem = {
@@ -85,6 +89,10 @@ export type AdvisoryChallengeItem = {
   category: "counter_argument" | "stress_test" | "edge_case";
   title: string;
   body: string;
+  /** One sentence naming the watch-item this challenge raises. Renders
+   * as the challenge's Source Serif lead in the Advisory challenges
+   * accordion body. */
+  headline_takeaway: string;
 };
 
 export type TalkingPoint = {

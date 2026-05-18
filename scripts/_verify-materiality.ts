@@ -107,6 +107,8 @@ const cleanInput: MaterialityInput = {
       "A small ticket new-investment proposal into a vanilla MF clears every layer cleanly.",
     counterfactual_framing: "A smaller ticket would have the same shape with less impact.",
     escalation_recommended: false,
+    headline_takeaway:
+      "A vanilla MF allocation at a small ticket clears every layer with no structural concern.",
   },
   gates: [
     {
