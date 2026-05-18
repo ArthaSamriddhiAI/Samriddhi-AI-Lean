@@ -40,6 +40,7 @@ export type UsageBundle = {
   e6?: AgentUsage;
   e7?: AgentUsage;
   s1?: AgentUsage;
+  a2?: AgentUsage;
 };
 
 /* A pre-observation is a deterministic signal that an observation candidate

@@ -1363,6 +1363,206 @@
       "total_output_tokens": 31187,
       "elapsed_ms": 237072,
       "generated_at": "2026-05-15T13:27:56.142Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-15-surana-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 11.6,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss as position concentration: weight at 11.6% has crossed the 10% flag threshold but sits below the 15% escalate line."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_negative",
+              "reason": "Review on thesis: E7 overall verdict is negative; 5Y return of 6.86% materially trails large-cap category and Nifty 50 TRI (~13-14%), downside capture 0.978 vs upside capture 0.897, and post-2022 manager transition breaks the prior track record."
+            },
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration also attaches: weight at 11% has crossed the 10% flag threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 8.7,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_positive_with_caution",
+              "reason": "Monitor on thesis: E7 verdict is positive with caution; downside capture of 0.994 implies near-full downside participation, max drawdown of -46.6%, and non-Direct plan carries ~90-95 bps of avoidable fee drag."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 8.7,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_negative",
+              "reason": "Review on thesis: E7 verdict is negative; instrument mismatch flagged (portfolio labelled domestic mid-cap but actual holding is an overseas FoF), max drawdown -58.2% with 46-month recovery, 5Y return of 6.86%, and FoF structure imposes a double fee layer and slab-rate taxation rather than equity LTCG."
+            }
+          ]
+        },
+        {
+          "holding_ref": "SBI Small Cap Fund",
+          "instrument_display_name": "SBI Small Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_small_cap",
+          "weight_pct": 6.4,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_positive_with_caution",
+              "reason": "Monitor on thesis: E7 verdict is positive with caution; AUM of Rs 34,932 Cr sits at or near small-cap capacity ceiling, downside capture 0.920 vs upside capture 0.817, and 1Y return of -4.48% reflects small-cap valuation pressure with category P/E at 31.6x."
+            }
+          ]
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 8.7,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "complexity_premium",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "complexity_premium_not_earned",
+              "reason": "Monitor on complexity premium not earned: 3Y net-of-fee alpha narrows to ~0-150 bps after blended fee drag of ~350-370 bps (management ~200 bps, performance fee contribution ~110-130 bps, expenses ~40 bps); since-inception net alpha of ~100-200 bps is positive but modest."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e6_overall_verdict_positive_with_caution",
+              "reason": "Thesis also attaches at watch: E6 verdict is positive with caution; AUM of ~Rs 8,000-10,000 Cr raises capacity concern on the mid-cap tilt, top-10 concentration at ~55-65%, and performance-fee structure (20% above 10% hurdle) can compress net returns non-linearly in strong years."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 20.3,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position concentration: weight at 20.3% has crossed the 15% escalate threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "e1_overall_verdict_hold_with_attention",
+              "reason": "Thesis also attaches at flag: E1 verdict is hold with attention; P/E premium of 52.7% over industry (23.19x vs 15.19x) sits against ROE of 8.4%, PEG of 4.32 against 3Y profit CAGR of 10.92%, and 3M return of -9.85% signals negative near-term momentum."
+            }
+          ]
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 5.8,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e1_overall_verdict_positive_with_caution",
+              "reason": "Monitor on thesis: E1 verdict is positive with caution; 3Y revenue CAGR of 5.83% and profit CAGR of 7.09% trail historical rates as post-merger balance sheet digestion plays out, and 6M return of -20.08% with 3M return of -14.13% reflects sustained price underperformance."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Vanguard S&P 500 ETF (GIFT)",
+          "instrument_display_name": "Vanguard S&P 500 ETF (GIFT)",
+          "asset_class": "Equity",
+          "sub_category": "intl_us_etf",
+          "weight_pct": 8.7,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "Physical gold",
+          "instrument_display_name": "Physical gold",
+          "asset_class": "Alternatives",
+          "sub_category": "physical_gold",
+          "weight_pct": 5.8,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "Bank savings",
+          "instrument_display_name": "Bank savings",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 4.3,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 3,
+        "monitor_count": 4,
+        "discuss_count": 1,
+        "review_count": 3,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "3 Maintain, 4 Monitor, 1 Discuss, 3 Review; thesis-led with one large single-stock position at escalate."
+      },
+      "reasoning_summary": "The classification picture is shaped primarily by holding-level thesis reads from E1 and E7, not by portfolio-level propagation. Three Review verdicts cluster around broken or strained fund-level theses (Axis Large Cap negative on persistent underperformance, Kotak Emerging Equity negative with an instrument-mismatch overlay) and one escalate-level single-stock concentration (Reliance at 20.3%). The Monitor tier carries watch-level thesis cautions across Mirae, SBI Small Cap, HDFC Bank, and White Oak PMS, where fundamentals are intact but near-term return or fee dynamics warrant tracking. One Discuss attaches at Parag Parikh on position weight alone."
     }
   },
   "tokenUsage": {
