@@ -982,6 +982,156 @@
       "total_output_tokens": 19881,
       "elapsed_ms": 229396,
       "generated_at": "2026-05-15T13:17:23.207Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-15-malhotra-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 15.6,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 15.6% of liquid AUM has crossed the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11.8,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 11.8% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_hold",
+              "reason": "Discuss on thesis: E7 verdict is hold, with regular-plan fee drag of 1.58% p.a. consuming most of a thin active premium, 3Y rolling beat-rate of only 55.3%, 3Y avg excess return of just +35 bps, and 5Y return of 6.86% materially lagging Mirae's 9.05%."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 14.2,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 14.2% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 10.5,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_negative",
+              "reason": "Review on thesis: E7 verdict is negative; instrument is mislabeled as mid-cap but is actually a FoFs Overseas structure with 98.75% in a single underlying fund, persistent negative rolling alpha (-76 bps on 3Y, -46 bps on 5Y), max drawdown of -58.2% with 46-month recovery, near-zero Sharpe of 0.047, and an estimated 2.5% to 3.5% double-layer total cost taxed as debt."
+            },
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position over-concentration also attaches: weight at 10.5% of liquid AUM has crossed the 10% flag threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "NHAI Tax-Free Bonds 2032",
+          "instrument_display_name": "NHAI Tax-Free Bonds 2032",
+          "asset_class": "Debt",
+          "sub_category": "tax_free_bond",
+          "weight_pct": 18.1,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 18.1% of liquid AUM has crossed the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "PFC Tax-Free Bonds 2031",
+          "instrument_display_name": "PFC Tax-Free Bonds 2031",
+          "asset_class": "Debt",
+          "sub_category": "tax_free_bond",
+          "weight_pct": 8.2,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 13.1,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 13.1% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Physical gold",
+          "instrument_display_name": "Physical gold",
+          "asset_class": "Alternatives",
+          "sub_category": "physical_gold",
+          "weight_pct": 8.4,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 2,
+        "monitor_count": 0,
+        "discuss_count": 3,
+        "review_count": 3,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "2 Maintain, 0 Monitor, 3 Discuss, 3 Review; position-concentration-led with two thesis breaks layered on."
+      },
+      "reasoning_summary": "The classification picture is dominated by position over-concentration: six of the eight holdings carry single-position weights above the 10% flag, with three (Mirae at 15.6%, NHAI at 18.1%, and one further escalated by thesis) crossing the 15% escalate threshold. Two thesis drivers stack on top: Axis Large Cap on a hold verdict citing fee drag against a thin active premium, and Kotak Emerging Equity on a negative verdict reflecting an instrument mislabel and a FoFs-Overseas structure that is failing on alpha, drawdown, cost, and tax. The Review tier is therefore split between sizing breaches (Mirae, NHAI) and a sizing-plus-broken-thesis combination (Kotak); the Discuss tier is sizing at the flag level, with Axis additionally carrying a thesis flag worth raising."
     }
   },
   "tokenUsage": {

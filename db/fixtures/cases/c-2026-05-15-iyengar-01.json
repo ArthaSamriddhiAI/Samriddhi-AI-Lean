@@ -960,6 +960,130 @@
       "total_output_tokens": 19806,
       "elapsed_ms": 226788,
       "generated_at": "2026-05-15T13:21:10.009Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-15-iyengar-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27.3,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 27.3% of liquid AUM is well above the 15% escalate threshold for a single holding."
+            }
+          ]
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 27.0% of liquid AUM is well above the 15% escalate threshold for a single holding."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "instrument_display_name": "Franklin India Corporate Debt Fund",
+          "asset_class": "Debt",
+          "sub_category": "mf_corporate_debt",
+          "weight_pct": 10.3,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 10.3% of liquid AUM has crossed the 10% flag threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_hold",
+              "reason": "Thesis carries a hold verdict from E7: the 2020 wind-up episode remains a legacy reputational risk, rolling peer-relative excess is marginally negative at -27 bps, and post-Budget 2024 debt taxation has removed the indexation benefit."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11.7,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 11.7% of liquid AUM has crossed the 10% flag threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_positive_with_caution",
+              "reason": "Thesis carries positive-with-caution from E7: Regular Plan TER at 1.58% versus Direct Plan ~0.60% implies roughly 90-100 bps of annual fee drag, 1Y return is -4.13%, and 3Y downside capture of 97.8% offers minimal downside protection for a conservative mandate."
+            }
+          ]
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "instrument_display_name": "HDFC Index Fund Nifty 50",
+          "asset_class": "Equity",
+          "sub_category": "mf_passive_index",
+          "weight_pct": 14.1,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 14.1% of liquid AUM has crossed the 10% flag threshold and sits just below the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "ICICI Prudential Balanced Advantage Fund",
+          "instrument_display_name": "ICICI Prudential Balanced Advantage Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_hybrid_dynamic_aa",
+          "weight_pct": 9.7,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 1,
+        "monitor_count": 0,
+        "discuss_count": 3,
+        "review_count": 2,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "1 Maintain, 0 Monitor, 3 Discuss, 2 Review; position-concentration-led across both debt and equity sleeves."
+      },
+      "reasoning_summary": "The classification picture is dominated by position over-concentration: two bank FDs at 27.3% and 27.0% of liquid AUM each escalate to Review, and three further holdings sit between 10.3% and 14.1% in flag territory. Two of the flagged holdings, Franklin India Corporate Debt Fund and Axis Large Cap Fund, also carry E7 thesis observations that overlay onto their position drivers. No wrapper-level or sector-level propagation attaches in this case; the agenda is single-name sizing, with two thesis conversations layered on top."
     }
   },
   "tokenUsage": {

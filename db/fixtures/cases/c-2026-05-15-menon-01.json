@@ -724,6 +724,49 @@
       "total_output_tokens": 13305,
       "elapsed_ms": 169037,
       "generated_at": "2026-05-15T13:23:59.062Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-15-menon-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "Bank savings account",
+          "instrument_display_name": "Bank savings account",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 86.6,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 6.8,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "US listed equities (legacy holding)",
+          "instrument_display_name": "US listed equities (legacy holding)",
+          "asset_class": "Equity",
+          "sub_category": "intl_us_individual",
+          "weight_pct": 6.6,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 3,
+        "monitor_count": 0,
+        "discuss_count": 0,
+        "review_count": 0,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "3 Maintain, 0 Monitor, 0 Discuss, 0 Review; portfolio classifies clean across all holdings."
+      },
+      "reasoning_summary": "Every holding in this portfolio sits at Maintain with no drivers attached. No holding-level breaches and no propagated portfolio-level observations have surfaced against the diagnostic vocabulary thresholds. The classification picture is the healthy default state across the full holdings table."
     }
   },
   "tokenUsage": {
