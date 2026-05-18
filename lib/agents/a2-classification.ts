@@ -363,23 +363,33 @@ export function classifyHoldings(input: A2ClassifyInput): A2Layer1Result {
     // truth for which holdings clear 10%); the severity is re-derived
     // here under the ADR 0005 boundary convention rather than inherited
     // from M0's `>=` severity.
-    const pf = metrics.concentration.positionFlags.find((p) =>
-      instrumentExact(p.instrument, h.instrument),
-    );
-    if (pf) {
-      const severity = positionSeverity(pf.weightPct);
-      if (severity) {
-        drivers.push({
-          driver_type: "position_concentration",
-          severity,
-          scope: "holding",
-          source_observation: "position_over_concentration",
-          facts: {
-            weight_pct: pf.weightPct,
-            threshold:
-              "above 10% flags, above 15% escalates; exactly at a threshold is one tier lower (ADR 0005)",
-          },
-        });
+    //
+    // ADR 0006: holdings whose asset class is Cash are excluded from
+    // position_concentration. Cash concentration is the cash-drag
+    // observation, which the skill propagation table marks as
+    // deployment-level and explicitly non-propagating to individual
+    // holdings; firing position_concentration on a cash line would
+    // contradict the rest of the diagnostic. Exclusion is by asset class
+    // so future cash-equivalent additions inherit the carve-out.
+    if (h.assetClass !== "Cash") {
+      const pf = metrics.concentration.positionFlags.find((p) =>
+        instrumentExact(p.instrument, h.instrument),
+      );
+      if (pf) {
+        const severity = positionSeverity(pf.weightPct);
+        if (severity) {
+          drivers.push({
+            driver_type: "position_concentration",
+            severity,
+            scope: "holding",
+            source_observation: "position_over_concentration",
+            facts: {
+              weight_pct: pf.weightPct,
+              threshold:
+                "above 10% flags, above 15% escalates; exactly at a threshold is one tier lower (ADR 0005)",
+            },
+          });
+        }
       }
     }
 

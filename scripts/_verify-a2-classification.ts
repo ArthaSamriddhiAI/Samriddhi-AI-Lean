@@ -593,9 +593,48 @@ assert(
 );
 
 /* ---------------------------------------------------------------- */
+/* Test 11: ADR 0006 cash carve-out. A Cash holding above the 15%    */
+/* escalate line must NOT receive a position_concentration driver;    */
+/* cash concentration is the non-propagating cash-drag observation.   */
+/* ---------------------------------------------------------------- */
+
+const cashInput: A2ClassifyInput = {
+  caseId: "verify-cash-carveout",
+  asOfDate: "2026-04-02",
+  holdings: {
+    totalLiquidAumCr: 60.65,
+    holdings: [
+      { instrument: "Bank savings account", assetClass: "Cash" as AssetClass, subCategory: "savings" as SubCategory, valueCr: 52.5, weightPct: 86.6 },
+      { instrument: "Some Equity", assetClass: "Equity" as AssetClass, subCategory: "listed_large_cap" as SubCategory, valueCr: 8, weightPct: 13.4 },
+    ],
+  },
+  // M0 flags any instrument over 15% regardless of asset class.
+  metrics: makeMetrics({
+    positionFlags: [
+      { instrument: "Bank savings account", weightPct: 86.6, severity: "escalate" },
+      { instrument: "Some Equity", weightPct: 13.4, severity: "flag" },
+    ],
+  }),
+  evidence: EMPTY_EVIDENCE,
+};
+const rCash = classifyHoldings(cashInput);
+assert(
+  verdictOf(rCash, "Bank savings account") === "maintain" &&
+    driverTypes(rCash, "Bank savings account").length === 0,
+  "cash-carveout:savings-maintain",
+  `cash at 86.6% must not get a position driver (ADR 0006), got ${verdictOf(rCash, "Bank savings account")} / ${JSON.stringify(driverTypes(rCash, "Bank savings account"))}`,
+);
+assert(
+  verdictOf(rCash, "Some Equity") === "discuss" &&
+    driverTypes(rCash, "Some Equity")[0] === "position_concentration",
+  "cash-carveout:non-cash-unaffected",
+  `non-cash holding above 10% must still flag, got ${verdictOf(rCash, "Some Equity")} / ${JSON.stringify(driverTypes(rCash, "Some Equity"))}`,
+);
+
+/* ---------------------------------------------------------------- */
 
 if (failures.length === 0) {
-  console.log("PASS: A2 Layer 1 verification (10 tests, all assertions green)");
+  console.log("PASS: A2 Layer 1 verification (11 tests, all assertions green)");
   process.exit(0);
 } else {
   console.error(`FAIL: ${failures.length} assertion(s) failed:`);
