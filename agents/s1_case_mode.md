@@ -116,6 +116,13 @@ Default not absolute. Override when context warrants.
 | key_synthesis_drivers | array | structured drivers |
 | reasoning_summary | string | 200-400 word narrative |
 
+## Accordion headline field (runtime contract)
+
+The case-detail accordion (Concept C) reads a one-sentence closed-state takeaway from `section_2_synthesis_verdict.headline_takeaway`. Produce it with the synthesis: one sentence, active voice, present tense, specific. Name the dominant structural concern at escalate severity and the watch-item at flag; for a clean low-risk synthesis a quiet factual statement is correct. Start with the thing itself, not "The portfolio shows" or "Analysis reveals". Use concrete numbers only where they carry meaning.
+
+- Example (flag, watch-item): "Marcellus clears on quality; the Rs 3 Cr ticket does not, printing equity, debt, and single-position mandate gaps at once."
+- Example (low, quiet): "A vanilla MF allocation at a small ticket clears every layer with no structural concern."
+
 ## Discipline
 
 - Domain-weighted consensus, not averaging. E6's verdict on a Cat II AIF allocation outweighs E1's per-stock look-through verdict on the same case.

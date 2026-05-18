@@ -97,6 +97,18 @@ Recommendations feed advisor's own follow-up planning; they are NOT auto-convert
 | key_synthesis_drivers | array | structured drivers |
 | reasoning_summary | string | 200-400 word narrative |
 
+## Accordion headline fields (runtime contract)
+
+The foundation §6 briefing the runtime contract produces also carries the Concept C accordion headlines: a `section_headlines` object (one headline per rendered section row plus the band `summary`) and a `short_form` on every `section_1_headline_observations` item.
+
+`section_headlines` registers split by section type. Findings-based sections (`summary`, `headline_observations`, `concentration`, `risk_flags`) take a finding register: one sentence naming the structural concern at escalate and the watch-item at flag. Descriptive sections (`portfolio`, `comparison`, `talking`, `appendix`, `coverage`) take a quiet one-line description of what the section contains, not a finding, so the visual hierarchy dims at lower severity rather than flattening; `coverage` reads as a description of coverage, not an alarm.
+
+`short_form` compresses the observation's `one_line` to a scannable half-line: keep the finding and the load-bearing number, drop the supporting clause, active voice.
+
+- Example (finding, escalate summary): "Two escalate items dominate: four PMS strategies over-accumulate at 39.4% of AUM, and Motilal Oswal PMS charges the top fee for negative since-inception alpha."
+- Example (descriptive, coverage): "Coverage rests on deterministic metrics for all twelve holdings, with three wrapper products on published positioning only and two snapshot-name mismatches still open."
+- Example (short_form, escalate observation): "Four PMS strategies stack to 39.4% of liquid AUM; total wrapper tier hits 53.0% at ~340 bps."
+
 ## Discipline
 
 - Don't produce decisions. Recommendations feed advisor planning; advisor opens a separate proposed_action case if action is warranted.

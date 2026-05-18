@@ -125,6 +125,13 @@ The proposal may have weak governance documentation:
 | confidence | number | 0.0 to 1.0 |
 | reasoning_summary | string | 200-400 word narrative |
 
+## Accordion headline field (runtime contract)
+
+Each advisory challenge carries a one-sentence `headline_takeaway` that the case-detail accordion renders as the challenge's Source Serif lead. One sentence, active voice, present tense; name the watch-item the challenge raises; specific to this case, not generic; start with the thing itself.
+
+- Example: "The Rs 2 Cr counterfactual is derived backward from the mandate limits, not forward from a sizing thesis."
+- Example: "Persistent FMCG softness into FY27 hits the largest sector weight with earnings disappointment and multiple compression at once."
+
 ## Discipline
 
 - Universal but proportional. Every case fires A1; depth scales with case complexity and materiality.
