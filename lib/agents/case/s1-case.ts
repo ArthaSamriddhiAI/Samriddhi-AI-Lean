@@ -89,7 +89,8 @@ function buildPrompt(input: S1CaseInput): string {
     `    "amplification_flags": ["<short strings naming where two moderate concerns combine into one material concern>"],`,
     `    "narrative_paragraph": "<one paragraph synthesising the verdict; anchor in the mandate; cite specific evidence points; do not propose actions>",`,
     `    "counterfactual_framing": "<one or two sentences naming the structured alternative to the proposed action; not a recommendation>",`,
-    `    "escalation_recommended": <true | false>`,
+    `    "escalation_recommended": <true | false>,`,
+    `    "headline_takeaway": "<one sentence, active voice, present tense, naming the dominant structural concern or surprising finding of the synthesis; specific, not generic; starts with the thing itself, not 'The portfolio shows' or 'Analysis reveals'; concrete numbers only where they carry meaning>"`,
     `  },`,
     `  "section_3_evidence_summary": [`,
     `    {`,
@@ -173,6 +174,14 @@ function validate(raw: unknown): S1CaseOutput {
   }
   if (typeof s2?.escalation_recommended !== "boolean") {
     throw new Error("section_2_synthesis_verdict.escalation_recommended must be boolean");
+  }
+  /* headline_takeaway is the forward contract (the prompt template above
+   * instructs the model to produce it). Validated type-if-present so
+   * replay of stub responses recorded before this field existed is not
+   * retroactively invalidated; the fixture backfill supplies it for the
+   * rendered case set. */
+  if (s2?.headline_takeaway !== undefined && typeof s2.headline_takeaway !== "string") {
+    throw new Error("section_2_synthesis_verdict.headline_takeaway must be a string");
   }
 
   if (!Array.isArray(o.section_3_evidence_summary)) {

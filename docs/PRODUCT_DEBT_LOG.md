@@ -41,6 +41,8 @@ Capabilities the product says it does, or could do, but defers for scope.
 | P5 | House view content sourcing. Lands via Slice 4.6e; real market-data feed integration is deferred (content is curated, not live). | Medium | Slice 4.6e (planned) | Slice 4.6e, then a market-data integration workstream |
 | P6 | Investor onboarding workflow. Designed in the Slice 4.7 wireframes; build deferred to post-Slice-5. | Medium | Slice 4.7 design | Post-Slice-5 build |
 | P7 | Cross-case search. Slice 6 read-only chat handles single-case Q&A only; cross-case search is deferred (see RAG note T7). | Low | Slice 6 scope | Post-MVP search workstream |
+| P8 | S1 outcome: implement Record decision workflow. The locked accordion mockup showed a "Record decision" toolbar button; it was omitted rather than shipped as a fake-functional affordance (no real decision-recording workflow exists beyond the in-page Decision row, which persists to the case record). | Low | Accordion redesign | Post-MVP decision-workflow build |
+| P9 | S2: define and implement a data export artifact beyond the slide deck PDF. The locked mockup showed an "Export" button alongside "Download slide deck"; it was omitted rather than shipped as a dead button, since no second artifact (holdings CSV, full-case JSON, etc.) is defined yet. | Low | Accordion redesign | Post-MVP export workstream |
 
 ## Section 3: Data debt
 

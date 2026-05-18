@@ -46,11 +46,10 @@ export function DecisionCapture({ caseId, initial }: Props) {
     }
   };
 
+  /* Body-only: on the Outcome tab Decision is one accordion row; the row
+   * supplies the title. */
   return (
-    <section className="decision-capture">
-      <h2>
-        <span className="sec-num">07</span>Decision
-      </h2>
+    <div className="decision-capture">
       <p className="section-sub">
         Capture the decision on this case. No downstream actioning in the MVP; the decision
         persists on the case record alongside the briefing.
@@ -99,6 +98,6 @@ export function DecisionCapture({ caseId, initial }: Props) {
           </span>
         )}
       </div>
-    </section>
+    </div>
   );
 }

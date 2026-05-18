@@ -26,6 +26,11 @@ export type HeadlineObservation = {
   severity: "ok" | "info" | "flag" | "escalate";
   one_line: string;
   source: SourceTag;
+  /** Short enough to scan in the accordion body; supersedes one_line as
+   * the scannable form. The only diagnostic observation type without a
+   * pre-existing short field (ConcentrationBreach has figure, RiskFlag
+   * has title), per the locked decision. */
+  short_form: string;
 };
 
 export type PortfolioOverviewRow = {
@@ -95,6 +100,22 @@ export type BriefingHeader = {
   severity_counts: { escalate: number; flag: number; total: number };
 };
 
+/* One headline_takeaway per S2 accordion row id (Concept C). `summary` is
+ * the executive headline carried by the always-visible Diagnostic band;
+ * the rest are the section rows the AnalysisTab derives from the existing
+ * sections. Keyed by the fixed row id, not a per-case list. */
+export type SectionHeadlines = {
+  summary: string;
+  portfolio: string;
+  headline_observations: string;
+  concentration: string;
+  risk_flags: string;
+  comparison: string;
+  talking: string;
+  appendix: string;
+  coverage: string;
+};
+
 export type BriefingContent = {
   header: BriefingHeader;
   workbench_lede: string;
@@ -106,6 +127,7 @@ export type BriefingContent = {
   section_6_talking_points: TalkingPoint[];
   section_7_evidence_appendix: EvidenceAppendixRow[];
   coverage_note: string;
+  section_headlines: SectionHeadlines;
 };
 
 export type S1Input = {
@@ -195,7 +217,7 @@ function buildPrompt(input: S1Input): string {
     `  },`,
     `  "workbench_lede": "<3-5 sentence overview anchoring the diagnostic: number of observations, top concerns, deterministic-vs-qualitative split; matches the wireframe's lede density>",`,
     `  "section_1_headline_observations": [`,
-    `    { "vocab": "<from allowed list>", "severity": "<ok|info|flag|escalate>", "one_line": "<one bullet, declarative, no hedging, cites specific number>", "source": "<metric|interpretation|hybrid>" }`,
+    `    { "vocab": "<from allowed list>", "severity": "<ok|info|flag|escalate>", "one_line": "<one bullet, declarative, no hedging, cites specific number>", "short_form": "<the same observation compressed to a scannable half-line; specific, active voice; drops the supporting clause, keeps the finding and the number>", "source": "<metric|interpretation|hybrid>" }`,
     `  ],`,
     `  "section_2_portfolio_overview": {`,
     `    "rows": [{ "asset_class": "<Equity|Debt|Alternatives|Cash>", "actual_pct": <num>, "target_pct": <num>, "band": [<min>, <max>], "deviation_pp": <num>, "in_band": <bool> }],`,
@@ -218,7 +240,18 @@ function buildPrompt(input: S1Input): string {
     `  "section_7_evidence_appendix": [`,
     `    { "name": "<instrument>", "sub_category": "<foundation §3 sub-category>", "value_cr": "<e.g. '2.50'>", "weight_pct": "<e.g. '11.3%'>" }`,
     `  ],`,
-    `  "coverage_note": "<one paragraph on what the diagnostic could and could not see: PMS/AIF opacity, MF coverage limits, sector look-through caveats>"`,
+    `  "coverage_note": "<one paragraph on what the diagnostic could and could not see: PMS/AIF opacity, MF coverage limits, sector look-through caveats>",`,
+    `  "section_headlines": {`,
+    `    "summary": "<executive headline for the diagnostic band: one sentence naming the dominant structural concern; active voice, present tense; starts with the thing itself>",`,
+    `    "portfolio": "<one-line description of what the allocation table shows; this section is descriptive, so a quiet factual statement, not an alarm>",`,
+    `    "headline_observations": "<one sentence naming the most material observation across the set>",`,
+    `    "concentration": "<one sentence naming the dominant concentration concern; the watch-item if flag, the structural concern if escalate>",`,
+    `    "risk_flags": "<one sentence naming the dominant risk flag>",`,
+    `    "comparison": "<one quiet factual line on what the model comparison shows>",`,
+    `    "talking": "<one quiet line on what the talking points cover>",`,
+    `    "appendix": "<one quiet descriptive line on the evidence appendix coverage>",`,
+    `    "coverage": "<one quiet line on the principal coverage limitation>"`,
+    `  }`,
     `}`,
     "```",
     ``,
@@ -270,6 +303,27 @@ function validate(parsed: unknown): BriefingContent {
   if (!Array.isArray(o.section_4_risk_flags)) throw new Error("section_4 must be array");
   if (!Array.isArray(o.section_6_talking_points)) throw new Error("section_6 must be array");
   if (!Array.isArray(o.section_7_evidence_appendix)) throw new Error("section_7 must be array");
+  /* short_form and section_headlines are the forward contract (the prompt
+   * template instructs the model to produce them). Validated type-if-
+   * present so replay of stub responses recorded before these fields
+   * existed is not retroactively invalidated; the fixture backfill
+   * supplies them for the rendered case set. */
+  for (const item of o.section_1_headline_observations as unknown[]) {
+    const obs = item as Record<string, unknown>;
+    if (obs.short_form !== undefined && typeof obs.short_form !== "string") {
+      throw new Error("section_1 observation short_form must be a string");
+    }
+  }
+  if (o.section_headlines !== undefined) {
+    if (typeof o.section_headlines !== "object" || o.section_headlines === null) {
+      throw new Error("section_headlines must be an object");
+    }
+    for (const [k, v] of Object.entries(o.section_headlines as Record<string, unknown>)) {
+      if (typeof v !== "string") {
+        throw new Error(`section_headlines.${k} must be a string`);
+      }
+    }
+  }
   return o as unknown as BriefingContent;
 }
 
