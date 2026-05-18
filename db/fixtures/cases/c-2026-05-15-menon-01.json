@@ -764,9 +764,9 @@
         "discuss_count": 0,
         "review_count": 0,
         "unable_to_classify_count": 0,
-        "one_line_characterization": "3 Maintain, 0 Monitor, 0 Discuss, 0 Review; portfolio classifies clean across all holdings."
+        "one_line_characterization": "3 Maintain, 0 Monitor, 0 Discuss, 0 Review; no per-holding drivers attached."
       },
-      "reasoning_summary": "Every holding in this portfolio sits at Maintain with no drivers attached. No holding-level breaches and no propagated portfolio-level observations have surfaced against the diagnostic vocabulary thresholds. The classification picture is the healthy default state across the full holdings table."
+      "reasoning_summary": "A2 has nothing to flag per-holding on this case: no holding carries a position, thesis, wrapper, sector, fee, complexity, liquidity, behavioural, or regulatory driver. Any portfolio-level observations such as cash drag, allocation drift, or deployment efficiency sit with the S1 portfolio surface per the propagation rules and are not represented in the per-holding column. The silence in this column is not a statement about overall portfolio health; that characterisation is S1's responsibility."
     }
   },
   "tokenUsage": {

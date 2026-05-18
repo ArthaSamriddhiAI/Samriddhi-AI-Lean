@@ -1001,7 +1001,7 @@
               "severity": "escalate",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Review on position over-concentration: weight at 15.6% of liquid AUM has crossed the 15% escalate threshold."
+              "reason": "Position over-concentration: weight at 15.6% of liquid AUM exceeds the 15% escalate threshold for single-holding concentration."
             }
           ]
         },
@@ -1018,14 +1018,14 @@
               "severity": "flag",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Discuss on position over-concentration: weight at 11.8% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+              "reason": "Position over-concentration: weight at 11.8% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate line."
             },
             {
               "driver_type": "thesis",
               "severity": "flag",
               "scope": "holding",
               "source_observation": "e7_overall_verdict_hold",
-              "reason": "Discuss on thesis: E7 verdict is hold, with regular-plan fee drag of 1.58% p.a. consuming most of a thin active premium, 3Y rolling beat-rate of only 55.3%, 3Y avg excess return of just +35 bps, and 5Y return of 6.86% materially lagging Mirae's 9.05%."
+              "reason": "Thesis weakening per E7 hold verdict: 1.58% p.a. regular-plan fee drag against a 3Y excess return of only 35 bps, 55.3% rolling 3Y beat-rate, and 5Y return of 6.86% versus Mirae's 9.05% leave the active premium thin."
             }
           ]
         },
@@ -1042,7 +1042,7 @@
               "severity": "flag",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Discuss on position over-concentration: weight at 14.2% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+              "reason": "Position over-concentration: weight at 14.2% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate line."
             }
           ]
         },
@@ -1059,14 +1059,14 @@
               "severity": "escalate",
               "scope": "holding",
               "source_observation": "e7_overall_verdict_negative",
-              "reason": "Review on thesis: E7 verdict is negative; instrument is mislabeled as mid-cap but is actually a FoFs Overseas structure with 98.75% in a single underlying fund, persistent negative rolling alpha (-76 bps on 3Y, -46 bps on 5Y), max drawdown of -58.2% with 46-month recovery, near-zero Sharpe of 0.047, and an estimated 2.5% to 3.5% double-layer total cost taxed as debt."
+              "reason": "Thesis broken per E7 negative verdict: instrument is actually a FoF Overseas structure (not a domestic mid-cap), with persistent negative rolling alpha (-76 bps on 3Y, -46 bps on 5Y), a -58.2% max drawdown over 46 months to recover, and a double-layer fee load estimated at 2.5% to 3.5% under debt-fund taxation."
             },
             {
               "driver_type": "position_concentration",
               "severity": "flag",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Position over-concentration also attaches: weight at 10.5% of liquid AUM has crossed the 10% flag threshold."
+              "reason": "Position over-concentration: weight at 10.5% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate line."
             }
           ]
         },
@@ -1083,7 +1083,7 @@
               "severity": "escalate",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Review on position over-concentration: weight at 18.1% of liquid AUM has crossed the 15% escalate threshold."
+              "reason": "Position over-concentration: weight at 18.1% of liquid AUM exceeds the 15% escalate threshold for single-holding concentration."
             }
           ]
         },
@@ -1109,7 +1109,7 @@
               "severity": "flag",
               "scope": "holding",
               "source_observation": "position_over_concentration",
-              "reason": "Discuss on position over-concentration: weight at 13.1% of liquid AUM has crossed the 10% flag threshold but sits below the 15% escalate level."
+              "reason": "Position over-concentration: weight at 13.1% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate line."
             }
           ]
         },
@@ -1129,9 +1129,9 @@
         "discuss_count": 3,
         "review_count": 3,
         "unable_to_classify_count": 0,
-        "one_line_characterization": "2 Maintain, 0 Monitor, 3 Discuss, 3 Review; position-concentration-led with two thesis breaks layered on."
+        "one_line_characterization": "2 Maintain, 0 Monitor, 3 Discuss, 3 Review; position-concentration-led with two broken or weakening fund theses."
       },
-      "reasoning_summary": "The classification picture is dominated by position over-concentration: six of the eight holdings carry single-position weights above the 10% flag, with three (Mirae at 15.6%, NHAI at 18.1%, and one further escalated by thesis) crossing the 15% escalate threshold. Two thesis drivers stack on top: Axis Large Cap on a hold verdict citing fee drag against a thin active premium, and Kotak Emerging Equity on a negative verdict reflecting an instrument mislabel and a FoFs-Overseas structure that is failing on alpha, drawdown, cost, and tax. The Review tier is therefore split between sizing breaches (Mirae, NHAI) and a sizing-plus-broken-thesis combination (Kotak); the Discuss tier is sizing at the flag level, with Axis additionally carrying a thesis flag worth raising."
+      "reasoning_summary": "The classification picture is dominated by single-holding position concentration: five of the six flagged holdings carry a position_concentration driver, with NHAI Tax-Free Bonds (18.1%) and Mirae Large Cap (15.6%) past the 15% escalate line and Parag Parikh Flexi Cap, HDFC Bank FD, Axis Large Cap, and Kotak Emerging Equity sitting in the 10% to 15% flag band. Two equity fund theses overlay this: Kotak Emerging Equity reaches Review on a broken thesis (E7 negative; FoF Overseas mislabel, persistent negative alpha, severe drawdown, double-layer fees), and Axis Large Cap carries an E7 hold verdict on thin active premium against passive alternatives. The Discuss and Review verdicts therefore split across two distinct mechanisms, position sizing and active-management thesis, rather than a single portfolio-level observation."
     }
   },
   "tokenUsage": {
