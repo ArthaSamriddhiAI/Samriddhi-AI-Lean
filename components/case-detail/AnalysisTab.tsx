@@ -289,7 +289,7 @@ export function AnalysisTab({ investorName, snapshotDate, content, holdings }: P
           <div className="eye">Samriddhi 2 · Portfolio diagnostic</div>
           <h2>{investorName}</h2>
           <div className="ar-case-meta">
-            <span>Snapshot {snapshotDate}</span>
+            <span>Data Snapshot {snapshotDate}</span>
             <span className="sep">·</span>
             <span>{h.liquid_aum_label}</span>
             <span className="sep">·</span>

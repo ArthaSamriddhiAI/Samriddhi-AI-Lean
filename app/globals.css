@@ -718,8 +718,9 @@
   .case-tab:hover { color: var(--color-ink-1); background: var(--color-paper-hover); text-decoration: none; }
   .case-tab.is-active { color: var(--color-ink-1); background: var(--color-paper-sunken); font-weight: 500; }
 
-  .case-body { display: grid; grid-template-columns: 1fr 360px; min-height: 0; }
-  .case-body.chat-closed { grid-template-columns: 1fr 52px; }
+  /* Second track sizes to the chat panel's own width: 360px open, a thin
+     rail when collapsed, so the page reclaims the space. */
+  .case-body { display: grid; grid-template-columns: 1fr auto; min-height: 0; }
 
   /* ---- Workbench (Analysis tab) ---- */
   .workbench-area {
@@ -1155,6 +1156,7 @@
 
   /* ---- Chat panel ---- */
   .chat-panel {
+    width: 360px;
     background: var(--color-paper-raised);
     border-left: 1px solid var(--color-rule);
     display: flex;
@@ -1163,6 +1165,7 @@
     min-height: 0;
   }
   .chat-panel-collapsed {
+    width: 44px;
     background: var(--color-paper);
     border-left: 1px solid var(--color-rule);
     display: flex;

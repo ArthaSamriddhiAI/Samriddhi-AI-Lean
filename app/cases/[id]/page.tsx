@@ -134,7 +134,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
             <span className="crumb-current">{c.investor.name} · Proposal evaluation</span>
             <span className="frozen-pill">
               <Lock size={11} />
-              Frozen {frozen}
+              Case Frozen {frozen}
             </span>
             <CaseStubBadge stubbed={c.stubbed} />
           </div>
@@ -242,14 +242,14 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           </span>
           <span className="frozen-pill">
             <Lock size={11} />
-            Frozen {frozen}
+            Case Frozen {frozen}
           </span>
           <CaseStubBadge stubbed={c.stubbed} />
         </div>
         <div className="case-toolbar-right">
           <a
             href={`/api/cases/${id}/briefing.pdf`}
-            className="btn btn-ghost btn-sm"
+            className="btn btn-primary btn-sm"
             download={`briefing-${id}.pdf`}
           >
             <Download size={13} />
