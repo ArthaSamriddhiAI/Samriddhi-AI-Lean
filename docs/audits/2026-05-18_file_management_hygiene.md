@@ -22,6 +22,8 @@ The repository is in good hygiene for the A2 merge. Concrete findings:
 
 ## Recommendations
 
+Items #3 through #8 are leave-as-is; each carries its standalone one-line justification in the Rationale column so a future reader sees why it was deliberately left, not merely that it was noticed (per the PR #3 review approval).
+
 | # | Finding | Recommendation | Rationale |
 |---|---|---|---|
 | 1 | No `scripts/README.md` (18 scripts, prefix conventions implicit) | **Create** (low effort, in this PR if approved) | A one-screen index (prefix legend + one line per script) makes the script vocabulary self-documenting at the moment A2 adds three new scripts. Cheap, additive, improves the merge hand-off. |
@@ -31,7 +33,7 @@ The repository is in good hygiene for the A2 merge. Concrete findings:
 | 5 | `docs/A2_Product_Thesis.md` at docs root, not in `audits/` or `decisions/` | **Leave as is (justified)** | A product thesis is a canonical "what/why" reference, peer to `BUILD_ROADMAP.md`, not a post-hoc audit or a decision record. Future capability theses should follow the same root placement. |
 | 6 | `output_schema_ref` points at non-existent `schemas/*.json` | **Leave as is (justified)** | Documentation-only by design; output contracts are inline TS validators. Consistent across a1/m0/a2. Already implicitly tracked. |
 | 7 | WA11 dual-write produces two copies (audit doc + workstreams doc) | **Leave as is; tracked by T8** | The duplication is the WA11 mechanism. T8 already flags the audit-vs-conventions structural question and dates the decision. No new action here. |
-| 8 | No stale/obsolete docs; cross-refs accurate; debt log navigable | **Leave as is** | No action. Recorded so the merge has a clean hygiene baseline. |
+| 8 | No stale/obsolete docs; cross-refs accurate; debt log navigable | **Leave as is (justified)** | Nothing is wrong: every cross-reference resolves and the debt log is navigable; recorded so the merge has a verified clean-hygiene baseline rather than an unstated assumption. |
 
 Net actionable: one cheap create (#1) is the only thing recommended for this PR; #2 is a defer; everything else is leave-as-is-with-justification.
 
