@@ -1454,6 +1454,328 @@
       "total_output_tokens": 33306,
       "elapsed_ms": 579034,
       "generated_at": "2026-05-14T10:04:35.740Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-14-bhatt-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "Marcellus Consistent Compounder PMS",
+          "instrument_display_name": "Marcellus Consistent Compounder PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_concentrated_quality",
+          "weight_pct": 11.3,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "wrapper_over_accumulation",
+              "severity": "flag",
+              "scope": "portfolio_propagated",
+              "source_observation": "wrapper_over_accumulation",
+              "reason": "Wrapper over-accumulation at the portfolio level: 4 PMS strategies aggregate 39.4% of liquid AUM, above the 4+ strategies flag threshold."
+            },
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration at 11.3% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate threshold."
+            },
+            {
+              "driver_type": "complexity_premium",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "complexity_premium_not_earned",
+              "reason": "Complexity premium watch: estimated 3Y CAGR of 14-16% trails Nifty 500 TRI at approximately 17-18% while the strategy carries a 1.5% management fee plus 20% performance fee above a 12% hurdle; figures carry 0.60 confidence given no snapshot."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e6_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E6 verdict is positive-with-caution citing capacity pressure on a concentrated 25-stock book at Rs 4,000-5,000 Cr AUM, recent 2-3 year underperformance from the quality tilt, and top-10 concentration near 62%."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 10,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "wrapper_over_accumulation",
+              "severity": "flag",
+              "scope": "portfolio_propagated",
+              "source_observation": "wrapper_over_accumulation",
+              "reason": "Wrapper over-accumulation at the portfolio level: 4 PMS strategies aggregate 39.4% of liquid AUM, above the 4+ strategies flag threshold."
+            },
+            {
+              "driver_type": "position_concentration",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration at exactly 10.0% of liquid AUM sits at the flag threshold, which per ADR 0005 resolves one tier lower as a watch."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Motilal Oswal Value Migration PMS",
+          "instrument_display_name": "Motilal Oswal Value Migration PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_value",
+          "weight_pct": 9.5,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "wrapper_over_accumulation",
+              "severity": "flag",
+              "scope": "portfolio_propagated",
+              "source_observation": "wrapper_over_accumulation",
+              "reason": "Wrapper over-accumulation at the portfolio level: 4 PMS strategies aggregate 39.4% of liquid AUM, above the 4+ strategies flag threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Alchemy Smart Alpha 250 PMS",
+          "instrument_display_name": "Alchemy Smart Alpha 250 PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_focused_midcap",
+          "weight_pct": 8.6,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "wrapper_over_accumulation",
+              "severity": "flag",
+              "scope": "portfolio_propagated",
+              "source_observation": "wrapper_over_accumulation",
+              "reason": "Wrapper over-accumulation at the portfolio level: 4 PMS strategies aggregate 39.4% of liquid AUM, above the 4+ strategies flag threshold."
+            },
+            {
+              "driver_type": "complexity_premium",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "complexity_premium_not_earned",
+              "reason": "Complexity premium watch: blended fee load is estimated at approximately 310 bps against comparable mid-cap factor ETFs at 30-50 bps, while reported 3Y CAGR of 22-26% only marginally exceeds Nifty Midcap 250 TRI at 20-24%; figures carry 0.55 confidence given no snapshot."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e6_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E6 verdict is positive-with-caution citing turnover-driven tax drag, cyclical sensitivity of mid-cap factor strategies, a 310 bps blended fee against passive comparators at 30-50 bps, and unresolved overlap with other mid-cap sleeves."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 12.2,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration at 12.2% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "e1_overall_verdict_hold_with_attention",
+              "reason": "Thesis flag: E1 verdict is hold-with-attention citing P/E of 23.19x at a 53% premium to industry P/E of 15.19x, PEG of 4.32, ROCE of 9.69% likely below WACC, quarterly profit growth of 0.57% QoQ, and 3M return of -9.85%."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 11.3,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration at 11.3% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e1_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E1 verdict is positive-with-caution citing 3Y revenue CAGR of 5.83% and profit CAGR of 7.09% below historical norms, 6M return of -20.08%, and unresolved post-merger integration risk on NIM and credit cost."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "ITC Limited",
+          "instrument_display_name": "ITC Limited",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 5,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e1_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E1 verdict is positive-with-caution citing 3Y profit CAGR of 5.26% lagging revenue CAGR of 8.44%, a 6M return of -26.29%, structural regulatory headwinds in the cigarette segment, and a data-quality anomaly in the earnings yield field."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 2.3,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E7 verdict is positive-with-caution citing 1Y return of -2.13%, 3Y downside capture of 99.4%, max drawdown of -46.6%, and ambiguity on Direct versus Regular plan that materially affects fee drag."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 2,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "Avendus Absolute Return Fund",
+          "instrument_display_name": "Avendus Absolute Return Fund",
+          "asset_class": "Alternatives",
+          "sub_category": "aif_cat_iii_long_short",
+          "weight_pct": 13.6,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position concentration at 13.6% of liquid AUM has crossed the 10% flag threshold, below the 15% escalate threshold, and is the single largest position in the portfolio."
+            },
+            {
+              "driver_type": "complexity_premium",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "complexity_premium_not_earned",
+              "reason": "Complexity premium watch: estimated since-inception CAGR of 14-17% is comparable to Nifty 500 TRI long-run returns of 14-16% but at an approximately 390 bps blended fee load against 15-20 bps for an index ETF, leaving net-of-fee alpha marginal to negative; figures carry 0.60 confidence given no snapshot."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e6_overall_verdict_positive_with_caution",
+              "reason": "Thesis watch: E6 verdict is positive-with-caution citing marginal net-of-fee alpha versus passive, a quarterly redemption window that lags the four PMS strategies on liquidity, estimated 150-180% gross leverage without snapshot-confirmed stress history, and single-largest-position status at 13.6%."
+            },
+            {
+              "driver_type": "behavioural",
+              "severity": "watch",
+              "scope": "portfolio_propagated",
+              "source_observation": "stated_revealed_divergence",
+              "reason": "Behavioural watch: stated-revealed divergence is material with the investor describing himself as aggressive while six years of revealed behaviour reads moderate-aggressive, which should anchor how this holding is framed in the conversation."
+            }
+          ]
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 7,
+          "verdict": "maintain",
+          "drivers": []
+        },
+        {
+          "holding_ref": "HDFC Arbitrage Fund",
+          "instrument_display_name": "HDFC Arbitrage Fund",
+          "asset_class": "Debt",
+          "sub_category": "mf_arbitrage",
+          "weight_pct": 7.2,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 3,
+        "monitor_count": 2,
+        "discuss_count": 7,
+        "review_count": 0,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "3 Maintain, 2 Monitor, 7 Discuss, 0 Review; wrapper-led with concentration overlay."
+      },
+      "reasoning_summary": "The Discuss tier is dominated by the wrapper-level signal: four PMS strategies aggregating 39.4% of liquid AUM lift every PMS member to Discuss with identical wrapper framing. Layered on top, three single-name positions (Reliance, HDFC Bank, Marcellus) and one Cat III AIF (Avendus) carry their own position-concentration flags above the 10% threshold, and Reliance and Avendus also carry holding-level thesis or complexity-premium concerns. The two Monitor holdings (ITC, Mirae) sit on softer thesis watches without breaching position thresholds. The portfolio-propagated stated-revealed divergence attaches to every equity and alternatives holding as a watch-level behavioural driver, framing the entire conversation at moderate-aggressive rather than aggressive."
     }
   },
   "tokenUsage": {

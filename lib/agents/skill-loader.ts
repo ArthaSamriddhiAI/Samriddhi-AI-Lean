@@ -79,6 +79,15 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
    * Tier-1 Sonnet rate limit that blocked S1 at Sonnet (10k input tokens /
    * minute, tight against S1's 15-25k input envelope) has lifted at Tier 2. */
   s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 8000 },
+  /* A2 Layer 2 reason text. Model stays claude-opus-4-7 from the skill
+   * frontmatter (Checkpoint 1 decision; the harness drops temperature for
+   * opus-4.x, which is acceptable because the verdict is Layer 1 and
+   * deterministic, and reason-text phrasing is allowed to vary). Only
+   * max_tokens is tuned up at runtime: batched one-sentence reasons across
+   * up to ~12 holdings exceed the skill default 2000, and the harness
+   * hard-fails on a max_tokens stop. Skill file stays byte-identical per
+   * the Slice 2 Q2 convention. */
+  a2_classification: { max_tokens: 4000 },
 };
 
 function parseScalar(raw: string): unknown {

@@ -1051,6 +1051,171 @@
       "total_output_tokens": 23226,
       "elapsed_ms": 220625,
       "generated_at": "2026-05-15T13:31:36.786Z"
+    },
+    "a2_classification": {
+      "agent_id": "a2_classification",
+      "case_id": "c-2026-05-15-sharma-s2-01",
+      "as_of_date": "2026-04-02",
+      "holding_verdicts": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 17.8,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 17.8% of liquid AUM is above the 15% escalate threshold."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_positive_with_caution",
+              "reason": "Thesis read is positive with caution: downside capture at 99.4% exceeds upside capture at 93.4% over 3Y, and the structural difficulty of large-cap alpha along with manager continuity risk attach as watch-level concerns."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 16.7,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 16.7% of liquid AUM is above the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 12.6,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "thesis",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "e7_overall_verdict_negative",
+              "reason": "Thesis broken at escalate severity: instrument is labelled mid-cap but the snapshot resolves to an Overseas FoF wrapper with Sharpe 0.047, max drawdown of -58.2% over 46 months to recover, rolling 3Y beat frequency of 33.9%, and an effective double-fee load of approximately 3.0 to 4.0% annually against slab-rate taxation."
+            },
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Position over-concentration also attaches: weight at 12.6% of liquid AUM is above the 10% flag threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 8,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "complexity_premium",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "complexity_premium_not_earned",
+              "reason": "Complexity premium not earned at watch level: net-of-fee alpha over 3Y is approximately flat to +50 bps against Nifty 500 TRI on a blended fee load of roughly 295 bps; snapshot record is null and figures are anchored in published positioning."
+            },
+            {
+              "driver_type": "thesis",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "e6_overall_verdict_positive_with_caution",
+              "reason": "Thesis read is positive with caution: thin net alpha sits alongside capacity pressure as AUM has grown to an estimated Rs 8,000 to 10,000 Cr, moderate differentiation in a crowded growth-quality space, and a null snapshot record that limits precision."
+            }
+          ]
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 15.6,
+          "verdict": "review",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "escalate",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Review on position over-concentration: weight at 15.6% of liquid AUM is above the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 14.4,
+          "verdict": "discuss",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "flag",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Discuss on position over-concentration: weight at 14.4% of liquid AUM is above the 10% flag threshold and below the 15% escalate threshold."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Cat II private credit AIF (2024 vintage)",
+          "instrument_display_name": "Cat II private credit AIF (2024 vintage)",
+          "asset_class": "Alternatives",
+          "sub_category": "aif_cat_ii_private_credit",
+          "weight_pct": 10,
+          "verdict": "monitor",
+          "drivers": [
+            {
+              "driver_type": "position_concentration",
+              "severity": "watch",
+              "scope": "holding",
+              "source_observation": "position_over_concentration",
+              "reason": "Monitor on position over-concentration: weight at 10.0% of liquid AUM sits exactly at the 10% flag threshold, which per ADR 0005 reads one tier lower as watch."
+            }
+          ]
+        },
+        {
+          "holding_ref": "Bank savings",
+          "instrument_display_name": "Bank savings",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 5,
+          "verdict": "maintain",
+          "drivers": []
+        }
+      ],
+      "summary": {
+        "maintain_count": 1,
+        "monitor_count": 2,
+        "discuss_count": 1,
+        "review_count": 4,
+        "unable_to_classify_count": 0,
+        "one_line_characterization": "1 Maintain, 2 Monitor, 1 Discuss, 4 Review; concentration-led with thesis weakness on two equity funds."
+      },
+      "reasoning_summary": "The classification picture is dominated by single-name position over-concentration: four holdings sit above the 15% escalate threshold or carry a broken thesis at escalate severity, and one more is between flag and escalate. Mirae and White Oak attach watch-level thesis cautions alongside their concentration reads, and Kotak Emerging Equity carries a thesis-broken read driven by a labelling and category mismatch against an Overseas FoF wrapper. The remaining Monitor entries reflect threshold-edge concentration and a watch-level complexity-premium read on the PMS sleeve."
     }
   },
   "tokenUsage": {
