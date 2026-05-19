@@ -21,6 +21,7 @@ import { prisma } from "@/lib/prisma";
 import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
 import { loadSnapshot } from "./snapshot-loader";
 import { computeMetrics } from "./portfolio-risk-analytics";
+import { runRiskRewardDeterministic } from "./risk-reward-stats";
 import { route } from "./router";
 import { buildListedScope } from "./listed-equity-scope";
 import { buildWrapperScope, buildMutualFundScope } from "./wrapper-scope";
@@ -94,6 +95,24 @@ export async function runDiagnosticPipeline(opts: {
       liquidityTier: investor.liquidityTier,
     });
     const routerDecision = route(holdings);
+
+    /* Risk-Reward statistics: deterministic sibling to the M0 metrics module,
+     * data only (content.risk_reward_stats; the S2 renderer never reads it,
+     * WA9). Pure local computation on the templated rollup path (the LLM
+     * fallback is WA12-gated and not exercised here). Feeds Dimension 4 of
+     * the interpretive verdict skill when it ships in cluster 7. */
+    const riskReward = routerDecision.riskRewardStats
+      ? runRiskRewardDeterministic({
+          caseId: opts.caseId,
+          asOfDate,
+          holdings,
+          snapshot,
+          investor: {
+            riskAppetite: investor.riskAppetite,
+            liquidityTier: investor.liquidityTier,
+          },
+        })
+      : null;
 
     const stocksInScope = buildListedScope(holdings, snapshot);
     const wrappersInScope = buildWrapperScope(holdings, snapshot);
@@ -226,6 +245,7 @@ export async function runDiagnosticPipeline(opts: {
       router_decision: routerDecision,
       evidence,
       a2_classification: a2Result.output,
+      risk_reward_stats: riskReward,
       usage_summary: {
         per_agent: usage,
         total_input_tokens:
