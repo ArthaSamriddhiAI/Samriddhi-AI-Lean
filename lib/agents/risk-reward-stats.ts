@@ -31,6 +31,8 @@
 
 import type { Snapshot, MutualFundRow, TierBStats } from "./snapshot-loader";
 import type { StructuredHoldings, Holding, AssetClass } from "@/db/fixtures/structured-holdings";
+import { callAgent, type AgentUsage } from "./harness";
+import { stripLongDashes } from "./a2-classification"; // reuse the WA7 sanitiser; do not redefine
 
 export const RISK_FREE_ANN = 0.0525; // per ADR-0012 (repo rate at t0); not read from provenance (D2)
 
@@ -536,7 +538,17 @@ export function detectLlmFallbackTrigger(
   layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary">,
 ): (typeof LLM_FALLBACK_TRIGGERS)[number] | null {
   const sleeves = layer1.per_sleeve.filter((s) => s.sleeve !== "Cash");
-  if (sleeves.some((s) => s.method === "sentinel")) return "all_sentinelled_sleeve";
+  /* Tightened at Checkpoint 2: a sentinelled sleeve only forces the LLM
+   * fallback when it is material (> 35% of portfolio weight), or when the
+   * portfolio is mostly unevaluable (evaluable weight <= 40%). An incidental
+   * small AIF-only Alternatives sleeve in an otherwise-evaluable portfolio
+   * stays on the templated path (partial-evaluation language already
+   * communicates the gap honestly). */
+  const sentinelSleeveMaterial = sleeves.some(
+    (s) => s.method === "sentinel" && s.evaluable_weight_pct + s.sentinelled_weight_pct > 35,
+  );
+  const portfolioMostlyUnevaluable = layer1.portfolio.evaluable_weight_pct <= 40;
+  if (sentinelSleeveMaterial || portfolioMostlyUnevaluable) return "all_sentinelled_sleeve";
   if (sleeves.some((s) => s.method === "single_holding_passthrough")) return "single_holding_sleeve";
   const p = layer1.portfolio.stats;
   if (p && p.information_ratio_3y != null && p.information_ratio_3y < -0.5) return "negative_excess_return";
@@ -614,4 +626,140 @@ export function runRiskRewardDeterministic(input: RiskRewardInput): RiskRewardOu
   };
   assertSyntheticForwardDisclosure(out);
   return out;
+}
+
+/* ----- Layer 2 LLM fallback (WA12-gated: only invoked via the async
+ * orchestrator, never from the deterministic path or the verify scripts) ----- */
+
+type RollupPayload = { rollup_text: string };
+
+function validateRollupPayload(parsed: unknown): RollupPayload {
+  if (typeof parsed !== "object" || parsed === null) {
+    throw new Error("risk_reward_stats rollup output is not an object");
+  }
+  const o = parsed as Record<string, unknown>;
+  if (typeof o.rollup_text !== "string" || o.rollup_text.trim() === "") {
+    throw new Error("risk_reward_stats rollup output missing rollup_text");
+  }
+  return { rollup_text: o.rollup_text };
+}
+
+function sleeveDigest(s: SleeveStats) {
+  return {
+    sleeve: s.sleeve,
+    method: s.method,
+    evaluable_weight_pct: s.evaluable_weight_pct,
+    sentinelled_weight_pct: s.sentinelled_weight_pct,
+    sentinel: s.sentinel,
+    stats: s.stats
+      ? {
+          sharpe_3y: s.stats.sharpe_3y,
+          vol_3y_annualized: s.stats.vol_3y_annualized,
+          beta_3y: s.stats.beta_3y,
+          r_squared_3y: s.stats.r_squared_3y,
+          information_ratio_3y: s.stats.information_ratio_3y,
+          max_drawdown_3y: s.stats.max_drawdown_3y,
+        }
+      : null,
+  };
+}
+
+function buildRollupPrompt(
+  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary">,
+  trigger: string,
+): string {
+  const sentinelCounts: Record<string, number> = {};
+  for (const h of layer1.per_holding) {
+    if (h.sentinel) sentinelCounts[h.sentinel] = (sentinelCounts[h.sentinel] ?? 0) + 1;
+  }
+  const digest = {
+    edge_case_trigger: trigger,
+    snapshot: layer1.snapshot_context,
+    portfolio: sleeveDigest(layer1.portfolio),
+    sleeves: layer1.per_sleeve.map(sleeveDigest),
+    per_holding_sentinel_counts: sentinelCounts,
+  };
+  return [
+    `# Risk-Reward Rollup Request (Layer 2 fallback)`,
+    ``,
+    `Layer 1 has computed every statistic deterministically. Your only job is`,
+    `the rollup: one or two sentences characterising this portfolio's`,
+    `risk-reward profile in the Samriddhi 2 diagnostic register. This case`,
+    `routed to the fallback because of the edge case "${trigger}".`,
+    ``,
+    `Hard rules:`,
+    `- Describe, do not recommend. No "should", "consider", "trim", "advise".`,
+    `- No good or bad verdicts on a Sharpe value; state the number and its`,
+    `  benchmark or sentinel context. Bucket-relative judgement is not yours.`,
+    `- Cite the specific numbers in the digest; do not invent any value.`,
+    `- When holdings are sentinelled, name what cannot be evaluated and why`,
+    `  (opaque wrappers, disclosure-limited PMS, non-applicable instruments);`,
+    `  the unevaluable share is itself the load-bearing observation.`,
+    `- Use only commas, semicolons, colons, or periods. Never an em dash, en`,
+    `  dash, or any long dash.`,
+    `- Do not add a forecast or synthetic-forward caveat yourself; that`,
+    `  disclosure is appended deterministically downstream.`,
+    ``,
+    `## Deterministic digest`,
+    ``,
+    "```json",
+    JSON.stringify(digest, null, 2),
+    "```",
+    ``,
+    `## Output`,
+    ``,
+    `Return exactly one fenced JSON block, no prose outside it:`,
+    "```json",
+    `{ "rollup_text": "<one or two sentences, cites the numbers, no recommendation language>" }`,
+    "```",
+  ].join("\n");
+}
+
+export type RiskRewardResult = { output: RiskRewardOutput; usage: AgentUsage | null };
+
+/* Async orchestrator. Templated by default; the LLM fallback fires only when
+ * an edge-case trigger is present. The synthetic-forward disclosure is always
+ * appended deterministically (the model is instructed not to add it and is
+ * not trusted to), so the runtime guard holds on both paths. */
+export async function runRiskRewardStats(input: RiskRewardInput): Promise<RiskRewardResult> {
+  const layer1 = computeRiskReward(input);
+  const trigger = detectLlmFallbackTrigger(layer1);
+  const disclosure = layer1.snapshot_context.is_synthetic_forward
+    ? SYNTHETIC_FORWARD_DISCLOSURE
+    : null;
+
+  let baseText: string;
+  let generation: "templated" | "llm_fallback";
+  let usage: AgentUsage | null = null;
+
+  if (trigger) {
+    const res = await callAgent<RollupPayload>({
+      skillId: "risk_reward_stats",
+      userPrompt: buildRollupPrompt(layer1, trigger),
+      validate: validateRollupPayload,
+    });
+    baseText = stripLongDashes(res.output.rollup_text);
+    generation = "llm_fallback";
+    usage = res.usage;
+  } else {
+    baseText = templatedRollup(layer1);
+    generation = "templated";
+  }
+
+  const out: RiskRewardOutput = {
+    ...layer1,
+    rollup: {
+      text: disclosure ? `${baseText} ${disclosure}` : baseText,
+      generation_method: generation,
+      llm_fallback_trigger: trigger,
+      is_synthetic_forward: layer1.snapshot_context.is_synthetic_forward,
+      synthetic_forward_disclosure: disclosure,
+    },
+    reasoning_summary:
+      "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); " +
+      "sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. " +
+      "Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+  };
+  assertSyntheticForwardDisclosure(out);
+  return { output: out, usage };
 }
