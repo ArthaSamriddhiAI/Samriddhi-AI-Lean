@@ -53,3 +53,10 @@ artha-fullfat/
 # (small JSONs, demo-critical for STUB_MODE replay).
 /fixtures/*
 !/fixtures/stub-responses/
+# Enriched snapshots are committed demo seed (not build artifacts). /fixtures/*
+# blocks git from descending into fixtures/snapshots/, so re-include that dir,
+# re-ignore its source payload (~99 MB, still copied locally), then track only
+# fixtures/snapshots/enriched/.
+!/fixtures/snapshots/
+/fixtures/snapshots/*
+!/fixtures/snapshots/enriched/
