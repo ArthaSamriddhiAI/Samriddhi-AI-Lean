@@ -110,4 +110,15 @@ The risk-reward agent shape, output type, pipeline placement, and router gate ar
 
 ---
 
+## 9. Step 3 ruling: benchmark_resolution empirical correction
+
+Thesis Trade-off 4 framed fund benchmark resolution as "~86.6% (1,535) resolve via cap-tier fallback into the 16-index set." The prototype resolver over all 1,773 funds shows this is empirically false. The resolvable universe is roughly 44%; roughly 44% track non-canonical indices (smart-beta, sector ex Bank/IT, target-maturity debt, non-US international, multi-asset/dynamic-allocation/retirement blends); the remainder are history-sentinelled. This is the actual structure of the 2026 Indian MF universe, not a workstream failure. Logged as `PRODUCT_DEBT_LOG.md` DD3.
+
+Per the Step 3 ruling the previously-single `benchmark_resolution_pending` sentinel is partitioned into two:
+
+- **`benchmark_structurally_inapplicable`**: the fund's design resists single-index comparison (multi-asset, dynamic asset allocation, retirement glide-path, conservative hybrid, children's, equity savings, BAF, multi-asset FoF). A single Sharpe-vs-benchmark line is the wrong measurement, not a deferred one. Methodology (composite benchmarks, multi-comparator views, fund-is-its-own-benchmark) is model-portfolio workstream territory.
+- **`benchmark_not_in_snapshot`**: a reasonable comparator exists in the real world but is not in the canonical 16 (smart-beta, sector ex Bank/IT, target-maturity debt, non-US international, commodity ex-gold). Methodology (expand the canonical set) is snapshot-data-extension territory. Genuinely ambiguous funds default here (the conservative classification: the index may exist, we just lack it).
+
+Rulings A (two-sentinel partition), B (tracked-index detector pulls in-16 trackers to clean resolution), C (broad-equity and debt defensible-defaults; Long Duration to `nifty_10y_gsec`), D (Large Cap to `nifty_50_tri`; Gilt to `crisil_dynamic_gilt` with the 10-year-constant variant to `nifty_10y_gsec`; Arbitrage to `crisil_liquid`; US-large international to `sp_500_tri_inr`, non-US to `benchmark_not_in_snapshot`) are carried into ADR-0014. WA12 (explicit API-call gate) was adopted at this ruling. A pre-recompute 10-fund sample sub-checkpoint precedes the full recompute write-back.
+
 *Design decisions, alternatives considered, surfaced-conflict resolutions, and execution calibrations are appended to this document at Step 7, after Hard Checkpoint 1 approval and execution.*
