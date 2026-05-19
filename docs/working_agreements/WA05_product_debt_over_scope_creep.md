@@ -20,4 +20,4 @@ Transcribed from CC build prompts; original rationale not in-repo.
 
 ## Cross-references
 
-`docs/PRODUCT_DEBT_LOG.md`, `docs/UI_UX_DEBT_LOG.md`; WA08 (surface debt entries before PR).
+`docs/debt/PRODUCT_DEBT_LOG.md`, `docs/debt/UI_UX_DEBT_LOG.md`; WA08 (surface debt entries before PR).

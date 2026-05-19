@@ -105,7 +105,7 @@ Per-case cost at tier-1 pricing: roughly Rs 260 for this run (six Sonnet calls a
 
 ## Items deferred to DEFERRED.md
 
-Eight items live in `docs/DEFERRED.md` with paste-and-go trigger prompts. The two highest-value items to resume on funding clearance: item 1 (five-case batch) and items 2+3 (parallel + Sonnet reversion). Item 4 (font upgrade) is the Slice 7 polish that resolves the rupee-glyph rendering in PDFs.
+Eight items live in `docs/reference/DEFERRED.md` with paste-and-go trigger prompts. The two highest-value items to resume on funding clearance: item 1 (five-case batch) and items 2+3 (parallel + Sonnet reversion). Item 4 (font upgrade) is the Slice 7 polish that resolves the rupee-glyph rendering in PDFs.
 
 ## Closing note
 

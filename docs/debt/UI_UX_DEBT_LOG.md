@@ -1,6 +1,6 @@
 # UI/UX debt log
 
-Render-layer debt deferred to the Capability Surfaces Design workstream and beyond. Capability workstreams ship data only (WA9); this log captures the rendering decisions they defer. Companion to `docs/PRODUCT_DEBT_LOG.md` (tech / product / data / production-data / operational debt).
+Render-layer debt deferred to the Capability Surfaces Design workstream and beyond. Capability workstreams ship data only (WA9); this log captures the rendering decisions they defer. Companion to `docs/debt/PRODUCT_DEBT_LOG.md` (tech / product / data / production-data / operational debt).
 
 ## UX-series
 

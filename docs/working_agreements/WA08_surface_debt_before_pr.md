@@ -20,4 +20,4 @@ Transcribed from CC build prompts; original rationale not in-repo.
 
 ## Cross-references
 
-WA05 (product debt over scope creep, the in-flight half); `docs/PRODUCT_DEBT_LOG.md`, `docs/UI_UX_DEBT_LOG.md`.
+WA05 (product debt over scope creep, the in-flight half); `docs/debt/PRODUCT_DEBT_LOG.md`, `docs/debt/UI_UX_DEBT_LOG.md`.

@@ -20,4 +20,4 @@ Transcribed from CC build prompts; original rationale not in-repo. Reinforced in
 
 ## Cross-references
 
-`docs/UI_UX_DEBT_LOG.md` (the deferred-render surface); WA05 (scope discipline); the Capability Surfaces Design workstream consumes both.
+`docs/debt/UI_UX_DEBT_LOG.md` (the deferred-render surface); WA05 (scope discipline); the Capability Surfaces Design workstream consumes both.
