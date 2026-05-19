@@ -38,6 +38,12 @@ Beta values for equity funds in the regenerated NAV run elevated relative to typ
 
 Sortino ratios for ultra-low-vol fund categories (Liquid, Overnight, Arbitrage) are numerically unstable by definition; downside deviation approaches zero, making the ratio sensitive to small differences in the downside distribution. Pre-regeneration and post-regeneration Sortino values for these categories may differ materially without representing any real change in fund quality. The diagnostic vocabulary does not lean on intra-low-vol-category Sortino comparisons; the limitation is accepted and tracked as `PRODUCT_DEBT_LOG.md` P16.
 
+### Regime-narrative consequence
+
+Hand-placed regime beats in fund `monthly_nav` are replaced by index-anchored beats that propagate to funds via calibrated co-movement. The narrative is preserved with a single source of truth (the index). Regime probes assert at the index (the source) and at the funds (the propagation destination). This pattern applies forward: future regime beats place at the index; fund response derives by construction.
+
+Concretely, `scripts/_verify-snapshot-enrichment.ts` Probe 4 (the rate-cut beat) was refactored mid-workstream: it previously asserted +4.5% Nov->Dec 2026 directly in gilt-fund `monthly_nav`; it now asserts the +4.5% beat at the gilt index (`crisil_dynamic_gilt`, `nifty_10y_gsec`, the post-ADR-0014 source of truth) and asserts the beta-scaled propagation at the funds (median +1.5% to +2.5%, at least 80% positive). This is an architectural improvement (single source of truth), not a degraded test. Probes 1, 2, 3, 5 (stock `monthly_prices`) are unaffected because Step 3a does not touch stock prices.
+
 ## Alternatives Considered
 
 - **Option B (beta and R-squared are the hard target; relax Sharpe).** Rejected by the owner: it overwrites the canonical `sharpe_3y`/`vol_3y` values the rest of the system already consumes (A2 calibration, the M0.PortfolioRiskAnalytics rubric, case fixtures, regime-validation tests), enlarging blast radius for no load-bearing gain.

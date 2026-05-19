@@ -11,7 +11,11 @@
  *      monthly_prices[last] == cmp_rs at every snapshot (ADR-1 zero-tolerance).
  *   2. RIL idiosyncratic beat lands in 2027-10 at t6 (~-26% in the month).
  *   3. Bank shock lands in 2027-07 at t5 (HDFC Bank ~-16% in the month).
- *   4. Rate-cut beat: Gilt funds Nov->Dec 2026 ~+4.5% at t3.
+ *   4. Rate-cut beat (refactored for ADR-0014): fund monthly_nav is now
+ *      index-co-moved, so the +4.5% Nov->Dec 2026 gilt rate-cut beat is
+ *      asserted at the gilt INDEX (crisil_dynamic_gilt, nifty_10y_gsec; the
+ *      post-ADR-0014 source of truth) and propagates to gilt funds via
+ *      calibrated co-movement (median ~+2% at beta ~0.45, mostly positive).
  *   5. Smallcap rally: small-cap stocks Feb->Mar 2028 ~+7% at t8.
  *
  * Per ADR-1, a few instruments show compensating intra-quarter moves where the
@@ -56,6 +60,7 @@ type Snapshot = {
       tier_b_stats: { _meta?: { cap_tier?: string; sector?: string } };
     }>;
   };
+  indices?: Record<string, { monthly_values?: Record<string, number> }>;
 };
 
 const cache = new Map<number, Snapshot>();
@@ -148,34 +153,53 @@ console.log("Probe 3: HDFC Bank bank-shock in 2027-07 at t5 (~-16% month)");
 }
 
 /* ---------------------------------------------------------------- */
-/* Probe 4: Rate-cut beat -- Gilt funds Nov->Dec 2026 ~+4.5% at t3. */
+/* Probe 4: Rate-cut beat. Refactored for ADR-0014: fund monthly_nav  */
+/* is index-co-moved, so the +4.5% Nov->Dec 2026 gilt rate-cut beat   */
+/* lives at the gilt INDEX (source of truth) and propagates to gilt   */
+/* funds via calibrated co-movement (beta ~0.45 -> ~+2% at the fund). */
 /* ---------------------------------------------------------------- */
-console.log("Probe 4: Gilt funds Nov->Dec 2026 ≈ +4.5% at t3");
+console.log("Probe 4: rate-cut beat at gilt index +4.5%, propagated to funds at t3");
 {
   const s3 = load(3);
+
+  // 1. Index assertion: the post-ADR-0014 source of truth.
+  for (const idxId of ["crisil_dynamic_gilt", "nifty_10y_gsec"]) {
+    const mv = s3.indices?.[idxId]?.monthly_values;
+    const a = mv?.["2026-11"];
+    const b = mv?.["2026-12"];
+    const r = a != null && b != null ? b / a - 1 : NaN;
+    assert(
+      Number.isFinite(r) && Math.abs(r - 0.045) < 0.005,
+      `${idxId} Nov->Dec 2026 ≈ +4.5% (rate-cut beat source of truth)`,
+      `ret=${Number.isFinite(r) ? r.toFixed(5) : "n/a"}`,
+    );
+  }
+
+  // 2. Fund directional propagation: regenerated gilt funds inherit the
+  // beat beta-scaled (beta ~0.45 against a +4.5% index move -> ~+2%).
   const gilt = s3.mf_funds.filter(
     (f) =>
       f.sebi_category?.includes("Gilt Fund") &&
       f.monthly_nav?.["2026-11"] != null &&
       f.monthly_nav?.["2026-12"] != null,
   );
-  const rets = gilt.map((f) => {
-    const mn = f.monthly_nav!;
-    return mn["2026-12"] / mn["2026-11"] - 1;
-  });
+  const rets = gilt.map((f) => f.monthly_nav!["2026-12"] / f.monthly_nav!["2026-11"] - 1);
   const med = median(rets);
-  const within = rets.filter((r) => Math.abs(r - 0.045) < 0.005).length;
-  const frac = within / rets.length;
+  const posFrac = rets.filter((r) => r > 0).length / rets.length;
   console.log(
-    `  (n=${rets.length} median=${med.toFixed(5)} min=${Math.min(...rets).toFixed(5)} max=${Math.max(...rets).toFixed(5)} within±0.005=${(frac * 100).toFixed(1)}%)`,
+    `  (n=${rets.length} median=${med.toFixed(5)} pos=${(posFrac * 100).toFixed(1)}% min=${Math.min(...rets).toFixed(5)} max=${Math.max(...rets).toFixed(5)})`,
   );
   assert(gilt.length >= 20, "Gilt fund count", `only ${gilt.length} qualifying gilt funds`);
   assert(
-    Math.abs(med - 0.045) < 0.003,
-    "Gilt median Nov->Dec ≈ 0.045",
+    med >= 0.015 && med <= 0.025,
+    "Gilt fund median Nov->Dec in [+1.5%, +2.5%] (beta-scaled propagation)",
     `median=${med.toFixed(5)}`,
   );
-  assert(frac >= 0.9, "Gilt ≥90% within ±0.005 of 0.045", `frac=${(frac * 100).toFixed(1)}%`);
+  assert(
+    posFrac >= 0.8,
+    "≥80% of gilt funds positive Nov->Dec (directional propagation)",
+    `pos=${(posFrac * 100).toFixed(1)}%`,
+  );
 }
 
 /* ---------------------------------------------------------------- */
