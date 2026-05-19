@@ -360,6 +360,53 @@ def process_snapshot(snap, write):
     return counts
 
 
+def recompute_snapshot(snap):
+    """ADR-0015: write calendar-aligned beta/r2/te/ir into each resolvable
+    fund's tier_b_stats. Non-resolvable funds get _benchmark_resolution set
+    to the partition sentinel; data_window_insufficient funds are untouched.
+    Stocks are untouched (they keep the ADR-0012 tail-align values)."""
+    funds = snap["mf_funds"]
+    idxs = snap.get("indices") or {}
+    c = {"resolved": 0, "structural": 0, "not_in_snapshot": 0,
+         "data_window_insufficient": 0, "no_overlap": 0}
+    for f in funds:
+        tb = f.get("tier_b_stats")
+        if not isinstance(tb, dict):
+            continue
+        if tb.get("data_window_insufficient"):
+            c["data_window_insufficient"] += 1
+            continue  # left exactly as ADR-0012 produced it
+        idx_id, path, sent = resolve(f)
+        if sent is not None or idx_id is None:
+            # Type-1 / Type-2: four metrics stay null; stamp the sentinel.
+            tb["beta_3y"] = None
+            tb["r_squared_3y"] = None
+            tb["tracking_error_3y"] = None
+            tb["information_ratio_3y"] = None
+            tb["_benchmark_resolution"] = sent
+            c["structural" if sent == "benchmark_structurally_inapplicable" else "not_in_snapshot"] += 1
+            continue
+        iser = idxs.get(idx_id, {}).get("monthly_values")
+        beta, r2, te, ir = cal_metrics(f.get("monthly_nav") or {}, iser or {})
+        if beta is None:
+            tb["_benchmark_resolution"] = "insufficient_overlap"
+            c["no_overlap"] += 1
+            continue
+        rnd = lambda x: round(x, 4) if isinstance(x, float) else x
+        tb["beta_3y"] = rnd(beta)
+        tb["r_squared_3y"] = rnd(r2)
+        tb["tracking_error_3y"] = rnd(te)
+        tb["information_ratio_3y"] = rnd(ir)
+        meta = tb.get("_meta") or {}
+        meta["benchmark_index_id"] = idx_id
+        tb["_meta"] = meta
+        tb["_benchmark_resolution"] = "resolved"
+        c["resolved"] += 1
+    for f in funds:
+        f.pop("_rr_path", None)
+    return c
+
+
 def validate_t0():
     p = os.path.join(ENRICHED_DIR, "snapshot_t0_q2_2026.json")
     snap = json.load(open(p))
@@ -418,20 +465,22 @@ def validate_t0():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--validate", action="store_true", help="in-memory t0, 10-fund sample, no writes")
-    ap.add_argument("--write", action="store_true", help="regenerate and write back t0..t8")
+    ap.add_argument("--write", action="store_true", help="regenerate monthly_nav and write back t0..t8")
+    ap.add_argument("--recompute", action="store_true",
+                    help="ADR-0015: calendar-aligned beta/r2/te/ir into tier_b_stats, write back t0..t8")
     args = ap.parse_args()
     if args.validate:
         validate_t0()
-    elif args.write:
+    elif args.write or args.recompute:
         for sid in SNAPSHOT_IDS:
             p = os.path.join(ENRICHED_DIR, f"snapshot_{sid}.json")
             snap = json.load(open(p))
-            c = process_snapshot(snap, write=True)
+            c = process_snapshot(snap, write=True) if args.write else recompute_snapshot(snap)
             with open(p, "w") as fh:
                 json.dump(snap, fh, separators=(",", ":"))
             print(sid, c)
     else:
-        ap.error("pass --validate or --write")
+        ap.error("pass --validate, --write, or --recompute")
 
 
 if __name__ == "__main__":

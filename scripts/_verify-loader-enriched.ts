@@ -44,10 +44,27 @@ async function main() {
     "fund tier_b_stats.sharpe_3y is numeric",
     `got ${typeof fundWithTierB?.tier_b_stats?.sharpe_3y}`,
   );
+  /* Post Step-3.1 (ADR-0014/0015): a resolved fund carries populated
+   * benchmark-relative metrics plus _meta.benchmark_index_id, while a
+   * partition-sentinelled fund keeps them null. Both reachable via the loader. */
+  const resolvedFund = s0.mf_funds.find(
+    (f) => f.tier_b_stats?._benchmark_resolution === "resolved",
+  );
   assert(
-    fundWithTierB?.tier_b_stats?.beta_3y == null,
-    "fund tier_b_stats.beta_3y is null pre benchmark_resolution",
-    `got ${fundWithTierB?.tier_b_stats?.beta_3y}`,
+    typeof resolvedFund?.tier_b_stats?.beta_3y === "number" &&
+      !!resolvedFund?.tier_b_stats?._meta?.benchmark_index_id,
+    "a resolved fund has numeric beta_3y and _meta.benchmark_index_id",
+    `beta_3y=${resolvedFund?.tier_b_stats?.beta_3y} idx=${resolvedFund?.tier_b_stats?._meta?.benchmark_index_id}`,
+  );
+  const sentinelFund = s0.mf_funds.find(
+    (f) =>
+      f.tier_b_stats?._benchmark_resolution === "benchmark_not_in_snapshot" ||
+      f.tier_b_stats?._benchmark_resolution === "benchmark_structurally_inapplicable",
+  );
+  assert(
+    sentinelFund?.tier_b_stats?.beta_3y == null,
+    "a benchmark-sentinelled fund keeps beta_3y null",
+    `got ${sentinelFund?.tier_b_stats?.beta_3y} (${sentinelFund?.tier_b_stats?._benchmark_resolution})`,
   );
 
   /* Per-instrument enrichment on stocks (nifty500). */

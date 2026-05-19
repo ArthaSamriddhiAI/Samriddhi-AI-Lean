@@ -62,6 +62,11 @@ export type TierBStats = {
   information_ratio_3y?: number | null;
   data_window_insufficient?: boolean;
   reason?: string;
+  /* Funds only (ADR-0014/0015): "resolved" once the four benchmark-relative
+   * metrics are populated against _meta.benchmark_index_id, else a partition
+   * sentinel ("benchmark_structurally_inapplicable", "benchmark_not_in_snapshot",
+   * "insufficient_overlap"). Absent on stocks and on data_window_insufficient. */
+  _benchmark_resolution?: string;
   _meta?: {
     sector?: string;
     cap_tier?: string;
