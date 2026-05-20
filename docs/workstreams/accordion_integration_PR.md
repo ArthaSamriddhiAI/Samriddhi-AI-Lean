@@ -42,7 +42,7 @@ First sub-workstream on the shared `design` branch. Do not merge automatically; 
 - Fixtures: all 7 in `db/fixtures/cases/` (4 new fields backfilled; 6 S2 risk-label rewrites).
 - Skills: `agents/s1_case_mode.md`, `agents/a1_challenge.md`, `agents/s1_diagnostic_mode.md`.
 - Tokens: confirmed only, no change. `--font-serif` already maps to Source Serif 4 via next/font; severity tokens already in `@theme`; the accordion CSS uses `var(--color-*)` exclusively with no hardcoded hex.
-- Docs: `docs/PRODUCT_DEBT_LOG.md` (P8, P9), `docs/workstreams/accordion_integration_plan.md` (the delta plan), this file.
+- Docs: `docs/debt/PRODUCT_DEBT_LOG.md` (P8, P9), `docs/workstreams/accordion_integration_plan.md` (the delta plan), this file.
 
 ### Product debt logged
 

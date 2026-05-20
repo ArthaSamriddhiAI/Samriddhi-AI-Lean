@@ -1084,6 +1084,241 @@
         "one_line_characterization": "1 Maintain, 0 Monitor, 3 Discuss, 2 Review; position-concentration-led across both debt and equity sleeves."
       },
       "reasoning_summary": "The classification picture is dominated by position over-concentration: two bank FDs at 27.3% and 27.0% of liquid AUM each escalate to Review, and three further holdings sit between 10.3% and 14.1% in flag territory. Two of the flagged holdings, Franklin India Corporate Debt Fund and Axis Large Cap Fund, also carry E7 thesis observations that overlay onto their position drivers. No wrapper-level or sector-level propagation attaches in this case; the agenda is single-name sizing, with two thesis conversations layered on top."
+    },
+    "risk_reward_stats": {
+      "agent_id": "risk_reward_stats",
+      "case_id": "c-2026-05-15-iyengar-01",
+      "as_of_date": "2026-04-02",
+      "snapshot_context": {
+        "snapshot_id": "t0_q2_2026",
+        "snapshot_date": "2026-04-02",
+        "is_synthetic_forward": false,
+        "enrichment_version": "0.1.0-phase-b-t0-prototype"
+      },
+      "risk_free_rate": 0.0525,
+      "per_holding": [
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27.3,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "instrument_display_name": "Franklin India Corporate Debt Fund",
+          "asset_class": "Debt",
+          "sub_category": "mf_corporate_debt",
+          "weight_pct": 10.3,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "crisil_short_term_bond",
+          "stats": {
+            "vol_3y_annualized": 0.0144,
+            "vol_5y_annualized": 0.0138,
+            "sharpe_3y": 1.3613,
+            "sharpe_5y": 0.5452,
+            "sortino_3y": 1.9638,
+            "sortino_5y": 0.6228,
+            "max_drawdown_3y": -0.0023,
+            "max_drawdown_5y": -0.0063,
+            "calmar_3y": 31.4745,
+            "beta_3y": 0.5751,
+            "r_squared_3y": 0.5882,
+            "tracking_error_3y": 0.0124,
+            "information_ratio_3y": 1.4091
+          }
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11.7,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.136,
+            "vol_5y_annualized": 0.1354,
+            "sharpe_3y": 0.3363,
+            "sharpe_5y": 0.1561,
+            "sortino_3y": 0.2733,
+            "sortino_5y": 0.139,
+            "max_drawdown_3y": -0.1451,
+            "max_drawdown_5y": -0.1727,
+            "calmar_3y": 0.677,
+            "beta_3y": 1.466,
+            "r_squared_3y": 0.8294,
+            "tracking_error_3y": 0.0711,
+            "information_ratio_3y": -1.0389
+          }
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "instrument_display_name": "HDFC Index Fund Nifty 50",
+          "asset_class": "Equity",
+          "sub_category": "mf_passive_index",
+          "weight_pct": 14.1,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "ICICI Prudential Balanced Advantage Fund",
+          "instrument_display_name": "ICICI Prudential Balanced Advantage Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_hybrid_dynamic_aa",
+          "weight_pct": 9.7,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": "benchmark_structurally_inapplicable",
+          "benchmark_index_id": null,
+          "stats": {
+            "vol_3y_annualized": 0.0752,
+            "vol_5y_annualized": 0.0639,
+            "sharpe_3y": 0.9014,
+            "sharpe_5y": 0.868,
+            "sortino_3y": 0.7498,
+            "sortino_5y": 0.7804,
+            "max_drawdown_3y": -0.0751,
+            "max_drawdown_5y": -0.0751,
+            "calmar_3y": 1.6015,
+            "beta_3y": null,
+            "r_squared_3y": null,
+            "tracking_error_3y": null,
+            "information_ratio_3y": null
+          }
+        }
+      ],
+      "per_sleeve": [
+        {
+          "sleeve": "Equity",
+          "constituents": [
+            "Axis Large Cap Fund",
+            "HDFC Index Fund Nifty 50",
+            "ICICI Prudential Balanced Advantage Fund"
+          ],
+          "evaluable_weight_pct": 11.7,
+          "sentinelled_weight_pct": 23.8,
+          "partial_evaluation": true,
+          "currency_basis": "INR",
+          "method": "single_holding_passthrough",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.136,
+            "vol_5y_annualized": 0.1504,
+            "sharpe_3y": 0.3363,
+            "sharpe_5y": 0.3719,
+            "sortino_3y": 0.3614,
+            "sortino_5y": 0.3623,
+            "max_drawdown_3y": -0.1175,
+            "max_drawdown_5y": -0.174,
+            "calmar_3y": 0.8361,
+            "beta_3y": 1.5042,
+            "r_squared_3y": 0.7572,
+            "tracking_error_3y": 0.0804,
+            "information_ratio_3y": -1.0143
+          }
+        },
+        {
+          "sleeve": "Debt",
+          "constituents": [
+            "HDFC Bank FD",
+            "SBI FD",
+            "Franklin India Corporate Debt Fund"
+          ],
+          "evaluable_weight_pct": 10.3,
+          "sentinelled_weight_pct": 54.3,
+          "partial_evaluation": true,
+          "currency_basis": "INR",
+          "method": "single_holding_passthrough",
+          "sentinel": null,
+          "benchmark_index_id": "crisil_composite_bond",
+          "stats": {
+            "vol_3y_annualized": 0.0144,
+            "vol_5y_annualized": 0.0142,
+            "sharpe_3y": 1.3613,
+            "sharpe_5y": 2.0522,
+            "sortino_3y": 1.3004,
+            "sortino_5y": 2.3006,
+            "max_drawdown_3y": -0.0034,
+            "max_drawdown_5y": -0.0034,
+            "calmar_3y": 21.2067,
+            "beta_3y": -0.0217,
+            "r_squared_3y": 0.0046,
+            "tracking_error_3y": 0.0481,
+            "information_ratio_3y": -0.3114
+          }
+        }
+      ],
+      "portfolio": {
+        "sleeve": "portfolio",
+        "constituents": [
+          "HDFC Bank FD",
+          "SBI FD",
+          "Franklin India Corporate Debt Fund",
+          "Axis Large Cap Fund",
+          "HDFC Index Fund Nifty 50",
+          "ICICI Prudential Balanced Advantage Fund"
+        ],
+        "evaluable_weight_pct": 22,
+        "sentinelled_weight_pct": 78.1,
+        "partial_evaluation": true,
+        "currency_basis": "INR",
+        "method": "synthesised_series",
+        "sentinel": null,
+        "benchmark_index_id": "nifty_500_tri",
+        "stats": {
+          "vol_3y_annualized": 0.0749,
+          "vol_5y_annualized": 0.0821,
+          "sharpe_3y": 0.4467,
+          "sharpe_5y": 0.5285,
+          "sortino_3y": 0.476,
+          "sortino_5y": 0.5272,
+          "max_drawdown_3y": -0.05,
+          "max_drawdown_5y": -0.0861,
+          "calmar_3y": 1.7193,
+          "beta_3y": 0.8111,
+          "r_squared_3y": 0.7459,
+          "tracking_error_3y": 0.0436,
+          "information_ratio_3y": -2.1513
+        }
+      },
+      "rollup": {
+        "text": "Only 22% of the portfolio is evaluable for risk-reward statistics; the remaining 78.1% sits in instruments that are not applicable (3 holdings) or structurally inapplicable to a benchmark (1 holding), so the synthesised-series figures characterise a minority of the book. Across the evaluable share, the portfolio shows a 3Y Sharpe of 0.45 on 7.5% volatility with a 5% max drawdown and an information ratio of -2.15; the Equity sleeve carries a 3Y Sharpe of 0.34 at 13.6% volatility, and the Debt sleeve a 3Y Sharpe of 1.36 at 1.4% volatility.",
+        "generation_method": "llm_fallback",
+        "llm_fallback_trigger": "all_sentinelled_sleeve",
+        "is_synthetic_forward": false,
+        "synthetic_forward_disclosure": null
+      },
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+      "pms_aif_framework_notice": {
+        "applies": false,
+        "text": null
+      }
     }
   },
   "tokenUsage": {

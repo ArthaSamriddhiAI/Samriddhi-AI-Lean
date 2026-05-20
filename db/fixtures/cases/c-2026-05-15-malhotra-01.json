@@ -1132,6 +1132,268 @@
         "one_line_characterization": "2 Maintain, 0 Monitor, 3 Discuss, 3 Review; position-concentration-led with two broken or weakening fund theses."
       },
       "reasoning_summary": "The classification picture is dominated by single-holding position concentration: five of the six flagged holdings carry a position_concentration driver, with NHAI Tax-Free Bonds (18.1%) and Mirae Large Cap (15.6%) past the 15% escalate line and Parag Parikh Flexi Cap, HDFC Bank FD, Axis Large Cap, and Kotak Emerging Equity sitting in the 10% to 15% flag band. Two equity fund theses overlay this: Kotak Emerging Equity reaches Review on a broken thesis (E7 negative; FoF Overseas mislabel, persistent negative alpha, severe drawdown, double-layer fees), and Axis Large Cap carries an E7 hold verdict on thin active premium against passive alternatives. The Discuss and Review verdicts therefore split across two distinct mechanisms, position sizing and active-management thesis, rather than a single portfolio-level observation."
+    },
+    "risk_reward_stats": {
+      "agent_id": "risk_reward_stats",
+      "case_id": "c-2026-05-15-malhotra-01",
+      "as_of_date": "2026-04-02",
+      "snapshot_context": {
+        "snapshot_id": "t0_q2_2026",
+        "snapshot_date": "2026-04-02",
+        "is_synthetic_forward": false,
+        "enrichment_version": "0.1.0-phase-b-t0-prototype"
+      },
+      "risk_free_rate": 0.0525,
+      "per_holding": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 15.6,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1424,
+            "vol_5y_annualized": 0.1326,
+            "sharpe_3y": 0.372,
+            "sharpe_5y": 0.3392,
+            "sortino_3y": 0.3309,
+            "sortino_5y": 0.3169,
+            "max_drawdown_3y": -0.1558,
+            "max_drawdown_5y": -0.1558,
+            "calmar_3y": 0.6768,
+            "beta_3y": 1.5243,
+            "r_squared_3y": 0.8561,
+            "tracking_error_3y": 0.0766,
+            "information_ratio_3y": -0.87
+          }
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11.8,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.136,
+            "vol_5y_annualized": 0.1354,
+            "sharpe_3y": 0.3363,
+            "sharpe_5y": 0.1561,
+            "sortino_3y": 0.2733,
+            "sortino_5y": 0.139,
+            "max_drawdown_3y": -0.1451,
+            "max_drawdown_5y": -0.1727,
+            "calmar_3y": 0.677,
+            "beta_3y": 1.466,
+            "r_squared_3y": 0.8294,
+            "tracking_error_3y": 0.0711,
+            "information_ratio_3y": -1.0389
+          }
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 14.2,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.0975,
+            "vol_5y_annualized": 0.1079,
+            "sharpe_3y": 1.0601,
+            "sharpe_5y": 0.9044,
+            "sortino_3y": 0.9793,
+            "sortino_5y": 0.8391,
+            "max_drawdown_3y": -0.1012,
+            "max_drawdown_5y": -0.1446,
+            "calmar_3y": 1.5403,
+            "beta_3y": 1.1468,
+            "r_squared_3y": 0.8265,
+            "tracking_error_3y": 0.0443,
+            "information_ratio_3y": -0.5395
+          }
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 10.5,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "NHAI Tax-Free Bonds 2032",
+          "instrument_display_name": "NHAI Tax-Free Bonds 2032",
+          "asset_class": "Debt",
+          "sub_category": "tax_free_bond",
+          "weight_pct": 18.1,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "PFC Tax-Free Bonds 2031",
+          "instrument_display_name": "PFC Tax-Free Bonds 2031",
+          "asset_class": "Debt",
+          "sub_category": "tax_free_bond",
+          "weight_pct": 8.2,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 13.1,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Physical gold",
+          "instrument_display_name": "Physical gold",
+          "asset_class": "Alternatives",
+          "sub_category": "physical_gold",
+          "weight_pct": 8.4,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "per_sleeve": [
+        {
+          "sleeve": "Equity",
+          "constituents": [
+            "Mirae Asset Large Cap Fund",
+            "Axis Large Cap Fund",
+            "Parag Parikh Flexi Cap Fund",
+            "Kotak Emerging Equity Fund"
+          ],
+          "evaluable_weight_pct": 41.6,
+          "sentinelled_weight_pct": 10.5,
+          "partial_evaluation": true,
+          "currency_basis": "INR",
+          "method": "synthesised_series",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.116,
+            "vol_5y_annualized": 0.1294,
+            "sharpe_3y": 0.5845,
+            "sharpe_5y": 0.7409,
+            "sortino_3y": 0.6603,
+            "sortino_5y": 0.7601,
+            "max_drawdown_3y": -0.1238,
+            "max_drawdown_5y": -0.1651,
+            "calmar_3y": 0.9717,
+            "beta_3y": 1.3995,
+            "r_squared_3y": 0.8862,
+            "tracking_error_3y": 0.0516,
+            "information_ratio_3y": -1.1512
+          }
+        },
+        {
+          "sleeve": "Debt",
+          "constituents": [
+            "NHAI Tax-Free Bonds 2032",
+            "PFC Tax-Free Bonds 2031",
+            "HDFC Bank FD"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 39.4,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "no_constituents_evaluable",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "sleeve": "Alternatives",
+          "constituents": [
+            "Physical gold"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 8.4,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "no_constituents_evaluable",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "portfolio": {
+        "sleeve": "portfolio",
+        "constituents": [
+          "Mirae Asset Large Cap Fund",
+          "Axis Large Cap Fund",
+          "Parag Parikh Flexi Cap Fund",
+          "Kotak Emerging Equity Fund",
+          "NHAI Tax-Free Bonds 2032",
+          "PFC Tax-Free Bonds 2031",
+          "HDFC Bank FD",
+          "Physical gold"
+        ],
+        "evaluable_weight_pct": 41.6,
+        "sentinelled_weight_pct": 58.3,
+        "partial_evaluation": true,
+        "currency_basis": "INR",
+        "method": "synthesised_series",
+        "sentinel": null,
+        "benchmark_index_id": "nifty_500_tri",
+        "stats": {
+          "vol_3y_annualized": 0.116,
+          "vol_5y_annualized": 0.1294,
+          "sharpe_3y": 0.5845,
+          "sharpe_5y": 0.7409,
+          "sortino_3y": 0.6603,
+          "sortino_5y": 0.7601,
+          "max_drawdown_3y": -0.1238,
+          "max_drawdown_5y": -0.1651,
+          "calmar_3y": 0.9717,
+          "beta_3y": 1.3995,
+          "r_squared_3y": 0.8862,
+          "tracking_error_3y": 0.0516,
+          "information_ratio_3y": -1.1512
+        }
+      },
+      "rollup": {
+        "text": "On the 41.6% of the portfolio that is evaluable (the equity sleeve), 3Y Sharpe is 0.58 against 11.6% annualised volatility, with beta 1.40, R-squared 0.89, information ratio -1.15, and a 3Y max drawdown of -12.4%; the remaining 58.3% is sentinelled, comprising the debt sleeve (39.4%, no_constituents_evaluable across 5 not_applicable_for_risk_reward holdings) and the alternatives sleeve (8.4%, no_constituents_evaluable), so portfolio-level statistics describe the equity sleeve alone.",
+        "generation_method": "llm_fallback",
+        "llm_fallback_trigger": "all_sentinelled_sleeve",
+        "is_synthetic_forward": false,
+        "synthetic_forward_disclosure": null
+      },
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+      "pms_aif_framework_notice": {
+        "applies": false,
+        "text": null
+      }
     }
   },
   "tokenUsage": {

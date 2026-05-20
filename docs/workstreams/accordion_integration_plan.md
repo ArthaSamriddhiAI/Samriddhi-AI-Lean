@@ -14,7 +14,7 @@ Source of truth for the rendering contract: the locked Concept C mockup (the sel
 
 **0b. Prompt vs repo conflicts surfaced (per the prompt footer).**
 - The mockup's Concept C section set for S1 Outcome and S2 does not match the real persisted schema (`BriefingCaseContent`, `BriefingContent`). The mockup carried a hand authored prototype data shape. This is the central structural decision; see Section 5.
-- `docs/BUILD_ROADMAP.md` and `docs/PRODUCT_DEBT_LOG.md` do not mention an accordion redesign workstream or a shared `design` branch. Not a hard conflict; I will add the workstream framing in the PR notes and a roadmap line, not silently.
+- `docs/BUILD_ROADMAP.md` and `docs/debt/PRODUCT_DEBT_LOG.md` do not mention an accordion redesign workstream or a shared `design` branch. Not a hard conflict; I will add the workstream framing in the PR notes and a roadmap line, not silently.
 - Skill frontmatter references `output_schema_ref: schemas/<name>.schema.json`, but no `schemas/` directory or `*.schema.json` file exists anywhere in the repo. The real output contract is enforced by TypeScript validators and runtime prompt templates, not JSON schema files. Schema additions land there (see Section 3), not in nonexistent schema files.
 
 ---
@@ -127,9 +127,9 @@ Flag backs B, F, H were addressed with evidence and CONFIRMED in the Checkpoint 
 
 ---
 
-## 7. Product debt candidates (for `docs/PRODUCT_DEBT_LOG.md`, Design category, format `| ID | Description | Severity | Originating workstream | Target fix workstream |`)
+## 7. Product debt candidates (for `docs/debt/PRODUCT_DEBT_LOG.md`, Design category, format `| ID | Description | Severity | Originating workstream | Target fix workstream |`)
 
-These get appended to `docs/PRODUCT_DEBT_LOG.md` in the existing table format during the work, and are listed in the PR notes:
+These get appended to `docs/debt/PRODUCT_DEBT_LOG.md` in the existing table format during the work, and are listed in the PR notes:
 - **Record decision workflow (S1).** The mockup's "Record decision" toolbar button was omitted (decision D) because no real recording workflow exists yet. Log as a Product debt entry "S1 outcome: implement Record decision workflow", target a future workstream. Severity Low.
 - **S2 data export.** The "Export" button was omitted (decision E); no second artifact beyond the slide deck PDF exists. Log as a Product debt entry "S2: define and implement a data export artifact (beyond the slide deck PDF)", target a future workstream. Severity Low.
 - Concept C accordion is a presentational mapping over a section schema shaped for a different layout; a future section optimisation workstream should align the persisted S2 section model with the rendered rows. Severity Low.

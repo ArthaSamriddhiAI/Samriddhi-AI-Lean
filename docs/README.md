@@ -4,12 +4,23 @@ This folder holds the build-process documentation: roadmap, lift-inventory, the 
 
 Code, configuration, and runtime artifacts live at the repository root; this folder is where the build process accumulates its history.
 
+## Layout
+
+- `decisions/`, Architecture Decision Records (ADRs), filename-numbered
+- `audits/`, per-workstream institutional-memory audit docs
+- `workstreams/`, cross-workstream hand-off and PR docs
+- `working_agreements/`, the WA per-file records (one file per agreement; supersedes the deferred single conventions doc)
+- `debt/`, the debt logs (`PRODUCT_DEBT_LOG.md`, `UI_UX_DEBT_LOG.md`)
+- `reference/`, build-context docs referenced during work (product theses, schema diff, lift inventory, deferred backlog, next-slice proposal, M0 build notes)
+- `slices/`, per-slice orientation, gate samples, and build notes
+- root, orientation-level only (`README.md`, `QUICK_START.md`, `BUILD_ROADMAP.md`)
+
 ## Live state (always current)
 
 - [BUILD_ROADMAP.md](BUILD_ROADMAP.md), the slice-by-slice plan
-- [LIFT_INVENTORY.md](LIFT_INVENTORY.md), provenance of files lifted from external sources
-- [NEXT_SLICE_PROPOSAL.md](NEXT_SLICE_PROPOSAL.md), recommendation and scope for the next slice
-- [DEFERRED.md](DEFERRED.md), structured backlog of items deferred from previous slices (with paste-and-go trigger prompts to resume)
+- [LIFT_INVENTORY.md](reference/LIFT_INVENTORY.md), provenance of files lifted from external sources
+- [NEXT_SLICE_PROPOSAL.md](reference/NEXT_SLICE_PROPOSAL.md), recommendation and scope for the next slice
+- [DEFERRED.md](reference/DEFERRED.md), structured backlog of items deferred from previous slices (with paste-and-go trigger prompts to resume)
 
 ## Per-slice artifacts
 

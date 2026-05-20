@@ -71,6 +71,10 @@ export type ApplicabilityVector = {
    * on diagnostic (Slice 2 orientation Q1 kept it dormant there). */
   indianContext: boolean;
   portfolioRiskAnalytics: boolean;
+  /** Risk-reward statistics sibling agent. Active on every S2 diagnostic and
+   * every proposed_action, parallel to portfolioRiskAnalytics (not in
+   * `activated`, which lists only the E-series LLM agents). */
+  riskRewardStats: boolean;
   activated: string[];
   reasoning: string;
 };
@@ -148,6 +152,7 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
   const e7 = mf;
   const indianContext = false;
   const portfolioRiskAnalytics = true;
+  const riskRewardStats = true;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -171,6 +176,7 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
     e7,
     indianContext,
     portfolioRiskAnalytics,
+    riskRewardStats,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };
@@ -209,6 +215,7 @@ export function routeProposedAction(
   const e7 = involvesMutualFund(target, source);
   const indianContext = true;
   const portfolioRiskAnalytics = true;
+  const riskRewardStats = true;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -234,6 +241,7 @@ export function routeProposedAction(
     e7,
     indianContext,
     portfolioRiskAnalytics,
+    riskRewardStats,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };

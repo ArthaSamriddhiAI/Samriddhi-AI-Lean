@@ -60,3 +60,7 @@ artha-fullfat/
 !/fixtures/snapshots/
 /fixtures/snapshots/*
 !/fixtures/snapshots/enriched/
+
+# Python bytecode (created when importing scripts/*.py)
+__pycache__/
+*.pyc

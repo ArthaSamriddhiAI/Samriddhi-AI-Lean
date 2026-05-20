@@ -2,7 +2,7 @@
  *
  * Loads:
  *  - 9 snapshot metadata rows (t0 through t8). Snapshot JSONs live on disk
- *    under fixtures/snapshots/ and are NOT loaded here; only the metadata
+ *    under fixtures/snapshots/enriched/ and are NOT loaded here; only the metadata
  *    is recorded so cases can reference them.
  *  - 6 investor archetypes (A1-A5 from the foundation document plus the
  *    Sharma family authored from the verdicts file). Profile markdown is
@@ -55,7 +55,7 @@ const SNAPSHOTS = [
     date: new Date("2026-04-02"),
     type: "baseline",
     testAxis: "Source-identical baseline. The comparison baseline for all evolved snapshots.",
-    filePath: "fixtures/snapshots/snapshot_t0_q2_2026.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t0_q2_2026.json",
     holdingsCount: 1773,
   },
   {
@@ -63,7 +63,7 @@ const SNAPSHOTS = [
     date: new Date("2026-07-01"),
     type: "quiet",
     testAxis: "Stability under quiet evolution. No new flags should fire.",
-    filePath: "fixtures/snapshots/snapshot_t1_q3_2026.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t1_q3_2026.json",
     holdingsCount: 1773,
   },
   {
@@ -71,7 +71,7 @@ const SNAPSHOTS = [
     date: new Date("2026-10-01"),
     type: "quiet_it_cool",
     testAxis: "Sub-threshold IT sector tilt; cools approximately 4%. Within routine-rotation band.",
-    filePath: "fixtures/snapshots/snapshot_t2_q4_2026.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t2_q4_2026.json",
     holdingsCount: 1773,
   },
   {
@@ -79,7 +79,7 @@ const SNAPSHOTS = [
     date: new Date("2027-01-01"),
     type: "stress_rate_cut",
     testAxis: "RBI cuts policy repo 50 bps; duration plays surface across bond-heavy portfolios.",
-    filePath: "fixtures/snapshots/snapshot_t3_q1_2027.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t3_q1_2027.json",
     holdingsCount: 1773,
   },
   {
@@ -87,7 +87,7 @@ const SNAPSHOTS = [
     date: new Date("2027-04-01"),
     type: "normalisation",
     testAxis: "Post-rate-cut normalisation. Rate-cut observations should decay in severity.",
-    filePath: "fixtures/snapshots/snapshot_t4_q2_2027.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t4_q2_2027.json",
     holdingsCount: 1773,
   },
   {
@@ -95,7 +95,7 @@ const SNAPSHOTS = [
     date: new Date("2027-07-01"),
     type: "stress_bank_shock",
     testAxis: "Banking and Financial Services sector drops approximately 18% on a credit-quality scare.",
-    filePath: "fixtures/snapshots/snapshot_t5_q3_2027.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t5_q3_2027.json",
     holdingsCount: 1773,
   },
   {
@@ -103,7 +103,7 @@ const SNAPSHOTS = [
     date: new Date("2027-10-01"),
     type: "stress_ril_idio",
     testAxis: "Reliance Industries drops 28% on adverse regulatory action. Tests direct versus look-through.",
-    filePath: "fixtures/snapshots/snapshot_t6_q4_2027.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t6_q4_2027.json",
     holdingsCount: 1773,
   },
   {
@@ -111,7 +111,7 @@ const SNAPSHOTS = [
     date: new Date("2028-01-01"),
     type: "normalisation",
     testAxis: "Post-stress normalisation. Tests whether stress-narrative anchoring persists too long.",
-    filePath: "fixtures/snapshots/snapshot_t7_q1_2028.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t7_q1_2028.json",
     holdingsCount: 1773,
   },
   {
@@ -119,7 +119,7 @@ const SNAPSHOTS = [
     date: new Date("2028-04-01"),
     type: "quiet_smallcap_rally",
     testAxis: "Mild small-cap rally (~12% quarter). Allocation drift surface on small-cap sleeve.",
-    filePath: "fixtures/snapshots/snapshot_t8_q2_2028.json",
+    filePath: "fixtures/snapshots/enriched/snapshot_t8_q2_2028.json",
     holdingsCount: 1773,
   },
 ];

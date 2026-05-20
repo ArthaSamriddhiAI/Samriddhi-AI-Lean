@@ -20,7 +20,7 @@ New files:
 - `scripts/enrich_snapshots.py` — enrichment engine (Python 3 stdlib only; byte-identical to the validated workstream bundle, intentionally not refactored).
 - `scripts/sector_map.json` — 500 Nifty 500 names → 57 sectors (data file read by the engine).
 - `scripts/_verify-snapshot-enrichment.ts` — deterministic design-doc probe suite (no API; `_verify-*` convention).
-- `docs/SnapshotEnrichment_Thesis.md`, `docs/SCHEMA_DIFF.md`.
+- `docs/reference/SnapshotEnrichment_Thesis.md`, `docs/reference/SCHEMA_DIFF.md`.
 - `docs/decisions/0007_…0012_….md` — the 6 folded ADRs (renumbered from ADR-1..6 to the repo's `000N_` scheme; bodies verbatim — see ADR map below).
 - `docs/workstreams/snapshot_enrichment_handoff.md`, `docs/workstreams/snapshot_enrichment_PR.md` (this file).
 - `fixtures/snapshots/enriched/snapshot_t0..t8_*.json` — 9 enriched snapshots (~115 MB), committed as demo seed.
@@ -36,7 +36,7 @@ ADR filename map (bodies cross-reference each other as ADR-1..6 — a self-consi
 
 ### What did NOT change
 
-Per `docs/SCHEMA_DIFF.md` and verified by the backwards-compat gate (below):
+Per `docs/reference/SCHEMA_DIFF.md` and verified by the backwards-compat gate (below):
 - All 9 existing top-level keys preserved; `_meta`, `aif`, `pms`, `unlisted_equity`, `industry_reports`, `macro` byte-identical.
 - Quarterly engine outputs untouched: `mf_funds[].NAV`/`AUM`, `nifty500.companies[].cmp_rs`/`market_cap_rs_cr`, `Top 5 Holdings`/`Top 5 Sectors`.
 - t0 period scalars and `rolling_metrics` preserved exactly (boundary discontinuity per ADR-1/0007).
@@ -82,7 +82,7 @@ Per `docs/SCHEMA_DIFF.md` and verified by the backwards-compat gate (below):
 - P-1: Enriched snapshots committed as demo seed (~115 MB; `.git` packs to ~+16 MB) via targeted `.gitignore` un-ignore, deviating from the literal `snapshots/enriched/` path and the `/fixtures/*` ignore convention. Per CC_DECISIONS item 1. Revisit (git-lfs candidate) if repo size bites.
 - P-2: Branch `features/snapshot-enrichment` (repo plural convention) vs the prompt's `feature/snapshot-enrichment`. Convention won.
 - P-3: Required-reading items 6 & 7 mis-located — `docs/workstreams/conventions.md` absent (WA1–WA11 live in `docs/workstreams/a2_classification_handoff.md`; dedicated conventions doc is existing debt **T8**); `SNAPSHOT_TEST_AXIS_DESIGN.md` is out-of-repo. Read from real locations.
-- P-4: Debt surfaced inline here per the prompt, diverging from the durable `docs/PRODUCT_DEBT_LOG.md` convention. Not adding rows unilaterally (log numbering discipline + prompt scope); owner to triage into the log (and reconcile P/D/T/O ↔ the log's T/P/D/X series) if desired.
+- P-4: Debt surfaced inline here per the prompt, diverging from the durable `docs/debt/PRODUCT_DEBT_LOG.md` convention. Not adding rows unilaterally (log numbering discipline + prompt scope); owner to triage into the log (and reconcile P/D/T/O ↔ the log's T/P/D/X series) if desired.
 - P-5: Phase A–E closure notes are required reading but not on the prompt's "files to land" list (not committed); WA11 audit-file counterpart to the hand-off not produced. Closure note owned by Shubham post-merge per PHASE_E_CLOSURE. Surfaced, not decided.
 
 **D (Design)**
@@ -106,6 +106,6 @@ Per `docs/SCHEMA_DIFF.md` and verified by the backwards-compat gate (below):
 
 ### References
 
-`docs/SnapshotEnrichment_Thesis.md` · `docs/SCHEMA_DIFF.md` · `docs/decisions/0007–0012` (ADR-1..6) · `docs/workstreams/snapshot_enrichment_handoff.md` · Phase A–E closure notes (workstream bundle, out-of-repo) · `SNAPSHOT_TEST_AXIS_DESIGN.md` (out-of-repo: `08 - Factual Foundation Continued/Data Snapshots/`).
+`docs/reference/SnapshotEnrichment_Thesis.md` · `docs/reference/SCHEMA_DIFF.md` · `docs/decisions/0007–0012` (ADR-1..6) · `docs/workstreams/snapshot_enrichment_handoff.md` · Phase A–E closure notes (workstream bundle, out-of-repo) · `SNAPSHOT_TEST_AXIS_DESIGN.md` (out-of-repo: `08 - Factual Foundation Continued/Data Snapshots/`).
 
 Plan v6/v7 update is **out of scope** for this PR per CC_DECISIONS item 4 (out-of-repo planning docs; Shubham updates manually post-merge). Risk-reward statistics can resume post-merge; its trade-off 3 / trade-off 4 sections are updated separately by Shubham.

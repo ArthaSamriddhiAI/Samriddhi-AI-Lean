@@ -1563,6 +1563,351 @@
         "one_line_characterization": "3 Maintain, 4 Monitor, 1 Discuss, 3 Review; thesis-led with one large single-stock position at escalate."
       },
       "reasoning_summary": "The classification picture is shaped primarily by holding-level thesis reads from E1 and E7, not by portfolio-level propagation. Three Review verdicts cluster around broken or strained fund-level theses (Axis Large Cap negative on persistent underperformance, Kotak Emerging Equity negative with an instrument-mismatch overlay) and one escalate-level single-stock concentration (Reliance at 20.3%). The Monitor tier carries watch-level thesis cautions across Mirae, SBI Small Cap, HDFC Bank, and White Oak PMS, where fundamentals are intact but near-term return or fee dynamics warrant tracking. One Discuss attaches at Parag Parikh on position weight alone."
+    },
+    "risk_reward_stats": {
+      "agent_id": "risk_reward_stats",
+      "case_id": "c-2026-05-15-surana-01",
+      "as_of_date": "2026-04-02",
+      "snapshot_context": {
+        "snapshot_id": "t0_q2_2026",
+        "snapshot_date": "2026-04-02",
+        "is_synthetic_forward": false,
+        "enrichment_version": "0.1.0-phase-b-t0-prototype"
+      },
+      "risk_free_rate": 0.0525,
+      "per_holding": [
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 11.6,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.0975,
+            "vol_5y_annualized": 0.1079,
+            "sharpe_3y": 1.0601,
+            "sharpe_5y": 0.9044,
+            "sortino_3y": 0.9793,
+            "sortino_5y": 0.8391,
+            "max_drawdown_3y": -0.1012,
+            "max_drawdown_5y": -0.1446,
+            "calmar_3y": 1.5403,
+            "beta_3y": 1.1468,
+            "r_squared_3y": 0.8265,
+            "tracking_error_3y": 0.0443,
+            "information_ratio_3y": -0.5395
+          }
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.136,
+            "vol_5y_annualized": 0.1354,
+            "sharpe_3y": 0.3363,
+            "sharpe_5y": 0.1561,
+            "sortino_3y": 0.2733,
+            "sortino_5y": 0.139,
+            "max_drawdown_3y": -0.1451,
+            "max_drawdown_5y": -0.1727,
+            "calmar_3y": 0.677,
+            "beta_3y": 1.466,
+            "r_squared_3y": 0.8294,
+            "tracking_error_3y": 0.0711,
+            "information_ratio_3y": -1.0389
+          }
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 8.7,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1424,
+            "vol_5y_annualized": 0.1326,
+            "sharpe_3y": 0.372,
+            "sharpe_5y": 0.3392,
+            "sortino_3y": 0.3309,
+            "sortino_5y": 0.3169,
+            "max_drawdown_3y": -0.1558,
+            "max_drawdown_5y": -0.1558,
+            "calmar_3y": 0.6768,
+            "beta_3y": 1.5243,
+            "r_squared_3y": 0.8561,
+            "tracking_error_3y": 0.0766,
+            "information_ratio_3y": -0.87
+          }
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 8.7,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "SBI Small Cap Fund",
+          "instrument_display_name": "SBI Small Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_small_cap",
+          "weight_pct": 6.4,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_smallcap_250_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1697,
+            "vol_5y_annualized": 0.1496,
+            "sharpe_3y": 0.457,
+            "sharpe_5y": 0.5803,
+            "sortino_3y": 0.4452,
+            "sortino_5y": 0.5665,
+            "max_drawdown_3y": -0.2207,
+            "max_drawdown_5y": -0.2207,
+            "calmar_3y": 0.5894,
+            "beta_3y": 1.0204,
+            "r_squared_3y": 0.7451,
+            "tracking_error_3y": 0.0759,
+            "information_ratio_3y": -0.5481
+          }
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 8.7,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "pms_disclosure_limited",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 20.3,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.2579,
+            "vol_5y_annualized": 0.2728,
+            "sharpe_3y": 0.1835,
+            "sharpe_5y": 0.3805,
+            "sortino_3y": 0.1818,
+            "sortino_5y": 0.3969,
+            "max_drawdown_3y": -0.216,
+            "max_drawdown_5y": -0.216,
+            "calmar_3y": 0.4621,
+            "beta_3y": 1.8087,
+            "r_squared_3y": 0.3549,
+            "tracking_error_3y": 0.2153,
+            "information_ratio_3y": -0.3359
+          }
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 5.8,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_bank_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1477,
+            "vol_5y_annualized": 0.1449,
+            "sharpe_3y": 0.3102,
+            "sharpe_5y": 0.9562,
+            "sortino_3y": 0.2695,
+            "sortino_5y": 0.8538,
+            "max_drawdown_3y": -0.154,
+            "max_drawdown_5y": -0.154,
+            "calmar_3y": 0.6383,
+            "beta_3y": 1.1086,
+            "r_squared_3y": 0.6453,
+            "tracking_error_3y": 0.0941,
+            "information_ratio_3y": -0.4338
+          }
+        },
+        {
+          "holding_ref": "Vanguard S&P 500 ETF (GIFT)",
+          "instrument_display_name": "Vanguard S&P 500 ETF (GIFT)",
+          "asset_class": "Equity",
+          "sub_category": "intl_us_etf",
+          "weight_pct": 8.7,
+          "currency_basis": "native",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Physical gold",
+          "instrument_display_name": "Physical gold",
+          "asset_class": "Alternatives",
+          "sub_category": "physical_gold",
+          "weight_pct": 5.8,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Bank savings",
+          "instrument_display_name": "Bank savings",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 4.3,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "per_sleeve": [
+        {
+          "sleeve": "Equity",
+          "constituents": [
+            "Parag Parikh Flexi Cap Fund",
+            "Axis Large Cap Fund",
+            "Mirae Asset Large Cap Fund",
+            "Kotak Emerging Equity Fund",
+            "SBI Small Cap Fund",
+            "White Oak India Pioneers PMS",
+            "Reliance Industries",
+            "HDFC Bank",
+            "Vanguard S&P 500 ETF (GIFT)"
+          ],
+          "evaluable_weight_pct": 63.8,
+          "sentinelled_weight_pct": 26.1,
+          "partial_evaluation": true,
+          "currency_basis": "INR",
+          "method": "synthesised_series",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1362,
+            "vol_5y_annualized": 0.147,
+            "sharpe_3y": 0.4457,
+            "sharpe_5y": 0.7453,
+            "sortino_3y": 0.4495,
+            "sortino_5y": 0.7019,
+            "max_drawdown_3y": -0.1212,
+            "max_drawdown_5y": -0.125,
+            "calmar_3y": 0.9338,
+            "beta_3y": 1.3592,
+            "r_squared_3y": 0.635,
+            "tracking_error_3y": 0.0867,
+            "information_ratio_3y": -0.7683
+          }
+        },
+        {
+          "sleeve": "Alternatives",
+          "constituents": [
+            "Physical gold"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 5.8,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "no_constituents_evaluable",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "sleeve": "Cash",
+          "constituents": [
+            "Bank savings"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 4.3,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "portfolio": {
+        "sleeve": "portfolio",
+        "constituents": [
+          "Parag Parikh Flexi Cap Fund",
+          "Axis Large Cap Fund",
+          "Mirae Asset Large Cap Fund",
+          "Kotak Emerging Equity Fund",
+          "SBI Small Cap Fund",
+          "White Oak India Pioneers PMS",
+          "Reliance Industries",
+          "HDFC Bank",
+          "Vanguard S&P 500 ETF (GIFT)",
+          "Physical gold"
+        ],
+        "evaluable_weight_pct": 63.8,
+        "sentinelled_weight_pct": 31.9,
+        "partial_evaluation": true,
+        "currency_basis": "INR",
+        "method": "synthesised_series",
+        "sentinel": null,
+        "benchmark_index_id": "nifty_500_tri",
+        "stats": {
+          "vol_3y_annualized": 0.1362,
+          "vol_5y_annualized": 0.147,
+          "sharpe_3y": 0.4457,
+          "sharpe_5y": 0.7453,
+          "sortino_3y": 0.4495,
+          "sortino_5y": 0.7019,
+          "max_drawdown_3y": -0.1212,
+          "max_drawdown_5y": -0.125,
+          "calmar_3y": 0.9338,
+          "beta_3y": 1.3592,
+          "r_squared_3y": 0.635,
+          "tracking_error_3y": 0.0867,
+          "information_ratio_3y": -0.7683
+        }
+      },
+      "rollup": {
+        "text": "The portfolio's evaluable equity sleeve (63.8% of holdings) carries a 3Y Sharpe of 0.45, volatility of 13.6%, beta of 1.36, and a negative information ratio of -0.77 against its benchmark, with a 3Y maximum drawdown of -12.1%. The remaining 31.9% is unevaluable: the Alternatives sleeve (5.8%) has no evaluable constituents, the Cash sleeve (4.3%) is not applicable for risk-reward statistics, and one PMS holding is disclosure-limited.",
+        "generation_method": "llm_fallback",
+        "llm_fallback_trigger": "negative_excess_return",
+        "is_synthetic_forward": false,
+        "synthetic_forward_disclosure": null
+      },
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+      "pms_aif_framework_notice": {
+        "applies": true,
+        "text": "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies."
+      }
     }
   },
   "tokenUsage": {
