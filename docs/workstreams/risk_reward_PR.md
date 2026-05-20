@@ -1,6 +1,6 @@
 # Risk-Reward Statistics: return-evidence layer for Samriddhi 2
 
-> DO NOT MERGE without product-owner review. Per WA1, the owner reviews and squash-merges; this branch is not self-merged.
+> Awaiting product-owner review. Per WA1 (refined: squash-merge with explicit confirmation gate), CC may execute the squash-merge only after an explicit owner affirmative to a single-purpose confirmation question; CC does not self-merge without it.
 
 Second Capability Phase workstream after A2. Ships the return-evidence data layer that lets the diagnostic vocabulary say true things about risk-adjusted returns (the `fee_inefficiency` and `complexity_premium_not_earned` observations depend on it). Data only; no UI surfaces (WA9).
 
