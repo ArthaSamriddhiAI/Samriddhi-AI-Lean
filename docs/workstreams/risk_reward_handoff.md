@@ -19,7 +19,11 @@ Two sentinels partition the non-resolvable set, and they route to different down
 - **`benchmark_structurally_inapplicable`** (multi-asset, dynamic allocation, retirement, conservative hybrid, children's, equity savings, BAF, multi-asset FoF): a single-index comparison is the wrong measurement. The **model-portfolio workstream** owns the methodology (composite benchmarks, multi-comparator, fund-is-its-own-benchmark).
 - **`benchmark_not_in_snapshot`** (smart-beta, sector ex Bank/IT, target-maturity debt, non-US international, commodity ex-gold): the comparator exists in the world but not in the canonical 16. The **snapshot-data-extension workstream** owns canonical-set expansion.
 
-Cross-references: `PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data debt), O1/O2/O3 (forward-audit obligations), `UI_UX_DEBT_LOG.md` UX1/UX2/UX3 (render-layer disclosure of benchmark and sentinel state). Decisions: ADR-0013 (loader consolidation) onward.
+## Systematic-negative information ratio (methodology consequence, for model-portfolio)
+
+Fund-level information ratio runs systematically negative across the dev-phase data because Option A regeneration (ADR-0014) preserves fund volatility while synthesised canonical indices use a tighter volatility envelope than real-world indices. This elevates beta values, which produces negative active returns and therefore negative IR by construction. The diagnostic vocabulary's negative-IR interpretation (complexity-premium-not-earned, fee-inefficiency) is consistent with the demo seed's curated intent. Production data with real index vol envelopes would not exhibit this systematic property; per-case IR would vary in sign and magnitude per actual fund performance. The model-portfolio workstream calibrating corridors against this data should account for this systematic methodology consequence rather than treat negative IR as the empirical norm. Cross-references ADR-0014.
+
+Cross-references: `docs/debt/PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data debt), O1/O2/O3 (forward-audit obligations), P15/P16 (Option C deferral, Sortino instability), `docs/debt/UI_UX_DEBT_LOG.md` UX1/UX2/UX3 (render-layer disclosure of benchmark and sentinel state). Decisions: ADR-0013 (loader consolidation), ADR-0014 (fund NAV regeneration), ADR-0015 (calendar-aligned recompute) onward.
 
 ## Pointers
 
