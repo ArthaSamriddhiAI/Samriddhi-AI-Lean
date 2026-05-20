@@ -137,7 +137,7 @@ Fund-level information ratio runs systematically negative across the dev-phase d
 
 The architectural audit fired post-PR-open confirmed that E6 already produces `complexity_premium_earned` judgements in the S2 diagnostic pipeline, flowing to S1 and A2 through pre-observations and per-holding drivers. Risk-reward and E6 are complementary; the integration worry was misplaced.
 
-A gap was identified between E6's current evaluation dimensions (manager quality, fee structure, and similar) and the four-thesis decision tree specified in the first principles section (a foundation reference, not tracked in-repo at the cited path). The first principles section says E6 should enforce the decision tree; E6's current implementation does not. Upgrading E6 is deferred to a future workstream (logged as P22).
+A gap was identified between E6's current evaluation dimensions (manager quality, fee structure, and similar) and the four-thesis decision tree specified in the first principles section (`docs/reference/pms_aif_first_principles.md`). The first principles section says E6 should enforce the decision tree; E6's current implementation does not. Upgrading E6 is deferred to a future workstream (logged as P22).
 
 For this workstream, the four-thesis framework is surfaced to the diagnostic consumer via a new structured field (`pms_aif_framework_notice`) on the risk-reward stats record. The field carries verbatim framework text whenever the portfolio contains PMS or AIF holdings (applies true for bhatt, sharma-s2, surana; false for iyengar, malhotra, menon). The notice is honest about the gap: the current diagnostic does not evaluate the holdings against the theses; advisor judgement applies.
 
