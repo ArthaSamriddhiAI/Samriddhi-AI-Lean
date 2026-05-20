@@ -1216,6 +1216,262 @@
         "one_line_characterization": "1 Maintain, 2 Monitor, 1 Discuss, 4 Review; concentration-led with thesis weakness on two equity funds."
       },
       "reasoning_summary": "The classification picture is dominated by single-name position over-concentration: four holdings sit above the 15% escalate threshold or carry a broken thesis at escalate severity, and one more is between flag and escalate. Mirae and White Oak attach watch-level thesis cautions alongside their concentration reads, and Kotak Emerging Equity carries a thesis-broken read driven by a labelling and category mismatch against an Overseas FoF wrapper. The remaining Monitor entries reflect threshold-edge concentration and a watch-level complexity-premium read on the PMS sleeve."
+    },
+    "risk_reward_stats": {
+      "agent_id": "risk_reward_stats",
+      "case_id": "c-2026-05-15-sharma-s2-01",
+      "as_of_date": "2026-04-02",
+      "snapshot_context": {
+        "snapshot_id": "t0_q2_2026",
+        "snapshot_date": "2026-04-02",
+        "is_synthetic_forward": false,
+        "enrichment_version": "0.1.0-phase-b-t0-prototype"
+      },
+      "risk_free_rate": 0.0525,
+      "per_holding": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 17.8,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_50_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1424,
+            "vol_5y_annualized": 0.1326,
+            "sharpe_3y": 0.372,
+            "sharpe_5y": 0.3392,
+            "sortino_3y": 0.3309,
+            "sortino_5y": 0.3169,
+            "max_drawdown_3y": -0.1558,
+            "max_drawdown_5y": -0.1558,
+            "calmar_3y": 0.6768,
+            "beta_3y": 1.5243,
+            "r_squared_3y": 0.8561,
+            "tracking_error_3y": 0.0766,
+            "information_ratio_3y": -0.87
+          }
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 16.7,
+          "currency_basis": "INR",
+          "source": "tier_b_read_through",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.0975,
+            "vol_5y_annualized": 0.1079,
+            "sharpe_3y": 1.0601,
+            "sharpe_5y": 0.9044,
+            "sortino_3y": 0.9793,
+            "sortino_5y": 0.8391,
+            "max_drawdown_3y": -0.1012,
+            "max_drawdown_5y": -0.1446,
+            "calmar_3y": 1.5403,
+            "beta_3y": 1.1468,
+            "r_squared_3y": 0.8265,
+            "tracking_error_3y": 0.0443,
+            "information_ratio_3y": -0.5395
+          }
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 12.6,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 8,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "pms_disclosure_limited",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 15.6,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 14.4,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Cat II private credit AIF (2024 vintage)",
+          "instrument_display_name": "Cat II private credit AIF (2024 vintage)",
+          "asset_class": "Alternatives",
+          "sub_category": "aif_cat_ii_private_credit",
+          "weight_pct": 10,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "opaque_wrapper",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "holding_ref": "Bank savings",
+          "instrument_display_name": "Bank savings",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 5,
+          "currency_basis": "INR",
+          "source": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "per_sleeve": [
+        {
+          "sleeve": "Equity",
+          "constituents": [
+            "Mirae Asset Large Cap Fund",
+            "Parag Parikh Flexi Cap Fund",
+            "Kotak Emerging Equity Fund",
+            "White Oak India Pioneers PMS"
+          ],
+          "evaluable_weight_pct": 34.5,
+          "sentinelled_weight_pct": 20.6,
+          "partial_evaluation": true,
+          "currency_basis": "INR",
+          "method": "synthesised_series",
+          "sentinel": null,
+          "benchmark_index_id": "nifty_500_tri",
+          "stats": {
+            "vol_3y_annualized": 0.1148,
+            "vol_5y_annualized": 0.1266,
+            "sharpe_3y": 0.6715,
+            "sharpe_5y": 0.8871,
+            "sortino_3y": 0.7329,
+            "sortino_5y": 0.8918,
+            "max_drawdown_3y": -0.1257,
+            "max_drawdown_5y": -0.1607,
+            "calmar_3y": 1.0308,
+            "beta_3y": 1.3548,
+            "r_squared_3y": 0.8669,
+            "tracking_error_3y": 0.0541,
+            "information_ratio_3y": -0.928
+          }
+        },
+        {
+          "sleeve": "Debt",
+          "constituents": [
+            "HDFC Bank FD",
+            "SBI FD"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 30,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "no_constituents_evaluable",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "sleeve": "Alternatives",
+          "constituents": [
+            "Cat II private credit AIF (2024 vintage)"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 10,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "no_constituents_evaluable",
+          "benchmark_index_id": null,
+          "stats": null
+        },
+        {
+          "sleeve": "Cash",
+          "constituents": [
+            "Bank savings"
+          ],
+          "evaluable_weight_pct": 0,
+          "sentinelled_weight_pct": 5,
+          "partial_evaluation": false,
+          "currency_basis": "INR",
+          "method": "sentinel",
+          "sentinel": "not_applicable_for_risk_reward",
+          "benchmark_index_id": null,
+          "stats": null
+        }
+      ],
+      "portfolio": {
+        "sleeve": "portfolio",
+        "constituents": [
+          "Mirae Asset Large Cap Fund",
+          "Parag Parikh Flexi Cap Fund",
+          "Kotak Emerging Equity Fund",
+          "White Oak India Pioneers PMS",
+          "HDFC Bank FD",
+          "SBI FD",
+          "Cat II private credit AIF (2024 vintage)"
+        ],
+        "evaluable_weight_pct": 34.5,
+        "sentinelled_weight_pct": 60.6,
+        "partial_evaluation": true,
+        "currency_basis": "INR",
+        "method": "synthesised_series",
+        "sentinel": null,
+        "benchmark_index_id": "nifty_500_tri",
+        "stats": {
+          "vol_3y_annualized": 0.1148,
+          "vol_5y_annualized": 0.1266,
+          "sharpe_3y": 0.6715,
+          "sharpe_5y": 0.8871,
+          "sortino_3y": 0.7329,
+          "sortino_5y": 0.8918,
+          "max_drawdown_3y": -0.1257,
+          "max_drawdown_5y": -0.1607,
+          "calmar_3y": 1.0308,
+          "beta_3y": 1.3548,
+          "r_squared_3y": 0.8669,
+          "tracking_error_3y": 0.0541,
+          "information_ratio_3y": -0.928
+        }
+      },
+      "rollup": {
+        "text": "The evaluable 34.5% of the portfolio, concentrated entirely in the Equity sleeve, shows a 3Y Sharpe of 0.67 on 11.5% annualised volatility, a 3Y beta of 1.35 with R-squared 0.87, an information ratio of -0.93, and a 3Y max drawdown of -12.6%; the remaining 60.6% is unevaluable, with the Debt and Alternatives sleeves carrying no constituents that admit return-series statistics (one disclosure-limited PMS and one opaque wrapper) and the Cash sleeve falling outside risk-reward applicability.",
+        "generation_method": "llm_fallback",
+        "llm_fallback_trigger": "all_sentinelled_sleeve",
+        "is_synthetic_forward": false,
+        "synthetic_forward_disclosure": null
+      },
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction."
     }
   },
   "tokenUsage": {
