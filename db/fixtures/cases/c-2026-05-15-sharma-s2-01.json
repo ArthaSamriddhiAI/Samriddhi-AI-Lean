@@ -1471,7 +1471,11 @@
         "is_synthetic_forward": false,
         "synthetic_forward_disclosure": null
       },
-      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction."
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+      "pms_aif_framework_notice": {
+        "applies": true,
+        "text": "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies."
+      }
     }
   },
   "tokenUsage": {

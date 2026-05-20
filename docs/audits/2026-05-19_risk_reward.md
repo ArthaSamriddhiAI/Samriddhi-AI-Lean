@@ -133,4 +133,14 @@ All 6 S2 fixtures trigger the LLM-fallback rollup path. Breakdown: 5 of 6 via st
 
 Fund-level information ratio runs systematically negative across the dev-phase data because Option A regeneration (ADR-0014) preserves fund volatility while synthesised canonical indices use a tighter volatility envelope than real-world indices. This elevates beta values, which produces negative active returns and therefore negative IR by construction. The diagnostic vocabulary's negative-IR interpretation (as evidence of complexity-premium-not-earned and fee-inefficiency) is consistent with the demo seed's curated intent. Production data with real index vol envelopes would not exhibit this systematic property; per-case IR would vary in sign and magnitude per actual fund performance. The model-portfolio workstream calibrating corridors against this data should account for the systematic methodology consequence rather than treat negative IR as the empirical norm. Cross-references ADR-0014.
 
+## 13. Audit-Informed Close-Out Additions
+
+The architectural audit fired post-PR-open confirmed that E6 already produces `complexity_premium_earned` judgements in the S2 diagnostic pipeline, flowing to S1 and A2 through pre-observations and per-holding drivers. Risk-reward and E6 are complementary; the integration worry was misplaced.
+
+A gap was identified between E6's current evaluation dimensions (manager quality, fee structure, and similar) and the four-thesis decision tree specified in the first principles section (a foundation reference, not tracked in-repo at the cited path). The first principles section says E6 should enforce the decision tree; E6's current implementation does not. Upgrading E6 is deferred to a future workstream (logged as P22).
+
+For this workstream, the four-thesis framework is surfaced to the diagnostic consumer via a new structured field (`pms_aif_framework_notice`) on the risk-reward stats record. The field carries verbatim framework text whenever the portfolio contains PMS or AIF holdings (applies true for bhatt, sharma-s2, surana; false for iyengar, malhotra, menon). The notice is honest about the gap: the current diagnostic does not evaluate the holdings against the theses; advisor judgement applies.
+
+The live S2 pipeline uses `runRiskRewardDeterministic` (templated rollup, no API) by design. The 6 S2 fixtures carry LLM-generated rollups from the Step 5 backfill (deliberate divergence; live LLM rollups deferred to a future workstream with proper WA12 handling, logged as P23). The live-versus-fixture rollup divergence is documented in the hand-off.
+
 *Design decisions, alternatives considered, surfaced-conflict resolutions, and execution calibrations are appended to this document at Step 7, after Hard Checkpoint 1 approval and execution.*

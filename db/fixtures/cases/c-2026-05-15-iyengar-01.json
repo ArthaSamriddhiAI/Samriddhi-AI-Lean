@@ -1314,7 +1314,11 @@
         "is_synthetic_forward": false,
         "synthetic_forward_disclosure": null
       },
-      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction."
+      "reasoning_summary": "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. Sentinels mark instruments where risk-reward statistics are not computable by construction.",
+      "pms_aif_framework_notice": {
+        "applies": false,
+        "text": null
+      }
     }
   },
   "tokenUsage": {

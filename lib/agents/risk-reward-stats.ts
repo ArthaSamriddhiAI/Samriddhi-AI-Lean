@@ -98,6 +98,17 @@ export type RiskRewardRollup = {
   synthetic_forward_disclosure: string | null;
 };
 
+/* A static advisor-judgement pointer (not a verdict): when the portfolio
+ * holds any PMS or AIF, the four-thesis framework from the first principles
+ * section is surfaced verbatim. It is populated deterministically after
+ * rollup generation on both paths; the LLM rollup never sees or writes it.
+ * A future workstream that upgrades E6 to enforce the decision tree replaces
+ * this static notice with structured per-holding thesis verdicts (P22). */
+export type PmsAifFrameworkNotice = {
+  applies: boolean;
+  text: string | null;
+};
+
 export type RiskRewardOutput = {
   agent_id: "risk_reward_stats";
   case_id: string;
@@ -108,6 +119,7 @@ export type RiskRewardOutput = {
   per_sleeve: SleeveStats[];
   portfolio: SleeveStats;
   rollup: RiskRewardRollup;
+  pms_aif_framework_notice: PmsAifFrameworkNotice;
   reasoning_summary: string;
 };
 
@@ -481,7 +493,7 @@ const SYNTHETIC_FORWARD_DISCLOSURE =
 
 /* ----- Layer 1 orchestration (pure, deterministic) ----- */
 
-export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput, "rollup" | "reasoning_summary"> {
+export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput, "rollup" | "reasoning_summary" | "pms_aif_framework_notice"> {
   const { holdings, snapshot } = input;
   const ctx = deriveSnapshotContext(snapshot);
   const per_holding = holdings.holdings.map((h) => classifyHolding(h, snapshot));
@@ -535,7 +547,7 @@ export const LLM_FALLBACK_TRIGGERS = [
 ] as const;
 
 export function detectLlmFallbackTrigger(
-  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary">,
+  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary" | "pms_aif_framework_notice">,
 ): (typeof LLM_FALLBACK_TRIGGERS)[number] | null {
   const sleeves = layer1.per_sleeve.filter((s) => s.sleeve !== "Cash");
   /* Tightened at Checkpoint 2: a sentinelled sleeve only forces the LLM
@@ -565,7 +577,7 @@ function fmtNum(x: number | null | undefined): string {
 }
 
 export function templatedRollup(
-  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary">,
+  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary" | "pms_aif_framework_notice">,
 ): string {
   const p = layer1.portfolio;
   const lead = [...layer1.per_sleeve]
@@ -604,6 +616,17 @@ export function assertSyntheticForwardDisclosure(out: RiskRewardOutput): void {
 /* ----- Orchestrator (deterministic path; LLM fallback is WA12-gated and is
  * not invoked from the deterministic verify scripts) ----- */
 
+/* Four-thesis framework notice (first principles section). Verbatim and
+ * deterministic; identical on both rollup paths. Fires on the presence of any
+ * PMS or AIF holding, regardless of its sentinel/evaluation state. */
+export const PMS_AIF_FRAMEWORK_TEXT =
+  "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies.";
+
+export function buildPmsAifFrameworkNotice(holdings: Holding[]): PmsAifFrameworkNotice {
+  const applies = holdings.some((h) => isPMS(h.subCategory) || isAIF(h.subCategory));
+  return { applies, text: applies ? PMS_AIF_FRAMEWORK_TEXT : null };
+}
+
 export function runRiskRewardDeterministic(input: RiskRewardInput): RiskRewardOutput {
   const layer1 = computeRiskReward(input);
   const trigger = detectLlmFallbackTrigger(layer1);
@@ -619,6 +642,7 @@ export function runRiskRewardDeterministic(input: RiskRewardInput): RiskRewardOu
       is_synthetic_forward: layer1.snapshot_context.is_synthetic_forward,
       synthetic_forward_disclosure: disclosure,
     },
+    pms_aif_framework_notice: buildPmsAifFrameworkNotice(input.holdings.holdings),
     reasoning_summary:
       "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); " +
       "sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. " +
@@ -665,7 +689,7 @@ function sleeveDigest(s: SleeveStats) {
 }
 
 function buildRollupPrompt(
-  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary">,
+  layer1: Omit<RiskRewardOutput, "rollup" | "reasoning_summary" | "pms_aif_framework_notice">,
   trigger: string,
 ): string {
   const sentinelCounts: Record<string, number> = {};
@@ -755,6 +779,7 @@ export async function runRiskRewardStats(input: RiskRewardInput): Promise<RiskRe
       is_synthetic_forward: layer1.snapshot_context.is_synthetic_forward,
       synthetic_forward_disclosure: disclosure,
     },
+    pms_aif_framework_notice: buildPmsAifFrameworkNotice(input.holdings.holdings),
     reasoning_summary:
       "Per-holding figures are read-through from pre-computed tier_b_stats (ADR-0012/0014/0015); " +
       "sleeve and portfolio figures are computed on a market-value-weighted synthesised return series. " +

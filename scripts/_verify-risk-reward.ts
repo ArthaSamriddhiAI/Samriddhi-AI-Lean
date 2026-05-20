@@ -14,7 +14,7 @@
  * apply and no exclusion is needed. */
 
 import { loadSnapshot } from "../lib/agents/snapshot-loader";
-import { runRiskRewardDeterministic } from "../lib/agents/risk-reward-stats";
+import { runRiskRewardDeterministic, PMS_AIF_FRAMEWORK_TEXT } from "../lib/agents/risk-reward-stats";
 import { BHATT_HOLDINGS } from "../db/fixtures/structured-holdings";
 
 type Failure = { name: string; detail: string };
@@ -123,6 +123,14 @@ async function main() {
     `t0=${sh0} t6=${sh6}`);
   const hasSBI = BHATT_HOLDINGS.holdings.some((h) => /sbi/i.test(h.instrument));
   assert(!hasSBI, "Bhatt has no SBI holding (cluster-3 SBI wrinkle does not apply)", `${hasSBI}`);
+
+  console.log("Probe F: pms_aif_framework_notice (four-thesis framework)");
+  const fw = out0.pms_aif_framework_notice;
+  assert(
+    fw.applies === true && fw.text === PMS_AIF_FRAMEWORK_TEXT,
+    "Bhatt (holds PMS + AIF) -> framework notice applies with verbatim text",
+    `applies=${fw.applies} textMatch=${fw.text === PMS_AIF_FRAMEWORK_TEXT}`,
+  );
 
   console.log("");
   if (failures.length === 0) {

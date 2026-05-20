@@ -15,6 +15,7 @@ Render-layer debt deferred to the Capability Surfaces Design workstream and beyo
 | UX7 | Risk-reward in the briefing PDF. | Low | Risk-reward | PDF-builder workstream |
 | UX8 | Risk-reward on the slide deck. | Low | Risk-reward | Slide-deck workstream |
 | UX9 | Archived-cases UI surface (one active S2 case per investor, prior cases archived; slice 5 design), which affects how a risk-reward time series across snapshots would be browsed. | Low | Risk-reward (noted) | Slice 5 / Capability Surfaces Design |
+| UX10 | `pms_aif_framework_notice` rendering treatment. Risk-reward stats records carry a structured `pms_aif_framework_notice` field with verbatim four-thesis framework text when PMS or AIF holdings are present. The rendering design (separate panel, inline disclaimer, expandable detail, footnote-style, or first-view toast) is deferred to the Capability Surfaces Design workstream. The notice should be unmissable without crowding the stats surface. | Low | Risk-reward (architectural audit) | Capability Surfaces Design |
 
 ## Maintenance
 

@@ -44,6 +44,16 @@ Cross-references: `docs/debt/PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data d
 
 **Capability Surfaces Design workstream.** Receives risk-reward's data layer; render decisions are deferred (`UI_UX_DEBT_LOG.md` UX1 to UX9): per-stat benchmark disclosure, sentinel display register, synthetic-forward visual, rollup placement, S2-tab render, PDF, slides.
 
+## Integration posture with E6 and the broader S2 pipeline
+
+E6 (PMS/AIF/SIF evidence agent) fires in the S2 diagnostic pipeline today and produces `complexity_premium_earned` per holding, which flows to S1 (diagnostic mode) via pre-observations and to A2 (classification) via per-holding drivers. Risk-reward sits alongside E6 in the same pipeline, providing the return-evidence layer (Sharpe, Sortino, beta, R-squared, and the rest) on the evaluable surface and sentinelling PMS/AIF for return-evaluation purposes.
+
+The two agents are complementary. Risk-reward does not evaluate craft-layer dimensions; E6 does not evaluate return statistics. Future workstreams combining both into a richer per-holding claim should target the interpretive verdict layer (`agents/m0_portfolio_risk_analytics.md`, currently unbuilt) or extend A2's per-holding drivers, not risk-reward itself.
+
+The four-thesis framework specified in the first principles section (a foundation reference) is currently surfaced to the diagnostic consumer via the `pms_aif_framework_notice` structured field on the risk-reward stats record. The framework is not evaluated by any agent today; the notice is a static pointer. A future workstream upgrading E6 to enforce the four-thesis decision tree (P22) replaces this static notice with structured per-holding thesis verdicts.
+
+Live-versus-fixture rollup divergence: the live S2 pipeline uses `runRiskRewardDeterministic` (templated rollup, no API). The 6 backfilled S2 fixtures carry LLM-generated rollups from the Step 5 backfill. This divergence is deliberate (cost-controlled live generation, reviewable curated fixtures). Future workstreams desiring live LLM rollups must handle WA12 explicitly at the runtime layer (P23).
+
 ## Pointers
 
 - Skill: `agents/risk_reward_stats.md`.

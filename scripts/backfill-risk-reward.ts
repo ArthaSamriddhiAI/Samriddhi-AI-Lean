@@ -25,7 +25,9 @@ import { loadSnapshot } from "../lib/agents/snapshot-loader";
 import {
   runRiskRewardStats,
   runRiskRewardDeterministic,
+  buildPmsAifFrameworkNotice,
   type RiskRewardOutput,
+  type PmsAifFrameworkNotice,
 } from "../lib/agents/risk-reward-stats";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
 
@@ -95,9 +97,36 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   }
 }
 
+/* Surgical additive: add ONLY content.risk_reward_stats.pms_aif_framework_notice
+ * to fixtures that already have risk_reward_stats. No recompute, no API, no
+ * rollup change; the existing risk_reward_stats object is preserved and the
+ * single new key is appended. */
+async function addFrameworkNotice(file: string): Promise<void> {
+  const filePath = path.join(FIXTURE_DIR, file);
+  const fixture = JSON.parse(await fs.readFile(filePath, "utf-8")) as CaseFixture;
+  if (fixture.workflow !== "s2") {
+    console.log(`  skip ${fixture.id}: workflow=${fixture.workflow}`);
+    return;
+  }
+  const rr = fixture.content.risk_reward_stats as
+    | { pms_aif_framework_notice?: PmsAifFrameworkNotice }
+    | undefined;
+  if (!rr) {
+    console.log(`  skip ${fixture.id}: no content.risk_reward_stats (run full backfill first)`);
+    return;
+  }
+  const holdings = HOLDINGS_BY_INVESTOR[fixture.investorId];
+  if (!holdings) throw new Error(`No holdings for "${fixture.investorId}" (${fixture.id}).`);
+  const notice = buildPmsAifFrameworkNotice(holdings.holdings);
+  rr.pms_aif_framework_notice = notice;
+  await fs.writeFile(filePath, JSON.stringify(fixture, null, 2) + "\n", "utf-8");
+  console.log(`  ${fixture.id}: pms_aif_framework_notice.applies=${notice.applies} (existing rollup untouched)`);
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
+  const frameworkNotice = args.includes("--framework-notice");
   const ci = args.indexOf("--case");
   const onlyCase = ci >= 0 ? args[ci + 1] : null;
 
@@ -106,6 +135,12 @@ async function main() {
   if (onlyCase) {
     targets = entries.filter((f) => f === `${onlyCase}.json` || f === onlyCase);
     if (targets.length === 0) throw new Error(`No fixture matching --case ${onlyCase}`);
+  }
+  if (frameworkNotice) {
+    console.log(`Risk-Reward framework-notice add: ${targets.length} fixture(s), no API, additive field only`);
+    for (const file of targets.sort()) await addFrameworkNotice(file);
+    console.log(`\nDone. ${targets.length} fixture(s) processed.`);
+    return;
   }
   console.log(`Risk-Reward backfill: ${targets.length} fixture(s), mode=${dryRun ? "dry-run (no API)" : "WRITE (LLM for triggered)"}`);
   for (const file of targets.sort()) await processFixture(file, { write: !dryRun });
