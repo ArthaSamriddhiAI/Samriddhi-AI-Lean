@@ -4,14 +4,14 @@ An agentic AI decision-support platform for wealth advisory, currently in the Le
 
 ## Data Setup
 
-The snapshot and curated investor data this pipeline reads are **proprietary** and are not tracked in this repository (for licensing and proprietary-edge reasons). They live in a private companion repo, [`ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots`](https://github.com/ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots), published as versioned GitHub release assets. The release this repo expects is pinned in `data-version.txt`. See ADR-0027 (`docs/decisions/0027_snapshot_data_access_via_private_releases.md`) for the access model.
+The **market snapshot and sector data** this pipeline reads are real-world-sourced (licensed from vendors / curated from exchanges without redistribution rights) and proprietary-edge, so they are not tracked in this repository. They live in a private companion repo, [`ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots`](https://github.com/ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots), published as versioned GitHub release assets, and the release this repo expects is pinned in `data-version.txt`. Everything else the pipeline needs is already in-repo: the six investor archetypes are fictional, so their holdings and mandates (`db/fixtures/structured-*.ts`) and the hand-authored Sharma evidence verdicts (`db/fixtures/raw/`) are tracked here and need no setup. See ADR-0027 (`docs/decisions/0027_snapshot_data_access_via_private_releases.md`) for the privacy boundary and access model.
 
 First-time setup after cloning:
 
 1. Install dependencies: `npm install`.
 2. Install the GitHub CLI (`gh`) and authenticate: `gh auth login`.
 3. Ensure your GitHub account has read access to the private data repo. If it does not, request access from Shubham.
-4. Fetch the data: `npm run setup-data`. This reads `data-version.txt`, downloads that release's assets, verifies each against the release manifest (SHA256), and copies them to the paths the code expects (`fixtures/snapshots/enriched/`, `db/fixtures/structured_*.json`, `db/fixtures/raw/`, `scripts/sector_map.json`). The fetched files are git-ignored and never re-enter version control.
+4. Fetch the data: `npm run setup-data`. This reads `data-version.txt`, downloads that release's assets, verifies each against the release manifest (SHA256), and copies them to the paths the code expects (`fixtures/snapshots/enriched/` and `scripts/sector_map.json`). The fetched files are git-ignored and never re-enter version control.
 5. Initialise and seed the local store: `npm run db:push` then `npm run db:seed`.
 
 After that, the usual commands (`npm run dev`, the `scripts/_verify-*.ts` checks, etc.) work normally. Re-run `npm run setup-data` whenever `data-version.txt` changes.
