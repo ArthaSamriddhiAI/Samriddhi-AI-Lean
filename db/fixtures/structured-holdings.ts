@@ -5,9 +5,17 @@
  * in a structured form for deterministic computation (HHI, top-N, sector
  * roll-ups, look-through against the snapshot's mf_funds top-5 holdings).
  *
- * This file is the structured source of truth. db/seed.ts serialises each
- * record into Investor.holdingsJson at seed time. The pipeline reads from
- * the DB and parses back into StructuredHoldings.
+ * Code/data split (ADR-0027, consumer side): the holding records themselves
+ * are proprietary curated data and no longer live inline in this file. They
+ * are published by the private Samriddhi-AI-Data-Snapshots repo as
+ * structured_holdings.json and fetched into db/fixtures/ by
+ * `npm run setup-data` (gitignored locally; pinned via data-version.txt).
+ * This file keeps the TypeScript types and a thin synchronous loader; the
+ * named exports below preserve the original import surface so every consumer
+ * (db/seed.ts, the pipeline agents, the verify scripts) is unchanged.
+ *
+ * db/seed.ts serialises each record into Investor.holdingsJson at seed time.
+ * The pipeline reads from the DB and parses back into StructuredHoldings.
  *
  * The sub_category enum tracks foundation §3's Asset Class Taxonomy exactly.
  *
@@ -16,6 +24,9 @@
  * exclude the Rs 165 Cr unlisted_pre_ipo founder stake (recorded under
  * excludedHoldings instead).
  */
+
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 
 export type AssetClass = "Equity" | "Debt" | "Alternatives" | "Cash";
 
@@ -77,37 +88,11 @@ export type StructuredHoldings = {
   excludedHoldings?: ExcludedHolding[];
 };
 
-export const MALHOTRA_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 11.85,
-  holdings: [
-    { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 1.85, weightPct: 15.6 },
-    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 1.40, weightPct: 11.8 },
-    { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 1.68, weightPct: 14.2 },
-    { instrument: "Kotak Emerging Equity Fund", assetClass: "Equity", subCategory: "mf_active_mid_cap", valueCr: 1.25, weightPct: 10.5 },
-    { instrument: "NHAI Tax-Free Bonds 2032", assetClass: "Debt", subCategory: "tax_free_bond", valueCr: 2.15, weightPct: 18.1 },
-    { instrument: "PFC Tax-Free Bonds 2031", assetClass: "Debt", subCategory: "tax_free_bond", valueCr: 0.97, weightPct: 8.2 },
-    { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 1.55, weightPct: 13.1 },
-    { instrument: "Physical gold", assetClass: "Alternatives", subCategory: "physical_gold", valueCr: 1.00, weightPct: 8.4 },
-  ],
-};
-
-export const IYENGAR_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 3.41,
-  holdings: [
-    { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 0.93, weightPct: 27.3 },
-    { instrument: "SBI FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 0.92, weightPct: 27.0 },
-    { instrument: "Franklin India Corporate Debt Fund", assetClass: "Debt", subCategory: "mf_corporate_debt", valueCr: 0.35, weightPct: 10.3 },
-    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 0.40, weightPct: 11.7 },
-    { instrument: "HDFC Index Fund Nifty 50", assetClass: "Equity", subCategory: "mf_passive_index", valueCr: 0.48, weightPct: 14.1 },
-    { instrument: "ICICI Prudential Balanced Advantage Fund", assetClass: "Equity", subCategory: "mf_hybrid_dynamic_aa", valueCr: 0.33, weightPct: 9.7 },
-  ],
-};
-
 /* Snapshot-alignment cleanup, post-Gate 1.
  *
  * The foundation §4 archetype tables were authored independently of the
  * snapshot's actual fund inventory. Four instrument labels diverged and
- * were corrected here:
+ * were corrected in the curated data (now carried in structured_holdings.json):
  *
  *   - Bhatt: "Motilal Oswal Value Strategy PMS" → "Motilal Oswal Value
  *     Migration PMS" (snapshot has 7 Motilal Oswal PMS strategies;
@@ -127,86 +112,38 @@ export const IYENGAR_HOLDINGS: StructuredHoldings = {
  * The existing Shailesh case (c-2026-05-14-bhatt-01) was generated
  * against the pre-cleanup labels and retains them in its frozen
  * contentJson per "case is a frozen artefact" semantics. Subsequent
- * cases generated after this cleanup will reference the corrected names. */
-export const BHATT_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 22.10,
-  holdings: [
-    { instrument: "Marcellus Consistent Compounder PMS", assetClass: "Equity", subCategory: "pms_concentrated_quality", valueCr: 2.50, weightPct: 11.3 },
-    { instrument: "White Oak India Pioneers PMS", assetClass: "Equity", subCategory: "pms_growth_quality", valueCr: 2.20, weightPct: 10.0 },
-    { instrument: "Motilal Oswal Value Migration PMS", assetClass: "Equity", subCategory: "pms_value", valueCr: 2.10, weightPct: 9.5 },
-    { instrument: "Alchemy Smart Alpha 250 PMS", assetClass: "Equity", subCategory: "pms_focused_midcap", valueCr: 1.90, weightPct: 8.6 },
-    { instrument: "Reliance Industries", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 2.70, weightPct: 12.2 },
-    { instrument: "HDFC Bank", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 2.50, weightPct: 11.3 },
-    { instrument: "ITC Limited", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 1.10, weightPct: 5.0 },
-    { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 0.50, weightPct: 2.3 },
-    { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 0.45, weightPct: 2.0 },
-    { instrument: "Avendus Absolute Return Fund", assetClass: "Alternatives", subCategory: "aif_cat_iii_long_short", valueCr: 3.00, weightPct: 13.6 },
-    { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 1.55, weightPct: 7.0 },
-    { instrument: "HDFC Arbitrage Fund", assetClass: "Debt", subCategory: "mf_arbitrage", valueCr: 1.60, weightPct: 7.2 },
-  ],
-};
+ * cases generated after this cleanup reference the corrected names. */
 
-export const MENON_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 60.65,
-  holdings: [
-    { instrument: "Bank savings account", assetClass: "Cash", subCategory: "savings", valueCr: 52.50, weightPct: 86.6 },
-    { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 4.15, weightPct: 6.8 },
-    { instrument: "US listed equities (legacy holding)", assetClass: "Equity", subCategory: "intl_us_individual", valueCr: 4.00, weightPct: 6.6 },
-  ],
-};
+const STRUCTURED_HOLDINGS_JSON = path.resolve(
+  process.cwd(),
+  "db",
+  "fixtures",
+  "structured_holdings.json",
+);
 
-export const SURANA_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 34.50,
-  holdings: [
-    { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 4.00, weightPct: 11.6 },
-    { instrument: "Axis Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.80, weightPct: 11.0 },
-    { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.00, weightPct: 8.7 },
-    { instrument: "Kotak Emerging Equity Fund", assetClass: "Equity", subCategory: "mf_active_mid_cap", valueCr: 3.00, weightPct: 8.7 },
-    { instrument: "SBI Small Cap Fund", assetClass: "Equity", subCategory: "mf_active_small_cap", valueCr: 2.20, weightPct: 6.4 },
-    { instrument: "White Oak India Pioneers PMS", assetClass: "Equity", subCategory: "pms_growth_quality", valueCr: 3.00, weightPct: 8.7 },
-    { instrument: "Reliance Industries", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 7.00, weightPct: 20.3 },
-    { instrument: "HDFC Bank", assetClass: "Equity", subCategory: "listed_large_cap", valueCr: 2.00, weightPct: 5.8 },
-    { instrument: "Vanguard S&P 500 ETF (GIFT)", assetClass: "Equity", subCategory: "intl_us_etf", valueCr: 3.00, weightPct: 8.7 },
-    { instrument: "Physical gold", assetClass: "Alternatives", subCategory: "physical_gold", valueCr: 2.00, weightPct: 5.8 },
-    { instrument: "Bank savings", assetClass: "Cash", subCategory: "savings", valueCr: 1.50, weightPct: 4.3 },
-  ],
-  excludedHoldings: [
-    {
-      instrument: "B2B SaaS Pvt Ltd founder shares",
-      subCategory: "unlisted_pre_ipo",
-      valueCr: 165.00,
-      note: "Pre-IPO founder stake (26% of company; Series D 2025 post-money). Outside advisory scope per foundation §4; the dominant wealth driver but not a diversification.",
-    },
-  ],
-};
+/* Loads the curated holdings data fetched from the private data repo.
+ * Synchronous because the named exports below are evaluated at module load
+ * and consumed via synchronous imports across the pipeline and scripts. */
+function loadStructuredHoldings(): Record<string, StructuredHoldings> {
+  if (!existsSync(STRUCTURED_HOLDINGS_JSON)) {
+    throw new Error(
+      "Structured holdings data not found at " +
+        STRUCTURED_HOLDINGS_JSON +
+        ". Run `npm run setup-data` to fetch the proprietary data from the " +
+        "private Samriddhi-AI-Data-Snapshots repo (see the README Data Setup section).",
+    );
+  }
+  return JSON.parse(
+    readFileSync(STRUCTURED_HOLDINGS_JSON, "utf-8"),
+  ) as Record<string, StructuredHoldings>;
+}
 
-export const SHARMA_HOLDINGS: StructuredHoldings = {
-  totalLiquidAumCr: 18.00,
-  holdings: [
-    { instrument: "Mirae Asset Large Cap Fund", assetClass: "Equity", subCategory: "mf_active_large_cap", valueCr: 3.20, weightPct: 17.8 },
-    { instrument: "Parag Parikh Flexi Cap Fund", assetClass: "Equity", subCategory: "mf_active_flexi_cap", valueCr: 3.00, weightPct: 16.7 },
-    { instrument: "Kotak Emerging Equity Fund", assetClass: "Equity", subCategory: "mf_active_mid_cap", valueCr: 2.26, weightPct: 12.6 },
-    { instrument: "White Oak India Pioneers PMS", assetClass: "Equity", subCategory: "pms_growth_quality", valueCr: 1.44, weightPct: 8.0 },
-    { instrument: "HDFC Bank FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 2.80, weightPct: 15.6 },
-    { instrument: "SBI FD", assetClass: "Debt", subCategory: "bank_fd", valueCr: 2.60, weightPct: 14.4 },
-    { instrument: "Cat II private credit AIF (2024 vintage)", assetClass: "Alternatives", subCategory: "aif_cat_ii_private_credit", valueCr: 1.80, weightPct: 10.0 },
-    { instrument: "Bank savings", assetClass: "Cash", subCategory: "savings", valueCr: 0.90, weightPct: 5.0 },
-  ],
-  excludedHoldings: [
-    {
-      instrument: "Sharma specialty chemicals family business",
-      subCategory: "unlisted_family_business",
-      valueCr: 50.00,
-      note: "Operating family business equity (Rs 40-60 Cr estimated). Outside advisory scope per foundation §3; tracked as wealth reference, not deployed-corpus concentration.",
-    },
-  ],
-};
+const _holdings = loadStructuredHoldings();
 
-export const HOLDINGS_BY_INVESTOR: Record<string, StructuredHoldings> = {
-  malhotra: MALHOTRA_HOLDINGS,
-  iyengar: IYENGAR_HOLDINGS,
-  bhatt: BHATT_HOLDINGS,
-  menon: MENON_HOLDINGS,
-  surana: SURANA_HOLDINGS,
-  sharma: SHARMA_HOLDINGS,
-};
+export const HOLDINGS_BY_INVESTOR: Record<string, StructuredHoldings> = _holdings;
+export const MALHOTRA_HOLDINGS: StructuredHoldings = _holdings.malhotra;
+export const IYENGAR_HOLDINGS: StructuredHoldings = _holdings.iyengar;
+export const BHATT_HOLDINGS: StructuredHoldings = _holdings.bhatt;
+export const MENON_HOLDINGS: StructuredHoldings = _holdings.menon;
+export const SURANA_HOLDINGS: StructuredHoldings = _holdings.surana;
+export const SHARMA_HOLDINGS: StructuredHoldings = _holdings.sharma;

@@ -53,10 +53,12 @@ artha-fullfat/
 # (small JSONs, demo-critical for STUB_MODE replay).
 /fixtures/*
 !/fixtures/stub-responses/
-# Enriched snapshots are committed demo seed (not build artifacts). /fixtures/*
-# blocks git from descending into fixtures/snapshots/, so re-include that dir,
-# re-ignore its source payload (~99 MB, still copied locally), then track only
-# fixtures/snapshots/enriched/.
+# Enriched snapshots are NO LONGER committed. As of Phase B (ADR-0027) they are
+# proprietary data fetched from the private Samriddhi-AI-Data-Snapshots repo by
+# `npm run setup-data` and land at fixtures/snapshots/enriched/ (gitignored via
+# the "Proprietary data" block at the end of this file; the pre-enrichment
+# source payload was always gitignored too). We still re-include the snapshots/
+# dir so git can descend, but the explicit block below untracks the JSON files.
 !/fixtures/snapshots/
 /fixtures/snapshots/*
 !/fixtures/snapshots/enriched/
@@ -64,3 +66,14 @@ artha-fullfat/
 # Python bytecode (created when importing scripts/*.py)
 __pycache__/
 *.pyc
+
+# Proprietary data fetched from the private Samriddhi-AI-Data-Snapshots repo
+# (Phase B / ADR-0027). Fetched by `npm run setup-data`, pinned via
+# data-version.txt; never tracked in this repo. The original committed copies
+# were removed from the index in the snapshot-data-extraction workstream and
+# purged from history in Phase C.
+fixtures/snapshots/enriched/snapshot_*.json
+scripts/sector_map.json
+db/fixtures/raw/sharma_marcellus_evidence_verdicts.md
+db/fixtures/structured_holdings.json
+db/fixtures/structured_mandates.json
