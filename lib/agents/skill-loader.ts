@@ -96,8 +96,8 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
    * the skill frontmatter (Opus for the verdict-grade outputs, Haiku for the
    * minutes recorder). Raising a cap does not increase spend; it only prevents
    * a max_tokens truncation stop. */
-  s1_case_mode: { max_tokens: 9000 },
-  a1_challenge: { max_tokens: 7000 },
+  s1_case_mode: { max_tokens: 12000 },
+  a1_challenge: { max_tokens: 9000 },
   ic1_chair: { max_tokens: 6000 },
   ic1_devils_advocate: { max_tokens: 6000 },
   ic1_risk_assessor: { max_tokens: 6000 },
