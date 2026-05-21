@@ -3,18 +3,9 @@
  * Slice 2 ignored mandate data; the diagnostic agents read risk_appetite
  * and time_horizon directly from the Investor row. Slice 3 introduces the
  * G1 mandate-compliance governance gate, which requires structured bands
- * and ceilings to evaluate against. This file is the type surface and a thin
- * loader; db/seed.ts serialises each record into Investor.mandateJson at seed
+ * and ceilings to evaluate against. This file is the source of truth;
+ * db/seed.ts serialises each record into Investor.mandateJson at seed
  * time, and the pipeline reads back via JSON.parse.
- *
- * Code/data split (ADR-0027, consumer side): the mandate records themselves
- * are proprietary curated data and no longer live inline here. They are
- * published by the private Samriddhi-AI-Data-Snapshots repo as
- * structured_mandates.json and fetched into db/fixtures/ by
- * `npm run setup-data` (gitignored locally; pinned via data-version.txt).
- * MANDATES_BY_INVESTOR preserves the original import surface. The per-investor
- * authoring rationale that previously sat in inline comments is carried in
- * each record's source_notes field.
  *
  * Mandate authoring policy:
  * - Asset-class bands track the foundation §1 model portfolio (65/25/7/3
@@ -34,9 +25,6 @@
  *   supports them for future investors with stated exclusions (e.g., ESG
  *   mandates).
  */
-
-import { existsSync, readFileSync } from "node:fs";
-import path from "node:path";
 
 export type AssetClassBand = {
   asset_class: "Equity" | "Debt" | "Alternatives" | "Cash";
@@ -69,28 +57,122 @@ export type Mandate = {
   source_notes: string;
 };
 
-const STRUCTURED_MANDATES_JSON = path.resolve(
-  process.cwd(),
-  "db",
-  "fixtures",
-  "structured_mandates.json",
-);
+const STANDARD_AGGRESSIVE_LONG_TERM: AssetClassBand[] = [
+  { asset_class: "Equity", min_pct: 60, max_pct: 70 },
+  { asset_class: "Debt", min_pct: 20, max_pct: 30 },
+  { asset_class: "Alternatives", min_pct: 5, max_pct: 10 },
+  { asset_class: "Cash", min_pct: 2, max_pct: 5 },
+];
 
-/* Loads the curated mandate data fetched from the private data repo.
- * Synchronous because MANDATES_BY_INVESTOR is evaluated at module load and
- * consumed via synchronous imports across the pipeline and scripts. */
-function loadStructuredMandates(): Record<string, Mandate> {
-  if (!existsSync(STRUCTURED_MANDATES_JSON)) {
-    throw new Error(
-      "Structured mandates data not found at " +
-        STRUCTURED_MANDATES_JSON +
-        ". Run `npm run setup-data` to fetch the proprietary data from the " +
-        "private Samriddhi-AI-Data-Snapshots repo (see the README Data Setup section).",
-    );
-  }
-  return JSON.parse(
-    readFileSync(STRUCTURED_MANDATES_JSON, "utf-8"),
-  ) as Record<string, Mandate>;
-}
+const STANDARD_CONCENTRATION: PositionConcentrationCeiling[] = [
+  { scope: "single_position", max_pct_of_liquid_aum: 15 },
+];
 
-export const MANDATES_BY_INVESTOR: Record<string, Mandate> = loadStructuredMandates();
+const SHARMA_MANDATE: Mandate = {
+  /* Per sharma_marcellus_evidence_verdicts.md case context line:
+   * "mandate band equity 50-70 percent, currently 55 percent". The
+   * widened band reflects family-business households' tolerance for
+   * equity-heavier positioning. */
+  bands: [
+    { asset_class: "Equity", min_pct: 50, max_pct: 70 },
+    { asset_class: "Debt", min_pct: 20, max_pct: 35 },
+    { asset_class: "Alternatives", min_pct: 5, max_pct: 15 },
+    { asset_class: "Cash", min_pct: 2, max_pct: 8 },
+  ],
+  wrapper_count_ceilings: [],
+  position_concentration_ceilings: STANDARD_CONCENTRATION,
+  sector_exclusions: [],
+  instrument_exclusions: [],
+  review_cadence_note:
+    "Annual review; family-anchored; father as principal decision-maker; mandate authored against the household balance sheet, not just liquid AUM.",
+  source: "investor_specified",
+  source_notes:
+    "Equity band widened to 50-70% per the verdicts file case context. No explicit wrapper-count ceiling.",
+};
+
+const BHATT_MANDATE: Mandate = {
+  /* Per Slice 2 fixture briefing: "equity at 72.2% breaches the 60-70%
+   * ceiling by 2.2 pp" — confirms the 60-70 band. */
+  bands: STANDARD_AGGRESSIVE_LONG_TERM,
+  wrapper_count_ceilings: [],
+  position_concentration_ceilings: STANDARD_CONCENTRATION,
+  sector_exclusions: [],
+  instrument_exclusions: [],
+  review_cadence_note: "Annual review; principal decision-maker; family-business income.",
+  source: "investor_specified",
+  source_notes: "Standard aggressive long-term bands per foundation §1; matches Slice 2 fixture read.",
+};
+
+const MALHOTRA_MANDATE: Mandate = {
+  bands: STANDARD_AGGRESSIVE_LONG_TERM,
+  wrapper_count_ceilings: [],
+  position_concentration_ceilings: STANDARD_CONCENTRATION,
+  sector_exclusions: [],
+  instrument_exclusions: [],
+  review_cadence_note: "Annual review; dual-professional household.",
+  source: "foundation_default",
+  source_notes: "Standard aggressive long-term bands per foundation §1.",
+};
+
+const MENON_MANDATE: Mandate = {
+  /* Aggressive long-term but post-exit accumulation-stage; widened
+   * alternatives band to accommodate venture / pre-IPO positions. */
+  bands: [
+    { asset_class: "Equity", min_pct: 55, max_pct: 70 },
+    { asset_class: "Debt", min_pct: 15, max_pct: 30 },
+    { asset_class: "Alternatives", min_pct: 5, max_pct: 20 },
+    { asset_class: "Cash", min_pct: 2, max_pct: 10 },
+  ],
+  wrapper_count_ceilings: [],
+  position_concentration_ceilings: STANDARD_CONCENTRATION,
+  sector_exclusions: [],
+  instrument_exclusions: [],
+  review_cadence_note:
+    "Annual review; tech-founder post-exit; expects to deploy NRE conversion proceeds over 18-24 months.",
+  source: "investor_specified",
+  source_notes:
+    "Alternatives band widened to 5-20% to accommodate venture / pre-IPO positions; cash band widened for deployment runway.",
+};
+
+const SURANA_MANDATE: Mandate = {
+  bands: STANDARD_AGGRESSIVE_LONG_TERM,
+  wrapper_count_ceilings: [],
+  position_concentration_ceilings: STANDARD_CONCENTRATION,
+  sector_exclusions: [],
+  instrument_exclusions: [],
+  review_cadence_note: "Annual review; tech-founder; equity sleeve drives the AUM total.",
+  source: "foundation_default",
+  source_notes:
+    "Standard aggressive long-term bands; advisory scope excludes the Rs 165 Cr unlisted founder stake.",
+};
+
+const IYENGAR_MANDATE: Mandate = {
+  /* Conservative medium-term widow: tighter equity ceiling, deeper debt
+   * floor, alternatives only for capital-protected vehicles. */
+  bands: [
+    { asset_class: "Equity", min_pct: 25, max_pct: 45 },
+    { asset_class: "Debt", min_pct: 45, max_pct: 65 },
+    { asset_class: "Alternatives", min_pct: 0, max_pct: 10 },
+    { asset_class: "Cash", min_pct: 3, max_pct: 10 },
+  ],
+  wrapper_count_ceilings: [{ wrapper_type: "any_wrapper", max_count: 1 }],
+  position_concentration_ceilings: [
+    { scope: "single_position", max_pct_of_liquid_aum: 12 },
+  ],
+  sector_exclusions: [],
+  instrument_exclusions: ["aif_cat_iii_long_short", "unlisted_pre_ipo"],
+  review_cadence_note:
+    "Semi-annual review; distribution phase; capital protection prioritised over compounding.",
+  source: "investor_specified",
+  source_notes:
+    "Mandate tightened for conservative-medium-term profile: equity 25-45%, debt 45-65%, no Cat III AIF, no pre-IPO.",
+};
+
+export const MANDATES_BY_INVESTOR: Record<string, Mandate> = {
+  sharma: SHARMA_MANDATE,
+  bhatt: BHATT_MANDATE,
+  malhotra: MALHOTRA_MANDATE,
+  menon: MENON_MANDATE,
+  surana: SURANA_MANDATE,
+  iyengar: IYENGAR_MANDATE,
+};

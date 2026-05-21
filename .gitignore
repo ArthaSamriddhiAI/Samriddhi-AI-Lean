@@ -67,13 +67,13 @@ artha-fullfat/
 __pycache__/
 *.pyc
 
-# Proprietary data fetched from the private Samriddhi-AI-Data-Snapshots repo
-# (Phase B / ADR-0027). Fetched by `npm run setup-data`, pinned via
-# data-version.txt; never tracked in this repo. The original committed copies
-# were removed from the index in the snapshot-data-extraction workstream and
-# purged from history in Phase C.
+# Real-world-sourced proprietary data fetched from the private
+# Samriddhi-AI-Data-Snapshots repo (ADR-0027). Fetched by `npm run setup-data`,
+# pinned via data-version.txt; never tracked in this repo. The original
+# committed copies are removed from the index here and purged from history in
+# Phase C. Privacy boundary: only real-world-sourced data (vendor/exchange
+# feeds) is private. The fictional investor holdings/mandates
+# (db/fixtures/structured-*.ts) and the hand-authored Sharma evidence verdicts
+# (db/fixtures/raw/) are invented creative content and stay tracked in this repo.
 fixtures/snapshots/enriched/snapshot_*.json
 scripts/sector_map.json
-db/fixtures/raw/sharma_marcellus_evidence_verdicts.md
-db/fixtures/structured_holdings.json
-db/fixtures/structured_mandates.json
