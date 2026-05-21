@@ -78,6 +78,7 @@ export async function runG2(opts: { proposal: Proposal }): Promise<GateResult> {
         trace,
       );
     case "mutual_fund":
+    case "mutual_fund_debt":
       return requiresClarificationResult(
         "g2_sebi_regulatory",
         "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies.",

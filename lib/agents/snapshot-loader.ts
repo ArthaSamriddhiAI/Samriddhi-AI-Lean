@@ -91,6 +91,30 @@ export type Nifty500Company = {
   name?: string;
   monthly_prices?: Record<string, number>;
   tier_b_stats?: TierBStats;
+  /* Per-stock fundamentals (percent-form fields; the parallel
+   * nifty500.e1_financial_risk_agent_snapshot.instrument_financials carries
+   * decimal-form equivalents). Consumed by the E1/E2 case-mode scope-builders. */
+  pe?: number;
+  industry_pe?: number;
+  peg?: number;
+  cmp_bv?: number;
+  ev_ebitda?: number;
+  earnings_yield_pct?: number;
+  div_yield_pct?: number;
+  roe_pct?: number;
+  roce_pct?: number;
+  roa_12m_pct?: number;
+  opm_pct?: number;
+  sales_growth_3yr_pct?: number;
+  profit_growth_3yr_pct?: number;
+  debt_equity?: number;
+  interest_coverage?: number;
+  current_ratio?: number;
+  promoter_holding_pct?: number;
+  pledged_pct?: number;
+  market_cap_rs_cr?: number;
+  return_3m_pct?: number;
+  return_6m_pct?: number;
   [key: string]: unknown;
 };
 
@@ -110,7 +134,7 @@ export type Snapshot = {
   mf_funds: MutualFundRow[];
   aif: unknown;
   pms: unknown;
-  nifty500: unknown;
+  nifty500: Nifty500;
   unlisted_equity: unknown;
   industry_reports: unknown;
   macro: unknown;
@@ -122,6 +146,9 @@ export type Snapshot = {
   snapshot_metadata?: SnapshotMetadata;
 };
 
+export type Top5Holding = { rank?: number; name?: string; weight_pct?: number };
+export type Top5Sector = { rank?: number; sector?: string; weight_pct?: number };
+
 export type MutualFundRow = {
   amfi_code: number;
   fund_name: string;
@@ -130,9 +157,13 @@ export type MutualFundRow = {
   total_months?: number;
   rolling_metrics?: Record<string, number | string>;
   tier_b_stats?: TierBStats;
-  /* These are JSON-encoded strings in the source; consumers parse on access. */
-  "Top 5 Holdings (JSON)"?: string;
-  "Top 5 Sectors (JSON)"?: string;
+  /* In the enriched snapshot these are parsed JSON arrays; in older sources
+   * they may still be JSON-encoded strings. Consumers handle both. */
+  "Top 5 Holdings (JSON)"?: string | Top5Holding[];
+  "Top 5 Sectors (JSON)"?: string | Top5Sector[];
+  "P/E"?: number;
+  "P/B"?: number;
+  Beta?: number;
   NAV?: number;
   "AUM (Cr)"?: number;
   [key: string]: unknown;

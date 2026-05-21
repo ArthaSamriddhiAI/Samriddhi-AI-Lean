@@ -88,6 +88,21 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
    * hard-fails on a max_tokens stop. Skill file stays byte-identical per
    * the Slice 2 Q2 convention. */
   a2_classification: { max_tokens: 4000 },
+  /* Samriddhi 1 case-mode synthesis, adversarial challenge, and IC1
+   * deliberation. The enriched E1/E2 scope (ADR-0024) yields richer evidence
+   * verdicts, so the downstream synthesis and deliberation outputs run longer
+   * than the skill-default envelopes (s1_case_mode hit its 4500 ceiling on the
+   * first enriched run). Caps raised with headroom; models are unchanged from
+   * the skill frontmatter (Opus for the verdict-grade outputs, Haiku for the
+   * minutes recorder). Raising a cap does not increase spend; it only prevents
+   * a max_tokens truncation stop. */
+  s1_case_mode: { max_tokens: 9000 },
+  a1_challenge: { max_tokens: 7000 },
+  ic1_chair: { max_tokens: 6000 },
+  ic1_devils_advocate: { max_tokens: 6000 },
+  ic1_risk_assessor: { max_tokens: 6000 },
+  ic1_counterfactual_engine: { max_tokens: 6000 },
+  ic1_minutes_recorder: { max_tokens: 4000 },
 };
 
 function parseScalar(raw: string): unknown {
