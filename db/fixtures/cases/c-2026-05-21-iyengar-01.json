@@ -1,0 +1,677 @@
+{
+  "id": "c-2026-05-21-iyengar-01",
+  "investorId": "iyengar",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s1",
+  "severity": "escalate",
+  "headline": "requires clarification: The proposed deployment is directionally coherent with mandate, stated and revealed risk tolerance, and prevailing rate-cycle logic; E4 and E7 produce low risk verdicts on the behavioural and scheme dimensions respectively, and E3 confirms the underlying yield-pickup thesis is valid even as it reads elevated on tactical macro stresses (Brent at $118.",
+  "status": "ready",
+  "frozenAt": "2026-05-21T05:18:27.268Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "Mrs. Lalitha Iyengar, a Conservative-profile resident investor holding a Rs 3.41 Cr liquid portfolio under a private limited company structure with a 25–45% equity mandate band, is the subject of an advisor-initiated proposal from Priya Nair to deploy Rs 0.5 Cr from a September 2026 fixed deposit maturity into ICICI Prudential Corporate Bond Fund (AAA corporate debt) via a 6-month STP from a liquid fund. Post-action the equity band stays at 35.5% within mandate, debt rises from 64.5% to approximately 67.8%, and a second corporate bond fund position sits alongside the existing Franklin India Corporate Debt holding. The rationale rests on FD-to-AAA-debt yield pickup in a late-cutting / early-pause rate cycle over a 3Y operational window."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "requires_clarification",
+        "overall_risk_level": "moderate",
+        "confidence": 0.72,
+        "consensus_areas": [
+          "E3, E4, and E7 align that the underlying debt-to-debt yield-pickup logic is directionally sound for a Conservative investor in a late-cutting rate cycle",
+          "E4 and E7 align that the action is structurally coherent with stated and revealed risk tolerance and with the existing corporate-bond category precedent (Franklin India Corporate Debt)",
+          "E3, E4, and E7 independently surface str_007 — private limited company eligibility for mutual_fund_debt is unresolved — as a pre-execution structural flag",
+          "G2 and E7 align that scheme-level SEBI rules and exit-load / plan-type details are not in the curated reference data and require advisor confirmation"
+        ],
+        "conflict_areas": [
+          "Risk-level dispersion across activated agents: E3 reads elevated on macro grounds (crude shock, INR stress, yield-curve steepening, duration mark-to-market risk) while E4 and E7 read low on behavioural-fit and scheme-quality grounds; the dimension of disagreement is execution-timing and duration positioning, not the underlying thesis",
+          "G1 mandate gate flags single-position concentration at 14.7% of liquid AUM against a 12% ceiling and a 0.0% cash floor breach against a 3% minimum, neither of which the evidence agents priced as material constraints on their own"
+        ],
+        "amplification_flags": [
+          "E3's yield-curve-steepening / duration risk combined with E7's missing modified-duration and plan-type disclosure means the execution-window risk is materially larger than either flag in isolation",
+          "G1's single-position concentration breach (14.7% vs 12% ceiling) combined with E7's category concentration observation (combined corporate-bond exposure approaching 25% of liquid AUM across two funds) elevates the concentration question from a calibration note to a mandate-level item",
+          "str_007 surfacing simultaneously in M0.IndianContext, E3, E4, and E7 — with no agent able to clear it — converts a single structural flag into a hard pre-execution blocker"
+        ],
+        "narrative_paragraph": "The proposed deployment is directionally coherent with mandate, stated and revealed risk tolerance, and prevailing rate-cycle logic; E4 and E7 produce low risk verdicts on the behavioural and scheme dimensions respectively, and E3 confirms the underlying yield-pickup thesis is valid even as it reads elevated on tactical macro stresses (Brent at $118.95/bbl on Hormuz disruption, INR at 94.79 reflecting 10.7% twelve-month depreciation, 10Y G-Sec at 6.99% after a 44 bps move). The verdict is constrained, not opposed, by three items the synthesis cannot dissolve. First, the str_007 structural eligibility flag — mutual_fund_debt is not listed as a confirmed eligible product for a private_limited_company/resident investor — surfaces in the Indian Context bundle and is amplified by E3, E4, and E7; none of the evidence layer can clear it. Second, the G1 mandate gate returns requires_clarification on two boundary conditions: post-action single-position concentration at 14.7% of liquid AUM against the 12% ceiling, and cash at 0.0% against a 3% floor; the concentration item compounds with E7's observation that combined corporate-bond fund exposure will approach 25% of liquid AUM across two positions. Third, G2 confirms scheme-level SEBI rules and E7 confirms manager tenure, exit-load schedule, modified duration, and Direct-vs-Regular plan designation are not in the available reference data, leaving the execution-grade picture incomplete. The synthesis verdict is therefore requires_clarification at moderate risk: the thesis is sound, but the pre-execution gating is not yet complete.",
+        "counterfactual_framing": "The structured alternative is to roll the September 2026 FD maturity into a comparable-tenor FD ladder while the str_007 eligibility question, G1 concentration and cash-floor clarifications, and E7's scheme-level data gaps are resolved; a deferred-deployment variant — STP commencement timed after both the eligibility resolution and a duration / plan-type confirmation — sits between this counterfactual and the proposal as stated.",
+        "escalation_recommended": false,
+        "headline_takeaway": "The yield-pickup thesis holds, but str_007 eligibility, a 14.7% single-position concentration against a 12% ceiling, and a 0% cash band against a 3% floor sit unresolved before any STP can begin."
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated; the action introduces no listed equity exposure via direct, MF, or PMS look-through."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated; follows E1 dormancy with no sector-tagged equity exposure in scope."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Underlying yield-pickup logic is valid in the late-cutting cycle, but active crude shock, INR depreciation, and yield-curve steepening warrant duration scrutiny and execution-timing care."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "Debt-to-debt addition is coherent with stated Conservative profile and the revealed-more-conservative-than-stated pattern; advisor-initiated process matches established engagement dynamic."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated; no unlisted equity, pre-IPO, or Cat I venture exposure is implicated."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Not activated; the target instrument is not a PMS, AIF, or SIF wrapper and no wrapper-tier position is being sourced."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "Scheme is structurally coherent on category mandate, scale, TER, and risk-adjusted return, but str_007 eligibility, manager tenure, exit-load, plan-type, and duration disclosures are unresolved at the scheme level."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "The thesis is sound; the gating is incomplete",
+          "body": "The yield-pickup logic from rolling FD into AAA corporate bond fund in a late-cutting rate cycle is one E3, E4, and E7 all read as directionally correct for a Conservative investor over a 3Y window. What sits unfinished is the pre-execution gating — not the thinking."
+        },
+        {
+          "number": "02",
+          "title": "str_007 needs resolution before the STP starts",
+          "body": "The Indian Context bundle flags that mutual_fund_debt is not listed in eligible products for a private limited company / resident structure. The evidence layer cannot clear this; an advisor-level regulatory confirmation precedes any execution instruction."
+        },
+        {
+          "number": "03",
+          "title": "G1 returned requires_clarification on two bands",
+          "body": "Post-action single-position weight lands at 14.7% of liquid AUM against the 12% ceiling, and the cash band sits at 0.0% against a 3% floor. Both want an explicit intentionality call before proceeding — either acceptance of the boundary positioning or a calibration to ticket and feeder structure."
+        },
+        {
+          "number": "04",
+          "title": "Concentration in the corporate-bond category is approaching a quarter of liquid AUM",
+          "body": "With Franklin India Corporate Debt at 10.3% already in place, the new position takes combined corporate-bond fund exposure toward 25% of liquid AUM. Not a mandate issue at the asset-class level, but a sleeve-design conversation for the next semi-annual review."
+        },
+        {
+          "number": "05",
+          "title": "Duration and plan-type are the missing scheme-level pieces",
+          "body": "Modified duration, exit-load schedule, manager tenure, and Direct-vs-Regular plan designation are not in the snapshot. With the 10Y G-Sec up 44 bps since November and intraday spikes touching 7.19%, the duration positioning is where the macro and the scheme conversations meet."
+        },
+        {
+          "number": "06",
+          "title": "Behavioural fit is the cleanest part of the picture",
+          "body": "Mrs. Iyengar's revealed pattern sits below her stated Conservative label, and this is a debt-to-debt addition that does not stress her drawdown floor or disturb the inherited equity sleeve. Consent is in hand and the initiative pattern matches the established advisor-led dynamic."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e7_mutual_fund"
+        ],
+        "agents_not_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e5_unlisted_equity",
+          "e6_pms_aif_sif"
+        ],
+        "data_sufficiency_notes": "The synthesis had complete coverage on macro, behavioural, and scheme dimensions for an activated mutual_fund_debt proposal. M0.IndianContext returned a structure-fit flag (str_007) but no product-specific tax-matrix, SEBI boundary, or demat/lock-in entry matched, leaving regulatory and tax treatment to advisor confirmation. G2 confirmed scheme-level SEBI rules are not in the curated store and will activate in a future slice. E7 could not source manager tenure, exit load, plan-type, or modified duration from the mf_funds snapshot; these are pre-execution advisor confirmations rather than synthesis gaps. The character bible records zero prior advisor interactions on file, which capped E4 confidence at 0.82. No equity, wrapper, or unlisted-equity dimensions were in scope.",
+        "generation_mode": "stub",
+        "generation_timestamp": "2026-04-02T00:00:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "requires_clarification",
+          "rationale": "Mandate compliance: 2 band(s) sit at or beyond boundary; advisor clarification warranted."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "requires_clarification",
+          "rationale": "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "The yield-pickup math assumes a stable-to-falling yield path the macro evidence does not support",
+          "body": "E3 reads the yield-pickup thesis as 'directionally valid' but simultaneously flags an active crude shock at $118.95/bbl, INR at 94.79 (10.7% twelve-month depreciation), and a 10Y G-Sec that has already moved 44 bps to 6.99% with an intraday spike to 7.19%. E7 cites a 3Y return of 7.32% on a Sharpe of 1.853 — both backward-looking figures earned in a different rate regime. If the advisor's pitch to Mrs. Iyengar leans on the 7.32% number, what is the forward expected return under a scenario where RBI's pause extends through FY27 and 10Y yields drift toward 7.25%? The FD she would forfeit carries a known coupon; the bond fund carries a coupon plus duration mark-to-market. How does the synthesis describe the downside path of the next twelve months to a Conservative investor whose revealed tolerance is below her stated label?",
+          "headline_takeaway": "The 7.32% 3Y return was earned during a 125 bps cutting cycle that has now paused, and the forward path is not the backward path."
+        },
+        {
+          "category": "counter_argument",
+          "title": "str_007 is treated as a clearable advisor confirmation, not as a structural blocker",
+          "body": "Four independent layers — M0.IndianContext, E3, E4, and E7 — surface that mutual_fund_debt is not listed in eligible_products for a private_limited_company/resident structure. The synthesis frames this as a 'pre-execution gating' item to be cleared by Priya Nair. But the curated reference data does not say 'unclear'; it says 'not listed.' What is the basis for assuming this resolves favourably? If the private limited company structure restricts the investee universe (a common feature of corporate investment policy statements and Companies Act §186 considerations), the entire proposal collapses regardless of how clean the macro, behavioural, and scheme dimensions read. Has the advisor obtained the board resolution or investment policy reference that authorises this category for this entity, and if not, why is the conversation with Mrs. Iyengar happening before that confirmation rather than after?",
+          "headline_takeaway": "str_007 sits in four agent verdicts as 'unresolved' but the proposal is being walked to the investor as if resolution is procedural rather than substantive."
+        },
+        {
+          "category": "stress_test",
+          "title": "Medical contingency timing against a 6-month STP plus exit load opacity",
+          "body": "E4 flags medical_contingency_liquidity_sensitivity and notes the 2022 Rs 30 L equity withdrawal locking Rs 4 L of realised loss against advisor counsel — Mrs. Iyengar's revealed pattern is to liquidate under stress at unfavourable timing. The STP runs 6 months from a liquid fund into the corporate bond fund; E7 explicitly flags that the exit_load_data_not_available. If a medical event in Q4 2026 (six months into the STP, partly deployed) forces redemption, what is the worst-case exit-load drag plus duration mark-to-market under the E3 rate scenario? The synthesis preserves 'liquidity tier' in narrative but does not stress-test the redemption path. With Rs 1.85 Cr remaining in FDs and 0% cash post-action, where does the contingency draw come from first, and at what cost?",
+          "headline_takeaway": "A medical liquidity event mid-STP draws against an unknown exit load and a duration-mark-to-market that the synthesis has not sized."
+        },
+        {
+          "category": "stress_test",
+          "title": "G1 concentration breach combines with E7 category concentration to produce a sleeve-design issue the verdict treats as a calibration note",
+          "body": "G1 returns the new position at 14.7% of liquid AUM against a 12% ceiling. E7 separately notes that combined corporate-bond fund exposure approaches 25% of liquid AUM across the Franklin and ICICI positions. These are not independent observations — they are the same concentration pattern visible at two resolutions. If the Franklin India Corporate Debt fund and the ICICI Prudential Corporate Bond Fund both draw from a similar AAA corporate universe (a question E7 cannot answer without holdings overlap analysis), what is the effective issuer-level concentration? In a 2018-IL&FS-style or 2019-DHFL-style single-name credit event in the AAA corporate paper universe, what is the joint drawdown across both funds, and is that compatible with a Conservative mandate? The synthesis defers this to 'the next semi-annual review' — is that the right cadence for a concentration question being created today?",
+          "headline_takeaway": "Two corporate bond funds drawing from a similar AAA universe is one concentration, not two diversified positions, and the synthesis has not sized the joint exposure."
+        },
+        {
+          "category": "stress_test",
+          "title": "The Direct-vs-Regular plan question is fee structure, not data hygiene",
+          "body": "E7 flags that the 0.56% TER may correspond to Regular plan, with a typical 30–50 bps delta to Direct in this category. On Rs 50 L over a 3Y operational window, a 40 bps fee differential compounds to roughly Rs 60,000 of foregone return — material against the FD-vs-corporate-bond spread the entire thesis rests on. If the advisor is recommending Regular plan, what is the basis, and has Mrs. Iyengar been shown the Direct equivalent for comparison? The advisor-initiated, investor-deferential dynamic that E4 describes is precisely the dynamic in which Regular-plan default recommendations are least likely to be challenged by the investor. The synthesis does not surface this as a conflict-of-interest-adjacent question.",
+          "headline_takeaway": "Forty basis points of plan-type fee differential compounds to roughly Rs 60,000 over three years against a yield-pickup thesis whose spread is itself measured in low single digits."
+        },
+        {
+          "category": "edge_case",
+          "title": "Private limited company tax treatment under post-April-2023 debt fund regime",
+          "body": "E7 correctly notes that Budget 2024 removed indexation for debt MFs acquired on or after 1 April 2023, with gains taxed at slab rate. For a private limited company, this means the corporate tax rate (22% or 25.17% with surcharge and cess depending on regime elected) applies on accrual-style yield realisation. Compared to a corporate FD where interest is similarly taxed at corporate rate but TDS is deducted at source with clearer accounting treatment, what is the actual after-tax yield differential versus FD reinvestment, and does it still support the thesis once corporate tax overlay, audit treatment of unrealised MTM, and Ind AS classification (FVTPL vs amortised cost) are considered? The synthesis flags tax as 'secondary' per the advisor's own framing — but for a corporate investor, tax is rarely secondary.",
+          "headline_takeaway": "After corporate tax, Ind AS classification, and audit treatment, the after-tax FD-versus-bond-fund spread for a private limited company may be materially narrower than the pre-tax thesis suggests."
+        },
+        {
+          "category": "edge_case",
+          "title": "Zero prior advisor interactions on file caps E4 confidence but the synthesis proceeds as if behavioural alignment is established",
+          "body": "E4 explicitly states 'prior advisor interactions on record: 0' and reduces confidence to 0.82 accordingly. The behavioural fit verdict rests on a single 2022 data point (the equity withdrawal) and the structural logic that 'debt-to-debt is conservative.' But the proposal is the first documented advisor recommendation in this relationship's recorded history. What is the basis for treating Mrs. Iyengar's consent as informed consent rather than reactive-deferential consent in the specific sense E4 itself names? Should the first documented recommendation in the file be a Rs 50 L category-concentrating action that breaches two mandate bands, or should the first recommendation be lower-stakes precisely to establish the engagement pattern with documentation?",
+          "headline_takeaway": "This is the first advisor recommendation in the documented relationship history, and it is simultaneously the one that breaches two mandate bands and concentrates a category."
+        }
+      ]
+    },
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "mutual_fund_debt",
+      "target_instrument": "ICICI Prudential Corporate Bond Fund",
+      "ticket_size_cr": 0.5,
+      "source_of_funds": "fixed_deposits",
+      "timeline": "this_year",
+      "rationale": "Advisor-initiated (Priya Nair). Deploy Rs 50 L from the September 2026 FD maturity into ICICI Prudential Corporate Bond Fund (AAA corporate debt) via a 6-month STP from a liquid fund. The late-cutting / early-pause rate cycle compresses FD reinvestment yields; a high-quality corporate bond fund offers a better-than-FD risk-adjusted return at a comparable conservative risk profile over the 3Y operational window and sits naturally alongside the existing Franklin India Corporate Debt holding. Tax treatment is a secondary consideration. The liquidity tier is preserved. Mrs. Iyengar consents to the recommendation; she has not historically initiated new product types."
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "requires_clarification",
+        "rationale": "Mandate compliance: 2 band(s) sit at or beyond boundary; advisor clarification warranted.",
+        "breaches": [],
+        "gaps": [
+          "Cash sits 3.0pp below the lower band (post-action 0.0% vs floor 3%). Clarify whether the reduced allocation is intentional.",
+          "Single-position concentration sits above the standard ceiling: target 14.7% of liquid AUM vs ceiling 12%. Clarify whether the larger allocation is intentional."
+        ],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 35.48387096774193,
+            "Debt": 64.51612903225806,
+            "Alternatives": 0,
+            "Cash": 0
+          },
+          "post_action_allocation_pct": {
+            "Equity": 35.48387096774193,
+            "Debt": 64.51612903225806,
+            "Alternatives": 0,
+            "Cash": 0
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 25,
+              "max_pct": 45
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 45,
+              "max_pct": 65
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 0,
+              "max_pct": 10
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 3,
+              "max_pct": 10
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 0,
+            "aif": 0,
+            "total": 0
+          },
+          "target_position_pct_of_liquid_aum": 14.662756598240467
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "requires_clarification",
+        "rationale": "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies.",
+        "breaches": [],
+        "gaps": [
+          "M0.IndianContext sebi_boundaries does not carry scheme-level SEBI rules for mutual funds (category, sub-scheme limits, exit load tiers). E7 handles scheme-level analysis in the evidence layer; G2 will activate scheme-level rules in a future slice."
+        ],
+        "rule_trace": {
+          "target_category": "mutual_fund_debt",
+          "ticket_cr": 0.5,
+          "action_type": "new_investment",
+          "reference_data_source": "m0_indian_context:sebi_boundaries"
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 0.5,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting ICICI Prudential Corporate Bond Fund (category: mutual_fund_debt) of Rs 0.5 Cr, sourced from fixed_deposits) does not introduce listed equity exposure via direct, MF, or PMS look-through. Per principles §3.1, E1 activates only when the case involves listed equity in any of these forms. None apply."
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting ICICI Prudential Corporate Bond Fund (category: mutual_fund_debt) of Rs 0.5 Cr, sourced from fixed_deposits) does not introduce listed equity exposure with sector tags. Per principles §3.1, E2 follows E1's trigger and stays dormant when E1 does not activate."
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.74,
+        "drivers": [
+          "RBI repo rate at 5.25% (paused after 125 bps of cuts from 6.50%), placing the rate cycle in late-cutting / early-pause phase; FD reinvestment yields are structurally compressed relative to the prior cycle peak, supporting the advisor's rationale for migration to a corporate bond fund",
+          "Real interest rate derived at ~3.15% (repo 5.25% minus core CPI 2.1%), which is materially above the +2% restrictive threshold; this elevated real rate environment is supportive of high-quality fixed income instruments such as AAA corporate bond funds, as nominal yields remain attractive relative to inflation",
+          "10Y G-Sec yield at 6.99% (up 44 bps from 6.55% in November 2025, with an intraday spike to 7.19% on April 3); the yield curve has steepened under crude-oil and geopolitical pressure, which creates mark-to-market duration risk for any bond fund with meaningful tenor exposure — ICICI Prudential Corporate Bond Fund's positioning on the curve requires advisor scrutiny",
+          "Brent crude at $118.95/barrel (up ~86% YoY from ~$64), driven by Hormuz disruption blocking ~20% of global oil trade; this is a primary macro stress signal with direct pass-through to Indian CPI (food and fuel), fiscal deficit, and INR — all of which bear on the fixed income outlook",
+          "INR at 94.79 vs USD (10.7% depreciation over 12 months from 85.60); forex reserves down $25B to $703B; currency stress of this magnitude elevates imported inflation risk and may constrain RBI's ability to resume cutting, compressing the capital appreciation thesis for duration-sensitive bond funds",
+          "FII net equity outflows of Rs 56,401 Cr in April 2026 alone (~$5.97B), the heaviest single-month outflow in the data window; DII absorption only partial (Rs 34,617 Cr, partial data); this risk-off dynamic in equities has spillover implications for broader market sentiment and liquidity conditions",
+          "CPI headline at 3.40% (March 2026, rising from 3.21% in February) and IMD forecasting below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome; food inflation upside risk is material and could push headline CPI toward or above the 4% RBI target in H2 FY27, altering the rate-cut path",
+          "GDP growth strong at 7.8% in Q3 FY26 (manufacturing 13.3%, services 9.5%); capacity utilisation at 75.6% (above the 75% late-expansion threshold); PMI composite at 58.3 — the growth backdrop does not argue for emergency rate cuts, reinforcing the pause narrative and limiting near-term bond price appreciation from further rate reductions",
+          "Government fiscal consolidation on track: fiscal deficit YTD at 80.38% of RE with -7.0% YoY improvement; capex at Rs 9.29L Cr (+14.46% YoY); FY27 fiscal deficit target 4.3% of GDP with market borrowing of Rs 13.03L Cr — supply of government paper remains elevated, which exerts upward pressure on yields and compresses spread compression potential for corporate bonds",
+          "India-US rate differential at 162 bps (5.25% minus 3.625% Fed midpoint); within the 100–200 bps adequate range but not compelling for carry-driven capital inflows; Fed on indefinite hold with leadership transition (Warsh replacing Powell ~May 15) adding policy uncertainty to the external environment"
+        ],
+        "flags": [
+          "crude_oil_shock_active_hormuz_disruption",
+          "inr_depreciation_stress_10pct_12m",
+          "yield_curve_steepening_duration_risk",
+          "monsoon_below_normal_food_inflation_upside",
+          "fii_outflow_stress_april_2026",
+          "real_rate_highly_restrictive_rate_cut_path_uncertain",
+          "private_limited_company_product_eligibility_unresolved_str_007",
+          "fed_leadership_transition_external_policy_uncertainty",
+          "walr_transmission_data_stale_120_days"
+        ],
+        "reasoning_paragraph": "The macro environment as of April 2026 presents a structurally supportive but tactically stressed backdrop for the proposed migration of Rs 50 lakh from fixed deposits into ICICI Prudential Corporate Bond Fund. The core advisor rationale — that the late-cutting / early-pause rate cycle compresses FD reinvestment yields, making high-quality corporate bond funds relatively more attractive — is directionally valid: the RBI repo rate has been cut 125 bps to 5.25%, and with real rates at approximately 3.15% (repo minus core CPI of 2.1%), nominal yields in AAA corporate paper remain meaningfully above inflation, offering a credible risk-adjusted return advantage over rolling FDs. However, three macro stresses materially complicate the near-term execution environment. First, the Hormuz disruption has driven Brent crude to $118.95/barrel (+86% YoY), a level that, if sustained, will transmit into Indian CPI through fuel and logistics channels, potentially pushing headline inflation toward or above the RBI's 4% target in H2 FY27 and constraining the rate-cut path that underpins the capital appreciation component of the bond fund thesis. Second, the INR has depreciated 10.7% over twelve months to 94.79 vs USD, with forex reserves declining $25 billion to $703 billion; imported inflation from this channel reinforces the crude-oil risk and may prompt RBI to maintain its pause longer than the market currently prices. Third, the 10Y G-Sec yield has risen 44 bps to 6.99% since November 2025 (spiking intraday to 7.19% on April 3), reflecting these pressures; any corporate bond fund with meaningful duration exposure faces mark-to-market headwinds if yields continue to rise, and the advisor should confirm the fund's modified duration and positioning before execution. The below-normal monsoon forecast (92% of LPA, 66% probability of below-normal or deficient outcome per IMD April 13) adds a further food-inflation tail risk that could materialise in Q3–Q4 FY27. On the structural side, the Indian Context module flags an unresolved product eligibility question under str_007: mutual fund debt products are not listed as confirmed eligible instruments for a private limited company investor structure, and this requires advisor resolution before commitment. The fiscal backdrop is constructive — consolidation on track, capex strong — but elevated government market borrowing (Rs 13.03L Cr in FY27) sustains supply pressure on yields. In aggregate, the macro environment does not invalidate the proposed action's underlying logic, but the combination of an active crude shock, INR stress, yield curve steepening, and an unresolved structural eligibility flag elevates the risk level to elevated and warrants advisor attention to duration positioning, execution timing relative to the September 2026 FD maturity, and resolution of the private limited company eligibility question before proceeding.",
+        "data_points_cited": [
+          "RBI repo rate: 5.25% as of April 17, 2026 (paused after 125 bps of cuts from 6.50%)",
+          "Real interest rate: ~3.15% derived (repo 5.25% minus core CPI 2.1%, RBI MPC April 8, 2026)",
+          "CPI headline: 3.40% YoY, March 2026 (rising from 3.21% February 2026)",
+          "CPI core (ex-food, fuel, ex-precious metals): 2.1% Jan-Feb 2026 average (RBI MPC Statement April 8, 2026)",
+          "CPI food: 3.87% YoY, March 2026",
+          "10Y G-Sec yield: 6.99% as of April 17, 2026 (up from 6.55% November 2025; intraday spike to 7.19% on April 3)",
+          "Brent crude: $118.95/barrel close April 29, 2026 (from ~$64 April 2025, +86% YoY; Hormuz disruption blocking ~20% global oil trade)",
+          "USD/INR: 94.787 as of April 29, 2026 (from 85.60 April 2, 2025; 10.7% depreciation over 12 months)",
+          "Forex reserves: $703B (down $25B from prior level)",
+          "FII net equity flows April 2026: Rs -56,401 Cr (~$5.97B outflow); heaviest day April 2 at Rs -19,837 Cr",
+          "DII net flows April 1-8, 2026: Rs +34,617 Cr (partial data)",
+          "India-US rate differential: 162 bps (RBI repo 5.25% minus Fed midpoint 3.625%)",
+          "US Fed funds rate: 3.50%-3.75%, hold as of March 18, 2026 FOMC",
+          "GDP growth Q3 FY26: 7.8% YoY (Q1: 6.7%, Q2: 8.4%); RBI FY26 projection 7.6%",
+          "PMI Manufacturing April flash: 55.9 (March final: 53.9); PMI Services April flash: 57.9; Composite PMI: 58.3",
+          "Capacity utilisation Q3 FY26: 75.6% (above 75% late-expansion threshold)",
+          "Non-food credit growth YoY: 14.3% as of February 28, 2026",
+          "IMD monsoon forecast April 13, 2026: below normal, 92% of LPA; P(below normal + deficient) = 66%",
+          "Fiscal deficit YTD Apr-Feb FY26: Rs 12,52,649 Cr (80.38% of RE), -7.0% YoY",
+          "Government capex YTD: Rs 9,29,322 Cr (+14.46% YoY, 84.81% of RE)",
+          "FY27 fiscal deficit target: 4.3% of GDP; market borrowing Rs 13.03L Cr (Budget February 2026)",
+          "WALR on fresh loans: 8.28% as of December 2025 (109 bps transmission from repo; data ~120 days stale)",
+          "str_007 flag: mutual_fund_debt not listed as confirmed eligible product for private_limited_company/resident investor structure"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.82,
+        "drivers": [
+          "Stated risk tolerance is Conservative with a 3–5 year operational horizon and capital preservation as the primary objective; the proposed ICICI Prudential Corporate Bond Fund (AAA corporate debt, 6-month STP entry) is structurally coherent with this stated profile.",
+          "Revealed behavioural pattern is more conservative than stated: the 2022 partial withdrawal of Rs 30 L from equity MFs, locking in approximately Rs 4 L of realised loss against advisor counsel, confirms a lower effective drawdown tolerance than the stated Conservative bucket implies.",
+          "The proposed action is debt-to-debt in character (FD maturity redirected to AAA corporate bond fund), not an equity addition or a complexity-tier escalation; it does not stress the revealed conservative floor.",
+          "Mrs. Iyengar has consented to the recommendation, consistent with her established reactive-deferential engagement pattern: she responds to advisor-initiated proposals and has never independently proposed a new product type across the documented relationship.",
+          "The existing Franklin India Corporate Debt Fund holding (Rs 0.35 Cr, 10.3% of portfolio) establishes a prior behavioural precedent for corporate bond fund exposure, reducing the novelty signal of the proposed addition.",
+          "Equity band post-action is unchanged at 35.5%; the action does not compress the liquidity tier or alter the debt-dominant allocation (debt moves from 64.5% to approximately 67.8% of a Rs 3.91 Cr post-deployment portfolio), which is directionally aligned with her revealed conservative floor.",
+          "Advisor relationship is trust-based and advisor-driven (Priya Nair); the initiative pattern here — advisor-initiated, investor-consenting — matches the established decision dynamic without deviation.",
+          "The inherited equity MF positions (Axis Bluechip, HDFC Index, ICICI Pru BAF) are not touched by this action; the emotional weight attached to the late husband's corpus is undisturbed, removing a known friction point."
+        ],
+        "flags": [
+          "limited_prior_interaction_record",
+          "structure_fit_requires_advisor_review_str_007",
+          "revealed_pattern_more_conservative_than_stated",
+          "no_revealed_pattern_for_new_product_type_acceptance",
+          "medical_contingency_liquidity_sensitivity"
+        ],
+        "reasoning_paragraph": "The proposed action — redirecting the September 2026 FD maturity (Rs 50 L) into ICICI Prudential Corporate Bond Fund via a 6-month STP — presents a low behavioural risk profile when evaluated against Mrs. Iyengar's stated and revealed characteristics. The action is debt-to-debt in economic substance, advisor-initiated in origin, and consent-confirmed in process, all of which align with her established reactive-deferential engagement pattern. Her revealed risk tolerance, anchored by the 2022 equity withdrawal event (Rs 30 L partial redemption, Rs 4 L realised loss), sits below her stated Conservative label; however, this action does not implicate equity exposure, drawdown sensitivity, or liquidity compression in any material way, and therefore does not engage that revealed floor. The Franklin India Corporate Debt Fund precedent (Rs 0.35 Cr already held) further reduces the novelty signal: this is an addition to a known category, not an unfamiliar wrapper. Two structural flags warrant advisor attention independent of the behavioural verdict. First, the character bible records zero prior advisor interactions on file, which constrains confidence in the revealed-pattern assessment and prevents a full historical decision trajectory analysis; the confidence score is accordingly reduced from a potential ceiling of 0.90 to 0.82. Second, the Indian Context module surfaces a structure-fit flag (str_007) noting that mutual_fund_debt is not listed in eligible products for a private_limited_company/resident structure, which requires advisor-level regulatory review before execution; this is a structural eligibility question, not a behavioural one, but it is consequential to case completion. The stated-versus-revealed divergence in this case is directionally benign: Mrs. Iyengar is more conservative than stated, and the proposed action is more conservative in character than a mandate-neutral deployment would require. No recency bias, over-confidence, or family friction signals are present in the available record.",
+        "data_points_cited": [
+          "Stated risk tolerance: Conservative; operational horizon 3–5 years",
+          "2022 drawdown: partial withdrawal of Rs 30 L from equity MFs, realised loss approximately Rs 4 L, executed against advisor counsel",
+          "Existing Franklin India Corporate Debt Fund holding: Rs 0.35 Cr, 10.3% of portfolio",
+          "Proposed ticket size: Rs 50 L (14.7% of current liquid AUM of Rs 3.41 Cr)",
+          "Current debt allocation: 64.5%; post-action debt allocation: approximately 67.8% on Rs 3.91 Cr base",
+          "Equity band: unchanged at 35.5% post-action",
+          "Current FD holdings: HDFC Bank FD Rs 0.93 Cr + SBI FD Rs 0.92 Cr = Rs 1.85 Cr (54.3% of portfolio)",
+          "Family pension: Rs 72,000 per month; monthly outflows marginally negative before investment income",
+          "Prior advisor interactions on record: 0",
+          "Investor has never independently proposed a new product type (character bible)",
+          "Inherited equity MF positions not implicated by proposed action",
+          "Structure-fit flag str_007: mutual_fund_debt not listed in eligible_products for private_limited_company/resident"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting ICICI Prudential Corporate Bond Fund (category: mutual_fund_debt) of Rs 0.5 Cr, sourced from fixed_deposits) does not introduce unlisted equity exposure. Per principles §3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting ICICI Prudential Corporate Bond Fund (category: mutual_fund_debt) of Rs 0.5 Cr, sourced from fixed_deposits) does not target a PMS, AIF, or SIF wrapper and the source of funds is not an existing wrapper-tier position. Per principles §3.1, E6 activates only when the case involves wrapper-tier products in target or source. None apply."
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.71,
+        "drivers": [
+          "SEBI category Corporate Bond Fund mandates minimum 80% allocation to AA+ and above rated corporate bonds; ICICI Prudential Corporate Bond Fund operates within this mandate, providing structural credit quality floor consistent with the advisor's stated AAA corporate debt objective",
+          "AUM of Rs 31,712.74 Cr places this among the larger corporate bond funds in the category; scale confers liquidity depth and negotiating leverage on bond desk, reducing execution slippage risk for a Rs 0.5 Cr ticket",
+          "TER of 0.56% is competitive for the corporate bond category; at a 3Y horizon on Rs 0.5 Cr, cumulative fee drag is approximately Rs 84,000 (0.56% × 3Y × Rs 0.5 Cr, simple approximation), which is materially lower than typical regular-plan equivalents in this category",
+          "3Y return of 7.32% and 5Y return of 6.36% are consistent with the category's yield-accrual-driven return profile; the 3Y figure is directionally above prevailing FD reinvestment yields in the late-cutting rate cycle context cited by the advisor, supporting the yield-pickup rationale",
+          "Sharpe ratio of 1.853 over 3Y on a volatility base of 1.02% (annualised) indicates strong risk-adjusted return efficiency; low absolute volatility is appropriate for the conservative risk profile and the 3Y operational window",
+          "Proposed 6-month STP from a liquid fund is structurally sound for a debt-to-debt transition; it avoids lump-sum reinvestment-rate risk and preserves liquidity tier during the transition window",
+          "Existing Franklin India Corporate Debt Fund holding (10.3% of AUM) is in the same broad debt category; the addition of ICICI Prudential Corporate Bond Fund creates a second corporate bond position, which is not redundant given different fund house credit selection processes and portfolio construction, but the overlap warrants monitoring"
+        ],
+        "flags": [
+          "structure_eligibility_unresolved: mutual_fund_debt is NOT listed in eligible_products for private_limited_company/resident per str_007; this is a structural compliance flag that must be resolved by the advisor before execution — E7 cannot clear this flag",
+          "manager_tenure_data_not_available: lead manager name, tenure on this scheme, and team depth are not disclosed in the mf_funds snapshot; manager continuity assessment cannot be completed; confidence is reduced accordingly",
+          "exit_load_data_not_available: exit load schedule for ICICI Prudential Corporate Bond Fund is not present in the snapshot; advisor should confirm exit load terms before committing to the STP structure, particularly if early redemption from the liquid fund feeder is possible",
+          "direct_vs_regular_plan_not_confirmed: the snapshot does not specify whether the 0.56% TER corresponds to the Direct or Regular plan; if Regular plan, the Direct plan TER will be materially lower (typically 30–50 bps delta in this category) and the advisor should confirm plan type before execution",
+          "corporate_bond_category_concentration: post-investment, the portfolio will carry two corporate bond fund positions (Franklin India Corporate Debt at 10.3% of AUM; ICICI Prudential Corporate Bond Fund at approximately 14.7% of AUM post-deployment on Rs 3.41 Cr base); combined corporate bond fund exposure approaches 25% of liquid AUM, which is material for a conservative debt sleeve and should be reviewed at the semi-annual cadence",
+          "performance_attribution_not_available: alpha vs benchmark, rolling beat frequency, capture ratios, and regime-specific performance data are not present in the snapshot; skill-vs-carry attribution cannot be assessed; the 3Y and 5Y return figures reflect accrual-driven category behaviour and cannot be decomposed into manager skill at this time",
+          "tax_treatment_advisory_flag: Budget 2024 removed indexation benefit for debt mutual funds acquired on or after 1 April 2023; gains will be taxed at slab rate regardless of holding period for a private limited company investor; the advisor's note that tax treatment is a secondary consideration is appropriate, but the slab-rate treatment should be explicitly confirmed with the investor given the corporate entity structure"
+        ],
+        "reasoning_paragraph": "ICICI Prudential Corporate Bond Fund presents a structurally coherent fit for the advisor's stated objective of deploying FD maturity proceeds into a high-quality, conservative debt instrument over a 3Y operational window. The scheme's SEBI category mandate (minimum 80% AA+ and above), large AUM base of Rs 31,712.74 Cr, competitive TER of 0.56%, and a 3Y Sharpe ratio of 1.853 on annualised volatility of 1.02% collectively support the risk-adjusted yield-pickup thesis relative to FD reinvestment in a late-cutting rate environment. The proposed STP mechanism is appropriate for the transition. However, three dimensions constrain the confidence of this verdict. First, and most materially, the structural eligibility of mutual_fund_debt for a private_limited_company/resident investor is flagged as unresolved per str_007; this is a pre-execution compliance requirement that sits outside E7's clearing authority. Second, manager tenure, team depth, exit load schedule, and plan type (Direct vs Regular) are not available in the snapshot, leaving manager continuity and full fee-impact assessment incomplete. Third, the post-investment portfolio will carry approximately 25% of liquid AUM in corporate bond funds across two positions (Franklin India Corporate Debt and this scheme), a concentration that is not problematic at current equity band positioning (35.5% within the 25–45% mandate) but warrants explicit review at the next semi-annual cadence. The scheme-level evidence available is consistent with a positive-with-caution assessment; the structural eligibility flag is the single item that must be resolved before any execution instruction is issued.",
+        "data_points_cited": [
+          "ICICI Prudential Corporate Bond Fund AUM: Rs 31,712.742 Cr (mf_funds snapshot)",
+          "TER: 0.56% (mf_funds snapshot; plan type not confirmed)",
+          "1Y return: 5.49% (mf_funds snapshot)",
+          "3Y return: 7.32% (mf_funds snapshot)",
+          "5Y return: 6.36% (mf_funds snapshot)",
+          "3Y annualised volatility: 1.02% (mf_funds snapshot, tier_b)",
+          "3Y Sharpe ratio: 1.853 (mf_funds snapshot, tier_b)",
+          "Ticket size: Rs 0.5 Cr; source FD maturity September 2026",
+          "Existing Franklin India Corporate Debt Fund: 10.3% of AUM (Rs 3.41 Cr base = ~Rs 35.1 Cr notional)",
+          "Investor liquid AUM: Rs 3.41 Cr; equity band current 35.5% within 25–45% mandate",
+          "str_007: mutual_fund_debt not listed in eligible_products for private_limited_company/resident",
+          "SEBI Corporate Bond Fund category mandate: minimum 80% AA+ and above rated instruments",
+          "Manager tenure, exit load, Direct/Regular plan designation: not available in snapshot"
+        ]
+      }
+    ],
+    "router_decision": {
+      "caseMode": "proposed_action",
+      "caseIntent": "new_investment",
+      "dominantLens": "proposal_evaluation",
+      "e1": false,
+      "e2": false,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": false,
+      "e7": true,
+      "indianContext": true,
+      "portfolioRiskAnalytics": true,
+      "riskRewardStats": true,
+      "activated": [
+        "m0_indian_context",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=proposed_action; case_intent=new_investment; target_category=mutual_fund_debt; source_of_funds=fixed_deposits; listed_look_through=false; pms_or_aif=false; mf=true; unlisted=false"
+    },
+    "indian_context": {
+      "mode": "bulk",
+      "generated_by": "m0_indian_context_deterministic",
+      "store_versions": {
+        "tax_matrix": "1.1",
+        "sebi_boundaries": "1.2",
+        "structure_matrix": "1.0",
+        "demat_mechanics": "1.0",
+        "gift_city_routing": "1.0",
+        "regulatory_changelog": "1.0"
+      },
+      "investor_structure": {
+        "structure_type": "private_limited_company",
+        "residency": "resident"
+      },
+      "tax_structure": "No product-specific tax-matrix entry matched the proposal and investor structure; advisor applies category defaults.",
+      "lock_in_mechanics": "No demat/lock-in entry matched the proposal product.",
+      "regulatory_eligibility": "No SEBI boundary entry matched the proposal product.",
+      "surcharge_implications": "No surcharge-band entry matched; standard slab surcharge applies per investor income tier.",
+      "structure_specific_considerations": "mutual_fund_debt is NOT listed in eligible_products for private_limited_company/resident [str_007]; structure-fit requires advisor review. | Private limited company, product eligibility [str_007]",
+      "sebi_minimums": [],
+      "applicable_regulatory_changes": [],
+      "indicative_flags": [],
+      "citations": [
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_007",
+          "topic": "Private limited company, product eligibility",
+          "citation": "Companies Act 2013 (corporate framework); Income Tax Act 1961 Section 115BAA, 115BAB (corporate tax rates); SEBI (Portfolio Managers) Regulations 2020 (PMS eligibility); FEMA 1999 (ODI for corporates)",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        }
+      ],
+      "edge_cases_flagged": [],
+      "reasoning_trace": "Deterministic retrieval over six curated stores. Resolved investor structure private_limited_company/resident; product axis [mutual_fund_debt]; 1 entries matched (0 indicative); 0 regulatory-changelog events effective on/before 2026-04-02.",
+      "raw": {
+        "matched_entry_ids": [
+          "structure_matrix:str_007"
+        ]
+      }
+    },
+    "materiality": {
+      "fires": true,
+      "reason": "Verdict requires clarification with e3_macro_policy_news at risk_level elevated. Verdict requires clarification at confidence 0.72 below 0.80 threshold. Verdict requires clarification with 2 simultaneous G1 band gaps. 3 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "verdict_with_severity_flag",
+        "verdict_with_low_confidence",
+        "verdict_with_band_gaps",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The central deliberation question is whether the committee should support a deferred-deployment variant of the proposed Rs 50 L migration from a September 2026 FD maturity into ICICI Prudential Corporate Bond Fund, conditioned on staged resolution of three compounding constraints, or should prefer the FD-ladder counterfactual until the structural eligibility question is cleared. The underlying yield-pickup thesis is convergent across all evidence agents: E3 validates the late-cutting rate-cycle logic, E4 confirms structural coherence with stated and revealed Conservative tolerance, and E7 affirms scheme-level quality on AUM, volatility, and risk-adjusted return dimensions. The proposal does not engage equity, does not compress the liquidity tier, and aligns with the existing Franklin India Corporate Debt precedent. However, three vectors compound rather than stand alone. First, str_007 — mutual_fund_debt is not listed as a confirmed eligible product for a private_limited_company/resident investor structure — surfaces independently in M0.IndianContext (treated as indicative practitioner practice), E3, E4, and E7, with no evidence agent authorised to clear it; this is a binary pre-execution gate, not a calibration item. Second, two simultaneous G1 band-edge breaches (single-position concentration at 14.7% of liquid AUM against a 12% ceiling; cash at 0.0% against a 3.0% floor) compound with E7's observation that combined corporate-bond fund exposure will approach 25% of liquid AUM across two positions, converting a calibration note into a category-level concentration item. Third, E3 documents an active macro stress window (Brent at $118.95/bbl, INR at 94.79 reflecting 10.7% twelve-month depreciation, 10Y G-Sec at 6.99% with an intraday spike to 7.19%), while E7 cannot confirm the fund's modified duration or whether the 0.56% TER reflects the Direct or Regular plan; the execution-window duration risk and the true fee-drag picture are therefore both incomplete.",
+          "The Risk Assessor frames these three vectors as compounding rather than enumerable: the eligibility flag blocks recovery pathways for the concentration and timing mitigations until cleared, and the duration-window exposure cannot be quantified until modified duration is confirmed. The Devil's Advocate goes further, arguing that str_007 should be treated as dispositive rather than enumerable — that wrapper eligibility for a private_limited_company/resident is a precondition to sizing, not a concurrent item to be resolved alongside duration disclosure or band recalibration — and that the current Rs 50 L sizing appears calibrated to product attractiveness rather than to the mandate architecture, since it simultaneously breaches three band-edge items. The Devil's Advocate also challenges the macro window as poorly chosen for a debt fund deployment whose duration is unspecified, and notes that E4's behavioural confidence is capped at 0.82 due to Mrs. Iyengar's zero prior advisor interactions and her never having independently proposed a new product type. The Counterfactual Engine surfaces four structural alternative paths: (1) deferred-execution with an FD-ladder bridge pending str_007 resolution and E7's scheme-level data gaps; (2) resized ticket with cash-floor restoration, reducing the deployment to Rs 0.35–0.40 Cr to sit within the 12% ceiling and directing residual funds to restore the 3.0% cash floor; (3) structure-route substitution into directly-held AAA corporate bonds or target-maturity G-Sec / SDL holdings, dissolving the str_007 ambiguity at source; and (4) duration-bounded staged STP extending the window to 9–12 months with gating on confirmed modified-duration and macro stress checkpoints. These paths are not mutually exclusive; the resized-and-rebalanced and duration-bounded sequencing paths combine naturally, and the deferred-execution path is a precondition for any of the others under the str_007 reading.",
+          "The institutional read is that the proposal as currently constituted exhibits a structural pattern in which three concurrent constraints — one binary eligibility gate, two simultaneous mandate-band breaches, and a cluster of execution-grade data gaps — sit unresolved before any STP can commence. The thesis is sound; the sequencing is not. The committee's task is to determine whether the deferred-deployment variant with staged resolution of str_007, G1 band reconciliation, and E7's scheme-level data gaps represents the appropriate path forward, or whether one of the Counterfactual Engine's alternative structures (resizing, structure-route substitution, or duration-bounded staging) better bounds the compound stress profile. The FD-ladder counterfactual is not merely a holding position; on present evidence it is the unambiguously more disciplined default until at minimum str_007 is cleared and the duration / plan-type questions are closed."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "The proposal is a debt-to-debt redeployment of a Rs 50 L September 2026 FD maturity into ICICI Prudential Corporate Bond Fund via a 6-month STP, advisor-initiated by Priya Nair and consented to by Mrs. Iyengar. On the substantive merits, the synthesis is convergent: E3 confirms the late-cutting / early-pause rate cycle compresses FD reinvestment yields and validates the yield-pickup logic; E4 reads the action as structurally coherent with both stated Conservative tolerance and the more conservative revealed pattern, and as a non-novel addition given the existing Franklin India Corporate Debt precedent; E7 confirms scheme-level quality at category-mandate, AUM, TER, and risk-adjusted return dimensions. The thesis is not in dispute. What is in dispute is whether the pre-execution gating can be cleared in the form the proposal currently takes.",
+          "Three constraints sit unresolved and compound rather than stand alone. First, str_007 — mutual_fund_debt is not listed as an eligible product for a private_limited_company/resident structure — surfaces independently in M0.IndianContext, E3, E4, and E7, and no evidence-layer agent has authority to clear it; this is a structural eligibility flag, not a calibration note. Second, G1 returns two simultaneous band-edge items: post-action single-position concentration at 14.7% of liquid AUM against a 12% ceiling, and cash at 0.0% against a 3% floor, with E7's observation that combined corporate-bond fund exposure approaches 25% of liquid AUM amplifying the concentration question into a mandate-level item. Third, E3 reads macro risk as elevated on an active crude shock, INR stress, and 10Y G-Sec steepening of 44 bps, while E7 cannot confirm the fund's modified duration or Direct-vs-Regular plan designation; the execution-window risk and the fee-drag picture are therefore both incomplete in a way that compounds rather than offsets.",
+          "The behavioural backdrop is benign and should not be over-read into the deliberation: Mrs. Iyengar's revealed pattern is more conservative than stated, the action does not implicate equity or compress the liquidity tier, and her reactive-deferential engagement pattern is undisturbed. The committee's task is therefore narrow and structural: to determine whether a directionally sound thesis with three unresolved pre-execution constraints — one structural-eligibility, two mandate-band, and a cluster of execution-grade data gaps — warrants conditional support, deferred deployment pending resolution, or a counterfactual roll into a comparable-tenor FD ladder."
+        ],
+        "deliberation_question": "Given that the yield-pickup thesis is structurally sound but str_007 eligibility, a 14.7% single-position concentration against a 12% ceiling, a 0% cash band against a 3% floor, and scheme-level duration and plan-type data are all unresolved, should the committee support a deferred-deployment variant conditioned on staged resolution of these items, or should it prefer the FD-ladder counterfactual until the structural eligibility question is cleared?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The committee should resist the framing that this is a directionally sound proposal awaiting routine clarification. The proposal as currently constituted exhibits a structural pattern in which the ticket size appears to have been calibrated to product attractiveness rather than to the architecture: a Rs 50 L deployment from a Rs 3.41 Cr liquid base simultaneously breaches the 12% single-position ceiling at 14.7%, pushes cash from 0.0% against a 3% floor that was already non-compliant, and lifts combined corporate-bond fund exposure to ~25% of liquid AUM across two positions. None of these is fatal in isolation; together they signal that the sizing decision was not stress-tested against the mandate architecture before being put to the investor. A Conservative investor with no revealed pattern of independently accepting new product types is a poor counterparty against which to run a deployment that requires three concurrent band clarifications.",
+          "More consequentially, str_007 is not a calibration item; it is a structural eligibility flag for a private_limited_company/resident investor in mutual_fund_debt that surfaces independently in M0.IndianContext, E3, E4, and E7, with no agent in the pipeline authorised to clear it. The synthesis correctly identifies this as a hard pre-execution gate, but the committee should be explicit that no amount of duration confirmation, plan-type disclosure, or STP-pacing refinement substitutes for resolving whether the wrapper is eligible for this investor structure at all. Layering execution-grade refinements onto an unresolved eligibility question inverts the correct sequencing: eligibility precedes sizing precedes execution. The deferred-deployment variant as framed risks treating str_007 as one item among several rather than as the dispositive precondition.",
+          "Finally, the macro window is poorly chosen for a debt fund deployment whose duration is not disclosed. E3 reads elevated on an active crude shock, 10.7% INR depreciation, and a 44 bps 10Y G-Sec move with an intraday spike to 7.19%, while E7 cannot confirm the fund's modified duration or whether the 0.56% TER reflects the Direct or Regular plan. The committee is being asked to support — even conditionally — a deployment whose mark-to-market risk profile and true fee drag are both unspecified, into a rate environment where the capital-appreciation leg of the yield-pickup thesis is structurally weaker than the advisor narrative implies. The FD-ladder counterfactual is not merely a fallback; on the present evidence it is the unambiguously more disciplined position until at minimum str_007 and the duration/plan-type questions are closed."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Treat str_007 as dispositive, not enumerable",
+            "body": "The committee should refuse to approve any variant — including deferred-deployment — that conditions execution on str_007 resolution alongside other items, since this implicitly treats wrapper eligibility for a private_limited_company/resident as commensurable with duration disclosure or band recalibration. Eligibility is a precondition to sizing; the gating language should reflect that ordering explicitly."
+          },
+          {
+            "title": "Reject the current sizing as architecturally untested",
+            "body": "Rs 50 L on a Rs 3.41 Cr base simultaneously breaches the 12% single-position ceiling, leaves cash at 0.0% against a 3% floor, and lifts combined corporate-bond exposure toward 25% of liquid AUM; three concurrent band-edge items indicate the ticket was not stress-tested against the architecture before being proposed. The committee should require resizing against the mandate before, not after, eligibility is resolved."
+          },
+          {
+            "title": "Require modified duration and plan-type disclosure as a hard gate",
+            "body": "E7 cannot confirm the fund's modified duration or whether the 0.56% TER is Direct or Regular, and E3 documents a 44 bps 10Y G-Sec move with an active crude shock and INR stress. The committee should not support deployment of any size into a duration-sensitive instrument whose duration is unspecified during an active macro stress window."
+          },
+          {
+            "title": "Re-examine the corporate-bond category concentration as a mandate item",
+            "body": "E7 observes that combined corporate-bond fund exposure across Franklin India Corporate Debt and the proposed ICICI Prudential Corporate Bond Fund will approach 25% of liquid AUM; G1 prices single-position concentration but does not yet price category concentration. The committee should determine whether this combined exposure is intended at the conservative-sleeve level or is an artefact of sequential advisor recommendations."
+          },
+          {
+            "title": "Test the 6-month STP window against the macro stress horizon",
+            "body": "The proposed STP commencement follows a September 2026 FD maturity, placing execution into a window where the crude shock, INR stress, and yield-curve steepening cited by E3 may still be active. The committee should require an explicit view on whether the STP pacing absorbs duration risk or merely averages into a deteriorating mark-to-market, and what trigger would pause the STP mid-execution."
+          },
+          {
+            "title": "Acknowledge the limited-history confidence ceiling",
+            "body": "E4 records zero prior advisor interactions on file and explicitly caps confidence at 0.82 for that reason; Mrs. Iyengar has never independently proposed a new product type. The committee should treat the behavioural verdict as provisional rather than settled, and should not let E4's low risk-level reading offset the structural and macro flags from E3, G1, and the Indian Context bundle."
+          },
+          {
+            "title": "Compare against the FD-ladder counterfactual on like-for-like terms",
+            "body": "The synthesis frames the FD ladder as a holding position pending resolution of the unresolved items, but on present evidence — eligibility unresolved, duration undisclosed, three band-edge items, elevated macro stress — the FD ladder is the disciplined default and the bond fund variant carries the burden of proof. The committee should require the deferred-deployment variant to demonstrate a yield-pickup advantage net of disclosed duration risk and slab-rate tax treatment before treating it as the preferred path."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposal is directionally sound — debt-to-debt migration from a maturing FD into a large, low-volatility AAA-tilted corporate bond fund aligns with both Mrs. Iyengar's stated Conservative profile and her revealed-more-conservative drawdown behaviour. Under standard stress lenses (timing, manager, behavioural), the action does not produce unbounded risk: the scheme's Rs 31,712 Cr AUM, 1.02% annualised volatility, and the proposed 6-month STP structure all bound execution and mark-to-market exposure within tolerances consistent with the 3–5Y operational horizon. However, three risk vectors compound in a way that elevates the aggregate stress profile beyond what each individual evidence verdict carries.",
+          "First, the structural eligibility question under str_007 — mutual_fund_debt is not listed as a confirmed eligible product for a private_limited_company/resident investor structure — is a hard pre-execution flag that surfaces in M0.IndianContext (indicative reference) and is independently amplified by E3, E4, and E7. None of the evidence agents can clear it. Under stress, this is not a recoverable timing or concentration breach; it is a binary eligibility gate. Second, two simultaneous G1 band gaps (single-position 14.7% vs 12% ceiling; cash 0.0% vs 3.0% floor) compound with E7's observation that combined corporate-bond category exposure approaches 25% of liquid AUM across Franklin India Corporate Debt and the proposed ICICI position — converting a calibration note into a category-level concentration item. Third, E3's macro stress lens (Brent at $118.95, INR at 94.79, 10Y G-Sec at 6.99% with an intraday spike to 7.19%) creates an STP-window duration risk that is not bounded until modified duration and plan-type data are confirmed.",
+          "On compounding stress: the three vectors fire simultaneously — eligibility unresolved AND concentration breach AND duration-window exposure AND scheme-execution data gaps (manager tenure, exit load, Direct vs Regular plan). No single vector is unbounded; the compound is materially larger than the sum, and the eligibility flag in particular blocks recovery pathways for the other two until cleared. The committee should weigh whether a deferred-deployment variant — STP commencement timed after eligibility resolution, plan-type confirmation, and concentration-vs-cash-floor reconciliation — bounds the compound stress more cleanly than execution as proposed."
+        ],
+        "specific_risks": [
+          {
+            "title": "Structure eligibility unresolved (str_007)",
+            "body": "M0.IndianContext indicates mutual_fund_debt is not listed in eligible_products for the private_limited_company/resident structure; the flag is treated as practitioner-practice indicative but is independently amplified by E3, E4, and E7 with no agent able to clear it. Under stress this is a binary pre-execution gate, not a recoverable risk — until resolved by qualified structural review, downstream concentration and timing mitigations cannot be priced."
+          },
+          {
+            "title": "Single-position concentration breach trajectory",
+            "body": "G1 records post-action single-position concentration at 14.7% of liquid AUM against the 12% mandate ceiling — a 2.7pp overshoot that compounds with E7's note that combined corporate-bond category exposure will approach 25% of liquid AUM across two funds. Under a 30% adverse stress on the equity sleeve (which would mechanically raise the debt-position weight), the breach widens rather than self-corrects."
+          },
+          {
+            "title": "Cash floor breach against mandate",
+            "body": "G1 records post-action cash at 0.0% against a 3.0% mandate floor — a 3.0pp shortfall. For a Conservative investor with medical-contingency liquidity sensitivity flagged by E4 and a family pension covering only marginal monthly outflows, the absence of mandate-floor cash leaves no buffer against the FD-maturity-to-STP execution window if any near-term liquidity event materialises."
+          },
+          {
+            "title": "Duration-window mark-to-market exposure during STP",
+            "body": "E3 cites the 10Y G-Sec at 6.99% (up 44 bps from November 2025, with an intraday spike to 7.19% on April 3) under active Brent shock and INR stress; E7 confirms modified duration for the scheme is not in the available data. The 6-month STP window straddles a tactically stressed yield environment, and the mark-to-market exposure cannot be quantified until duration is confirmed."
+          },
+          {
+            "title": "Scheme-execution data gaps blocking full underwriting",
+            "body": "E7 flags that manager tenure, exit-load schedule, and Direct-vs-Regular plan designation are not in the snapshot; the cited 0.56% TER may carry a 30–50 bps Regular-vs-Direct gap that materially shifts the fee-drag calculation over the 3Y horizon. G2 confirms scheme-level SEBI rules are not in the curated store. These are bounded data gaps, but they sit on the execution-readiness path."
+          },
+          {
+            "title": "Tax treatment under corporate-entity structure",
+            "body": "E7 notes that Budget 2024 removed indexation benefit for debt mutual funds acquired on or after 1 April 2023; gains will be taxed at the applicable slab rate for the private_limited_company investor regardless of holding period. The advisor's framing of tax as a secondary consideration is reasonable for the directional thesis, but the slab-rate treatment under the corporate structure should be explicitly confirmed and modelled against the FD-reinvestment counterfactual."
+          },
+          {
+            "title": "Macro-driven rate-cut path uncertainty constrains capital appreciation thesis",
+            "body": "E3 flags Brent at $118.95/bbl (Hormuz disruption), INR depreciation of 10.7% over twelve months, and an IMD below-normal monsoon forecast (92% of LPA, 66% probability of below-normal-or-deficient outcome); these collectively elevate H2 FY27 CPI upside risk and may extend the RBI pause. The yield-pickup component of the thesis is preserved by elevated real rates, but the capital-appreciation component from further cuts is materially less certain than a base-case rate-cycle reading would imply."
+          },
+          {
+            "title": "Limited behavioural decision-trajectory record",
+            "body": "E4 records zero prior advisor interactions on file and notes Mrs. Iyengar has never independently proposed a new product type; the 2022 equity withdrawal against advisor counsel (Rs 30 L, Rs 4 L realised loss) is the principal revealed-behaviour data point. While the proposed action does not engage that revealed floor, the thin interaction record constrains confidence in the behavioural verdict and means any post-execution mark-to-market drawdown during the STP window has limited precedent for response calibration."
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal's directional logic — migrating a September 2026 FD maturity into a high-quality corporate bond fund via a six-month STP — is sound on the yield-pickup, behavioural-fit, and scheme-quality dimensions. The alternative-paths question is therefore not whether to abandon the thesis but how to sequence and structure execution so that the three compounding constraints surfaced by the Risk Assessor — the str_007 structural eligibility flag for mutual_fund_debt under a private_limited_company/resident structure (M0.IndianContext, treated as indicative practitioner practice rather than authoritative), the simultaneous G1 single-position concentration overshoot (14.7% vs 12% ceiling) and cash floor breach (0.0% vs 3.0% floor), and the duration-window mark-to-market exposure under E3's elevated macro stress — are bounded before commitment rather than priced after it.",
+          "Four structural families of alternatives present themselves. First, a deferred-execution path keeps the FD-ladder counterfactual in place while str_007 is cleared by qualified structural review and scheme-level data gaps (manager tenure, exit-load schedule, Direct vs Regular plan, modified duration) are filled. Second, a resized-and-rebalanced path holds the migration thesis but trims the ticket so that single-position concentration sits within the 12% ceiling and a portion is parked to restore the 3.0% cash floor. Third, a structure-route alternative substitutes an instrument family that does not carry the str_007 ambiguity for a corporate-entity investor — direct AAA corporate bonds or a target-maturity G-Sec / SDL holding — preserving the conservative-debt objective via a route whose structural eligibility is not in question. Fourth, a duration-bounded sequencing path retains the STP mechanism but stages it against confirmed modified-duration data and the evolution of the Brent / INR / 10Y G-Sec stress complex, rather than launching the full six-month window into a tactically stressed yield environment.",
+          "These paths are not mutually exclusive; the resized-and-rebalanced and duration-bounded sequencing paths combine naturally, and the deferred-execution path is a precondition for any of the others under the str_007 reading. The structure-route alternative is the only path that dissolves the eligibility flag at source rather than waiting on its resolution; it carries operational complexity in exchange for that property."
+        ],
+        "alternative_paths": [
+          {
+            "label": "Deferred-execution with FD ladder bridge",
+            "description": "Roll the September 2026 FD maturity into a 6–12 month FD ladder at prevailing yields while str_007 eligibility is cleared by qualified structural review and E7's scheme-level data gaps (manager tenure, exit-load schedule, Direct vs Regular plan, modified duration) are resolved. Addresses the binary eligibility gate, the scheme-execution data gaps, and the duration-window exposure by deferring commitment until each is priced."
+          },
+          {
+            "label": "Resized ticket with cash-floor restoration",
+            "description": "Reduce the deployment to approximately Rs 0.35–0.40 Cr so that the resulting ICICI Prudential Corporate Bond position sits at or below the 12% single-position ceiling, and direct the residual Rs 0.10–0.15 Cr to a liquid fund sleeve to lift cash from 0.0% toward the 3.0% mandate floor. Addresses the G1 single-position concentration breach and the cash floor breach simultaneously, and reduces the combined corporate-bond category footprint."
+          },
+          {
+            "label": "Structure-route substitution into directly-held debt",
+            "description": "Substitute the corporate bond fund wrapper with direct AAA-rated corporate bonds or a target-maturity G-Sec / SDL holding sized to the same Rs 0.5 Cr exposure, routed through the private limited company's demat. Dissolves the str_007 eligibility ambiguity at source by selecting an instrument family whose structural eligibility under the corporate-entity structure is not in question, and replaces slab-rate MF taxation with the directly-held debt tax treatment."
+          },
+          {
+            "label": "Duration-bounded staged STP",
+            "description": "Retain the STP mechanism but extend the window to 9–12 months and gate each tranche on a confirmed modified-duration band for the scheme plus a checkpoint on the Brent / INR / 10Y G-Sec stress complex flagged by E3. Addresses the duration-window mark-to-market exposure by spreading entry across the tactically stressed yield environment rather than concentrating it into a six-month window with unconfirmed duration."
+          },
+          {
+            "label": "Partial migration with Franklin position trim",
+            "description": "Combine a reduced Rs 0.30 Cr ICICI Prudential Corporate Bond Fund deployment with a partial trim of the existing Franklin India Corporate Debt position, keeping combined corporate-bond category exposure below 20% of liquid AUM and avoiding the single-position concentration overshoot. Addresses both the G1 concentration breach and E7's category concentration observation, at the cost of triggering a taxable event on the Franklin trim."
+          }
+        ]
+      }
+    },
+    "usage_summary": {
+      "s1_input_tokens": 36781,
+      "s1_output_tokens": 8185,
+      "a1_input_tokens": 18981,
+      "a1_output_tokens": 2906,
+      "ic1_chair_input": 16182,
+      "ic1_chair_output": 1090,
+      "ic1_devils_advocate_input": 16945,
+      "ic1_devils_advocate_output": 2123,
+      "ic1_risk_assessor_input": 16152,
+      "ic1_risk_assessor_output": 2398,
+      "ic1_counterfactual_engine_input": 18743,
+      "ic1_counterfactual_engine_output": 1790,
+      "ic1_minutes_recorder_input": 8553,
+      "ic1_minutes_recorder_output": 1150,
+      "generated_at": "2026-05-21T05:58:26.597Z"
+    }
+  },
+  "tokenUsage": {
+    "s1_input_tokens": 36781,
+    "s1_output_tokens": 8185,
+    "a1_input_tokens": 18981,
+    "a1_output_tokens": 2906,
+    "ic1_chair_input": 16182,
+    "ic1_chair_output": 1090,
+    "ic1_devils_advocate_input": 16945,
+    "ic1_devils_advocate_output": 2123,
+    "ic1_risk_assessor_input": 16152,
+    "ic1_risk_assessor_output": 2398,
+    "ic1_counterfactual_engine_input": 18743,
+    "ic1_counterfactual_engine_output": 1790,
+    "ic1_minutes_recorder_input": 8553,
+    "ic1_minutes_recorder_output": 1150,
+    "generated_at": "2026-05-21T05:58:26.597Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 1 proposal evaluation for Mrs. Lalitha Iyengar. Advisor-initiated conservative corporate-bond-fund deployment (Rs 50 L, 3Y) retuned from an equity-oriented hybrid to fit her Conservative mandate (ADR-0023); designed as the IC1-skip demonstration. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024)."
+}
