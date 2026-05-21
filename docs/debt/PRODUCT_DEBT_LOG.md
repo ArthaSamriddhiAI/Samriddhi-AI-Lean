@@ -68,12 +68,108 @@ Capabilities the product says it does, or could do, but defers for scope.
 | P22 | E6 four-thesis decision tree enforcement. The first principles section (`docs/reference/pms_aif_first_principles.md`) specifies that PMS/AIF holdings are justified under one of four theses (MF-envelope constraint, non-public-market access, specific hedging need, customisation pooled vehicles cannot deliver), and says E6 should enforce this decision tree. E6's current implementation evaluates conventional dimensions (manager quality, fee structure, and similar) which are inputs to but not equivalent to the four-thesis evaluation. A future workstream should upgrade E6's prompt and output schema to produce structured per-holding thesis verdicts (thesis_applied, thesis_test_result, net_benefit_delta, recommendation). When that lands, the static `pms_aif_framework_notice` field on risk-reward stats records is superseded by the structured per-holding verdicts. Cross-references ADR-0018 and the first principles section. | Medium | Risk-reward (architectural audit) | Future E6-upgrade workstream |
 | P23 | Live S2 pipeline does not generate LLM rollups. The live `runRiskRewardDeterministic` produces templated rollups only; the 6 backfilled S2 fixtures carry LLM-generated rollups from the Step 5 backfill. This is a deliberate cost-control choice. A future workstream desiring live LLM rollups must wire `runRiskRewardStats` (the LLM-capable orchestrator) into the live pipeline with proper WA12 handling at the runtime layer. Cross-references WA12, ADR-0020. | Low | Risk-reward (architectural audit) | Future workstream wiring live LLM rollups |
 | P24 | Foundation documents as LLM-consumable reference material. Several working-chat foundation documents (the PMS/AIF Advisory Reference, the broader product thesis archive, and others) currently live out-of-repo as project knowledge. Committing them to `docs/reference/` with repo-harmonious naming makes them discoverable, version-controllable, and consumable by LLM agents via skill-file references. A future workstream should audit the working-chat foundation library, decide which documents are platform-doctrine (warrant in-repo presence) versus working-artifacts (stay project-knowledge), commit the platform-doctrine docs with naming aligned to `docs/reference/` conventions, and update relevant skill files to reference them where they would enrich agent reasoning. The `docs/reference/pms_aif_first_principles.md` commit in this workstream is the first example; future doctrine docs follow the same pattern. | Low | Risk-reward (close-out) | Future foundation-library audit workstream |
+| P29 | Refresh cadence and assembly methodology for the real-world-sourced data (the 9 enriched snapshots plus `scripts/sector_map.json`) are documented as debt in the private `Samriddhi-AI-Data-Snapshots` repository (its `docs/debt/DATA_DEBT_LOG.md`, entries DM1 and DM2). The public repo references this for awareness; the substantive unblock-work happens in the private repo. Future workstreams in this public repo that depend on more recent market data or refresh-tooling integration will block on those private-repo debts. Per the contracted privacy boundary (ADR-0027), only real-world-sourced data is private; the fictional investor holdings/mandates and the Sharma verdicts are public, in-repo, and carry no such debt. Unblocking-fix: see private-repo DM1 (refresh cadence frozen) and DM2 (assembly methodology not documented). Cross-references: this repo's ADR-0027; private repo `DATA_DEBT_LOG.md` (DM1, DM2). Numbering note for the Slice 7 audit: numbered P29 rather than the next-free P25 because P25-P28 are reserved by the concurrent case-batch and Phase-A workstreams not yet merged to `main` (the gap closes when those branches land). The private repo uses a distinct DM-series (Data Mirror) prefix precisely so it does not collide with this log's Section 5 DD-series. | Low (cross-reference only; substantive debt lives elsewhere) | snapshot-data-extraction (Phase B) | Whichever workstream is triggered by a need for fresh market data; it pulls private-repo DM1 / DM2 unblocking into scope |
 
 **P12 detail (product-stance question, not a missing feature).** Surfaced by the A2 Slice 4.6a Checkpoint 2 review of the Bhatt classifications. Concrete case: Bhatt holds HDFC Bank equity at 11.3% and HDFC Bank FD at 7% of liquid AUM. Same issuer, 18.3% aggregate exposure across two asset classes. A2 correctly classifies the FD as Maintain (the 7% position is below the 10% threshold within debt), because the model portfolio framework specifies thresholds per asset class and does not aggregate across them. The product question this surfaces: should Samriddhi's model portfolio framework include cross-asset-class issuer aggregation as a concentration dimension? Some Indian wealth firms do (treating bank exposure as equity plus deposits plus bonds combined); some do not. This was also surfaced in prior conversations with the product owner's colleagues. Routing: this is an M0 / model-portfolio-framework enhancement, not an A2 enhancement. Defer to the Slice 7 product debt audit pass, which should evaluate it as a product-stance question (what should Samriddhi do?) not as a missing-feature question (why does it not do this?). The Slice 7 audit pass is the right venue precisely because that audit is designed to evaluate what Samriddhi should do alongside what it currently does. P12 is an exemplar of that audit's value: A2 surfaced a real product question through the discipline of not inventing thresholds, and it is the first entry to explicitly invoke the product-stance framing so the Slice 7 pass has a template for other entries of the same kind.
 
 **P13 detail (product-stance question).** Surfaced by the A2 Slice 4.6a Step 4 dry-run on the Menon case. Concrete case: Menon holds Rs 52 Cr (86.6% of liquid AUM) in bank savings, a post-exit settlement awaiting staged deployment. The S2 diagnostic surface correctly identifies cash drag at the portfolio level. But Menon's investor state is arguably an S1 (proposed_action) case at heart, "what should we do with this money", not an S2 (diagnostic) case, "what does the current portfolio say." Forcing Menon through S2 produces a faithful diagnostic, but the diagnostic itself is observing a portfolio that is in transit toward its real shape, not a portfolio whose shape is the subject of analysis. The product question this surfaces: when an S2 diagnostic surfaces material observations (cash drag at this magnitude, broken thesis on a major position, structural wrapper drift), should the diagnostic actively call S1, surface an S1-readiness hint, or pre-populate an S1 case draft from the S2 findings; and should the system have recognised at router time that an S1 case is the right intake before running the diagnostic at all. Two separable sub-questions: (a) case-mode routing at intake time; the current router accepts the declared case mode and does not ask whether some investor states are S1-fit at case opening (P13.a). (b) diagnostic-to-proposal loop; when S2 does run and surfaces material observations, should the output include S1-readiness hints, propose an S1 case draft, or remain purely observational per the current Lean MVP framing (P13.b). Routing: P13.a and P13.b are evaluated independently in the Slice 7 product debt audit; the answer to one does not force the answer to the other. Both are product-stance questions about how Samriddhi's case surfaces relate to each other, not A2-specific implementation questions. P13 is a second exemplar of the product-stance framing's value: A2 is not the right place to add S1-routing logic, but A2's discipline of not inventing behaviour surfaced a real product-architecture question that would otherwise have stayed invisible.
 
 **P14 detail (product-stance question).** Surfaced by the A2 Slice 4.6a Step 4 dry-run on the Iyengar and Sharma-S2 cases. Concrete cases: Iyengar holds HDFC FD at 27.3% and SBI FD at 27.0% of liquid AUM, both senior-citizen-rate FDs in a conservative-medium-term mandate; A2 correctly classifies them as Review because they exceed the 15% position-escalate threshold within the debt asset class. Sharma-S2 holds HDFC FD at 15.6%, also above the 15% threshold, triggering Review. The product question this surfaces: are senior-citizen FDs (or similar cash-adjacent debt instruments: liquid debt funds, short-tenor FDs, sweep deposits) functionally cash-equivalent for diagnostic purposes? Some Indian wealth firms treat them that way, since concentrated FD positions in a conservative mandate are not the same risk shape as concentrated equity positions. The current model portfolio framework places FDs in debt, which is structurally correct (FDs carry duration and reinvestment risk that pure cash does not), but the threshold-application logic does not distinguish short-tenor cash-adjacent debt from longer-tenor structural debt. A2 correctly does not invent this distinction. Routing: same as P12 and P13, an M0 / model-portfolio-framework product-stance question deferred to the Slice 7 audit. The boundary between P14 and ADR 0006 is informative: ADR 0006 ships a narrow carve-out because the skill file already established the non-propagation rule for cash; P14 asks whether a similar differentiation should apply to cash-adjacent debt. The Slice 7 answer may be no (FDs stay in debt, position thresholds apply), yes (cash-adjacent debt gets its own treatment), or partial (only certain debt sub-categories such as senior-citizen FDs); A2 does not pre-empt that decision.
+
+---
+
+ID: P30
+Description: The Samriddhi AI pipeline currently operates on fictional investors
+  (Malhotra, Iyengar, Bhatt, Menon, Surana, Sharma plus future fictional
+  additions). Their character bibles, holdings, mandates, and case fixtures
+  are creative content authored for demonstration purposes. Per WA14, this
+  fictional content is committable to the public repository.
+
+  Any future transition to running cases on REAL investor data (real human
+  clients with real portfolios) introduces a categorically different set of
+  concerns that this workstream has NOT addressed. Before any real-client
+  case is generated, the following must be evaluated and resolved:
+
+  REGULATORY:
+  - SEBI investment-adviser registration and the regulatory regime governing
+    AI-assisted advisory analysis
+  - India's Digital Personal Data Protection Act applicability and consent
+    requirements
+  - Fiduciary-duty implications when AI-generated case verdicts influence
+    real client decisions
+  - Audit trail and record-keeping requirements per SEBI advisor regulations
+
+  DATA HANDLING:
+  - Personally Identifiable Information (PII) cannot live in GitHub repos
+    (public or private). Real client data requires encrypted-at-rest storage
+    with role-based access, almost certainly self-hosted infrastructure or
+    a regulated cloud provider with appropriate certifications.
+  - Real character bibles will contain personally sensitive context (health,
+    family dynamics, life events) that go beyond what WA14 covers; require
+    additional handling discipline.
+  - Real holdings data is licensed-and-PII (subject to vendor terms AND
+    personally identifiable); double-sensitive.
+
+  CONSENT AND AUTHORIZATION:
+  - Explicit informed consent from each real client for AI-assisted advisory
+    analysis, with clear disclosure of how the pipeline reasons and what
+    outputs are produced.
+  - Consent mechanism design (digital, in-person, witness requirements).
+  - Right-to-withdrawal and data-deletion mechanisms.
+
+  PIPELINE BEHAVIOR:
+  - Whether agents' outputs (A1 challenges, IC1 deliberations, gate verdicts)
+    require additional review before being shown to the advisor.
+  - Whether materiality thresholds, IC1 deliberation depth, or governance
+    gate strictness should differ between demo and real-client modes.
+  - Whether case fixtures for real clients are even storable as fixtures, or
+    must be ephemeral / encrypted / single-use.
+
+  LIABILITY AND INSURANCE:
+  - Professional indemnity insurance implications.
+  - Liability allocation between the advisor, the system, the system's
+    operator, and Anthropic.
+  - Disclaimer and limitation-of-liability framing in client-facing outputs.
+
+  OPERATIONAL:
+  - Multi-user access control if multiple advisors use the system.
+  - Audit logging beyond what current telemetry captures.
+  - Incident response if real-client data is breached or mis-handled.
+  - Backup and disaster recovery for real-client case data.
+
+Severity: Critical-when-triggered. Not blocking current work because the
+  current scope is fictional-only. The moment any real-client case is
+  proposed, this debt entry becomes a hard blocker on that work.
+
+Originating workstream: snapshot-data-extraction (this entry was authored
+  alongside WA14 as part of the privacy-boundary work).
+
+Target fix workstream: Real-client mode design workstream. This is likely
+  not a single workstream but a phase of work comparable in scope to the
+  entire lean MVP build to date. Includes legal review, regulatory
+  consultation, infrastructure migration, pipeline mode-switching, consent
+  flow design, audit logging, and operational runbook authoring.
+
+Unblocking-fix definition: This debt does not have a single unblock-fix
+  definition because the scope is too large to fix in one motion. The
+  unblock-process is:
+  (a) Decision to pursue real-client mode (product decision; not technical).
+  (b) Legal and regulatory consultation establishing the compliance frame.
+  (c) Dedicated workstream(s) addressing each concern category above.
+  (d) Validation and audit before any real client is onboarded.
+  No real-client case is generated until (a) through (d) are complete and
+  documented.
+
+Cross-references: WA14 (privacy boundary for data artifacts) is the
+  fictional-data-era companion to this real-data-era debt. ADR-0027
+  (snapshot data access) describes the privacy architecture for the
+  fictional-data era; real-client mode will require a successor architecture.
+
+Notes: This debt entry exists to ensure future contributors do not
+  inadvertently propose running cases on real data without surfacing the
+  full scope of preconditions. The framing is deliberately exhaustive so
+  that even a casual encounter with this entry produces immediate awareness
+  of the gap between current scope and real-client capability.
 
 ## Section 3: Data debt
 
