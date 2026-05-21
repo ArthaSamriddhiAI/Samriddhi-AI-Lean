@@ -47,7 +47,7 @@ import { runG3 } from "./case/governance/g3-permission";
 import { runS1Case } from "./case/s1-case";
 import { runA1Case } from "./case/a1-case";
 import { buildNonActivationVerdict } from "./case/non-activation";
-import { buildE1Scope, buildE2Scope } from "./case/scope-builders";
+import { buildE1Scope, buildE2Scope, buildE6Scope, buildE7Scope } from "./case/scope-builders";
 import type {
   BriefingCaseContent,
   GovernanceStatusItem,
@@ -142,8 +142,10 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
      * live runs, E1/E2 receive data-grounded scope from the scope-builders
      * (buildE1Scope / buildE2Scope), which read nifty500 per-stock
      * fundamentals and mf_funds look-through from the enriched snapshot
-     * (ADR-0024); E3 gets snapshot macro, E4 the investor bible, E6/E7 the
-     * real wrapper / MF inventory. PMS and AIF underlying-stock look-through
+     * (ADR-0024); E3 gets snapshot macro, E4 the investor bible, and E6/E7
+     * get enriched target wrapper / fund data (buildE6Scope / buildE7Scope,
+     * ADR-0026) plus the real existing inventory. PMS and AIF underlying-stock
+     * look-through
      * stays out of scope (foundation.md:198, v8:705); for wrapper or
      * non-equity proposal targets the scope says so explicitly and E1/E2
      * assess the existing listed-equity context and the proposal's marginal
@@ -210,7 +212,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       const r = await runE6Case(
         ctx,
         {
-          targetWrapperContext: `Target wrapper: ${proposal.target_instrument} (${proposal.target_category}), ticket Rs ${proposal.ticket_size_cr} Cr.`,
+          targetWrapperContext: buildE6Scope(snapshot, proposal),
           existingWrapperInventory: existingWrappers
             .map((w) => `${w.instrument} (${w.subCategory}, ${w.weightPct}% of AUM)`)
             .join("; ") || "none",
@@ -228,7 +230,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       const r = await runE7Case(
         ctx,
         {
-          schemeContext: `Target scheme: ${proposal.target_instrument} (${proposal.target_category}).`,
+          schemeContext: buildE7Scope(snapshot, proposal),
           existingMfAllocation: existingMf
             .map((s) => `${s.instrument} (${s.weightPct}% of AUM)`)
             .join("; ") || "none",

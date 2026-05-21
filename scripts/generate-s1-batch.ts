@@ -66,7 +66,7 @@ const BATCH: BatchCase[] = [
       action_type: "new_investment",
       target_category: "mutual_fund_debt",
       target_instrument:
-        "HDFC Short Term Debt Fund (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder)",
+        "Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder)",
       ticket_size_cr: 5,
       source_of_funds: "cash_balance",
       timeline: "this_year",
@@ -117,12 +117,12 @@ const BATCH: BatchCase[] = [
     proposal: {
       action_type: "new_investment",
       target_category: "pms",
-      target_instrument: "ASK Indian Capital Goods & Infrastructure Portfolio (PMS)",
+      target_instrument: "Ambit Build India Portfolio (PMS)",
       ticket_size_cr: 2,
       source_of_funds: "fresh_inflow",
       timeline: "this_quarter",
       rationale:
-        "Investor-initiated (Shailesh Bhatt), brought in good faith. A sector-thematic capital-goods PMS pitched through an Ahmedabad business-community peer (a fellow textile-exporter three years into the strategy). Rs 2 Cr allocation with NO exit from the existing four PMS positions; net effect is five PMS positions and wrapper-aggregate exposure rising from roughly 39% to roughly 45% of advisory liquid AUM. Daughter Aanchal (IIM-B finance) has expressed skepticism in a recent family conversation; Shailesh acknowledges her view but is proceeding because the peer has been in the strategy three years and it is working.",
+        "Investor-initiated (Shailesh Bhatt), brought in good faith. Ambit Build India, an infrastructure / capital-goods thematic PMS, pitched through an Ahmedabad business-community peer (a fellow textile-exporter three years into the strategy). Rs 2 Cr allocation with NO exit from the existing four PMS positions; net effect is five PMS positions and wrapper-aggregate exposure rising from roughly 39% to roughly 45% of advisory liquid AUM. Daughter Aanchal (IIM-B finance) has expressed skepticism in a recent family conversation; Shailesh acknowledges her view but is proceeding because the peer has been in the strategy three years and it is working.",
     },
     contextNote:
       "Samriddhi 1 proposal evaluation for Shailesh Bhatt. Engineered-decline shape: 5th PMS, no exits, wrapper aggregate ~39% to ~45%, relationship-driven. Plausible because of who Bhatt is (revealed accumulation pattern), not engineered against him. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024).",

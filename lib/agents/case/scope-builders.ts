@@ -430,3 +430,197 @@ function buildTargetSectionE2(
     "Evaluate the existing portfolio's sector exposure and the proposal's marginal impact on it."
   );
 }
+
+/* ===== E6 (PMS / AIF wrapper) and E7 (mutual fund) target scope-builders =====
+ * Phase 1.5 (ADR-0026): mirror the E1/E2 pattern for the wrapper and MF agents,
+ * which were also receiving a thin name + category scope and supplementing
+ * fund-level figures (manager, fee, AUM, returns) from model knowledge. These
+ * build the enriched TARGET context string; the existing-portfolio wrapper /
+ * MF inventory and the post-action arithmetic remain computed in
+ * pipeline-case.ts. PMS data: snapshot.pms.funds[]; AIF data:
+ * snapshot.aif["E6 Agent Input Ready"][]; MF data: mf_funds[]. Data-only,
+ * source-labeled, honest-miss, no-supplementation guardrail. */
+
+const WRAPPER_NO_DATA_GUARDRAIL =
+  "Where any specific figure above is not disclosed in the snapshot, do not " +
+  "supplement from training-data category averages, peer-fund estimates, or " +
+  "model knowledge. State explicitly that the figure is not available and " +
+  "proceed without it. Your verdict should focus on the dimensions where data is present.";
+
+/* Token-overlap matcher for wrapper names, which carry corporate noise
+ * ("Pvt Ltd", "Investment Managers Ltd") and strategy suffixes that defeat the
+ * strict substring matcher used for MF/stock names. */
+const WRAPPER_STOP = new Set([
+  "fund", "pvt", "ltd", "limited", "llp", "investment", "managers", "asset",
+  "management", "amc", "portfolio", "plan", "growth", "regular", "direct",
+  "private", "client", "advisors", "the", "and", "of",
+]);
+function wrapperTokens(s: string | undefined): Set<string> {
+  return new Set(
+    (s ?? "").toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter((t) => t && !WRAPPER_STOP.has(t)),
+  );
+}
+function tokenOverlap(query: string, candidate: string): number {
+  const q = wrapperTokens(query);
+  if (!q.size) return 0;
+  const c = wrapperTokens(candidate);
+  let n = 0;
+  for (const t of q) if (c.has(t)) n++;
+  return n / q.size;
+}
+function findByOverlap<T>(query: string, items: T[], nameOf: (it: T) => string, threshold = 0.6): T | null {
+  let best: T | null = null;
+  let bestScore = 0;
+  for (const it of items) {
+    const s = tokenOverlap(query, nameOf(it));
+    if (s > bestScore) {
+      bestScore = s;
+      best = it;
+    }
+  }
+  return bestScore >= threshold ? best : null;
+}
+
+function pct(v: unknown): string | null {
+  return typeof v === "number" && Number.isFinite(v) ? `${(v * 100).toFixed(2)}%` : null;
+}
+function safeArray(v: unknown): unknown[] {
+  if (Array.isArray(v)) return v;
+  if (typeof v === "string") {
+    try {
+      const p = JSON.parse(v);
+      return Array.isArray(p) ? p : [];
+    } catch {
+      return [];
+    }
+  }
+  return [];
+}
+
+type PmsFund = {
+  identity?: { fund_name?: string; name?: string; fund_manager?: string; category?: string; strategy_type?: string; benchmark?: string; inception_date?: string };
+  scale?: { aum_cr?: number; aum_disclosed?: boolean };
+  fee_structure?: { fixed_amc_pct?: number; variable_amc_pct?: number; hurdle_rate_pct?: number; profit_sharing_note?: string; exit_load?: Record<string, unknown> };
+  performance?: { returns_fund?: Record<string, number> };
+};
+type AifE6Entry = {
+  fund_name?: string; category?: string; minimum_investment_cr?: number;
+  management_fee_pct?: number; performance_fee_pct?: number; hurdle_rate_pct?: number;
+  redemption_terms?: string; fund_manager_names?: string;
+};
+
+const MF = "[source: mf_funds snapshot]";
+const PMSSRC = "[source: pms snapshot]";
+const AIFSRC = "[source: aif snapshot]";
+
+/* ---- E7: mutual fund target ---- */
+export function buildE7Scope(snapshot: Snapshot, proposal: Proposal): string {
+  const { target_category, target_instrument, ticket_size_cr } = proposal;
+  const out: string[] = [`Proposed scheme: ${target_instrument} (${target_category}, Rs ${ticket_size_cr} Cr).`];
+  const f = findFund(indexFunds(snapshot), target_instrument);
+  if (!f) {
+    out.push(
+      `Proposed fund not in mf_funds snapshot coverage. State "fund-level data not available in snapshot" and proceed without supplementing from training-data figures; focus the verdict on dimensions where qualitative reasoning is appropriate (category fit, mandate alignment) without inventing fund-specific metrics.`,
+    );
+    out.push(WRAPPER_NO_DATA_GUARDRAIL);
+    return out.join("\n");
+  }
+  const parts: string[] = [];
+  if (f.sebi_category) parts.push(`SEBI category ${f.sebi_category}`);
+  if (num(f["AUM (Cr)"]) !== null) parts.push(`AUM Rs ${f["AUM (Cr)"]} Cr`);
+  if (pct(f["TER (%)"])) parts.push(`TER ${pct(f["TER (%)"])}`);
+  if (num(f.Beta) !== null) parts.push(`Beta ${f.Beta}`);
+  const ret: string[] = [];
+  for (const [label, key] of [["1Y", "1Y"], ["3Y", "3Y"], ["5Y", "5Y"]] as const) {
+    const p = pct((f as Record<string, unknown>)[key]);
+    if (p) ret.push(`${label} ${p}`);
+  }
+  if (ret.length) parts.push(`returns ${ret.join(" / ")}`);
+  if (f["Benchmark Index"]) parts.push(`benchmark ${f["Benchmark Index"]}`);
+  const mgrs = safeArray(f["Fund Managers (JSON)"])
+    .map((m) => {
+      const r = m as { name?: string; managing_since?: string };
+      return r.name ? `${r.name}${r.managing_since ? ` (since ${r.managing_since})` : ""}` : null;
+    })
+    .filter(Boolean);
+  if (mgrs.length) parts.push(`fund managers: ${mgrs.join(", ")}`);
+  const exit = safeArray(f["Exit Load (JSON)"])
+    .map((e) => {
+      const r = e as { within_days?: number; load_pct?: number };
+      return r.load_pct === 0 ? "nil thereafter" : `${r.load_pct}% within ${r.within_days ?? "?"}d`;
+    });
+  if (exit.length) parts.push(`exit load: ${exit.join(", ")}`);
+  const tb = f.tier_b_stats ?? {};
+  const tbParts: string[] = [];
+  if (num(tb.vol_3y_annualized) !== null) tbParts.push(`vol3y ${pct(tb.vol_3y_annualized)}`);
+  if (num(tb.sharpe_3y) !== null) tbParts.push(`Sharpe3y ${tb.sharpe_3y}`);
+  if (tbParts.length) parts.push(`tier_b: ${tbParts.join(", ")}`);
+  out.push(`${f.fund_name}: ${parts.join("; ")} ${MF}`);
+  out.push(WRAPPER_NO_DATA_GUARDRAIL);
+  return out.join("\n");
+}
+
+/* ---- E6: PMS / AIF target ---- */
+export function buildE6Scope(snapshot: Snapshot, proposal: Proposal): string {
+  const { target_category, target_instrument, ticket_size_cr } = proposal;
+  const out: string[] = [`Proposed wrapper: ${target_instrument} (${target_category}, Rs ${ticket_size_cr} Cr).`];
+
+  if (target_category === "pms") {
+    const funds = ((snapshot.pms as { funds?: PmsFund[] } | undefined)?.funds) ?? [];
+    const f = findByOverlap(target_instrument, funds, (x) => x.identity?.fund_name ?? x.identity?.name ?? "");
+    if (!f) {
+      out.push(`Proposed PMS not in pms snapshot coverage. State "wrapper-level data not available in snapshot for this strategy" and proceed without supplementing manager / fee / capacity figures from model knowledge.`);
+      out.push(WRAPPER_NO_DATA_GUARDRAIL);
+      return out.join("\n");
+    }
+    const id = f.identity ?? {};
+    const fee = f.fee_structure ?? {};
+    const rf = f.performance?.returns_fund ?? {};
+    const parts: string[] = [];
+    if (id.fund_manager) parts.push(`manager ${id.fund_manager}`);
+    if (id.category) parts.push(`category ${id.category}`);
+    if (id.benchmark) parts.push(`benchmark ${id.benchmark}`);
+    if (f.scale?.aum_disclosed && num(f.scale.aum_cr) !== null) parts.push(`AUM Rs ${f.scale.aum_cr} Cr`);
+    else parts.push("AUM not disclosed");
+    const feeParts: string[] = [];
+    if (num(fee.fixed_amc_pct) !== null) feeParts.push(`fixed AMC ${fee.fixed_amc_pct}%`);
+    if (num(fee.variable_amc_pct) !== null) feeParts.push(`variable AMC ${fee.variable_amc_pct}%`);
+    if (num(fee.hurdle_rate_pct) !== null) feeParts.push(`hurdle ${fee.hurdle_rate_pct}%`);
+    if (fee.profit_sharing_note) feeParts.push(fee.profit_sharing_note);
+    if (feeParts.length) parts.push(`fees: ${feeParts.join(", ")}`);
+    const retParts: string[] = [];
+    for (const [label, key] of [["1Y", "1yr_pct"], ["3Y", "3yr_cagr_pct"], ["5Y", "5yr_cagr_pct"]] as const) {
+      if (num(rf[key]) !== null) retParts.push(`${label} ${rf[key]}%`);
+    }
+    if (retParts.length) parts.push(`returns ${retParts.join(" / ")}`);
+    out.push(`${id.fund_name ?? id.name}: ${parts.join("; ")} ${PMSSRC}`);
+    out.push(WRAPPER_NO_DATA_GUARDRAIL);
+    return out.join("\n");
+  }
+
+  if (target_category === "aif") {
+    const block = (snapshot.aif as { "E6 Agent Input Ready"?: AifE6Entry[] } | undefined);
+    const entries = block?.["E6 Agent Input Ready"] ?? [];
+    const f = findByOverlap(target_instrument, entries, (x) => x.fund_name ?? "");
+    if (!f) {
+      out.push(`Cat II private credit AIF data not in snapshot coverage. State "wrapper-level data not available in snapshot for this product class" and proceed without supplementing. Focus the verdict on dimensions where qualitative reasoning is appropriate (commitment-period mechanics, vintage stewardship framing, fee-disclosure governance) without inventing specific manager, fee, or capacity figures.`);
+      out.push(WRAPPER_NO_DATA_GUARDRAIL);
+      return out.join("\n");
+    }
+    const parts: string[] = [];
+    if (f.category) parts.push(`category ${f.category}`);
+    if (num(f.minimum_investment_cr) !== null) parts.push(`min investment Rs ${f.minimum_investment_cr} Cr`);
+    if (num(f.management_fee_pct) !== null) parts.push(`mgmt fee ${f.management_fee_pct}%`);
+    if (num(f.performance_fee_pct) !== null) parts.push(`perf fee ${f.performance_fee_pct}%`);
+    if (num(f.hurdle_rate_pct) !== null) parts.push(`hurdle ${f.hurdle_rate_pct}%`);
+    if (f.fund_manager_names) parts.push(`manager ${f.fund_manager_names}`);
+    if (f.redemption_terms) parts.push(`redemption ${f.redemption_terms}`);
+    out.push(`${f.fund_name}: ${parts.join("; ")} ${AIFSRC}`);
+    out.push(WRAPPER_NO_DATA_GUARDRAIL);
+    return out.join("\n");
+  }
+
+  /* Non-PMS/AIF target (e.g., source-driven E6 activation): no wrapper product to ground. */
+  out.push("Proposal target is not a PMS or AIF wrapper; no wrapper-level snapshot data applies. Evaluate the existing wrapper inventory and the post-action arithmetic below.");
+  return out.join("\n");
+}
