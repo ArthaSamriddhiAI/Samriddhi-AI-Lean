@@ -20,5 +20,6 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA10](WA10_push_every_commit.md) | Push every commit |
 | [WA11](WA11_dual_write_handoff.md) | Dual-write hand-off |
 | [WA12](WA12_api_call_gate.md) | Explicit API-call gate |
+| [WA14](WA14_privacy_boundary_for_data_artifacts.md) | Privacy boundary for data artifacts |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).

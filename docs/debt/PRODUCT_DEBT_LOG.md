@@ -76,6 +76,101 @@ Capabilities the product says it does, or could do, but defers for scope.
 
 **P14 detail (product-stance question).** Surfaced by the A2 Slice 4.6a Step 4 dry-run on the Iyengar and Sharma-S2 cases. Concrete cases: Iyengar holds HDFC FD at 27.3% and SBI FD at 27.0% of liquid AUM, both senior-citizen-rate FDs in a conservative-medium-term mandate; A2 correctly classifies them as Review because they exceed the 15% position-escalate threshold within the debt asset class. Sharma-S2 holds HDFC FD at 15.6%, also above the 15% threshold, triggering Review. The product question this surfaces: are senior-citizen FDs (or similar cash-adjacent debt instruments: liquid debt funds, short-tenor FDs, sweep deposits) functionally cash-equivalent for diagnostic purposes? Some Indian wealth firms treat them that way, since concentrated FD positions in a conservative mandate are not the same risk shape as concentrated equity positions. The current model portfolio framework places FDs in debt, which is structurally correct (FDs carry duration and reinvestment risk that pure cash does not), but the threshold-application logic does not distinguish short-tenor cash-adjacent debt from longer-tenor structural debt. A2 correctly does not invent this distinction. Routing: same as P12 and P13, an M0 / model-portfolio-framework product-stance question deferred to the Slice 7 audit. The boundary between P14 and ADR 0006 is informative: ADR 0006 ships a narrow carve-out because the skill file already established the non-propagation rule for cash; P14 asks whether a similar differentiation should apply to cash-adjacent debt. The Slice 7 answer may be no (FDs stay in debt, position thresholds apply), yes (cash-adjacent debt gets its own treatment), or partial (only certain debt sub-categories such as senior-citizen FDs); A2 does not pre-empt that decision.
 
+---
+
+ID: P30
+Description: The Samriddhi AI pipeline currently operates on fictional investors
+  (Malhotra, Iyengar, Bhatt, Menon, Surana, Sharma plus future fictional
+  additions). Their character bibles, holdings, mandates, and case fixtures
+  are creative content authored for demonstration purposes. Per WA14, this
+  fictional content is committable to the public repository.
+
+  Any future transition to running cases on REAL investor data (real human
+  clients with real portfolios) introduces a categorically different set of
+  concerns that this workstream has NOT addressed. Before any real-client
+  case is generated, the following must be evaluated and resolved:
+
+  REGULATORY:
+  - SEBI investment-adviser registration and the regulatory regime governing
+    AI-assisted advisory analysis
+  - India's Digital Personal Data Protection Act applicability and consent
+    requirements
+  - Fiduciary-duty implications when AI-generated case verdicts influence
+    real client decisions
+  - Audit trail and record-keeping requirements per SEBI advisor regulations
+
+  DATA HANDLING:
+  - Personally Identifiable Information (PII) cannot live in GitHub repos
+    (public or private). Real client data requires encrypted-at-rest storage
+    with role-based access, almost certainly self-hosted infrastructure or
+    a regulated cloud provider with appropriate certifications.
+  - Real character bibles will contain personally sensitive context (health,
+    family dynamics, life events) that go beyond what WA14 covers; require
+    additional handling discipline.
+  - Real holdings data is licensed-and-PII (subject to vendor terms AND
+    personally identifiable); double-sensitive.
+
+  CONSENT AND AUTHORIZATION:
+  - Explicit informed consent from each real client for AI-assisted advisory
+    analysis, with clear disclosure of how the pipeline reasons and what
+    outputs are produced.
+  - Consent mechanism design (digital, in-person, witness requirements).
+  - Right-to-withdrawal and data-deletion mechanisms.
+
+  PIPELINE BEHAVIOR:
+  - Whether agents' outputs (A1 challenges, IC1 deliberations, gate verdicts)
+    require additional review before being shown to the advisor.
+  - Whether materiality thresholds, IC1 deliberation depth, or governance
+    gate strictness should differ between demo and real-client modes.
+  - Whether case fixtures for real clients are even storable as fixtures, or
+    must be ephemeral / encrypted / single-use.
+
+  LIABILITY AND INSURANCE:
+  - Professional indemnity insurance implications.
+  - Liability allocation between the advisor, the system, the system's
+    operator, and Anthropic.
+  - Disclaimer and limitation-of-liability framing in client-facing outputs.
+
+  OPERATIONAL:
+  - Multi-user access control if multiple advisors use the system.
+  - Audit logging beyond what current telemetry captures.
+  - Incident response if real-client data is breached or mis-handled.
+  - Backup and disaster recovery for real-client case data.
+
+Severity: Critical-when-triggered. Not blocking current work because the
+  current scope is fictional-only. The moment any real-client case is
+  proposed, this debt entry becomes a hard blocker on that work.
+
+Originating workstream: snapshot-data-extraction (this entry was authored
+  alongside WA14 as part of the privacy-boundary work).
+
+Target fix workstream: Real-client mode design workstream. This is likely
+  not a single workstream but a phase of work comparable in scope to the
+  entire lean MVP build to date. Includes legal review, regulatory
+  consultation, infrastructure migration, pipeline mode-switching, consent
+  flow design, audit logging, and operational runbook authoring.
+
+Unblocking-fix definition: This debt does not have a single unblock-fix
+  definition because the scope is too large to fix in one motion. The
+  unblock-process is:
+  (a) Decision to pursue real-client mode (product decision; not technical).
+  (b) Legal and regulatory consultation establishing the compliance frame.
+  (c) Dedicated workstream(s) addressing each concern category above.
+  (d) Validation and audit before any real client is onboarded.
+  No real-client case is generated until (a) through (d) are complete and
+  documented.
+
+Cross-references: WA14 (privacy boundary for data artifacts) is the
+  fictional-data-era companion to this real-data-era debt. ADR-0027
+  (snapshot data access) describes the privacy architecture for the
+  fictional-data era; real-client mode will require a successor architecture.
+
+Notes: This debt entry exists to ensure future contributors do not
+  inadvertently propose running cases on real data without surfacing the
+  full scope of preconditions. The framing is deliberately exhaustive so
+  that even a casual encounter with this entry produces immediate awareness
+  of the gap between current scope and real-client capability.
+
 ## Section 3: Data debt
 
 Fixture and reference-data quality issues.
