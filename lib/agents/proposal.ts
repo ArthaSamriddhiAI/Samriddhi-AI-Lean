@@ -25,6 +25,12 @@ export type TargetCategory =
   | "pms"
   | "aif"
   | "mutual_fund"
+  /* Debt-oriented mutual fund (corporate bond, short-term debt, gilt, etc.).
+   * Split from `mutual_fund` so G1 models it as Debt rather than Equity
+   * (ADR-0025). Treated as a mutual fund for G2 (SEBI clarify) and E7
+   * activation; carries no listed-equity look-through, so E1/E2 do not fire
+   * on a `mutual_fund_debt` target. */
+  | "mutual_fund_debt"
   | "listed_equity_direct"
   | "unlisted_equity"
   | "fixed_deposit"
@@ -83,7 +89,7 @@ export function involvesPmsOrAif(target: TargetCategory, source: SourceOfFunds):
 }
 
 export function involvesMutualFund(target: TargetCategory, source: SourceOfFunds): boolean {
-  return target === "mutual_fund" || source === "mutual_funds";
+  return target === "mutual_fund" || target === "mutual_fund_debt" || source === "mutual_funds";
 }
 
 export function involvesUnlistedEquity(target: TargetCategory): boolean {

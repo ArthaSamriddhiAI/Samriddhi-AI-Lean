@@ -47,6 +47,7 @@ import { runG3 } from "./case/governance/g3-permission";
 import { runS1Case } from "./case/s1-case";
 import { runA1Case } from "./case/a1-case";
 import { buildNonActivationVerdict } from "./case/non-activation";
+import { buildE1Scope, buildE2Scope, buildE6Scope, buildE7Scope } from "./case/scope-builders";
 import type {
   BriefingCaseContent,
   GovernanceStatusItem,
@@ -136,18 +137,25 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       ticketSizeCr: proposal.ticket_size_cr,
     });
 
-    /* Run activated evidence agents. Each agent gets a generic scope
-     * block; for the canonical Sharma stub replay, the scope is unused
-     * (the stub fixture's recorded text is loaded verbatim). For non-
-     * Sharma live runs, the scope feeds the prompt; richer scope-builders
-     * (look-through equity tables, sector context derivation) are a
-     * future Slice item. */
+    /* Run activated evidence agents. For the canonical Sharma stub replay
+     * the scope is unused (the recorded stub text is loaded verbatim). For
+     * live runs, E1/E2 receive data-grounded scope from the scope-builders
+     * (buildE1Scope / buildE2Scope), which read nifty500 per-stock
+     * fundamentals and mf_funds look-through from the enriched snapshot
+     * (ADR-0024); E3 gets snapshot macro, E4 the investor bible, and E6/E7
+     * get enriched target wrapper / fund data (buildE6Scope / buildE7Scope,
+     * ADR-0026) plus the real existing inventory. PMS and AIF underlying-stock
+     * look-through
+     * stays out of scope (foundation.md:198, v8:705); for wrapper or
+     * non-equity proposal targets the scope says so explicitly and E1/E2
+     * assess the existing listed-equity context and the proposal's marginal
+     * impact (the router fires E1/E2 on existing holdings, not the target). */
     const evidence: CaseEvidenceVerdict[] = [];
 
     if (routerDecision.e1) {
       const r = await runE1Case(
         ctx,
-        { lookthroughDescription: `Look-through universe of ${proposal.target_instrument} (${proposal.target_category}).` },
+        { lookthroughDescription: buildE1Scope(snapshot, proposal, holdings) },
         { stubKey },
       );
       evidence.push(r.output as ActivatedVerdict);
@@ -158,7 +166,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
     if (routerDecision.e2) {
       const r = await runE2Case(
         ctx,
-        { sectorContext: `Sector and business-model context for ${proposal.target_instrument} (${proposal.target_category}).` },
+        { sectorContext: buildE2Scope(snapshot, proposal, holdings) },
         { stubKey },
       );
       evidence.push(r.output as ActivatedVerdict);
@@ -204,7 +212,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       const r = await runE6Case(
         ctx,
         {
-          targetWrapperContext: `Target wrapper: ${proposal.target_instrument} (${proposal.target_category}), ticket Rs ${proposal.ticket_size_cr} Cr.`,
+          targetWrapperContext: buildE6Scope(snapshot, proposal),
           existingWrapperInventory: existingWrappers
             .map((w) => `${w.instrument} (${w.subCategory}, ${w.weightPct}% of AUM)`)
             .join("; ") || "none",
@@ -222,7 +230,7 @@ export async function runProposedActionPipeline(opts: RunOpts): Promise<void> {
       const r = await runE7Case(
         ctx,
         {
-          schemeContext: `Target scheme: ${proposal.target_instrument} (${proposal.target_category}).`,
+          schemeContext: buildE7Scope(snapshot, proposal),
           existingMfAllocation: existingMf
             .map((s) => `${s.instrument} (${s.weightPct}% of AUM)`)
             .join("; ") || "none",

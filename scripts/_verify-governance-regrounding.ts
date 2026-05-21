@@ -88,13 +88,44 @@ async function main() {
       check(verdictMatch, `${g.gate_id} verdict stable (${before})`);
     }
 
-    /* G2 specifically: verdict unchanged, but the reference data source
-     * and citation now come from the curated sebi_boundaries store. */
+    /* G2's rule citations vary by target_category (mirrors g2-sebi.ts):
+     *   - pms: cites sebi_001 (PMS minimum-ticket rule, Rs 50 lakh)
+     *   - aif: cites sebi_009 (AIF minimum-ticket rule, Rs 1 crore)
+     *   - mutual_fund / mutual_fund_debt: requires_clarification per P25
+     *     (scheme-level MF rules not curated; no sebi entry is cited)
+     *   - listed_equity_direct / fixed_deposit / bond_listed / cash / gold:
+     *     pass, no SEBI ticket gate applies (no sebi entry is cited)
+     *   - unlisted_equity / other: requires_clarification (route-dependent)
+     * Each assertion mirrors actual G2 behavior; update both when G2 evolves.
+     * The reference_data_source stamp is present on every trace regardless. */
     const g2TraceStr = JSON.stringify(g2.rule_trace);
-    check(
-      g2TraceStr.includes("sebi_001"),
-      "G2 rule_trace now cites sebi_001 (YAML-grounded source of truth)",
-    );
+    const targetCategory = proposal.target_category;
+    if (targetCategory === "pms") {
+      check(
+        g2TraceStr.includes("sebi_001"),
+        `G2 rule_trace cites sebi_001 for ${targetCategory} (PMS minimum-ticket rule, YAML-grounded)`,
+      );
+    } else if (targetCategory === "aif") {
+      check(
+        g2TraceStr.includes("sebi_009"),
+        `G2 rule_trace cites sebi_009 for ${targetCategory} (AIF minimum-ticket rule, YAML-grounded)`,
+      );
+    } else if (targetCategory === "mutual_fund" || targetCategory === "mutual_fund_debt") {
+      check(
+        g2.status === "requires_clarification",
+        `G2 returns requires_clarification for ${targetCategory} (MF scheme rules not curated; P25)`,
+      );
+    } else if (targetCategory === "unlisted_equity" || targetCategory === "other") {
+      check(
+        g2.status === "requires_clarification",
+        `G2 returns requires_clarification for ${targetCategory} (SEBI route depends on structure)`,
+      );
+    } else {
+      check(
+        g2.status === "pass",
+        `G2 passes with no SEBI ticket gate for ${targetCategory}`,
+      );
+    }
     check(
       g2TraceStr.includes("m0_indian_context:sebi_boundaries"),
       "G2 rule_trace records reference_data_source = m0_indian_context",

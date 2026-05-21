@@ -49,6 +49,7 @@ const TARGET_ASSET_CLASS: Record<TargetCategory, AssetClass> = {
   pms: "Equity",
   aif: "Alternatives",
   mutual_fund: "Equity",
+  mutual_fund_debt: "Debt",
   listed_equity_direct: "Equity",
   unlisted_equity: "Equity",
   fixed_deposit: "Debt",

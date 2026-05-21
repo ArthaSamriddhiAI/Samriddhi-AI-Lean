@@ -26,6 +26,9 @@ One data-infrastructure script is Python: `enrich_snapshots.py` (snapshot data e
 | `_verify-sharma-seed.ts` | Sharma case row present and fully populated after `npm run db:seed`. |
 | `_verify-stub-replay-sharma.ts` | STUB_MODE replay integrity for the Sharma IC1 stubs. |
 | `_verify-snapshot-enrichment.ts` | Snapshot Data Enrichment design-doc probes (SNAPSHOT_TEST_AXIS_DESIGN.md regression contract): RIL quarterly CMP + calibration anchor, RIL/HDFC narrative beats, gilt rate-cut, smallcap rally. Reads `fixtures/snapshots/enriched/`. No API. |
+| `_verify-scope-builders.ts` | E1/E2 case-mode scope-builders (ADR-0024): data-grounded scope from nifty500 per-stock fundamentals + mf_funds look-through, honest coverage misses, the E2 no-supplementation guardrail, and the PMS/AIF/non-equity look-through limitation (foundation.md:198). 9 tests. Reads `fixtures/snapshots/enriched/`. No API. |
+| `_verify-g1-target-class.ts` | G1 target_category to asset-class mapping (ADR-0025): `mutual_fund` models as Equity, `mutual_fund_debt` models as Debt. 2 tests. No API, no DB. |
+| `_verify-e6-e7-scope-builders.ts` | E6 (PMS/AIF) + E7 (mutual fund) target scope-builders (ADR-0026): data-grounded source-labeled scope from `pms.funds` / `aif["E6 Agent Input Ready"]` / `mf_funds`, honest-miss for uncovered instruments, no-supplementation guardrail. 7 test groups. Reads `fixtures/snapshots/enriched/`. No API. |
 | `_print-a2-classifications.ts` | Read-only printout of `content.a2_classification` across all S2 fixtures (Step 5 data-review surface). |
 | `_test-ic1-supersession.ts` | Throwaway: injects materiality plus a partially-populated IC1 into the Sharma case to visually verify counterfactual supersession; revert via `npm run db:seed`. |
 | `backfill-a2.ts` | Additive A2 backfill into S2 fixtures (dry-run and write modes); injects `content.a2_classification` only, no pipeline regen. |
