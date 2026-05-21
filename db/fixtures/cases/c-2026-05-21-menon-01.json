@@ -1,0 +1,889 @@
+{
+  "id": "c-2026-05-21-menon-01",
+  "investorId": "menon",
+  "snapshotId": "t4_q2_2027",
+  "workflow": "s1",
+  "severity": "escalate",
+  "headline": "requires clarification: The synthesis is dominated by the G1 mandate breach: post-action the portfolio sits 48.",
+  "status": "ready",
+  "frozenAt": "2026-05-21T06:31:17.176Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "Arjun Menon, an individual investor newly transitioned to Resident status in Q1 2027, is presented with an advisor-initiated Rs 5 Cr commitment to Vivriti Alpha Debt Fund, a Cat II private credit AIF, sourced from his Rs 52.50 Cr cash balance with an 8-year operational horizon and multi-vintage stewardship intent. The action sits 14-16 months into a structured deployment ramp-up following the RNOR-period exit, with the portfolio currently at 86.6% cash, 6.6% equity, 6.8% debt, and zero alternatives across three holdings (Rs 60.65 Cr liquid AUM). Post-action allocation would shift to 78.3% cash, 6.6% equity, 6.8% debt, and 8.2% alternatives, against an Annual-cadence mandate prescribing equity 55-70%, debt 15-30%, alternatives 5-20%, and cash 2-10%. Capital-call mechanics must reconcile against a Rs 12-14 Cr Sadashivanagar property reserve and a Rs 50 L parents-care fund."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "requires_clarification",
+        "overall_risk_level": "high",
+        "confidence": 0.7,
+        "consensus_areas": [
+          "Structural eligibility is clean: E6 Gate passes on investor structure, product eligibility, and SEBI minimum ticket; G2 SEBI gate passes; G3 advisor authority passes",
+          "Instrument-investor horizon coherence: E4 and E6 agree the 8Y operational horizon is structurally compatible with Cat II vintage mechanics",
+          "Capital-call liquidity reconciliation against the Rs 12-14 Cr property reserve and Rs 50 L parents-care fund is an open item flagged by E3, E4, and E6",
+          "RNOR-to-Resident partial-year CA confirmation is outstanding per E3 and E6"
+        ],
+        "conflict_areas": [
+          "Mandate priority vs action selection: G1 prints a hard breach at the equity floor (6.6% vs 55-70%, under by 48.4pp) and the cash ceiling (78.3% vs 2-10%, over by 68.3pp); E6 explicitly flags that this credit AIF is band-neutral and does not remediate the equity gap; E4 reads the action as a measured first-tranche deployment without weighting the mandate-architecture sequencing concern that E6 surfaces",
+          "Risk-level read: E4 returns low on behavioural fit while E3 and E6 return elevated on macro stress and unrateable wrapper dimensions; the disagreement is domain-scope, not contradiction, but the net synthesis weights the mandate and wrapper-evaluability concerns above the behavioural read for a wrapper-new_investment case"
+        ],
+        "amplification_flags": [
+          "G1 hard mandate breach (equity floor under by 48.4pp) combined with E6's sequencing concern (credit AIF before equity band remediation) elevates this from a procedural mandate gap to a structural sequencing question about which deployment should precede which",
+          "E6's four unrateable analytical dimensions (manager quality, strategy consistency, fee normalisation, capacity) combined with E4's limited_history_flag (single revealed-pattern data point, zero prior advisor interactions) compounds the evidence-base thinness on both the product side and the investor-relationship side",
+          "E3's external stress complex (Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April alone) combined with the capital-call timing risk against the property reserve creates a liquidity-environment overlay that magnifies the unresolved cash-flow reconciliation"
+        ],
+        "narrative_paragraph": "The synthesis is dominated by the G1 mandate breach: post-action the portfolio sits 48.4 percentage points below the equity floor and 68.3 percentage points above the cash ceiling, and the proposed Cat II credit AIF, while structurally eligible and clearing every SEBI and authority gate, does not remediate either breach. E6 flags this sequencing concern explicitly — the mandate's primary remediation need is equity deployment, and a credit allocation taken before equity-band remediation is band-neutral at best. On the product side, E6 cannot affirmatively rate manager quality, strategy consistency, fee normalisation, or capacity because wrapper-level data for Vivriti Alpha Debt Fund is absent from the snapshot, leaving four of the five standard sub-agent dimensions unevaluable. E3 reads the macro environment as bifurcated: domestic credit fundamentals are supportive (6.8% GDP growth, 14.3% non-food credit growth, 75.6% capacity utilization, RBI Accommodative at 4.75%) but external stress vectors (Brent $118.95 up 86% YoY with Hormuz disruption, INR down 10.7% to 84.2, FII outflows of Rs 56,401 Cr in April, below-normal monsoon forecast) elevate the risk overlay and constrain RBI's further cutting room. E4 returns a supportive but low-confidence (0.58) behavioural read constrained by the limited_history_flag — zero prior advisor interactions and a single revealed-pattern data point (the 8-year no-panic-sell US holding). The capital-call schedule has not been reconciled against the Rs 12-14 Cr Sadashivanagar property reserve or the Rs 50 L parents-care fund, and the RNOR partial-year CA confirmation is outstanding. The net read is requires_clarification: the action is not structurally disqualified, but the combination of a hard mandate breach with sequencing implications, four unrateable wrapper dimensions, an unresolved liquidity reconciliation, and an outstanding tax confirmation leaves the evidence base materially incomplete for a positive verdict.",
+        "counterfactual_framing": "The structured alternative is an equity-first deployment sequencing — staged listed-equity or equity-MF deployment of Rs 25-35 Cr from the cash balance to bring the portfolio toward the 55-70% equity band, with the Cat II credit AIF commitment sequenced behind that remediation once the mandate architecture is restored and the property-reserve capital-call timing is reconciled.",
+        "escalation_recommended": true,
+        "headline_takeaway": "The Rs 5 Cr Cat II credit AIF clears every eligibility gate but does not move the portfolio off a 48.4pp equity floor breach, and four of five wrapper-evaluation dimensions for the target fund are unrateable from the snapshot."
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No listed equity exposure introduced by the proposed action; agent dormant per scope."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No sector-tagged listed equity exposure; agent follows E1 and stays dormant."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Domestic credit fundamentals are supportive (6.8% GDP growth, 14.3% credit growth, RBI Accommodative at 4.75%), but external stress (Brent at $118.95 with Hormuz disruption, INR down 10.7%, Rs 56,401 Cr April FII outflows) elevates the risk overlay."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "Stated risk appetite and the 8-year no-panic-sell US holding are directionally coherent with an 8Y Cat II commitment, but confidence is held at 0.58 by the limited_history_flag (zero prior advisor interactions, single revealed-pattern data point)."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No unlisted equity, pre-IPO, or Cat I venture look-through in scope; agent dormant."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Gate passes on eligibility and SEBI minimum, but manager quality, strategy consistency, fee normalisation, and capacity dimensions cannot be rated from the snapshot, and the credit AIF does not address the 48.4pp equity floor gap."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No mutual fund scheme at the decision boundary; agent dormant."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "Mandate architecture before instrument selection",
+          "body": "The portfolio is 48.4 percentage points below the equity floor and 68.3 percentage points above the cash ceiling. A Cat II credit AIF is a clean structural fit for the investor's profile, but it is band-neutral against the mandate, not band-remediating. Worth opening the conversation with Arjun about whether the deployment sequence should lead with equity-band remediation and the credit allocation should follow, rather than the other way round."
+        },
+        {
+          "number": "02",
+          "title": "Wrapper-level data gap on Vivriti Alpha",
+          "body": "Four of the five standard wrapper dimensions — manager track record, strategy consistency, fee schedule, capacity trajectory — could not be evaluated from what is currently in front of us. Before any commitment, Rohan should walk through the fund's full fee schedule, hurdle rate, high-water-mark mechanics, and prior-vintage performance. This is governance, not analysis."
+        },
+        {
+          "number": "03",
+          "title": "Capital calls against the property reserve",
+          "body": "Cat II AIFs typically draw across a 2-3 year commitment window, and the Sadashivanagar property purchase is targeted within 12 months alongside the Rs 50 L parents-care fund. The advisor should map the expected call schedule against both reserves explicitly before commitment, not assume the cash balance will absorb it without timing tension."
+        },
+        {
+          "number": "04",
+          "title": "Macro overlay is bifurcated",
+          "body": "The domestic credit environment is constructive: RBI is Accommodative, credit growth is 14.3%, capacity utilization is above the late-expansion threshold. But the external picture — Brent at $118.95 with Hormuz disrupted, INR down 10.7%, heavy April FII outflows — is doing real work on RBI's cutting room and on systemic liquidity. Worth flagging to Arjun that the timing is supportive on fundamentals but the volatility overlay is elevated."
+        },
+        {
+          "number": "05",
+          "title": "RNOR partial-year tax close-out",
+          "body": "The RNOR-to-Resident transition completed in Q1 2027, but the partial-year slab treatment for FY 2026-27 and any NRE/NRO implications for the source funds still need CA confirmation. Best to close that loop before signing the commitment letter rather than after."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e6_pms_aif_sif"
+        ],
+        "agents_not_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e5_unlisted_equity",
+          "e7_mutual_fund"
+        ],
+        "data_sufficiency_notes": "Synthesis is materially constrained on the product side: wrapper-level data for Vivriti Alpha Debt Fund (manager tenure, AUM and capacity trajectory, fee schedule, prior-vintage track record, strategy concentration discipline) is not available in the snapshot, and E6 has correctly declined to supplement from category averages. On the investor side, the limited_history_flag from E4 (zero prior advisor interactions, single revealed-pattern data point from the 8-year US holding) constrains behavioural confidence to 0.58. IndianContext integration is operative: SEBI Cat II minimum ticket (sebi_009), AIF demat mechanics (dem_009), structural eligibility for individuals (str_002), and the regulatory changelog (chg_004, chg_007, chg_011) all surfaced cleanly and were applied by G2 and E6. The dem_010 liquidity-window framing is correctly noted as practitioner practice, not authoritative. The RNOR partial-year edge case is flagged but unresolved pending CA confirmation.",
+        "generation_mode": "stub",
+        "generation_timestamp": "2027-04-01T00:00:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "fail",
+          "rationale": "Mandate compliance breach: 2 issue(s) at hard-breach threshold."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "pass",
+          "rationale": "SEBI AIF minimum ticket cleared (Rs 100 lakh required, Rs 500 lakh proposed)."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "Sequencing logic cuts both ways: deploying credit first while equities are dislocated",
+          "body": "E6 and the S1 synthesis treat the equity-band gap as the primary remediation need and read the credit AIF as 'band-neutral at best,' suggesting equity-first sequencing. But E3 documents an active risk-off equity tape — Rs 56,401 Cr of FII outflows in April alone, INR down 10.7%, Brent at $118.95 with Hormuz disrupted — which is precisely the environment in which a disciplined investor might stagger equity deployment rather than accelerate it. If the counterfactual is 'deploy Rs 25-35 Cr into equity now to close the band,' the synthesis should be ready to defend why pushing equity through a stressed tape is preferable to taking a measured Cat II credit commitment that locks in spread over a compressing risk-free rate (E3: repo cut to 4.75%, real rate 3.15%, WALR transmission of 109 bps). Is the sequencing concern an architectural one (mandate priority) or a market-timing one (do equities first because they're cheap), and which framing is Rohan actually relying on?",
+          "headline_takeaway": "The equity-first counterfactual asks Arjun to deploy Rs 25-35 Cr into equities during the heaviest FII outflow month on record without an explicit market-timing thesis."
+        },
+        {
+          "category": "counter_argument",
+          "title": "E4's 0.58 confidence carries the entire behavioural read",
+          "body": "E4 returns low risk but explicitly anchors confidence at 0.58 because of zero prior advisor interactions and a single revealed-pattern data point (the 8-year US holding). The synthesis treats this as supportive evidence in the consensus column. But a single illiquid-equity hold across a benign US bull market is a thin proxy for tolerance of a Cat II capital-call structure during a domestic stress regime, and the speed-preference flag (E4: 'Menon is documented as chafing at slow processes') sits in direct tension with an 8-year lock-in. What is the threshold at which 0.58 behavioural confidence on a Rs 5 Cr first-wrapper commitment, with no advisor relationship history, should require a smaller pilot ticket or a deferral until revealed-pattern signal accumulates over 12-18 months as E4 itself recommends?",
+          "headline_takeaway": "The behavioural greenlight rests on one US holding across a bull market and no advisor-interaction history, against a documented speed-preference that an 8-year lock-in directly contradicts."
+        },
+        {
+          "category": "stress_test",
+          "title": "Capital call lands inside the property window",
+          "body": "Cat II AIFs typically draw across 2-3 years with front-loaded calls in years 1-2; the Sadashivanagar property purchase is targeted within 12 months. Suppose Vivriti calls 40-50% of the Rs 5 Cr commitment in months 6-12, coinciding with property closing. E4 calculates Rs 38 Cr deployable cash net of reserves, but that calculation assumes the cash balance remains static — it does not account for the equity-band remediation S1's own counterfactual contemplates (Rs 25-35 Cr deployment), which would simultaneously drain the same cash pool. If equity deployment proceeds in parallel per the synthesis's counterfactual, what is the cash position at the moment of the largest concurrent capital call, property advance, and the Rs 50 L parents-care provisioning? The reconciliation E3, E4, and E6 all flag is not just a scheduling exercise — it requires a stress case where multiple draws coincide.",
+          "headline_takeaway": "A front-loaded Vivriti drawdown coinciding with property closing and parallel equity deployment compresses cash exactly when reserves are most committed."
+        },
+        {
+          "category": "stress_test",
+          "title": "Private credit performance under the stagflation case E3 describes",
+          "body": "E3 names a 'genuine stagflationary shock' vector — Brent +86% YoY, services PMI input costs at a 45-month high, RBI cutting room constrained, below-normal monsoon adding H2 FY27 food-CPI risk. The macro reasoning concedes domestic credit fundamentals are 'supportive' today but external stress could 'tighten domestic liquidity conditions.' Cat II private credit books are typically concentrated in mid-market borrowers most exposed to input-cost compression and refinancing stress in tightening-liquidity regimes. With four of five E6 wrapper dimensions unrateable — including strategy concentration discipline and capacity trajectory — the synthesis cannot tell whether Vivriti's book sits in defensible sectors or in the same SME-credit segment that would absorb a stagflation hit hardest. What sectoral and refinancing-sensitivity look-through does the advisor have on the underlying book, and at what point in the stagflation scenario does the 'supportive domestic credit' read invert?",
+          "headline_takeaway": "Cat II private credit books concentrate in exactly the mid-market segment most exposed to E3's stagflation vector, and the underlying sectoral mix is unrateable from the snapshot."
+        },
+        {
+          "category": "stress_test",
+          "title": "The four unrateable dimensions are not symmetric in their downside",
+          "body": "E6 flags manager quality, strategy consistency, fee normalisation, and capacity as unrateable. The synthesis treats this as a uniform 'data gap' to be closed by Rohan presenting the fee sheet. But these four dimensions are asymmetric in failure mode: fee normalisation closes with a document, but manager quality and capacity inflection are judgement calls that require multi-vintage track record analysis Rohan may or may not have done. If Vivriti is a newer-vintage manager or has scaled AUM aggressively post-2024 (a known industry pattern post-AIF Master Circular consolidation), the capacity-alpha-decay inflection could already be operative. What evidence does the advisor have on Vivriti's prior-vintage realised returns net of fees, and is the synthesis prepared for the case where the disclosure exercise reveals the manager is in the 2-3 year window where AUM has outrun deal pipeline?",
+          "headline_takeaway": "Fee disclosure closes one of four unrateable dimensions; manager quality and capacity inflection require track-record forensics that the snapshot does not document Rohan has performed."
+        },
+        {
+          "category": "edge_case",
+          "title": "RNOR partial-year close-out and AIF KYC alignment",
+          "body": "The RNOR-to-Resident transition completed Q1 2027 and the CA confirmation on partial-year slab treatment is still outstanding per E3 and E6. Cat II AIF KYC/CKYC and source-of-funds attestation typically lock the investor's residency status at commitment date — if the AIF onboarding records 'Resident' but the FY 2026-27 tax filing later treats portions of the source funds under NRO/NRE rules, there is a documentation-tax mismatch that becomes harder to unwind once units are issued and demat'd per chg_004. Is the commitment letter being signed before or after the CA partial-year close-out, and what is the remediation path if the CA opinion materially alters the characterisation of the Rs 5 Cr source funds?",
+          "headline_takeaway": "Signing the Vivriti commitment before the FY 2026-27 RNOR partial-year tax close-out locks AIF onboarding documentation to a residency status the CA has not yet confirmed."
+        },
+        {
+          "category": "edge_case",
+          "title": "First wrapper sets the precedent for multi-vintage stewardship",
+          "body": "The rationale frames this as 'the next stage of structured deployment ramp-up' with 'multi-vintage stewardship' intent, implying subsequent Vivriti or peer-AIF commitments across future vintages. E6 notes 'no concentration-within-wrapper-tier concern at this stage' precisely because this is the first wrapper. But the governance precedent set on this first commitment — what fee disclosure was obtained, what manager diligence was documented, what capital-call reconciliation was performed — becomes the default template for vintages 2, 3, 4. If the first commitment proceeds with four unrateable dimensions and a deferred CA confirmation, what governance discipline does the household have to apply a tighter standard to vintage 2, and is the synthesis comfortable that 'this is just the first one' is not an argument for lower diligence today that compounds across the multi-vintage programme?",
+          "headline_takeaway": "The governance shortcuts taken on this first wrapper become the default template for the multi-vintage programme the rationale itself anticipates."
+        }
+      ]
+    },
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "aif",
+      "target_instrument": "Vivriti Alpha Debt Fund (Cat II private credit AIF)",
+      "ticket_size_cr": 5,
+      "source_of_funds": "cash_balance",
+      "timeline": "this_year",
+      "rationale": "Advisor-initiated (Rohan Kapoor). Rs 5 Cr commitment to a Cat II private credit AIF as the next stage of Arjun Menon's structured deployment ramp-up (first-tranche deployment now roughly 14-16 months in). Horizon 8Y operational plus multi-vintage stewardship. Menon transitioned to Resident from RNOR in FY 2026-27 (conversion completed Q1 2027); this is clean Resident-side deployment, so no RNOR mechanics are load-bearing (NRI/RNOR/HUF case shapes are out of scope per product debt P1). Capital-call schedule must be reconciled with the Rs 12-14 Cr Sadashivanagar property reserve and the Rs 50 L parents-care fund."
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "fail",
+        "rationale": "Mandate compliance breach: 2 issue(s) at hard-breach threshold.",
+        "breaches": [
+          "Equity floor breach: post-action 6.6% vs band 55-70% (under by 48.4pp).",
+          "Cash ceiling breach: post-action 78.3% vs band 2-10% (over by 68.3pp)."
+        ],
+        "gaps": [],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 6.595218466611706,
+            "Debt": 6.842539159109647,
+            "Alternatives": 0,
+            "Cash": 86.56224237427865
+          },
+          "post_action_allocation_pct": {
+            "Equity": 6.595218466611706,
+            "Debt": 6.842539159109647,
+            "Alternatives": 8.244023083264633,
+            "Cash": 78.31821929101402
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 55,
+              "max_pct": 70
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 15,
+              "max_pct": 30
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 5,
+              "max_pct": 20
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 2,
+              "max_pct": 10
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 0,
+            "aif": 1,
+            "total": 1
+          },
+          "target_position_pct_of_liquid_aum": 8.244023083264633
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "pass",
+        "rationale": "SEBI AIF minimum ticket cleared (Rs 100 lakh required, Rs 500 lakh proposed).",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "target_category": "aif",
+          "ticket_cr": 5,
+          "action_type": "new_investment",
+          "reference_data_source": "m0_indian_context:sebi_boundaries",
+          "rule_applied": {
+            "category": "aif",
+            "min_ticket_cr": 1,
+            "source_store": "sebi_boundaries",
+            "source_entry_id": "sebi_009",
+            "confidence": "authoritative",
+            "citation": "SEBI (Alternative Investment Funds) Regulations 2012; SEBI Master Circular for AIFs dated 2024-05-07"
+          }
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 5,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Vivriti Alpha Debt Fund (Cat II private credit AIF) (category: aif) of Rs 5 Cr, sourced from cash_balance) does not introduce listed equity exposure via direct, MF, or PMS look-through. Per principles §3.1, E1 activates only when the case involves listed equity in any of these forms. None apply."
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Vivriti Alpha Debt Fund (Cat II private credit AIF) (category: aif) of Rs 5 Cr, sourced from cash_balance) does not introduce listed equity exposure with sector tags. Per principles §3.1, E2 follows E1's trigger and stays dormant when E1 does not activate."
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.74,
+        "drivers": [
+          "RBI executed a 50 bps cut on April 8 2026 bringing repo to 4.75% with stance shifted to Accommodative, compressing risk-free anchor rates and improving relative attractiveness of private credit yield premium over sovereign benchmarks",
+          "Real rate derived at 3.15% (repo 4.75% minus core CPI 3.94%) remains materially positive, indicating monetary conditions are not yet loose enough to erode private credit spread advantage, though the direction of travel is downward",
+          "10Y G-Sec yield at 6.99% (as of Apr 17 2026), having risen 44 bps from 6.55% in November 2025 and spiked to 7.19% on April 3, signals that the long end is not fully pricing the accommodative pivot; yield curve steepening creates mark-to-market risk for duration-exposed debt instruments but is broadly neutral for private credit AIFs with floating or fixed-coupon structures",
+          "Brent crude at $118.95/barrel (Apr 29 2026), up 86% YoY from ~$64, with Hormuz disruption blocking approximately 20% of global oil trade, represents a material stagflationary shock vector for India as a net oil importer; this elevates input cost inflation risk (services PMI input costs at 45-month high in March 2026) and constrains RBI's cutting room",
+          "INR depreciated 10.7% over 12 months to 84.2 vs USD (Apr 29 2026) with forex reserves declining $25B to $703B; for a Resident investor deploying into a domestic INR-denominated Cat II AIF this is not a direct currency risk but signals external balance stress that could tighten domestic liquidity conditions",
+          "FII equity outflows of Rs 56,401 Cr in April 2026 alone (~$5.97B), partially offset by DII inflows of Rs 34,617 Cr (partial data Apr 1-8), indicate a stressed FII-DII dynamic; this is not directly load-bearing for a private credit AIF but signals risk-off sentiment in Indian capital markets broadly",
+          "GDP growth at 6.8% YoY in Q3 FY26 (Oct-Dec 2025) with RBI projecting FY26 at 7.6%; manufacturing at 13.3% and services at 9.5% growth; capacity utilization at 75.6% (above the 75% late-expansion threshold per framework); this growth backdrop supports borrower credit quality in private credit portfolios",
+          "Non-food credit growth at 14.3% YoY (Feb 2026, up from 11.1% a year prior) signals healthy underlying credit demand, supportive of deal origination environment for private credit managers",
+          "IMD forecasting below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome (El Nino likely); this is a leading inflation risk signal for food CPI in H2 FY27, which could constrain RBI's ability to cut further and keep long-end yields elevated",
+          "Government fiscal consolidation on track: fiscal deficit YTD at 80.38% of RE with primary deficit down 52.5% YoY; capex at Rs 9.29L Cr (84.81% of RE, +14.46% YoY); FY27 target of 4.3% GDP deficit with Rs 12.22L Cr capex; quality of expenditure improving (capex up, revenue expenditure flat); this is a constructive backdrop for infrastructure-linked private credit strategies",
+          "SEBI AIF Third Amendment Regulations 2025 (effective November 18 2025) introduced the AIOF framework and LVF unification; AIF Master Circular consolidation (effective May 7 2024) codified pro-rata pari-passu provisions; mandatory dematerialisation of AIF units (effective January 1 2023) is operative; regulatory framework for Cat II AIFs is stable and recently consolidated",
+          "Source of funds is cash balance (not fixed deposits), so FD reinvestment compression is not directly applicable; however, the rate-cut cycle does reduce the opportunity cost of deploying idle cash into a longer-duration illiquid instrument, marginally improving the deployment rationale"
+        ],
+        "flags": [
+          "crude_oil_hormuz_shock_stagflationary_risk",
+          "inr_depreciation_10pct_12m_external_stress",
+          "fii_outflow_risk_off_sentiment_april_2026",
+          "below_normal_monsoon_food_inflation_upside_h2_fy27",
+          "long_end_yield_volatility_10y_gsec_44bps_rise",
+          "real_rate_3pct_plus_rbi_cutting_room_constrained_by_geopolitics",
+          "capital_call_schedule_reconciliation_required_sadashivanagar_reserve_and_parents_care_fund",
+          "rnor_to_resident_transition_partial_year_tax_treatment_ca_confirmation_pending",
+          "macro_snapshot_data_lag_walr_q1_2026_pending_120_days_stale",
+          "equity_band_breach_current_6pct_vs_55_70pct_mandate_macro_context_does_not_resolve_rebalancing_priority"
+        ],
+        "reasoning_paragraph": "The macro environment as of April 2026 presents a bifurcated picture for the proposed Rs 5 Cr commitment to Vivriti Alpha Debt Fund (Cat II private credit AIF). On the constructive side, the RBI's 50 bps cut to 4.75% with an Accommodative stance, against a backdrop of 6.8% real GDP growth, 75.6% capacity utilization, 14.3% non-food credit growth, and a fiscally consolidating government running strong capex, creates a supportive domestic credit environment: borrower quality is underpinned by above-trend growth, deal origination is supported by healthy credit demand, and the rate-cut direction compresses the opportunity cost of illiquid deployment relative to liquid alternatives. The SEBI regulatory framework for Cat II AIFs is stable and recently consolidated through the 2024 Master Circular and 2025 Third Amendment, with no imminent regulatory inflection that would alter the product's structural position. However, three external stress vectors materially elevate the risk overlay. First, Brent crude at $118.95/barrel (up 86% YoY) with active Hormuz disruption represents a genuine stagflationary shock for India: it pressures the current account, has already driven services input cost inflation to a 45-month high, and constrains RBI's ability to cut further, keeping the long end of the yield curve volatile (10Y G-Sec at 6.99%, having spiked to 7.19% on April 3). Second, INR depreciation of 10.7% over 12 months to 84.2 with forex reserves declining $25B signals external balance stress that, while not a direct risk for an INR-denominated domestic AIF, tightens the systemic liquidity backdrop. Third, FII outflows of Rs 56,401 Cr in April alone signal a risk-off posture in Indian capital markets that, while more relevant to equity than private credit, is a leading indicator of broader sentiment deterioration. The below-normal monsoon forecast (92% of LPA, 66% probability of below-normal or deficient) adds a medium-term food inflation upside risk that could further constrain RBI's cutting cycle. Within the case-specific lens, the source of funds is cash balance rather than fixed deposits, so FD reinvestment compression is not the operative mechanism; the relevant framing is that idle cash deployed into an 8-year private credit structure at a time of accommodative monetary policy and above-trend growth captures a yield premium over declining risk-free rates, but does so against a backdrop of elevated external stress. The capital-call schedule reconciliation against the Rs 12-14 Cr Sadashivanagar property reserve and Rs 50 L parents-care fund is a liquidity management matter that sits outside E3's scope but is flagged as a structural constraint the macro environment does not resolve. The overall E3 assessment is cautionary-to-neutral: the domestic credit and growth environment is supportive, but the external shock complex (crude, INR, FII flows) is sufficiently material to warrant elevated risk classification rather than a clean supportive verdict.",
+        "data_points_cited": [
+          "Repo rate 4.75% post 50 bps cut, stance Accommodative, RBI MPC April 8 2026",
+          "Real rate derived 3.15% (repo 4.75% minus core CPI 3.94%), April 2026",
+          "10Y G-Sec yield 6.99% as of April 17 2026, up 44 bps from 6.55% November 2025, intraday spike 7.19% April 3",
+          "Brent crude $118.95/barrel April 29 2026, up 86% YoY from ~$64, Hormuz disruption blocking ~20% global oil trade",
+          "USD/INR 84.2 as of April 29 2026, 10.7% depreciation over 12 months from 85.60 April 2 2025",
+          "Forex reserves $703B, down $25B",
+          "FII net equity outflows Rs 56,401 Cr April 1-29 2026 (~$5.97B), heaviest day April 2 Rs 19,837 Cr",
+          "DII net inflows Rs 34,617 Cr April 1-8 2026 (partial)",
+          "GDP growth 6.8% YoY Q3 FY26 (Oct-Dec 2025), manufacturing 13.3%, services 9.5%; RBI FY26 projection 7.6%",
+          "Capacity utilization 75.6% (75.5% SA) Q3 FY26, above 75% late-expansion threshold",
+          "Non-food credit growth 14.3% YoY as of February 28 2026, up from 11.1% a year prior",
+          "CPI headline 4.13% YoY March 2026; core CPI 3.94% YoY Jan-Feb 2026",
+          "Services PMI input cost inflation at 45-month high March 2026; PMI Manufacturing 55.1, PMI Services 59.0, Composite PMI 58.3 (April 2026 flash)",
+          "IMD monsoon forecast below normal 92% of LPA, 66% probability below-normal or deficient, El Nino likely, April 13 2026",
+          "Fiscal deficit YTD Apr-Feb FY26 Rs 12,52,649 Cr (80.38% of RE), down 7.0% YoY; primary deficit down 52.5% YoY",
+          "Government capex YTD Rs 9,29,322 Cr (84.81% of RE), up 14.46% YoY",
+          "FY27 fiscal deficit target 4.3% GDP, capex Rs 12.22L Cr",
+          "WALR on fresh loans 8.28% as of December 2025, down from 9.37% peak, 109 bps transmission",
+          "India-US rate differential 162 bps (repo 5.25% minus Fed midpoint 3.625%) — note: snapshot reflects pre-cut repo; post-cut differential narrows further",
+          "SEBI AIF Third Amendment Regulations 2025 effective November 18 2025 (AIOF framework, LVF unification)",
+          "AIF Master Circular consolidation effective May 7 2024 (pro-rata pari-passu codification)",
+          "AIF mandatory dematerialisation effective January 1 2023",
+          "SEBI minimum ticket Cat II AIF Rs 100 lakh (sebi_009)"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.58,
+        "drivers": [
+          "Stated risk appetite is Aggressive with a 6-9 year operational horizon and multi-decade stewardship intent, which is directionally coherent with a Cat II private credit AIF at an 8-year operational horizon.",
+          "US brokerage legacy holding (Rs 4 Cr) held across eight years with no panic selling recorded — the single available revealed-pattern data point — signals capacity for illiquidity and drawdown tolerance consistent with the proposed instrument's lock-in profile.",
+          "Investor self-directed the UAE-US-India sale tax routing, indicating above-median analytical engagement and comfort with structural complexity; Cat II AIF mechanics (capital calls, waterfall, vintage layering) are within his demonstrated comprehension range, corroborated by stated Dubai-side AIF exposure.",
+          "Advisor-initiated framing (Rohan Kapoor) is appropriate given zero prior advisor interaction history; investor's high deployment readiness and speed preference reduce the risk of advisor-initiation being misread as imposition.",
+          "Rs 5 Cr ticket from a Rs 52.50 Cr cash balance represents 9.5% of liquid AUM and 12.5% of the deployable cash pool net of the Rs 12-14 Cr property reserve and Rs 50 L parents-care fund — a proportionate first-tranche AIF commitment that does not compress the property reserve materially.",
+          "The proposed action is structurally coherent with the deployment ramp-up narrative: 14-16 months post-exit, the investor remains at 86.6% cash, and a Rs 5 Cr AIF commitment is a measured step rather than an aggressive concentration move.",
+          "No prior advisor interaction history means no override events, no rejection pattern, and no reactive behaviour on record — the absence of negative signals is noted but cannot be treated as positive confirmation."
+        ],
+        "flags": [
+          "limited_history_flag",
+          "zero_prior_advisor_interactions",
+          "single_revealed_pattern_data_point",
+          "speed_preference_vs_illiquidity_tension",
+          "property_reserve_capital_call_timing_risk",
+          "rnor_to_resident_transition_behavioural_uncertainty",
+          "no_stated_vs_revealed_divergence_assessable"
+        ],
+        "reasoning_paragraph": "E4 activates on a proposed_action case for Arjun Menon with a materially constrained evidence base: zero prior advisor interactions are on record, and the sole revealed behavioural data point is the eight-year no-panic-sell pattern in the US brokerage holding. The limited_history flag is triggered; confidence is reduced to 0.58 accordingly. Within that constraint, the available signal is directionally supportive of the proposed action. Stated risk appetite (Aggressive, multi-decade stewardship) and the revealed illiquidity tolerance implied by the US equity holding are coherent with a Cat II private credit AIF at an 8-year operational horizon. The investor's self-directed cross-border tax optimisation on the exit transaction is a concrete data point establishing analytical engagement and structural comprehension above the median — the AIF's capital-call and waterfall mechanics are unlikely to be opaque to him. The Rs 5 Cr commitment represents 9.5% of liquid AUM and does not compress the Rs 12-14 Cr Sadashivanagar property reserve or the Rs 50 L parents-care fund if capital calls are staged across the standard 2-3 year draw-down window; however, the advisor must reconcile the capital-call schedule against the property purchase timeline explicitly, as a compressed or front-loaded call schedule could create a liquidity tension that conflicts with the investor's 12-month property intent. The one structural behavioural risk worth surfacing is the speed preference: Menon is documented as chafing at slow processes, and a Cat II AIF's illiquidity profile is the inverse of that preference. This is not a disqualifying divergence — his US holding demonstrates he can hold illiquid positions — but the advisor should ensure the investor's speed preference is consciously reconciled with the 8-year lock-in before commitment, not assumed away. No stated-vs-revealed divergence can be formally assessed given the history gap; the advisor relationship must develop revealed-pattern signal over the next 12-18 months before a full behavioural calibration is possible.",
+        "data_points_cited": [
+          "Rs 52.50 Cr cash balance (86.6% of liquid AUM)",
+          "Rs 4.00 Cr US brokerage legacy holding held 8 years, no panic selling recorded",
+          "Rs 5 Cr proposed ticket = 9.5% of Rs 60.65 Cr liquid AUM",
+          "Rs 5 Cr ticket vs deployable cash net of reserves: Rs 52.50 Cr minus Rs 14 Cr property reserve minus Rs 0.50 Cr parents-care = Rs 38 Cr deployable; Rs 5 Cr = 13.2% of deployable pool",
+          "Zero prior advisor interactions on record",
+          "14-16 months post-exit deployment ramp-up context",
+          "Stated risk appetite: Aggressive; horizon 6-9 years operational, multi-decade stewardship",
+          "Self-directed UAE-US-India exit tax routing (cross-border optimisation)",
+          "Stated Dubai-side AIF exposure (comfort with Cat II mechanics)",
+          "Rs 12-14 Cr Sadashivanagar property purchase intent within 12 months",
+          "Rs 50 L parents-care fund planned (separate consideration)",
+          "RNOR-to-Resident transition completed Q1 2027",
+          "Proposed AIF operational horizon: 8 years"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Vivriti Alpha Debt Fund (Cat II private credit AIF) (category: aif) of Rs 5 Cr, sourced from cash_balance) does not introduce unlisted equity exposure. Per principles §3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.52,
+        "drivers": [
+          "Gate: PASS — Investor structure is individual (Resident as of Q1 2027); AIF Cat II is an eligible product per str_002; proposed ticket Rs 5 Cr (Rs 500 L) clears SEBI minimum of Rs 100 L per sebi_009; no HUF or NRI structural blocker applies post-RNOR resolution.",
+          "Gate: Mandate-band tension flagged — Post-action equity allocation is 14.8% against a mandate band of 55–70%; the proposed Cat II private credit AIF is a debt/credit instrument, not an equity instrument, so it does not directly close the equity gap; the mandate's primary remediation need is equity deployment, not credit deployment; this action is not band-violating but is band-neutral at best.",
+          "Gate: Wrapper-count discipline — No existing PMS or AIF wrappers in portfolio; this is a first wrapper-tier commitment; no concentration-within-wrapper-tier concern at this stage.",
+          "Gate: Lock-in compatibility — Cat II AIF lock-in is structurally multi-year (commitment period plus investment period plus harvest period); the stated horizon of 8Y operational plus multi-vintage stewardship is compatible with typical Cat II vintage structures; no lock-in mismatch flagged.",
+          "Manager quality: Wrapper-level data not available in snapshot for this product class — Vivriti Alpha Debt Fund specific manager tenure, team depth, PM continuity, and prior-vintage track record are not disclosed in the snapshot; no figures are supplemented from training-data category averages or peer-fund estimates; manager quality dimension cannot be affirmatively rated.",
+          "Strategy consistency: Wrapper-level data not available in snapshot for this product class — Style stability, concentration discipline, portfolio turnover, and drift signals for this specific fund are not available; strategy consistency dimension cannot be affirmatively rated.",
+          "Fee normalisation: Wrapper-level data not available in snapshot for this product class — Management fee, performance fee, hurdle rate, high-water-mark mechanics, and expense ratio for Vivriti Alpha Debt Fund are not disclosed in the snapshot; blended bps calculation and comparison to comparable debt MF substitute cannot be performed; fee normalisation dimension cannot be completed.",
+          "Capacity: Wrapper-level data not available in snapshot for this product class — Strategy AUM and alpha-decay inflection trajectory are not available; capacity dimension cannot be affirmatively rated.",
+          "Capital-call reconciliation: Rs 5 Cr commitment to a capital-call-structured Cat II AIF must be reconciled against the Rs 12–14 Cr Sadashivanagar property reserve and the Rs 50 L parents-care fund; the source of funds is stated as cash balance; the current cash holding and its adequacy to absorb capital calls without impairing the property reserve or parents-care fund requires explicit liquidity mapping before commitment.",
+          "Residency transition: Arjun Menon transitioned from RNOR to Resident in FY 2026-27 (Q1 2027); the RNOR partial-year treatment edge case is flagged in the briefing; while the AIF commitment is framed as clean Resident-side deployment, CA confirmation of slab treatment and any partial-year NRE/NRO implications for the source funds is noted as outstanding per the briefing's own edge-case flag.",
+          "Commitment-period mechanics: Cat II AIF vintage structures typically involve a commitment period of 2–3 years, an investment period of 3–5 years, and a harvest period of 5–7 years; an 8Y operational horizon is consistent with this structure but the investor must be prepared for capital to be illiquid and non-redeemable during the investment period; liquidity window framing per dem_010 is practitioner practice, not authoritative, and should not be relied upon for liquidity planning.",
+          "Vintage stewardship framing: This is the first AIF commitment in the portfolio; multi-vintage stewardship implies subsequent commitments in future vintages; the current deployment ramp-up is 14–16 months in; the sequencing of this credit AIF commitment relative to the equity band gap (currently 14.8% vs 55–70% target) warrants sequencing scrutiny — equity band remediation has higher mandate priority.",
+          "Fee-disclosure governance: Absence of fee data in snapshot means the advisor (Rohan Kapoor) must obtain and present the fund's fee schedule, hurdle rate, and high-water-mark mechanics to the investor prior to commitment; this is a governance requirement, not merely an analytical gap."
+        ],
+        "flags": [
+          "wrapper_level_data_not_available_in_snapshot",
+          "manager_quality_cannot_be_rated_without_disclosed_data",
+          "fee_normalisation_incomplete_no_disclosed_fee_structure",
+          "capacity_dimension_unrateable_no_aum_data",
+          "equity_band_gap_not_addressed_by_this_action",
+          "capital_call_liquidity_reconciliation_required_against_property_reserve_and_parents_care_fund",
+          "rnor_partial_year_ca_confirmation_outstanding",
+          "dem_010_liquidity_window_is_practitioner_framing_not_authoritative",
+          "sequencing_concern_credit_aif_before_equity_band_remediation",
+          "fee_disclosure_governance_obligation_on_advisor_prior_to_commitment"
+        ],
+        "reasoning_paragraph": "E6 activates on a proposed Rs 5 Cr commitment to Vivriti Alpha Debt Fund, a Cat II private credit AIF, sourced from Arjun Menon's cash balance. The Gate sub-agent returns a structural pass: the investor is now a Resident individual (RNOR transition completed Q1 2027), AIF Cat II is an eligible product per str_002, and the Rs 5 Cr ticket clears the SEBI minimum of Rs 100 L per sebi_009. However, three dimensions of the standard five-sub-agent analysis — manager quality, strategy consistency, fee normalisation, and capacity — cannot be affirmatively rated because wrapper-level data for Vivriti Alpha Debt Fund is not available in the snapshot, and no figures have been supplemented from category averages or peer-fund estimates per the agent scope instruction. The risk level is set to elevated not because the product is structurally disqualified, but because the combination of four unrateable analytical dimensions, an outstanding capital-call liquidity reconciliation against the Rs 12–14 Cr Sadashivanagar property reserve and Rs 50 L parents-care fund, a mandate-architecture sequencing concern (equity band at 14.8% against a 55–70% target remains the primary remediation need and this action does not address it), and an unresolved RNOR partial-year CA confirmation creates a materially incomplete evidence base for a positive verdict at this stage. The commitment-period mechanics of a Cat II vintage are compatible with the stated 8Y horizon, and the demat requirement per chg_004 is noted as applicable. The advisor is obligated to obtain and present the fund's full fee schedule, hurdle rate, and high-water-mark mechanics to the investor prior to commitment; the liquidity window framing per dem_010 is practitioner practice and not authoritative for liquidity planning purposes. The overall E6 verdict is held at cannot_evaluate on the product-specific dimensions and positive_with_caution on the structural eligibility dimension, with the net read being that this action should not proceed until the data gaps, liquidity reconciliation, and sequencing rationale are resolved.",
+        "data_points_cited": [
+          "Proposed ticket: Rs 5 Cr (Rs 500 L)",
+          "SEBI AIF Cat I/II/III minimum ticket: Rs 100 L (sebi_009, authoritative)",
+          "Investor structure: individual, Resident as of Q1 2027 (RNOR transition completed FY 2026-27)",
+          "AIF eligible product for individual/rnor: str_002",
+          "Post-action equity allocation: 14.8%",
+          "Mandate equity band: 55–70%",
+          "Equity band gap: approximately 40–55 percentage points below lower bound",
+          "Liquid AUM: Rs 60.65 Cr",
+          "Cash balance (source of funds): not quantified in briefing beyond portfolio scope description",
+          "Sadashivanagar property reserve: Rs 12–14 Cr",
+          "Parents-care fund: Rs 50 L",
+          "Deployment ramp-up duration: 14–16 months",
+          "Stated investment horizon: 8Y operational plus multi-vintage stewardship",
+          "AIF units mandatory dematerialisation: chg_004 (eff 2023-01-01)",
+          "AIF Master Circular pro-rata pari-passu codification: chg_007 (eff 2024-05-07)",
+          "SEBI AIF Third Amendment 2025 (AIOF/LVF framework): chg_011 (eff 2025-11-18)",
+          "AIF liquidity window practitioner framing: dem_010 (confidence=indicative, not authoritative)",
+          "AIF units demat mechanics: dem_009",
+          "RNOR partial-year treatment edge case: flagged in briefing, CA confirmation outstanding",
+          "Wrapper-level data for Vivriti Alpha Debt Fund: not available in snapshot"
+        ]
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Vivriti Alpha Debt Fund (Cat II private credit AIF) (category: aif) of Rs 5 Cr, sourced from cash_balance) does not specifically target a mutual fund scheme, nor does the source involve an MF being exited or switched. Per principles §3.1, E7 activates when the case involves an MF scheme at the decision boundary. Where MF holdings contribute listed-equity look-through to a non-MF action, the look-through is handled by E1 at aggregate level rather than by E7 at scheme level."
+      }
+    ],
+    "router_decision": {
+      "caseMode": "proposed_action",
+      "caseIntent": "new_investment",
+      "dominantLens": "proposal_evaluation",
+      "e1": false,
+      "e2": false,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": true,
+      "e7": false,
+      "indianContext": true,
+      "portfolioRiskAnalytics": true,
+      "riskRewardStats": true,
+      "activated": [
+        "m0_indian_context",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e6_pms_aif_sif"
+      ],
+      "reasoning": "case_mode=proposed_action; case_intent=new_investment; target_category=aif; source_of_funds=cash_balance; listed_look_through=false; pms_or_aif=true; mf=false; unlisted=false"
+    },
+    "indian_context": {
+      "mode": "bulk",
+      "generated_by": "m0_indian_context_deterministic",
+      "store_versions": {
+        "tax_matrix": "1.1",
+        "sebi_boundaries": "1.2",
+        "structure_matrix": "1.0",
+        "demat_mechanics": "1.0",
+        "gift_city_routing": "1.0",
+        "regulatory_changelog": "1.0"
+      },
+      "investor_structure": {
+        "structure_type": "individual",
+        "residency": "rnor"
+      },
+      "tax_structure": "No product-specific tax-matrix entry matched the proposal and investor structure; advisor applies category defaults.",
+      "lock_in_mechanics": "AIF units, demat mandatory since 2023 [dem_009]; AIF units, liquidity window practitioner framing [dem_010]",
+      "regulatory_eligibility": "AIF minimum investment per investor, Cat I/II/III standard [sebi_009]; Accredited Investors only Fund (AIOF), unified umbrella category post 2025 Third Amendment [sebi_010]; Large Value Fund (LVF), AIOF sub-category with Rs 25 Cr per-investor threshold [sebi_011]; AIF fund corpus minimum [sebi_012]; AIF Category III leverage cap [sebi_013]",
+      "surcharge_implications": "No surcharge-band entry matched; standard slab surcharge applies per investor income tier.",
+      "structure_specific_considerations": "aif is an eligible product for individual/rnor [str_002]. | Individual non-resident (NRI), product eligibility constraints [str_002]; US Person, FATCA-driven product access constraints in India [str_009]",
+      "sebi_minimums": [
+        {
+          "product": "aif",
+          "min_ticket_inr": 10000000,
+          "min_ticket_cr": 1,
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_009",
+          "citation": "SEBI (Alternative Investment Funds) Regulations 2012; SEBI Master Circular for AIFs dated 2024-05-07",
+          "confidence": "authoritative"
+        }
+      ],
+      "applicable_regulatory_changes": [
+        {
+          "entry_id": "chg_004",
+          "topic": "AIF units mandatory dematerialisation",
+          "effective_date": "2023-01-01",
+          "affected_entries": [
+            "sebi_016",
+            "dem_009"
+          ]
+        },
+        {
+          "entry_id": "chg_007",
+          "topic": "AIF Master Circular consolidation and pro-rata pari-passu codification",
+          "effective_date": "2024-05-07",
+          "affected_entries": [
+            "sebi_022",
+            "sebi_023",
+            "sebi_010"
+          ]
+        },
+        {
+          "entry_id": "chg_011",
+          "topic": "SEBI AIF Third Amendment Regulations 2025 (AIOF framework, LVF unification, threshold reduction)",
+          "effective_date": "2025-11-18",
+          "affected_entries": [
+            "sebi_010",
+            "sebi_011",
+            "sebi_014",
+            "sebi_017"
+          ]
+        }
+      ],
+      "indicative_flags": [
+        "dem_010 (AIF units, liquidity window practitioner framing): confidence=indicative, practitioner_practice; surface to S1 as practitioner framing, not authoritative."
+      ],
+      "citations": [
+        {
+          "source_store": "tax_matrix",
+          "source_entry_id": "tds_004",
+          "topic": "TDS on AIF Cat I/II pass-through income to investor",
+          "citation": "Income Tax Act 1961, Section 194LBB introduced by Finance Act 2015",
+          "citation_source_type": "statute_section",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_009",
+          "topic": "AIF minimum investment per investor, Cat I/II/III standard",
+          "citation": "SEBI (Alternative Investment Funds) Regulations 2012; SEBI Master Circular for AIFs dated 2024-05-07",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_010",
+          "topic": "Accredited Investors only Fund (AIOF), unified umbrella category post 2025 Third Amendment",
+          "citation": "SEBI (Alternative Investment Funds) (Third Amendment) Regulations 2025 notified 2025-11-18; SEBI Circular dated 2025-12-08 on operational guidelines for AIOF migration; Regulation 13(5) replacement",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_011",
+          "topic": "Large Value Fund (LVF), AIOF sub-category with Rs 25 Cr per-investor threshold",
+          "citation": "SEBI (AIF) (Third Amendment) Regulations 2025 notified 2025-11-18; AIF Master Circular dated 2024-05-07 (clause 2.4.4); Regulation 13(5) as amended",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_012",
+          "topic": "AIF fund corpus minimum",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 10; SEBI AIF FAQs",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_013",
+          "topic": "AIF Category III leverage cap",
+          "citation": "SEBI Circular CIR/IMD/DF/10/2013 dated 2013-07-29",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_014",
+          "topic": "AIF investor count cap, 1000 per scheme",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 10(f); SEBI (AIF) (Third Amendment) Regulations 2025 for AI-only modification",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_015",
+          "topic": "AIF Category I and II close-ended requirement",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 13",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_016",
+          "topic": "AIF mandatory dematerialisation of units",
+          "citation": "SEBI Circular on AIF unit dematerialisation 2023",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_017",
+          "topic": "Accredited Investor eligibility, individual filer",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 2(ab); SEBI Master Circular for AIFs dated 2024-05-07 (Chapter 12 Framework for Accredited Investors); SEBI Circular dated 2021-08-26",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_022",
+          "topic": "SEBI 2024 AIF Master Circular consolidation",
+          "citation": "SEBI Master Circular for AIFs dated 2024-05-07",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_023",
+          "topic": "SEBI 2024 pro-rata pari-passu rights for AIF investors",
+          "citation": "SEBI (AIF) (Amendment) Regulations 2024 notified 2024-11-18; SEBI Circular dated 2024-12-13 on pro-rata and pari-passu rights",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_024",
+          "topic": "SEBI 2025 Co-Investment Vehicle (CIV) framework for AIF Cat I/II",
+          "citation": "SEBI Circular on CIV framework dated 2025-09-09",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_002",
+          "topic": "Individual non-resident (NRI), product eligibility constraints",
+          "citation": "FEMA 1999 and Master Direction on Investment Activities; SEBI (Portfolio Managers) Regulations 2020 client eligibility; RBI Master Direction on NRE/NRO accounts",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_009",
+          "topic": "US Person, FATCA-driven product access constraints in India",
+          "citation": "FATCA Intergovernmental Agreement (IGA) between US and India signed 2015-07-09; US Internal Revenue Code Sections 1471-1474 (FATCA); IRS PFIC regulations under IRC Section 1297",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_009",
+          "topic": "AIF units, demat mandatory since 2023",
+          "citation": "SEBI Circular on AIF unit dematerialisation 2023; cross-reference sebi_boundaries.sebi_016",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_010",
+          "topic": "AIF units, liquidity window practitioner framing",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 13 (Cat I/II close-ended requirement); PPM terms scheme-specific",
+          "citation_source_type": "practitioner_practice",
+          "confidence": "indicative"
+        }
+      ],
+      "edge_cases_flagged": [
+        "RNOR_partial_year_treatment: residency resolved as RNOR (transition); NRE/NRO and slab treatment require CA confirmation for the partial year."
+      ],
+      "reasoning_trace": "Deterministic retrieval over six curated stores. Resolved investor structure individual/rnor; product axis [aif_cat_i, aif_cat_ii, aif_cat_iii]; 17 entries matched (1 indicative); 3 regulatory-changelog events effective on/before 2027-04-01.",
+      "raw": {
+        "matched_entry_ids": [
+          "tax_matrix:tds_004",
+          "sebi_boundaries:sebi_009",
+          "sebi_boundaries:sebi_010",
+          "sebi_boundaries:sebi_011",
+          "sebi_boundaries:sebi_012",
+          "sebi_boundaries:sebi_013",
+          "sebi_boundaries:sebi_014",
+          "sebi_boundaries:sebi_015",
+          "sebi_boundaries:sebi_016",
+          "sebi_boundaries:sebi_017",
+          "sebi_boundaries:sebi_022",
+          "sebi_boundaries:sebi_023",
+          "sebi_boundaries:sebi_024",
+          "structure_matrix:str_002",
+          "structure_matrix:str_009",
+          "demat_mechanics:dem_009",
+          "demat_mechanics:dem_010"
+        ]
+      }
+    },
+    "materiality": {
+      "fires": true,
+      "reason": "G1 returned fail; hard block escalates to committee. Verdict requires clarification with e3_macro_policy_news at risk_level elevated. Verdict requires clarification at confidence 0.70 below 0.80 threshold. Ticket size Rs 5 Cr at or above the Rs 5 Cr institutional escalation threshold. 3 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "gate_blocked",
+        "verdict_with_severity_flag",
+        "verdict_with_low_confidence",
+        "ticket_size_threshold",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The committee convenes on whether a Rs 5 Cr commitment to Vivriti Alpha Debt Fund, a Cat II private credit AIF, is defensible as a first wrapper-tier deployment when the portfolio carries a hard mandate breach (equity at 6.6% against a 55-70% floor, under by 48.4 percentage points) and the proposed credit instrument is band-neutral to equity remediation. The structural eligibility picture is clean: SEBI gates pass, advisor authority passes, investor structure is clean post-RNOR resolution, and the 8-year operational horizon is coherent with Cat II vintage mechanics. The deliberation is not whether the product can be held, but whether this action at this point in the deployment sequence is sequenced correctly against the mandate architecture and whether the evidence base for a positive verdict is materially complete.",
+          "Three reinforcing tensions emerge across the sub-role evaluations. First, the sequencing concern: the mandate's primary remediation need is equity deployment to close a 48.4pp floor gap, and committing Rs 5 Cr to an 8-year illiquid credit wrapper before any equity deployment has occurred locks behavioural and liquidity capacity into the lowest-priority bucket while the highest-priority bucket remains unaddressed; this is not a structural disqualification but a precedent-setting sequencing inversion that the Risk Assessor flags as unbounded if equity remediation delays and that the Devil's Advocate treats as a gating issue. Second, the wrapper-evaluability gap: E6 cannot affirmatively rate four of five standard dimensions (manager quality, strategy consistency, fee normalisation, capacity) for Vivriti Alpha Debt Fund because wrapper-level data is absent from the snapshot, and E4's behavioural confidence sits at 0.58 against a limited_history flag with zero prior advisor interactions and a single revealed-pattern data point; the committee is being asked to bless a fund-specific Rs 5 Cr commitment on the strength of category-level eligibility, not fund-level diligence. Third, the liquidity reconciliation: the capital-call schedule has not been mapped against the Rs 12-14 Cr Sadashivanagar property reserve and Rs 50 L parents-care fund, and the Risk Assessor flags this as bounded under standard 25-30% annual draws but tight under compressed front-loading, while the Devil's Advocate treats the unreconciled schedule as a precondition that should be resolved before approval rather than flagged for post-commitment governance. The macro overlay per E3 (Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April) tightens the systemic liquidity backdrop against which these unreconciled capital calls will operate.",
+          "The Counterfactual Engine surfaces five alternative paths that organise around sequencing, sizing, and structural substitution: equity-first deployment of Rs 25-35 Cr to restore mandate architecture before adding Alternatives-bucket commitments; a smaller first-tranche AIF ticket at or near the SEBI minimum (Rs 1-1.5 Cr) as a calibration tranche pending wrapper-data completion; a debt-MF substitute that delivers comparable credit exposure with daily liquidity and disclosed expense ratios pending wrapper-evaluability; a conditional commitment gated on fee schedule, capital-call schedule, and RNOR partial-year tax confirmation; or a split deployment combining partial equity remediation (Rs 20-25 Cr) with a reduced AIF tranche (Rs 2-2.5 Cr). None of these alternatives presume the credit AIF is unsuitable in the long run; multi-vintage Cat II stewardship remains coherent with the stated 8-year operational horizon. The institutional read is that the proposal does not clear the committee as currently framed because the combination of a hard mandate breach with sequencing implications, four unrateable wrapper dimensions, an unreconciled liquidity schedule, and an outstanding RNOR partial-year tax confirmation leaves the evidence base materially incomplete for a positive verdict. The proposal is not structurally rejectable, but the binding constraints are mandate sequencing and wrapper-evaluability, not product-category eligibility."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "This committee convenes on a Rs 5 Cr commitment to Vivriti Alpha Debt Fund, a Cat II private credit AIF, proposed for Arjun Menon 14-16 months into a post-exit deployment ramp-up. The structural eligibility picture is clean: G2 SEBI gate passes (Rs 500 L ticket clears the Rs 100 L Cat II minimum per sebi_009), G3 advisor authority passes, E6's Gate sub-agent passes on investor structure and product eligibility post-RNOR resolution, and the 8Y operational horizon is coherent with Cat II vintage mechanics on both E4 and E6 reads. The committee is not deliberating whether the product can be held; it is deliberating whether this is the right action at this point in the deployment sequence.",
+          "Three tensions sit beneath the materiality trigger. First, G1 prints a hard mandate breach: post-action equity sits at 6.6% against a 55-70% band (under by 48.4pp) and cash at 78.3% against a 2-10% band (over by 68.3pp), and a credit AIF is band-neutral against an equity-floor gap. E6 surfaces this as a sequencing concern — the mandate's primary remediation need is equity deployment, not credit deployment — while E4 reads the action as a measured first-tranche commitment without weighting the sequencing question. Second, E6 cannot affirmatively rate four of its five standard dimensions (manager quality, strategy consistency, fee normalisation, capacity) because wrapper-level data for Vivriti Alpha Debt Fund is absent from the snapshot, and E4's confidence sits at 0.58 against a limited_history_flag with zero prior advisor interactions and a single revealed-pattern data point; the evidence base is materially thin on both the product side and the relationship side. Third, E3 returns elevated on a bifurcated macro read where supportive domestic credit fundamentals (6.8% GDP, 14.3% credit growth, RBI Accommodative at 4.75%) coexist with a stagflationary external shock complex (Brent $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April), and a capital-call schedule that has not been reconciled against the Rs 12-14 Cr Sadashivanagar property reserve or the Rs 50 L parents-care fund.",
+          "The counterfactual is already on the table: S1 frames an equity-first sequencing alternative (staged listed-equity or equity-MF deployment of Rs 25-35 Cr to move the portfolio toward the 55-70% band, with the credit AIF sequenced behind that remediation). The committee's task is to test whether the credit AIF commitment is defensible now as a first wrapper-tier deployment despite the mandate-architecture sequencing concern, or whether the structural sequencing question dominates the product-level case. DevilsAdvocate should pressure-test the sequencing rationale and the four unrateable wrapper dimensions; RiskAssessor should stress-test the capital-call schedule against the property reserve under the elevated external-stress overlay; CounterfactualEngine should evaluate the equity-first alternative and any staged-commitment structures that could reconcile the tensions."
+        ],
+        "deliberation_question": "Does the Rs 5 Cr Cat II private credit AIF commitment hold as a defensible first wrapper-tier deployment when four of five wrapper-evaluation dimensions are unrateable and the action does not remediate a 48.4pp equity-floor breach that the mandate architecture prioritises?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The strongest case against this proposal is not that Vivriti Alpha Debt Fund is structurally ineligible — it clears every SEBI gate and the investor structure is clean post-RNOR — but that the ticket appears to have been sized against product availability rather than against the mandate architecture. G1 prints a hard breach with equity at 6.6% against a 55-70% floor (under by 48.4pp) and cash at 78.3% against a 2-10% ceiling (over by 68.3pp); the proposed action moves Alternatives from 0% into the 5-20% band but is band-neutral against the dominant remediation need. Sequencing matters in mandate architectures: the first deployment from a 78% cash position sets the precedent for what 'deployment' means in this relationship, and committing Rs 5 Cr to an 8-year illiquid credit wrapper before any equity deployment has occurred locks behavioural and liquidity capacity into the lowest-priority bucket while the highest-priority bucket remains unaddressed.",
+          "The evidence base for a positive verdict is materially incomplete on three reinforcing dimensions. First, E6 cannot affirmatively rate four of its five standard wrapper dimensions — manager quality, strategy consistency, fee normalisation, and capacity — because wrapper-level data for Vivriti Alpha Debt Fund is absent from the snapshot; the committee is being asked to bless a Rs 5 Cr commitment to a specific fund on the strength of category-level eligibility, not fund-level diligence. Second, E4's confidence sits at 0.58 against a limited_history flag, with one revealed-pattern data point and zero prior advisor interactions; the relationship has not yet generated the behavioural signal needed to calibrate whether an 8-year illiquid lock-in matches Menon's revealed (not stated) tolerance under stress. Third, the capital-call schedule has not been reconciled against the Rs 12-14 Cr Sadashivanagar property reserve or the Rs 50 L parents-care fund, and E3 overlays this against a stagflationary external shock complex (Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April) that elevates the cost of any forced-liquidity event during the call window.",
+          "The proposal is not structurally rejectable, but as currently framed it should not clear the committee. The case for modification rather than outright rejection rests on a defensible alternative already on the table — equity-first sequencing of Rs 25-35 Cr toward the band, with the Cat II credit AIF deferred to a later vintage once the mandate architecture is restored and the fund-level data gaps closed. The committee should treat the wrapper-data absence and the sequencing concern as gating issues, not as conditions to be managed post-commitment."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Sequencing precedent against the mandate architecture",
+            "body": "The first deployment from a 78.3% cash position will anchor the deployment pattern for the relationship; committing Rs 5 Cr to an 8-year illiquid credit wrapper before any equity deployment leaves the 48.4pp equity-floor gap untouched and consumes deployable capital that the mandate prioritises for equity remediation. The committee should resolve whether sequencing the credit AIF ahead of equity-band remediation is a defensible reading of the mandate architecture or an inversion of it."
+          },
+          {
+            "title": "Fund-level diligence absent on four of five wrapper dimensions",
+            "body": "E6 returns cannot_evaluate on manager quality, strategy consistency, fee normalisation, and capacity because wrapper-level data for Vivriti Alpha Debt Fund is not in the snapshot. The committee should not approve a Rs 5 Cr fund-specific commitment on the strength of category-level eligibility; the fee schedule, hurdle, high-water-mark, prior-vintage track record, and strategy AUM must be on the table before approval, not as post-commitment governance items."
+          },
+          {
+            "title": "Behavioural calibration window is too thin for an 8-year lock-in",
+            "body": "E4's 0.58 confidence rests on a single revealed-pattern data point and zero prior advisor interactions; the stated speed preference and the 8-year illiquidity profile are in direct tension with no relationship history to mediate the divergence. The committee should resolve whether a first wrapper-tier commitment of this duration is appropriate before any revealed-pattern signal has developed in the advisor relationship."
+          },
+          {
+            "title": "Capital-call reconciliation against the property reserve is unresolved",
+            "body": "The Rs 12-14 Cr Sadashivanagar property reserve and Rs 50 L parents-care fund create concurrent liquidity claims on the cash balance, and the AIF's commitment-period mechanics typically draw across a 2-3 year window. The committee should require an explicit capital-call schedule mapped against the property purchase timeline before approval, not flagged for later reconciliation."
+          },
+          {
+            "title": "External-stress overlay magnifies forced-liquidity cost",
+            "body": "E3 surfaces an elevated external shock complex — Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April — that constrains RBI's cutting room and tightens systemic liquidity. The committee should resolve whether deploying into illiquid 8-year capital-call structures at this point in the external-stress cycle is sequenced correctly relative to a staged liquid deployment that preserves optionality."
+          },
+          {
+            "title": "Ticket sized against product, not against architecture",
+            "body": "Rs 5 Cr is the SEBI minimum-clearing ticket for Cat II AIF, not a position-sized commitment derived from the portfolio architecture or a tested capital-call envelope. The committee should resolve whether a smaller staged commitment, or deferral until fund-level data and the equity-first sequence are resolved, is the more defensible position."
+          },
+          {
+            "title": "RNOR partial-year tax confirmation outstanding",
+            "body": "The RNOR-to-Resident transition completed in Q1 2027 and the briefing flags CA confirmation of partial-year slab and NRE/NRO treatment as outstanding. The committee should not approve a Rs 5 Cr commitment with the tax treatment of the source funds unconfirmed."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposal stress-tests poorly not because the Cat II credit AIF is structurally unsound but because the surrounding architecture is materially incomplete. Under Scenario 1 (timing), the G1 gate already prints a hard mandate breach pre-stress: equity at 6.6% against a 55-70% floor (under by 48.4pp) and cash at 78.3% against a 2-10% ceiling (over by 68.3pp). The Rs 5 Cr Cat II commitment is band-neutral to equity remediation per E6, so any timing scenario that delays subsequent equity deployment leaves the mandate breach unresolved for longer; this is bounded if equity sequencing follows promptly and unbounded if the credit AIF becomes the de facto first-and-only deployment for an extended window. Under Scenario 3 (liquidity), the capital-call schedule against the Rs 12-14 Cr Sadashivanagar property reserve and Rs 50 L parents-care fund is unreconciled — a front-loaded 60-70% draw in years 1-2 would consume Rs 3.0-3.5 Cr against a deployable pool that must simultaneously fund a property purchase within 12 months. Bounded if calls stage standard 25-30% per annum; tight if compressed; the reconciliation work has not been done.",
+          "Concentration stress (Scenario 2) is the most contained dimension: this is a first-wrapper-tier commitment with no existing PMS or AIF holdings, so manager-level, sector-level, and vintage-level concentration do not yet exist. However, manager-counterparty stress (Scenario 4) is materially unrateable rather than bounded: E6 explicitly cannot affirmatively rate manager quality, strategy consistency, fee normalisation, or capacity for Vivriti Alpha Debt Fund because wrapper-level data is absent from the snapshot. A PM-departure or operational event at the manager during the 8-year lock-in has no recovery pathway visible in the current evidence base — not because the pathway is closed, but because the pathway has not been characterised. This is a data-gap risk, not a quantified-tail risk, and the committee should treat it as such.",
+          "The macro overlay per E3 (Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows Rs 56,401 Cr in April, 10Y G-Sec at 6.99% with 44bps rise) does not directly break the proposal but tightens the systemic liquidity backdrop against which the unreconciled capital-call schedule operates. Compounding stress — simultaneous property-purchase draw, capital-call front-loading, and a domestic liquidity tightening from external balance pressure — is the scenario where multiple bounded risks transition to a compound exposure. The recommended conditions below are concrete and address the dimensions where the evidence base is recoverable; the wrapper-data gap and the sequencing question against the mandate breach are not recoverable through conditions alone."
+        ],
+        "specific_risks": [
+          {
+            "title": "Mandate breach sequencing risk (unbounded if equity remediation delays)",
+            "body": "G1 prints equity under by 48.4pp and cash over by 68.3pp post-action; the credit AIF is band-neutral per E6, so the mandate breach persists post-commitment. Bounded only if a concrete equity deployment schedule is committed alongside this action; unbounded if the Cat II AIF becomes the first-and-only deployment for an extended window."
+          },
+          {
+            "title": "Capital-call liquidity reconciliation against property reserve",
+            "body": "Rs 5 Cr commitment against an unspecified call schedule, simultaneous with a Rs 12-14 Cr Sadashivanagar property purchase within 12 months and a Rs 50 L parents-care fund. Standard 25-30% annual draws are absorbable from the Rs 52.50 Cr cash balance; a compressed 60-70% year-1-2 draw plus property closure creates a narrow liquidity window that has not been mapped."
+          },
+          {
+            "title": "Lock-in illiquidity with no authoritative liquidity window",
+            "body": "Cat II AIF 8-year operational lock-in spans commitment, investment, and harvest periods; dem_010 liquidity window framing is flagged confidence=indicative and is practitioner practice, not authoritative. The investor cannot rely on secondary liquidity for the duration of the lock-in and any recovery pathway under stress depends on manager-specific transfer mechanics not disclosed in the snapshot."
+          },
+          {
+            "title": "Manager counterparty stress unrateable",
+            "body": "E6 cannot affirmatively rate manager quality, strategy consistency, fee normalisation, or capacity for Vivriti Alpha Debt Fund because wrapper-level data is absent from the snapshot. PM-departure, operational event, or capacity decay scenarios over the 8-year lock-in have no characterised recovery pathway; this is a data-gap risk, not a quantified-tail risk."
+          },
+          {
+            "title": "Fee structure undisclosed prior to commitment",
+            "body": "Management fee, performance fee, hurdle rate, and high-water-mark mechanics for Vivriti Alpha Debt Fund are not in the snapshot, so blended bps versus a comparable debt-MF substitute cannot be computed. Under fee-stress scenarios (e.g., performance fee crystallisation at hurdle inflection), the investor's net-of-fee outcome cannot be quantified."
+          },
+          {
+            "title": "Macro compounding overlay against unreconciled liquidity",
+            "body": "E3 elevates risk on Brent at $118.95 with Hormuz disruption, INR down 10.7%, FII outflows of Rs 56,401 Cr in April, and 10Y G-Sec volatility (6.99%, up 44bps). The external stress complex tightens domestic liquidity conditions against which the unreconciled capital-call schedule and property-reserve drawdown will operate; bounded individually, compound under simultaneous fire."
+          },
+          {
+            "title": "RNOR partial-year tax treatment outstanding",
+            "body": "Menon's RNOR-to-Resident transition completed Q1 2027; the briefing's own edge-case flag notes CA confirmation of slab treatment and partial-year NRE/NRO implications is pending. The Indian Context block confirms no product-specific tax-matrix entry matched, so category defaults apply — under an adverse CA reading on partial-year treatment, the source-of-funds tax characterisation could shift."
+          },
+          {
+            "title": "Behavioural evidence base materially thin",
+            "body": "E4 flags limited_history at confidence 0.58 with zero prior advisor interactions and a single revealed-pattern data point. Under a stress scenario where the investor's documented speed preference collides with the 8-year illiquidity profile mid-cycle, there is no behavioural track record to anchor a recovery-pathway assessment."
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal stress-tests not on the merits of Cat II private credit as an asset class but on sequencing, sizing, and evidence completeness. The G1 gate prints a hard mandate breach pre-action (equity 6.6% against a 55-70% floor, cash 78.3% against a 2-10% ceiling), and the proposed credit AIF is band-neutral to equity remediation per E6 — meaning the architecture's primary remediation need (equity deployment) is not addressed by this action. Concurrently, four of five E6 wrapper-evaluation dimensions for Vivriti Alpha Debt Fund (manager quality, strategy consistency, fee normalisation, capacity) are unrateable from the snapshot, and the Rs 5 Cr capital-call schedule has not been reconciled against the Rs 12-14 Cr Sadashivanagar property reserve or the Rs 50 L parents-care fund.",
+          "The counterfactual space therefore organises around three vectors: sequencing (equity-first deployment to restore mandate architecture before adding Alternatives-bucket commitments), sizing (smaller first-tranche AIF tickets that preserve property-reserve liquidity headroom and limit exposure to the unrateable manager dimensions), and structural substitution (whether a Cat II credit AIF is the right vehicle at this stage versus a debt-MF substitute that delivers comparable credit exposure with liquidity, lower fee opacity, and no 8-year lock-in against an unrateable manager). Timing paths (FY26-27 boundary staging) are weaker here because the binding constraints are mandate sequencing and wrapper-evaluability, not tax efficiency.",
+          "None of the alternatives below presume the credit AIF is unsuitable in the long run; multi-vintage Cat II stewardship remains coherent with the stated 8-year operational horizon. The alternatives differ on whether to proceed now (with what mitigations), proceed later (after what remediation), or substitute the wrapper with a more transparent vehicle pending wrapper-data completeness."
+        ],
+        "alternative_paths": [
+          {
+            "label": "Equity-first deployment, credit AIF sequenced behind",
+            "description": "Defer the Rs 5 Cr Cat II commitment; deploy Rs 25-35 Cr from cash into staged listed-equity or equity-MF positions over 6-9 months to move the portfolio toward the 55-70% equity floor, then revisit the credit AIF once mandate architecture is restored. Addresses the G1 mandate breach sequencing risk and the amplification flag that the credit AIF could become the first-and-only deployment for an extended window."
+          },
+          {
+            "label": "Smaller first-tranche AIF ticket at SEBI minimum",
+            "description": "Reduce the commitment to Rs 1-1.5 Cr (at or marginally above the SEBI Rs 100 lakh minimum per sebi_009, authoritative) as a calibration tranche while wrapper-level data on Vivriti is obtained and the property-reserve capital-call schedule is reconciled. Addresses the capital-call liquidity reconciliation risk, the unrateable manager-counterparty exposure, and the fee-disclosure governance gap by limiting Rs-at-risk during the data-completion window."
+          },
+          {
+            "label": "Debt-MF substitute pending wrapper-data completeness",
+            "description": "Deploy Rs 5 Cr into a comparable open-ended credit-risk or corporate-bond mutual fund that delivers directional credit exposure with daily liquidity, disclosed expense ratios, and no 8-year lock-in; hold the Cat II AIF commitment in reserve until manager quality, strategy consistency, fee normalisation, and capacity are affirmatively rateable from disclosed wrapper data. Addresses the four unrateable E6 dimensions, the indicative-only dem_010 liquidity-window framing, and the lock-in illiquidity risk against the macro compounding overlay."
+          },
+          {
+            "label": "Conditional commitment with fee and call-schedule disclosure precondition",
+            "description": "Proceed with the Rs 5 Cr commitment only after the advisor obtains and presents Vivriti's full fee schedule (management fee, performance fee, hurdle rate, high-water-mark mechanics), an authoritative capital-call schedule, and reconciles the call schedule against the Rs 12-14 Cr property-reserve window and Rs 50 L parents-care fund; require CA confirmation on RNOR partial-year treatment per the briefing edge-case flag. Addresses the fee-structure undisclosed risk, the capital-call reconciliation risk, and the RNOR partial-year tax treatment outstanding."
+          },
+          {
+            "label": "Split deployment: partial equity remediation plus reduced AIF tranche",
+            "description": "Deploy Rs 20-25 Cr into staged equity instruments to move equity allocation materially toward the floor band, and commit Rs 2-2.5 Cr to the Cat II credit AIF as a measured first wrapper-tier position rather than the full Rs 5 Cr. Addresses the mandate breach sequencing risk while preserving the multi-vintage Cat II stewardship intent and limiting exposure to the unrateable manager dimensions during the relationship's behavioural-history-thin window flagged by E4."
+          }
+        ]
+      }
+    },
+    "usage_summary": {
+      "s1_input_tokens": 17825,
+      "s1_output_tokens": 4559,
+      "a1_input_tokens": 20984,
+      "a1_output_tokens": 3004,
+      "ic1_chair_input": 18031,
+      "ic1_chair_output": 1233,
+      "ic1_devils_advocate_input": 18937,
+      "ic1_devils_advocate_output": 2207,
+      "ic1_risk_assessor_input": 18001,
+      "ic1_risk_assessor_output": 2393,
+      "ic1_counterfactual_engine_input": 20587,
+      "ic1_counterfactual_engine_output": 1844,
+      "ic1_minutes_recorder_input": 9267,
+      "ic1_minutes_recorder_output": 974,
+      "generated_at": "2026-05-21T06:37:40.334Z"
+    }
+  },
+  "tokenUsage": {
+    "s1_input_tokens": 17825,
+    "s1_output_tokens": 4559,
+    "a1_input_tokens": 20984,
+    "a1_output_tokens": 3004,
+    "ic1_chair_input": 18031,
+    "ic1_chair_output": 1233,
+    "ic1_devils_advocate_input": 18937,
+    "ic1_devils_advocate_output": 2207,
+    "ic1_risk_assessor_input": 18001,
+    "ic1_risk_assessor_output": 2393,
+    "ic1_counterfactual_engine_input": 20587,
+    "ic1_counterfactual_engine_output": 1844,
+    "ic1_minutes_recorder_input": 9267,
+    "ic1_minutes_recorder_output": 974,
+    "generated_at": "2026-05-21T06:37:40.334Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 1 proposal evaluation for Arjun Menon, set FY 2026-27 post-RNOR (snapshot t4_q2_2027). Rs 5 Cr Cat II private credit AIF commitment. RNOR mechanics out of scope (ref P1). Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024)."
+}
