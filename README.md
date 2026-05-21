@@ -2,6 +2,20 @@
 
 An agentic AI decision-support platform for wealth advisory, currently in the Lean MVP build phase, targeting Indian HNI wealth advisors. It turns a portfolio plus an investor mandate into an evidence-backed, audit-defensible diagnostic that an advisor can carry into a client meeting. The build is legibility-first: the codebase carries its own reasoning (decisions, working agreements, debt, and audits are all in-repo), so a future review is a query against existing records, not archaeology.
 
+## Data Setup
+
+The snapshot and curated investor data this pipeline reads are **proprietary** and are not tracked in this repository (for licensing and proprietary-edge reasons). They live in a private companion repo, [`ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots`](https://github.com/ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots), published as versioned GitHub release assets. The release this repo expects is pinned in `data-version.txt`. See ADR-0027 (`docs/decisions/0027_snapshot_data_access_via_private_releases.md`) for the access model.
+
+First-time setup after cloning:
+
+1. Install dependencies: `npm install`.
+2. Install the GitHub CLI (`gh`) and authenticate: `gh auth login`.
+3. Ensure your GitHub account has read access to the private data repo. If it does not, request access from Shubham.
+4. Fetch the data: `npm run setup-data`. This reads `data-version.txt`, downloads that release's assets, verifies each against the release manifest (SHA256), and copies them to the paths the code expects (`fixtures/snapshots/enriched/`, `db/fixtures/structured_*.json`, `db/fixtures/raw/`, `scripts/sector_map.json`). The fetched files are git-ignored and never re-enter version control.
+5. Initialise and seed the local store: `npm run db:push` then `npm run db:seed`.
+
+After that, the usual commands (`npm run dev`, the `scripts/_verify-*.ts` checks, etc.) work normally. Re-run `npm run setup-data` whenever `data-version.txt` changes.
+
 ## Samriddhi 1 vs Samriddhi 2
 
 Two distinct case modes.
