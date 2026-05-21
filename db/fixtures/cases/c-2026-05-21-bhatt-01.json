@@ -1,0 +1,905 @@
+{
+  "id": "c-2026-05-21-bhatt-01",
+  "investorId": "bhatt",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s1",
+  "severity": "escalate",
+  "headline": "negative: The synthesis returns a high-risk, negative verdict driven by structural fault lines that compound rather than offset.",
+  "status": "ready",
+  "frozenAt": "2026-05-21T06:39:04.735Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "Shailesh Bhatt, a partnership-firm resident investor with Rs 22.1 Cr in advisory liquid AUM across 12 holdings, proposes a Rs 2 Cr fresh-inflow allocation to Ambit Build India Portfolio, an infrastructure and capital-goods thematic PMS sourced through an Ahmedabad textile-exporter peer three years into the strategy. The allocation is targeted for this quarter with no offsetting exit from the existing four PMS positions (Marcellus, White Oak, Motilal Oswal, Alchemy), taking PMS wrapper count to five and wrapper-aggregate exposure from approximately 39% to approximately 45% of liquid AUM. The mandate carries a 60-70% equity band on an annual review cadence; the portfolio currently sits at 72.2% equity (2.2pp above ceiling) and the proposed action moves equity to 74.5%, widening the breach. Daughter Aanchal Bhatt (IIM-B finance) has expressed analytical skepticism about the under-differentiated PMS stack; Shailesh acknowledges her view and is proceeding."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "negative",
+        "overall_risk_level": "high",
+        "confidence": 0.82,
+        "consensus_areas": [
+          "Wrapper-architecture deterioration: E1, E2, E4, and E6 all flag the rise to five PMS positions at ~45% of AUM without offsetting exit as additive opacity and oversight burden",
+          "Mandate-band breach widening: E3, E4, E6, and G1 all identify the equity band moving from 72.2% to 74.5% (4.5pp above ceiling post-action) as a structural concern compounded rather than corrected",
+          "Thematic cyclicality concentration: E1, E2, E3, and E6 converge on infrastructure/capital-goods exposure as additive cycle-timing risk on top of existing quality-compounder mandates, not diversifying",
+          "Acquisition-pathway pattern: E4 and E6 both name the peer-referral sourcing as recency-and-social-proof, replicating the mechanism that produced the existing undifferentiated PMS stack",
+          "Data thinness on target product: E6 (and E1 by implication) flag single 1Y return of 5.65%, undisclosed manager tenure, undisclosed HWM, and Rs 33.52 Cr AUM as insufficient evidentiary base for the fee premium"
+        ],
+        "conflict_areas": [
+          "Sector-thesis horizon vs entry-window timing: E2 and E3 both affirm the multi-year structural case for Indian infrastructure (capex cycle, FY26 Rs 11.11L Cr allocation) while simultaneously flagging mid-to-late cycle entry timing and acute external shocks (Brent at $118.95, INR at 94.79, FII outflows Rs 56,401 Cr in April); the thesis is not in dispute, the entry calculus is",
+          "Stock-level fundamentals adequacy vs wrapper-level opacity: E1 reads the visible direct-equity sleeve as moderate-quality (ITC strong, HDFC Bank in post-merger compression, Reliance pricing optionality) but cannot extend that read to the ~39% PMS aggregate; the synthesis cannot reconcile a partial-visibility positive with a majority-opacity unknown"
+        ],
+        "amplification_flags": [
+          "Mandate breach + wrapper accumulation + counter-directional cleanup arc: G1 requires clarification on equity ceiling breach, E6 fails the Gate on band and wrapper count, and E4 identifies the action as counter-directional to an active cleanup inflection — three layers converging on the same structural fault line",
+          "Thematic cyclicality + macro entry-window stress: E2's mid-to-late cycle warning combines with E3's crude shock, INR depreciation, FII outflow, and long-end yield rise to produce compounded entry-timing risk that neither agent's verdict captures alone",
+          "Peer-referral acquisition + family dissent unresolved + fee premium not earned: E4's behavioural pattern read, the Aanchal friction, and E6's ~155-175 bps fee premium without supporting alpha evidence combine into a process-quality concern that materially compromises the analytical basis for the action",
+          "Data thinness + manager opacity + low AUM: E6's track-record thinness (single 1Y point), undisclosed manager tenure, undisclosed HWM, and Rs 33.52 Cr AUM together represent an evidentiary gap that no other agent can backfill"
+        ],
+        "narrative_paragraph": "The synthesis returns a high-risk, negative verdict driven by structural fault lines that compound rather than offset. The mandate-band picture is the spine of the concern: the portfolio enters this decision already 2.2pp above the equity ceiling, the proposed action widens the breach to 4.5pp above ceiling, and G1 returns requires_clarification on four bands simultaneously (equity over, debt under, alternatives over, cash under) — this is not a marginal band-management question but an architectural one. E6's product-level analysis fails the Gate on independent grounds before alpha evaluation is reached: post-action wrapper count of five PMS mandates at ~45% wrapper aggregate, manager tenure and HWM undisclosed, single 1Y return of 5.65% trailing the 12% hurdle, and a fee premium of approximately 155-175 bps over comparable infrastructure MF alternatives that the available alpha evidence does not support. E2 and E3 affirm the multi-year structural case for Indian infrastructure but jointly flag that the current entry window carries acute external shocks (Brent +86% YoY on Hormuz, INR -10.7%, FII outflows Rs 56,401 Cr in April, 10Y yield up 44 bps) and mid-to-late cycle execution risk — the thematic thesis is sound, the entry timing is not. E4's behavioural read names the action as counter-directional to an active cleanup arc: all four existing PMS positions were acquired via the same peer-referral mechanism this proposal replicates, Aanchal's December 2025 structured critique of the wrapper stack is unresolved rather than addressed, and the stated-vs-revealed risk-tolerance divergence persists. E1 reads the visible direct-equity sleeve as fundamentally adequate but cannot extend that read to the dominant opaque wrapper layer the proposed action would deepen. The convergence of mandate breach, wrapper accumulation, thematic cyclicality at a stressed entry window, peer-referral sourcing without analytical basis, family dissent unresolved, and product-level data thinness produces a coherent structural picture: the proposed action moves the portfolio away from the cleanup trajectory rather than toward it.",
+        "counterfactual_framing": "The structured alternative is to defer the Rs 2 Cr commitment, deploy the fresh inflow into debt or cash to begin closing the 6.9pp debt-band shortfall and the 4.5pp equity overshoot, and use the cleanup window to consolidate the existing five-wrapper (4 PMS + 1 AIF Cat III) stack against Aanchal's December 2025 critique before adding a sixth thematic mandate. A narrower alternative is to size the Ambit allocation only against a concurrent exit from one of the four existing PMS positions, holding wrapper count flat at four and avoiding the band-widening dynamic.",
+        "escalation_recommended": true,
+        "headline_takeaway": "Adding a fifth PMS without exiting any of the existing four widens an already-breached equity band to 4.5pp above ceiling and fails the wrapper-discipline gate, while the target product clears no track-record, manager-tenure, or fee-premium threshold."
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "The visible direct-equity sleeve is fundamentally adequate (ITC strong, HDFC Bank in post-merger compression, Reliance pricing optionality), but ~39% of AUM sits in opaque PMS wrappers and the proposed addition deepens opacity while introducing thematic cyclicality."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "The multi-year infrastructure thesis is structurally intact, but mid-to-late cycle entry timing, government-capex execution risk, and high operating leverage of EPC/capital-goods constituents make the entry window meaningfully riskier than the headline thematic story suggests."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Domestic real-economy and fiscal backdrop supports infrastructure exposure, but Brent at $118.95 on Hormuz disruption, INR at 94.79, Rs 56,401 Cr of FII outflows in April, and a 44 bps long-end yield rise materially worsen the entry-point calculus precisely at the moment of commitment."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "All four existing PMS positions were acquired through peer/RM channels without benchmarking; the proposed fifth replicates that mechanism, runs counter to the active cleanup arc Aanchal initiated in December 2025, and proceeds despite unresolved family analytical dissent."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No unlisted equity exposure in the proposed action; agent does not activate."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "activated",
+          "risk_level": "high",
+          "one_line_takeaway": "Gate fails on equity-band breach (post-action 81.2% vs 60-70% mandate per agent reading) and wrapper-count discipline (five PMS, ~45% aggregate); product-level data is thin (single 1Y return, undisclosed manager tenure, no HWM, Rs 33.52 Cr AUM) and the ~155-175 bps fee premium over comparable infrastructure MF is not supported by available alpha evidence."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "The action targets a PMS, not an MF scheme; agent does not activate."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "The equity band is the spine of the conversation",
+          "body": "The portfolio is already 2.2 percentage points above the 70% equity ceiling, and this allocation would widen the breach to 4.5 points. The annual review cadence makes that worth surfacing directly with Shailesh — is the mandate band still the right frame, or has the band itself become the question?"
+        },
+        {
+          "number": "02",
+          "title": "Five PMS, no exit — the wrapper-architecture question Aanchal already raised",
+          "body": "Aanchal's December critique was specifically about wrapper accumulation without differentiation; this proposal adds a fifth without addressing the existing four. Worth asking Shailesh: if the new mandate is compelling enough to commit Rs 2 Cr, is any of the existing four less compelling than it was when added?"
+        },
+        {
+          "number": "03",
+          "title": "The peer's three-year experience is information, but not the analytical basis",
+          "body": "The peer is three years into a favourable capex cycle (2022-2025), and the strategy is being entered in a different macro window — Brent at $118.95, INR at 94.79, FIIs out Rs 56,401 Cr in April. The thematic thesis can be sound and the entry window still wrong; the conversation worth having is about which question we're answering."
+        },
+        {
+          "number": "04",
+          "title": "The product itself does not yet carry the data to justify the fee",
+          "body": "Ambit Build India shows one year of returns (5.65%, below the 12% hurdle), Rs 33.52 Cr AUM, manager tenure not disclosed, no high-water-mark mechanism in the snapshot. The blended cost over five years works out to ~265 bps against ~100 bps for a comparable infrastructure MF — that's a ~165 bps premium without a track record to underwrite it."
+        },
+        {
+          "number": "05",
+          "title": "If the conviction is on infrastructure, separate that from the wrapper question",
+          "body": "There is a counterfactual worth naming: the same thematic exposure exists through low-cost infrastructure MF routes with full look-through, no HWM ambiguity, and no incremental wrapper count. Pulling the sector view apart from the PMS-wrapper view often clarifies what the conviction actually is."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e6_pms_aif_sif"
+        ],
+        "agents_not_activated": [
+          "e5_unlisted_equity",
+          "e7_mutual_fund"
+        ],
+        "data_sufficiency_notes": "Synthesis is well-supported on mandate-architecture (G1 trace, E6 Gate analysis, E4 behavioural pattern), macro entry-window (E3 with comprehensive Apr 2026 market data), and sector framing (E2). The principal evidentiary gap is product-specific: only a single 1Y return is available for Ambit Build India (5.65%), manager tenure is undisclosed, high-water-mark mechanism is not confirmed, and PMS-wrapper look-through is unavailable per MVP scope, which prevents precise incremental thematic-concentration measurement against the existing four PMS positions. M0.IndianContext integration provides authoritative SEBI minimum-ticket clearance (sebi_001) and confirms partnership-firm eligibility for PMS (str_011); the PMS pass-through tax framing (pmlt_001) and exit liquidity framing (dem_012) are flagged as indicative-confidence practitioner practice rather than authoritative. Zero prior advisor interactions on record constrains the calibration precision of the behavioural read.",
+        "generation_mode": "stub",
+        "generation_timestamp": "2026-05-21T00:00:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "requires_clarification",
+          "rationale": "Mandate compliance: 4 band(s) sit at or beyond boundary; advisor clarification warranted."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "pass",
+          "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 200 lakh proposed)."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "The Rs 2 Cr is being challenged on architecture, but the architecture question predates this ticket",
+          "body": "The synthesis frames the Rs 2 Cr commitment as the action that breaches the equity band, deepens wrapper accumulation, and runs counter to Aanchal's December 2025 cleanup arc — but G1's rule trace shows the portfolio is already at 72.2% equity (2.2pp above ceiling), 14.3% debt (5.7pp below floor), 13.6% alternatives (3.6pp above ceiling), and 0% cash (2pp below floor) before this ticket. Four bands are out of compliance pre-action. If the conversation with Shailesh frames the Ambit allocation as the problem, he can reasonably ask why the existing breach has gone unaddressed through prior advisor cadence; the action then becomes a useful forcing function for the architecture conversation rather than the thing being declined. Is the synthesis ready to answer why the cleanup conversation is happening now, attached to this ticket, rather than as a standalone mandate review?",
+          "headline_takeaway": "Four mandate bands are already out of compliance before the Ambit ticket is considered, which means the architecture conversation owed to the investor predates this proposal."
+        },
+        {
+          "category": "counter_argument",
+          "title": "The peer's three-year track record is dismissed as social proof, but it is also data the synthesis lacks",
+          "body": "E4 and E6 both characterise the peer-referral pathway as recency-and-social-proof rather than analytical basis, and E6 separately flags that Ambit Build India has only one year of disclosed returns (5.65%) at Rs 33.52 Cr AUM. These two readings are in tension: the peer is reporting a three-year lived experience in the same strategy that the synthesis says has insufficient track record. If the peer's experience is anecdotal, it is also the only multi-year performance signal available on this product. The synthesis should be ready to answer what additional information from the peer (entry NAV, drawdown experience, fee actually paid, fund composition at entry vs now) would either strengthen or weaken the case — rather than dismissing the channel itself.",
+          "headline_takeaway": "The peer's three-year experience is the only multi-year data point available on a product the synthesis says lacks track record, which makes how that data is interrogated material."
+        },
+        {
+          "category": "stress_test",
+          "title": "If Brent retraces and FII flows reverse within the next two quarters, does the entry-window argument hold?",
+          "body": "E3 anchors elevated risk on a specific April 2026 macro configuration: Brent at $118.95 on Hormuz disruption, INR at 94.79, FII outflows of Rs 56,401 Cr in April, 10Y yield at 6.99%. These are point-in-time stress signals tied to an active geopolitical event. If Hormuz resolves and Brent retraces toward $80-90 by Q3 FY27, INR stabilises, and FIIs return on the India-US rate differential, the entry-window component of the negative verdict weakens materially while the structural concerns (wrapper count, band breach, product data thinness) remain. The synthesis should be ready to say which of its concerns are macro-window-contingent and which are structural — because the conversation with Shailesh in three months may happen in a different macro window with the same product and the same architecture problem.",
+          "headline_takeaway": "Macro-window concerns and structural concerns are bundled in the negative verdict, but they decay on different timescales and the synthesis owes the investor a separation."
+        },
+        {
+          "category": "stress_test",
+          "title": "What if the counterfactual — infrastructure MF instead of PMS — is itself the wrong counterfactual?",
+          "body": "Talking point 05 and the synthesis's counterfactual framing both pivot to low-cost infrastructure MF as the cleaner expression of the same thematic view, citing a ~165 bps fee saving. But E2 flags the sector as mid-to-late cycle with high operating leverage and government-capex execution risk; E3 adds the Brent/INR/FII stress overlay. If the sector itself is the wrong call at this entry point, swapping wrapper from PMS to MF does not resolve the thematic timing question — it just reduces the cost of being wrong. The synthesis should be ready to answer whether the conversation with Shailesh is about wrapper choice (PMS vs MF for the same thematic) or about thematic conviction (infrastructure now vs later vs not at all). These are different conversations.",
+          "headline_takeaway": "The MF counterfactual changes the cost of a thematic call without changing whether the thematic call itself is well-timed."
+        },
+        {
+          "category": "edge_case",
+          "title": "Aanchal's December 2025 critique is treated as a constraint, but her position in the family system is not stable",
+          "body": "E4 cites Aanchal's structured December 2025 analysis as unresolved family dissent and a behavioural signal that the action runs counter to. The synthesis treats her view as a fixed input. But Aanchal is described as IIM-B finance, returned recently, with a 12-15 year handover horizon for Shailesh; her role as analytical counterweight is itself in formation. If Shailesh proceeds against her view and the position performs in line with the peer's three-year experience, the family dynamic that the synthesis is currently leveraging shifts. Conversely, if the advisor defers and the position would have performed, Aanchal's standing in future architectural decisions strengthens on what may turn out to be a coincidence. Has the synthesis considered that invoking the family-dissent signal carries downstream consequences for how the next decision in this household is framed?",
+          "headline_takeaway": "Citing Aanchal's dissent as a decision input today changes the family-system dynamics that govern the next decision, regardless of how this one resolves."
+        },
+        {
+          "category": "edge_case",
+          "title": "The partnership-firm structure and PMS pass-through tax treatment are flagged as indicative, not authoritative",
+          "body": "M0.IndianContext surfaces pmlt_001 (PMS gains taxed at underlying instrument level, pass-through to investor) as practitioner framing, indicative confidence. Shailesh's investor structure is partnership_firm/resident, which interacts with PMS taxation differently from individual/HUF structures — particularly around firm-level vs partner-level tax incidence, presumptive taxation thresholds, and the timing of capital-gains recognition on PMS-level churn. The synthesis does not surface whether the Rs 2 Cr commitment's after-tax economics have been validated against the specific partnership-firm structure, or whether the existing four PMS positions have been evaluated under the same lens. If the tax framing is indicative and the structure is non-standard, what is the synthesis's confidence that the fee-premium-vs-MF comparison (~165 bps) holds on an after-tax basis?",
+          "headline_takeaway": "The PMS pass-through tax framing is indicative, the investor structure is partnership_firm, and the fee-premium counterfactual is computed pre-tax — three signals that warrant explicit reconciliation."
+        }
+      ]
+    },
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "pms",
+      "target_instrument": "Ambit Build India Portfolio (PMS)",
+      "ticket_size_cr": 2,
+      "source_of_funds": "fresh_inflow",
+      "timeline": "this_quarter",
+      "rationale": "Investor-initiated (Shailesh Bhatt), brought in good faith. Ambit Build India, an infrastructure / capital-goods thematic PMS, pitched through an Ahmedabad business-community peer (a fellow textile-exporter three years into the strategy). Rs 2 Cr allocation with NO exit from the existing four PMS positions; net effect is five PMS positions and wrapper-aggregate exposure rising from roughly 39% to roughly 45% of advisory liquid AUM. Daughter Aanchal (IIM-B finance) has expressed skepticism in a recent family conversation; Shailesh acknowledges her view but is proceeding because the peer has been in the strategy three years and it is working."
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "requires_clarification",
+        "rationale": "Mandate compliance: 4 band(s) sit at or beyond boundary; advisor clarification warranted.",
+        "breaches": [],
+        "gaps": [
+          "Equity sits 4.5pp above the upper band (post-action 74.5% vs ceiling 70%). Clarify whether this is acceptable headroom usage under the mandate.",
+          "Debt sits 6.9pp below the lower band (post-action 13.1% vs floor 20%). Clarify whether the reduced allocation is intentional.",
+          "Alternatives sits 2.4pp above the upper band (post-action 12.4% vs ceiling 10%). Clarify whether this is acceptable headroom usage under the mandate.",
+          "Cash sits 2.0pp below the lower band (post-action 0.0% vs floor 2%). Clarify whether the reduced allocation is intentional."
+        ],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 72.17194570135746,
+            "Debt": 14.25339366515837,
+            "Alternatives": 13.574660633484163,
+            "Cash": 0
+          },
+          "post_action_allocation_pct": {
+            "Equity": 74.48132780082989,
+            "Debt": 13.070539419087138,
+            "Alternatives": 12.448132780082986,
+            "Cash": 0
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 60,
+              "max_pct": 70
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 20,
+              "max_pct": 30
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 5,
+              "max_pct": 10
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 2,
+              "max_pct": 5
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 5,
+            "aif": 1,
+            "total": 6
+          },
+          "target_position_pct_of_liquid_aum": 9.049773755656108
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "pass",
+        "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 200 lakh proposed).",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "target_category": "pms",
+          "ticket_cr": 2,
+          "action_type": "new_investment",
+          "reference_data_source": "m0_indian_context:sebi_boundaries",
+          "rule_applied": {
+            "category": "pms",
+            "min_ticket_cr": 0.5,
+            "source_store": "sebi_boundaries",
+            "source_entry_id": "sebi_001",
+            "confidence": "authoritative",
+            "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14"
+          }
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 2,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.72,
+        "drivers": [
+          "Existing direct-equity look-through is concentrated in two large-cap names: Reliance Industries at 12.2% of AUM and HDFC Bank at 11.3% of AUM, together representing 23.5% of liquid AUM in two single-stock positions.",
+          "Reliance Industries ROCE of 9.69% sits marginally below the blended industry reference and below a typical WACC threshold of ~11%; ROE of 8.4% is modest for a conglomerate of this scale; P/E of 23.19x represents a 52.7% premium to the stated industry P/E of 15.19x, indicating the market is pricing in segment-level optionality (Jio, new energy) not yet reflected in current earnings.",
+          "HDFC Bank ROCE of 751% is a banking-sector artefact of asset-heavy balance sheet mechanics and is not comparable to industrial ROCE; the more relevant metrics are ROE of 14.45% (adequate but below the 16-18% range historically associated with best-in-class Indian private banks post-merger integration), D/E of 6.2x (structurally normal for a bank but elevated in absolute terms), and interest cover of 1.53x (thin, consistent with banking-sector norms but flagged for completeness); P/E of 16.42x is a modest 11.2% premium to industry P/E of 14.77x, suggesting reasonable valuation.",
+          "ITC at 5.0% of AUM presents the strongest capital-efficiency profile in the direct-equity sleeve: ROCE 36.79%, ROE 27.32%, D/E 0.01, interest cover 418.99x; P/E of 18.14x is a 58.8% discount to the stated industry P/E of 44.02x, indicating the market continues to apply a conglomerate/ESG discount to the tobacco-led earnings base despite the FMCG diversification trajectory.",
+          "Mutual fund look-through is limited to fund-level P/E and P/B aggregates: Mirae Asset Large Cap at P/E 25.92x / P/B 3.7x and Parag Parikh Flexi Cap at P/E 18.45x / P/B 3.05x; the Parag Parikh fund's lower P/E is consistent with its known international equity allocation (Google, Meta, Amazon) which compresses the blended multiple; underlying stock-level ROCE, earnings quality, and growth metrics are not available in the snapshot.",
+          "Four PMS wrappers (Marcellus, White Oak, Motilal Oswal, Alchemy) totalling approximately 39.4% of AUM are fully opaque at the stock level per MVP scope; their style labels (concentrated_quality, growth_quality, value, focused_midcap) suggest meaningful diversification across quality and value factors, but no metric-level verification is possible.",
+          "The proposed Ambit Build India Portfolio is an infrastructure/capital-goods thematic PMS; this sector is characterised by cyclical ROCE profiles, elevated working capital cycles, government-capex dependency, and earnings lumpiness — a fundamentally different earnings-quality and capital-structure profile from the quality-compounder and large-cap-blend orientation of the existing listed-equity sleeve.",
+          "The marginal impact of the Rs 2 Cr allocation on the listed-equity look-through is a shift toward infrastructure/capital-goods cyclicality within the PMS aggregate, increasing thematic concentration in a sector that is positively correlated with government capex cycles and negatively correlated with credit-tightening environments; this is additive risk relative to the existing PMS mix, not diversifying."
+        ],
+        "flags": [
+          "reliance_valuation_premium_without_earnings_support: P/E 23.19x vs industry 15.19x; ROCE 9.69% below typical WACC; premium requires segment-level optionality to be realised",
+          "hdfc_bank_post_merger_roe_compression: ROE 14.45% below historical best-in-class range; integration overhang not yet resolved in metrics",
+          "itc_conglomerate_discount_persistent: P/E 18.14x vs industry 44.02x; discount reflects structural market skepticism on tobacco-to-FMCG transition pace",
+          "pms_wrapper_opacity: four PMS positions at ~39.4% of AUM have no stock-level look-through; metric-level quality, valuation, and risk-signal verification is not possible",
+          "mf_look_through_incomplete: top-5 holdings not disclosed for either mutual fund; fund-level P/E and P/B only; stock-level earnings quality and ROCE unverifiable",
+          "ambit_build_india_thematic_cyclicality: infrastructure/capital-goods PMS introduces earnings lumpiness, working-capital-cycle elongation, and government-capex dependency not present in existing quality-compounder PMS mix",
+          "incremental_pms_concentration_without_look_through: adding a fifth PMS wrapper increases the opaque-wrapper share of AUM without any compensating improvement in look-through visibility or metric verifiability"
+        ],
+        "reasoning_paragraph": "The existing listed-equity look-through universe presents a mixed but broadly adequate fundamental picture at the stock level, with ITC standing out as the highest-quality capital-efficiency holding (ROCE 36.79%, ROE 27.32%, near-zero leverage) and HDFC Bank occupying a post-merger integration phase where ROE at 14.45% has not yet recovered to historical best-in-class levels. Reliance Industries, the largest single-stock position at 12.2% of AUM, carries a 52.7% P/E premium to its stated industry median (23.19x vs 15.19x) against a ROCE of 9.69% that does not yet justify that premium on current earnings alone, making the position a bet on segment-level optionality realisation rather than current capital efficiency. The mutual fund sleeve contributes limited look-through — only fund-level P/E and P/B aggregates are available — and the four existing PMS wrappers are fully opaque, meaning approximately 39.4% of AUM cannot be evaluated on any of the seven metric families. Against this backdrop, the proposed Ambit Build India Portfolio introduces a fifth PMS wrapper with an infrastructure/capital-goods thematic orientation, a sector characterised by cyclical ROCE profiles, elongated working capital cycles, and earnings streams that are structurally dependent on government capex disbursement cadence; this is a materially different earnings-quality and capital-structure profile from the quality-compounder and large-cap-blend orientation of the existing listed-equity sleeve, and its addition increases thematic cyclicality within the PMS aggregate rather than providing complementary diversification. The aggregate risk level is assessed as moderate: the direct-equity holdings are fundamentally sound with identifiable valuation and integration caveats, but the dominant opacity of the PMS wrapper aggregate, the incremental cyclicality introduced by the proposed allocation, and the absence of stock-level look-through for the target instrument collectively constrain confidence and prevent a clean positive characterisation of the marginal listed-equity exposure impact.",
+        "data_points_cited": [
+          "Reliance Industries: ROCE 9.69%, ROE 8.4%, P/E 23.19x, industry P/E 15.19x, D/E 0.43, interest cover 5.36x, 3Y profit growth 10.92%, AUM weight 12.2%",
+          "HDFC Bank: ROCE 751% (banking-sector artefact), ROE 14.45%, P/E 16.42x, industry P/E 14.77x, D/E 6.2x, interest cover 1.53x, 3Y profit growth 7.09%, AUM weight 11.3%",
+          "ITC: ROCE 36.79%, ROE 27.32%, P/E 18.14x, industry P/E 44.02x, D/E 0.01, interest cover 418.99x, 3Y profit growth 5.26%, AUM weight 5.0%",
+          "Mirae Asset Large Cap Fund: fund-level P/E 25.92x, P/B 3.7x, AUM weight 2.3%",
+          "Parag Parikh Flexi Cap Fund: fund-level P/E 18.45x, P/B 3.05x, AUM weight 2.0%",
+          "PMS wrappers aggregate AUM weight: ~39.4% (Marcellus 11.3%, White Oak 10.0%, Motilal Oswal 9.5%, Alchemy 8.6%); no stock-level look-through available",
+          "Proposed allocation: Rs 2 Cr to Ambit Build India Portfolio (infrastructure/capital-goods thematic PMS); no underlying stock look-through available per MVP scope",
+          "Reliance P/E premium to industry: (23.19 - 15.19) / 15.19 = 52.7%",
+          "ITC P/E discount to industry: (44.02 - 18.14) / 44.02 = 58.8%",
+          "HDFC Bank P/E premium to industry: (16.42 - 14.77) / 14.77 = 11.2%",
+          "Direct equity + MF look-through combined AUM weight: ~30.8%; PMS opaque wrapper weight: ~39.4%"
+        ]
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.62,
+        "drivers": [
+          "Ambit Build India Portfolio is explicitly positioned as an infrastructure and capital-goods thematic PMS, concentrating exposure in sectors characterised by high capital intensity, long project cycles, government-capex dependency, and cyclical earnings patterns — structural attributes that differ materially from the quality-compounder and large-cap orientation visible in the existing PMS wrappers (Marcellus Consistent Compounder, White Oak India Pioneers, Motilal Oswal Value Migration, Alchemy Smart Alpha 250).",
+          "Indian infrastructure and capital-goods sector is currently in a mid-to-late-cycle phase of the government-capex upcycle that began circa 2021-22: Union Budget FY26 capex allocation of Rs 11.11 lakh crore (3.4% of GDP) sustains headline momentum, but execution absorption constraints, state-level fiscal stress, and election-year spending lumpiness introduce cycle-timing risk for earnings delivery in FY26-27.",
+          "Capital-goods and EPC companies — the typical constituents of infrastructure-thematic PMS strategies — exhibit structurally high operating leverage: revenue recognition is milestone-linked, working-capital cycles are long (debtor days 90-150+ for large EPC players), and order-book-to-revenue conversion is sensitive to project delays, land acquisition bottlenecks, and commodity input cost volatility (steel, cement).",
+          "Competitive structure in Indian infrastructure is moderately concentrated at the large-EPC tier (L&T dominates with ~18-20% market share in diversified EPC) but fragmented in sub-sectors (roads, water, urban infra), creating margin-compression risk from aggressive L1 bidding by mid-tier players seeking order-book growth.",
+          "Moat assessment for infrastructure and capital-goods businesses is mixed: execution track record, balance-sheet strength, and pre-qualification credentials constitute meaningful barriers at the large-cap tier; however, these moats are not brand- or IP-based and are vulnerable to balance-sheet stress cycles (IL&FS 2018, NBFC tightening 2019 precedents remain relevant structural reference points).",
+          "Sector look-through for the four existing PMS wrappers is unavailable per MVP scope (foundation.md:198), preventing a precise assessment of incremental infrastructure/capital-goods concentration from this addition; however, the thematic mandate of Ambit Build India is unambiguous, and the marginal direction of sector tilt is determinable even without constituent-level data.",
+          "The proposed Rs 2 Cr allocation would raise PMS wrapper aggregate from approximately 39% to approximately 45% of advisory liquid AUM (Rs 22.1 Cr), adding a fifth PMS position with a differentiated thematic mandate; the wrapper-level concentration increase is a structural observation, not a sector-level one, but it amplifies the consequence of any sector-cycle misjudgement.",
+          "Demand drivers for the sector are structurally supportive over a 5-7 year horizon: urban infrastructure deficit, energy transition capex (renewables, grid), defence indigenisation, and logistics network build-out (PM Gati Shakti) provide durable order-pipeline visibility; the structural case is not in question, but entry-point cycle timing and earnings-delivery risk in the near term are.",
+          "Supply-side dynamics: order books at major capital-goods and EPC companies are at multi-year highs (L&T order book ~Rs 5.6 lakh crore as of Q3 FY25; BHEL, Thermax, ABB India reporting strong inquiry pipelines), but execution bandwidth, skilled-labour availability, and sub-contractor capacity constrain revenue conversion, creating a gap between order-book optics and near-term earnings realisation."
+        ],
+        "flags": [
+          "sector_look_through_unavailable_existing_pms_wrappers",
+          "infrastructure_capex_cycle_timing_risk",
+          "high_operating_leverage_epc_capital_goods",
+          "working_capital_intensity_long_cash_conversion_cycle",
+          "government_capex_dependency_policy_execution_risk",
+          "pms_wrapper_concentration_increasing_to_45pct_of_aum",
+          "thematic_concentration_single_sector_mandate",
+          "mid_to_late_cycle_entry_point_risk",
+          "peer_referral_sourcing_not_analytical_basis"
+        ],
+        "reasoning_paragraph": "Ambit Build India Portfolio carries a single-sector thematic mandate in infrastructure and capital goods — an industry characterised by high capital intensity, government-capex dependency, long working-capital cycles, and pronounced operating leverage. The Indian infrastructure upcycle is structurally intact over a multi-year horizon, supported by sustained Union Budget capex allocation (Rs 11.11 lakh crore in FY26, 3.4% of GDP) and identifiable demand themes across urban infrastructure, energy transition, and logistics. However, the sector is currently in a mid-to-late phase of the post-2021 capex upcycle: order books are elevated, execution constraints are visible, and near-term earnings delivery is sensitive to project-delay risk, commodity input volatility, and state-level fiscal absorption capacity. Competitive structure at the large-EPC tier is moderately concentrated with L&T as the dominant player, but mid-tier fragmentation creates margin-compression risk from aggressive bidding. Moats in this sector are execution- and balance-sheet-based rather than brand- or IP-based, making them cyclically vulnerable in credit-tightening environments — a risk precedented in 2018-19. Sector look-through for the four existing PMS wrappers is unavailable under current MVP scope, preventing a precise incremental-concentration calculation; however, the thematic mandate of the proposed addition is unambiguous, and the marginal direction of sector tilt toward cyclical, capital-intensive, government-linked businesses is determinable. The proposed allocation would raise PMS wrapper aggregate to approximately 45% of advisory liquid AUM, compounding the structural opacity of the wrapper layer with a thematic concentration that introduces cycle-timing dependency. The overall industry and business-model risk level is assessed as elevated, reflecting the combination of mid-to-late cycle entry timing, high operating leverage of underlying constituents, government-capex execution dependency, and the absence of look-through data that would permit a more precise concentration assessment.",
+        "data_points_cited": [
+          "Union Budget FY26 infrastructure capex allocation: Rs 11.11 lakh crore (3.4% of GDP)",
+          "L&T order book approximately Rs 5.6 lakh crore as of Q3 FY25",
+          "L&T estimated market share in diversified EPC: approximately 18-20%",
+          "Typical EPC debtor days: 90-150+ days for large players",
+          "Proposed ticket: Rs 2 Cr; source fresh inflow",
+          "PMS wrapper aggregate pre-addition: approximately 39% of advisory liquid AUM (Rs 22.1 Cr)",
+          "PMS wrapper aggregate post-addition: approximately 45% of advisory liquid AUM",
+          "Advisory liquid AUM: Rs 22.1 Cr across 12 holdings",
+          "Existing PMS wrappers: Marcellus Consistent Compounder (11.3%), White Oak India Pioneers (10.0%), Motilal Oswal Value Migration (9.5%), Alchemy Smart Alpha 250 (8.6%)",
+          "Sector look-through for existing PMS wrappers: unavailable per foundation.md:198 / v8:705",
+          "IL&FS default 2018 and NBFC tightening 2019 cited as structural precedent for balance-sheet stress in infrastructure sector",
+          "Infrastructure capex upcycle commencement reference: circa FY2021-22"
+        ]
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.81,
+        "drivers": [
+          "Brent crude at $118.95/barrel (Apr 29, 2026), up ~86% YoY from ~$64, driven by Hormuz disruption blocking ~20% of global oil trade — direct input-cost and fiscal pressure on India's infrastructure and capital-goods sector, the precise thematic exposure of Ambit Build India Portfolio",
+          "INR at 94.79 vs USD (Apr 29, 2026), a 10.7% depreciation over 12 months from 85.60 (Apr 2, 2025); forex reserves down $25B to $703B — imported inflation risk and sovereign balance-sheet pressure rising",
+          "FII net equity outflows of Rs 56,401 Cr in April 2026 alone (~$5.97B), with heaviest single-day outflow of Rs 19,837 Cr on Apr 2; DII absorption only partial (Rs 34,617 Cr through Apr 8) — equity market liquidity and valuation support under stress",
+          "RBI repo at 5.25% (hold, Apr 17, 2026) after 125 bps of cuts; real rate derived at ~3.15% (repo minus core CPI of 2.1%) — real rates are materially restrictive, compressing equity risk-premium headroom and raising the hurdle rate for capital-goods project economics",
+          "10Y government bond yield at 6.99% (Apr 17, 2026), up 44 bps in five months, spiking to 7.19% on Apr 3 before partial retracement — rising long-end yields increase discount rates for long-duration infrastructure cash flows, directly pressuring infrastructure-thematic equity valuations",
+          "GDP growth strong (Q3 FY26: 7.8% YoY; manufacturing 13.3%) and government capex robust (Rs 9.29L Cr YTD, +14.46% YoY, 84.81% of RE) — these are structural positives for the infrastructure/capital-goods thematic over a multi-year horizon",
+          "PMI Manufacturing rebounding to 55.9 (Apr flash) after Mar dip to 53.9; capacity utilisation at 75.6% (Q3 FY26, above 75% late-expansion threshold) — domestic industrial cycle remains constructive, supporting the thematic rationale",
+          "IMD forecast of below-normal monsoon (92% of LPA, 66% probability of below-normal or deficient outcome) — upside risk to food inflation, which could constrain RBI's ability to cut further and sustain fiscal transfer capacity",
+          "US Fed holding at 3.50–3.75% (Mar 18, 2026 FOMC); India-US rate differential at 162 bps — adequate but not compelling for carry-driven FII re-entry; leadership transition at Fed (Warsh ~May 15) adds near-term policy uncertainty",
+          "Government fiscal consolidation on track (FY26 YTD deficit -7.0% YoY; FY27 target 4.3% of GDP) with continued capex push (FY27 effective capex Rs 17.15L Cr) — medium-term infrastructure order-book visibility remains intact"
+        ],
+        "flags": [
+          "crude_oil_shock_direct_thematic_exposure",
+          "inr_depreciation_stress_imported_inflation",
+          "fii_outflow_equity_market_liquidity_pressure",
+          "long_end_yield_rise_infrastructure_dcf_headroom",
+          "real_rate_restrictive_equity_risk_premium_compression",
+          "monsoon_below_normal_food_inflation_upside_risk",
+          "geopolitical_tail_risk_west_asia_hormuz_active",
+          "pms_wrapper_concentration_rising_to_45pct_of_aum",
+          "equity_band_breach_72pct_vs_70pct_ceiling_pre_investment",
+          "fed_leadership_transition_warsh_policy_uncertainty"
+        ],
+        "reasoning_paragraph": "The macro environment as of the case decision date (2026-04-02, with the most current data points extending to Apr 29, 2026) presents a structurally bifurcated picture for the proposed Ambit Build India Portfolio commitment: the domestic real-economy and fiscal backdrop remains constructive for an infrastructure/capital-goods thematic, but the external and financial-conditions environment has deteriorated materially and introduces elevated near-term risk precisely at the point of entry. On the constructive side, Q3 FY26 GDP growth of 7.8% with manufacturing at 13.3%, government capex running at Rs 9.29L Cr YTD (+14.46% YoY, 84.81% of revised estimate), PMI Manufacturing rebounding to 55.9 (Apr flash), and capacity utilisation crossing 75.6% collectively affirm that the domestic industrial cycle underpinning the thematic is intact. Against this, three concurrent external shocks materially alter the risk-adjusted entry calculus: Brent crude has risen ~86% YoY to $118.95/barrel on Hormuz disruption, directly pressuring input costs, project economics, and the fiscal transfer capacity that funds infrastructure capex; the INR has depreciated 10.7% over twelve months to 94.79, amplifying imported inflation and eroding real returns for a rupee-denominated portfolio; and FII equity outflows of Rs 56,401 Cr in April alone signal that global risk-off is actively repricing Indian equities, with DII absorption only partial. Compounding these, the 10Y yield has risen 44 bps to 6.99% (spiking to 7.19% on Apr 3), and the derived real policy rate of ~3.15% is materially restrictive — both factors compress the valuation headroom for long-duration infrastructure cash flows. The RBI's neutral stance and unanimous hold at 5.25% reflect the geopolitical uncertainty the MPC itself has cited, and the IMD's below-normal monsoon forecast (66% probability) introduces a further upside risk to food inflation that could constrain the rate-cut path. None of these factors invalidate the multi-year thematic thesis for infrastructure and capital goods, but they collectively indicate that the current entry window carries elevated macro-level risk, particularly given that the proposed Rs 2 Cr commitment arrives with the portfolio already in equity-band breach (72.2% vs. a 70% ceiling) and would push PMS wrapper concentration from approximately 39% to 45% of advisory liquid AUM.",
+        "data_points_cited": [
+          "Brent crude: $118.95/barrel (Apr 29, 2026), up ~86% YoY from ~$64 (Apr 2025); Hormuz disruption blocking ~20% global oil trade",
+          "USD/INR: 94.79 (Apr 29, 2026) vs 85.60 (Apr 2, 2025) = 10.7% depreciation in 12 months",
+          "Forex reserves: down $25B to $703B",
+          "FII net equity outflows: Rs 56,401 Cr (Apr 1–29, 2026); heaviest single day Rs 19,837 Cr (Apr 2)",
+          "DII net flows: Rs +34,617 Cr (Apr 1–8, 2026, partial)",
+          "RBI repo rate: 5.25% (hold, Apr 17, 2026); cut 125 bps from 6.50% in 2025",
+          "Real interest rate (derived): ~3.15% (repo 5.25% minus core CPI 2.1%)",
+          "10Y Govt bond yield: 6.99% (Apr 17, 2026); up 44 bps from 6.55% (Nov 2025); intraday spike to 7.19% (Apr 3)",
+          "RBI MPC stance: Neutral, unanimous hold (Apr 8, 2026); West Asia uncertainty cited",
+          "GDP growth: Q1 FY26 6.7%, Q2 8.4%, Q3 7.8% YoY; manufacturing 13.3%, services 9.5% (Q3)",
+          "RBI FY26 full-year GDP projection: 7.6%",
+          "Government capex YTD (Apr–Feb FY26): Rs 9,29,322 Cr, +14.46% YoY, 84.81% of RE",
+          "FY27 effective capex target: Rs 17.15L Cr; fiscal deficit target 4.3% of GDP",
+          "PMI Manufacturing: 55.9 (Apr flash), 53.9 (Mar final); long-run avg 54.2",
+          "PMI Services: 57.9 (Apr flash); Composite PMI: 58.3",
+          "Capacity utilisation: 75.6% (Q3 FY26), up from 74.3% (Q2)",
+          "CPI headline: 3.40% (Mar 2026); core CPI (ex-food, fuel): 2.1% (Jan–Feb avg)",
+          "CPI food: 3.87% (Mar 2026)",
+          "IMD monsoon forecast: 92% of LPA, below normal; P(below normal + deficient) = 66% (Apr 13, 2026)",
+          "US Fed funds rate: 3.50–3.75% (hold, Mar 18, 2026 FOMC); Warsh succession ~May 15",
+          "India-US rate differential: 162 bps (derived)",
+          "Non-food credit growth: 14.3% YoY (Feb 28, 2026)",
+          "Portfolio equity band: 72.2% current vs 60–70% mandate ceiling",
+          "PMS wrapper concentration: ~39% current, rising to ~45% post-investment"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.72,
+        "drivers": [
+          "Stated risk tolerance is aggressive (verbal); revealed mandate-set risk appetite is moderate-aggressive, closer to moderate by behavioural pattern — a persistent stated-vs-revealed divergence that has characterised the portfolio's construction over six years.",
+          "All four existing PMS positions were added through RM/relationship channels, none benchmarked against each other or against alternatives at point of entry; the proposed fifth PMS follows the identical acquisition pathway (peer-network referral, no comparative analysis at initiation).",
+          "The peer-network referral dynamic is structurally significant: the Ahmedabad textile-exporter peer is three years into the strategy and reports it 'working'; this is a recency-and-social-proof pattern, not an analytical entry signal, and mirrors the mechanism that produced the existing undifferentiated PMS stack.",
+          "Daughter Aanchal (IIM-B, finance) has explicitly flagged the under-differentiated PMS stack, fee aggregation, and undifferentiated performance in a structured analysis delivered December 2025; Shailesh acknowledges her view but is proceeding — this is a live family-influence friction point, not a resolved one.",
+          "The proposed action adds a fifth PMS wrapper with no exit from any existing four positions; wrapper-aggregate PMS exposure rises from approximately 39% to approximately 45% of advisory liquid AUM, deepening the structural problem Aanchal's analysis identified rather than addressing it.",
+          "Equity band is currently 72.2% against a mandate ceiling of 70%; the Rs 2 Cr fresh inflow into an equity PMS widens the breach further; the investor is proceeding into a mandate-band violation rather than toward correction.",
+          "Zero prior advisor interactions on record reduces confidence in the revealed-pattern read; the character bible provides strong qualitative signal but no quantitative decision-event history with this advisor relationship to validate cadence, acceptance rate, or override pattern.",
+          "The cleanup inflection point is described as active (Aanchal's December 2025 analysis, advisor diagnostic interest); this proposed action moves counter to the cleanup arc, not with it."
+        ],
+        "flags": [
+          "peer_network_influence_dominant",
+          "wrapper_accumulation_deepening",
+          "stated_vs_revealed_divergence_persistent",
+          "mandate_band_breach_widening",
+          "family_friction_unresolved",
+          "limited_advisor_relationship_history",
+          "recency_bias_in_peer_referral",
+          "cleanup_arc_counter_directional"
+        ],
+        "reasoning_paragraph": "Shailesh Bhatt's proposed addition of Ambit Build India Portfolio carries elevated behavioural risk on multiple dimensions. The most consequential signal is structural repetition: all four existing PMS positions were acquired through relationship and RM channels without comparative benchmarking, and the proposed fifth follows an identical peer-network pathway — a fellow Ahmedabad textile exporter three years into the strategy reporting positive results. This is a recency-and-social-proof acquisition mechanism, not an analytical one, and the investor's own acknowledgement of Aanchal's contrary view without modifying his intent confirms that the peer-influence vector is currently dominant over the analytical one. The family decision dynamic is materially relevant: Aanchal returned in December 2025 and produced a structured critique of precisely the wrapper accumulation this action deepens; she is an observer-with-influence whose analytical credibility is high, and the friction between her position and Shailesh's current intent is unresolved rather than settled. The equity band is already at 72.2% against a 70% mandate ceiling; adding Rs 2 Cr to an equity PMS widens the breach without any offsetting exit, and the stated rationale contains no acknowledgement of this. The stated-vs-revealed divergence — aggressive verbally, moderate-aggressive by revealed pattern — is a persistent feature of this investor's profile and is not corrected by this action. Confidence is set at 0.72 rather than higher because zero prior advisor interactions on record means the revealed-pattern read rests entirely on the character bible's qualitative synthesis rather than on a documented decision-event history with this advisory relationship; the directional signal is clear but the calibration precision is limited.",
+        "data_points_cited": [
+          "Four existing PMS positions, all acquired via RM/relationship channels over six years, none benchmarked at entry",
+          "Proposed fifth PMS sourced via Ahmedabad textile-exporter peer, three years in strategy, peer reports positive outcome",
+          "PMS wrapper aggregate rising from ~39% to ~45% of advisory liquid AUM (Rs 22.1 Cr base)",
+          "Equity band currently 72.2% vs mandate ceiling 70%; proposed action widens breach",
+          "Ticket size Rs 2 Cr, source fresh inflow, no exit from existing four PMS positions",
+          "Aanchal Bhatt (IIM-B, finance), structured analysis delivered December 2025 flagging undifferentiated PMS stack, fee aggregation, Cat III complexity premium not earned",
+          "Avendus Absolute Return Fund (Cat III long-short) at 8.2% CAGR over seven years — complexity premium not earned per character bible",
+          "Shailesh age 52, 12–15 year horizon to handover/retirement; cleanup inflection point described as active",
+          "Prior advisor interactions on record: 0",
+          "Stated risk appetite: aggressive (verbal); mandate-set / revealed: moderate-aggressive, closer to moderate"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Ambit Build India Portfolio (PMS) (category: pms) of Rs 2 Cr, sourced from fresh_inflow) does not introduce unlisted equity exposure. Per principles §3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "activated",
+        "risk_level": "high",
+        "confidence": 0.81,
+        "drivers": [
+          "Gate failure on mandate-band compliance: post-action equity exposure 81.2% breaches the 60-70% mandate band by 11.2 percentage points; the proposed Rs 2 Cr fresh inflow adds incremental equity without any offsetting rebalance, widening an already-breached band (pre-action 72.2% already 2.2pp above ceiling)",
+          "Gate failure on wrapper-count discipline: post-action PMS count rises to five discrete PMS mandates; wrapper-aggregate exposure moves from approximately 39% to approximately 45% of advisory liquid AUM; no corresponding exit is proposed, compounding operational and oversight complexity",
+          "Manager data thinness: disclosed AUM Rs 33.52 Cr is materially small for a thematic PMS; two named managers (Umesh Gupta, Ashutosh Garud) with no disclosed tenure, prior-vintage track record, or team depth available in the snapshot; E6 cannot assess manager continuity or succession risk from available data",
+          "Strategy data thinness: only one return data point available (1Y: 5.65% vs Nifty 50 TRI benchmark); no 3-year, 5-year, or since-inception series disclosed; single-year return of 5.65% against a broad equity benchmark is insufficient to assess strategy consistency, style stability, or drawdown behaviour across regimes",
+          "Fee structure: fixed AMC 1.75% + 10% profit sharing above 12% hurdle; no high-water-mark mechanism disclosed in snapshot; absence of HWM confirmation is a structural concern for performance-fee fairness across drawdown-recovery cycles",
+          "Fee normalisation: blended cost estimate over 5-year horizon — fixed AMC 1.75% + estimated performance fee contribution approximately 0.6% (10% of returns above 12% hurdle; assuming 3 of 5 years clear hurdle at modest margin given 1Y return of 5.65%) + estimated transaction/custody costs approximately 0.3% = approximately 265 bps blended; comparable infrastructure/capex-themed MF (e.g., DSP India T.I.G.E.R. Fund or ICICI Pru Infrastructure Fund, direct plan) runs approximately 90-110 bps; PMS premium approximately 155-175 bps; premium is not justified by available alpha evidence given single data point of 5.65% 1Y return",
+          "Capacity signal: AUM of Rs 33.52 Cr is very low for a thematic PMS; while low AUM reduces capacity-ceiling concern, it raises questions about institutional traction, operational maturity, and whether the strategy has been stress-tested at meaningful scale",
+          "Thematic overlap and concentration risk: infrastructure/capital-goods thematic PMS adds a sector-concentrated overlay on top of four existing PMS mandates (quality-concentrated, growth-quality, value, focused-midcap); the existing four mandates already carry capital-goods and infrastructure exposure as incidental holdings; incremental thematic concentration in a cyclical sector is additive risk without disclosed diversification benefit",
+          "Peer-referral provenance: investor rationale is anchored on a three-year peer experience in a favourable infrastructure cycle (2022-2025 capex upcycle); this is a recency-and-social-proof pattern, not an analytical basis; Aanchal Bhatt's documented skepticism is noted as a family-level dissenting signal"
+        ],
+        "flags": [
+          "mandate_band_breach_pre_and_post_action",
+          "gate_fail_equity_band",
+          "gate_fail_wrapper_count_discipline",
+          "insufficient_track_record_data",
+          "no_hwm_mechanism_disclosed",
+          "low_aum_operational_maturity_concern",
+          "manager_tenure_not_disclosed",
+          "team_depth_not_disclosed",
+          "single_year_return_only",
+          "fee_premium_not_covered_by_available_alpha_evidence",
+          "thematic_cyclical_concentration_additive",
+          "peer_referral_recency_bias_pattern",
+          "five_pms_wrapper_count_post_action"
+        ],
+        "reasoning_paragraph": "The proposed Rs 2 Cr allocation to Ambit Build India Portfolio (PMS) fails the Gate on two independent structural grounds before product-level analysis is reached: first, post-action equity exposure of 81.2% breaches the 60-70% mandate band by 11.2 percentage points, compounding a pre-existing 2.2pp breach rather than resolving it; second, the wrapper count rises to five PMS mandates with wrapper-aggregate exposure at approximately 45% of advisory liquid AUM, a level that introduces meaningful oversight and operational complexity without a corresponding rebalance or exit. At the product level, the available data is materially thin: only a single 1-year return of 5.65% is disclosed, with no 3-year, 5-year, or since-inception series; manager tenure and team depth are not available in the snapshot; and AUM of Rs 33.52 Cr raises questions about institutional traction and operational maturity at scale. The fee structure of 1.75% fixed AMC plus 10% profit sharing above a 12% hurdle normalises to approximately 265 bps blended over a 5-year horizon, representing a premium of approximately 155-175 bps over comparable infrastructure-themed MF alternatives; this premium is not supportable from the single available return data point, which itself trails the hurdle rate. The absence of a disclosed high-water-mark mechanism is a structural concern for performance-fee fairness across drawdown-recovery cycles. The infrastructure/capital-goods thematic overlay adds cyclical sector concentration on top of four existing PMS mandates that already carry incidental capital-goods exposure, without a disclosed diversification rationale. The investor's stated rationale — a peer's three-year positive experience during a favourable capex upcycle — reflects a recency-and-social-proof pattern rather than an analytical basis; the family-level dissenting signal from Aanchal Bhatt is noted. Taken together, the Gate failures, data insufficiency, fee premium without alpha coverage, and mandate-architecture deterioration place this proposal at high risk level.",
+        "data_points_cited": [
+          "Post-action equity exposure: 81.2% vs mandate band 60-70%",
+          "Pre-action equity exposure: 72.2% (already 2.2pp above band ceiling)",
+          "Proposed ticket size: Rs 2 Cr from fresh inflow",
+          "Ambit Build India AUM: Rs 33.52 Cr (snapshot)",
+          "Ambit Build India 1Y return: 5.65% (snapshot; only available return series)",
+          "Ambit Build India fixed AMC: 1.75%",
+          "Ambit Build India performance fee: 10% profit sharing above 12% hurdle",
+          "High-water-mark: not disclosed in snapshot",
+          "Benchmark: Nifty 50 TRI",
+          "Managers named: Umesh Gupta, Ashutosh Garud; tenure not disclosed",
+          "Pre-action wrapper-aggregate PMS+AIF: approximately 39% of advisory liquid AUM (4 PMS + 1 AIF Cat III)",
+          "Post-action wrapper-aggregate PMS: approximately 45% of advisory liquid AUM (5 PMS + 1 AIF Cat III)",
+          "Existing PMS positions: Marcellus 11.3%, White Oak 10.0%, Motilal Oswal 9.5%, Alchemy 8.6%",
+          "Avendus Absolute Return Fund (AIF Cat III): 13.6% of AUM",
+          "Advisory liquid AUM: Rs 22.1 Cr",
+          "SEBI PMS minimum: Rs 50 lakh (sebi_001); Rs 2 Cr ticket clears minimum",
+          "Investor structure: partnership_firm/resident; PMS eligible per str_011",
+          "Blended fee estimate: approximately 265 bps (1.75% fixed + ~0.60% performance + ~0.30% transaction/custody)",
+          "Comparable infrastructure MF blended cost: approximately 90-110 bps (direct plan)",
+          "Fee premium over MF: approximately 155-175 bps"
+        ]
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Ambit Build India Portfolio (PMS) (category: pms) of Rs 2 Cr, sourced from fresh_inflow) does not specifically target a mutual fund scheme, nor does the source involve an MF being exited or switched. Per principles §3.1, E7 activates when the case involves an MF scheme at the decision boundary. Where MF holdings contribute listed-equity look-through to a non-MF action, the look-through is handled by E1 at aggregate level rather than by E7 at scheme level."
+      }
+    ],
+    "router_decision": {
+      "caseMode": "proposed_action",
+      "caseIntent": "new_investment",
+      "dominantLens": "proposal_evaluation",
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": true,
+      "e7": false,
+      "indianContext": true,
+      "portfolioRiskAnalytics": true,
+      "riskRewardStats": true,
+      "activated": [
+        "m0_indian_context",
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e6_pms_aif_sif"
+      ],
+      "reasoning": "case_mode=proposed_action; case_intent=new_investment; target_category=pms; source_of_funds=fresh_inflow; listed_look_through=true; pms_or_aif=true; mf=false; unlisted=false"
+    },
+    "indian_context": {
+      "mode": "bulk",
+      "generated_by": "m0_indian_context_deterministic",
+      "store_versions": {
+        "tax_matrix": "1.1",
+        "sebi_boundaries": "1.2",
+        "structure_matrix": "1.0",
+        "demat_mechanics": "1.0",
+        "gift_city_routing": "1.0",
+        "regulatory_changelog": "1.0"
+      },
+      "investor_structure": {
+        "structure_type": "partnership_firm",
+        "residency": "resident"
+      },
+      "tax_structure": "PMS gains taxed at underlying instrument level, pass-through to investor [pmlt_001]",
+      "lock_in_mechanics": "PMS holdings, in investor's own demat account [dem_011]; PMS exit, typical liquidity window practitioner framing [dem_012]",
+      "regulatory_eligibility": "PMS minimum investment per client per portfolio manager [sebi_001]; PMS portfolio manager minimum net worth [sebi_002]; PMS leverage prohibition for equity portfolios [sebi_003]; PMS unlisted securities restriction in discretionary PMS [sebi_004]; PMS associate transaction cap, 20 percent per associate per service [sebi_005]",
+      "surcharge_implications": "No surcharge-band entry matched; standard slab surcharge applies per investor income tier.",
+      "structure_specific_considerations": "pms is an eligible product for partnership_firm/resident [str_011]. | Partnership firm, product eligibility [str_011]",
+      "sebi_minimums": [
+        {
+          "product": "pms",
+          "min_ticket_inr": 5000000,
+          "min_ticket_cr": 0.5,
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_001",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+          "confidence": "authoritative"
+        }
+      ],
+      "applicable_regulatory_changes": [
+        {
+          "entry_id": "chg_002",
+          "topic": "SEBI (Portfolio Managers) Regulations 2020 overhaul",
+          "effective_date": "2020-01-16",
+          "affected_entries": [
+            "sebi_001",
+            "sebi_002",
+            "sebi_003",
+            "sebi_004",
+            "sebi_005",
+            "sebi_006",
+            "sebi_007",
+            "pmlt_001"
+          ]
+        }
+      ],
+      "indicative_flags": [
+        "pmlt_001 (PMS gains taxed at underlying instrument level, pass-through to investor): confidence=indicative, practitioner_practice; surface to S1 as practitioner framing, not authoritative.",
+        "dem_012 (PMS exit, typical liquidity window practitioner framing): confidence=indicative, practitioner_practice; surface to S1 as practitioner framing, not authoritative."
+      ],
+      "citations": [
+        {
+          "source_store": "tax_matrix",
+          "source_entry_id": "pmlt_001",
+          "topic": "PMS gains taxed at underlying instrument level, pass-through to investor",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 establish the pass-through legal structure; CBDT communications; Income Tax Act 1961 Sections 111A, 112, 112A apply to underlying instruments",
+          "citation_source_type": "practitioner_practice",
+          "confidence": "indicative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_001",
+          "topic": "PMS minimum investment per client per portfolio manager",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+          "citation_source_type": "web_verified",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_002",
+          "topic": "PMS portfolio manager minimum net worth",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_003",
+          "topic": "PMS leverage prohibition for equity portfolios",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 24(4); SEBI PMS FAQ 2020-10-28",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_004",
+          "topic": "PMS unlisted securities restriction in discretionary PMS",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 24; SEBI PMS FAQ",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_005",
+          "topic": "PMS associate transaction cap, 20 percent per associate per service",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 22(3C); SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_006",
+          "topic": "PMS fee structure, no upfront fees, high-water mark mandatory",
+          "citation": "SEBI Circular dated 2010-08 introducing high-water mark; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13 reaffirming fee discipline",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_007",
+          "topic": "PMS exit load cap, reducing schedule, nil after three years",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_008",
+          "topic": "PMS distributor registration with APMI, mandatory from 2025-01-01",
+          "citation": "SEBI mandate; APMI eligibility rules announced July 2024; effective 2025-01-01",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_011",
+          "topic": "Partnership firm, product eligibility",
+          "citation": "Indian Partnership Act 1932; Income Tax Act 1961 Section 184 (partnership firm taxation), Section 10(2A) (partner exemption); SEBI (Portfolio Managers) Regulations 2020",
+          "citation_source_type": "statute_section",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_011",
+          "topic": "PMS holdings, in investor's own demat account",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020; SEBI PMS FAQ",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_012",
+          "topic": "PMS exit, typical liquidity window practitioner framing",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 (general framework); PMS agreement terms govern specifics",
+          "citation_source_type": "practitioner_practice",
+          "confidence": "indicative"
+        }
+      ],
+      "edge_cases_flagged": [],
+      "reasoning_trace": "Deterministic retrieval over six curated stores. Resolved investor structure partnership_firm/resident; product axis [pms]; 12 entries matched (2 indicative); 1 regulatory-changelog events effective on/before 2026-04-02.",
+      "raw": {
+        "matched_entry_ids": [
+          "tax_matrix:pmlt_001",
+          "sebi_boundaries:sebi_001",
+          "sebi_boundaries:sebi_002",
+          "sebi_boundaries:sebi_003",
+          "sebi_boundaries:sebi_004",
+          "sebi_boundaries:sebi_005",
+          "sebi_boundaries:sebi_006",
+          "sebi_boundaries:sebi_007",
+          "sebi_boundaries:sebi_008",
+          "structure_matrix:str_011",
+          "demat_mechanics:dem_011",
+          "demat_mechanics:dem_012"
+        ]
+      }
+    },
+    "materiality": {
+      "fires": true,
+      "reason": "Verdict negative with e2_industry_business at risk_level elevated. Verdict negative with 4 simultaneous G1 band gaps. 4 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "verdict_with_severity_flag",
+        "verdict_with_band_gaps",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The deliberation centres on whether any conditioned or modified form of the Rs 2 Cr Ambit Build India allocation can reconcile with an already-breached equity mandate, a wrapper stack rising to five PMS positions at approximately 45% of AUM without offsetting exit, and a peer-referral acquisition pathway that replicates the mechanism an active cleanup arc was intended to interrupt. The Chair frames this as a structural rather than marginal question: the portfolio enters the decision with equity already 2.2pp above the 70% ceiling, debt 5.7pp below floor, alternatives above ceiling, and cash below floor; the proposed action widens the equity breach to 4.5pp above ceiling while deepening the debt shortfall and raising wrapper-aggregate exposure from approximately 39% to approximately 45%. The Risk Assessor documents this as a four-axis architectural drift compounded by acute entry-window macro stress (Brent at $118.95, up 86% YoY; INR at 94.79, down 10.7%; FII outflows of Rs 56,401 Cr in April; 10Y yield up 44 bps), a target product with insufficient evidentiary base (single 1Y return of 5.65% trailing a 12% hurdle, undisclosed manager tenure and HWM, Rs 33.52 Cr AUM), and a fee premium of approximately 155–175 bps over comparable infrastructure MF routes that available alpha evidence does not support.",
+          "The Devil's Advocate and Risk Assessor converge on the finding that no version of the proposal as currently scoped—Rs 2 Cr, fresh inflow, no exit, this quarter—reconciles with the portfolio architecture. The Devil's Advocate emphasises that the acquisition mechanism (peer referral, three-year favourable-cycle reference, no comparative benchmarking) is the same one that produced the existing undifferentiated PMS stack, and that proceeding with this action moves counter-directional to the cleanup arc while Aanchal's December 2025 structured critique of the wrapper stack remains unresolved. The Risk Assessor identifies ten specific risks spanning mandate drift, wrapper-count discipline failure, entry-window macro stress, target manager evidentiary gaps, fee-premium recovery without verified alpha, PMS liquidity-window constraints, cyclical thematic overlay on an opaque wrapper base, pass-through tax churn drag, family-dissent governance stress, and peer-referral acquisition replication. Both sub-roles hold that the burden of constructing a modified form sits with the proposal, not with the deliberation; approval in current form would ratify the precise sourcing and sizing mechanism the cleanup arc was designed to interrupt.",
+          "The Counterfactual Engine surfaces four distinct alternative paths, each addressing one or more of the ten specific risks without requiring data the bundle does not contain: (1) defer the Ambit commitment and deploy the Rs 2 Cr fresh inflow into debt and cash to begin closing the 6.9pp debt-band shortfall and 2.0pp cash-floor gap, directly addressing the four-band mandate drift; (2) pair the Ambit allocation with a concurrent exit from one of the four existing PMS positions to hold wrapper count flat at four and equity band at or below ceiling, with SEBI minimum ticket of Rs 50 lakh per sebi_001 confirming structural feasibility; (3) defer pending disclosure of 3Y/5Y return series, manager tenure, HWM mechanism, and capacity trajectory, allowing the acute entry-window stress to resolve or clarify; (4) route the thematic exposure via a lower-cost infrastructure MF at 90–110 bps blended cost versus Ambit's approximately 265 bps, addressing fee-premium recovery, wrapper-count discipline, target manager evidentiary gaps, and pass-through tax churn drag simultaneously. The Counterfactual Engine also identifies a fifth path—sequencing any thematic infrastructure exposure after completion of a formal wrapper-stack review against Aanchal's December 2025 critique with comparative benchmarking of the existing four PMS mandates—that directly addresses the family-dissent governance risk and the peer-referral acquisition-pattern risk by establishing analytical basis before commitment. No material dissent exists among the sub-roles on the structural diagnosis; the divergence is whether the proposal can be modified to address the faults or whether deferral and redeployment are required."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "This deliberation opens against an unusually convergent evidence picture. E2, E3, E4, and E6 all return elevated or high risk; the synthesis returns negative with high risk at 0.82 confidence; G1 flags four simultaneous band gaps; and the materiality gate fires on three independent triggers (severity flag at E2, compound band gaps, and three-flag amplification threshold). The structural fault line is not located in any single dimension — it sits at the intersection of mandate architecture (equity already 2.2pp above ceiling pre-action, widening to 4.5pp post-action, with debt 6.9pp below floor), wrapper discipline (five PMS mandates post-action at ~45% of liquid AUM with no offsetting exit), and acquisition pathway (peer-referral sourcing replicating the mechanism that produced the existing undifferentiated PMS stack Aanchal critiqued in December 2025).",
+          "The product-level picture compounds rather than offsets the architectural concern. E6 fails the product Gate on independent grounds before alpha evaluation: single 1Y return of 5.65% trailing the 12% hurdle, undisclosed manager tenure, undisclosed HWM, AUM of Rs 33.52 Cr, and a normalised fee premium of approximately 155-175 bps over comparable infrastructure MF that available evidence does not support. E2 and E3 agree the multi-year structural case for Indian infrastructure is intact (FY26 capex Rs 11.11L Cr, capacity utilisation 75.6%, Q3 GDP 7.8%) while jointly flagging that the entry window carries acute external shocks — Brent at $118.95 (+86% YoY on Hormuz), INR at 94.79 (-10.7%), FII outflows of Rs 56,401 Cr in April alone, 10Y yield up 44 bps. The thematic thesis is not in dispute; the entry calculus and the wrapper through which it would be expressed are.",
+          "The behavioural layer is the integrating tension. E4 names the action as counter-directional to an active cleanup arc: all four existing PMS positions were acquired through the identical peer-referral mechanism this proposal replicates, the stated-vs-revealed risk-tolerance divergence is unresolved, and Aanchal's December 2025 structured critique of the wrapper stack has been acknowledged without being addressed. The investor is proceeding in good faith on a three-year peer experience during a favourable capex cycle — a recency-and-social-proof pattern, not an analytical entry signal. The committee's task is to weigh whether any conditioning or modification can reconcile a structurally sound multi-year thematic thesis with a mandate-breached, wrapper-saturated, evidentiarily thin point of entry sourced through the precise pathway the active cleanup arc was meant to interrupt."
+        ],
+        "deliberation_question": "Does any conditioned or modified form of this Rs 2 Cr Ambit Build India allocation reconcile with an already-breached equity band, a wrapper stack rising to five PMS at ~45% of AUM without offsetting exit, and a peer-referral acquisition pathway that replicates the mechanism the active cleanup arc was intended to interrupt?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The strongest case against this proposal is not that the thematic thesis is wrong — E2 and E3 both affirm the multi-year structural case for Indian infrastructure. The strongest case against is that the proposal has been sized and sourced as if the architecture were neutral, when in fact every structural layer the committee is asked to evaluate is already under stress and would be deepened, not addressed, by approval. G1 returns requires_clarification on four bands simultaneously; the equity band moves from 2.2pp above ceiling to 4.5pp above ceiling; wrapper count rises to five PMS at ~45% of AUM with no offsetting exit; and E6 fails the product Gate on independent grounds before alpha is even evaluated (single 1Y return of 5.65% trailing a 12% hurdle, undisclosed manager tenure, undisclosed HWM, Rs 33.52 Cr AUM, ~155-175 bps fee premium unsupported by the available evidence). A single one of these would warrant conditioning; the convergence indicates the ticket was sized against the attractiveness of the idea rather than against the state of the portfolio.",
+          "The behavioural layer integrates rather than offsets the structural concern. E4 documents that all four existing PMS positions were acquired through the identical peer-referral mechanism this proposal replicates, that Aanchal's December 2025 structured critique of precisely this wrapper stack has been acknowledged without being addressed, and that the action is counter-directional to an active cleanup arc. A three-year peer experience during a favourable capex cycle is a recency-and-social-proof signal, not an analytical entry signal — and the macro overlay (Brent +86% YoY, INR -10.7%, Rs 56,401 Cr FII outflows in April alone, 10Y yield up 44 bps) means the timing of this particular peer-anchored entry sits at a stressed point in the cycle, not a benign one. The committee should not treat 'investor-initiated, in good faith' as analytical cover; good faith and analytical sufficiency are independent properties.",
+          "The position the committee should hold is that no version of this proposal as currently scoped — Rs 2 Cr, fresh inflow, no exit, this quarter — reconciles with the architecture. A modified form may exist (smaller ticket against a concurrent exit; deferral pending consolidation of the existing stack; redirection of the fresh inflow to debt to begin closing the 6.9pp shortfall), but the burden of constructing that modification sits with the proposal, not with the deliberation. Approval in current form would ratify the precise mechanism the cleanup arc was meant to interrupt."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Reconcile the four simultaneous G1 band gaps before sizing any new equity ticket",
+            "body": "G1 returns requires_clarification on equity (+4.5pp over ceiling post-action), debt (-6.9pp under floor), alternatives (+2.4pp over ceiling), and cash (-2.0pp under floor). The committee should not approve a fresh-inflow equity allocation while four bands sit at or beyond boundary; the proposal must either be re-sourced from a concurrent equity exit or the mandate itself must be formally reviewed before the action is reconsidered."
+          },
+          {
+            "title": "Require an offsetting PMS exit before approving a fifth PMS mandate",
+            "body": "E1, E2, E4, and E6 converge on wrapper-aggregate deterioration as the dominant architectural concern, with PMS count rising to five at ~45% of AUM. The committee should hold that no new PMS commitment is approvable while the existing four-PMS stack — flagged in Aanchal's December 2025 critique and unaddressed since — remains unconsolidated; the action and the cleanup arc cannot proceed in opposite directions simultaneously."
+          },
+          {
+            "title": "Resolve the E6 product Gate failures before any sizing discussion",
+            "body": "E6 identifies single 1Y return of 5.65% trailing the 12% hurdle, undisclosed manager tenure, undisclosed high-water-mark, Rs 33.52 Cr AUM, and a ~155-175 bps fee premium unsupported by available alpha evidence. The committee should require that these data gaps be closed and the fee premium be independently justified before evaluating the allocation, not after; approval cannot rest on data the proposal has not produced."
+          },
+          {
+            "title": "Treat peer-referral provenance as a process-quality concern, not a sourcing detail",
+            "body": "E4 and E6 both identify that the acquisition pathway for this proposal is identical to the mechanism that produced the existing undifferentiated PMS stack — a fellow Ahmedabad textile-exporter three years into the strategy during a favourable capex cycle. The committee should require an analytical entry case independent of the peer signal before the proposal advances, on the basis that ratifying the same sourcing pattern compromises the deliberative basis for the action."
+          },
+          {
+            "title": "Address the macro entry-window stress on the record, not by implication",
+            "body": "E3 documents Brent at $118.95 (+86% YoY on Hormuz), INR at 94.79 (-10.7%), FII outflows of Rs 56,401 Cr in April alone, and 10Y yield up 44 bps — all of which compress the valuation headroom for long-duration infrastructure cash flows precisely as the proposal enters the position. The committee should require that the entry-timing calculus be addressed explicitly, not subsumed under the multi-year structural case which is not in dispute."
+          },
+          {
+            "title": "Document how the Aanchal friction is resolved, not merely acknowledged",
+            "body": "E4 records that Aanchal's December 2025 structured critique of the wrapper stack has been acknowledged by Shailesh without being addressed, and that the proposed action deepens precisely the structural problem her analysis identified. The committee should require that the family-level dissent be either resolved on the record or formally noted as an unresolved override, on the basis that proceeding through unresolved family friction is a documented behavioural risk multiplier, not a private matter."
+          },
+          {
+            "title": "Re-test the stated-vs-revealed risk tolerance divergence before adding cyclical thematic exposure",
+            "body": "E4 flags that the stated 'aggressive' tolerance and the revealed moderate-aggressive pattern have persisted unresolved over six years, and that infrastructure/capital-goods is a structurally more cyclical exposure than the existing quality-compounder mandates. The committee should require that the tolerance divergence be re-tested against this specific exposure profile before approval, not against an abstracted aggregate."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposal stress-tests poorly across all four scenarios the framework requires. The structural fault line is mandate architecture: the equity band enters this decision at 72.2% against a 70% ceiling, and the Rs 2 Cr fresh-inflow allocation widens the breach to 74.5% post-action while simultaneously deepening the debt-band shortfall to 6.9pp below floor and pushing cash to 0% against a 2% mandated floor. G1 returns requires_clarification on four bands concurrently — this is not a marginal headroom question but a four-axis architectural drift that the proposed action accelerates rather than corrects. Wrapper-count discipline fails on independent grounds: post-action PMS count rises to five with wrapper aggregate at ~45% of liquid AUM, with no offsetting exit, replicating the acquisition pathway that produced the existing undifferentiated stack.",
+          "Timing-window stress is acute and quantifiable. E3 documents a compounded external shock at the entry point — Brent at $118.95 (+86% YoY on Hormuz disruption), INR at 94.79 (-10.7% YoY), FII outflows of Rs 56,401 Cr in April alone, and the 10Y yield up 44 bps to 6.99% with an intraday spike to 7.19% on Apr 3. For a long-duration, infrastructure-thematic, capital-intensive PMS, every one of these factors compresses entry-window risk-adjusted returns: input costs rise, discount rates rise, equity liquidity contracts, and rupee-denominated returns face imported-inflation erosion. The thematic thesis itself is structurally defensible over 5-7 years (FY26 capex Rs 11.11L Cr, capacity utilisation 75.6%, PMI 55.9), but the entry calculus is materially worse than a base-case scenario would assume — and unlike capital-call timing in an AIF, a PMS entry locks in the entry NAV without staggered deployment.",
+          "Concentration and manager-stress scenarios are bounded but unfavourable. The single-product concentration is small (~9% of AUM at Rs 2 Cr on Rs 22.1 Cr base), but thematic concentration is additive rather than diversifying — the existing four PMS mandates already carry incidental capital-goods exposure, and the new mandate overlays cyclical, government-capex-dependent, working-capital-heavy businesses on top. Manager-stress at the target is materially un-assessable: Rs 33.52 Cr AUM, undisclosed tenure for the two named PMs, undisclosed HWM mechanism, and a single 1Y return data point of 5.65% (trailing the 12% hurdle) leave the committee without an evidentiary base to assess key-person, succession, or capacity-decay risk. This is a data-gap finding, not a quantified stress finding, and it constrains the confidence with which any stress scenario can be sized."
+        ],
+        "specific_risks": [
+          {
+            "title": "Four-band mandate drift, not single-band breach",
+            "body": "G1 returns requires_clarification on all four asset-class bands simultaneously: equity 4.5pp above ceiling, debt 6.9pp below floor, alternatives 2.4pp above ceiling, cash 2.0pp below floor post-action. The proposed action widens the equity breach and deepens the debt shortfall by absorbing fresh inflow that could otherwise begin closing the debt gap."
+          },
+          {
+            "title": "Wrapper-count discipline failure without offsetting exit",
+            "body": "Post-action PMS count rises to five with wrapper aggregate moving from ~39% to ~45% of liquid AUM. E6 fails the wrapper-count gate on independent grounds; the absence of any concurrent exit from Marcellus, White Oak, Motilal Oswal, or Alchemy means the action is purely additive to oversight complexity."
+          },
+          {
+            "title": "Entry-window macro stress compounding thematic risk",
+            "body": "Brent at $118.95 (+86% YoY), INR at 94.79 (-10.7% YoY), FII outflows Rs 56,401 Cr in April, and 10Y yield up 44 bps to 6.99% combine to pressure precisely the long-duration, capital-intensive, input-cost-sensitive cash flows that infrastructure-thematic PMS holds. The multi-year thesis remains intact; the entry timing carries materially elevated near-term risk."
+          },
+          {
+            "title": "Target manager evidentiary gap, not quantifiable stress",
+            "body": "Ambit Build India discloses only a single 1Y return (5.65%, trailing the 12% hurdle), undisclosed manager tenure for Umesh Gupta and Ashutosh Garud, undisclosed HWM mechanism, and Rs 33.52 Cr AUM. The committee cannot stress-test key-person departure, succession, or capacity-decay because the baseline data does not exist; this is a data-gap finding the bundle cannot resolve."
+          },
+          {
+            "title": "Fee-premium recovery requires unverified alpha",
+            "body": "E6 normalises blended cost at ~265 bps vs ~90-110 bps for comparable infrastructure direct-plan MFs, a 155-175 bps premium. Under a stress scenario where the strategy delivers benchmark returns rather than alpha, the premium is unrecovered for the full holding period; the single available return point does not support the premium."
+          },
+          {
+            "title": "PMS liquidity-window practitioner framing constrains unwind",
+            "body": "Per dem_012 (indicative, practitioner practice), PMS exit operates on typical practitioner liquidity windows rather than a daily-NAV mechanism. Under a stress scenario where mandate-cleanup pressure intensifies (Aanchal's December 2025 critique escalating, or band-breach forcing rebalance), the unwind pathway for a fifth PMS position is slower and more frictional than the proposal currently accounts for."
+          },
+          {
+            "title": "Cyclical thematic overlay on opaque wrapper base",
+            "body": "Infrastructure/capital-goods is structurally high-operating-leverage, long-working-capital-cycle, government-capex-dependent. Layering this onto four PMS mandates whose stock-level holdings are not visible to look-through (per MVP scope) means cycle-correlation risk across the wrapper aggregate cannot be measured, only assumed to be additive."
+          },
+          {
+            "title": "Pass-through tax mechanic concentrates churn drag",
+            "body": "Per pmlt_001 (indicative practitioner framing), PMS gains are taxed at the underlying-instrument level with pass-through to the investor; for a thematic strategy in a cyclical sector where the manager may rotate positions to capture cycle inflections, realised-gain frequency is structurally higher than for buy-and-hold PMS mandates, amplifying tax drag in the partnership-firm structure."
+          },
+          {
+            "title": "Family-dissent unresolved as governance stress",
+            "body": "Aanchal Bhatt's December 2025 structured critique of the wrapper stack is acknowledged by Shailesh but not addressed; the proposed action moves counter to the cleanup arc her analysis recommended. Under any scenario where family governance escalates (succession planning, formal review), the action's record will read as a deliberate move against documented internal counsel."
+          },
+          {
+            "title": "Peer-referral acquisition replicates existing pattern",
+            "body": "All four existing PMS positions were acquired via RM/relationship channels without comparative benchmarking; the proposed fifth follows the identical Ahmedabad textile-peer pathway with a three-year favourable-cycle reference. The acquisition mechanism is the same one that produced the undifferentiated stack the cleanup arc is designed to address."
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal under review is not a marginal sizing question but a structural one: the portfolio enters this decision with the equity band already 2.2pp above ceiling, debt 5.7pp below floor, alternatives above ceiling, and cash below floor, and the Rs 2 Cr fresh-inflow allocation to a fifth PMS widens three of those four gaps simultaneously while raising wrapper-aggregate exposure from approximately 39% to approximately 45% of liquid AUM. The Risk Assessor's central finding is that this is a four-axis architectural drift compounded by an acquisition-pathway pattern (peer referral, no comparative benchmarking) that replicates the mechanism producing the existing undifferentiated PMS stack, layered on a target product with insufficient evidentiary base (single 1Y return of 5.65%, undisclosed manager tenure, undisclosed HWM, Rs 33.52 Cr AUM) and a fee premium of 155-175 bps over comparable MF routes that the available alpha record does not support.",
+          "Counterfactual scope therefore covers four distinct vectors: redeploying the fresh inflow toward mandate repair rather than equity addition (different product/scheme); sizing the Ambit ticket only against a concurrent PMS exit (different sizing with offsetting action); deferring the entry pending track-record disclosure, HWM confirmation, and resolution of the macro entry-window stress documented by E3 (different timing); and routing the same thematic exposure through a lower-cost, more transparent vehicle such as an infrastructure thematic MF or index (different structural approach). Each of these directly engages one or more of the ten specific risks the Risk Assessor named, and each is testable on cost, mandate impact, governance, and entry-window dimensions without requiring data the bundle does not contain.",
+          "The INDIAN CONTEXT block supports two grounded paths: SEBI PMS minimum ticket of Rs 50 lakh per sebi_001 (authoritative) means a sized-down PMS allocation remains structurally feasible if paired with an exit, and the practitioner liquidity-window framing per dem_012 (indicative, practitioner practice) is relevant to any unwind-pathway alternative. The pmlt_001 pass-through tax mechanic (indicative) is noted as relevant to the churn-drag concern but is not load-bearing for any specific path."
+        ],
+        "alternative_paths": [
+          {
+            "label": "Defer and deploy fresh inflow into debt/cash to begin band repair",
+            "description": "Hold the Ambit commitment; deploy the Rs 2 Cr fresh inflow into short-duration debt MF and/or cash to begin closing the 6.9pp debt-band shortfall and the 2.0pp cash-floor gap, while halting the equity-band widening from 72.2% to 74.5%. Directly addresses the four-band mandate drift and the wrapper-count discipline failure without requiring exit decisions on existing positions."
+          },
+          {
+            "label": "Size against a concurrent PMS exit to hold wrapper count flat",
+            "description": "Pair the Rs 2 Cr Ambit allocation with a concurrent exit from one of the four existing PMS positions (Marcellus, White Oak, Motilal Oswal, or Alchemy), sized to keep wrapper count at four and equity band at or below the 70% ceiling. Addresses the wrapper-count discipline failure and the equity-band breach while preserving the investor's thematic intent; SEBI minimum ticket of Rs 50 lakh per sebi_001 confirms structural feasibility of a sized variant if the exit candidate is selected on alpha-and-overlap evidence rather than recency."
+          },
+          {
+            "label": "Defer pending track-record disclosure and HWM confirmation",
+            "description": "Hold the commitment for one to two quarters pending disclosure of 3Y/5Y return series, manager tenure for Umesh Gupta and Ashutosh Garud, HWM mechanism, and capacity trajectory beyond the current Rs 33.52 Cr AUM. Directly addresses the target manager evidentiary gap and the fee-premium-without-alpha concern, while allowing the acute entry-window stress (Brent +86% YoY, INR -10.7%, FII outflows Rs 56,401 Cr in April, 10Y up 44 bps) to resolve or clarify."
+          },
+          {
+            "label": "Route thematic exposure via lower-cost infrastructure MF",
+            "description": "Substitute the Rs 2 Cr Ambit allocation with a comparable allocation to an infrastructure/capex-themed MF direct plan (DSP India T.I.G.E.R., ICICI Pru Infrastructure, or equivalent) at approximately 90-110 bps blended cost vs the Ambit ~265 bps. Addresses the fee-premium-recovery risk, the wrapper-count discipline failure (MF does not add a wrapper), the target manager evidentiary gap, and the pass-through tax churn-drag concern under pmlt_001 (indicative); preserves the thematic thesis E2 affirms over a 5-7 year horizon."
+          },
+          {
+            "label": "Stage entry across the cleanup arc with Aanchal-aligned governance review",
+            "description": "Sequence any thematic infrastructure exposure after completion of a formal wrapper-stack review against Aanchal's December 2025 critique, with comparative benchmarking of the existing four PMS mandates on alpha, fee, and overlap dimensions before adding a fifth. Directly addresses the family-dissent governance risk, the peer-referral acquisition-pattern risk, and the cyclical-thematic-overlay-on-opaque-base concern by establishing analytical basis before commitment."
+          }
+        ]
+      }
+    },
+    "usage_summary": {
+      "s1_input_tokens": 22511,
+      "s1_output_tokens": 5126,
+      "a1_input_tokens": 26217,
+      "a1_output_tokens": 2447,
+      "ic1_chair_input": 23005,
+      "ic1_chair_output": 1104,
+      "ic1_devils_advocate_input": 23782,
+      "ic1_devils_advocate_output": 2277,
+      "ic1_risk_assessor_input": 22975,
+      "ic1_risk_assessor_output": 2685,
+      "ic1_counterfactual_engine_input": 25853,
+      "ic1_counterfactual_engine_output": 1979,
+      "ic1_minutes_recorder_input": 9619,
+      "ic1_minutes_recorder_output": 1013,
+      "generated_at": "2026-05-21T06:46:44.170Z"
+    }
+  },
+  "tokenUsage": {
+    "s1_input_tokens": 22511,
+    "s1_output_tokens": 5126,
+    "a1_input_tokens": 26217,
+    "a1_output_tokens": 2447,
+    "ic1_chair_input": 23005,
+    "ic1_chair_output": 1104,
+    "ic1_devils_advocate_input": 23782,
+    "ic1_devils_advocate_output": 2277,
+    "ic1_risk_assessor_input": 22975,
+    "ic1_risk_assessor_output": 2685,
+    "ic1_counterfactual_engine_input": 25853,
+    "ic1_counterfactual_engine_output": 1979,
+    "ic1_minutes_recorder_input": 9619,
+    "ic1_minutes_recorder_output": 1013,
+    "generated_at": "2026-05-21T06:46:44.170Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 1 proposal evaluation for Shailesh Bhatt. Engineered-decline shape: 5th PMS, no exits, wrapper aggregate ~39% to ~45%, relationship-driven. Plausible because of who Bhatt is (revealed accumulation pattern), not engineered against him. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024)."
+}
