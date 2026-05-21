@@ -141,12 +141,15 @@ export function DiagnosticForm({ investors, snapshots }: Props) {
             type="button"
             className="btn btn-primary btn-lg"
             onClick={submit}
-            disabled={submitting || !investorId || !snapshotId}
+            disabled
           >
             {submitting ? "Generating…" : "Generate briefing"}
           </button>
         </div>
       </div>
+      <p className="text-[12px] italic text-ink-4 text-right mt-2">
+        Demo build. Case generation disabled.
+      </p>
     </>
   );
 }

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { InvestorDetail } from "@/components/investors/InvestorDetail";
-import { Plus } from "@/components/chrome/Icons";
 
 type PageProps = { params: Promise<{ id: string }> };
 
@@ -27,10 +26,6 @@ export default async function InvestorDetailPage({ params }: PageProps) {
           <button type="button" className="btn btn-ghost btn-sm" disabled>
             Edit profile
           </button>
-          <Link href="/cases/new" className="btn btn-primary btn-sm no-underline">
-            <Plus size={13} />
-            New case for this investor
-          </Link>
         </div>
       </div>
 
