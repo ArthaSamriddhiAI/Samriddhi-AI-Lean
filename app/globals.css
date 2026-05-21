@@ -420,6 +420,9 @@
 
   .ct-chev { color: var(--color-ink-5); display: flex; justify-content: flex-end; padding-right: 10px; }
   .ct-row:hover .ct-chev { color: var(--color-ink-3); }
+  /* Ambient (non-clickable) demo rows: no pointer, no hover affordance. */
+  .ct-row--ambient { cursor: default; }
+  .ct-row--ambient:hover { background: transparent; }
 
   /* ---- Workflow type tags ---- */
   .wf-tag {

@@ -2,11 +2,10 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { AnalysisTab } from "@/components/case-detail/AnalysisTab";
-import { ChatPanel } from "@/components/case-detail/ChatPanel";
 import { CaseStubBadge } from "@/components/case-detail/CaseStubBadge";
 import { OutcomeTab } from "@/components/case-detail/OutcomeTab";
 import { AnalystReportsTab } from "@/components/case-detail/AnalystReportsTab";
-import { Lock, Download } from "@/components/chrome/Icons";
+import { Lock } from "@/components/chrome/Icons";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 import type { BriefingCaseContent } from "@/lib/agents/case/briefing-case-content";
 import type { CaseEvidenceVerdict } from "@/lib/agents/case/case-verdict";
@@ -173,7 +172,6 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
               ic1Deliberation={ic1Deliberation}
             />
           )}
-          <ChatPanel />
         </div>
       </div>
     );
@@ -246,16 +244,6 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           </span>
           <CaseStubBadge stubbed={c.stubbed} />
         </div>
-        <div className="case-toolbar-right">
-          <a
-            href={`/api/cases/${id}/briefing.pdf`}
-            className="btn btn-primary btn-sm"
-            download={`briefing-${id}.pdf`}
-          >
-            <Download size={13} />
-            Download slide deck
-          </a>
-        </div>
       </div>
 
       <div className="case-body">
@@ -265,7 +253,6 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           content={content}
           holdings={holdings}
         />
-        <ChatPanel />
       </div>
     </div>
   );

@@ -6,11 +6,25 @@ import { Plus, Search } from "@/components/chrome/Icons";
 
 export const dynamic = "force-dynamic";
 
+/* Demo curation: show exactly these six cases, in exactly this order,
+ * regardless of frozenAt. The first two are the clickable demo cases. */
+const DEMO_CASE_IDS_ORDERED = [
+  "c-2026-05-15-surana-01",
+  "c-2026-05-21-iyengar-01",
+  "c-2026-05-15-sharma-s2-01",
+  "c-2026-05-21-malhotra-01",
+  "c-2026-05-21-menon-01",
+  "c-2026-05-21-bhatt-01",
+];
+
 export default async function CasesPage() {
-  const cases = await prisma.case.findMany({
+  const fetched = await prisma.case.findMany({
+    where: { id: { in: DEMO_CASE_IDS_ORDERED } },
     include: { investor: true },
-    orderBy: { frozenAt: "desc" },
   });
+  const cases = DEMO_CASE_IDS_ORDERED
+    .map((id) => fetched.find((c) => c.id === id))
+    .filter((c): c is NonNullable<typeof c> => c != null);
 
   return (
     <div className="page-inner">

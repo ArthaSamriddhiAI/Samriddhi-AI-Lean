@@ -6,6 +6,13 @@ type CaseWithInvestor = Case & { investor: Investor };
 
 type Props = { cases: CaseWithInvestor[] };
 
+/* The two clickable demo cases. All other rows render as ambient
+ * (non-interactive): no Link wrapper, no chevron, default cursor. */
+const CLICKABLE_CASE_IDS = new Set([
+  "c-2026-05-15-surana-01",
+  "c-2026-05-21-iyengar-01",
+]);
+
 /* Filter pill counts. Pills are visual-only in slice 1; clicking does not
  * filter the table. Click-to-filter lands when there is enough volume to
  * warrant it (slice 5 polish at the earliest). */
@@ -67,9 +74,10 @@ export function CaseList({ cases }: Props) {
           <span />
         </div>
 
-        {cases.map((c) => (
-          <Link href={`/cases/${c.id}`} key={c.id} className="contents no-underline">
-            <div className="ct-row">
+        {cases.map((c) => {
+          const clickable = CLICKABLE_CASE_IDS.has(c.id);
+          const rowContent = (
+            <>
               <span className={`severity-mark sev-${c.severity}`} />
               <div className="investor-cell">
                 <span className="investor-name">{c.investor.name}</span>
@@ -101,12 +109,24 @@ export function CaseList({ cases }: Props) {
                   </span>
                 )}
               </div>
-              <div className="ct-chev">
-                <Chev size={12} dir="r" />
-              </div>
+              <div className="ct-chev">{clickable ? <Chev size={12} dir="r" /> : null}</div>
+            </>
+          );
+
+          if (clickable) {
+            return (
+              <Link href={`/cases/${c.id}`} key={c.id} className="contents no-underline">
+                <div className="ct-row">{rowContent}</div>
+              </Link>
+            );
+          }
+
+          return (
+            <div className="ct-row ct-row--ambient" key={c.id}>
+              {rowContent}
             </div>
-          </Link>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-[18px] text-[11.5px] text-ink-4 font-mono">

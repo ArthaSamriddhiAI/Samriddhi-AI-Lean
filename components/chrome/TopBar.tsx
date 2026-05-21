@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BrandMark, Settings as SettingsIcon } from "./Icons";
-import { Avatar } from "./Avatar";
+import { BrandMark } from "./Icons";
 
 /* Top bar nav: Brand · Cases · Investors · Explorer · Settings · Avatar.
  * Matches the wireframe chrome (52px tall, hairline bottom, paper ground). */
@@ -13,7 +12,6 @@ type TabKey = "cases" | "investors" | "explorer" | "settings";
 const TABS: Array<{ key: TabKey; label: string; href: string }> = [
   { key: "cases", label: "Cases", href: "/cases" },
   { key: "investors", label: "Investors", href: "/investors" },
-  { key: "explorer", label: "Explorer", href: "/explorer" },
 ];
 
 function activeTabFor(pathname: string): TabKey | null {
@@ -55,21 +53,6 @@ export function TopBar() {
           );
         })}
       </nav>
-
-      <div className="flex items-center gap-3.5 ml-auto">
-        <Link
-          href="/settings"
-          aria-label="Settings"
-          className={`w-[30px] h-[30px] inline-flex items-center justify-center rounded-1 transition-colors no-underline ${
-            active === "settings"
-              ? "text-ink-1 bg-paper-sunken"
-              : "text-ink-3 hover:text-ink-1 hover:bg-paper-hover"
-          }`}
-        >
-          <SettingsIcon size={15} />
-        </Link>
-        <Avatar name="Priya Nair" size={28} />
-      </div>
     </header>
   );
 }
