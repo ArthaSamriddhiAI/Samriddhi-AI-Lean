@@ -1,0 +1,702 @@
+{
+  "id": "c-2026-05-21-surana-01",
+  "investorId": "surana",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s1",
+  "severity": "flag",
+  "headline": "positive with caveat: The synthesis reads positive on the architectural intent and structurally cautious on the execution detail.",
+  "status": "ready",
+  "frozenAt": "2026-05-21T06:00:51.656Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "Rajiv Surana, a self-directed fee-only individual investor with a Rs 34.5 Cr liquid advisory corpus currently sitting at 89.9% equity against a 60-70% mandate band, proposes a Rs 5 Cr fresh-inflow deployment into a structured debt sleeve: Rs 2 Cr to Kotak Bond Short Term Plan, Rs 1 Cr to an AAA corporate bond MF, and Rs 2 Cr to an NHAI/REC/PFC tax-free bond ladder. The deployment is funded from twelve months of incremental founder distributions plus a modest cash component, deliberately avoiding any liquidation of the concentrated Reliance position (Rs 7 Cr, 20.3% of corpus). Timeline is this fiscal year, horizon is 7 years, and the post-action allocation moves equity to 78.5%, debt to 12.7%, leaving both bands still outside their mandated ranges."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "positive_with_caveat",
+        "overall_risk_level": "moderate",
+        "confidence": 0.7,
+        "consensus_areas": [
+          "E3, E4, and E7 align that the debt sleeve is structurally corrective for a portfolio at 89.9% equity against a 60-70% mandate band",
+          "E3 and E4 agree the fresh-inflow funding source is the right architectural choice — additive to corpus, no LTCG crystallisation on the concentrated Reliance position",
+          "E4 and E7 read the action as investor-architected and analytically grounded rather than reactive or advisor-pushed",
+          "E3 and E7 both treat the late-cutting, paused rate environment as supportive of short-duration positioning at the entry point",
+          "G1 and E7 converge on the observation that Rs 5 Cr is insufficient to bring the portfolio into mandate compliance"
+        ],
+        "conflict_areas": [
+          "E3 reads the macro backdrop as elevated risk (crude shock, INR depreciation, FII outflows, yield curve volatility) while E7 reads the scheme-level evaluation as low risk; the divergence is domain-appropriate — E3 sees the external environment, E7 sees the instrument fit — but the advisor should not treat E7's low rating as a green light on the broader sleeve without E3's volatility overlay"
+        ],
+        "amplification_flags": [
+          "G1's mandate-clarification gap (equity remains 8.5pp above ceiling, debt remains 7.3pp below floor post-action) amplifies E7's equity_overweight_context flag — the Rs 5 Cr sleeve is structurally directional but quantitatively under-scaled to close the band breach",
+          "E7's post-July-2024 debt MF tax treatment flag (slab-rate taxation, effective 35-42.7% at Rajiv's likely tier) amplifies E3's observation on the tax-free bond ladder's structural attractiveness — the two sleeve components face materially different after-tax economics that should be modelled before final sizing within the Rs 5 Cr",
+          "E4's meta_wealth_context_distortion flag (Rs 165 Cr private company stake outside scope) combined with the deliberate non-liquidation of the Reliance concentration signals that the liquid corpus is being managed against an implicit illiquid-equity hedge framing; this should be surfaced explicitly rather than treated as background",
+          "E7's ter_plan_not_specified flag combined with the 7-year horizon makes Direct-versus-Regular plan confirmation a prerequisite to execution, not a post-trade check"
+        ],
+        "narrative_paragraph": "The synthesis reads positive on the architectural intent and structurally cautious on the execution detail. Three activated evidence agents — E3 macro, E4 behavioural, E7 mutual fund — converge that the debt sleeve addresses a documented zero-debt gap in a portfolio at 89.9% equity exposure, is funded conservatively from fresh inflow rather than from liquidation, and is anchored by a scheme (Kotak Bond Short Term Plan, AUM Rs 17,460 Cr, lead manager tenure 7.3 years, 3Y Sharpe 1.0552) that is fit-for-purpose for the short-duration tranche. E4's behavioural read is coherent: the proposal is investor-initiated, analytically framed via a performance spreadsheet, and consistent with Rajiv's revealed pattern of 15-year SIP discipline and non-reactive concentration management. The caveat layer is twofold. First, G1 returns requires_clarification because the post-action allocation still leaves equity 8.5pp above the upper band and debt 7.3pp below the floor — the Rs 5 Cr is directionally correct but quantitatively insufficient to bring the portfolio into mandate compliance, and the advisor must clarify with the investor whether the residual breach is intentionally held or whether a larger or sequenced deployment is warranted. Second, E7 flags that the post-July-2024 debt MF tax regime taxes gains at slab rate, which at Rajiv's likely income tier compresses after-tax yield on the Rs 2 Cr Kotak and Rs 1 Cr AAA corporate components to materially below the tax-free yields available on the NHAI/REC/PFC ladder; this asymmetry inside a single Rs 5 Cr sleeve should be modelled before sizing is finalised. E3's elevated macro reading (Brent at $118.95, USD/INR at 94.79, 10Y at 6.99% with an intraday spike to 7.19%) is not a stop signal for a short-duration domestic-currency sleeve but is a volatility overlay the advisor should name. The structure-fit flag from M0.IndianContext (mutual_fund_debt not listed in str_001 eligible_products for individual/resident) is a system-level review item rather than a substantive prohibition. The synthesis carries no escalation; the open items are clarifications that belong in the case dialogue.",
+        "counterfactual_framing": "A staged deployment that scales the debt sleeve from Rs 5 Cr to a larger figure (or sequences the Rs 5 Cr alongside a partial trim of one of the diversified equity MF positions outside the Reliance line) would bring the portfolio materially closer to mandate compliance rather than leaving a residual 8.5pp equity overshoot; a parallel framing would route a larger share of the sleeve toward the tax-free bond ladder, given the slab-rate tax drag on debt MF gains at the investor's marginal tier.",
+        "escalation_recommended": false,
+        "headline_takeaway": "The debt sleeve is architecturally correct but quantitatively under-scaled; Rs 5 Cr moves equity from 89.9% to 78.5% and leaves both bands still outside the 60-70% / 20-30% mandate."
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Dormant; no listed equity exposure introduced by the proposed debt sleeve."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Dormant; follows E1 trigger, no sector lens applies to a debt sleeve."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Rate cycle and credit-quality backdrop are supportive for short-duration debt, but an active crude shock (Brent $118.95, +86% YoY) and FII outflows of Rs 56,401 Cr in April are creating yield curve volatility that warrants explicit acknowledgement at deployment."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "The proposal is investor-architected, analytically framed, and behaviourally coherent with 15 years of disciplined revealed pattern; confidence is capped at 0.62 because zero prior advisor interactions exist on record."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Dormant; no unlisted equity in scope of the proposed action."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "Dormant; no wrapper-tier product in target or source."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "activated",
+          "risk_level": "low",
+          "one_line_takeaway": "Kotak Bond Short Term Plan anchors the short-duration tranche soundly (AUM Rs 17,460 Cr, lead manager 7.3 years, 3Y Sharpe 1.0552), subject to Direct plan confirmation and explicit after-tax yield modelling at slab rate per the post-July-2024 debt MF tax regime."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "The sleeve closes the architectural gap directionally, not quantitatively",
+          "body": "Rajiv has correctly identified that a portfolio at 89.9% equity against a 60-70% band carries a structural design gap. The Rs 5 Cr deployment moves equity to 78.5% and debt to 12.7% — still outside both bands. Worth a frank conversation on whether the residual breach is consciously held against the Reliance non-liquidation logic, or whether a larger sleeve or a sequenced approach is the better architectural answer."
+        },
+        {
+          "number": "02",
+          "title": "Within the Rs 5 Cr, the after-tax economics across the three components diverge",
+          "body": "Post-July-2024, debt MF gains are taxed at slab rate with no indexation benefit. At Rajiv's likely income tier, effective tax on the Rs 2 Cr Kotak and Rs 1 Cr AAA corporate bond MF could reach 35-42.7%, while the Rs 2 Cr NHAI/REC/PFC tax-free ladder is exempt under section 10(15)(iv)(h). Worth modelling the after-tax yield map across the three components before final sizing — the optimal mix inside Rs 5 Cr may not be the proposed 2/1/2."
+        },
+        {
+          "number": "03",
+          "title": "The macro backdrop is supportive structurally, volatile near-term",
+          "body": "The rate cycle has 125 bps of cuts behind it and real rates are restrictive, which sets up a reasonable entry for short-duration debt. But Brent at $118.95 with Hormuz disruption is feeding INR weakness (94.79) and yield curve spikes — the 10Y touched 7.19% on April 3. A short-duration sleeve is well-positioned for this, but the mark-to-market on the AAA corporate tranche will move in the near term, worth naming upfront."
+        },
+        {
+          "number": "04",
+          "title": "Direct plan confirmation is execution-gating, not post-trade",
+          "body": "The Kotak Bond Short Term Plan TER of 1.12% in the snapshot does not specify Direct vs Regular. At a 7-year horizon, a 40-50 bps differential compounds to roughly 3-4% of cumulative return. Worth confirming Direct/Growth before deployment rather than after."
+        },
+        {
+          "number": "05",
+          "title": "The Reliance concentration and the private company stake are the implicit context",
+          "body": "Rajiv's deliberate non-liquidation of the Rs 7 Cr Reliance line (20.3% of liquid corpus) and the Rs 165 Cr private company stake outside advisory scope together shape what the liquid corpus is for. Worth surfacing this framing explicitly — the debt sleeve may be partly a conscious hedge against the illiquid equity concentration, which is structurally rational but worth naming rather than treating in isolation."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e7_mutual_fund"
+        ],
+        "agents_not_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e5_unlisted_equity",
+          "e6_pms_aif_sif"
+        ],
+        "data_sufficiency_notes": "Synthesis is well-supported on the scheme-level analysis (E7 carries a complete snapshot for Kotak Bond Short Term Plan modulo TER plan classification and benchmark alpha), on the macro overlay (E3 carries a full RBI/MOSPI/IMD/FII data tape current to April 2026), and on the behavioural framing (E4 character-bible read is rich though zero prior advisor interactions cap revealed-pattern confidence at 0.62). The synthesis cannot see scheme-level analysis on the Rs 1 Cr AAA corporate bond MF or the Rs 2 Cr NHAI/REC/PFC tax-free bond ladder — E7 evaluated only the Kotak lead, and the other two sleeve components were not separately scoped. M0.IndianContext flagged mutual_fund_debt as not listed in str_001 eligible_products for individual/resident and surfaced no product-specific tax-matrix entry, so tax modelling rests on advisor-applied category defaults and E7's post-July-2024 regime read rather than on a curated tax matrix. G2 does not carry scheme-level SEBI rules for mutual funds in the current slice; scheme-level analysis is fully delegated to E7.",
+        "generation_mode": "stub",
+        "generation_timestamp": "2026-04-02T00:00:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "requires_clarification",
+          "rationale": "Mandate compliance: 2 band(s) sit at or beyond boundary; advisor clarification warranted."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "requires_clarification",
+          "rationale": "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "If the sleeve is architecturally under-scaled, why is Rs 5 Cr the right number rather than a placeholder?",
+          "body": "The synthesis accepts that Rs 5 Cr moves equity from 89.9% to 78.5% and debt from 0% to 12.7%, with both bands still breached post-action, and frames this as a 'directionally correct, quantitatively insufficient' deployment. But the case rationale presents Rs 5 Cr as a deliberate sizing decision tied to 12 months of founder distributions, not as a first tranche of a larger sequenced plan. If the intent is genuinely to address the architectural zero-debt gap (which would require closer to Rs 10-12 Cr to reach the 20% debt floor on a Rs 34.5 Cr base, and more if the corpus grows from further distributions), why is the proposal not framed as tranche-one-of-N with subsequent tranches calendarised? Conversely, if Rs 5 Cr is the cap because Rajiv is implicitly comfortable with the residual breach as a conscious choice against the Reliance non-liquidation logic, then the mandate band itself is what needs revisiting, not the sleeve sizing. The synthesis should be ready to answer which of these two readings is operative — the proposal sits ambiguously between them.",
+          "headline_takeaway": "The Rs 5 Cr figure is presented as a sizing decision but functions as a partial fix; the synthesis owes the investor a clear read on whether this is tranche-one or terminal."
+        },
+        {
+          "category": "counter_argument",
+          "title": "The 2/1/2 split inside the sleeve may be the wrong composition before it is the wrong size",
+          "body": "E7 flags that at Rajiv's likely income tier, the Rs 2 Cr Kotak short-term debt MF and Rs 1 Cr AAA corporate bond MF face slab-rate taxation of 35-42.7% post-July-2024, while the Rs 2 Cr NHAI/REC/PFC tax-free ladder is exempt under section 10(15)(iv)(h). E3 independently observes that tax-free bond yields offer a 'meaningful post-tax spread over taxable equivalents' for high-tier investors. If both agents converge on this, why is the proposed split only 40% in the tax-free ladder rather than 60-80%? The synthesis acknowledges the asymmetry as something to 'model before sizing is finalised', but the proposal as it stands embeds an after-tax-suboptimal composition. The synthesis should be ready to explain why the 2/1/2 split was anchored at all rather than treated as derivative of an after-tax yield optimisation — what reason would Rajiv give for not pushing the tax-free ladder weight materially higher?",
+          "headline_takeaway": "At Rajiv's tax tier the after-tax spread between the debt MF and tax-free bond components inside the same sleeve is large enough that the 2/1/2 composition needs an affirmative defence, not a post-hoc model."
+        },
+        {
+          "category": "stress_test",
+          "title": "Crude persists at $118 through Q2 FY27 and the RBI pauses through year-end — does the carry-only thesis hold?",
+          "body": "E3 carries the rate-cut path as 'contingent on crude stabilisation and monsoon outcome' and notes the RBI's unanimous April 8 hold cited West Asia uncertainty. The synthesis is comfortable that short-duration positioning preserves carry even if capital gain is delayed. But if Brent holds at $118+ through Q2 FY27 (Hormuz disruption durable), and the IMD's 66% below-normal monsoon probability resolves to actual deficiency feeding food CPI into H2 FY27, the RBI plausibly pauses through December 2026 or even hikes defensively. In that scenario, the 10Y revisits 7.19%+, the AAA corporate bond MF tranche takes mark-to-market pain over 12-18 months, and the short-duration MF carry of ~7% gross compresses to ~4-4.5% post-tax at slab rate — comparable to a 12-month FD with no duration risk. How does the synthesis defend the Rs 3 Cr MF tranche (Kotak + AAA corporate) against the FD alternative in this stress, and at what crude or CPI threshold does the case for the MF tranche specifically (not the tax-free ladder) collapse?",
+          "headline_takeaway": "If the rate-cut path stretches into 2027 under sustained crude and monsoon stress, the Rs 3 Cr debt MF tranche's after-tax yield converges on a fixed deposit while retaining duration risk an FD does not carry."
+        },
+        {
+          "category": "stress_test",
+          "title": "What if the founder distribution stream interrupts and the next sleeve tranche cannot be funded?",
+          "body": "The Rs 5 Cr is explicitly funded by 12 months of incremental founder distributions from the Rs 165 Cr private company stake — E4 frames this as 'structurally conservative' and additive to corpus. But the Series D closed October 2025 with Rs 14 Cr in secondary cash, suggesting distribution cadence is a function of the company's profitability and board distribution policy, not a contractual entitlement. If the underlying company hits a working capital squeeze, defers distributions for 18-24 months, or pursues another funding round that absorbs cash, the assumed funding source for any sequenced follow-on sleeve disappears. The synthesis treats the deployment as a one-shot decision but the architectural correction logic implicitly requires further tranches. What is the contingency if the next Rs 5-7 Cr of debt funding does not materialise from distributions on the expected cadence — does the advisor then revisit the Reliance non-liquidation decision under pressure?",
+          "headline_takeaway": "The deployment treats founder distributions as a renewable funding source, but a distribution pause would collapse the sequenced-correction path back onto the Reliance position the proposal deliberately preserves."
+        },
+        {
+          "category": "edge_case",
+          "title": "The structure-fit flag on mutual_fund_debt is being treated as procedural — what if it is substantive?",
+          "body": "M0.IndianContext flags that mutual_fund_debt is NOT listed in eligible_products for individual/resident under str_001. Both E3 and E7 read this as a 'system-level flag, not a substantive regulatory prohibition' requiring 'advisor review' before deployment. S1 carries it as a 'system-level review item'. But the entire pipeline is deferring resolution to the advisor without anyone actually resolving it. If str_001 is a curated rule (the docstring says 'curated YAML stores'), the omission of mutual_fund_debt from eligible_products is either an error in the store (in which case G2's clarification is wrong) or a substantive boundary that needs naming. The synthesis should be ready to answer: has anyone actually opened str_001 and confirmed which it is, and if not, why is this being routed past A1 to CIO without a real determination?",
+          "headline_takeaway": "Four layers of the pipeline have flagged str_001 and none have resolved it; the flag is being passed forward as a clarification rather than answered."
+        },
+        {
+          "category": "edge_case",
+          "title": "Zero prior advisor interactions plus a self-architecting investor — what is the case file actually establishing?",
+          "body": "E4 caps confidence at 0.62 and flags zero prior advisor interactions, noting Rajiv is 'investor-architected, analytically self-sufficient' and that the advisor's role will be 'sounding board and structural validator rather than primary recommendation source'. The first formal case is a Rs 5 Cr deployment that Rajiv arrives with a spreadsheet for, where every evidence agent's read is downstream of his own framing. If S1's verdict is 'positive_with_caveat' and the caveats are tax-modelling and Direct plan confirmation — both items Rajiv as an analytical investor should already have considered — what is the case file establishing other than agreement with the investor's pre-formed plan? The harder question: if this case sets the relationship pattern, is the advisor positioned to push back on a future Rajiv proposal that is analytically less sound, or has the precedent of validate-and-execute already been set in case one?",
+          "headline_takeaway": "Case one is functioning as ratification of an investor-architected proposal; the relationship precedent it sets may compromise the advisor's standing to challenge case two or three."
+        },
+        {
+          "category": "edge_case",
+          "title": "The mandate band breach is being clarified but the mandate itself is not being revisited",
+          "body": "G1 flags equity 8.5pp above ceiling and debt 7.3pp below floor post-action, asking for clarification on whether the residual breach is 'intentionally held' or whether 'a larger or sequenced deployment is warranted'. But there is a third possibility the gate does not surface: the 60-70% equity / 20-30% debt mandate may itself be miscalibrated for an investor whose total wealth (Rs ~200 Cr including the private stake) is dominated by illiquid concentrated equity, where the liquid corpus genuinely functions as a hedge. E4's meta_wealth_context_distortion flag points at exactly this — Rajiv's calibration is 'implicitly conditioned on the illiquid equity concentration'. If the mandate band was set without explicit reference to the Rs 165 Cr private stake, the right answer to G1's clarification may be to amend the mandate to widen the equity ceiling and lower the debt floor, not to add more debt. Has the mandate itself ever been pressure-tested against the total wealth picture, or is it inherited from a generic risk-tier template?",
+          "headline_takeaway": "The mandate band may be the wrong reference point for an investor whose Rs 165 Cr illiquid stake makes the liquid corpus functionally a hedging sleeve; clarifying the breach without revisiting the band may be solving the wrong problem."
+        }
+      ]
+    },
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "mutual_fund_debt",
+      "target_instrument": "Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder)",
+      "ticket_size_cr": 5,
+      "source_of_funds": "fresh_inflow",
+      "timeline": "this_year",
+      "rationale": "Investor-initiated (self-directed, fee-only). Rs 5 Cr fresh allocation to a debt sleeve over 7Y to address the zero-debt design of the portfolio without crystallising LTCG on the concentrated Reliance position (which is deliberately not touched). Funded primarily by 12 months of incremental founder distribution (fresh inflow), with a modest cash-reserve component, so the deployment grows the corpus rather than draining the small existing cash balance. Rajiv brings an analytical performance spreadsheet to the meeting."
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "requires_clarification",
+        "rationale": "Mandate compliance: 2 band(s) sit at or beyond boundary; advisor clarification warranted.",
+        "breaches": [],
+        "gaps": [
+          "Equity sits 8.5pp above the upper band (post-action 78.5% vs ceiling 70%). Clarify whether this is acceptable headroom usage under the mandate.",
+          "Debt sits 7.3pp below the lower band (post-action 12.7% vs floor 20%). Clarify whether the reduced allocation is intentional."
+        ],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 89.85507246376811,
+            "Debt": 0,
+            "Alternatives": 5.797101449275362,
+            "Cash": 4.3478260869565215
+          },
+          "post_action_allocation_pct": {
+            "Equity": 78.48101265822784,
+            "Debt": 12.658227848101266,
+            "Alternatives": 5.063291139240507,
+            "Cash": 3.79746835443038
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 60,
+              "max_pct": 70
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 20,
+              "max_pct": 30
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 5,
+              "max_pct": 10
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 2,
+              "max_pct": 5
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 1,
+            "aif": 0,
+            "total": 1
+          },
+          "target_position_pct_of_liquid_aum": 14.492753623188406
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "requires_clarification",
+        "rationale": "SEBI MF scheme-level rules not in the curated store; clarification on the specific scheme's SEBI category and minimum applies.",
+        "breaches": [],
+        "gaps": [
+          "M0.IndianContext sebi_boundaries does not carry scheme-level SEBI rules for mutual funds (category, sub-scheme limits, exit load tiers). E7 handles scheme-level analysis in the evidence layer; G2 will activate scheme-level rules in a future slice."
+        ],
+        "rule_trace": {
+          "target_category": "mutual_fund_debt",
+          "ticket_cr": 5,
+          "action_type": "new_investment",
+          "reference_data_source": "m0_indian_context:sebi_boundaries"
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 5,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder) (category: mutual_fund_debt) of Rs 5 Cr, sourced from fresh_inflow) does not introduce listed equity exposure via direct, MF, or PMS look-through. Per principles §3.1, E1 activates only when the case involves listed equity in any of these forms. None apply."
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder) (category: mutual_fund_debt) of Rs 5 Cr, sourced from fresh_inflow) does not introduce listed equity exposure with sector tags. Per principles §3.1, E2 follows E1's trigger and stays dormant when E1 does not activate."
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.74,
+        "drivers": [
+          "RBI repo at 5.25% (paused after 125 bps of cuts from 6.50%); cycle phase is late-cutting / early-pause, which is structurally supportive for short-duration debt instruments as yields have already repriced lower and reinvestment risk on the short end is manageable within a 7-year sleeve horizon",
+          "10Y G-Sec yield at 6.99% (up 44 bps from 6.55% in November 2025, with an intraday spike to 7.19% on April 3); the yield curve has steepened under crude-driven fiscal and inflation anxiety, creating a modestly attractive entry point for the short-term and AAA corporate bond components of the proposed sleeve",
+          "Real policy rate derived at approximately 3.15% (repo 5.25% minus core CPI 2.1%), the highest in several years; this confirms the rate environment is restrictive relative to growth, reinforcing the case that the RBI retains meaningful room to cut further, which would be capital-gain-positive for the short-duration MF tranche",
+          "CPI headline at 3.40% (March 2026), below the RBI 4% target; core CPI at 2.1% (Jan-Feb average); inflation trajectory is currently benign and supportive of the debt sleeve's real return proposition, though the IMD below-normal monsoon forecast (92% of LPA, 66% probability of below-normal or deficient) introduces a food-inflation upside risk in H2 FY27 that could delay further RBI cuts",
+          "GDP growth robust at 7.8% in Q3 FY26 (manufacturing 13.3%, services 9.5%); PMI Manufacturing at 55.9 (April flash rebound) and PMI Services at 57.9; the growth backdrop supports credit quality of the AAA corporate bond and infrastructure bond (NHAI/REC/PFC) components of the sleeve",
+          "Government fiscal consolidation on track: fiscal deficit YTD at 80.38% of revised estimate with a 7.0% YoY reduction; capex at Rs 9.29 lakh crore (84.81% of RE, +14.46% YoY); FY27 fiscal deficit target 4.3% of GDP with market borrowing of Rs 13.03 lakh crore — sovereign supply is elevated but manageable, and the capex quality improvement (revenue expenditure flat) is credit-positive for infrastructure bond issuers (NHAI, REC, PFC)",
+          "Tax-free bond ladder (NHAI/REC/PFC) is structurally attractive in the current environment: with the investor in a high income tier, tax-free yields on existing secondary-market bonds offer a meaningful post-tax spread over taxable equivalents; fiscal consolidation reduces sovereign credit risk for these quasi-sovereign issuers",
+          "Fresh inflow funding source eliminates LTCG crystallisation risk on the concentrated Reliance position; the proposed action is additive to corpus and does not require liquidation of any existing holding, which is macro-context-neutral from a tax-event standpoint"
+        ],
+        "flags": [
+          "crude_oil_shock_active: Brent at $118.95/barrel (April 29, 2026), up 86% YoY from ~$64; Hormuz disruption blocking approximately 20% of global oil trade; this is the dominant macro tail risk — sustained crude at these levels will pressure India's current account, fiscal subsidy burden, and CPI, potentially forcing the RBI to pause cuts longer than the market currently prices",
+          "inr_depreciation_stress: USD/INR at 94.79 (April 29, 2026), a 10.7% depreciation over 12 months from 85.60; forex reserves down $25 billion to $703 billion; INR weakness is partly crude-driven and partly FII-outflow-driven; for a purely domestic debt sleeve this is not a direct return risk, but it signals external sector stress that could feed into imported inflation and delay the rate-cut cycle",
+          "fii_outflow_pressure: FII net equity outflows of Rs 56,401 crore in April 2026 alone (~$5.97 billion), the heaviest single-month outflow in the data window; DII absorption (Rs 34,617 crore, partial April 1–8) is not fully offsetting; this dynamic is creating yield curve volatility (10Y spiked to 7.19% on April 3) that affects mark-to-market on the short-term debt MF tranche in the near term",
+          "monsoon_risk_food_inflation: IMD forecasts below-normal monsoon at 92% of LPA with El Niño likely; 66% probability of below-normal or deficient outcome versus 33% climatological base; a poor monsoon could push food CPI materially higher in Q2–Q3 FY27, complicating the RBI's rate path and compressing real returns on the short-duration tranche",
+          "yield_curve_volatility_near_term: 10Y yield rose 44 bps in five months and spiked intraday to 7.19% on April 3 before partially retracing to 6.99%; the crude shock and FII outflows are the proximate drivers; short-duration instruments are less exposed than long-duration, but the AAA corporate bond MF tranche carries some mark-to-market sensitivity if the spike resumes",
+          "regulatory_structure_fit_flag: Indian Context module notes that mutual_fund_debt is NOT listed in eligible_products for individual/resident under str_001 and requires advisor review; this is a system-level flag, not a substantive regulatory prohibition, but it should be resolved before deployment; the SIF framework (chg_009, effective April 1, 2025) is not directly applicable to this sleeve but represents a recent regulatory inflection point in the broader debt product landscape",
+          "rate_cut_path_uncertainty: RBI held unanimously at April 8, 2026 MPC meeting citing West Asia uncertainty; forward rate-cut expectations are now contingent on crude stabilisation and monsoon outcome; if cuts are delayed beyond Q1 FY27, the capital gain thesis for the short-duration MF tranche weakens, though the carry return remains intact",
+          "india_us_rate_differential_compression_risk: India-US differential at 162 bps (5.25% minus 3.625%); if the Fed holds indefinitely (Deutsche Bank base case) while RBI cuts, the differential narrows further, potentially sustaining FII outflow pressure and INR weakness, which is a secondary risk to the macro backdrop for the debt sleeve"
+        ],
+        "reasoning_paragraph": "The macro environment for the proposed Rs 5 crore debt sleeve is structurally supportive at the policy-rate and credit-quality level but is operating under an active external shock that introduces meaningful near-term volatility. The RBI repo rate at 5.25% — paused after 125 basis points of cuts — combined with a real rate of approximately 3.15% (the highest in several years) confirms that the rate cycle has room to ease further, which is directionally positive for short-duration debt instruments and creates a reasonable entry point for the Kotak Bond Short Term Plan and the AAA corporate bond component. The 10Y G-Sec at 6.99%, having spiked to 7.19% on April 3 before partially retracing, reflects the crude oil shock (Brent at $118.95, up 86% year-on-year, with Hormuz disruption constraining approximately 20% of global oil trade) rather than a fundamental deterioration in India's sovereign credit; the fiscal consolidation trajectory — deficit YTD at 80.38% of revised estimate with a 7.0% year-on-year reduction and capex running at 84.81% of revised estimate — remains intact and is credit-supportive for the quasi-sovereign NHAI/REC/PFC tax-free bond ladder. CPI at 3.40% and core at 2.1% are benign, but the IMD's below-normal monsoon forecast (92% of LPA, 66% probability of below-normal or deficient) is a material forward risk to food inflation and, by extension, to the RBI's rate-cut sequencing in H2 FY27. The INR at 94.79 (10.7% depreciation over twelve months) and FII equity outflows of Rs 56,401 crore in April alone signal external sector stress that is feeding yield curve volatility; for a domestic-currency debt sleeve this is not a direct return impairment, but it is a systemic risk overlay that warrants acknowledgement. The fresh-inflow funding source is macro-context-appropriate — it avoids LTCG crystallisation on the concentrated Reliance position and grows the corpus additively — and the proposed sleeve's short-to-medium duration profile is well-matched to a late-cutting, pause-phase rate environment where the carry is intact even if the capital gain thesis is delayed by the crude shock. The structural fit flag raised by the Indian Context module (mutual_fund_debt not listed in str_001 eligible products) requires advisor-level resolution before deployment but does not represent a substantive regulatory prohibition under current SEBI norms for individual resident investors in registered mutual fund schemes.",
+        "data_points_cited": [
+          "RBI repo rate: 5.25% (as of April 17, 2026; RBI 50 Macro Indicators XLSX Weekly)",
+          "Real interest rate: ~3.15% (derived: repo 5.25% minus core CPI 2.1%; RBI MPC Statement April 8, 2026)",
+          "10Y G-Sec yield: 6.99% (April 17, 2026; FBIL via RBI 50 Macro Indicators XLSX); intraday spike to 7.19% on April 3, 2026",
+          "10Y yield change: +44 bps from 6.55% in November 2025",
+          "CPI headline: 3.40% YoY (March 2026; MOSPI CPI Press Release + RBI 50 Macro XLSX)",
+          "CPI core (ex-food, fuel, ex-precious metals): 2.1% Jan-Feb 2026 average (RBI MPC Statement April 8, 2026)",
+          "CPI food: 3.87% YoY (March 2026)",
+          "GDP growth Q3 FY26: 7.8% YoY; Q2: 8.4%; Q1: 6.7% (MOSPI Press Release PIB PRID 2233518, February 27, 2026)",
+          "Manufacturing GDP growth Q3 FY26: 13.3%; Services: 9.5%",
+          "RBI FY26 GDP projection: 7.6%",
+          "PMI Manufacturing: 55.9 April flash / 53.9 March final (HSBC Flash India PMI, April 23, 2026)",
+          "PMI Services: 57.9 April flash / 57.5 March final; Composite PMI: 58.3",
+          "Capacity utilisation: 75.6% Q3 FY26 (RBI OBICUS Survey 72nd round)",
+          "Fiscal deficit YTD Apr-Feb FY26: Rs 12,52,649 crore (80.38% of RE; -7.0% YoY; CGA DAMA Dashboard)",
+          "Government capex YTD: Rs 9,29,322 crore (84.81% of RE; +14.46% YoY; CGA DAMA Dashboard)",
+          "FY27 fiscal deficit target: 4.3% of GDP; market borrowing: Rs 13.03 lakh crore (Budget at a Glance FY27)",
+          "FY27 capex: Rs 12.22 lakh crore; effective capex: Rs 17.15 lakh crore",
+          "Brent crude: $118.95/barrel (April 29, 2026; Crude Oil XLSX daily OHLCV); up from ~$64 April 2025 (+86% YoY); Hormuz disruption ~20% global oil trade",
+          "USD/INR: 94.787 (April 29, 2026; RBI Daily Reference Rate); from 85.60 April 2, 2025 = 10.7% depreciation",
+          "Forex reserves: $703 billion (down $25 billion; RBI 50 Macro Indicators)",
+          "FII net equity flows April 2026: Rs -56,401 crore (~$5.97 billion; CDSL FIIMonthly)",
+          "DII net flows April 1-8, 2026: Rs +34,617 crore (partial; Groww.in sourced from NSE/BSE)",
+          "India-US rate differential: 162 bps (repo 5.25% minus Fed midpoint 3.625%; derived)",
+          "US Fed funds rate: 3.50%-3.75% (March 18, 2026 FOMC; Federal Reserve Press Release)",
+          "IMD monsoon forecast: 92% of LPA, below normal; 66% probability below-normal or deficient (IMD Long Range Forecast April 13, 2026)",
+          "Non-food credit growth: 14.3% YoY (February 28, 2026; RBI 50 Macro Indicators XLSX Fortnightly)",
+          "RBI MPC stance: Neutral, unanimous hold (April 8, 2026; RBI MPC Statement)",
+          "SIF framework: chg_009 effective April 1, 2025 (Indian Context regulatory changelog)",
+          "str_001 flag: mutual_fund_debt not listed in eligible_products for individual/resident; advisor review required (Indian Context structure_matrix v1.0)"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.62,
+        "drivers": [
+          "Investor-initiated proposal: Rajiv brought the debt sleeve concept and an analytical performance spreadsheet to the meeting, consistent with his documented monitoring-driven, self-directed engagement style — this is not an advisor-pushed product placement.",
+          "Stated risk tolerance (Aggressive) is coherent with the proposed action: adding a Rs 5 Cr debt sleeve to a Rs 34.5 Cr corpus does not contradict an aggressive mandate; it addresses a structural zero-debt gap that Rajiv himself has identified, suggesting the action is portfolio-architecture-driven rather than risk-appetite-driven.",
+          "Revealed behavioural pattern (limited but directionally consistent): sustained 15-year SIP discipline, measured COVID-dip topups, and a four-year disciplined PMS hold with a manager-continuity assessment in 2022 all indicate a systematic, non-reactive investor — the debt sleeve proposal is consistent with this pattern of deliberate, long-horizon portfolio construction.",
+          "Source-of-funds discipline: the Rs 5 Cr is funded primarily by 12 months of incremental founder distributions (fresh inflow), not by liquidating existing positions or compressing the cash reserve — this is structurally conservative behaviour consistent with a sophisticated accumulator who understands sequencing.",
+          "Fee-only, analytically engaged profile: Rajiv's preference for fee-only advice and his personal benchmark-tracking spreadsheet indicate low susceptibility to relationship-trust or peer-network product adoption; the debt sleeve proposal is analytically grounded, not socially driven.",
+          "No revealed panic or reactive behaviour on record: COVID-dip-buy with measured topups (not panic-sell) and the deliberate non-liquidation of the concentrated Reliance position (despite its 20.3% weight) indicate emotional discipline under market stress.",
+          "Stated vs revealed divergence: directionally aligned. Stated profile is Aggressive; revealed behaviour is Aggressive-but-disciplined. The debt sleeve proposal is consistent with a sophisticated investor who distinguishes between risk appetite (high) and portfolio architecture (needs balance) — no divergence flag warranted."
+        ],
+        "flags": [
+          "limited_history_flag: zero prior advisor interactions on record; all behavioural inference is drawn from character bible attributes and self-reported history, not from observed advisor-relationship decision events. Confidence ceiling applied.",
+          "new_advisor_relationship: this is case c-2026-05-21-surana-01, the first formal case. Revealed pattern in the advisor relationship context is entirely unobserved. The character bible provides strong directional signal but cannot substitute for observed decision history with this advisor.",
+          "self_directed_initiative_dynamic: Rajiv is investor-initiated and analytically self-sufficient. The advisor's role in this relationship is likely to be a sounding board and structural validator rather than a primary recommendation source. This is not a risk flag per se, but it shapes the interaction dynamic — the advisor must engage analytically, not directively.",
+          "concentrated_position_non_action_pattern: the deliberate non-liquidation of Reliance at 20.3% of liquid corpus (breaching position threshold) is a revealed behavioural signal — Rajiv has consciously chosen to hold a concentrated position rather than rebalance. This pattern should be tracked across future cases to distinguish disciplined conviction from loss-aversion-anchored inertia.",
+          "meta_wealth_context_distortion: Rs 165 Cr private company stake sits outside advisory scope but dominates Rajiv's total wealth picture. His risk tolerance calibration and portfolio architecture decisions are implicitly conditioned on this illiquid equity concentration. The debt sleeve proposal may be partly a subconscious hedge against the illiquid stake — this is structurally rational but the advisor should surface this framing explicitly in the case dialogue rather than treating the liquid corpus in isolation."
+        ],
+        "reasoning_paragraph": "Rajiv Surana's proposed Rs 5 Cr debt sleeve is behaviourally coherent with his documented profile across every observable dimension: it is investor-initiated, analytically framed (he arrives with a performance spreadsheet), funded from fresh inflow rather than portfolio liquidation, and addresses a structural portfolio gap he has himself identified rather than responding to market noise or peer-network influence. His revealed behavioural pattern — 15-year SIP discipline, measured COVID-dip topups, a four-year disciplined PMS hold with a manager-continuity assessment, and the deliberate non-liquidation of a concentrated Reliance position — consistently indicates a systematic, long-horizon, non-reactive investor whose stated Aggressive risk appetite is matched by disciplined execution rather than speculative behaviour. The stated-versus-revealed divergence assessment finds alignment rather than tension: Rajiv is Aggressive-but-architecturally-deliberate, and the debt sleeve is an architectural correction, not a risk-appetite retreat. The primary source of analytical caution is structural rather than behavioural: with zero prior advisor interactions on record, all inference rests on character bible attributes and self-reported history rather than observed advisor-relationship decision events, warranting a confidence ceiling of 0.62. The advisor should note that Rajiv's self-directed, analytically dominant engagement style positions him as a co-architect of portfolio decisions; the advisor's value-add in this relationship will be most credible when delivered as structured analytical challenge and regulatory/tax-layer expertise rather than as directional recommendation.",
+        "data_points_cited": [
+          "Rs 5 Cr proposed debt sleeve on Rs 34.5 Cr liquid corpus (14.5% of corpus post-deployment)",
+          "Current debt allocation: 0% of advisory-scope liquid corpus",
+          "Current equity allocation: 89.9% of advisory-scope liquid corpus",
+          "Reliance Industries position: Rs 7 Cr, 20.3% of liquid corpus (position threshold breach, deliberately held)",
+          "Source of funds: primarily 12 months incremental founder distributions (fresh inflow)",
+          "Existing cash reserve: Rs 1.50 Cr (4.3%); proposal does not materially compress this",
+          "15-year SIP discipline (character bible)",
+          "COVID-dip-buy with measured topups (character bible)",
+          "Four-year White Oak PMS hold with 2022 manager-continuity assessment (character bible)",
+          "23-investment angel portfolio tracked with IRR discipline (character bible)",
+          "Fee-only advisory preference; no banker-RM relationships (character bible)",
+          "Personal benchmark-tracking spreadsheet maintained across multiple horizons (character bible)",
+          "Rs 165 Cr private company stake (26% of B2B SaaS co., Series D USD 240M post-money, October 2025) — outside advisory scope",
+          "Rs 14 Cr secondary cash taken at Series D (character bible)",
+          "Prior advisor interactions on record: 0"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder) (category: mutual_fund_debt) of Rs 5 Cr, sourced from fresh_inflow) does not introduce unlisted equity exposure. Per principles §3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder) (category: mutual_fund_debt) of Rs 5 Cr, sourced from fresh_inflow) does not target a PMS, AIF, or SIF wrapper and the source of funds is not an existing wrapper-tier position. Per principles §3.1, E6 activates only when the case involves wrapper-tier products in target or source. None apply."
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "activated",
+        "risk_level": "low",
+        "confidence": 0.71,
+        "drivers": [
+          "Kotak Bond Short Term Plan (Direct/Growth) is a SEBI-classified Short Duration Fund with AUM of Rs 17,460 Cr, indicating institutional scale and adequate liquidity for a Rs 2 Cr ticket without capacity stress.",
+          "Lead manager Deepak Agrawal has been on this scheme since January 2019 (~7.3 years as of decision date), providing meaningful continuity on a debt mandate where credit-cycle navigation and duration management are manager-dependent.",
+          "Co-manager Abhishek Bisen joined September 2021 (~4.6 years tenure), providing team depth and succession buffer.",
+          "3Y returns of 6.78% against a short-duration debt category context, with a Sharpe ratio of 1.0552 over 3Y and volatility of 1.15% annualised, indicate a risk-adjusted profile consistent with the mandate: low-volatility, moderate-yield debt.",
+          "1Y return of 4.96% versus 3Y return of 6.78% reflects the rate-cycle compression of 2024-25; the 5Y return of 5.63% anchors the long-run expectation for this category.",
+          "TER of 1.12% is noted; however, the snapshot does not specify whether this is Direct or Regular plan. If Regular plan, a Direct plan equivalent would typically carry a materially lower TER (estimated 30-60 bps lower for this category), which would improve net yield by a compounding-significant margin over the investor's 7-year horizon.",
+          "Nil exit load removes liquidity friction, appropriate for a sleeve that may need tactical rebalancing as the broader debt ladder matures.",
+          "Within the Rs 5 Cr debt sleeve, Kotak Bond Short Term Plan anchors the Rs 2 Cr short-duration allocation; the remaining Rs 3 Cr (AAA corporate bond MF + NHAI/REC/PFC tax-free bond ladder) are outside E7 scope but structurally complementary.",
+          "The proposed allocation addresses a documented zero-debt design gap in a portfolio at 89.9% equity exposure against a 60-70% mandate band, making the scheme's role portfolio-corrective rather than return-maximising.",
+          "Fresh-inflow funding avoids LTCG crystallisation on the concentrated Reliance position, preserving the existing equity structure while growing the corpus."
+        ],
+        "flags": [
+          "ter_plan_not_specified: The snapshot TER of 1.12% does not confirm Direct vs Regular plan. If Regular plan, the fee drag over a 7-year horizon is material; advisor must confirm Direct plan is being used.",
+          "benchmark_alpha_not_available: No benchmark return for Nifty Short Duration Debt Index A-II is present in the snapshot. Alpha vs benchmark cannot be computed; peer-relative and absolute return analysis is the available basis.",
+          "capture_ratio_not_available: Up-capture and down-capture ratios are not in the snapshot; regime-specific performance attribution cannot be completed.",
+          "rolling_beat_frequency_not_available: Rolling beat frequency vs benchmark or category median is not disclosed in the snapshot; consistency of outperformance cannot be quantified.",
+          "post_july_2024_debt_tax_treatment: Per Budget 2024 changes (effective for debt MF units purchased on or after 1 April 2023), LTCG indexation benefit is no longer available on debt mutual funds; gains are taxed at slab rate regardless of holding period. For Rajiv Surana at a likely high income tier with surcharge, effective tax on debt MF returns could be 35-42.7%. This materially affects net-of-tax yield comparison against the tax-free bond ladder component of the same sleeve.",
+          "structure_fit_flag: M0.IndianContext flags mutual_fund_debt as not listed in eligible_products for individual/resident [str_001]; advisor review of structure-fit is required before execution.",
+          "equity_overweight_context: The debt sleeve is corrective for a portfolio at 89.9% equity vs 60-70% mandate band; E7 notes this scheme is being deployed as a rebalancing instrument, not a standalone return vehicle. The adequacy of Rs 5 Cr to meaningfully close the equity overweight (from 89.9% toward 70% on a Rs 34.5 Cr base) is a portfolio-level question for S1/IC1, not E7.",
+          "tax_free_bond_ladder_outside_e7_scope: The Rs 2 Cr NHAI/REC/PFC tax-free bond ladder is a direct bond instrument, not a mutual fund scheme; E7 does not evaluate it but notes its tax efficiency (interest exempt u/s 10(15)(iv)(h)) is superior to the debt MF component on an after-tax basis at Rajiv's likely income tier."
+        ],
+        "reasoning_paragraph": "Kotak Bond Short Term Plan presents as a structurally sound anchor for the short-duration tranche of the proposed Rs 5 Cr debt sleeve. The scheme carries institutional AUM (Rs 17,460 Cr), a stable two-manager team with the lead manager at 7+ years of tenure, and a 3Y risk-adjusted profile (Sharpe 1.0552, vol 1.15%) consistent with its SEBI Short Duration mandate. The absolute return sequence—5.63% over 5Y, 6.78% over 3Y, 4.96% over 1Y—reflects rate-cycle dynamics rather than strategy deterioration, and the nil exit load preserves tactical flexibility appropriate for a sleeve that will coexist with a maturing bond ladder. The primary analytical constraint in this evaluation is data incompleteness: benchmark alpha, rolling beat frequency, and capture ratios are not available from the snapshot, and the TER of 1.12% cannot be confirmed as Direct plan. The latter is the most consequential gap—at a 7-year horizon, a 40-50 bps Direct/Regular delta compounds to approximately 3-4% of cumulative return, and advisor confirmation of Direct plan is a prerequisite for execution. The more structurally significant consideration is the post-July 2024 debt MF tax treatment: with indexation benefit removed, gains on this scheme will be taxed at slab rate, and at Rajiv Surana's likely income tier the effective rate (including surcharge) could reach 35-42.7%, compressing net-of-tax yield to a range that warrants explicit comparison against the tax-free bond ladder component of the same sleeve and against alternative structures. The scheme is fit-for-purpose as a short-duration, low-volatility allocation within the sleeve; the verdict is positive with caution, contingent on Direct plan confirmation and after-tax yield modelling at the investor's marginal rate.",
+        "data_points_cited": [
+          "AUM: Rs 17,460.54 Cr (snapshot)",
+          "TER: 1.12% (plan unspecified in snapshot)",
+          "1Y return: 4.96%",
+          "3Y return: 6.78%",
+          "5Y return: 5.63%",
+          "3Y Sharpe ratio: 1.0552",
+          "3Y volatility: 1.15%",
+          "Exit load: nil",
+          "Benchmark: Nifty Short Duration Debt Index A-II (return not available in snapshot)",
+          "Lead manager Deepak Agrawal: since 2019-01-15 (~7.3 years)",
+          "Co-manager Abhishek Bisen: since 2021-09-29 (~4.6 years)",
+          "SEBI category: Short Duration Fund",
+          "Proposed ticket: Rs 2 Cr (within Rs 5 Cr sleeve)",
+          "Portfolio equity exposure: 89.9% vs mandate band 60-70%",
+          "Portfolio liquid AUM: Rs 34.5 Cr",
+          "str_001 structure-fit flag: mutual_fund_debt not listed in eligible_products for individual/resident",
+          "Budget 2024 debt MF tax change: indexation benefit removed for units purchased on/after 1 April 2023; gains taxed at slab rate"
+        ]
+      }
+    ],
+    "router_decision": {
+      "caseMode": "proposed_action",
+      "caseIntent": "new_investment",
+      "dominantLens": "proposal_evaluation",
+      "e1": false,
+      "e2": false,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": false,
+      "e7": true,
+      "indianContext": true,
+      "portfolioRiskAnalytics": true,
+      "riskRewardStats": true,
+      "activated": [
+        "m0_indian_context",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=proposed_action; case_intent=new_investment; target_category=mutual_fund_debt; source_of_funds=fresh_inflow; listed_look_through=false; pms_or_aif=false; mf=true; unlisted=false"
+    },
+    "indian_context": {
+      "mode": "bulk",
+      "generated_by": "m0_indian_context_deterministic",
+      "store_versions": {
+        "tax_matrix": "1.1",
+        "sebi_boundaries": "1.2",
+        "structure_matrix": "1.0",
+        "demat_mechanics": "1.0",
+        "gift_city_routing": "1.0",
+        "regulatory_changelog": "1.0"
+      },
+      "investor_structure": {
+        "structure_type": "individual",
+        "residency": "resident",
+        "legacy_alias_applied": "resident_individual -> individual + residency=resident"
+      },
+      "tax_structure": "No product-specific tax-matrix entry matched the proposal and investor structure; advisor applies category defaults.",
+      "lock_in_mechanics": "No demat/lock-in entry matched the proposal product.",
+      "regulatory_eligibility": "No SEBI boundary entry matched the proposal product.",
+      "surcharge_implications": "No surcharge-band entry matched; standard slab surcharge applies per investor income tier.",
+      "structure_specific_considerations": "mutual_fund_debt is NOT listed in eligible_products for individual/resident [str_001]; structure-fit requires advisor review. | Individual resident, baseline product eligibility [str_001]",
+      "sebi_minimums": [],
+      "applicable_regulatory_changes": [
+        {
+          "entry_id": "chg_009",
+          "topic": "SIF (Specialised Investment Fund) framework introduction",
+          "effective_date": "2025-04-01",
+          "affected_entries": [
+            "str_001"
+          ]
+        }
+      ],
+      "indicative_flags": [],
+      "citations": [
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_001",
+          "topic": "Individual resident, baseline product eligibility",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 (PMS eligibility); SEBI (AIF) Regulations 2012 (AIF eligibility); SEBI (Mutual Funds) Regulations 1996 amended 2025 (SIF eligibility); SEBI Master Circular for AIFs 2024-05-07 (Chapter 12 AI Framework)",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        }
+      ],
+      "edge_cases_flagged": [],
+      "reasoning_trace": "Deterministic retrieval over six curated stores. Resolved investor structure individual/resident (alias: resident_individual -> individual + residency=resident); product axis [mutual_fund_debt]; 1 entries matched (0 indicative); 1 regulatory-changelog events effective on/before 2026-04-02.",
+      "raw": {
+        "matched_entry_ids": [
+          "structure_matrix:str_001"
+        ]
+      }
+    },
+    "materiality": {
+      "fires": true,
+      "reason": "Ticket size Rs 5 Cr at or above the Rs 5 Cr institutional escalation threshold. 4 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "ticket_size_threshold",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The central deliberation question is whether the Rs 5 Cr debt sleeve, in its current 2:1:2 composition (Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr tax-free bond ladder) and at this sizing, represents the right execution of a correct architectural instinct, or whether the residual 8.5 percentage-point equity overshoot and the slab-rate tax drag on Rs 3 Cr of the sleeve warrant re-sizing, re-weighting, or sequencing before deployment. All activated evidence agents (E3 macro, E4 behavioural, E7 scheme-level) converge on the architectural intent: a fresh-inflow-funded debt sleeve addresses a documented zero-debt design gap in a portfolio sitting at 89.9% equity against a 60-70% mandate band, anchored by a fit-for-purpose short-duration scheme with 7.3 years of lead manager tenure. The proposal does not activate material dissent on whether the sleeve should exist.",
+          "The institutional read consolidates three layers of structural concern that do not reject the proposal but condition its execution. First, the Risk Assessor and Devil's Advocate converge that the Rs 5 Cr ticket, while directionally correct, leaves equity at 78.5% post-action (8.5pp above the 70% ceiling) and debt at 12.7% (7.3pp below the 20% floor), meaning the action ratifies rather than resolves the mandate breach; G1's requires_clarification signals that the committee must explicitly resolve whether this residual is intentional headroom usage (consistent with the deliberate non-action on the 20.3% Reliance concentration) or a sequencing gap. Second, the Devil's Advocate and Risk Assessor identify a tax-amplified yield asymmetry within the sleeve itself: the post-July-2024 debt MF regime taxes gains at slab rate (effective 35-42.7% at the investor's likely surcharge-inclusive tier), while the NHAI/REC/PFC tax-free bond interest is exempt under section 10(15)(iv)(h); the current 2:1:2 weighting allocates 60% of the ticket to the tax-disadvantaged wrappers without modelled after-tax justification, and the Counterfactual Engine identifies re-weighting toward the tax-free ladder as a structurally superior alternative within the same Rs 5 Cr envelope. Third, the Risk Assessor flags that the Direct-versus-Regular plan confirmation is a precondition to execution rather than a post-trade check, given the 30-60 basis-point TER delta that compounds to 3-4% of cumulative return over the 7-year horizon.",
+          "The macro overlay from E3 (Brent at $118.95, 10Y spiked to 7.19% intraday on April 3, FII outflows of Rs 56,401 Cr in April, IMD monsoon forecast at 92% of LPA with 66% probability of below-normal) does not constitute a stop signal for a domestic-currency short-duration sleeve but introduces volatility on the capital-gain thesis for the short-term MF tranches; the carry-only case at slab rate has not been modelled and should clear a meaningful hurdle before the taxable allocation is sized at Rs 3 Cr. The Counterfactual Engine surfaces three execution alternatives: scaled deployment to Rs 8-9 Cr to close the band breach directly, intra-sleeve re-weighting toward tax-free bonds to address the tax asymmetry, or sequenced deployment with a committed second tranche within 12-18 months that combines further debt addition with a trim of diversified equity outside the Reliance line. The structure-fit flag from M0.IndianContext (mutual_fund_debt not listed in str_001 eligible_products for individual/resident) is an indicative reference-data note requiring advisor clarification before execution rather than a substantive SEBI prohibition. No material dissent exists on the architectural intent; the deliberation concentrates on whether the current sizing, composition, and execution gates are sufficient to move the proposal from positive_with_caveat (S1 synthesis confidence 0.7) to a cleared execution state."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "This case activates IC1 on two materiality triggers: a Rs 5 Cr ticket at the institutional escalation threshold, and four amplification flags in S1 synthesis at or above the compound-risk threshold. The proposal itself is architecturally uncontroversial — a fresh-inflow-funded debt sleeve to address a documented zero-debt design gap in a portfolio sitting at 89.9% equity against a 60-70% mandate band, anchored by a fit-for-purpose short-duration scheme (Kotak Bond Short Term Plan, AUM Rs 17,460 Cr, lead manager tenure 7.3 years, 3Y Sharpe 1.0552). E3 (macro), E4 (behavioural), and E7 (scheme-level) converge on directional support. G3 passes. The deliberation does not sit on whether the sleeve should exist; it sits on whether Rs 5 Cr at this composition is the right execution of the right architectural instinct.",
+          "Three structural tensions warrant deliberation. First, G1 returns requires_clarification on two band breaches that persist post-action — equity remains 8.5pp above ceiling at 78.5%, debt remains 7.3pp below floor at 12.7% — meaning the action is directionally correct but quantitatively under-scaled to restore mandate compliance, and the advisor must clarify whether the residual breach is a deliberate mandate-headroom decision (consistent with Rajiv's revealed non-liquidation of the concentrated Reliance position) or a sequencing gap. Second, the Rs 5 Cr sleeve carries materially asymmetric after-tax economics inside its own composition: the Rs 3 Cr in debt MF tranches faces slab-rate taxation (35-42.7% effective at Rajiv's likely income tier under the post-July-2024 regime), while the Rs 2 Cr tax-free bond ladder remains exempt under section 10(15)(iv)(h) — the intra-sleeve weighting toward the taxable wrapper warrants explicit justification rather than treatment as a structural default.",
+          "Third, the case carries two contextual overlays that should not destabilise the proposal but must be named. E3 reads the external environment as elevated (Brent at $118.95, USD/INR at 94.79, 10Y at 6.99% with a recent intraday spike to 7.19%, FII outflows of Rs 56,401 crore in April 2026 alone), which is not a stop signal for a domestic-currency short-duration sleeve but is a volatility overlay on the near-term mark-to-market path. E4 flags the Rs 165 Cr private company stake outside advisory scope as an implicit illiquid-equity hedge framing under which the deliberate Reliance non-action and the modest debt sleeve sizing become more legible. Both overlays sharpen the central deliberation question rather than answer it."
+        ],
+        "deliberation_question": "Does the Rs 5 Cr debt sleeve, in its current 2:1:2 composition and at this sizing, represent the right execution of a correct architectural instinct, or is the residual 8.5pp equity overshoot and the slab-rate tax drag on Rs 3 Cr of the sleeve sufficient to warrant either re-sizing, re-weighting toward the tax-free ladder, or sequencing before the action proceeds?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The proposal is being read as architecturally sound and merely under-scaled, but the stronger adversarial reading is that the Rs 5 Cr ticket has been sized against the cadence of fresh inflow rather than against the architecture it claims to correct. A debt sleeve that leaves equity 8.5pp above the ceiling and debt 7.3pp below the floor is not a partial fix awaiting future tranches; it is a deployment that ratifies the residual breach by treating mandate compliance as a multi-year project rather than a current obligation. G1's requires_clarification on two simultaneous band gaps is the structural signal: the architecture being chosen is one in which the mandate band functions as a soft guideline subordinate to the deliberate non-action on the Reliance concentration, and the committee should name that choice rather than absorb it into the silent premise of the proposal.",
+          "Inside the sleeve itself, the 2:1:2 composition allocates 60% of the ticket (Rs 3 Cr) to wrappers taxed at slab rate under the post-July-2024 regime, against 40% (Rs 2 Cr) in the tax-free ladder that is structurally superior on every dimension the proposal cites — yield after tax, credit quality (quasi-sovereign NHAI/REC/PFC against fiscal consolidation), and insulation from the mark-to-market volatility E3 has flagged on the 10Y. At Rajiv's likely 35-42.7% effective rate, the Rs 3 Cr taxable tranche delivers a net carry that the committee has not seen modelled, and the burden of justification should sit on the taxable allocation rather than on the tax-free one. The composition reads as a default debt-MF construction lightly garnished with a tax-free ladder, not as a composition optimised for this investor's marginal rate.",
+          "The macro overlay sharpens rather than softens this concern. E3 documents an active crude shock, a 10Y that has spiked intraday to 7.19%, FII outflows of Rs 56,401 crore in a single month, and an IMD monsoon forecast that could delay further rate cuts into H2 FY27. None of this is a stop signal, but it does mean the capital-gain thesis on the short-duration MF tranche is contingent on a rate path that has just become less certain, while the carry-only case for those tranches must clear the slab-rate hurdle. The proposal's strongest version requires either a re-weighting toward the tax-free ladder, a smaller initial ticket with explicit sequencing toward mandate compliance, or both — and the committee should not approve the current 2:1:2 at Rs 5 Cr without resolving which framing it is endorsing."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Residual band breach is a decision, not a gap",
+            "body": "Post-action equity at 78.5% against a 70% ceiling and debt at 12.7% against a 20% floor is not a sequencing artefact; it is an allocation outcome the committee is being asked to ratify. G1's requires_clarification should be resolved as an explicit committee position on mandate-headroom usage relative to the Reliance non-action, not deferred to subsequent cases."
+          },
+          {
+            "title": "Intra-sleeve tax asymmetry is not modelled",
+            "body": "The Rs 3 Cr taxable tranche faces 35-42.7% effective rate at Rajiv's likely tier while the Rs 2 Cr tax-free ladder is exempt under 10(15)(iv)(h); the after-tax yield delta across the sleeve has not been quantified by E7 and should be a precondition to approval, not a post-trade observation."
+          },
+          {
+            "title": "Default 2:1:2 weighting lacks affirmative justification",
+            "body": "The composition tilts 60% toward the tax-disadvantaged wrappers in a regime where the tax-free issuers (NHAI/REC/PFC) are quasi-sovereign and credit-supportive per E3's fiscal consolidation read. The burden of proof should rest on retaining the taxable weighting at this scale, not on increasing the tax-free allocation."
+          },
+          {
+            "title": "Ticket size appears anchored to inflow cadence, not architecture",
+            "body": "The Rs 5 Cr figure matches 12 months of founder distributions but does not match the quantum required to bring mandate bands inside their floors and ceilings. The committee should test whether the right anchor is the architectural deficit (which would imply a larger or sequenced deployment) rather than the convenient inflow window."
+          },
+          {
+            "title": "Direct-versus-Regular plan is a precondition, not a checkbox",
+            "body": "E7's ter_plan_not_specified flag combined with a 7-year horizon makes the Direct/Regular delta a 3-4% cumulative return question on the Rs 2 Cr Kotak tranche; the committee should require Direct plan confirmation across both MF tranches before approval rather than treat it as an execution detail."
+          },
+          {
+            "title": "Implicit illiquid-equity hedge framing is unsurfaced in the proposal logic",
+            "body": "E4's meta_wealth_context_distortion flag (Rs 165 Cr private company stake) combined with the deliberate Reliance non-action suggests the liquid corpus is being managed against an implicit hedge framing. If that is the actual decision frame, the proposal should be approved on that basis explicitly, not on the stated mandate-rebalancing basis it currently invokes."
+          },
+          {
+            "title": "Rate-path contingency under crude shock not stress-tested",
+            "body": "E3's crude-driven yield volatility (10Y spike to 7.19%) and monsoon-driven inflation risk make the capital-gain leg of the short-duration thesis contingent rather than baseline; the carry-only case at slab rate has not been shown to clear a meaningful hurdle, and the committee should see that floor before sizing the taxable tranches at Rs 3 Cr."
+          },
+          {
+            "title": "Structure-fit flag should be cleared, not noted",
+            "body": "M0.IndianContext str_001 flags mutual_fund_debt as not listed in eligible_products for individual/resident; whether this is a curation gap or a substantive review item should be resolved by the committee before deployment rather than carried forward as a system-level note alongside an approved action."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposal is architecturally corrective but operates against a portfolio whose mandate breach (equity 89.9% vs 60-70% ceiling) is too large for a Rs 5 Cr sleeve to resolve. Under the four stress lenses, the deployment itself does not create unbounded risk — fresh-inflow funding insulates the existing book, the short-duration scheme is liquid (nil exit load), and the lead manager has 7.3 years of tenure providing key-person buffer. The structural concern is not that the action introduces new risk but that it leaves the residual mandate gap (equity 78.5% post-action vs 70% ceiling, debt 12.7% vs 20% floor) materially open, deferring the harder rebalancing question that the committee should price in.",
+          "Timing stress is bounded but non-trivial. The macro overlay from E3 (Brent at $118.95, 10Y spiked to 7.19% intraday on April 3, FII outflows of Rs 56,401 Cr in April alone) means the short-term debt MF and AAA corporate bond tranches face near-term mark-to-market headwinds if the crude shock sustains or the monsoon disappoints (IMD 92% of LPA, 66% probability below-normal). Under a worse-case scenario where RBI delays further cuts into H2 FY27 due to food-inflation pressure, the capital-gain thesis on the Rs 3 Cr MF tranche weakens but carry remains intact at ~5-7% gross; the tax-free bond ladder is structurally insulated from this dynamic. The 7-year horizon absorbs this timing stress; the proposal does not break under it.",
+          "The most consequential risk is tax-amplified rather than market-driven. The post-July 2024 debt MF regime (slab-rate taxation, no indexation) compresses after-tax yield on the Rs 3 Cr MF portion to a range materially below the tax-free yields available on the NHAI/REC/PFC ladder at the investor's likely surcharge-inclusive tier (35-42.7% effective). This is a sizing-mix risk inside the sleeve, not a sleeve-rejection risk, and is quantifiable once the marginal rate is confirmed."
+        ],
+        "specific_risks": [
+          {
+            "title": "Residual mandate breach post-action",
+            "body": "G1 confirms equity remains 8.5pp above the upper band and debt 7.3pp below the floor after deployment. The Rs 5 Cr sleeve is directionally correct but leaves the band breach unresolved, and the advisor file should reflect whether this residual is intentional headroom usage or a sequenced first tranche."
+          },
+          {
+            "title": "Tax-amplified yield asymmetry within the sleeve",
+            "body": "E7 flags that post-July 2024 debt MF gains are taxed at slab rate (effective 35-42.7% at the investor's likely tier), while the NHAI/REC/PFC tax-free bond interest is exempt under section 10(15)(iv)(h). Without explicit after-tax modelling, the Rs 3 Cr MF allocation may be structurally inferior to a larger tax-free bond weighting within the same Rs 5 Cr envelope."
+          },
+          {
+            "title": "Structure-eligibility flag unresolved",
+            "body": "M0.IndianContext str_001 notes mutual_fund_debt is not listed in eligible_products for individual/resident and requires advisor review. This is an indicative reference-data flag, not a substantive SEBI prohibition for resident individuals investing in registered debt MF schemes, but it should be resolved in the case file before execution rather than treated as background."
+          },
+          {
+            "title": "Direct vs Regular plan confirmation prerequisite",
+            "body": "E7's snapshot TER of 1.12% does not confirm plan type. Over a 7-year horizon, a 30-60 bps Direct/Regular delta compounds to 3-4% of cumulative return; this is a pre-execution gate item, not a post-trade check."
+          },
+          {
+            "title": "Yield curve mark-to-market exposure near-term",
+            "body": "E3 records a 44 bps move in the 10Y over five months with an intraday spike to 7.19% on April 3, 2026, driven by the crude shock and FII outflows. The Rs 2 Cr short-term MF and Rs 1 Cr AAA corporate bond MF tranches carry modest duration sensitivity; if the spike resumes under sustained Brent at $118+, near-term NAV volatility is non-trivial though bounded by the short-duration profile."
+          },
+          {
+            "title": "Monsoon-driven rate-path delay risk",
+            "body": "IMD forecast of 92% of LPA with 66% probability of below-normal or deficient monsoon introduces food-inflation upside risk in H2 FY27. If realised, the RBI rate-cut path stalls, weakening the capital-gain thesis on the short-duration MF component though preserving carry. The tax-free bond ladder is insulated from this dynamic."
+          },
+          {
+            "title": "Concentrated equity position deliberately untouched",
+            "body": "Reliance at 20.3% of liquid corpus remains held by design and is not addressed by this proposal. E4 notes this as a revealed pattern (disciplined conviction or anchored inertia, ambiguous); the debt sleeve does not reduce single-stock concentration and the committee should track whether subsequent cases address it or further defer."
+          },
+          {
+            "title": "Meta-wealth context conditioning",
+            "body": "E4 flags the Rs 165 Cr private company stake outside scope as implicitly conditioning the liquid-corpus architecture. The debt sleeve may be a subconscious hedge against illiquid equity concentration; this framing should be surfaced explicitly in the case dialogue so the mandate-band conversation is grounded in the right risk frame."
+          },
+          {
+            "title": "Limited observed advisor-relationship history",
+            "body": "E4 applies a confidence ceiling of 0.62 given zero prior advisor interactions on record. Behavioural inference rests on character bible attributes and self-reported history; revealed pattern in the advisor relationship context is unobserved, which is a data gap rather than a quantifiable risk."
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal is architecturally directional but quantitatively under-scaled: a Rs 5 Cr sleeve funded by fresh inflow grows the corpus additively yet leaves equity at 78.5 percent against a 70 percent ceiling and debt at 12.7 percent against a 20 percent floor. The Risk Assessor's most consequential observations cluster in three places — the residual mandate breach (G1 requires_clarification), the tax-amplified yield asymmetry inside the sleeve under the post-July 2024 debt MF regime, and the unresolved Direct-versus-Regular plan question over a 7-year horizon. Counterfactual analysis therefore concentrates on sizing, intra-sleeve mix, and execution-gate alternatives rather than on rejecting the architectural intent, which all activated evidence agents support.",
+          "Three of the alternatives below are tax- and regulation-aware in the sense the Indian Context block permits. The slab-rate treatment of debt MF gains (Budget 2024 change, cited by E7) and the section 10(15)(iv)(h) exemption on the NHAI/REC/PFC ladder create a structural after-tax wedge at the investor's likely surcharge-inclusive tier of 35-42.7 percent; this is the quantitative basis for re-weighting the intra-sleeve mix toward tax-free bonds. The str_001 structure-fit flag is indicative reference data, not a SEBI prohibition, and is treated as a pre-execution clarification gate rather than as a path-defining constraint. No path below relies on a tax-matrix or surcharge-band entry that did not match the proposal.",
+          "The Reliance concentration (20.3 percent of liquid corpus) and the meta-wealth conditioning from the Rs 165 Cr private company stake are flagged by E4 and the Risk Assessor as out-of-scope for this proposal but in-scope for sequencing. Two paths below address whether the band breach is resolved by scaling debt up, by trimming equity outside the Reliance line, or by accepting the residual as intentional headroom — a choice that belongs to the investor and advisor jointly rather than to the engine."
+        ],
+        "alternative_paths": [
+          {
+            "label": "Scaled debt deployment to Rs 8-9 Cr to close the band breach",
+            "description": "Lift the sleeve from Rs 5 Cr to approximately Rs 8.5 Cr (24-25 percent of liquid AUM) so post-action debt sits at or near the 20 percent floor and equity moves materially closer to the 70 percent ceiling. Addresses the residual mandate breach risk directly; requires either additional fresh inflow timing or a partial trim of a diversified equity MF position outside the Reliance line."
+          },
+          {
+            "label": "Intra-sleeve re-weighting toward tax-free bonds",
+            "description": "Within the same Rs 5 Cr envelope, route Rs 3.0-3.5 Cr to the NHAI/REC/PFC tax-free ladder (interest exempt u/s 10(15)(iv)(h)) and Rs 1.5-2.0 Cr to the short-duration debt MF, dropping or shrinking the AAA corporate bond MF tranche. Addresses the tax-amplified yield asymmetry risk at the investor's 35-42.7 percent effective surcharge-inclusive tier, where debt MF slab-rate taxation post-July 2024 materially compresses after-tax yield versus the tax-free coupon."
+          },
+          {
+            "label": "Sequenced deployment with equity trim in tranche two",
+            "description": "Execute Rs 5 Cr now as proposed; commit in the case file to a second tranche within 12-18 months that combines a further Rs 3-4 Cr debt addition with a Rs 2-3 Cr trim of one diversified equity MF position (Reliance held by design). Addresses both the residual mandate breach and the concentrated-position non-action pattern by sequencing rather than deferring."
+          },
+          {
+            "label": "Direct-plan and structure-fit gate before deployment",
+            "description": "Hold execution until two pre-trade items are closed: written confirmation that the Kotak scheme is being purchased under the Direct plan (resolving the 30-60 bps TER ambiguity that compounds to 3-4 percent over seven years), and advisor sign-off on the str_001 mutual_fund_debt eligibility note for individual/resident. Addresses the Direct-versus-Regular and structure-eligibility risks as gates rather than as post-trade checks."
+          },
+          {
+            "label": "Staged entry across the yield-curve volatility window",
+            "description": "Deploy the Rs 3 Cr MF portion in two or three tranches over 60-90 days rather than as a single lot, given the 10Y intraday spike to 7.19 percent on April 3 and active crude/FII volatility; the Rs 2 Cr tax-free bond ladder is laddered on its own coupon and maturity logic. Addresses the yield-curve mark-to-market and monsoon-driven rate-path delay risks by spreading the entry point rather than concentrating it at a single mark."
+          }
+        ]
+      }
+    },
+    "usage_summary": {
+      "s1_input_tokens": 18441,
+      "s1_output_tokens": 4834,
+      "a1_input_tokens": 47292,
+      "a1_output_tokens": 6851,
+      "ic1_chair_input": 18639,
+      "ic1_chair_output": 1139,
+      "ic1_devils_advocate_input": 19451,
+      "ic1_devils_advocate_output": 2154,
+      "ic1_risk_assessor_input": 18609,
+      "ic1_risk_assessor_output": 2138,
+      "ic1_counterfactual_engine_input": 20940,
+      "ic1_counterfactual_engine_output": 1765,
+      "ic1_minutes_recorder_input": 8813,
+      "ic1_minutes_recorder_output": 1008,
+      "generated_at": "2026-05-21T06:17:40.383Z"
+    }
+  },
+  "tokenUsage": {
+    "s1_input_tokens": 18441,
+    "s1_output_tokens": 4834,
+    "a1_input_tokens": 47292,
+    "a1_output_tokens": 6851,
+    "ic1_chair_input": 18639,
+    "ic1_chair_output": 1139,
+    "ic1_devils_advocate_input": 19451,
+    "ic1_devils_advocate_output": 2154,
+    "ic1_risk_assessor_input": 18609,
+    "ic1_risk_assessor_output": 2138,
+    "ic1_counterfactual_engine_input": 20940,
+    "ic1_counterfactual_engine_output": 1765,
+    "ic1_minutes_recorder_input": 8813,
+    "ic1_minutes_recorder_output": 1008,
+    "generated_at": "2026-05-21T06:17:40.383Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 1 proposal evaluation for Rajiv Surana (Plan v8 canonical demo investor). Self-directed Rs 5 Cr debt/ballast sleeve (7Y); Reliance untouched. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024)."
+}

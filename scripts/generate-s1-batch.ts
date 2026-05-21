@@ -68,10 +68,10 @@ const BATCH: BatchCase[] = [
       target_instrument:
         "Kotak Bond Short Term Plan (lead of a Rs 5 Cr debt sleeve: Rs 2 Cr short-term debt MF, Rs 1 Cr AAA corporate bond MF, Rs 2 Cr NHAI/REC/PFC tax-free bond ladder)",
       ticket_size_cr: 5,
-      source_of_funds: "cash_balance",
+      source_of_funds: "fresh_inflow",
       timeline: "this_year",
       rationale:
-        "Investor-initiated (self-directed, fee-only). Rs 5 Cr fresh allocation to a debt sleeve over 7Y to address the zero-debt design of the portfolio without crystallising LTCG on the concentrated Reliance position (which is deliberately not touched). Funded by cash reserves plus 12 months of incremental founder distribution. Rajiv brings an analytical performance spreadsheet to the meeting.",
+        "Investor-initiated (self-directed, fee-only). Rs 5 Cr fresh allocation to a debt sleeve over 7Y to address the zero-debt design of the portfolio without crystallising LTCG on the concentrated Reliance position (which is deliberately not touched). Funded primarily by 12 months of incremental founder distribution (fresh inflow), with a modest cash-reserve component, so the deployment grows the corpus rather than draining the small existing cash balance. Rajiv brings an analytical performance spreadsheet to the meeting.",
     },
     contextNote:
       "Samriddhi 1 proposal evaluation for Rajiv Surana (Plan v8 canonical demo investor). Self-directed Rs 5 Cr debt/ballast sleeve (7Y); Reliance untouched. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024).",
