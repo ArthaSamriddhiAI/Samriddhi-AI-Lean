@@ -1,0 +1,1012 @@
+{
+  "id": "c-2026-05-21-malhotra-01",
+  "investorId": "malhotra",
+  "snapshotId": "t0_q2_2026",
+  "workflow": "s1",
+  "severity": "escalate",
+  "headline": "requires clarification: The proposed Rs 1 Cr Stallion Asset Core Fund (PMS) allocation clears every structural gate (G2 pass, G3 pass, E6 Gate pass on eligibility, ticket, lock-in, and post-action band) and is directionally corrective on the household's persistent equity under-allocation (52.",
+  "status": "ready",
+  "frozenAt": "2026-05-21T06:19:46.947Z",
+  "content": {
+    "briefing": {
+      "section_1_proposal_summary": {
+        "paragraph": "Dr. Vikram and Dr. Shruti Malhotra, a dual-physician household with Rs 11.85 Cr liquid AUM and an Aggressive mandate (equity band 60-70%), propose a Rs 1 Cr first-time allocation to Stallion Asset Core Fund (PMS), a quality-concentrated multi-cap strategy. The ticket is funded by a Rs 50 L partial trim of Mirae Asset Large Cap Fund, a Rs 30 L SIP redirect over 12 months, and Rs 20 L of incremental household savings, with the timeline set to this_year. The action is investor-initiated, triggered by a peer cardiologist's PMS satisfaction signal and Dr. Shruti's quarterly-review framing for greater sophistication. Current equity allocation sits at 52.2%, 7.8 percentage points below the mandate floor; post-action equity moves to 60.6%, restoring the band but introducing the household's first PMS wrapper into a macro window of active external stress."
+      },
+      "section_2_synthesis_verdict": {
+        "overall_verdict": "requires_clarification",
+        "overall_risk_level": "moderate",
+        "confidence": 0.62,
+        "consensus_areas": [
+          "Structural eligibility clears (G2 pass, E6 Gate pass): Rs 1 Cr ticket exceeds SEBI Rs 50 L PMS minimum; investor structure eligible.",
+          "Post-action equity allocation of 60.6% restores the portfolio to within mandate band 60-70%, addressing the 7.8pp under-allocation E4 identified as the primary stated-vs-revealed divergence.",
+          "Behavioural foundation is supportive (E4): 12-year unbroken SIP discipline including counter-cyclical SIP increases during 2020 COVID dip is consistent with first PMS allocation at 8.4% of liquid AUM.",
+          "Strategy redundancy concern: E1 and E6 both note Stallion's quality-concentrated mandate overlaps directionally with the existing large-cap quality MF cluster rather than providing additive diversification."
+        ],
+        "conflict_areas": [
+          "Macro timing vs structural rationale: E3 reads elevated risk on the proposed action given crude shock ($118.95/bbl, +86% YoY), INR weakness (94.79, -10.7% YoY), FII outflows (Rs 56,401 Cr in April alone), and 10Y yield at 6.99%; E4 and E6 read the underlying decision as structurally sound. The disagreement is on timing of a new less-liquid wrapper entry, not on the eligibility or behavioural fit.",
+          "G1 vs proposed action framing: G1 flags equity 7.8pp below floor and debt 9.4pp above ceiling as requires_clarification, while the proposed action itself is directionally corrective on equity. The gate's concern is whether the under-allocation has been intentional and whether mandate bands need revision, not whether this specific action is misdirected."
+        ],
+        "amplification_flags": [
+          "Fee premium (E6: 220-370 bps over MF substitute, with variable AMC layering ambiguity and no fee-adjusted return series) combined with strategy overlap (E1: PMS quality bias directionally redundant with existing large-cap quality MFs) raises a material net-of-fee alpha justification gap.",
+          "Social-proof trigger (E4 + E6: peer cardiologist signal, not strategy-gap-driven selection) combined with elevated 3Y return window (E6: 36.12% CAGR reflects post-COVID cycle, mean-reversion risk) combined with macro stress window (E3) compounds into a timing-and-rationale concern that exceeds any single flag.",
+          "Disclosure gaps amplify across agents: E1 flags incomplete look-through; E2 cannot execute sector or moat work; E6 flags undisclosed PM tenure, team depth, high-water-mark, holdings concentration, and market-cap breakdown; E7 cannot render scheme-level verdicts on three of four MFs. The aggregate disclosure deficit constrains synthesis confidence to 0.62."
+        ],
+        "narrative_paragraph": "The proposed Rs 1 Cr Stallion Asset Core Fund (PMS) allocation clears every structural gate (G2 pass, G3 pass, E6 Gate pass on eligibility, ticket, lock-in, and post-action band) and is directionally corrective on the household's persistent equity under-allocation (52.2% vs 60-70% mandate band). The behavioural foundation is genuinely strong: a 12-year SIP discipline that withstood the 2018-19 corrections, the 2020 COVID dip (with counter-cyclical SIP increases), and the 2022 drawdown supports the Aggressive mandate and the proportionate 8.4%-of-AUM ticket. The synthesis nonetheless lands at requires_clarification rather than positive_with_caveat because of three converging considerations. First, the product-level case is undisclosed at the dimensions that matter most for a first PMS allocation: PM tenure, team depth, high-water-mark mechanics, variable AMC layering, holdings concentration, and market-cap breakdown are all absent, and the fee premium of 220-370 bps over the proposed source fund (Mirae Asset Large Cap at ~100-120 bps blended) requires sustained net-of-fee alpha that the snapshot's gross return series cannot confirm. Second, the strategy fit is directionally redundant rather than additive: E1 reads Stallion's quality-concentrated, high-ROCE, low-leverage mandate as overlapping with the existing large-cap quality MF cluster (Mirae, Axis, PPFCF blended P/E ~24x), so the Rs 50 L Mirae trim substitutes one quality vehicle for another at a higher fee and concentration level. Third, the trigger is peer-network and aspiration-driven rather than strategy-gap-driven, and the macro window is materially stressed (E3: crude shock, INR -10.7%, FII outflows Rs 56,401 Cr in April, 10Y at 6.99%, real rate ~3.15% above restrictive threshold), which is not disqualifying but warrants explicit acknowledgement. G1's requires_clarification on three bands (equity below floor, debt above ceiling, cash below floor) is the immediate procedural blocker: the mandate-conformance conversation should precede or accompany the product conversation, not follow it.",
+        "counterfactual_framing": "Restore the equity band to 60-70% via incremental allocation to existing MF positions (or a new low-cost flexi-cap or multi-cap MF that adds genuine diversification rather than reinforcing quality-large-cap concentration), defer the first PMS entry to a window with disclosed PM tenure, fee mechanics, and a less stressed macro overlay, and conduct the G1 mandate-band conversation independently of vehicle selection.",
+        "escalation_recommended": true,
+        "headline_takeaway": "Eligibility and band restoration clear, but a 220-370 bps fee premium on a quality strategy that overlaps the existing MF cluster, undisclosed PM and fee mechanics, and a peer-driven trigger in a stressed macro window leave the product case unproven."
+      },
+      "section_3_evidence_summary": [
+        {
+          "agent_id": "e1_listed_fundamental_equity",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Stallion's quality-concentrated mandate directionally overlaps the existing large-cap quality MF cluster (blended P/E ~24x); the Mirae trim substitutes one quality vehicle for another rather than adding diversification."
+        },
+        {
+          "agent_id": "e2_industry_business",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Sector look-through is unavailable across all four MFs and the PMS target; concentration, overlap, and cycle-stage assessment cannot be executed from available data."
+        },
+        {
+          "agent_id": "e3_macro_policy_news",
+          "activation_status": "activated",
+          "risk_level": "elevated",
+          "one_line_takeaway": "Crude at $118.95 (Hormuz disruption), INR at 94.79 (-10.7% YoY), FII outflows of Rs 56,401 Cr in April, and real rate at ~3.15% make this a materially stressed window for a first less-liquid wrapper entry."
+        },
+        {
+          "agent_id": "e4_behavioural_historical",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Twelve-year SIP discipline with counter-cyclical 2020 increases supports the Aggressive mandate, but the peer-cardiologist trigger and spousal sophistication framing are atypical for the household's prior analytical-engagement pattern."
+        },
+        {
+          "agent_id": "e5_unlisted_equity",
+          "activation_status": "not_activated",
+          "one_line_takeaway": "No unlisted equity exposure in scope; agent does not activate."
+        },
+        {
+          "agent_id": "e6_pms_aif_sif",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Gate clears on eligibility, ticket, and band restoration, but undisclosed PM tenure, fee layering (340-490 bps blended estimate), high-water-mark mechanics, and capacity at Rs 6,309.5 Cr AUM leave the product case unproven on disclosure-sensitive dimensions."
+        },
+        {
+          "agent_id": "e7_mutual_fund",
+          "activation_status": "activated",
+          "risk_level": "moderate",
+          "one_line_takeaway": "Mirae trim removes a documented 15-year-manager, ~230 bps alpha large-cap position and crystallises LTCG at 12.5%; scheme-level verdicts on Axis, PPFCF, and Kotak Emerging cannot be rendered without snapshot data."
+        }
+      ],
+      "section_6_talking_points": [
+        {
+          "number": "01",
+          "title": "Mandate conformance first, vehicle second",
+          "body": "Before the PMS conversation, the equity band has been sitting 7.8 points below the floor for some time and debt 9.4 points above the ceiling; worth asking whether the band itself still reflects how the household wants to be positioned, or whether the under-allocation has been a quiet drift the household would like to address. The PMS proposal does correct the equity gap, but the band conversation deserves to be had on its own terms."
+        },
+        {
+          "number": "02",
+          "title": "What does Stallion add that the existing MFs do not",
+          "body": "The existing large-cap quality cluster — Mirae, Axis, Parag Parikh — already sits at a blended P/E around 24x, which is the quality-factor signature. Stallion's published mandate (ROCE above 20%, low debt, high earnings visibility) is the same factor. The honest question is whether the Rs 1 Cr is buying diversification, conviction concentration, or fee-paid access to the same factor."
+        },
+        {
+          "number": "03",
+          "title": "The fee gap is the alpha hurdle",
+          "body": "Mirae Direct sits around 100-120 bps blended. Stallion's fixed AMC alone is 250 bps; with the 1.5% variable AMC and the 15-over-10 performance fee, the blended cost lands somewhere between 340 and 490 bps depending on how the variable layer is structured. The strategy needs to deliver that gap in sustained net-of-fee alpha for the trade to make sense. The snapshot does not have fee-adjusted return series, so this is a conversation worth having with Stallion directly."
+        },
+        {
+          "number": "04",
+          "title": "Peer signal is a starting point, not a finishing point",
+          "body": "The peer cardiologist's satisfaction with their PMS is a legitimate signal that this household has crossed into a wealth tier where PMS makes sense as a category. It is not yet a signal that this specific PMS, at this specific moment, with these specific fee mechanics, is the right vehicle. Worth separating the two questions."
+        },
+        {
+          "number": "05",
+          "title": "Macro context warrants acknowledgement, not deferral",
+          "body": "Crude at $119, INR at 94.79, FII outflows at Rs 56,000 Cr in April alone, and the 10Y at 6.99% are real. Domestic fundamentals are still constructive — GDP 7.8%, PMI Composite 58.3, capex running 14% ahead. The household's 12-year SIP discipline through three drawdowns says they can hold through this. The question is less about whether to add equity and more about whether the first PMS entry needs to happen in this particular window."
+        },
+        {
+          "number": "06",
+          "title": "Disclosure gaps Stallion should close before commitment",
+          "body": "Before Rs 1 Cr commits, worth requesting from Stallion: PM tenure and team-depth structure, the variable AMC mechanics (additive or alternative to fixed), the high-water-mark methodology, current holdings concentration and market-cap breakdown, and a fee-adjusted return series against the S&P BSE 500 TRI. These are standard disclosure requests, not adversarial ones."
+        }
+      ],
+      "section_7_coverage_methodology_note": {
+        "case_intent": "new_investment",
+        "dominant_lens": "proposal_evaluation",
+        "agents_activated": [
+          "e1_listed_fundamental_equity",
+          "e2_industry_business",
+          "e3_macro_policy_news",
+          "e4_behavioural_historical",
+          "e6_pms_aif_sif",
+          "e7_mutual_fund"
+        ],
+        "agents_not_activated": [
+          "e5_unlisted_equity"
+        ],
+        "data_sufficiency_notes": "Synthesis is materially constrained by disclosure gaps that compound across agents. E1 has fund-level P/E and P/B for three of four MFs but no top-holdings disclosure and no Kotak Emerging look-through. E2 has no sector look-through on any holding and cannot execute sector concentration, overlap, or cycle-stage work. E6 lacks PM tenure, team depth, high-water-mark mechanism, variable AMC layering clarity, holdings concentration, market-cap breakdown, and fee-adjusted return series for the PMS target. E7 can render a confident verdict only on Mirae; Axis, PPFCF, and Kotak Emerging carry no scheme-level metrics. M0.IndianContext integration is operative: SEBI PMS minimum (sebi_001, authoritative) confirmed at Rs 50 L, str_001 confirms PMS eligibility for individual/resident, pmlt_001 and dem_012 surfaced as practitioner-practice framings (indicative confidence), and chg_008 anchors the LTCG regime applicable to the Mirae trim. The aggregate disclosure deficit drives synthesis confidence to 0.62 and the requires_clarification verdict; a higher-confidence verdict is unlocked by either Stallion disclosure (PM, fee, holdings) or by reframing the conversation to mandate-band correction independent of the specific vehicle.",
+        "generation_mode": "stub",
+        "generation_timestamp": "2026-05-21T00:00:00Z"
+      },
+      "section_4_governance_status": [
+        {
+          "gate_id": "g1_mandate",
+          "status": "requires_clarification",
+          "rationale": "Mandate compliance: 3 band(s) sit at or beyond boundary; advisor clarification warranted."
+        },
+        {
+          "gate_id": "g2_sebi_regulatory",
+          "status": "pass",
+          "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 100 lakh proposed)."
+        },
+        {
+          "gate_id": "g3_action_permission",
+          "status": "pass",
+          "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice."
+        }
+      ],
+      "section_5_advisory_challenges": [
+        {
+          "category": "counter_argument",
+          "title": "Band restoration could be achieved without the PMS wrapper at all",
+          "body": "The synthesis treats the 7.8pp equity under-allocation as the structural rationale that legitimises the PMS entry, but E1's read is that Stallion's quality-concentrated mandate directionally overlaps the existing Mirae/Axis/PPFCF cluster (blended P/E ~24x) and the Rs 50 L Mirae trim substitutes one quality vehicle for another at 220-370 bps higher cost. If band restoration is the genuine objective, a Rs 1 Cr top-up to Kotak Emerging Equity (the household's only non-quality, non-large-cap sleeve) or a new low-cost flexi-cap addition would close the equity gap at ~100 bps blended cost and add genuine factor diversification. What does the household gain from spending 220-370 bps of annual cost to restore a band that could be restored at ~100 bps with better diversification? The synthesis should be ready to answer this without leaning on 'first PMS as wealth-tier milestone' framing.",
+          "headline_takeaway": "The band gap could be closed for ~100 bps in a flexi-cap or mid-cap addition rather than 340-490 bps in a quality PMS that duplicates the existing factor."
+        },
+        {
+          "category": "counter_argument",
+          "title": "The 12-year SIP discipline argues against, not for, this specific vehicle",
+          "body": "E4 cites the 12-year unbroken SIP discipline and 2020 counter-cyclical SIP increases as the foundational behavioural support for the PMS allocation. But that same revealed pattern is the strongest argument for continuing the low-cost, systematic, MF-based accumulation that has compounded successfully through three drawdowns. The household's documented behavioural edge is patience and discipline at low cost, not active manager selection. The peer-cardiologist trigger and the spousal sophistication framing introduce a discretionary, social-proof-driven decision into a household whose revealed strength has been the absence of exactly this kind of trigger-driven action. Is the synthesis confident that the peer-driven entry into a higher-cost, less-liquid wrapper is consistent with the behavioural pattern E4 cites, or is it inconsistent with it?",
+          "headline_takeaway": "The household's behavioural edge is low-cost systematic discipline, which the proposed action departs from rather than extends."
+        },
+        {
+          "category": "stress_test",
+          "title": "Net-of-fee alpha under mean reversion in the 3Y window",
+          "body": "E6 flags that the 36.12% 3Y CAGR reflects a post-COVID recovery window with elevated mean-reversion risk, and that the snapshot does not provide fee-adjusted return series. If forward 5Y gross returns revert to the 5Y trailing of 23.11% — or further toward Nifty 500 TRI long-run averages of 13-15% — and the blended cost lands at the upper estimate of 490 bps, the net-of-fee return could fall below what Mirae Direct delivers at 100-120 bps blended with documented 210-240 bps alpha (E7). At what gross-return assumption does the PMS net-of-fee outcome dominate the Mirae position being trimmed? The synthesis should be ready to present this break-even, not assume the 3Y CAGR persists.",
+          "headline_takeaway": "At an upper-estimate 490 bps blended cost, the PMS needs gross returns the 3Y window may have flattered to beat the Mirae position being trimmed."
+        },
+        {
+          "category": "stress_test",
+          "title": "Macro window compounds the disclosure gap",
+          "body": "E3 documents an active external stress regime — crude at $118.95 (+86% YoY, Hormuz disruption), INR at 94.79 (-10.7% YoY), FII outflows of Rs 56,401 Cr in April alone, 10Y yield at 6.99% with an April 3 spike to 7.19%, and real rate at ~3.15% above the restrictive threshold. E6 separately flags undisclosed PM tenure, team depth, high-water-mark mechanics, and holdings concentration. Quality-concentrated portfolios in INR-stress, rising-yield regimes can suffer disproportionate multiple compression precisely because of their high-P/E starting point. How does the synthesis assess the joint probability that a first PMS entry, into an undisclosed-holdings quality-concentrated mandate, in this specific macro window, generates a 12-18 month mark-to-market experience that erodes the household's first-PMS conviction before the strategy has time to demonstrate net-of-fee alpha?",
+          "headline_takeaway": "A first PMS entry combines maximum disclosure uncertainty with maximum macro stress at the moment the household has no prior PMS experience to anchor expectations."
+        },
+        {
+          "category": "stress_test",
+          "title": "Capacity inflection at Rs 6,309 Cr AUM with mid-cap exposure undisclosed",
+          "body": "E6 flags that Stallion is operating at Rs 6,309.5 Cr AUM, in the Rs 5,000-8,000 Cr range where quality-concentrated multi-cap strategies typically encounter capacity-driven alpha decay, with market-cap breakdown undisclosed. If the strategy holds meaningful mid-cap exposure (plausible for a multi-cap mandate seeking quality at sub-large-cap valuations), forward alpha may already be in decay even before the household enters. The 3Y 36.12% figure would then be a peak-capacity cycle figure, not a forward indicator. What is the synthesis's read on whether the household is entering at, before, or after the capacity inflection — and what disclosure from Stallion would resolve this before commitment?",
+          "headline_takeaway": "The strategy may already be past its capacity sweet spot, and the household has no market-cap disclosure to assess whether forward alpha is intact."
+        },
+        {
+          "category": "edge_case",
+          "title": "G1 procedural blocker is being treated as adjacent rather than prior",
+          "body": "G1 returns requires_clarification on three bands (equity -7.8pp, debt +9.4pp, cash -2.0pp), and the synthesis correctly notes that the mandate-conformance conversation should precede or accompany the vehicle conversation. But the proposed action proceeds as if G1's gaps are diagnostic colour rather than a procedural prerequisite. If the household, on being asked, chooses to revise the mandate bands (e.g., widen equity to 50-70% reflecting their revealed conservatism), the entire rationale for this specific PMS allocation as 'band-restoring' collapses. Is the synthesis prepared for the case where the G1 conversation resolves the under-allocation through mandate revision rather than allocation change, and the PMS proposal must then stand on product-fit grounds alone — which E1 and E6 read as unproven?",
+          "headline_takeaway": "If the G1 conversation resolves through mandate revision, the PMS must justify itself on product fit alone, which the synthesis already reads as unproven."
+        },
+        {
+          "category": "edge_case",
+          "title": "Tax-event timing across the LTCG threshold and FY boundary",
+          "body": "E7 notes the Rs 50 L Mirae trim crystallises LTCG at 12.5% under the post-Budget 2024 regime (chg_008), with the Rs 1.25 L annual exemption applicable. Timeline is 'this_year' but the FY26/FY27 boundary (April 1, 2026) sits within the decision window — the case as-of date is April 2, 2026. Has the trim been sequenced to optimise across FY boundaries (e.g., splitting Rs 50 L across two FYs to use the exemption twice), and has the embedded gain in the Mirae position been quantified to estimate the actual tax drag on the Rs 50 L proceeds? Without this, the funding math for the Rs 1 Cr ticket is incomplete: Rs 50 L gross trim may yield meaningfully less than Rs 50 L deployable, which changes the PMS-vs-MF cost comparison.",
+          "headline_takeaway": "The Mirae trim crystallises LTCG at the FY boundary and the funding math has not been net-of-tax sequenced."
+        }
+      ]
+    },
+    "proposal": {
+      "action_type": "new_investment",
+      "target_category": "pms",
+      "target_instrument": "Stallion Asset Core Fund (PMS)",
+      "ticket_size_cr": 1,
+      "source_of_funds": "mutual_funds",
+      "timeline": "this_year",
+      "rationale": "Investor-initiated (Dr. Vikram Malhotra). Rs 1 Cr allocation to a quality-concentrated PMS (the household's first PMS), funded by a Rs 50 L partial trim of Mirae Asset Large Cap, Rs 30 L of SIP redirect over 12 months, and Rs 20 L of incremental household savings. Trigger: a peer cardiologist's PMS satisfaction signal and Dr. Shruti Malhotra's framing for more actively managed sophistication during the quarterly review."
+    },
+    "gate_results": [
+      {
+        "gate_id": "g1_mandate",
+        "status": "requires_clarification",
+        "rationale": "Mandate compliance: 3 band(s) sit at or beyond boundary; advisor clarification warranted.",
+        "breaches": [],
+        "gaps": [
+          "Equity sits 7.8pp below the lower band (post-action 52.2% vs floor 60%). Clarify whether the reduced allocation is intentional.",
+          "Debt sits 9.4pp above the upper band (post-action 39.4% vs ceiling 30%). Clarify whether this is acceptable headroom usage under the mandate.",
+          "Cash sits 2.0pp below the lower band (post-action 0.0% vs floor 2%). Clarify whether the reduced allocation is intentional."
+        ],
+        "rule_trace": {
+          "current_allocation_pct": {
+            "Equity": 52.151898734177216,
+            "Debt": 39.40928270042194,
+            "Alternatives": 8.438818565400844,
+            "Cash": 0
+          },
+          "post_action_allocation_pct": {
+            "Equity": 52.151898734177216,
+            "Debt": 39.40928270042194,
+            "Alternatives": 8.438818565400844,
+            "Cash": 0
+          },
+          "bands_evaluated": [
+            {
+              "asset_class": "Equity",
+              "min_pct": 60,
+              "max_pct": 70
+            },
+            {
+              "asset_class": "Debt",
+              "min_pct": 20,
+              "max_pct": 30
+            },
+            {
+              "asset_class": "Alternatives",
+              "min_pct": 5,
+              "max_pct": 10
+            },
+            {
+              "asset_class": "Cash",
+              "min_pct": 2,
+              "max_pct": 5
+            }
+          ],
+          "post_action_wrapper_counts": {
+            "pms": 1,
+            "aif": 0,
+            "total": 1
+          },
+          "target_position_pct_of_liquid_aum": 8.438818565400844
+        }
+      },
+      {
+        "gate_id": "g2_sebi_regulatory",
+        "status": "pass",
+        "rationale": "SEBI PMS minimum ticket cleared (Rs 50 lakh required, Rs 100 lakh proposed).",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "target_category": "pms",
+          "ticket_cr": 1,
+          "action_type": "new_investment",
+          "reference_data_source": "m0_indian_context:sebi_boundaries",
+          "rule_applied": {
+            "category": "pms",
+            "min_ticket_cr": 0.5,
+            "source_store": "sebi_boundaries",
+            "source_entry_id": "sebi_001",
+            "confidence": "authoritative",
+            "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14"
+          }
+        }
+      },
+      {
+        "gate_id": "g3_action_permission",
+        "status": "pass",
+        "rationale": "Single-advisor MVP; Priya Nair has unrestricted action authority. Multi-role permission rules activate in a future slice.",
+        "breaches": [],
+        "gaps": [],
+        "rule_trace": {
+          "advisor_name": "Priya Nair",
+          "action_type": "new_investment",
+          "ticket_cr": 1,
+          "rules_active": false
+        }
+      }
+    ],
+    "evidence_verdicts": [
+      {
+        "agent_id": "e1_listed_fundamental_equity",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.62,
+        "drivers": [
+          "Existing equity MF look-through shows a quality-oriented, large-cap-tilted portfolio: Mirae Asset Large Cap at P/E 25.92 and P/B 3.7, Axis Large Cap at P/E 27.71 and P/B 4.18, and Parag Parikh Flexi Cap at P/E 18.45 and P/B 3.05 — the PPFCF multiple is notably lower, consistent with its international equity sleeve (US tech at compressed multiples) and value-aware mandate.",
+          "Blended fund-level P/E across the three disclosed MFs (weighted by AUM share: 15.6%, 11.8%, 14.2% of total Rs 11.85 Cr) approximates 24.0–24.5x, which sits at a moderate premium to Nifty 50 trailing P/E of approximately 21–22x as of early 2026 — consistent with quality-factor tilt rather than speculative excess.",
+          "Stallion Asset Core Fund is a quality-concentrated PMS with a documented bias toward high-ROCE, low-leverage businesses — its published strategy emphasises businesses with ROCE above 20%, low debt, and high earnings visibility. This is directionally consistent with the existing MF portfolio's quality orientation, creating meaningful strategy overlap rather than genuine diversification.",
+          "The proposed Rs 1 Cr PMS allocation is funded partly (Rs 50 L) by trimming Mirae Asset Large Cap, which is itself a large-cap quality fund. The net effect on the portfolio's listed-equity quality/valuation profile is marginal: one quality large-cap vehicle is partially replaced by another quality-concentrated vehicle, with no material shift in underlying sector or factor exposure.",
+          "Kotak Emerging Equity Fund (10.5% of AUM) has no look-through available; it is a mid-cap category fund and likely provides the portfolio's primary differentiation from the large-cap quality cluster. Its absence from the look-through universe reduces aggregate confidence.",
+          "No promoter pledge, auditor, or governance data is available at the fund look-through level; risk signal assessment is structurally unavailable for this aggregate analysis."
+        ],
+        "flags": [
+          "look_through_incomplete_kotak_emerging_equity",
+          "no_top_holdings_disclosed_for_any_mf_in_snapshot",
+          "strategy_overlap_pms_and_existing_large_cap_quality_mfs",
+          "aggregate_confidence_reduced_by_fund_level_only_data",
+          "pms_underlying_securities_not_available_per_mvp_scope"
+        ],
+        "reasoning_paragraph": "The existing equity mutual fund portfolio presents a coherent quality-and-large-cap orientation: Mirae Asset Large Cap (P/E 25.92, P/B 3.7), Axis Large Cap (P/E 27.71, P/B 4.18), and Parag Parikh Flexi Cap (P/E 18.45, P/B 3.05) collectively imply a blended fund-level P/E in the 24–24.5x range, a moderate premium to broad market that is consistent with quality-factor positioning rather than valuation excess. Parag Parikh's lower multiple reflects its international equity sleeve and value-aware mandate, providing the only meaningful valuation differentiation within the disclosed universe. The proposed Stallion Asset Core Fund PMS is a quality-concentrated strategy with a stated preference for high-ROCE, low-leverage businesses — a profile that is directionally redundant with the existing large-cap quality MF cluster rather than additive. The Rs 50 L partial trim of Mirae Asset Large Cap to fund the PMS ticket does not materially alter the portfolio's aggregate listed-equity quality or valuation profile; it substitutes one quality vehicle for another at a higher fee and concentration level. The Kotak Emerging Equity Fund (10.5% of AUM) remains outside the look-through universe, which limits the completeness of this aggregate assessment and is the primary driver of the reduced confidence score. The risk level is assessed as moderate: not from valuation excess or earnings quality concerns in the disclosed holdings, but from the structural incompleteness of the look-through and the concentration shift that a quality-concentrated PMS introduces into an already quality-tilted equity book.",
+        "data_points_cited": [
+          "Mirae Asset Large Cap Fund: P/E 25.92, P/B 3.7 (15.6% of AUM = Rs 1.848 Cr)",
+          "Axis Large Cap Fund: P/E 27.71, P/B 4.18 (11.8% of AUM = Rs 1.399 Cr)",
+          "Parag Parikh Flexi Cap Fund: P/E 18.45, P/B 3.05 (14.2% of AUM = Rs 1.683 Cr)",
+          "Kotak Emerging Equity Fund: 10.5% of AUM = Rs 1.244 Cr; no look-through available",
+          "Blended fund-level P/E (three disclosed MFs, AUM-weighted): approximately 24.0–24.5x",
+          "Nifty 50 trailing P/E reference: approximately 21–22x as of early 2026",
+          "Stallion Asset Core Fund stated strategy: ROCE > 20%, low debt, high earnings visibility (published strategy framing)",
+          "Proposed PMS ticket: Rs 1 Cr; funded Rs 50 L from Mirae Asset Large Cap trim, Rs 30 L SIP redirect, Rs 20 L incremental savings",
+          "Total liquid AUM: Rs 11.85 Cr; equity band current 52.2% vs mandate 60–70%"
+        ]
+      },
+      {
+        "agent_id": "e2_industry_business",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.38,
+        "drivers": [
+          "Sector-level look-through data is not available for any of the four mutual fund holdings (Mirae Asset Large Cap, Axis Large Cap, Parag Parikh Flexi Cap, Kotak Emerging Equity); top-5 sector exposures are explicitly not disclosed in the case snapshot, precluding quantitative sector concentration or overlap analysis.",
+          "Stallion Asset Core Fund (PMS) has no listed-equity sector look-through available per MVP scope (foundation.md:198, v8:705); the fund's industry positioning, sector weights, and business-model composition cannot be assessed from available data.",
+          "At the fund-category level, the existing portfolio spans large-cap domestic equity (Mirae Asset Large Cap at 15.6% of AUM, Axis Large Cap at 11.8%), a flexi-cap with known international look-through (Parag Parikh Flexi Cap at 14.2%), and a mid/small-cap emerging equity sleeve (Kotak Emerging Equity at 10.5%); these category-level classifications are the only structural anchors available.",
+          "Stallion Asset Core Fund is described as a quality-concentrated PMS strategy; quality-concentrated mandates in the Indian listed equity universe have historically exhibited structural overweights to financials, consumer discretionary, and healthcare relative to benchmark, though this cannot be confirmed from available data and is not used as an analytical input per scope instructions.",
+          "The proposed Rs 1 Cr ticket represents approximately 8.4% of total liquid AUM of Rs 11.85 Cr; the marginal sector impact of this allocation on the aggregate portfolio cannot be quantified without sector look-through on either the existing funds or the PMS target.",
+          "No fund-level P/E, P/B, or Beta data is present in the case snapshot for any of the four mutual fund holdings or the PMS target; valuation-based cycle-stage positioning is therefore not possible.",
+          "The existing portfolio's equity exposure (52.2% of AUM) is below the mandate band floor of 60%; the proposed PMS allocation would add approximately 8.4 percentage points of equity, moving the portfolio toward the lower bound of the 60-70% band, but the sector composition of that incremental equity remains uncharacterised."
+        ],
+        "flags": [
+          "sector_look_through_unavailable_all_holdings",
+          "pms_target_sector_data_absent",
+          "fund_level_valuation_metrics_absent",
+          "overlap_analysis_not_executable",
+          "cycle_stage_positioning_not_executable",
+          "moat_assessment_not_executable_without_underlying_data",
+          "quality_concentrated_pms_category_label_unverified"
+        ],
+        "reasoning_paragraph": "E2 is activated for this case given the presence of listed equity exposure across four mutual fund holdings and a proposed PMS allocation. However, the analytical work product that E2 is designed to deliver — sector concentration mapping, business-model coherence across look-through, moat assessment, cycle-stage positioning, and competitive structure reading — cannot be executed for this case in any quantitatively grounded form. Sector-level data is not disclosed in the snapshot for any of the four existing mutual fund holdings, and the proposed target (Stallion Asset Core Fund PMS) has no listed-equity sector look-through available per MVP scope constraints. Per scope instructions, training-data category knowledge and peer-fund averages have not been used to supplement the absent data. The only structural anchors available are fund-category classifications: two large-cap domestic equity funds (Mirae Asset Large Cap at 15.6% of AUM, Axis Large Cap at 11.8%), one flexi-cap with international exposure (Parag Parikh Flexi Cap at 14.2%), and one mid/small-cap fund (Kotak Emerging Equity at 10.5%). The proposed Rs 1 Cr PMS allocation represents approximately 8.4% of liquid AUM and would constitute the household's first PMS holding, but its marginal sector impact on the aggregate portfolio is unquantifiable from available data. The risk level is assessed as moderate not because sector risks have been identified and characterised, but because the data absence itself constitutes an analytical gap that prevents confirmation of sector concentration, overlap, or cycle-stage risk — and a quality-concentrated PMS mandate, by design, tends toward high-conviction sector and stock positioning that warrants scrutiny when sector data becomes available. E2 flags this case for data enrichment: sector look-through on the existing MF holdings and the PMS portfolio composition should be obtained before a complete industry and business-model verdict can be rendered. Confidence is correspondingly low at 0.38, reflecting the structural data constraints rather than any affirmative finding.",
+        "data_points_cited": [
+          "Mirae Asset Large Cap Fund: 15.6% of AUM (Rs ~1.85 Cr); sector data not disclosed",
+          "Axis Large Cap Fund: 11.8% of AUM (Rs ~1.40 Cr); sector data not disclosed",
+          "Parag Parikh Flexi Cap Fund: 14.2% of AUM (Rs ~1.68 Cr); sector data not disclosed",
+          "Kotak Emerging Equity Fund: 10.5% of AUM (Rs ~1.24 Cr); not in mf_funds coverage",
+          "Stallion Asset Core Fund (PMS): proposed Rs 1 Cr ticket; no sector look-through per foundation.md:198, v8:705",
+          "Total liquid AUM: Rs 11.85 Cr",
+          "Proposed PMS allocation as % of AUM: ~8.4%",
+          "Current equity allocation: 52.2% of AUM (below mandate band floor of 60%)",
+          "Mandate equity band: 60-70%",
+          "SEBI PMS minimum ticket: Rs 50 lakh (sebi_001); proposed ticket of Rs 1 Cr is compliant",
+          "No P/E, P/B, or Beta data present in case snapshot for any holding"
+        ]
+      },
+      {
+        "agent_id": "e3_macro_policy_news",
+        "activation_status": "activated",
+        "risk_level": "elevated",
+        "confidence": 0.81,
+        "drivers": [
+          "GDP growth remains robust at 7.8% (Q3 FY26) with RBI projecting FY26 full-year at 7.6%; domestic economic cycle is in late-expansion phase (capacity utilisation 75.6%, above 75% threshold), providing a constructive underlying backdrop for equity-oriented allocations.",
+          "RBI repo rate at 5.25% following 125 bps of cuts from 6.50%; cycle is in early-pause phase with neutral stance maintained unanimously at April 8, 2026 MPC meeting; forward path is hold through near-term given West Asia uncertainty.",
+          "Real interest rate derived at approximately 3.15% (repo 5.25% minus core CPI 2.1%), which is materially above the +2% restrictive threshold; this is the highest real rate in several years and represents a meaningful opportunity cost for equity risk-taking at the margin.",
+          "CPI headline at 3.40% (March 2026), below RBI's 4% target; core CPI at 2.1% (Jan-Feb average); inflation is currently benign, but IMD forecasts below-normal monsoon at 92% of LPA with 66% probability of below-normal or deficient outcome — a material upside inflation risk for H2 FY27 that could constrain further RBI easing.",
+          "Brent crude at $118.95/barrel (April 29, 2026), up approximately 86% year-on-year from ~$64; Hormuz disruption blocking approximately 20% of global oil trade is the proximate driver; India as a net crude importer faces direct pass-through pressure on current account, fiscal subsidy burden, and input cost inflation.",
+          "INR at 94.79 vs USD (April 29, 2026), representing 10.7% depreciation over 12 months from 85.60; forex reserves have declined $25 billion to $703 billion; currency stress is active and not yet stabilised.",
+          "FII net equity outflows of Rs 56,401 Cr in April 2026 alone (~$5.97 billion), with the heaviest single-day outflow of Rs 19,837 Cr on April 2; DII absorption of Rs 34,617 Cr (partial April 1-8 data) is not fully offsetting; the FII-DII dynamic is stressed.",
+          "India-US rate differential at 162 bps (5.25% minus 3.625%) sits within the adequate 100-200 bps range but is not wide enough to attract aggressive carry-driven FII inflows; with Fed on indefinite hold and leadership transition (Warsh replacing Powell ~May 15), US policy uncertainty adds an external variable.",
+          "10Y government bond yield at 6.99% (April 17, 2026), up 44 bps in five months from 6.55% in November 2025, with an intraday spike to 7.19% on April 3; rising long-end yields reflect crude-driven inflation risk premium and are a headwind to equity valuation multiples via discount rate expansion.",
+          "PMI Manufacturing rebounded to 55.9 (April flash) after a March dip to 53.9 attributed to Middle East conflict; PMI Services at 57.9 (April flash); Composite PMI at 58.3 — domestic activity indicators remain above long-run averages, providing a floor to earnings expectations.",
+          "Government fiscal consolidation is on track: fiscal deficit YTD at 80.38% of RE with a 7.0% YoY reduction; capex at 84.81% of RE, up 14.46% YoY; FY27 budget targets fiscal deficit at 4.3% of GDP with capex of Rs 12.22 lakh crore — quality of expenditure improving, supportive of infrastructure and manufacturing earnings.",
+          "SEBI PMS regulatory framework: SEBI (Portfolio Managers) Regulations 2020 overhaul (effective January 16, 2020) and SEBI minimum ticket of Rs 50 lakh (sebi_001) are both satisfied by the proposed Rs 1 Cr ticket; no pending regulatory inflection specific to PMS category within the decision window.",
+          "SIF (Specialised Investment Fund) framework effective April 1, 2025 introduces a new product tier between PMS and AIF; this is a structural regulatory development in the managed-account space but does not directly constrain or alter the PMS product being evaluated.",
+          "Non-food credit growth at 14.3% YoY (February 2026), rising from 11.1% a year prior; credit expansion is supportive of corporate earnings but also signals that monetary transmission, while occurring (WALR declining from 9.37% peak to 8.28%), remains incomplete."
+        ],
+        "flags": [
+          "crude_oil_shock_active_hormuz_disruption",
+          "inr_depreciation_stress_10pct_12m",
+          "fii_outflow_pressure_elevated_april_2026",
+          "real_rate_restrictive_3pct_above_neutral",
+          "monsoon_below_normal_forecast_inflation_upside_risk",
+          "10y_yield_rising_discount_rate_headwind",
+          "us_fed_leadership_transition_policy_uncertainty",
+          "equity_band_below_mandate_52pct_vs_60_70pct_floor",
+          "pms_first_entry_during_elevated_external_stress_window"
+        ],
+        "reasoning_paragraph": "The macro environment as of April 2026 presents a bifurcated picture: domestic fundamentals remain constructive — GDP growth at 7.8% (Q3 FY26), PMI Composite at 58.3, fiscal consolidation on track with capex up 14.46% YoY, and CPI headline at 3.40% below the RBI's 4% target — but the external risk overlay has deteriorated sharply and is the dominant near-term signal. Brent crude at $118.95/barrel (up approximately 86% year-on-year) driven by a Hormuz disruption affecting approximately 20% of global oil trade is transmitting simultaneously into INR weakness (94.79, down 10.7% over 12 months), rising long-end yields (10Y at 6.99%, up 44 bps in five months with an April 3 spike to 7.19%), and heavy FII equity outflows (Rs 56,401 Cr in April alone). The real interest rate, derived at approximately 3.15% (repo 5.25% minus core CPI 2.1%), is materially above the restrictive threshold and represents a genuine opportunity cost for incremental equity risk. The RBI's April 8 unanimous hold with a neutral stance and explicit citation of West Asia uncertainty signals that the central bank is in a watchful posture rather than an easing one, and the IMD's below-normal monsoon forecast (92% of LPA, 66% probability of below-normal or deficient outcome) introduces a credible H2 FY27 food inflation risk that could further constrain the easing path. Against this backdrop, the proposed action — a Rs 1 Cr first-time PMS allocation funded partly by a mutual fund trim — is being evaluated in a window of active external stress rather than a settled macro environment; the PMS product itself is regulatory-compliant (SEBI minimum ticket satisfied, 2020 framework in force, no pending regulatory inflection), and the domestic growth and earnings cycle does not contradict the long-term equity thesis, but the timing coincides with a period of elevated currency, crude, and capital-flow volatility that is material context for a new, less-liquid product entry.",
+        "data_points_cited": [
+          "GDP growth Q3 FY26: 7.8% YoY (MOSPI, February 27, 2026); RBI FY26 full-year projection: 7.6%",
+          "Capacity utilisation Q3 FY26: 75.6% / 75.5% SA (RBI OBICUS 72nd round); above 75% late-expansion threshold",
+          "PMI Manufacturing April 2026 flash: 55.9; March final: 53.9; long-run average: 54.2 (HSBC Flash India PMI)",
+          "PMI Services April 2026 flash: 57.9; Composite PMI: 58.3",
+          "CPI headline March 2026: 3.40% YoY; CPI food March 2026: 3.87% YoY (MOSPI / RBI 50 Macro Indicators)",
+          "CPI core (ex-food, fuel, ex-precious metals) Jan-Feb 2026 average: 2.1% (RBI MPC Statement, April 8, 2026)",
+          "IMD monsoon forecast April 13, 2026: 92% of LPA, below normal; P(below normal + deficient) = 66%",
+          "RBI repo rate: 5.25% (hold, April 17, 2026); cut from 6.50% over 2025 (125 bps total); SDF 5.00%, MSF 5.50%, CRR 3.00%",
+          "RBI stance: Neutral, unanimous hold, April 8, 2026 MPC meeting",
+          "Real interest rate derived: ~3.15% (repo 5.25% minus core CPI 2.1%); above +2% restrictive threshold",
+          "10Y government bond yield: 6.99% (April 17, 2026, FBIL); up from 6.55% November 2025 (+44 bps); intraday spike 7.19% on April 3",
+          "WALR on fresh loans (all SCBs): 8.28% (December 2025); down from 9.37% peak; 109 bps transmission",
+          "Brent crude: $118.95/barrel (April 29, 2026); from ~$64 (April 2025); +86% YoY; Hormuz disruption ~20% global oil trade",
+          "USD/INR: 94.787 (April 29, 2026); from 85.60 (April 2, 2025); 10.7% depreciation over 12 months",
+          "Forex reserves: $703 billion (down $25 billion)",
+          "FII net equity flows April 2026: Rs -56,401 Cr (~$5.97 billion); heaviest day April 2: Rs -19,837 Cr (CDSL FIIMonthly)",
+          "DII net flows April 1-8, 2026: Rs +34,617 Cr (partial; Groww.in / NSE-BSE sourced)",
+          "India-US rate differential: 162 bps (repo 5.25% minus Fed midpoint 3.625%)",
+          "US Fed funds rate: 3.50%-3.75%, hold (FOMC March 18, 2026); Powell's last meeting; Warsh transition ~May 15",
+          "Fiscal deficit YTD Apr-Feb FY26: Rs 12,52,649 Cr (80.38% of RE); -7.0% YoY (CGA DAMA Dashboard)",
+          "Government capex YTD Apr-Feb FY26: Rs 9,29,322 Cr (84.81% of RE); +14.46% YoY",
+          "FY27 budget fiscal deficit target: 4.3% of GDP; capex Rs 12.22 lakh crore (Budget at a Glance FY27)",
+          "Non-food credit growth: 14.3% YoY (February 28, 2026); up from 11.1% a year prior",
+          "SEBI PMS minimum ticket: Rs 50 lakh (sebi_001); proposed ticket Rs 1 Cr — compliant",
+          "SEBI (Portfolio Managers) Regulations 2020 overhaul effective January 16, 2020 (chg_002)",
+          "SIF framework effective April 1, 2025 (chg_009) — structural development, no direct PMS constraint",
+          "Current portfolio equity band: 52.2% vs mandate floor 60%; proposed action directionally corrective"
+        ]
+      },
+      {
+        "agent_id": "e4_behavioural_historical",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.72,
+        "drivers": [
+          "Stated risk appetite is Aggressive with a 12-15 year accumulation horizon and 25+ year stewardship horizon, which is structurally consistent with a first PMS allocation at Rs 1 Cr on an Rs 11.85 Cr liquid base (8.4% of liquid AUM).",
+          "Twelve-year unbroken SIP discipline across four funds through the 2018-19 corrections, 2020 COVID dip, and 2022 drawdown constitutes the strongest available revealed-pattern signal: the household does not panic-exit equity in drawdown environments.",
+          "During the 2020 COVID dip, Dr. Vikram Malhotra increased SIP contributions rather than withdrawing — a counter-cyclical behaviour that is consistent with the Aggressive stated bucket and meaningfully above the median revealed pattern for this wealth tier.",
+          "The portfolio's current equity weight of 52.2% against a mandate band of 60-70% represents a persistent under-allocation of approximately 8-18 percentage points. This revealed-pattern gap — a household that states Aggressive but has accumulated a 39.4% debt sleeve — is the primary stated-vs-revealed divergence in this case.",
+          "The proposed action is investor-initiated by Dr. Vikram Malhotra, triggered by a peer cardiologist's PMS satisfaction signal and reinforced by Dr. Shruti Malhotra's framing for greater sophistication at the quarterly review. The dual-initiation (peer-network + spousal framing) is a structurally different trigger from the household's prior advisor-analytical engagement pattern.",
+          "Dr. Shruti Malhotra is described as informed and consenting rather than a co-primary decision-maker; however, her active framing of sophistication at the quarterly review elevates her practical influence in this specific case above her baseline role, creating a joint-influence dynamic that is not the household's historical norm.",
+          "No prior advisor interactions are on record, which limits the confidence ceiling for this assessment. The revealed behavioural pattern is reconstructed from the character bible rather than from a documented advisor-interaction history."
+        ],
+        "flags": [
+          "peer_network_influence_trigger",
+          "stated_vs_revealed_equity_underallocation",
+          "limited_advisor_interaction_history",
+          "first_pms_wrapper_transition",
+          "dual_initiation_atypical_for_household",
+          "spousal_influence_elevation_in_current_case",
+          "sophistication_curious_not_sophistication_committed"
+        ],
+        "reasoning_paragraph": "The Malhotra household presents a structurally coherent but behaviourally nuanced profile for this proposed action. The stated Aggressive mandate and the 12-year SIP discipline — including counter-cyclical SIP increases during the 2020 COVID dip — provide a strong revealed-pattern foundation that is directionally supportive of a first PMS allocation. The proposed Rs 1 Cr ticket (8.4% of liquid AUM) is proportionate and does not compress the household's liquidity or education corpus position in a material way. The primary stated-vs-revealed divergence, however, is not about risk appetite per se but about allocation execution: a household that states Aggressive has allowed its equity sleeve to drift to 52.2% against a 60-70% mandate band, with 39.4% sitting in debt instruments including tax-free bonds and a bank FD. This pattern suggests that while the household does not exit equity under stress, it has also not actively driven equity accumulation toward mandate — a passive conservatism that sits in tension with the Aggressive label. The current proposed action is investor-initiated via a peer-network signal (a peer cardiologist's PMS satisfaction) rather than through the household's more typical analytical-engagement mode, which introduces a peer-influence trigger that has not been observed in prior decisions and warrants acknowledgement without over-pathologising: peer-network signals are a legitimate information source for financially literate investors, but they carry a recency and social-proof dimension that is distinct from the household's SIP discipline history. Dr. Shruti Malhotra's active framing of sophistication at the quarterly review is a meaningful data point — her practical influence in this case is elevated relative to her baseline consenting role — and the advisor should confirm that her engagement reflects genuine conviction rather than deference to Dr. Vikram's peer-driven enthusiasm. The limited_advisor_interaction_history flag (zero prior interactions on record) constrains confidence to 0.72; the behavioural picture is reconstructed from the character bible alone, and the advisor relationship has not yet generated a documented pattern of recommendation acceptance, override, or modification against which this case can be calibrated.",
+        "data_points_cited": [
+          "Liquid AUM Rs 11.85 Cr; proposed ticket Rs 1 Cr = 8.4% of liquid AUM",
+          "Current equity weight 52.2% vs mandate band 60-70%; under-allocation gap 8-18 percentage points",
+          "Debt sleeve 39.4% (NHAI Tax-Free Bonds Rs 2.15 Cr, PFC Tax-Free Bonds Rs 0.97 Cr, HDFC Bank FD Rs 1.55 Cr)",
+          "12-year unbroken SIP discipline across 4 funds",
+          "Counter-cyclical SIP increase during 2020 COVID dip (no withdrawal)",
+          "SIP discipline maintained through 2018-19 corrections and 2022 drawdown",
+          "Investor ages 47 and 44; accumulation horizon 12-15 years to peak retirement; stewardship horizon 25+ years",
+          "Combined practice income Rs 5.6 Cr per year; annual bonus Rs 80 L to Rs 1.2 Cr",
+          "Education corpus target Rs 4 Cr by 2036 (children aged 12 and 9)",
+          "Prior advisor interactions on record: 0",
+          "Trigger: peer cardiologist PMS satisfaction signal + Dr. Shruti Malhotra's sophistication framing at quarterly review",
+          "Dr. Vikram Malhotra identified as primary financial decision-maker; Dr. Shruti Malhotra as informed and consenting"
+        ]
+      },
+      {
+        "agent_id": "e5_unlisted_equity",
+        "activation_status": "not_activated",
+        "reason_for_non_activation": "The proposed action (new_investment targeting Stallion Asset Core Fund (PMS) (category: pms) of Rs 1 Cr, sourced from mutual_funds) does not introduce unlisted equity exposure. Per principles §3.1, E5 activates only when the case scope includes founder shares, pre-IPO holdings, ESOP in privately held companies, family business equity within advisory scope, or AIF Cat I venture positions with material look-through to private companies. None of these conditions apply."
+      },
+      {
+        "agent_id": "e6_pms_aif_sif",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.72,
+        "drivers": [
+          "Gate: pass. Investor structure is individual/resident, eligible for PMS per str_001. Proposed ticket Rs 1 Cr exceeds SEBI minimum of Rs 50 L (sebi_001). Post-action equity allocation 60.6% sits within mandate band 60–70%, restoring the portfolio from its current under-allocation of 52.2%. No lock-in incompatibility; PMS holdings reside in investor's own demat account (dem_011) with standard liquidity windows (dem_012, practitioner framing, indicative confidence only). Gate result: pass across all four dimensions.",
+          "Manager quality: Mr. Amit Jeswani is the named lead PM for Stallion Asset Core Fund. The PMS snapshot does not disclose PM tenure, team depth, or succession structure. These dimensions cannot be assessed from available data and are flagged as not available. The absence of disclosed team-depth data is a material information gap for a first-time PMS allocation.",
+          "Strategy consistency: Category is Multi Cap & Flexi Cap benchmarked to S&P BSE 500 TRI. The snapshot does not disclose number of holdings, sector concentration, single-stock weight ceilings, or portfolio turnover. Style drift assessment is therefore not possible from available data. The multi-cap / flexi-cap mandate is structurally broad, which permits significant latitude in positioning; without holdings disclosure, concentration discipline cannot be confirmed.",
+          "Fee normalisation: Management fee 2.5% fixed AMC + 1.5% variable AMC (basis for variable component not disclosed in snapshot — assumed to be an additional layer, not a substitute for fixed). Performance fee: 15% profit sharing above 10% hurdle rate. High-water-mark mechanism: not disclosed in snapshot. Blended cost estimate over 5-year horizon — assuming returns clear the 10% hurdle in 3 of 5 years and variable AMC is charged in addition to fixed: fixed AMC 250 bps + variable AMC 150 bps (if both apply simultaneously) + estimated performance fee contribution ~90 bps (15% of ~6% excess return above hurdle, probability-weighted at 0.6) = blended ~490 bps. If variable AMC is an alternative to fixed (i.e., higher of the two), blended estimate reduces to approximately 340 bps. The ambiguity in fee layering is a material disclosure gap. Comparable substitute: Mirae Asset Large Cap MF (the proposed partial source fund) carries approximately 100–120 bps blended cost. PMS fee premium over MF substitute: 220–370 bps depending on fee structure interpretation. The 5-year return series (23.11% CAGR) and 3-year return series (36.12% CAGR) are gross-of-fee figures from the snapshot; net-of-fee alpha over a comparable large-cap or multi-cap MF benchmark cannot be computed without fee-adjusted series, which are not disclosed.",
+          "Capacity: AUM Rs 6,309.5 Cr as of snapshot date. For a quality-concentrated multi-cap PMS, capacity constraints typically become material in the Rs 5,000–8,000 Cr range depending on mid-cap and small-cap exposure within the portfolio. At Rs 6,309.5 Cr, the strategy is operating in a range where alpha decay from capacity is a plausible concern, particularly if the portfolio holds meaningful mid-cap or small-cap positions. The snapshot does not disclose market-cap breakdown, so the severity of capacity pressure cannot be precisely quantified. The AUM figure alone warrants a capacity flag.",
+          "Return context: 1Y 14.29%, 3Y 36.12% CAGR, 5Y 23.11% CAGR against S&P BSE 500 TRI benchmark. The 3-year figure (36.12%) reflects a period that includes the strong post-COVID recovery cycle (2021–2024); mean-reversion risk in forward 3-year returns is elevated. The 5-year figure (23.11%) is a more cycle-adjusted reference. Neither figure is net-of-fee in the snapshot, limiting direct alpha computation.",
+          "Trigger quality: Investor-initiated allocation triggered by a peer cardiologist's satisfaction signal and framing for sophistication. This is a social-proof and aspiration trigger, not a strategy-fit or gap-filling trigger. The portfolio's equity under-allocation (52.2% vs 60–70% band) is a legitimate structural reason to add equity exposure, but the specific vehicle selection rationale is peer-referral-driven rather than comparative-analysis-driven. This is a mandate-architecture consideration, not a disqualifying factor."
+        ],
+        "flags": [
+          "manager_team_depth_not_disclosed",
+          "pm_tenure_not_disclosed",
+          "high_water_mark_mechanism_not_disclosed",
+          "variable_amc_layering_ambiguity",
+          "fee_adjusted_return_series_not_available",
+          "holdings_concentration_not_disclosed",
+          "market_cap_breakdown_not_disclosed",
+          "capacity_concern_at_rs_6309cr_aum",
+          "trigger_is_social_proof_not_strategy_gap",
+          "3y_return_elevated_cycle_mean_reversion_risk",
+          "first_pms_allocation_no_existing_wrapper_tier_baseline"
+        ],
+        "reasoning_paragraph": "Stallion Asset Core Fund (PMS) clears the structural Gate: the investor is an eligible individual/resident, the Rs 1 Cr ticket exceeds the SEBI Rs 50 L minimum, and the post-action equity allocation of 60.6% restores the portfolio to within its 60–70% mandate band from a current under-allocation of 52.2%. The product-level assessment, however, is constrained by material data gaps in the available snapshot: PM tenure, team depth, high-water-mark mechanics, variable AMC layering, holdings concentration, and market-cap breakdown are all undisclosed, limiting the depth of the manager-quality, strategy-consistency, and fee-normalisation sub-agent outputs. On the fee dimension, the fixed AMC of 2.5% alone exceeds the all-in cost of the proposed source fund (Mirae Asset Large Cap MF at approximately 100–120 bps blended), and the total blended cost — depending on whether the 1.5% variable AMC is additive or alternative to the fixed component — is estimated at 340–490 bps, a premium that requires sustained net-of-fee alpha to justify; the snapshot does not provide fee-adjusted return series, so this justification cannot be confirmed from available data. The 5-year gross CAGR of 23.11% is a constructive reference point, but the 3-year figure of 36.12% reflects a cycle-elevated window and carries mean-reversion risk in forward returns. At Rs 6,309.5 Cr AUM, the strategy is operating at a scale where capacity-driven alpha decay is a plausible concern for a quality-concentrated multi-cap mandate, though the absence of market-cap breakdown prevents precise quantification. The allocation trigger — a peer cardiologist's satisfaction signal and a framing for sophistication — is a social-proof and aspiration driver rather than a comparative-analysis-driven selection; this does not disqualify the product but is a mandate-architecture consideration that S1 should surface. The overall risk level is assessed as moderate: the structural eligibility and band-restoration rationale are sound, but the combination of undisclosed fee mechanics, capacity pressure at current AUM, cycle-elevated return history, and a social-proof trigger warrants measured scrutiny before commitment.",
+        "data_points_cited": [
+          "Proposed ticket: Rs 1 Cr",
+          "SEBI PMS minimum: Rs 50 L (sebi_001)",
+          "Investor structure: individual/resident, PMS eligible (str_001)",
+          "Current equity allocation: 52.2% vs mandate band 60–70%",
+          "Post-action equity allocation: 60.6%",
+          "Stallion Asset Core Fund AUM: Rs 6,309.5 Cr",
+          "Lead PM: Mr. Amit Jeswani",
+          "Benchmark: S&P BSE 500 TRI",
+          "Category: Multi Cap & Flexi Cap",
+          "Gross returns: 1Y 14.29%, 3Y 36.12% CAGR, 5Y 23.11% CAGR",
+          "Fixed AMC: 2.5%",
+          "Variable AMC: 1.5%",
+          "Performance fee: 15% profit sharing above 10% hurdle",
+          "Blended PMS cost estimate: 340–490 bps (fee-layering ambiguity range)",
+          "Comparable MF blended cost (Mirae Asset Large Cap): ~100–120 bps",
+          "PMS fee premium over MF substitute: ~220–370 bps",
+          "Regulatory references: sebi_001, sebi_002, sebi_003, sebi_004, sebi_005, str_001, dem_011, dem_012, pmlt_001, pmlt_002",
+          "Regulatory events in scope: chg_002 (SEBI PM Regulations 2020), chg_008 (Budget 2024 CG regime), chg_009 (SIF framework 2025), chg_011 (AIF Third Amendment 2025)"
+        ]
+      },
+      {
+        "agent_id": "e7_mutual_fund",
+        "activation_status": "activated",
+        "risk_level": "moderate",
+        "confidence": 0.52,
+        "drivers": [
+          "Mirae Asset Large Cap Fund: Direct/Growth; SEBI Large Cap category; lead manager Neelesh Surana with 15+ years tenure on this scheme; active share ~75%; portfolio turnover ~25% annually; 3Y alpha vs Nifty 100 TRI approximately +210 bps; 5Y alpha approximately +240 bps; AUM ~Rs 30,000 Cr with no capacity stress in large-cap mandate; TER 0.95% (Direct); exit load 1% within 1 year, nil thereafter.",
+          "Axis Large Cap Fund: Direct/Growth; SEBI Large Cap category; fund-level data not available in snapshot beyond category classification; verdict on manager tenure, TER, alpha trend, and capacity cannot be rendered without snapshot data.",
+          "Parag Parikh Flexi Cap Fund: Direct/Growth; SEBI Flexi Cap category; fund-level data not available in snapshot beyond category classification; verdict on manager tenure, TER, alpha trend, and capacity cannot be rendered without snapshot data.",
+          "Kotak Emerging Equity Fund: Direct/Growth; SEBI Mid Cap category; fund-level data not available in snapshot beyond category classification; mid-cap mandate carries structural capacity sensitivity; verdict on AUM, capacity ceiling, manager tenure, and alpha trend cannot be rendered without snapshot data.",
+          "Proposed action targets Stallion Asset Core Fund (PMS), a PMS product, not a mutual fund scheme; fund-level data not available in snapshot; E7 scope is mutual fund schemes; PMS evaluation is E6 territory.",
+          "Proposed Rs 50 L partial trim of Mirae Asset Large Cap Fund is the only MF-level action with sufficient snapshot data to evaluate; the trim reduces a well-documented, manager-stable, alpha-generating large-cap position to fund a first-time PMS allocation.",
+          "Exit load on Mirae Asset Large Cap Fund is nil beyond 1 year; assuming units held beyond 12 months, no exit load friction on the Rs 50 L trim.",
+          "LTCG implications on Mirae trim: gains on equity MF units held beyond 12 months taxed at 12.5% LTCG (post Budget 2024 capital gains regime overhaul effective 2024-07-23, chg_008); no indexation benefit on equity MF; tax drag on embedded gains is a material cost of the reallocation.",
+          "Direct plan vs Regular plan delta for large-cap funds is typically 60-90 bps annually; over a 5-year horizon this compounds to approximately 3-4.5% of cumulative returns; the existing MF allocation appears to be in Direct/Growth options, preserving this efficiency.",
+          "SIP redirect of Rs 30 L over 12 months reduces ongoing MF accumulation across existing schemes; the specific schemes affected by SIP redirect are not identified in the case scope, limiting scheme-level impact assessment.",
+          "Incremental Rs 20 L from household savings directed to PMS rather than MF does not alter existing MF scheme composition but reduces marginal MF allocation growth."
+        ],
+        "flags": [
+          "e7_scope_boundary_crossed: proposed_action targets a PMS product (Stallion Asset Core Fund); E7 evaluates mutual fund schemes only; PMS evaluation is E6 territory; this activation addresses only the MF-side impact of the proposed action",
+          "fund_level_data_not_available: Axis Large Cap Fund scheme-level metrics (manager tenure, TER, alpha, AUM) not present in snapshot; verdict on this scheme cannot be rendered",
+          "fund_level_data_not_available: Parag Parikh Flexi Cap Fund scheme-level metrics not present in snapshot; verdict on this scheme cannot be rendered",
+          "fund_level_data_not_available: Kotak Emerging Equity Fund scheme-level metrics not present in snapshot; verdict on this scheme cannot be rendered",
+          "fund_level_data_not_available: Stallion Asset Core Fund (PMS) not in MF snapshot coverage; no MF-level evaluation possible; E6 must evaluate",
+          "mirae_trim_reduces_documented_alpha_position: Rs 50 L trim of Mirae Asset Large Cap Fund removes a position with 15+ year manager continuity and sustained multi-regime alpha; replacement vehicle (PMS) has no snapshot data to confirm equivalent or superior risk-adjusted return profile",
+          "ltcg_tax_drag_on_mirae_trim: embedded gains on Mirae units subject to 12.5% LTCG post Budget 2024 regime (chg_008); tax cost of trim is a real return drag that reduces effective proceeds available for PMS deployment",
+          "capacity_sensitivity_kotak_emerging: Kotak Emerging Equity Fund is a mid-cap mandate; mid-cap strategies have structural capacity ceilings; AUM and capacity status not available in snapshot; flag for E6/S1 attention if AUM data becomes available",
+          "sip_redirect_scheme_unspecified: Rs 30 L SIP redirect over 12 months affects existing MF schemes but target schemes for reduction are not identified; scheme-level impact cannot be assessed",
+          "first_pms_allocation_trigger_quality: investor trigger is a peer's satisfaction signal and framing for sophistication; neither constitutes a strategy-level rationale; S1 and E6 should assess whether PMS mandate genuinely complements existing MF portfolio or introduces redundant large-cap exposure",
+          "escalate_to_master: structural complexity flag raised; cross-product reallocation (MF to PMS), tax event on trim, first-time PMS entry, and incomplete snapshot data across three of four existing MF schemes warrant IC1 or S1 synthesis review"
+        ],
+        "reasoning_paragraph": "E7 activates on the mutual fund dimension of case c-2026-05-21-malhotra-01, with scope limited to evaluating the existing MF allocation and the MF-side consequences of the proposed reallocation; the proposed target instrument (Stallion Asset Core Fund, PMS) falls outside E7 jurisdiction and is referred to E6. Of the four existing MF schemes, only Mirae Asset Large Cap Fund carries sufficient snapshot data for a scheme-level verdict: the fund presents a well-documented quality-tilted large-cap mandate with 15+ years of lead manager continuity under Neelesh Surana, active share of approximately 75%, sustained alpha of 210-240 basis points over 3Y and 5Y horizons across multiple market regimes, a competitive Direct plan TER of 0.95%, and no capacity stress at Rs 30,000 Cr AUM given the large-cap mandate's structural depth; on these dimensions the scheme warrants a positive scheme-level assessment. The proposed Rs 50 L partial trim of this position to fund a first-time PMS allocation introduces two material MF-side concerns: first, it reduces a position where manager skill is documented and multi-regime alpha is attributable to stock selection rather than beta drift, in favour of a vehicle where no comparable snapshot data exists to confirm equivalent risk-adjusted return characteristics; second, the trim crystallises a taxable event under the post-Budget 2024 capital gains regime (LTCG at 12.5% on equity MF gains beyond Rs 1.25 L annual threshold, effective 2024-07-23), creating a real return drag on effective proceeds deployed into the PMS. Scheme-level verdicts for Axis Large Cap Fund, Parag Parikh Flexi Cap Fund, and Kotak Emerging Equity Fund cannot be rendered in the absence of snapshot data; the mid-cap mandate of Kotak Emerging Equity Fund additionally warrants a capacity-sensitivity flag pending AUM disclosure. The SIP redirect component of the funding plan affects existing MF accumulation but the specific schemes targeted for reduction are unspecified, precluding scheme-level impact assessment. Confidence is constrained to 0.52 reflecting the partial snapshot coverage across the existing MF book; the Mirae-specific assessment carries higher internal confidence (~0.88) while the portfolio-wide MF impact assessment is materially limited by data gaps.",
+        "data_points_cited": [
+          "Mirae Asset Large Cap Fund: SEBI Large Cap category; Direct/Growth",
+          "Mirae Asset Large Cap Fund: lead manager Neelesh Surana, 15+ years tenure on scheme",
+          "Mirae Asset Large Cap Fund: active share ~75%",
+          "Mirae Asset Large Cap Fund: portfolio turnover ~25% annually",
+          "Mirae Asset Large Cap Fund: 3Y alpha vs Nifty 100 TRI ~+210 bps",
+          "Mirae Asset Large Cap Fund: 5Y alpha vs Nifty 100 TRI ~+240 bps",
+          "Mirae Asset Large Cap Fund: AUM ~Rs 30,000 Cr",
+          "Mirae Asset Large Cap Fund: Direct plan TER 0.95%",
+          "Mirae Asset Large Cap Fund: exit load 1% within 1 year; nil thereafter",
+          "Mirae Asset Large Cap Fund: portfolio weight 15.6% of AUM (Rs ~1.85 Cr at Rs 11.85 Cr liquid AUM)",
+          "Proposed Mirae trim: Rs 50 L",
+          "Budget 2024 capital gains regime overhaul: LTCG on equity MF at 12.5% (chg_008, effective 2024-07-23)",
+          "SEBI PMS minimum ticket: Rs 50 L (sebi_001)",
+          "Proposed PMS ticket: Rs 1 Cr",
+          "Total liquid AUM: Rs 11.85 Cr",
+          "Equity band mandate: 60-70%; current equity: 52.2%",
+          "MF holdings count: 4 schemes",
+          "Axis Large Cap Fund: portfolio weight 11.8% of AUM; fund-level data not available in snapshot",
+          "Parag Parikh Flexi Cap Fund: portfolio weight 14.2% of AUM; fund-level data not available in snapshot",
+          "Kotak Emerging Equity Fund: portfolio weight 10.5% of AUM; SEBI Mid Cap category; fund-level data not available in snapshot",
+          "Stallion Asset Core Fund (PMS): not in MF snapshot coverage; PMS product; E6 territory"
+        ]
+      }
+    ],
+    "router_decision": {
+      "caseMode": "proposed_action",
+      "caseIntent": "new_investment",
+      "dominantLens": "proposal_evaluation",
+      "e1": true,
+      "e2": true,
+      "e3": true,
+      "e4": true,
+      "e5": false,
+      "e6": true,
+      "e7": true,
+      "indianContext": true,
+      "portfolioRiskAnalytics": true,
+      "riskRewardStats": true,
+      "activated": [
+        "m0_indian_context",
+        "e1_listed_fundamental_equity",
+        "e2_industry_business",
+        "e3_macro_policy_news",
+        "e4_behavioural_historical",
+        "e6_pms_aif_sif",
+        "e7_mutual_fund"
+      ],
+      "reasoning": "case_mode=proposed_action; case_intent=new_investment; target_category=pms; source_of_funds=mutual_funds; listed_look_through=true; pms_or_aif=true; mf=true; unlisted=false"
+    },
+    "indian_context": {
+      "mode": "bulk",
+      "generated_by": "m0_indian_context_deterministic",
+      "store_versions": {
+        "tax_matrix": "1.1",
+        "sebi_boundaries": "1.2",
+        "structure_matrix": "1.0",
+        "demat_mechanics": "1.0",
+        "gift_city_routing": "1.0",
+        "regulatory_changelog": "1.0"
+      },
+      "investor_structure": {
+        "structure_type": "individual",
+        "residency": "resident",
+        "legacy_alias_applied": "resident_individual -> individual + residency=resident"
+      },
+      "tax_structure": "PMS gains taxed at underlying instrument level, pass-through to investor [pmlt_001]; PMS surcharge cap interaction [pmlt_002]",
+      "lock_in_mechanics": "PMS holdings, in investor's own demat account [dem_011]; PMS exit, typical liquidity window practitioner framing [dem_012]",
+      "regulatory_eligibility": "PMS minimum investment per client per portfolio manager [sebi_001]; PMS portfolio manager minimum net worth [sebi_002]; PMS leverage prohibition for equity portfolios [sebi_003]; PMS unlisted securities restriction in discretionary PMS [sebi_004]; PMS associate transaction cap, 20 percent per associate per service [sebi_005]",
+      "surcharge_implications": "No surcharge-band entry matched; standard slab surcharge applies per investor income tier.",
+      "structure_specific_considerations": "pms is an eligible product for individual/resident [str_001]. | Individual resident, baseline product eligibility [str_001]",
+      "sebi_minimums": [
+        {
+          "product": "pms",
+          "min_ticket_inr": 5000000,
+          "min_ticket_cr": 0.5,
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_001",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+          "confidence": "authoritative"
+        }
+      ],
+      "applicable_regulatory_changes": [
+        {
+          "entry_id": "chg_002",
+          "topic": "SEBI (Portfolio Managers) Regulations 2020 overhaul",
+          "effective_date": "2020-01-16",
+          "affected_entries": [
+            "sebi_001",
+            "sebi_002",
+            "sebi_003",
+            "sebi_004",
+            "sebi_005",
+            "sebi_006",
+            "sebi_007",
+            "pmlt_001",
+            "pmlt_002"
+          ]
+        },
+        {
+          "entry_id": "chg_008",
+          "topic": "Budget 2024 capital gains regime overhaul",
+          "effective_date": "2024-07-23",
+          "affected_entries": [
+            "pmlt_002"
+          ]
+        },
+        {
+          "entry_id": "chg_009",
+          "topic": "SIF (Specialised Investment Fund) framework introduction",
+          "effective_date": "2025-04-01",
+          "affected_entries": [
+            "str_001"
+          ]
+        },
+        {
+          "entry_id": "chg_011",
+          "topic": "SEBI AIF Third Amendment Regulations 2025 (AIOF framework, LVF unification, threshold reduction)",
+          "effective_date": "2025-11-18",
+          "affected_entries": [
+            "sebi_017"
+          ]
+        }
+      ],
+      "indicative_flags": [
+        "pmlt_001 (PMS gains taxed at underlying instrument level, pass-through to investor): confidence=indicative, practitioner_practice; surface to S1 as practitioner framing, not authoritative.",
+        "dem_012 (PMS exit, typical liquidity window practitioner framing): confidence=indicative, practitioner_practice; surface to S1 as practitioner framing, not authoritative."
+      ],
+      "citations": [
+        {
+          "source_store": "tax_matrix",
+          "source_entry_id": "pmlt_001",
+          "topic": "PMS gains taxed at underlying instrument level, pass-through to investor",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 establish the pass-through legal structure; CBDT communications; Income Tax Act 1961 Sections 111A, 112, 112A apply to underlying instruments",
+          "citation_source_type": "practitioner_practice",
+          "confidence": "indicative"
+        },
+        {
+          "source_store": "tax_matrix",
+          "source_entry_id": "pmlt_002",
+          "topic": "PMS surcharge cap interaction",
+          "citation": "Income Tax Act 1961, Sections 111A, 112A, First Schedule to Finance Act 2025; established PMS pass-through application",
+          "citation_source_type": "statute_section",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_001",
+          "topic": "PMS minimum investment per client per portfolio manager",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+          "citation_source_type": "web_verified",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_002",
+          "topic": "PMS portfolio manager minimum net worth",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_003",
+          "topic": "PMS leverage prohibition for equity portfolios",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 24(4); SEBI PMS FAQ 2020-10-28",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_004",
+          "topic": "PMS unlisted securities restriction in discretionary PMS",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 24; SEBI PMS FAQ",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_005",
+          "topic": "PMS associate transaction cap, 20 percent per associate per service",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020, Regulation 22(3C); SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_006",
+          "topic": "PMS fee structure, no upfront fees, high-water mark mandatory",
+          "citation": "SEBI Circular dated 2010-08 introducing high-water mark; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13 reaffirming fee discipline",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_007",
+          "topic": "PMS exit load cap, reducing schedule, nil after three years",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_008",
+          "topic": "PMS distributor registration with APMI, mandatory from 2025-01-01",
+          "citation": "SEBI mandate; APMI eligibility rules announced July 2024; effective 2025-01-01",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "sebi_boundaries",
+          "source_entry_id": "sebi_017",
+          "topic": "Accredited Investor eligibility, individual filer",
+          "citation": "SEBI (AIF) Regulations 2012, Regulation 2(ab); SEBI Master Circular for AIFs dated 2024-05-07 (Chapter 12 Framework for Accredited Investors); SEBI Circular dated 2021-08-26",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "structure_matrix",
+          "source_entry_id": "str_001",
+          "topic": "Individual resident, baseline product eligibility",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 (PMS eligibility); SEBI (AIF) Regulations 2012 (AIF eligibility); SEBI (Mutual Funds) Regulations 1996 amended 2025 (SIF eligibility); SEBI Master Circular for AIFs 2024-05-07 (Chapter 12 AI Framework)",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_011",
+          "topic": "PMS holdings, in investor's own demat account",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020; SEBI PMS FAQ",
+          "citation_source_type": "regulatory_circular",
+          "confidence": "authoritative"
+        },
+        {
+          "source_store": "demat_mechanics",
+          "source_entry_id": "dem_012",
+          "topic": "PMS exit, typical liquidity window practitioner framing",
+          "citation": "SEBI (Portfolio Managers) Regulations 2020 (general framework); PMS agreement terms govern specifics",
+          "citation_source_type": "practitioner_practice",
+          "confidence": "indicative"
+        }
+      ],
+      "edge_cases_flagged": [],
+      "reasoning_trace": "Deterministic retrieval over six curated stores. Resolved investor structure individual/resident (alias: resident_individual -> individual + residency=resident); product axis [pms]; 14 entries matched (2 indicative); 4 regulatory-changelog events effective on/before 2026-04-02.",
+      "raw": {
+        "matched_entry_ids": [
+          "tax_matrix:pmlt_001",
+          "tax_matrix:pmlt_002",
+          "sebi_boundaries:sebi_001",
+          "sebi_boundaries:sebi_002",
+          "sebi_boundaries:sebi_003",
+          "sebi_boundaries:sebi_004",
+          "sebi_boundaries:sebi_005",
+          "sebi_boundaries:sebi_006",
+          "sebi_boundaries:sebi_007",
+          "sebi_boundaries:sebi_008",
+          "sebi_boundaries:sebi_017",
+          "structure_matrix:str_001",
+          "demat_mechanics:dem_011",
+          "demat_mechanics:dem_012"
+        ]
+      }
+    },
+    "materiality": {
+      "fires": true,
+      "reason": "Verdict requires clarification with e3_macro_policy_news at risk_level elevated. Verdict requires clarification at confidence 0.62 below 0.80 threshold. Verdict requires clarification with 3 simultaneous G1 band gaps. 3 amplification flags in synthesis at or above the 3-flag compound-risk threshold.",
+      "triggers": [
+        "verdict_with_severity_flag",
+        "verdict_with_low_confidence",
+        "verdict_with_band_gaps",
+        "amplification_compound"
+      ]
+    },
+    "ic1_deliberation": {
+      "fires": true,
+      "minutes_recorder": {
+        "status": "populated",
+        "summary": [
+          "The central deliberation question is whether Stallion Asset Core Fund's structural eligibility and directional correction of the household's equity under-allocation (52.2% to 60.6%) justify a first PMS allocation at a 220–370 basis-point fee premium over a directionally redundant large-cap quality MF cluster, given undisclosed PM tenure, team depth, high-water-mark mechanics, and variable AMC layering, a peer-network trigger rather than strategy-gap selection, and entry into a materially stressed macro window (crude at $118.95/bbl +86% YoY, INR at 94.79 −10.7% YoY, FII outflows of Rs 56,401 Cr in April, 10Y at 6.99%). The structural gates themselves are clean: G2 clears the SEBI Rs 50 L PMS minimum with the Rs 1 Cr ticket; G3 advisor authority is intact; and the post-action equity allocation of 60.6% restores the portfolio to within the 60–70% mandate band. The behavioural foundation is genuinely supportive: a 12-year unbroken SIP discipline including counter-cyclical increases during the 2020 COVID dip is consistent with a proportionate 8.4%-of-AUM first PMS allocation. However, the proposal conflates two distinct structural questions — whether equity should rise (consensus) and which vehicle should execute that rise (unresolved) — and commits to the more expensive, less reversible answer before the underlying mandate-architecture conversation has been completed.",
+          "The Risk Assessor and Devil's Advocate converge on four families of material concern that cluster beneath the headline fee-and-overlap question. First, the disclosure-gap family: PM tenure, team depth, high-water-mark mechanics, holdings concentration, and market-cap breakdown are all undisclosed in the E6 snapshot, and for a household's first PMS entry with a 7-year liquidity profile, the absence of team-depth and succession-structure data constitutes a key-person risk that cannot be stress-tested from available information. Second, the strategy-redundancy family: E1 reads Stallion's quality-concentrated, high-ROCE mandate as directionally overlapping the existing Mirae/Axis/PPFCF large-cap quality cluster (blended P/E ~24–24.5x), and the Rs 50 L Mirae trim substitutes one quality vehicle for another at a higher fee and tighter concentration rather than adding genuine factor diversification; the 36.12% 3Y CAGR reflects a cycle-elevated window with material mean-reversion risk, and the 5Y CAGR of 23.11% is the more cycle-adjusted reference for fee-premium justification. Third, the mandate-architecture family: G1 surfaces three simultaneous band gaps (equity 7.8pp below floor, debt 9.4pp above ceiling, cash 2.0pp below floor), and the proposed action addresses only the equity gap while leaving debt and cash breaches unaddressed; the persistent under-allocation in a stated-Aggressive household raises the question of whether the mandate-band conversation should precede or accompany the product conversation rather than follow it. Fourth, the trigger-and-timing family: E4 and E6 flag that vehicle selection is driven by a peer cardiologist's satisfaction signal and spousal sophistication framing rather than by comparative analysis or a strategy gap, which is atypical for a household whose 12-year SIP discipline has been analytically driven; E3 reads the macro window as elevated on multiple dimensions (crude shock, INR weakness, FII outflows, real rate 3.15% above restrictive threshold), and a new less-liquid wrapper enters at a non-settled external window.",
+          "The Counterfactual Engine surfaces five alternative paths that address subsets of these families without requiring approval of the proposal as framed. The strongest alternatives are: (a) MF-only band restoration via a low-cost flexi-cap or multi-cap MF that adds genuine diversification, deferring the PMS wrapper until manager-specific data is in hand (saves 220–370 bps fee premium, eliminates strategy-redundancy risk, eliminates first-PMS disclosure-gap risk); (b) deferred PMS entry by 60–90 days pending disclosure of PM tenure, team depth, high-water-mark mechanics, and a fee-adjusted return series, with the G1 mandate-band conversation conducted independently of vehicle selection (addresses disclosure-gap, peer-network-trigger, and macro-timing risks while preserving the option to enter at a less stressed window); and (c) hold-and-redirect via incremental flows only, redirecting the Rs 30 L annual SIP capacity and Rs 20 L savings toward a Rs 50 L PMS entry at the SEBI floor plus diversified MF additions, scaling the PMS only if subsequent quarters confirm strategy fit (eliminates LTCG crystallisation drag entirely, averages entry across the macro stress window, tests conviction through paced deployment). The Risk Assessor and Devil's Advocate do not dispute the household's structural eligibility for a PMS or the directional case for equity restoration; the convergence is that the product case is unproven on the dimensions that matter most for a first PMS commitment, and the unresolved G1 mandate-band conversation should not be subordinated to vehicle selection."
+        ]
+      },
+      "chair": {
+        "status": "populated",
+        "framing": [
+          "Materiality fires on a compound trigger: an S1 verdict of requires_clarification at 0.62 confidence, three simultaneous G1 band gaps (equity 7.8pp below floor, debt 9.4pp above ceiling, cash 2pp below floor), an elevated E3 macro reading, and three amplification flags converging on the same product. The structural gates themselves are clean — G2 clears the SEBI Rs 50 L PMS minimum with the Rs 1 Cr ticket, G3 is non-binding under the single-advisor MVP, and E6's Gate passes on eligibility, ticket, lock-in, and post-action band. The deliberation is therefore not about whether the household can hold a PMS; it is about whether this specific PMS, at this specific moment, funded in this specific way, is the right instrument to address the mandate-band gap that G1 has surfaced.",
+          "Three substantive tensions sit underneath the verdict. First, product-fit: E1 and E6 converge that Stallion's quality-concentrated, high-ROCE mandate is directionally redundant with the existing Mirae/Axis/PPFCF large-cap quality cluster (blended P/E ~24x), and the Rs 50 L Mirae trim substitutes one quality vehicle for another at a 220-370 bps fee premium with no fee-adjusted return series to confirm sustained net alpha. Second, disclosure adequacy for a first PMS allocation: PM tenure, team depth, high-water-mark mechanics, variable AMC layering, holdings concentration, and market-cap breakdown are all undisclosed, and three of four existing MFs lack scheme-level data — the aggregate disclosure deficit is what binds synthesis confidence at 0.62. Third, trigger quality and timing: E4 flags a peer-cardiologist social-proof trigger reinforced by spousal sophistication framing (atypical for a household whose 12-year SIP discipline has been analytically driven), and E3 reads the macro window as materially stressed — crude at $118.95 (+86% YoY), INR at 94.79 (-10.7% YoY), FII outflows of Rs 56,401 Cr in April alone, 10Y at 6.99%, real rate ~3.15% above restrictive threshold.",
+          "G1's three band gaps are the immediate procedural overlay: the proposed action is directionally corrective on equity (52.2% to 60.6%) but does not address the 9.4pp debt overshoot or the 2pp cash shortfall, and the persistent under-allocation in a stated-Aggressive household raises the question of whether the mandate-band conversation should precede or accompany the product conversation rather than follow it. The behavioural foundation (12-year SIP discipline including counter-cyclical 2020 increases, proportionate 8.4%-of-AUM ticket, eligible structure) is genuinely supportive of a first PMS in principle. The deliberation must therefore separate the structural case for adding equity from the specific case for adding this PMS as the vehicle to do it."
+        ],
+        "deliberation_question": "Does Stallion Asset Core Fund's structural eligibility and directional band-restoration benefit justify a first PMS allocation at a 220-370 bps fee premium over a directionally redundant MF cluster, given undisclosed PM and fee mechanics, a peer-network trigger, and a stressed macro window — or does the unresolved G1 mandate-band conversation warrant separating vehicle selection from band correction?"
+      },
+      "devils_advocate": {
+        "status": "populated",
+        "position": [
+          "The strongest case against this proposal is not that Stallion is a poor fund or that the household is unsuited to PMS in principle; it is that the structural foundation required to justify a first PMS allocation has not been established, and the proposal as framed asks the committee to approve a Rs 1 Cr commitment to a less-liquid, higher-cost wrapper while the underlying mandate architecture is itself flagged for clarification. G1 has surfaced three simultaneous band gaps — equity 7.8pp below floor, debt 9.4pp above ceiling, cash 2pp below floor — and the proposed action is only directionally corrective on one of the three; debt remains 9.4pp above ceiling post-action and cash remains at zero. A household whose stated Aggressive mandate has been allowed to drift to 52.2% equity over an extended period is signalling, through revealed behaviour, that the mandate-band conversation itself is unresolved. Deploying the household's first PMS into that unresolved architecture conflates two distinct questions and commits to the more expensive, less reversible answer first.",
+          "The product-level case compounds this structural concern rather than offsetting it. E6's fee analysis lands at a 220-370 bps premium over the proposed source fund with variable AMC layering that is ambiguous in the snapshot itself; the 36.12% 3Y CAGR reflects a cycle-elevated window with mean-reversion risk; PM tenure, team depth, high-water-mark mechanics, holdings concentration, and market-cap breakdown are all undisclosed; and E1 reads the strategy as directionally redundant with the existing Mirae/Axis/PPFCF quality cluster rather than additive. E7 separately notes that the Rs 50 L Mirae trim removes a position with 15+ years of documented manager continuity and 210-240 bps of multi-regime alpha, crystallises an LTCG event at 12.5%, and replaces it with a vehicle for which no fee-adjusted return series exists to confirm net alpha. The trigger quality — peer cardiologist's satisfaction signal reinforced by spousal sophistication framing — is a structurally different decision pathway from the household's 12-year analytical SIP discipline; E4 explicitly flags this as atypical for the household. None of these individually disqualifies; collectively they describe a proposal where the product case is unproven on the dimensions that matter most for a first PMS commitment.",
+          "The timing overlay is the third compounding consideration, and it warrants explicit acknowledgement rather than treatment as background. E3 reads the macro window as materially stressed — crude at $118.95 (+86% YoY), INR at 94.79 (-10.7% YoY), FII outflows of Rs 56,401 Cr in April alone, 10Y at 6.99%, real rate ~3.15% above restrictive threshold — and the proposal would commit the household's first less-liquid wrapper at precisely this window. The macro stress is not disqualifying for equity in general, but the combination of a stressed external window, undisclosed PM and fee mechanics, a social-proof trigger, an unresolved mandate-band conversation, and a directionally redundant strategy is a four-flag convergence that the committee should resolve before approval rather than approve subject to monitoring."
+        ],
+        "specific_challenges": [
+          {
+            "title": "Resolve the G1 mandate-band conversation before vehicle selection",
+            "body": "The proposal addresses only one of three G1 band gaps (equity) while leaving debt 9.4pp above ceiling and cash 2pp below floor unaddressed. The committee should require an explicit mandate-band recalibration or rebalancing plan prior to approval, not approve a vehicle that conflates band correction with product selection."
+          },
+          {
+            "title": "Require fee-adjusted return series before fee-premium acceptance",
+            "body": "E6's blended PMS cost estimate of 340-490 bps depends on whether variable AMC is additive or alternative to fixed AMC, and the snapshot does not disclose this. The committee should not approve a 220-370 bps fee premium over the proposed source fund without a fee-adjusted 5Y return series demonstrating sustained net alpha against a comparable MF benchmark."
+          },
+          {
+            "title": "Require PM tenure, team depth, and high-water-mark disclosure",
+            "body": "E6 flags PM tenure, team depth, high-water-mark mechanics, holdings concentration, and market-cap breakdown as undisclosed in the snapshot. For a first PMS allocation, the committee should treat these as approval prerequisites rather than post-commitment diligence items."
+          },
+          {
+            "title": "Resolve strategy-overlap question before substituting Mirae for Stallion",
+            "body": "E1 reads Stallion's quality-concentrated, high-ROCE mandate as directionally redundant with the existing Mirae/Axis/PPFCF quality cluster (blended P/E ~24x). The Rs 50 L Mirae trim substitutes one quality vehicle for another at a higher fee and tighter concentration; the committee should require evidence of genuine additive diversification before approving the substitution."
+          },
+          {
+            "title": "Acknowledge the trigger as social-proof rather than strategy-gap",
+            "body": "E4 and E6 converge that the trigger is a peer cardiologist's satisfaction signal reinforced by spousal sophistication framing, which is atypical for a household whose 12-year SIP discipline has been analytically driven. The committee should require explicit advisor-led validation that the household would independently arrive at this product through gap analysis, not approve on the basis of investor-initiated momentum."
+          },
+          {
+            "title": "Stage entry rather than full-ticket commitment in current macro window",
+            "body": "E3 reads the macro window as elevated on multiple dimensions (crude shock, INR -10.7%, FII outflows Rs 56,401 Cr in April, real rate 3.15% above restrictive threshold). For a first less-liquid wrapper entry, the committee should require either a staged deployment plan or an explicit defer-and-revisit trigger tied to macro stabilisation, rather than approving the full Rs 1 Cr ticket in the current window."
+          },
+          {
+            "title": "Reconsider the LTCG-crystallising source-of-funds composition",
+            "body": "E7 notes the Rs 50 L Mirae trim crystallises a 12.5% LTCG event on embedded gains and removes a position with documented 210-240 bps multi-regime alpha. The committee should require justification for funding from a documented-alpha source rather than from the unspecified SIP redirect or incremental savings components alone."
+          },
+          {
+            "title": "Address capacity concern at Rs 6,309.5 Cr PMS AUM",
+            "body": "E6 flags the Stallion AUM at Rs 6,309.5 Cr as operating in a range where alpha decay from capacity is a plausible concern for a quality-concentrated multi-cap mandate. With market-cap breakdown undisclosed, the committee cannot quantify capacity pressure and should treat the capacity question as a precondition to approval, not a post-approval monitoring item."
+          }
+        ]
+      },
+      "risk_assessor": {
+        "status": "populated",
+        "evaluation": [
+          "The proposed Rs 1 Cr Stallion Asset Core Fund allocation passes structural Gate (G2 SEBI minimum cleared, G3 advisor authority intact) and is directionally corrective on the equity under-allocation, but stress-testing across timing, concentration, liquidity, and manager-specific scenarios surfaces material risks that the committee should weigh. The G1 gate sits at requires_clarification with three simultaneous band gaps (equity 7.8pp below floor, debt 9.4pp above ceiling, cash 2.0pp below floor), and the proposed action only partially closes the equity gap to 60.6%, leaving debt and cash band breaches unaddressed. Under worse-case timing — entry at current macro stress window with crude at $118.95/bbl, INR at 94.79 (down 10.7% YoY), 10Y at 6.99%, FII outflows of Rs 56,401 Cr in April alone, and a real rate of ~3.15% above the restrictive threshold — the proposal commits illiquid capital at a cycle position E3 reads as elevated risk; this is bounded (mandate does not breach further on entry) but the opportunity cost is non-trivial.",
+          "Concentration stress reveals a directionally redundant rather than additive allocation: E1 reads Stallion's quality-concentrated, high-ROCE mandate as overlapping the existing large-cap quality MF cluster (blended fund-level P/E ~24-24.5x), and the Rs 50 L Mirae trim substitutes one quality vehicle for another at a 220-370 bps fee premium. Under stress concentration scenarios, this does not create a mandate breach but it does reduce factor diversification at a higher cost basis. Manager-specific stress is the most acutely unquantifiable: PM tenure, team depth, high-water-mark mechanics, variable AMC layering, holdings concentration, and market-cap breakdown are all undisclosed in the E6 snapshot, and at Rs 6,309.5 Cr AUM the strategy sits in a range where capacity-driven alpha decay becomes plausible for a quality-concentrated multi-cap mandate. The 3Y CAGR of 36.12% reflects a cycle-elevated window with material mean-reversion risk in forward returns.",
+          "Liquidity stress is bounded but non-trivial: PMS units sit in investor's own demat (dem_011, authoritative) with standard exit windows that are practitioner-framed (dem_012, indicative confidence — treat as practitioner practice, not authoritative). The household's Rs 5.6 Cr annual practice income and Rs 80 L-1.2 Cr bonus stream provide adequate buffer against the 8.4%-of-AUM commitment, and the education corpus trajectory (Rs 4 Cr by 2036) is not compressed. However, the LTCG crystallisation on the Mirae trim under Budget 2024 regime (chg_008, 12.5% on gains beyond Rs 1.25 L threshold) imposes a real tax drag on deployment efficiency that the committee should price into the fee-premium justification. Overall, the proposal's structural risks are bounded but the disclosure gaps prevent confirmation that the manager-specific and concentration risks are equally bounded — recommended conditions would require disclosure of fee mechanics, PM tenure, holdings concentration, and a fee-adjusted return series before commitment, alongside a separate G1 mandate-band conversation."
+        ],
+        "specific_risks": [
+          {
+            "title": "G1 band gaps remain materially unaddressed",
+            "body": "The proposed action closes only the equity gap (52.2% to 60.6%) while leaving debt 9.4pp above ceiling and cash 2.0pp below floor; G1 requires_clarification status persists post-action and the mandate-band conversation has not been conducted independently of vehicle selection."
+          },
+          {
+            "title": "Fee premium unverified by net-of-fee alpha",
+            "body": "E6 estimates blended PMS cost at 340-490 bps depending on variable AMC layering ambiguity, a 220-370 bps premium over the Mirae source fund at ~100-120 bps; the snapshot provides only gross returns, so the sustained alpha required to justify the premium cannot be confirmed."
+          },
+          {
+            "title": "Manager-specific data unavailable for first PMS entry",
+            "body": "PM tenure, team depth, succession structure, and high-water-mark mechanics are all undisclosed in the E6 snapshot; for a household's first PMS allocation with a 7-year liquidity profile, the absence of team-depth disclosure constitutes a material key-person and operational risk that cannot be stress-tested from available data."
+          },
+          {
+            "title": "Capacity-driven alpha decay at Rs 6,309.5 Cr AUM",
+            "body": "The strategy operates in the Rs 5,000-8,000 Cr range where capacity pressure typically becomes material for quality-concentrated multi-cap mandates; market-cap breakdown is undisclosed, so the severity of forward capacity drag cannot be quantified but warrants a flag."
+          },
+          {
+            "title": "3Y return window reflects cycle-elevated regime",
+            "body": "The 36.12% 3Y CAGR captures the strong post-COVID recovery cycle (2021-2024); forward 3Y returns carry meaningful mean-reversion risk, and the 5Y CAGR of 23.11% is the more cycle-adjusted reference for fee-premium justification."
+          },
+          {
+            "title": "Strategy redundancy compresses diversification benefit",
+            "body": "E1 reads Stallion's quality, high-ROCE, low-leverage mandate as directionally redundant with the existing large-cap quality MF cluster (Mirae, Axis, PPFCF blended P/E ~24-24.5x); the Rs 50 L Mirae trim substitutes one quality vehicle for another at higher fee and concentration, not adding genuine factor diversification."
+          },
+          {
+            "title": "LTCG crystallisation drag on Mirae trim",
+            "body": "Per Budget 2024 capital gains regime overhaul (chg_008, effective 2024-07-23, authoritative), equity MF gains beyond Rs 1.25 L annual threshold are taxed at 12.5% LTCG without indexation; the Rs 50 L Mirae trim crystallises embedded gains and reduces effective proceeds available for PMS deployment."
+          },
+          {
+            "title": "Macro entry timing at active external stress window",
+            "body": "E3 reads elevated risk at confidence 0.81 given crude at $118.95/bbl (+86% YoY, Hormuz disruption), INR -10.7% over 12 months, 10Y at 6.99% (+44 bps in 5 months), FII outflows of Rs 56,401 Cr in April, and real rate of ~3.15% above the restrictive threshold; a new less-liquid wrapper enters at a non-settled macro window."
+          },
+          {
+            "title": "PMS liquidity window framing is indicative-confidence only",
+            "body": "Per dem_012 (indicative, practitioner practice — not authoritative), PMS exit windows are practitioner-framed rather than regulatorily fixed; the committee should treat any liquidity-window assumption as practitioner practice and confirm Stallion's specific redemption mechanics directly with the manager rather than rely on category-level framing."
+          },
+          {
+            "title": "Pass-through tax treatment at underlying instrument level",
+            "body": "Per pmlt_001 (indicative, practitioner practice — not authoritative), PMS gains are taxed at the underlying instrument level with pass-through to investor; this is practitioner framing rather than authoritative law, and the committee should not rely on the practitioner framing for tax-quantum estimates without specialist confirmation."
+          },
+          {
+            "title": "Peer-network trigger rather than strategy-gap selection",
+            "body": "E4 and E6 both flag that vehicle selection is driven by a peer cardiologist's satisfaction signal and spousal sophistication framing rather than by comparative analysis or a strategy gap; the underlying mandate-restoration rationale is sound but the specific vehicle rationale is social-proof-driven, which warrants explicit conviction-confirmation with both spouses."
+          },
+          {
+            "title": "Sector and look-through assessment not executable",
+            "body": "E2 confidence at 0.38 reflects that sector look-through is unavailable for all four MF holdings and for the PMS target; E1 confidence at 0.62 reflects that Kotak Emerging Equity Fund (10.5% of AUM) sits outside look-through; aggregate sector concentration and overlap analysis cannot be confirmed from available data."
+          }
+        ]
+      },
+      "counterfactual_engine": {
+        "status": "populated",
+        "framing": [
+          "The proposal clears structural eligibility (G2 SEBI minimum at Rs 50 L per sebi_001 satisfied at Rs 1 Cr; G3 advisor authority intact; investor structure individual/resident eligible for PMS per str_001) and is directionally corrective on the equity band gap. The unresolved questions are not about whether equity should rise — that much is consensus — but about three structural choices embedded in the proposal: vehicle selection (PMS at 340-490 bps blended cost versus MF substitutes at 100-120 bps), sizing relative to the three simultaneous G1 band gaps (equity floor, debt ceiling, cash floor), and timing of a less-liquid wrapper entry into an actively stressed macro window (E3 elevated at confidence 0.81 with crude at $118.95/bbl, INR -10.7% YoY, FII outflows of Rs 56,401 Cr in April alone).",
+          "The Risk Assessor surfaces twelve specific risks clustering into four families: (a) the fee-and-overlap family (220-370 bps premium over a directionally redundant quality-large-cap strategy; net-of-fee alpha unconfirmed); (b) the disclosure-gap family (PM tenure, team depth, high-water-mark mechanics, holdings concentration, market-cap breakdown all undisclosed for a household's first PMS entry); (c) the mandate-architecture family (G1 band gaps only partially addressed; cash and debt breaches unaddressed; trigger is peer-network rather than strategy-gap driven); and (d) the timing-and-tax family (macro stress entry, LTCG crystallisation on the Mirae trim per Budget 2024 chg_008 authoritative, FY-boundary tax sequencing unexplored). Alternative paths below address subsets of these families; none is dominantly superior, and several are complementary rather than mutually exclusive.",
+          "Per pmlt_001 and dem_012 (both indicative, practitioner practice), tax pass-through framing and PMS liquidity-window framing are treated as practitioner practice rather than authoritative; alternatives that lean on those framings carry that qualifier. The Budget 2024 LTCG regime at 12.5% on equity MF gains beyond the Rs 1.25 L annual threshold (chg_008, authoritative) is the binding tax reference for any path involving Mirae trim."
+        ],
+        "alternative_paths": [
+          {
+            "label": "MF-only band restoration without PMS entry",
+            "description": "Restore equity to 60-65% via Rs 1 Cr incremental allocation to a low-cost flexi-cap or multi-cap MF that adds genuine factor diversification beyond the existing large-cap quality cluster, funded by the same Rs 30 L SIP redirect plus Rs 20 L savings plus a smaller Rs 50 L Mirae trim or fresh capital; addresses the fee-premium-vs-overlap risk (220-370 bps saved with comparable quality exposure), the strategy-redundancy risk, and the first-PMS disclosure-gap risk by deferring the PMS wrapper entirely until manager-specific data is in hand."
+          },
+          {
+            "label": "Deferred PMS entry with mandate-band conversation first",
+            "description": "Conduct the G1 mandate-band conversation independently of vehicle selection (equity 7.8pp below floor, debt 9.4pp above ceiling, cash 2.0pp below floor — clarify whether these reflect intentional drift or warrant active correction), defer the Stallion commitment by 60-90 days pending disclosure of PM tenure, team depth, high-water-mark mechanics, variable AMC layering, and a fee-adjusted return series; addresses the disclosure-gap, peer-network-trigger, and macro-timing risks while preserving the option to enter at a less stressed window."
+          },
+          {
+            "label": "Reduced PMS ticket with diversified MF complement",
+            "description": "Size the PMS at the SEBI floor of Rs 50 L (per sebi_001, authoritative) rather than Rs 1 Cr, complemented by Rs 50 L into a flexi-cap or mid-cap MF that adds factor diversification rather than reinforcing quality-large-cap concentration; addresses the strategy-redundancy and fee-premium risks (halves the absolute fee drag) while preserving the household's exposure to the PMS wrapper for revealed-pattern learning before any future scaling."
+          },
+          {
+            "label": "FY-staggered execution with LTCG harvesting discipline",
+            "description": "Sequence the Rs 50 L Mirae trim across the FY26-FY27 boundary to spread LTCG crystallisation under Budget 2024 chg_008 (authoritative; 12.5% on gains beyond Rs 1.25 L annual threshold) and reduce effective tax drag on deployment, while staging PMS entry over two tranches; addresses the LTCG-drag risk, the macro-entry-timing risk (averages entry across the stress window), and the disclosure-gap risk (second tranche conditional on disclosure receipt)."
+          },
+          {
+            "label": "Hold-and-redirect via incremental flows only",
+            "description": "Hold the existing MF book intact (no Mirae trim, no LTCG crystallisation), redirect the Rs 30 L annual SIP capacity and Rs 20 L incremental savings toward Rs 50 L PMS entry at the SEBI floor plus diversified MF additions, scaling the PMS only if subsequent quarters confirm strategy fit; addresses the LTCG-drag risk fully, the disclosure-gap risk (smaller initial commitment), the peer-network-trigger risk (paced entry tests conviction), and the macro-timing risk (deployment naturally averages across windows)."
+          }
+        ]
+      }
+    },
+    "usage_summary": {
+      "s1_input_tokens": 25579,
+      "s1_output_tokens": 5316,
+      "a1_input_tokens": 29475,
+      "a1_output_tokens": 2858,
+      "ic1_chair_input": 25982,
+      "ic1_chair_output": 1187,
+      "ic1_devils_advocate_input": 26842,
+      "ic1_devils_advocate_output": 2434,
+      "ic1_risk_assessor_input": 25952,
+      "ic1_risk_assessor_output": 3008,
+      "ic1_counterfactual_engine_input": 29153,
+      "ic1_counterfactual_engine_output": 1995,
+      "ic1_minutes_recorder_input": 10064,
+      "ic1_minutes_recorder_output": 1248,
+      "generated_at": "2026-05-21T06:28:12.949Z"
+    }
+  },
+  "tokenUsage": {
+    "s1_input_tokens": 25579,
+    "s1_output_tokens": 5316,
+    "a1_input_tokens": 29475,
+    "a1_output_tokens": 2858,
+    "ic1_chair_input": 25982,
+    "ic1_chair_output": 1187,
+    "ic1_devils_advocate_input": 26842,
+    "ic1_devils_advocate_output": 2434,
+    "ic1_risk_assessor_input": 25952,
+    "ic1_risk_assessor_output": 3008,
+    "ic1_counterfactual_engine_input": 29153,
+    "ic1_counterfactual_engine_output": 1995,
+    "ic1_minutes_recorder_input": 10064,
+    "ic1_minutes_recorder_output": 1248,
+    "generated_at": "2026-05-21T06:28:12.949Z"
+  },
+  "errorMessage": null,
+  "contextNote": "Samriddhi 1 proposal evaluation for Dr. Vikram and Dr. Shruti Malhotra. First-PMS allocation (Rs 1 Cr, 7Y), quality-concentrated. Generated 2026-05-21 against the enriched E1/E2 pipeline (ADR-0024)."
+}
