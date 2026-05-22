@@ -201,6 +201,31 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   color: var(--ink-faint);
   font-weight: 400;
 }
+/* Download slide deck — subtle utility action in the case-header strip.
+   Sized to sit beside the risk pill; reads as "downloadable artifact"
+   without competing with the headline. */
+.download-deck-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--ink-faint);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.download-deck-btn:hover {
+  color: var(--ink-muted);
+  border-color: var(--rule-strong);
+}
+.download-deck-btn .dl-icon { font-size: 13px; line-height: 1; position: relative; top: 0.5px; }
 .decided-pill {
   display: inline-flex; align-items: center; gap: 7px;
   font-family: var(--sans);
@@ -2143,6 +2168,10 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
       <h1>Rajiv Surana, <em>Q2 Quarterly Review Prep</em></h1>
     </div>
     <div class="status-block">
+      <a href="/decks/Q2-Portfolio-Review-Rajiv-Surana.pdf" download="Q2-Portfolio-Review-Rajiv-Surana.pdf" class="download-deck-btn">
+        <span class="dl-icon" aria-hidden="true">&darr;</span>
+        Download slide deck
+      </a>
       <span class="risk-pill"><span class="dot" aria-hidden="true"></span>Aggressive</span>
       <span class="risk-caption">Stated and Revealed</span>
     </div>
