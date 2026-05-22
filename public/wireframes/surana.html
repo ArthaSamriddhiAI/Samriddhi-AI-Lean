@@ -2,6 +2,7 @@
 <html lang="en" data-verdict-palette="stanchart">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="color-scheme" content="light only"/>
 <meta name="darkreader-lock"/>
 <title>Rajiv Surana, Q2 Quarterly Review Prep, case_arch09_b</title>
@@ -2064,6 +2065,47 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
   .perf-layout { grid-template-columns: 1fr; gap: 32px; }
   .maintain-grid { grid-template-columns: 1fr; }
   .page { padding-left: 24px; padding-right: 24px; }
+}
+
+/* ============================================================
+   Demo-day mobile/tablet pass (Path B pragmatic split).
+   Complements the existing max-width:1000px stacking above.
+   Tablet (<=1023px): keep the wide correlation matrix legible
+     by letting it scroll inside its own container.
+   Phone (<=480px): resolve the few hard-coded pixel widths that
+     are wider than a phone viewport and would otherwise force the
+     whole page to scroll horizontally (verdicts pie, secondary
+     stats table), plus a touch more usable width.
+   Desktop (>=1024px): no overrides.
+   ============================================================ */
+@media (max-width: 1023px) {
+  /* 7x7 correlation matrix is genuinely wide: scroll, don't clip. */
+  #corr-matrix { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  #corr-matrix table.corr-matrix { width: max-content; min-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  /* Verdicts pie carries a fixed width:400px that pins the stacked
+     column open; release it so the column can shrink to the phone. */
+  .verdicts-layout { grid-template-columns: minmax(0, 1fr); }
+  .mmdr-wrap { width: 100%; }
+
+  /* "All statistics, both horizons" table is 5 columns wide:
+     scroll within itself rather than pushing the page out. */
+  .statgrid.is-secondary {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Time-series card: the SVG carries a fixed height:360px against a
+     wide 2.44:1 viewBox, so on a phone it letterboxes into a tall empty
+     box. Let it scale to its aspect ratio and trim the heavy card padding. */
+  .tschart-wrap { padding: 20px 16px; }
+  .tschart-wrap svg { height: auto; }
+
+  /* A little more usable width on the smallest screens. */
+  .page { padding-left: 20px; padding-right: 20px; }
 }
 </style>
 </head>
