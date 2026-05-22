@@ -77,3 +77,4 @@ __pycache__/
 # (db/fixtures/raw/) are invented creative content and stay tracked in this repo.
 fixtures/snapshots/enriched/snapshot_*.json
 scripts/sector_map.json
+.vercel
