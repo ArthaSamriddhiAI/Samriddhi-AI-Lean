@@ -5,7 +5,7 @@
   "description": "Lean Samriddhi MVP: a demo-grade portfolio diagnostic and proposal evaluation tool for Indian HNI wealth advisors.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma db push && npm run db:seed && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "db:push": "prisma db push",
