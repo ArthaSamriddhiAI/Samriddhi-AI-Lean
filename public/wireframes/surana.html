@@ -1,0 +1,3800 @@
+<!doctype html>
+<html lang="en" data-verdict-palette="stanchart">
+<head>
+<meta charset="utf-8"/>
+<meta name="color-scheme" content="light only"/>
+<meta name="darkreader-lock"/>
+<title>Rajiv Surana, Q2 Quarterly Review Prep, case_arch09_b</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"/>
+
+<!--
+  v2 build notes:
+  - Verdict distribution reconciled to actual holding count: 6 Maintain,
+    3 Monitor, 2 Discuss, 0 Review (= 11 holdings total). v1 had carried
+    the brief's incorrect "Maintain 7" through to the tally pill;
+    refinement brief 1.6 confirmed the corrected figures.
+  - MMDR pie now uses count-based percentages (6/11, 3/11, 2/11) instead of
+    the value-weighted 64/18/18 labels in the original brief, which did not
+    reconcile against the published holdings table.
+  - Sleeve-map in section 09 sizes PPFCF's split using the brief's
+    ~Rs 2.40 Cr large-cap-tilt / ~Rs 1.20 Cr mid-cap-tilt apportionment
+    of the Rs 4.00 Cr PPFCF holding; the residual ~Rs 0.40 Cr is treated
+    as the small-cap / other sleeve and is folded into the mid-cap rectangle
+    so the visual stays clean. Surface here so the math is auditable.
+-->
+
+<style>
+:root {
+  color-scheme: light;
+
+  /* ------ Brief-specified tokens ------ */
+  --ink: #1A1A1A;
+  --ink-muted: #4A4A4A;
+  --ink-faint: #8A8A8A;
+  --paper: #FAF8F4;
+  --paper-elevated: #FFFFFF;
+  --rule: #E8E4DC;
+  --rule-strong: #D8D2C5;
+  --accent: #3F5B47;
+  --accent-soft: #E8EDE9;
+
+  /* Samriddhi severity palette */
+  --sev-esc: #B23A2D;
+  --sev-flg: #C28A1D;
+  --sev-ok:  #4A7A4F;
+  --sev-muted: #8A8A8A;
+
+  /* Type */
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans:  "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono:  "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* Verdict palette: samriddhi severity register (togglable) */
+:root[data-verdict-palette="samriddhi"] {
+  --v-maintain:  #4A7A4F;  /* ok */
+  --v-monitor:   #8A8A8A;  /* muted */
+  --v-discuss:   #C28A1D;  /* flg */
+  --v-review:    #B23A2D;  /* esc */
+  --v-maintain-tint: rgba(74,122,79,0.08);
+  --v-monitor-tint:  rgba(138,138,138,0.10);
+  --v-discuss-tint:  rgba(194,138,29,0.10);
+  --v-review-tint:   rgba(178,58,45,0.10);
+}
+/* Verdict palette: traffic-light register (default) */
+:root[data-verdict-palette="stanchart"] {
+  --v-maintain:  #4A7A4F;
+  --v-monitor:   #C9A227;
+  --v-discuss:   #C97A1D;
+  --v-review:    #B23A2D;
+  --v-maintain-tint: rgba(74,122,79,0.10);
+  --v-monitor-tint:  rgba(201,162,39,0.12);
+  --v-discuss-tint:  rgba(201,122,29,0.12);
+  --v-review-tint:   rgba(178,58,45,0.10);
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; padding: 0; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; letter-spacing: -0.005em; }
+.serif { font-family: var(--serif); }
+.smallcaps {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* =========================================================
+   Platform-style breadcrumb row (mirrors app/cases/[id]/page.tsx).
+   Color values copied from the platform's globals.css tokens so the
+   standalone file matches the in-app look; the platform's real TopBar
+   renders above this row via the root layout.
+   ========================================================= */
+.case-toolbar {
+  height: 52px;
+  border-bottom: 1px solid #E5E3DC;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 18px;
+  background: #FAFAF7;
+  flex-shrink: 0;
+}
+.case-toolbar .breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #6B7280;
+}
+.case-toolbar .breadcrumbs a { color: #6B7280; text-decoration: none; }
+.case-toolbar .breadcrumbs a:hover { color: #14181F; }
+.case-toolbar .crumb-current { color: #14181F; font-weight: 500; }
+.case-toolbar .crumb-sep { color: #C7C8C3; }
+.case-toolbar .frozen-pill {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: #6B7280;
+  padding: 2px 9px 2px 8px;
+  border-radius: 3px;
+  background: #F4F3EE;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
+}
+
+/* =========================================================
+   Page layout
+   ========================================================= */
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 40px 48px 120px;
+}
+
+/* Case header strip */
+.case-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.case-header .ch-meta {
+  display: flex; flex-wrap: wrap; gap: 8px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+  align-items: center;
+}
+.case-header .ch-meta .case-id {
+  color: var(--ink-muted);
+  letter-spacing: 0.01em;
+}
+.case-header .ch-meta .dot { color: var(--rule-strong); }
+.case-header h1 {
+  font-family: var(--serif);
+  font-size: 36px;
+  line-height: 1.1;
+  letter-spacing: -0.018em;
+  font-weight: 400;
+  margin: 0;
+  color: var(--ink);
+}
+.case-header h1 em {
+  font-style: italic;
+  color: var(--ink-muted);
+  font-weight: 400;
+}
+
+.status-block {
+  display: flex; flex-direction: column;
+  align-items: flex-end; gap: 8px;
+}
+.risk-pill {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  padding: 6px 11px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper-elevated);
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  font-weight: 500;
+}
+.risk-pill .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+}
+.risk-caption {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+.decided-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.decided-pill::before {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 9px;
+  border: 1.2px solid var(--ink-faint);
+  border-bottom: 0;
+  border-radius: 2px 2px 0 0;
+  position: relative; top: 1px;
+}
+
+/* Headline takeaway */
+.headline-takeaway {
+  padding: 36px 0 48px;
+  max-width: 880px;
+}
+.headline-takeaway .htk-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.headline-takeaway .htk-text {
+  font-family: var(--serif);
+  font-size: 32px;
+  line-height: 1.22;
+  letter-spacing: -0.014em;
+  color: var(--ink);
+  font-weight: 400;
+  text-wrap: balance;
+}
+.headline-takeaway .htk-text em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+
+/* Frozen note */
+.frozen-note {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+}
+
+/* =========================================================
+   Accordion sections
+   ========================================================= */
+.accordion {
+  display: flex; flex-direction: column;
+}
+.acc-section {
+  border-top: 1px solid var(--rule);
+}
+.acc-section:last-child { border-bottom: 1px solid var(--rule); }
+.acc-section > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  gap: 20px;
+  align-items: baseline;
+  transition: opacity 140ms ease;
+}
+.acc-section > summary::-webkit-details-marker { display: none; }
+.acc-section > summary:hover { opacity: 0.86; }
+.acc-section[open] > summary { padding-bottom: 4px; }
+
+.acc-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.acc-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+}
+.acc-title em {
+  font-style: italic;
+  color: var(--ink-faint);
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 12px;
+  letter-spacing: 0;
+}
+.acc-aside {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.005em;
+}
+.acc-chev {
+  width: 14px; height: 14px;
+  color: var(--ink-faint);
+  transition: transform 220ms cubic-bezier(0.2,0,0,1);
+  display: inline-flex;
+}
+.acc-section[open] > summary .acc-chev { transform: rotate(90deg); color: var(--ink); }
+
+.acc-body {
+  padding: 16px 0 56px 52px;
+}
+
+/* =========================================================
+   Section: Portfolio composition
+   ========================================================= */
+.comp-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.donut-wrap {
+  position: relative;
+  width: 320px; height: 320px;
+}
+.donut-wrap svg { display: block; width: 100%; height: 100%; }
+.donut-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; gap: 4px;
+  pointer-events: none;
+}
+.donut-center .dc-num {
+  font-family: var(--mono);
+  font-size: 30px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.donut-center .dc-slash { color: var(--ink-faint); margin: 0 6px; font-weight: 400; }
+.donut-center .dc-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-top: 6px;
+}
+.donut-direct-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  fill: var(--ink-muted);
+  letter-spacing: 0.02em;
+}
+.donut-direct-label.num {
+  font-family: var(--mono);
+  font-size: 13px;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Asset mix table */
+.amix {
+  width: 100%;
+  border-collapse: collapse;
+}
+.amix thead th {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.amix thead th.r { text-align: right; }
+.amix tbody td {
+  font-size: 15px;
+  color: var(--ink);
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.amix tbody td.r {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.amix tbody tr.rollup td { font-weight: 500; }
+.amix tbody tr.rollup td.r { font-weight: 600; }
+.amix tbody tr.sub td {
+  font-size: 14px;
+  color: var(--ink-muted);
+  padding: 8px 0;
+  border-bottom: 1px solid transparent;
+  font-weight: 400;
+}
+.amix tbody tr.sub td:first-child { padding-left: 24px; }
+.amix tbody tr.sub td.r { color: var(--ink-muted); font-weight: 400; }
+.amix tbody tr.note td {
+  border-bottom: 1px solid var(--rule);
+  font-size: 12px; color: var(--ink-faint);
+  font-style: italic;
+  padding-top: 4px; padding-bottom: 14px;
+  padding-left: 24px;
+}
+.amix tbody tr.total td {
+  font-weight: 500;
+  border-top: 1px solid var(--ink);
+  border-bottom: 0;
+  padding-top: 14px;
+}
+
+/* Reference context callout */
+.ref-context {
+  margin-top: 36px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 24px;
+}
+.ref-context .rc-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.ref-context p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 680px;
+  text-wrap: pretty;
+}
+.ref-context p strong {
+  color: var(--ink);
+  font-weight: 500;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.005em;
+}
+
+/* =========================================================
+   Section: Per-holding verdicts
+   ========================================================= */
+.verdicts-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.mmdr-wrap {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+}
+.mmdr-wrap svg { display: block; width: 100%; height: 340px; }
+.mmdr-direct-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--ink-muted);
+  font-weight: 500;
+}
+.mmdr-direct-pct {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  fill: var(--ink);
+  letter-spacing: -0.01em;
+}
+.mmdr-note {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-style: italic;
+  text-wrap: pretty;
+  line-height: 1.5;
+}
+
+/* Holdings list grouped */
+.tier-group { margin-bottom: 28px; }
+.tier-group:last-child { margin-bottom: 0; }
+.tier-head {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.tier-head .th-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.tier-head .th-caption {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-style: italic;
+  font-family: var(--serif);
+}
+.tier-head .th-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.holding {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 18px;
+  align-items: start;
+  padding: 14px 0 14px 16px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.holding:last-child { border-bottom: 0; }
+.holding > div { min-width: 0; }
+.holding .h-rule {
+  position: absolute;
+  left: 0; top: 14px; bottom: 14px;
+  width: 4px;
+  border-radius: 0;
+}
+.holding[data-verdict="Maintain"] .h-rule { background: var(--v-maintain); }
+.holding[data-verdict="Monitor"]  .h-rule { background: var(--v-monitor); }
+.holding[data-verdict="Discuss"]  .h-rule { background: var(--v-discuss); }
+.holding[data-verdict="Review"]   .h-rule { background: var(--v-review); }
+.holding .h-name {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.holding .h-take {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.55;
+  text-wrap: pretty;
+  max-width: 580px;
+}
+.holding .h-val {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 14px;
+  color: var(--ink);
+  text-align: right;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  padding-top: 2px;
+  min-width: 70px;
+}
+.holding .h-val .h-wt {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 1px;
+}
+.holding .h-pill {
+  padding-top: 2px;
+  min-width: 86px;
+  display: flex; justify-content: flex-end;
+}
+
+/* Verdict pills */
+.v-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid currentColor;
+}
+.v-pill[data-verdict="Maintain"] { color: var(--v-maintain); background: var(--v-maintain-tint); }
+.v-pill[data-verdict="Monitor"]  { color: var(--v-monitor);  background: var(--v-monitor-tint); }
+.v-pill[data-verdict="Discuss"]  { color: var(--v-discuss);  background: var(--v-discuss-tint); }
+.v-pill[data-verdict="Review"]   { color: var(--v-review);   background: var(--v-review-tint); }
+
+.tier-zero {
+  font-size: 13px;
+  color: var(--ink-faint);
+  font-style: italic;
+  padding: 12px 16px;
+  font-family: var(--serif);
+}
+
+/* =========================================================
+   Maintain tier — compact confirmation roster (v3 Brief A)
+   2-column grid; dense rows; colored dot only (no full pill).
+   ========================================================= */
+.maintain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+}
+.maintain-row {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.maintain-row .mr-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--v-maintain);
+  position: relative; top: 2px;
+}
+.maintain-row .mr-text { min-width: 0; }
+.maintain-row .mr-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.maintain-row .mr-take {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--ink-faint);
+  line-height: 1.45;
+  margin-top: 2px;
+  text-wrap: pretty;
+}
+.maintain-row .mr-val {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 13px;
+  color: var(--ink-muted);
+  text-align: right;
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+}
+.maintain-row .mr-val .mr-wt {
+  display: block;
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  margin-top: 1px;
+}
+@media (max-width: 720px) {
+  .maintain-grid { grid-template-columns: 1fr; gap: 0; }
+}
+
+/* Donut debt-zero footnote (v3 Fix 1) */
+.donut-footnote {
+  margin-top: 18px;
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: center;
+  border-top: 1px dashed var(--rule-strong);
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--ink-faint);
+  text-wrap: pretty;
+  line-height: 1.5;
+}
+.donut-footnote .df-mark {
+  display: inline-block;
+  width: 28px; height: 8px;
+  border: 1px dashed var(--ink-faint);
+  background: transparent;
+}
+.donut-footnote strong {
+  font-style: normal;
+  color: var(--ink-muted);
+  font-weight: 500;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: -0.005em;
+}
+
+/* =========================================================
+   Section 08 — Portfolio performance, 2-col with sidebar
+   ========================================================= */
+.perf-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.95fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+.perf-sidebar {
+  display: flex; flex-direction: column;
+  gap: 22px;
+}
+.perf-block {
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.perf-block + .perf-block {
+  padding-top: 22px;
+  border-top: 1px solid var(--rule);
+}
+.perf-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.perf-body {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+  margin: 0;
+}
+.perf-body strong { color: var(--ink); font-weight: 500; font-style: normal; }
+
+.perf-inflections {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.perf-inflection {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+.perf-inflection .pi-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  padding-top: 2px;
+}
+.perf-inflection .pi-text {
+  font-family: var(--serif);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+.perf-inflection .pi-text strong {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 500;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.perf-stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 16px;
+  padding-top: 2px;
+}
+.perf-stats .ps-k {
+  font-family: var(--sans);
+  font-size: 12.5px;
+  color: var(--ink-muted);
+  line-height: 1.45;
+}
+.perf-stats .ps-v {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 13.5px;
+  color: var(--ink);
+  text-align: right;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.perf-stats .ps-v.headline {
+  font-size: 16px;
+  font-weight: 500;
+}
+.perf-stats .ps-v.pos { color: var(--sev-ok); }
+.perf-stats .ps-v.neg { color: var(--sev-esc); }
+.perf-stats .ps-divider {
+  grid-column: 1 / -1;
+  height: 1px; background: var(--rule);
+  margin: 4px 0;
+}
+
+/* =========================================================
+   Section: Portfolio observations
+   ========================================================= */
+.observations { display: flex; flex-direction: column; gap: 12px; }
+.obs-card {
+  position: relative;
+  padding: 22px 28px 22px 28px;
+  background: var(--paper-elevated);
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.obs-card::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+}
+.obs-card[data-sev="flg"]::before    { background: var(--sev-flg); }
+.obs-card[data-sev="muted"]::before  { background: var(--sev-muted); }
+.obs-card[data-sev="esc"]::before    { background: var(--sev-esc); }
+.obs-card[data-sev="ok"]::before     { background: var(--sev-ok); }
+
+.obs-head {
+  display: flex; gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.sev-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+.sev-pill[data-sev="flg"]   { color: var(--sev-flg);   border-color: var(--sev-flg);   background: rgba(194,138,29,0.08); }
+.sev-pill[data-sev="muted"] { color: var(--sev-muted); border-color: var(--sev-muted); background: rgba(138,138,138,0.08); }
+.sev-pill[data-sev="esc"]   { color: var(--sev-esc);   border-color: var(--sev-esc);   background: rgba(178,58,45,0.08); }
+.sev-pill[data-sev="ok"]    { color: var(--sev-ok);    border-color: var(--sev-ok);    background: rgba(74,122,79,0.08); }
+
+.obs-cat {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.obs-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.obs-headline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 28px;
+  align-items: baseline;
+}
+.obs-headline .obs-num-big {
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.028em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.obs-headline .obs-num-big .unit {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+  margin-left: 6px;
+  font-weight: 400;
+}
+.obs-sentence {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  max-width: 580px;
+  text-wrap: pretty;
+}
+.obs-sentence em {
+  font-style: italic;
+  color: var(--ink-muted);
+}
+
+.obs-evidence {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.evtable {
+  width: 100%; border-collapse: collapse;
+}
+.evtable td {
+  font-size: 13px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink-muted);
+  vertical-align: baseline;
+}
+.evtable tr:last-child td { border-bottom: 0; }
+.evtable td.r {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.evtable td.lbl {
+  font-family: var(--sans);
+  color: var(--ink-muted);
+}
+
+/* mini-bar for concentration */
+.minibar {
+  display: grid;
+  grid-template-columns: 110px 1fr 70px;
+  gap: 14px;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 13px;
+}
+.minibar .mb-lbl { color: var(--ink-muted); }
+.minibar .mb-track {
+  position: relative;
+  height: 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 1px;
+}
+.minibar .mb-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: var(--ink-muted);
+}
+.minibar .mb-fill.fill-flg { background: var(--sev-flg); }
+.minibar .mb-fill.fill-esc { background: var(--sev-esc); }
+.minibar .mb-fill.fill-ink { background: var(--ink); }
+.minibar .mb-thresh {
+  position: absolute; top: -3px; bottom: -3px;
+  width: 1px; background: var(--ink);
+}
+.minibar .mb-val {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: -0.005em;
+}
+
+/* asset-mix bar visualization for observation 2 */
+.allocbar {
+  display: grid;
+  grid-template-columns: 100px 1fr 70px;
+  gap: 14px;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 13px;
+}
+.allocbar .ab-lbl { color: var(--ink-muted); font-family: var(--sans); }
+.allocbar .ab-track {
+  height: 8px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  position: relative;
+}
+.allocbar .ab-fill { height: 100%; }
+.allocbar .ab-fill.eq    { background: var(--ink); }
+.allocbar .ab-fill.gold  { background: var(--ink-muted); }
+.allocbar .ab-fill.cash  { background: var(--ink-faint); }
+.allocbar .ab-fill.debt  { background: repeating-linear-gradient(45deg, var(--rule-strong) 0 4px, transparent 4px 8px); }
+.allocbar .ab-val {
+  text-align: right; font-family: var(--mono);
+  font-variant-numeric: tabular-nums; font-size: 13px;
+  color: var(--ink);
+}
+.allocbar .ab-val.zero { color: var(--ink-faint); }
+
+/* =========================================================
+   Section: Risk-reward statistics
+   ========================================================= */
+.statgrid {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 28px;
+}
+.statgrid thead th {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 12px 14px 12px 0;
+  text-align: right;
+  border-bottom: 1px solid var(--ink);
+}
+.statgrid thead th:first-child { text-align: left; }
+.statgrid thead .horizon-head {
+  border-bottom: 0;
+  padding-bottom: 4px;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-muted);
+  font-weight: 500;
+  font-style: italic;
+}
+.statgrid tbody td {
+  font-size: 15px;
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+.statgrid tbody td.lbl { color: var(--ink-muted); font-family: var(--sans); }
+.statgrid tbody td.num {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.005em;
+}
+.statgrid tbody td.num.faint { color: var(--ink-faint); }
+.statgrid tbody td.num.empty {
+  color: var(--ink-faint);
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.bwgrid {
+  width: 100%;
+  border-collapse: collapse;
+  max-width: 560px;
+}
+.bwgrid thead th {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  text-align: right;
+  padding: 10px 14px 10px 0;
+  border-bottom: 1px solid var(--ink);
+}
+.bwgrid thead th:first-child { text-align: left; }
+.bwgrid tbody td {
+  padding: 10px 14px 10px 0;
+  font-size: 15px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+}
+.bwgrid tbody td.lbl { color: var(--ink-muted); }
+.bwgrid tbody td.num {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.bwgrid tbody td.num.pos { color: var(--sev-ok); }
+.bwgrid tbody td.num.neg { color: var(--sev-esc); }
+
+.editorial-caption {
+  margin-top: 28px;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  font-style: italic;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   Section: Portfolio performance — time series chart
+   ========================================================= */
+.tschart-wrap {
+  background: var(--paper-elevated);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 32px 36px 24px;
+}
+.tschart-wrap svg { display: block; width: 100%; height: 360px; }
+.ts-legend {
+  display: flex; gap: 28px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 14px;
+  align-items: center;
+}
+.ts-legend .swatch {
+  display: inline-block; width: 14px; height: 2px;
+  margin-right: 8px; vertical-align: middle;
+}
+.ts-legend .swatch.gross { background: var(--ink); width: 18px; height: 2.5px; }
+.ts-legend .swatch.net   { background: #9A9489; }
+.ts-axis-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  fill: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.ts-marker-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  fill: var(--ink-muted);
+}
+.ts-marker-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   Section: Overlap and consolidation
+   ========================================================= */
+.overlap-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.overlap-table thead th {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: left;
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--ink);
+}
+.overlap-table thead th.r { text-align: right; }
+.overlap-table tbody td {
+  padding: 16px 14px 16px 0;
+  font-size: 15px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  vertical-align: top;
+}
+.overlap-table tbody td.r {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+.overlap-table tbody td.pair-name { font-weight: 500; color: var(--ink); }
+.overlap-table tbody td.rec { color: var(--ink-muted); font-size: 14px; }
+.overlap-sev {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+}
+.overlap-sev[data-level="high"]     { color: var(--sev-esc); }
+.overlap-sev[data-level="notable"]  { color: var(--sev-flg); }
+.overlap-sev[data-level="low"]      { color: var(--sev-muted); }
+
+/* =========================================================
+   Section: Market context (Data Snapshot)
+   ========================================================= */
+.macro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.macro-card {
+  border: 1px solid var(--rule);
+  background: var(--paper-elevated);
+  border-radius: 4px;
+  padding: 24px 28px;
+}
+.macro-card .mc-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.macro-card .mc-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.008em;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.indicator-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 14px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.indicator-row:last-child { border-bottom: 0; }
+.indicator-row .ir-name {
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.indicator-row .ir-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 2px;
+  font-family: var(--mono);
+}
+.indicator-row .ir-val {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 14px;
+  color: var(--ink);
+  text-align: right;
+  white-space: nowrap;
+}
+.indicator-row .ir-dir {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1px solid var(--rule-strong);
+  color: var(--ink-muted);
+  background: var(--paper);
+  white-space: nowrap;
+}
+.indicator-row .ir-dir.up    { color: var(--sev-ok); border-color: rgba(74,122,79,0.4); background: rgba(74,122,79,0.06); }
+.indicator-row .ir-dir.down  { color: var(--sev-esc); border-color: rgba(178,58,45,0.4); background: rgba(178,58,45,0.06); }
+.indicator-row .ir-dir.warn  { color: var(--sev-flg); border-color: rgba(194,138,29,0.4); background: rgba(194,138,29,0.06); }
+.indicator-row .ir-dir.neutral { color: var(--ink-muted); }
+.indicator-row .ir-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+}
+.macro-foot {
+  margin-top: 24px;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-faint);
+  max-width: 720px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   Section: Decision history & next review
+   ========================================================= */
+.decision-log {
+  display: flex; flex-direction: column;
+  gap: 0;
+}
+.dlog-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 32px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+}
+.dlog-item:last-child { border-bottom: 0; }
+.dlog-item .dl-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.dlog-item .dl-body { font-size: 15px; color: var(--ink); line-height: 1.55; }
+.dlog-item .dl-body .dl-eyebrow {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.next-review {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+.next-review .nr-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.next-review .nr-headline {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.012em;
+}
+.next-review .open-items {
+  list-style: none; padding: 0; margin: 10px 0 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.next-review .open-items li {
+  font-size: 14px;
+  color: var(--ink-muted);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.next-review .open-items li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 10px;
+  width: 8px; height: 1px;
+  background: var(--ink-faint);
+}
+
+/* Footer area */
+.page-foot {
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   Section 04 (NEW): Portfolio analysis
+   ========================================================= */
+.pa-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.pa-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.pa-eyebrow::after {
+  content: "";
+  flex: 1; height: 1px; background: var(--rule);
+}
+
+/* Category bars */
+.catbars { display: flex; flex-direction: column; gap: 6px; }
+.catbar {
+  display: grid;
+  grid-template-columns: 200px 1fr 90px;
+  gap: 16px;
+  align-items: center;
+  padding: 5px 0;
+}
+.catbar .cb-lbl {
+  font-size: 13px;
+  color: var(--ink-muted);
+  font-family: var(--sans);
+  line-height: 1.4;
+}
+.catbar .cb-track {
+  position: relative;
+  height: 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+}
+.catbar .cb-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  background: var(--ink);
+}
+.catbar .cb-val {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-size: 13px;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.catbar .cb-val .cb-pct {
+  display: block;
+  color: var(--ink-faint);
+  font-size: 11px;
+  margin-top: 1px;
+}
+
+.amc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.amc-table thead th {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  text-align: left;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ink);
+}
+.amc-table thead th.r { text-align: right; }
+.amc-table tbody td {
+  padding: 11px 0;
+  font-size: 14px;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule);
+}
+.amc-table tbody td.r {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.005em;
+}
+
+.fund-count-block {
+  margin-top: 24px;
+  padding: 20px 24px;
+  background: var(--paper-elevated);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.fund-count-block .fc-num {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.fund-count-block .fc-text {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  font-style: italic;
+  text-wrap: pretty;
+}
+.fund-count-block .fc-text strong {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* =========================================================
+   Section 05 (NEW): Equity style snapshot
+   ========================================================= */
+.es-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.es-panel {
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.es-panel-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.mc-pie-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.mc-pie-wrap svg { display: block; width: 100%; height: 100%; }
+
+/* Style box */
+.stylebox {
+  display: grid;
+  grid-template-columns: 36px 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+.stylebox > div {
+  background: var(--paper);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  padding: 8px 4px;
+}
+.stylebox .sb-corner { background: transparent; }
+.stylebox .sb-col {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  background: transparent;
+  padding-bottom: 6px;
+}
+.stylebox .sb-row {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  writing-mode: horizontal-tb;
+  background: transparent;
+}
+.stylebox .sb-cell {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  color: var(--ink);
+  aspect-ratio: 1 / 1;
+  background: var(--paper-elevated);
+}
+.stylebox .sb-cell.zero { color: var(--ink-faint); }
+
+/* Sector mix */
+.sector-stack {
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.sector-group .sg-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 6px;
+}
+.sector-group .sg-name {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink);
+}
+.sector-group .sg-total {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
+.sector-bar {
+  display: flex;
+  height: 14px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  overflow: hidden;
+}
+.sector-bar .seg {
+  height: 100%;
+}
+.sector-legend {
+  margin-top: 6px;
+  display: flex; flex-direction: column;
+  gap: 3px;
+}
+.sector-legend .sl-row {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  gap: 8px; align-items: center;
+  font-size: 11.5px;
+  color: var(--ink-muted);
+}
+.sector-legend .sl-row .swatch {
+  width: 10px; height: 10px;
+  background: var(--ink);
+}
+.sector-legend .sl-row .v {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.sector-legend .sl-row.callout {
+  color: var(--ink);
+  font-weight: 500;
+}
+.sector-legend .sl-row.callout::after {
+  content: "Reliance direct holding";
+  grid-column: 2 / -1;
+  font-size: 10.5px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--sev-flg);
+  font-family: var(--serif);
+  margin-top: 0;
+}
+
+/* =========================================================
+   Section 06 (NEW): Correlation matrix
+   ========================================================= */
+
+/* Talk-track strip above the matrix (v4 Brief C) */
+.corr-talktrack {
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr 1fr;
+  gap: 28px;
+  padding: 0 0 24px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.corr-talktrack .ct-block {
+  display: flex; flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.corr-talktrack .ct-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.corr-talktrack .ct-body {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+  margin: 0;
+}
+.corr-talktrack .ct-body strong {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 500;
+}
+.corr-legend {
+  list-style: none; padding: 0; margin: 0;
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.corr-legend li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  font-family: var(--serif);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+.corr-legend .cl-swatch {
+  width: 16px; height: 16px;
+  border: 1px solid rgba(0,0,0,0.05);
+  position: relative; top: 2px;
+}
+.corr-legend .cl-swatch.dark { background: rgba(63, 91, 71, 0.80); }
+.corr-legend .cl-swatch.mid  { background: rgba(63, 91, 71, 0.45); }
+.corr-legend .cl-swatch.light { background: rgba(63, 91, 71, 0.12); }
+.corr-legend li strong {
+  font-style: normal;
+  color: var(--ink);
+  font-weight: 500;
+  display: block;
+}
+
+/* Narrow viewports: stack the three blocks */
+@media (max-width: 900px) {
+  .corr-talktrack { grid-template-columns: 1fr; gap: 20px; }
+}
+
+.corr-wrap {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 36px;
+  align-items: start;
+}
+.corr-matrix {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-family: var(--mono);
+}
+.corr-matrix .corner {
+  background: transparent;
+  border: 0;
+}
+.corr-matrix th {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 6px 4px;
+  background: transparent;
+  text-align: center;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.corr-matrix th.row-label {
+  text-align: right;
+  padding-right: 10px;
+  vertical-align: middle;
+  font-weight: 500;
+}
+.corr-matrix td {
+  text-align: center;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+  padding: 0;
+  width: 11%;
+  height: 38px;
+  vertical-align: middle;
+}
+.corr-matrix td.blank { background: transparent; }
+.corr-matrix td.diag {
+  background: var(--paper-elevated);
+  color: var(--ink-faint);
+  border: 1px solid var(--rule);
+}
+.corr-matrix td.cell {
+  border: 1px solid rgba(0,0,0,0.04);
+  color: var(--ink);
+}
+.corr-matrix td.cell.dark { color: #FFFFFF; }
+.corr-matrix td.cell.highlight {
+  outline: 2px solid var(--sev-flg);
+  outline-offset: -2px;
+}
+.corr-matrix td.cell.highlight-ok {
+  outline: 2px solid var(--sev-ok);
+  outline-offset: -2px;
+}
+
+.corr-annos {
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.corr-anno {
+  border: 1px solid var(--rule);
+  background: var(--paper-elevated);
+  border-radius: 4px;
+  padding: 16px 18px;
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.corr-anno .ca-head {
+  display: flex; align-items: baseline; gap: 10px;
+  flex-wrap: wrap;
+}
+.corr-anno .ca-cell-ref {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.corr-anno .ca-cell-val {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  margin-left: auto;
+}
+.corr-anno .ca-text {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+  font-style: italic;
+}
+
+/* =========================================================
+   Section 07 (REDESIGNED): Risk-reward statistics
+   ========================================================= */
+.rr-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.rr-card {
+  background: var(--paper-elevated);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 22px 26px;
+  position: relative;
+}
+.rr-card-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 10px;
+}
+.rr-card-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+.rr-horizon-tabs {
+  display: flex; gap: 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.rr-horizon-tabs button {
+  padding: 3px 9px;
+  color: var(--ink-faint);
+  background: transparent;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+.rr-horizon-tabs button.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.rr-num {
+  font-family: var(--serif);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.022em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  margin-bottom: 4px;
+  display: flex; align-items: baseline; gap: 10px;
+}
+.rr-delta {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: 500;
+  color: var(--v-maintain);
+  border: 1px solid var(--v-maintain);
+  background: var(--v-maintain-tint);
+}
+.rr-sec {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: -0.005em;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.rr-cap {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--ink-muted);
+  line-height: 1.45;
+  text-wrap: pretty;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule);
+}
+
+/* Detail tables (secondary, smaller) */
+.rr-detail-eye {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+  margin: 32px 0 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.rr-detail-eye::after {
+  content: ""; flex: 1; height: 1px; background: var(--rule);
+}
+.statgrid.is-secondary tbody td { font-size: 13px; padding: 9px 14px 9px 0; }
+.statgrid.is-secondary thead th { font-size: 10.5px; padding: 9px 14px 9px 0; }
+.bwgrid.is-secondary tbody td { font-size: 13px; padding: 8px 14px 8px 0; }
+.bwgrid.is-secondary thead th { font-size: 10.5px; }
+
+/* =========================================================
+   Section 09 (REDESIGNED): Overlap and consolidation
+   ========================================================= */
+.sleeve-map {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 0.6fr;
+  gap: 16px;
+  align-items: stretch;
+  margin-bottom: 16px;
+}
+.sleeve {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  padding: 18px 16px 16px;
+  display: flex; flex-direction: column;
+  gap: 10px;
+  min-height: 280px;
+}
+.sleeve-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--accent);
+}
+.sleeve-name {
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.sleeve-total {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.sleeve-body {
+  display: flex; flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.fund-rect {
+  background: var(--paper-elevated);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 10px 12px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  position: relative;
+}
+.fund-rect.tilt {
+  border-style: dashed;
+  background: rgba(255,255,255,0.55);
+}
+.fund-rect .fr-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  font-family: var(--sans);
+}
+.fund-rect .fr-meta {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.fund-rect.tilt .fr-meta { color: var(--accent); }
+.fund-rect .fr-tilt-tag {
+  position: absolute;
+  top: 6px; right: 8px;
+  font-family: var(--sans);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+.sleeve-empty {
+  font-style: italic;
+  color: var(--ink-faint);
+  font-family: var(--serif);
+  font-size: 13px;
+  text-align: center;
+  padding: 14px 8px;
+}
+.sleeve-map-cap {
+  margin: 14px 0 28px;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-style: italic;
+  color: var(--ink-muted);
+  line-height: 1.55;
+  text-wrap: pretty;
+  max-width: 720px;
+}
+
+.overlap-table.is-secondary thead th { font-size: 10.5px; padding: 10px 14px 10px 0; }
+.overlap-table.is-secondary tbody td { font-size: 13px; padding: 12px 14px 12px 0; }
+.overlap-table.is-secondary tbody td.rec { font-size: 12.5px; }
+
+/* Responsive niceties */
+@media (max-width: 1000px) {
+  .comp-grid, .verdicts-layout { grid-template-columns: 1fr; gap: 36px; }
+  .macro-grid { grid-template-columns: 1fr; }
+  .next-review { grid-template-columns: 1fr; gap: 24px; }
+  .pa-grid { grid-template-columns: 1fr; gap: 32px; }
+  .es-grid { grid-template-columns: 1fr; gap: 32px; }
+  .corr-wrap { grid-template-columns: 1fr; gap: 24px; }
+  .rr-hero { grid-template-columns: 1fr; }
+  .sleeve-map { grid-template-columns: 1fr; }
+  .perf-layout { grid-template-columns: 1fr; gap: 32px; }
+  .maintain-grid { grid-template-columns: 1fr; }
+  .page { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- =======================================================
+     Platform-style breadcrumb row (matches app/cases/[id]/page.tsx)
+     ======================================================= -->
+<div class="case-toolbar">
+  <div class="breadcrumbs">
+    <a href="/cases">Cases</a>
+    <span class="crumb-sep">/</span>
+    <span class="crumb-current">Rajiv Surana · Q2 Quarterly Review Prep</span>
+    <span class="frozen-pill">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="1"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+      Case Frozen 15 May, 18:53
+    </span>
+  </div>
+</div>
+
+<main class="page" data-screen-label="In-App Case · Rajiv Surana">
+
+  <!-- ===================================================
+       Case header strip — always visible
+       =================================================== -->
+  <header class="case-header">
+    <div>
+      <div class="ch-meta">
+        <span class="case-id">case_arch09_b</span>
+        <span class="dot">/</span>
+        <span>Data Snapshot. 24 April 2026.</span>
+        <span class="dot">/</span>
+        <span class="decided-pill">Decided</span>
+      </div>
+      <h1>Rajiv Surana, <em>Q2 Quarterly Review Prep</em></h1>
+    </div>
+    <div class="status-block">
+      <span class="risk-pill"><span class="dot" aria-hidden="true"></span>Aggressive</span>
+      <span class="risk-caption">Stated and Revealed</span>
+    </div>
+  </header>
+
+  <!-- Headline takeaway -->
+  <section class="headline-takeaway" aria-labelledby="htk-eye">
+    <div class="htk-eyebrow" id="htk-eye">Headline takeaway</div>
+    <p class="htk-text">
+      Sophisticated, disciplined portfolio. <em>The Reliance position at 26.4% of advisory corpus is the one tension worth Q2 discussion.</em>
+    </p>
+    <div class="frozen-note">Case Frozen. Decided by Rohan Kapoor, fee-only advisor.</div>
+  </section>
+
+  <!-- ===================================================
+       Accordion sections
+       =================================================== -->
+  <div class="accordion">
+
+    <!-- 1. PORTFOLIO COMPOSITION (default open) -->
+    <details class="acc-section" open>
+      <summary>
+        <span class="acc-num">01</span>
+        <span class="acc-title">Portfolio composition</span>
+        <span class="acc-aside">₹26.50 Cr advisory / 11 holdings</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="comp-grid">
+          <div>
+            <div class="donut-wrap" id="composition-donut">
+              <!-- donut SVG drawn by JS into here -->
+            </div>
+            <div class="donut-footnote">
+              <span class="df-mark" aria-hidden="true"></span>
+              <div><strong>Debt 0.0%</strong> &nbsp;not allocated. A deliberate zero, not an omission. Picked up in observation 02 above.</div>
+            </div>
+          </div>
+          <div>
+            <table class="amix">
+              <thead>
+                <tr>
+                  <th>Asset class</th>
+                  <th class="r">Value (₹ Cr)</th>
+                  <th class="r">Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="rollup">
+                  <td>Equity</td>
+                  <td class="r">23.00</td>
+                  <td class="r">86.8%</td>
+                </tr>
+                <tr class="sub"><td>Mutual Funds, active</td><td class="r">16.00</td><td class="r">60.4%</td></tr>
+                <tr class="sub"><td>Direct Listed (India): Reliance, HDFC Bank</td><td class="r">9.00</td><td class="r">34.0%</td></tr>
+                <tr class="sub"><td>International ETF (US), via GIFT route</td><td class="r">3.00</td><td class="r">11.3%</td></tr>
+                <tr class="sub"><td>PMS, focused mid-cap, White Oak Pioneers</td><td class="r">3.00</td><td class="r">11.3%</td></tr>
+                <tr class="note"><td colspan="3">Sub-rows intersect; equity rollup is the load-bearing figure.</td></tr>
+
+                <tr class="rollup"><td>Alternatives, Physical Gold</td><td class="r">2.00</td><td class="r">7.5%</td></tr>
+                <tr class="rollup"><td>Cash, Savings</td><td class="r">1.50</td><td class="r">5.7%</td></tr>
+                <tr class="total"><td>Total</td><td class="r">26.50</td><td class="r">100.0%</td></tr>
+              </tbody>
+            </table>
+
+            <aside class="ref-context" aria-label="Reference context">
+              <div class="rc-eyebrow">Reference context, outside advisory scope</div>
+              <p>
+                Mr. Surana holds approximately <strong>₹165 Cr</strong> in founder equity from the B2B SaaS company,
+                priced off the October 2025 Series D round at USD 240M post-money. This position sits outside the
+                advisable liquid corpus, is not reflected in any allocation, weight, or return figure above, and
+                is shown here only so the ₹26.50 Cr is read against the right denominator. Treatment review is
+                scheduled for the post-exit corpus reframe conversation, when and if liquidity materialises.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 2. PER-HOLDING VERDICTS (default open) -->
+    <details class="acc-section" open>
+      <summary>
+        <span class="acc-num">02</span>
+        <span class="acc-title">Per-holding verdicts</span>
+        <span class="acc-aside">Maintain 6 / Monitor 3 / Discuss 2 / Review 0</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="verdicts-layout">
+          <div>
+            <div class="mmdr-wrap" id="mmdr-pie"></div>
+            <p class="mmdr-note">0% Review, no holdings flagged for exit.</p>
+          </div>
+          <div>
+            <!-- Maintain — compact confirmation roster (v3 Brief A) -->
+            <div class="tier-group">
+              <div class="tier-head">
+                <span class="th-label">Maintain</span>
+                <span class="th-caption serif">Continue to hold.</span>
+                <span class="th-count">6 holdings</span>
+              </div>
+              <div class="maintain-grid">
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">Axis Bluechip</div>
+                    <div class="mr-take">Style consistency intact; large-cap sleeve anchor.</div>
+                  </div>
+                  <div class="mr-val">3.80 Cr<span class="mr-wt">14.3%</span></div>
+                </div>
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">Kotak Emerging Equity</div>
+                    <div class="mr-take">Mid-cap exposure performing; manager continuity confirmed.</div>
+                  </div>
+                  <div class="mr-val">3.00 Cr<span class="mr-wt">11.3%</span></div>
+                </div>
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">Vanguard S&amp;P 500 ETF</div>
+                    <div class="mr-take">International equity sleeve via GIFT route; allocation aligned.</div>
+                  </div>
+                  <div class="mr-val">3.00 Cr<span class="mr-wt">11.3%</span></div>
+                </div>
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">White Oak Pioneers PMS</div>
+                    <div class="mr-take">Quarterly letter discipline holding; deputy PM continuity since 2022 review.</div>
+                  </div>
+                  <div class="mr-val">3.00 Cr<span class="mr-wt">11.3%</span></div>
+                </div>
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">SBI Small Cap</div>
+                    <div class="mr-take">Small-cap sleeve standalone; manager track intact.</div>
+                  </div>
+                  <div class="mr-val">2.20 Cr<span class="mr-wt">8.3%</span></div>
+                </div>
+                <div class="maintain-row">
+                  <span class="mr-dot" aria-hidden="true"></span>
+                  <div class="mr-text">
+                    <div class="mr-name">Physical Gold</div>
+                    <div class="mr-take">Hedge sleeve; allocation aligned with Aggressive-with-hedge profile.</div>
+                  </div>
+                  <div class="mr-val">2.00 Cr<span class="mr-wt">7.5%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Monitor -->
+            <div class="tier-group">
+              <div class="tier-head">
+                <span class="th-label">Monitor</span>
+                <span class="th-caption serif">Reassess at next review.</span>
+                <span class="th-count">3 holdings</span>
+              </div>
+              <div class="holding" data-verdict="Monitor">
+                <span class="h-rule"></span>
+                <div>
+                  <div class="h-name">Parag Parikh Flexi Cap</div>
+                  <div class="h-take">Four quarters of benchmark underperformance; investor-flagged in Q1. Rebalance decided; hold remainder.</div>
+                </div>
+                <div class="h-val">4.00 Cr<span class="h-wt">15.1%</span></div>
+                <div class="h-pill"><span class="v-pill" data-verdict="Monitor">Monitor</span></div>
+              </div>
+              <div class="holding" data-verdict="Monitor">
+                <span class="h-rule"></span>
+                <div>
+                  <div class="h-name">HDFC Bank</div>
+                  <div class="h-take">Held since 2024; underwater versus large-cap MF alternative. Hold and reassess.</div>
+                </div>
+                <div class="h-val">2.00 Cr<span class="h-wt">7.5%</span></div>
+                <div class="h-pill"><span class="v-pill" data-verdict="Monitor">Monitor</span></div>
+              </div>
+              <div class="holding" data-verdict="Monitor">
+                <span class="h-rule"></span>
+                <div>
+                  <div class="h-name">Bank Savings</div>
+                  <div class="h-take">Liquid reserve sized adequately; review at Q3 against opportunity set.</div>
+                </div>
+                <div class="h-val">1.50 Cr<span class="h-wt">5.7%</span></div>
+                <div class="h-pill"><span class="v-pill" data-verdict="Monitor">Monitor</span></div>
+              </div>
+            </div>
+
+            <!-- Discuss -->
+            <div class="tier-group">
+              <div class="tier-head">
+                <span class="th-label">Discuss</span>
+                <span class="th-caption serif">Bring to the conversation.</span>
+                <span class="th-count">2 holdings</span>
+              </div>
+              <div class="holding" data-verdict="Discuss">
+                <span class="h-rule"></span>
+                <div>
+                  <div class="h-name">Reliance Industries</div>
+                  <div class="h-take">Position at 26.4% of advisory corpus; breaches single-stock threshold. Trim-on-rebalance proposed.</div>
+                </div>
+                <div class="h-val">7.00 Cr<span class="h-wt">26.4%</span></div>
+                <div class="h-pill"><span class="v-pill" data-verdict="Discuss">Discuss</span></div>
+              </div>
+              <div class="holding" data-verdict="Discuss">
+                <span class="h-rule"></span>
+                <div>
+                  <div class="h-name">Mirae Asset Large Cap</div>
+                  <div class="h-take">Overlap with Axis and PPFCF large-cap sleeve. Consolidation candidate.</div>
+                </div>
+                <div class="h-val">3.00 Cr<span class="h-wt">11.3%</span></div>
+                <div class="h-pill"><span class="v-pill" data-verdict="Discuss">Discuss</span></div>
+              </div>
+            </div>
+
+            <!-- Review -->
+            <div class="tier-group">
+              <div class="tier-head">
+                <span class="th-label">Review</span>
+                <span class="th-caption serif">Flag for action.</span>
+                <span class="th-count">0 holdings</span>
+              </div>
+              <div class="tier-zero">No holdings in this tier.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 3. PORTFOLIO OBSERVATIONS (default open) -->
+    <details class="acc-section" open>
+      <summary>
+        <span class="acc-num">03</span>
+        <span class="acc-title">Portfolio observations</span>
+        <span class="acc-aside">3 observations / 1 flag, 2 muted</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="observations">
+
+          <!-- Observation 1 — Reliance concentration -->
+          <article class="obs-card" data-sev="flg">
+            <div class="obs-head">
+              <span class="sev-pill" data-sev="flg">Flag</span>
+              <span class="obs-cat">Single-stock concentration</span>
+              <span class="obs-num">01</span>
+            </div>
+            <div class="obs-headline">
+              <div class="obs-num-big">26.4<span class="unit">%</span></div>
+              <div class="obs-sentence">
+                Reliance Industries holds <em>26.4% of the advisory corpus,</em> breaching the 15% single-stock position threshold.
+                The trim-on-rebalance framework proposed for Q2: a systematic ₹0.5 Cr trim each time weight exceeds 17%.
+              </div>
+            </div>
+            <div class="obs-evidence">
+              <div class="smallcaps" style="margin-bottom:6px">Evidence</div>
+              <div class="minibar">
+                <div class="mb-lbl">Reliance weight</div>
+                <div class="mb-track">
+                  <div class="mb-fill fill-flg" style="width: 88%"></div>
+                  <div class="mb-thresh" style="left: 50%" title="15% threshold"></div>
+                </div>
+                <div class="mb-val">26.4%</div>
+              </div>
+              <div class="minibar">
+                <div class="mb-lbl">Single-stock threshold</div>
+                <div class="mb-track">
+                  <div class="mb-fill fill-ink" style="width: 50%"></div>
+                </div>
+                <div class="mb-val">15.0%</div>
+              </div>
+              <div class="minibar">
+                <div class="mb-lbl">Q2 trim trigger</div>
+                <div class="mb-track">
+                  <div class="mb-fill fill-ink" style="width: 57%"></div>
+                </div>
+                <div class="mb-val">17.0%</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Observation 2 — Zero debt -->
+          <article class="obs-card" data-sev="muted">
+            <div class="obs-head">
+              <span class="sev-pill" data-sev="muted">Muted</span>
+              <span class="obs-cat">Asset-class composition</span>
+              <span class="obs-num">02</span>
+            </div>
+            <div class="obs-headline">
+              <div class="obs-num-big">0<span class="unit">%</span></div>
+              <div class="obs-sentence">
+                Zero allocation to debt. The portfolio is 87% equity, 7.5% gold, 5.7% cash. Aggressive by mandate, but
+                <em>the cash-and-gold sleeve is doing all the volatility-dampening work.</em>
+                Worth raising whether tax-free bonds or short-duration debt MFs earn a place at the next review.
+              </div>
+            </div>
+            <div class="obs-evidence">
+              <div class="smallcaps" style="margin-bottom:6px">Current allocation</div>
+              <div class="allocbar">
+                <div class="ab-lbl">Equity</div>
+                <div class="ab-track"><div class="ab-fill eq" style="width: 86.8%"></div></div>
+                <div class="ab-val">86.8%</div>
+              </div>
+              <div class="allocbar">
+                <div class="ab-lbl">Gold</div>
+                <div class="ab-track"><div class="ab-fill gold" style="width: 7.5%"></div></div>
+                <div class="ab-val">7.5%</div>
+              </div>
+              <div class="allocbar">
+                <div class="ab-lbl">Cash</div>
+                <div class="ab-track"><div class="ab-fill cash" style="width: 5.7%"></div></div>
+                <div class="ab-val">5.7%</div>
+              </div>
+              <div class="allocbar">
+                <div class="ab-lbl">Debt</div>
+                <div class="ab-track"><div class="ab-fill debt" style="width: 100%"></div></div>
+                <div class="ab-val zero">0.0%</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Observation 3 — Three large-cap funds -->
+          <article class="obs-card" data-sev="muted">
+            <div class="obs-head">
+              <span class="sev-pill" data-sev="muted">Muted</span>
+              <span class="obs-cat">Sleeve overlap</span>
+              <span class="obs-num">03</span>
+            </div>
+            <div class="obs-headline">
+              <div class="obs-num-big">3<span class="unit">funds</span></div>
+              <div class="obs-sentence">
+                Mirae, Axis, and PPFCF's large-cap tilt collectively hold the large-cap exposure.
+                <em>Consolidation candidate:</em> one strong active large-cap fund plus PPFCF may serve the same role with less overlap.
+              </div>
+            </div>
+            <div class="obs-evidence">
+              <table class="evtable">
+                <tbody>
+                  <tr><td class="lbl">Axis Bluechip</td><td class="r">3.80 Cr / 14.3%</td></tr>
+                  <tr><td class="lbl">Mirae Asset Large Cap</td><td class="r">3.00 Cr / 11.3%</td></tr>
+                  <tr><td class="lbl">PPFCF (large-cap tilt within flexi mandate)</td><td class="r">~2.40 Cr / ~9.1% effective</td></tr>
+                  <tr><td class="lbl">Combined large-cap sleeve</td><td class="r">~9.20 Cr / ~34.7%</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </details>
+
+    <!-- 4. PORTFOLIO ANALYSIS (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">04</span>
+        <span class="acc-title">Portfolio analysis <em>composition deep-cut</em></span>
+        <span class="acc-aside">Categories / AMC concentration</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="pa-grid">
+          <div>
+            <div class="pa-eyebrow">Category allocation</div>
+            <div class="catbars">
+              <div class="catbar"><div class="cb-lbl">Direct Equity (India)</div><div class="cb-track"><div class="cb-fill" style="width: 100%"></div></div><div class="cb-val">9.00 Cr<span class="cb-pct">34.0%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Active Equity, Large Cap</div><div class="cb-track"><div class="cb-fill" style="width: 75.6%"></div></div><div class="cb-val">6.80 Cr<span class="cb-pct">25.7%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Active Equity, Multi / Flexi Cap</div><div class="cb-track"><div class="cb-fill" style="width: 44.4%"></div></div><div class="cb-val">4.00 Cr<span class="cb-pct">15.1%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Active Equity, Mid Cap</div><div class="cb-track"><div class="cb-fill" style="width: 33.3%"></div></div><div class="cb-val">3.00 Cr<span class="cb-pct">11.3%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">PMS, Focused Mid Cap</div><div class="cb-track"><div class="cb-fill" style="width: 33.3%"></div></div><div class="cb-val">3.00 Cr<span class="cb-pct">11.3%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">International Equity (Passive)</div><div class="cb-track"><div class="cb-fill" style="width: 33.3%"></div></div><div class="cb-val">3.00 Cr<span class="cb-pct">11.3%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Active Equity, Small Cap</div><div class="cb-track"><div class="cb-fill" style="width: 24.4%"></div></div><div class="cb-val">2.20 Cr<span class="cb-pct">8.3%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Physical Gold</div><div class="cb-track"><div class="cb-fill" style="width: 22.2%"></div></div><div class="cb-val">2.00 Cr<span class="cb-pct">7.5%</span></div></div>
+              <div class="catbar"><div class="cb-lbl">Cash</div><div class="cb-track"><div class="cb-fill" style="width: 16.7%"></div></div><div class="cb-val">1.50 Cr<span class="cb-pct">5.7%</span></div></div>
+            </div>
+            <p style="margin: 12px 0 0; font-size: 12px; color: var(--ink-faint); font-style: italic; font-family: var(--serif); line-height: 1.5;">
+              Sum across categories exceeds 100% because Direct Equity (Reliance, HDFC Bank) intersects with the listed-equity exposure captured in the asset-mix rollup. Bar widths normalize against Direct Equity, the largest category.
+            </p>
+          </div>
+
+          <div>
+            <div class="pa-eyebrow">AMC concentration <em style="font-style:italic;color:var(--ink-faint);font-family:var(--serif);text-transform:none;letter-spacing:0;font-size:13px;font-weight:400;margin-left:auto;">MF AUM only</em></div>
+            <table class="amc-table">
+              <thead>
+                <tr><th>AMC</th><th class="r">Funds</th><th class="r">₹ Cr</th><th class="r">% of MF AUM</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Parag Parikh / PPFAS</td><td class="r">1</td><td class="r">4.00</td><td class="r">25.0%</td></tr>
+                <tr><td>Axis</td><td class="r">1</td><td class="r">3.80</td><td class="r">23.8%</td></tr>
+                <tr><td>Mirae Asset</td><td class="r">1</td><td class="r">3.00</td><td class="r">18.8%</td></tr>
+                <tr><td>Kotak</td><td class="r">1</td><td class="r">3.00</td><td class="r">18.8%</td></tr>
+                <tr><td>SBI</td><td class="r">1</td><td class="r">2.20</td><td class="r">13.8%</td></tr>
+              </tbody>
+            </table>
+            <p style="margin: 10px 0 0; font-size: 12px; color: var(--ink-faint); font-style: italic; font-family: var(--serif); line-height: 1.5;">
+              ₹16.00 Cr of active MF AUM spread across five AMCs; no single relationship over a quarter of the sleeve.
+            </p>
+
+            <div class="fund-count-block">
+              <div class="fc-num">11</div>
+              <div class="fc-text">
+                holdings across <strong>seven product types</strong>: direct equity, large-cap MF, multi-cap MF, mid-cap MF, small-cap MF, PMS, international ETF, plus physical gold and cash reserve.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="editorial-caption">
+          Composition reads diversified across product types; AMC concentration not material. The diagnostic signals all sit at the holding level, in observations 01 through 03 above.
+        </p>
+      </div>
+    </details>
+
+    <!-- 5. EQUITY STYLE SNAPSHOT (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">05</span>
+        <span class="acc-title">Equity style snapshot</span>
+        <span class="acc-aside">Market cap / style box / sectors</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="es-grid">
+
+          <div class="es-panel">
+            <div class="es-panel-title">Market cap breakdown</div>
+            <div class="mc-pie-wrap" id="mc-pie"></div>
+          </div>
+
+          <div class="es-panel">
+            <div class="es-panel-title">Style box <em style="font-style:italic;color:var(--ink-faint);font-family:var(--serif);text-transform:none;letter-spacing:0;font-size:12px;font-weight:400;">% of equity</em></div>
+            <div class="stylebox">
+              <div class="sb-corner"></div>
+              <div class="sb-col">Value</div>
+              <div class="sb-col">Blend</div>
+              <div class="sb-col">Growth</div>
+
+              <div class="sb-row">Large</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.17)">8</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.80); color:#fff;">38</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.50); color:#fff;">24</div>
+
+              <div class="sb-row">Mid</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.04)">2</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.25)">12</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.21)">10</div>
+
+              <div class="sb-row">Small</div>
+              <div class="sb-cell zero">0</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.08)">4</div>
+              <div class="sb-cell" style="background: rgba(63,91,71,0.04)">2</div>
+            </div>
+            <p style="margin: 4px 0 0; font-size: 12px; color: var(--ink-faint); font-family: var(--serif); font-style: italic; line-height: 1.5;">
+              Large / Blend the centre of gravity; meaningful growth tilt; small-cap exposure thin.
+            </p>
+          </div>
+
+          <div class="es-panel">
+            <div class="es-panel-title">Cyclical / Sensitive / Defensive</div>
+            <div class="sector-stack">
+
+              <div class="sector-group">
+                <div class="sg-head"><span class="sg-name">Cyclical</span><span class="sg-total">47.0%</span></div>
+                <div class="sector-bar">
+                  <div class="seg" style="width: 60.4%; background: #1A1A1A;" title="Financial Services 28.4%"></div>
+                  <div class="seg" style="width: 25.1%; background: #4A4A4A;" title="Consumer Cyclical 11.8%"></div>
+                  <div class="seg" style="width: 13.2%; background: #8A8A8A;" title="Basic Materials 6.2%"></div>
+                  <div class="seg" style="width: 1.3%; background: #C7C2B5;" title="Real Estate 0.6%"></div>
+                </div>
+                <div class="sector-legend">
+                  <div class="sl-row"><span class="swatch" style="background:#1A1A1A"></span><span>Financial Services</span><span class="v">28.4%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#4A4A4A"></span><span>Consumer Cyclical</span><span class="v">11.8%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#8A8A8A"></span><span>Basic Materials</span><span class="v">6.2%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#C7C2B5"></span><span>Real Estate</span><span class="v">0.6%</span></div>
+                </div>
+              </div>
+
+              <div class="sector-group">
+                <div class="sg-head"><span class="sg-name">Sensitive</span><span class="sg-total">40.1%</span></div>
+                <div class="sector-bar">
+                  <div class="seg" style="width: 47.1%; background: #C28A1D;" title="Energy 18.9%, elevated due to Reliance"></div>
+                  <div class="seg" style="width: 22.7%; background: #4A4A4A;" title="Technology 9.1%"></div>
+                  <div class="seg" style="width: 21.7%; background: #6B7066;" title="Industrials 8.7%"></div>
+                  <div class="seg" style="width: 8.5%; background: #8A8A8A;" title="Communication 3.4%"></div>
+                </div>
+                <div class="sector-legend">
+                  <div class="sl-row callout"><span class="swatch" style="background:#C28A1D"></span><span>Energy</span><span class="v">18.9%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#4A4A4A"></span><span>Technology</span><span class="v">9.1%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#6B7066"></span><span>Industrials</span><span class="v">8.7%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#8A8A8A"></span><span>Communication</span><span class="v">3.4%</span></div>
+                </div>
+              </div>
+
+              <div class="sector-group">
+                <div class="sg-head"><span class="sg-name">Defensive</span><span class="sg-total">12.9%</span></div>
+                <div class="sector-bar">
+                  <div class="seg" style="width: 43.4%; background: #4A4A4A;" title="Healthcare 5.6%"></div>
+                  <div class="seg" style="width: 31.8%; background: #6B7066;" title="Consumer Defensive 4.1%"></div>
+                  <div class="seg" style="width: 17.0%; background: #8A8A8A;" title="Utilities 2.2%"></div>
+                  <div class="seg" style="width: 7.8%; background: #C7C2B5;" title="Not Classified 1.0%"></div>
+                </div>
+                <div class="sector-legend">
+                  <div class="sl-row"><span class="swatch" style="background:#4A4A4A"></span><span>Healthcare</span><span class="v">5.6%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#6B7066"></span><span>Consumer Defensive</span><span class="v">4.1%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#8A8A8A"></span><span>Utilities</span><span class="v">2.2%</span></div>
+                  <div class="sl-row"><span class="swatch" style="background:#C7C2B5"></span><span>Not Classified</span><span class="v">1.0%</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <p class="editorial-caption">
+          Style box concentrated in Large / Blend with a mid-cap growth tilt; sector mix dominated by financials and energy, the latter Reliance-led and tracking directly back to observation 01.
+        </p>
+      </div>
+    </details>
+
+    <!-- 6. CORRELATION MATRIX (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">06</span>
+        <span class="acc-title">Correlation matrix <em>7 funds, 36-month rolling</em></span>
+        <span class="acc-aside">Headline pair Mirae × Axis = 0.94</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="corr-talktrack">
+          <div class="ct-block">
+            <div class="ct-eyebrow">What this shows</div>
+            <p class="ct-body">
+              Pairwise correlation of monthly returns across the seven actively-managed funds in the portfolio, 36-month trailing window. <strong>1.00</strong> means two funds moved in perfect lockstep; <strong>0</strong> means they moved independently of each other.
+            </p>
+          </div>
+          <div class="ct-block">
+            <div class="ct-eyebrow">How to read this</div>
+            <ul class="corr-legend">
+              <li>
+                <span class="cl-swatch dark" aria-hidden="true"></span>
+                <div><strong>Dark cells (0.80 and above)</strong>Funds that moved nearly together. Likely holding similar names; diversification benefit is low.</div>
+              </li>
+              <li>
+                <span class="cl-swatch mid" aria-hidden="true"></span>
+                <div><strong>Mid cells (0.50 to 0.80)</strong>Funds that moved in the same general direction but with distinct patterns. Acceptable overlap.</div>
+              </li>
+              <li>
+                <span class="cl-swatch light" aria-hidden="true"></span>
+                <div><strong>Light cells (below 0.50)</strong>Funds that moved largely independently. This is where genuine diversification lives.</div>
+              </li>
+            </ul>
+          </div>
+          <div class="ct-block">
+            <div class="ct-eyebrow">Why it matters</div>
+            <p class="ct-body">
+              Two funds with <strong>0.90+ correlation</strong> add fee drag without adding diversification. The matrix is the empirical layer underneath the overlap diagnosis in section 09: it shows whether category labels (Large Cap, Mid Cap, Flexi) actually translate into behavioral difference, or whether the funds just call themselves different things while doing the same thing.
+            </p>
+          </div>
+        </div>
+
+        <div class="corr-wrap">
+          <div id="corr-matrix"></div>
+          <div class="corr-annos">
+            <div class="corr-anno">
+              <div class="ca-head">
+                <span class="sev-pill" data-sev="flg">Flag</span>
+                <span class="ca-cell-ref">Mirae × Axis</span>
+                <span class="ca-cell-val">0.94</span>
+              </div>
+              <div class="ca-text">The headline overlap; two large-cap funds doing almost the same thing. Reads cleanly to the consolidation conversation in section 09.</div>
+            </div>
+            <div class="corr-anno">
+              <div class="ca-head">
+                <span class="sev-pill" data-sev="ok">OK</span>
+                <span class="ca-cell-ref">Vanguard × rest</span>
+                <span class="ca-cell-val">0.22 to 0.48</span>
+              </div>
+              <div class="ca-text">International ETF earns its keep. Genuine diversification, not a closet-Indian-equity vehicle.</div>
+            </div>
+            <div class="corr-anno">
+              <div class="ca-head">
+                <span class="sev-pill" data-sev="muted">Muted</span>
+                <span class="ca-cell-ref">Kotak × SBI Small</span>
+                <span class="ca-cell-val">0.86</span>
+              </div>
+              <div class="ca-text">Mid-and-small cluster moves together. Expected; not actionable.</div>
+            </div>
+          </div>
+        </div>
+        <p class="editorial-caption">
+          Correlation structure validates the overlap diagnosis: large-cap funds cluster tightly, mid-and-small cluster moderately, international stands alone.
+        </p>
+      </div>
+    </details>
+
+    <!-- 7. RISK-REWARD STATISTICS (collapsed, redesigned) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">07</span>
+        <span class="acc-title">Risk-reward statistics <em>Tier A</em></span>
+        <span class="acc-aside">3Y Sharpe 0.81 vs 0.66 benchmark</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <p style="font-size:13px;color:var(--ink-faint);margin:0 0 24px;font-family:var(--mono);">
+          Custom benchmark: 75% Nifty 500, 15% S&amp;P 500 (INR-hedged proxy), 10% gold.
+        </p>
+
+        <div class="rr-hero">
+          <article class="rr-card" data-stat="sharpe">
+            <div class="rr-card-head">
+              <span class="rr-card-label">Sharpe ratio</span>
+              <div class="rr-horizon-tabs" data-tabs="sharpe">
+                <button type="button" data-h="3Y" class="is-active">3Y</button>
+                <button type="button" data-h="5Y">5Y</button>
+              </div>
+            </div>
+            <div class="rr-num">
+              <span data-val="primary">0.81</span>
+              <span class="rr-delta" data-val="delta">+0.15</span>
+            </div>
+            <div class="rr-sec" data-val="secondary">vs 0.66 benchmark</div>
+            <div class="rr-cap">Risk-adjusted return above benchmark on both horizons; fee-only discipline shows.</div>
+          </article>
+
+          <article class="rr-card" data-stat="alpha">
+            <div class="rr-card-head">
+              <span class="rr-card-label">Alpha</span>
+              <div class="rr-horizon-tabs" data-tabs="alpha">
+                <button type="button" data-h="3Y" class="is-active">3Y</button>
+                <button type="button" data-h="5Y">5Y</button>
+              </div>
+            </div>
+            <div class="rr-num">
+              <span data-val="primary">2.40</span>
+            </div>
+            <div class="rr-sec" data-val="secondary">5Y: 2.10</div>
+            <div class="rr-cap">Positive alpha sustained over five years; manager selection earning its keep.</div>
+          </article>
+
+          <article class="rr-card" data-stat="beta">
+            <div class="rr-card-head">
+              <span class="rr-card-label">Beta</span>
+              <div class="rr-horizon-tabs" data-tabs="beta">
+                <button type="button" data-h="3Y" class="is-active">3Y</button>
+                <button type="button" data-h="5Y">5Y</button>
+              </div>
+            </div>
+            <div class="rr-num">
+              <span data-val="primary">1.04</span>
+            </div>
+            <div class="rr-sec" data-val="secondary">5Y: 1.02</div>
+            <div class="rr-cap">Marginally above 1; equity-heavy posture, not leveraged.</div>
+          </article>
+
+          <article class="rr-card" data-stat="rsq">
+            <div class="rr-card-head">
+              <span class="rr-card-label">R-Squared</span>
+              <div class="rr-horizon-tabs" data-tabs="rsq">
+                <button type="button" data-h="3Y" class="is-active">3Y</button>
+                <button type="button" data-h="5Y">5Y</button>
+              </div>
+            </div>
+            <div class="rr-num">
+              <span data-val="primary">89.50</span>
+            </div>
+            <div class="rr-sec" data-val="secondary">5Y: 88.20</div>
+            <div class="rr-cap">Highly correlated to benchmark; alpha is true alpha, not style drift.</div>
+          </article>
+        </div>
+
+        <div class="rr-detail-eye">All statistics, both horizons</div>
+        <table class="statgrid is-secondary">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="r horizon-head" colspan="2">3 year</th>
+              <th class="r horizon-head" colspan="2">5 year</th>
+            </tr>
+            <tr>
+              <th>Statistic</th>
+              <th class="r">Portfolio</th>
+              <th class="r">Benchmark</th>
+              <th class="r">Portfolio</th>
+              <th class="r">Benchmark</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="lbl">Std Deviation</td><td class="num">16.40</td><td class="num faint">15.85</td><td class="num">15.80</td><td class="num faint">15.20</td></tr>
+            <tr><td class="lbl">Mean Return</td><td class="num">18.20</td><td class="num faint">15.50</td><td class="num">16.40</td><td class="num faint">13.80</td></tr>
+            <tr><td class="lbl">Sharpe Ratio</td><td class="num">0.81</td><td class="num faint">0.66</td><td class="num">0.74</td><td class="num faint">0.58</td></tr>
+            <tr><td class="lbl">Alpha</td><td class="num">2.40</td><td class="num empty">n/a</td><td class="num">2.10</td><td class="num empty">n/a</td></tr>
+            <tr><td class="lbl">Beta</td><td class="num">1.04</td><td class="num empty">n/a</td><td class="num">1.02</td><td class="num empty">n/a</td></tr>
+            <tr><td class="lbl">R-Squared</td><td class="num">89.50</td><td class="num empty">n/a</td><td class="num">88.20</td><td class="num empty">n/a</td></tr>
+          </tbody>
+        </table>
+
+        <div class="rr-detail-eye">Best and worst time periods</div>
+        <table class="bwgrid is-secondary">
+          <thead>
+            <tr><th>Period</th><th class="r">Best</th><th class="r">Worst</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="lbl">3 Months</td><td class="num pos">+18.4%</td><td class="num neg">-16.2%</td></tr>
+            <tr><td class="lbl">1 Year</td><td class="num pos">+42.6%</td><td class="num neg">-8.9%</td></tr>
+            <tr><td class="lbl">3 Years</td><td class="num pos">+22.8%</td><td class="num pos">+2.4%</td></tr>
+          </tbody>
+        </table>
+
+        <p class="editorial-caption">
+          Sharpe above benchmark on both horizons reflects fee-only discipline; Beta marginally above 1 reflects the equity-heavy posture; the Std Dev premium over benchmark traces almost entirely to the single-stock concentration in observation 01.
+        </p>
+      </div>
+    </details>
+
+    <!-- 8. PORTFOLIO PERFORMANCE (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">08</span>
+        <span class="acc-title">Portfolio performance</span>
+        <span class="acc-aside">March 2019 to April 2026</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="perf-layout">
+          <div>
+            <div class="tschart-wrap">
+              <div class="ts-legend">
+                <span><span class="swatch gross"></span>Portfolio Gross (market value)</span>
+                <span><span class="swatch net"></span>Portfolio Net (invested cost)</span>
+              </div>
+              <div id="tschart"></div>
+            </div>
+            <p class="editorial-caption">
+              Inflection points: COVID drawdown March 2020, mid-cap correction July 2022, secondary liquidity inflow November 2025 (visible as a step in the invested-cost line; market value does not step that day).
+            </p>
+          </div>
+
+          <aside class="perf-sidebar" aria-label="Performance commentary">
+            <div class="perf-block">
+              <div class="perf-eyebrow">What this shows</div>
+              <p class="perf-body">
+                Seven-year compounding through a complete market cycle: <strong>pandemic drawdown, post-COVID rally, mid-cap correction, secondary-liquidity reinforcement, current peak.</strong> Portfolio Gross is market value at each point; Portfolio Net is cumulative cost basis.
+              </p>
+            </div>
+
+            <div class="perf-block">
+              <div class="perf-eyebrow">Inflection points</div>
+              <ol class="perf-inflections">
+                <li class="perf-inflection">
+                  <span class="pi-num">01</span>
+                  <div class="pi-text"><strong>COVID drawdown recovered in nine months.</strong> Drawdown to ~₹2.80 Cr in March 2020; back above ₹4.20 Cr by November. Discipline held.</div>
+                </li>
+                <li class="perf-inflection">
+                  <span class="pi-num">02</span>
+                  <div class="pi-text"><strong>2022 mid-cap correction priced into the curve.</strong> Mid-cap sleeve traced a ~14% drawdown through July; flexi and large-cap absorbed it.</div>
+                </li>
+                <li class="perf-inflection">
+                  <span class="pi-num">03</span>
+                  <div class="pi-text"><strong>November 2025 step in the cost basis.</strong> Secondary liquidity event added ~₹7.4 Cr to invested cost; market value did not jump that day (cash flowed in, equities flat). The gap that opens after this point is the new compounding base.</div>
+                </li>
+              </ol>
+            </div>
+
+            <div class="perf-block">
+              <div class="perf-eyebrow">Bottom line</div>
+              <div class="perf-stats">
+                <div class="ps-k">Initial value, Mar 2019</div><div class="ps-v">₹3.50 Cr</div>
+                <div class="ps-k">Final value, Apr 2026</div><div class="ps-v headline">₹26.50 Cr</div>
+                <div class="ps-k">Net invested over period</div><div class="ps-v">₹14.88 Cr</div>
+                <div class="ps-divider"></div>
+                <div class="ps-k">CAGR, since inception</div><div class="ps-v">14.2%</div>
+                <div class="ps-k">Absolute return, over cost</div><div class="ps-v">78.1%</div>
+                <div class="ps-divider"></div>
+                <div class="ps-k">Best 1Y window</div><div class="ps-v pos">+42.6%</div>
+                <div class="ps-k">Worst 1Y window</div><div class="ps-v neg">-8.9%</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </details>
+
+    <!-- 9. OVERLAP AND CONSOLIDATION (collapsed, redesigned) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">09</span>
+        <span class="acc-title">Overlap and consolidation</span>
+        <span class="acc-aside">Three sleeves / PPFCF splits across two</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="sleeve-map">
+
+          <div class="sleeve">
+            <div class="sleeve-head">
+              <span class="sleeve-name">Large-cap sleeve</span>
+              <span class="sleeve-total">~₹9.20 Cr effective</span>
+            </div>
+            <div class="sleeve-body">
+              <div class="fund-rect" style="flex: 41.3;">
+                <div class="fr-name">Axis Bluechip</div>
+                <div class="fr-meta">₹3.80 Cr / 41.3% of sleeve</div>
+              </div>
+              <div class="fund-rect" style="flex: 32.6;">
+                <div class="fr-name">Mirae Asset Large Cap</div>
+                <div class="fr-meta">₹3.00 Cr / 32.6% of sleeve</div>
+              </div>
+              <div class="fund-rect tilt" style="flex: 26.1;">
+                <span class="fr-tilt-tag">tilt</span>
+                <div class="fr-name">Parag Parikh Flexi Cap</div>
+                <div class="fr-meta">~₹2.40 Cr / 26.1% of sleeve</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sleeve">
+            <div class="sleeve-head">
+              <span class="sleeve-name">Mid-cap sleeve</span>
+              <span class="sleeve-total">~₹7.20 Cr effective</span>
+            </div>
+            <div class="sleeve-body">
+              <div class="fund-rect" style="flex: 41.7;">
+                <div class="fr-name">Kotak Emerging Equity</div>
+                <div class="fr-meta">₹3.00 Cr / 41.7% of sleeve</div>
+              </div>
+              <div class="fund-rect" style="flex: 41.7;">
+                <div class="fr-name">White Oak Pioneers PMS</div>
+                <div class="fr-meta">₹3.00 Cr / 41.7% of sleeve</div>
+              </div>
+              <div class="fund-rect tilt" style="flex: 16.6;">
+                <span class="fr-tilt-tag">tilt</span>
+                <div class="fr-name">Parag Parikh Flexi Cap</div>
+                <div class="fr-meta">~₹1.20 Cr / 16.6% of sleeve</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sleeve">
+            <div class="sleeve-head">
+              <span class="sleeve-name">Small-cap sleeve</span>
+              <span class="sleeve-total">₹2.20 Cr</span>
+            </div>
+            <div class="sleeve-body">
+              <div class="fund-rect" style="flex: 100;">
+                <div class="fr-name">SBI Small Cap</div>
+                <div class="fr-meta">₹2.20 Cr / 100% of sleeve</div>
+              </div>
+              <div class="sleeve-empty">Single resident; no consolidation question here.</div>
+            </div>
+          </div>
+
+        </div>
+        <p class="sleeve-map-cap">
+          Three funds in the large-cap sleeve, two in the mid-cap, one in small-cap. PPFCF's flexi mandate splits across sleeves; this is acceptable if it earns its keep. The Mirae-Axis pair is the real consolidation question.
+        </p>
+
+        <div class="rr-detail-eye">Pairwise overlap detail</div>
+        <table class="overlap-table is-secondary">
+          <thead>
+            <tr>
+              <th>Pair</th>
+              <th class="r">Est. overlap</th>
+              <th>Severity</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="pair-name">Mirae Large Cap + Axis Bluechip</td>
+              <td class="r">0.68</td>
+              <td><span class="overlap-sev" data-level="high">High</span></td>
+              <td class="rec">Choose one; both occupy the same large-cap blend slot.</td>
+            </tr>
+            <tr>
+              <td class="pair-name">PPFCF + Mirae Large Cap <span style="color:var(--ink-faint);font-weight:400">(large-cap sleeve)</span></td>
+              <td class="r">0.42</td>
+              <td><span class="overlap-sev" data-level="notable">Notable</span></td>
+              <td class="rec">PPFCF's flexi mandate creates partial overlap; acceptable if PPFCF earns its keep.</td>
+            </tr>
+            <tr>
+              <td class="pair-name">Reliance direct + PPFCF top holdings</td>
+              <td class="r">0.18</td>
+              <td><span class="overlap-sev" data-level="low">Low</span></td>
+              <td class="rec">Indirect exposure adds modestly to direct concentration.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="editorial-caption">
+          Surana's portfolio is materially cleaner than peer benchmarks; the consolidation conversation is targeted, not sweeping.
+        </p>
+      </div>
+    </details>
+
+    <!-- 10. MARKET CONTEXT (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">10</span>
+        <span class="acc-title">Market context</span>
+        <span class="acc-aside">Data Snapshot. 29 April 2026.</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="macro-grid">
+
+          <div class="macro-card">
+            <div class="mc-label">Dimension 1</div>
+            <div class="mc-title">Economic cycle</div>
+            <div class="indicator-row">
+              <div class="ir-name">PMI Manufacturing<span class="ir-sub">55.9 Apr flash / 53.9 Mar final</span></div>
+              <div class="ir-val">55.9</div>
+              <div>
+                <span class="ir-dir up">Rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">23 Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">PMI Services<span class="ir-sub">57.9 Apr flash / 57.5 Mar final</span></div>
+              <div class="ir-val">57.9</div>
+              <div>
+                <span class="ir-dir up">Stable-rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">23 Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">Non-Food Credit Growth, YoY</div>
+              <div class="ir-val">14.3%</div>
+              <div>
+                <span class="ir-dir up">Rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Mar 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">Capacity Utilization</div>
+              <div class="ir-val">75.6%</div>
+              <div>
+                <span class="ir-dir up">Rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Q3 FY26</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">GDP Growth Real, YoY Q3</div>
+              <div class="ir-val">7.8%</div>
+              <div>
+                <span class="ir-dir up">Above trend</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Q3 FY26</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">CPI Headline, YoY</div>
+              <div class="ir-val">3.40%</div>
+              <div>
+                <span class="ir-dir warn">Rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Mar 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">CPI Core, YoY<span class="ir-sub">low</span></div>
+              <div class="ir-val">2.1%</div>
+              <div>
+                <span class="ir-dir neutral">Stable</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Feb 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">IMD Monsoon Forecast<span class="ir-sub">92% of LPA, below normal</span></div>
+              <div class="ir-val">92%</div>
+              <div>
+                <span class="ir-dir down">Neg signal</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-card">
+            <div class="mc-label">Dimension 2</div>
+            <div class="mc-title">RBI monetary policy</div>
+            <div class="indicator-row">
+              <div class="ir-name">Repo Rate<span class="ir-sub">after 125 bps of cuts</span></div>
+              <div class="ir-val">5.25%</div>
+              <div>
+                <span class="ir-dir neutral">Hold</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">RBI Stance</div>
+              <div class="ir-val">Neutral</div>
+              <div>
+                <span class="ir-dir neutral">Unchanged</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">10Y Govt Bond Yield<span class="ir-sub">from 6.55% Nov</span></div>
+              <div class="ir-val">6.99%</div>
+              <div>
+                <span class="ir-dir warn">Rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">WALR on Fresh Loans<span class="ir-sub">from 9.37%</span></div>
+              <div class="ir-val">8.28%</div>
+              <div>
+                <span class="ir-dir down">Declining</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Mar 2026</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-card">
+            <div class="mc-label">Dimension 3</div>
+            <div class="mc-title">Government fiscal</div>
+            <div class="indicator-row">
+              <div class="ir-name">Fiscal Deficit, YTD FY26<span class="ir-sub">80.4% of RE</span></div>
+              <div class="ir-val">₹12.53 Lakh Cr</div>
+              <div>
+                <span class="ir-dir neutral">Consolidating</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr-Feb FY26</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">Govt Capital Expenditure, YTD<span class="ir-sub">84.8% of RE, +14.5% YoY</span></div>
+              <div class="ir-val">₹9.29 Lakh Cr</div>
+              <div>
+                <span class="ir-dir up">Strong</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">FY26</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">FY27 Budget Fiscal Deficit, % of GDP</div>
+              <div class="ir-val">4.3%</div>
+              <div>
+                <span class="ir-dir up">Consolidation</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">FY27</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="macro-card">
+            <div class="mc-label">Dimension 4</div>
+            <div class="mc-title">Global macro linkages</div>
+            <div class="indicator-row">
+              <div class="ir-name">US Fed Funds Rate</div>
+              <div class="ir-val">3.50% to 3.75%</div>
+              <div>
+                <span class="ir-dir neutral">Hold</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">India-US Rate Differential<span class="ir-sub">adequate, not compelling</span></div>
+              <div class="ir-val">162 bps</div>
+              <div>
+                <span class="ir-dir neutral">Adequate</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">USD / INR</div>
+              <div class="ir-val">94.79</div>
+              <div>
+                <span class="ir-dir down">Sharp weakening</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">29 Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">Brent Crude, USD per bbl<span class="ir-sub">stress zone</span></div>
+              <div class="ir-val">$118.95</div>
+              <div>
+                <span class="ir-dir down">Sharply rising</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">29 Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">FII Net Flows, April equity<span class="ir-sub">heavy persistent outflows</span></div>
+              <div class="ir-val">₹-56,401 Cr</div>
+              <div>
+                <span class="ir-dir down">Heavy outflows</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+            <div class="indicator-row">
+              <div class="ir-name">DII Net Flows, April<span class="ir-sub">partial Apr 1, 8; partially absorbing</span></div>
+              <div class="ir-val">₹+34,617 Cr</div>
+              <div>
+                <span class="ir-dir up">Strong</span>
+                <div class="ir-date" style="text-align:right;margin-top:4px">Apr 2026</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <p class="macro-foot">
+          Snapshot as of 29 April 2026. Indicators sourced from public statistics, RBI publications, and broker research. Direction signals reflect change from prior reading or trend baseline.
+        </p>
+      </div>
+    </details>
+
+    <!-- 11. DECISION HISTORY & NEXT REVIEW (collapsed) -->
+    <details class="acc-section">
+      <summary>
+        <span class="acc-num">11</span>
+        <span class="acc-title">Decision history and next review</span>
+        <span class="acc-aside">Last decision 8 Mar 2026 / Next review Q3 2026</span>
+        <span class="acc-chev" aria-hidden="true">
+          <svg viewBox="0 0 14 14" width="14" height="14"><path d="M5 3 L10 7 L5 11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </summary>
+      <div class="acc-body">
+        <div class="decision-log">
+          <div class="dlog-item">
+            <div class="dl-date">8 Mar 2026</div>
+            <div class="dl-body">
+              <span class="dl-eyebrow">Q1 2026, PA case_arch09_a</span>
+              PPFCF rebalance executed. ₹80 L moved from flexi-cap sleeve into the mid-cap PMS slot.
+              Decided by Rohan Kapoor; investor counter-signed.
+            </div>
+          </div>
+          <div class="dlog-item">
+            <div class="dl-date">24 Apr 2026</div>
+            <div class="dl-body">
+              <span class="dl-eyebrow">Q2 2026, PA case_arch09_b, this case</span>
+              Reliance trim-on-rebalance framework proposed for Q2 review; systematic ₹0.5 Cr trim when weight exceeds 17%.
+              Three Maintain confirmations and two Discuss escalations recorded.
+            </div>
+          </div>
+        </div>
+
+        <div class="next-review">
+          <div>
+            <div class="nr-label">Next review</div>
+            <div class="nr-headline">Q3 2026</div>
+            <p style="margin: 10px 0 0; font-size: 13px; color: var(--ink-muted);">
+              Liquid reserve reassessed against opportunity set. PPFCF re-evaluated against trailing four quarters.
+            </p>
+          </div>
+          <div>
+            <div class="nr-label">Open items carried forward</div>
+            <ul class="open-items">
+              <li>Cat II AIF shortlist for international exposure beyond the GIFT-route ETF sleeve.</li>
+              <li>Post-exit corpus reframe conversation, contingent on Series E or secondary liquidity event on the founder equity reference position.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <footer class="page-foot">
+    <span>Samriddhi 2 / case_arch09_b</span>
+    <span>Data Snapshot 24 April 2026 / Decided by Rohan Kapoor, fee-only advisor</span>
+  </footer>
+
+</main>
+
+<!-- =======================================================
+     Inline JS — palette toggle + chart rendering
+     ======================================================= -->
+<script>
+(function () {
+  /* ---------- Helpers ---------- */
+  function svg(tag, attrs) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  }
+  function donutArc(cx, cy, rOuter, rInner, startA, endA) {
+    // angles in radians; 0 = top, clockwise
+    const p = (a, r) => [cx + Math.sin(a) * r, cy - Math.cos(a) * r];
+    const [sx1, sy1] = p(startA, rOuter);
+    const [ex1, ey1] = p(endA, rOuter);
+    const [sx2, sy2] = p(endA, rInner);
+    const [ex2, ey2] = p(startA, rInner);
+    const large = (endA - startA) > Math.PI ? 1 : 0;
+    return [
+      `M ${sx1} ${sy1}`,
+      `A ${rOuter} ${rOuter} 0 ${large} 1 ${ex1} ${ey1}`,
+      `L ${sx2} ${sy2}`,
+      `A ${rInner} ${rInner} 0 ${large} 0 ${ex2} ${ey2}`,
+      "Z",
+    ].join(" ");
+  }
+  function pieSlice(cx, cy, r, startA, endA) {
+    const p = (a) => [cx + Math.sin(a) * r, cy - Math.cos(a) * r];
+    const [sx, sy] = p(startA);
+    const [ex, ey] = p(endA);
+    const large = (endA - startA) > Math.PI ? 1 : 0;
+    return [
+      `M ${cx} ${cy}`,
+      `L ${sx} ${sy}`,
+      `A ${r} ${r} 0 ${large} 1 ${ex} ${ey}`,
+      "Z",
+    ].join(" ");
+  }
+
+  /* ---------- Composition donut ---------- */
+  function renderDonut() {
+    const mount = document.getElementById("composition-donut");
+    if (!mount) return;
+    mount.innerHTML = "";
+    const size = 320, cx = size/2, cy = size/2;
+    const rOuter = 130, rInner = 92;
+    const slices = [
+      { label: "Equity",       weight: 86.8, color: "#3F5B47" }, // accent
+      { label: "Gold",         weight:  7.5, color: "#9AA688" },
+      { label: "Cash",         weight:  5.7, color: "#D3CCB7" },
+    ];
+    // Restored to centered geometry (v3 Fix 1). The Debt-zero callout now
+    // lives outside the donut as a quiet footnote in the HTML, not as a
+    // ghost wedge that competed for visual space inside the chart.
+    const root = svg("svg", { viewBox: `0 0 ${size} ${size}` });
+    let a = 0;
+    const total = slices.reduce((s, x) => s + x.weight, 0);
+    slices.forEach(s => {
+      const span = (s.weight / total) * Math.PI * 2;
+      const end = a + span;
+      const path = svg("path", {
+        d: donutArc(cx, cy, rOuter, rInner, a, end),
+        fill: s.color,
+        stroke: "#FAF8F4",
+        "stroke-width": "1.5",
+        "stroke-linejoin": "round",
+      });
+      root.appendChild(path);
+
+      // Direct label for the three slices
+      const midA = a + span / 2;
+      const lr = rOuter + 22;
+      const lx = cx + Math.sin(midA) * lr;
+      const ly = cy - Math.cos(midA) * lr;
+      const anchor = (lx < cx - 4) ? "end" : (lx > cx + 4 ? "start" : "middle");
+      // small slices need leader line; for Cash/Gold push outward more
+      if (s.weight < 12) {
+        const inner = rOuter + 4;
+        const ix = cx + Math.sin(midA) * inner;
+        const iy = cy - Math.cos(midA) * inner;
+        const line = svg("line", {
+          x1: ix, y1: iy, x2: lx, y2: ly,
+          stroke: "#8A8A8A", "stroke-width": "0.7",
+        });
+        root.appendChild(line);
+      }
+      const tlabel = svg("text", {
+        x: lx, y: ly - 6,
+        "text-anchor": anchor,
+        class: "donut-direct-label",
+      });
+      tlabel.textContent = s.label;
+      const tnum = svg("text", {
+        x: lx, y: ly + 10,
+        "text-anchor": anchor,
+        class: "donut-direct-label num",
+      });
+      tnum.textContent = s.weight.toFixed(1) + "%";
+      root.appendChild(tlabel);
+      root.appendChild(tnum);
+
+      a = end;
+    });
+
+    mount.appendChild(root);
+
+    // Center label
+    const center = document.createElement("div");
+    center.className = "donut-center";
+    center.innerHTML = `
+      <div>
+        <span class="dc-num">₹26.50 Cr</span>
+      </div>
+      <div class="dc-label">Aggressive</div>`;
+    mount.appendChild(center);
+  }
+
+  /* ---------- M/M/D/R pie ---------- */
+  function renderMMDR() {
+    const mount = document.getElementById("mmdr-pie");
+    if (!mount) return;
+    mount.innerHTML = "";
+    const size = 340, cx = size/2, cy = size/2, r = 130;
+
+    // Count-based percentages per refinement brief 1.6 (6/11, 3/11, 2/11):
+    // Maintain 54.5%, Monitor 27.3%, Discuss 18.2%, Review 0%.
+    const slices = [
+      { key: "Maintain", label: "Maintain", pct: 54.5, color: "var(--v-maintain)" },
+      { key: "Monitor",  label: "Monitor",  pct: 27.3, color: "var(--v-monitor)"  },
+      { key: "Discuss",  label: "Discuss",  pct: 18.2, color: "var(--v-discuss)"  },
+    ];
+
+    // Resolve CSS variables to actual hex so we can stroke/fill on the SVG
+    const cs = getComputedStyle(document.documentElement);
+    const resolve = (c) => c.startsWith("var(") ? cs.getPropertyValue(c.slice(4, -1)).trim() : c;
+
+    // Expanded viewBox per refinement 1.2: 40px breathing room left/right,
+    // 20-30px top/bottom so leader-line labels don't clip.
+    const root = svg("svg", { viewBox: `-40 -20 420 380` });
+    let a = 0;
+    slices.forEach(s => {
+      const span = (s.pct / 100) * Math.PI * 2;
+      const end = a + span;
+      const path = svg("path", {
+        d: pieSlice(cx, cy, r, a, end),
+        fill: resolve(s.color),
+        stroke: "#FAF8F4",
+        "stroke-width": "1.5",
+      });
+      root.appendChild(path);
+
+      // Direct labels: label above, % below, placed at slice centroid
+      const midA = a + span / 2;
+      const lr = (s.pct < 22) ? r + 28 : r * 0.6;
+      const lx = cx + Math.sin(midA) * lr;
+      const ly = cy - Math.cos(midA) * lr;
+      const anchor = (s.pct < 22)
+        ? (lx < cx - 4 ? "end" : (lx > cx + 4 ? "start" : "middle"))
+        : "middle";
+      const colorFill = (s.pct < 22) ? "#4A4A4A" : "#FFFFFF";
+      const numColor = (s.pct < 22) ? "#1A1A1A" : "#FFFFFF";
+
+      const lt = svg("text", {
+        x: lx, y: ly - 4,
+        "text-anchor": anchor,
+        class: "mmdr-direct-label",
+        fill: colorFill,
+      });
+      lt.textContent = s.label;
+      const np = svg("text", {
+        x: lx, y: ly + 14,
+        "text-anchor": anchor,
+        class: "mmdr-direct-pct",
+        fill: numColor,
+      });
+      np.textContent = s.pct.toFixed(1) + "%";
+      root.appendChild(lt);
+      root.appendChild(np);
+
+      // leader line for tiny slices
+      if (s.pct < 22) {
+        const ix = cx + Math.sin(midA) * (r + 4);
+        const iy = cy - Math.cos(midA) * (r + 4);
+        const line = svg("line", {
+          x1: ix, y1: iy, x2: lx, y2: ly - 6,
+          stroke: "#8A8A8A", "stroke-width": "0.7",
+        });
+        root.appendChild(line);
+      }
+
+      a = end;
+    });
+
+    // tiny inline note about Review wedge omission already in HTML below the SVG.
+    mount.appendChild(root);
+  }
+
+  /* ---------- Time-series chart ---------- */
+  function renderTSChart() {
+    const mount = document.getElementById("tschart");
+    if (!mount) return;
+    mount.innerHTML = "";
+    const W = 880, H = 360, P = { l: 56, r: 24, t: 24, b: 40 };
+    const iw = W - P.l - P.r, ih = H - P.t - P.b;
+
+    // Hand-keyed inflection points: [year-fraction, market value, invested cost (cumulative)]
+    // years run 2019.25 to 2026.33
+    const data = [
+      { t: 2019.25, mv:  3.50, ic:  3.50 }, // March 2019 start
+      { t: 2019.75, mv:  4.10, ic:  4.30 },
+      { t: 2020.20, mv:  2.80, ic:  4.50 }, // COVID dip
+      { t: 2020.55, mv:  3.30, ic:  4.80 },
+      { t: 2020.95, mv:  4.20, ic:  5.10 }, // recovery within 9 months
+      { t: 2021.50, mv:  6.40, ic:  5.50 },
+      { t: 2021.90, mv:  8.40, ic:  5.80 }, // November 2021 peak
+      { t: 2022.30, mv:  7.80, ic:  6.10 },
+      { t: 2022.55, mv:  7.20, ic:  6.40 }, // July 2022 mid-cap trough
+      { t: 2023.10, mv:  8.60, ic:  6.70 },
+      { t: 2023.60, mv: 10.20, ic:  7.00 },
+      { t: 2024.05, mv: 12.50, ic:  7.30 },
+      { t: 2024.25, mv: 14.50, ic:  7.50 }, // March 2024 recovery
+      { t: 2024.80, mv: 15.80, ic:  7.50 },
+      { t: 2025.40, mv: 18.20, ic:  7.50 },
+      { t: 2025.85, mv: 21.40, ic:  7.50 },
+      { t: 2025.92, mv: 21.40, ic: 14.88 }, // November 2025 secondary, IC steps, MV does not
+      { t: 2026.10, mv: 23.80, ic: 14.88 },
+      { t: 2026.33, mv: 26.50, ic: 14.88 }, // April 2026 final
+    ];
+    const t0 = 2019, t1 = 2026.5;
+    const yMax = 28;
+    const x = (t) => P.l + ((t - t0) / (t1 - t0)) * iw;
+    const y = (v) => P.t + (1 - v / yMax) * ih;
+
+    const svgRoot = svg("svg", { viewBox: `0 0 ${W} ${H}` });
+
+    // Y gridlines, minimal
+    const yTicks = [0, 7, 14, 21, 28];
+    yTicks.forEach(v => {
+      svgRoot.appendChild(svg("line", {
+        x1: P.l, x2: W - P.r, y1: y(v), y2: y(v),
+        stroke: "#E8E4DC", "stroke-width": "1",
+        ...(v === 0 ? { stroke: "#D8D2C5" } : {}),
+      }));
+      const tt = svg("text", { x: P.l - 10, y: y(v) + 4, "text-anchor": "end", class: "ts-axis-label" });
+      tt.textContent = v === 0 ? "0" : "₹" + v + " Cr";
+      svgRoot.appendChild(tt);
+    });
+
+    // X axis labels (years only)
+    for (let yr = 2019; yr <= 2026; yr++) {
+      const xv = x(yr);
+      const tt = svg("text", { x: xv, y: H - 14, "text-anchor": "middle", class: "ts-axis-label" });
+      tt.textContent = yr;
+      svgRoot.appendChild(tt);
+    }
+
+    // Build the soft fill between net (ic) and gross (mv)
+    const gPath = data.map((d, i) => (i ? "L" : "M") + x(d.t) + " " + y(d.mv)).join(" ");
+    const nPath = data.map((d, i) => (i ? "L" : "M") + x(d.t) + " " + y(d.ic)).join(" ");
+
+    // Fill polygon: top edge = gross, bottom edge = net (reverse)
+    const fillPts = [
+      ...data.map(d => [x(d.t), y(d.mv)]),
+      ...[...data].reverse().map(d => [x(d.t), y(d.ic)]),
+    ].map(([px, py]) => `${px},${py}`).join(" ");
+    svgRoot.appendChild(svg("polygon", {
+      points: fillPts,
+      fill: "#E8EDE9",
+      opacity: "0.5",
+    }));
+
+    // Net (invested cost) line — muted warm gray, dashed, thinner (v3 Fix 4)
+    svgRoot.appendChild(svg("path", {
+      d: nPath, fill: "none",
+      stroke: "#9A9489", "stroke-width": "1.25",
+      "stroke-dasharray": "4 3",
+      "stroke-linejoin": "round", "stroke-linecap": "round",
+    }));
+    // Gross (market value) line — primary, thicker (v3 Fix 4)
+    svgRoot.appendChild(svg("path", {
+      d: gPath, fill: "none",
+      stroke: "#1A1A1A", "stroke-width": "2.5",
+      "stroke-linejoin": "round", "stroke-linecap": "round",
+    }));
+
+    // Inflection markers + labels
+    const markers = [
+      { t: 2020.20, v: 2.80, lbl: "COVID dip", align: "below" },
+      { t: 2021.90, v: 8.40, lbl: "Nov 2021 peak", align: "above" },
+      { t: 2022.55, v: 7.20, lbl: "Mid-cap trough", align: "below" },
+      { t: 2025.92, v: 14.88, lbl: "Nov 2025 secondary", align: "below-ic" },
+      { t: 2026.33, v: 26.50, lbl: "₹26.50 Cr", align: "above-end" },
+    ];
+    markers.forEach(m => {
+      const mx = x(m.t), my = y(m.v);
+      svgRoot.appendChild(svg("circle", {
+        cx: mx, cy: my, r: "3.5",
+        fill: "#FAF8F4",
+        stroke: m.align === "below-ic" ? "#9A9489" : "#1A1A1A",
+        "stroke-width": "1.5",
+      }));
+      const ty = m.align === "above" ? my - 14
+              : m.align === "above-end" ? my - 14
+              : my + 22;
+      const tt = svg("text", {
+        x: m.align === "above-end" ? mx - 6 : mx,
+        y: ty,
+        "text-anchor": m.align === "above-end" ? "end" : "middle",
+        class: m.align === "above-end" ? "ts-marker-num" : "ts-marker-label",
+      });
+      tt.textContent = m.lbl;
+      svgRoot.appendChild(tt);
+    });
+
+    mount.appendChild(svgRoot);
+  }
+
+  /* ---------- Market cap pie (section 05) ---------- */
+  function renderMCPie() {
+    const mount = document.getElementById("mc-pie");
+    if (!mount) return;
+    mount.innerHTML = "";
+    const size = 240, cx = size/2, cy = size/2, r = 100;
+    const slices = [
+      { label: "Large Cap",    pct: 58, color: "#3F5B47" },
+      { label: "Mid Cap",      pct: 22, color: "#7B9682" },
+      { label: "Small Cap",    pct: 12, color: "#B5C2B0" },
+      { label: "International", pct: 8, color: "#C5B58C" }, // distinct hue for international
+    ];
+    const root = svg("svg", { viewBox: `-30 -20 ${size + 60} ${size + 40}` });
+    let a = 0;
+    slices.forEach(s => {
+      const span = (s.pct / 100) * Math.PI * 2;
+      const end = a + span;
+      root.appendChild(svg("path", {
+        d: pieSlice(cx, cy, r, a, end),
+        fill: s.color,
+        stroke: "#FAF8F4",
+        "stroke-width": "1.5",
+      }));
+      // Direct labels: outside for small slices, inside for the dominant slice
+      const midA = a + span / 2;
+      const inside = s.pct >= 20;
+      const lr = inside ? r * 0.62 : r + 22;
+      const lx = cx + Math.sin(midA) * lr;
+      const ly = cy - Math.cos(midA) * lr;
+      const anchor = inside
+        ? "middle"
+        : (lx < cx - 4 ? "end" : (lx > cx + 4 ? "start" : "middle"));
+      const txtColor = inside ? "#FFFFFF" : "#4A4A4A";
+      const numColor = inside ? "#FFFFFF" : "#1A1A1A";
+      const lt = svg("text", {
+        x: lx, y: ly - 3,
+        "text-anchor": anchor,
+        "font-family": "Geist, sans-serif",
+        "font-size": "10.5",
+        "letter-spacing": "1",
+        fill: txtColor,
+      });
+      lt.textContent = s.label.toUpperCase();
+      const np = svg("text", {
+        x: lx, y: ly + 12,
+        "text-anchor": anchor,
+        "font-family": "Geist Mono, ui-monospace",
+        "font-size": "14",
+        fill: numColor,
+      });
+      np.textContent = s.pct + "%";
+      root.appendChild(lt);
+      root.appendChild(np);
+      if (!inside) {
+        const ix = cx + Math.sin(midA) * (r + 4);
+        const iy = cy - Math.cos(midA) * (r + 4);
+        root.appendChild(svg("line", {
+          x1: ix, y1: iy, x2: lx, y2: ly - 6,
+          stroke: "#8A8A8A", "stroke-width": "0.7",
+        }));
+      }
+      a = end;
+    });
+    mount.appendChild(root);
+  }
+
+  /* ---------- Correlation matrix (section 06) ---------- */
+  function renderCorrMatrix() {
+    const mount = document.getElementById("corr-matrix");
+    if (!mount) return;
+    mount.innerHTML = "";
+    const funds = [
+      { short: "Mirae",    full: "Mirae LC" },
+      { short: "Axis",     full: "Axis Bluechip" },
+      { short: "PPFCF",    full: "PPFCF" },
+      { short: "Kotak",    full: "Kotak Emerging" },
+      { short: "SBI",      full: "SBI Small Cap" },
+      { short: "WhiteOak", full: "White Oak PMS" },
+      { short: "Vanguard", full: "Vanguard S&P 500" },
+    ];
+    // Lower-triangular correlation values (row >= col)
+    const m = [
+      [1.00],
+      [0.94, 1.00],
+      [0.78, 0.76, 1.00],
+      [0.72, 0.70, 0.81, 1.00],
+      [0.61, 0.58, 0.74, 0.86, 1.00],
+      [0.69, 0.66, 0.79, 0.88, 0.82, 1.00],
+      [0.34, 0.32, 0.48, 0.29, 0.22, 0.31, 1.00],
+    ];
+    // Cells to highlight per annotation cards
+    const highlights = {
+      "1,0": "flg",    // Axis x Mirae = 0.94
+      "6,0": "ok", "6,1": "ok", "6,2": "ok", "6,3": "ok", "6,4": "ok", "6,5": "ok",
+      "4,3": "muted",  // SBI x Kotak = 0.86
+    };
+
+    const table = document.createElement("table");
+    table.className = "corr-matrix";
+
+    // header row: column labels
+    const thead = document.createElement("thead");
+    const trh = document.createElement("tr");
+    trh.appendChild(document.createElement("th")).className = "corner";
+    funds.forEach((f) => {
+      const th = document.createElement("th");
+      th.textContent = f.short;
+      trh.appendChild(th);
+    });
+    thead.appendChild(trh);
+    table.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    funds.forEach((f, i) => {
+      const tr = document.createElement("tr");
+      const rowLbl = document.createElement("th");
+      rowLbl.className = "row-label";
+      rowLbl.textContent = f.short;
+      tr.appendChild(rowLbl);
+      funds.forEach((g, j) => {
+        const td = document.createElement("td");
+        if (j > i) {
+          td.className = "blank";
+        } else if (j === i) {
+          td.className = "diag";
+          td.textContent = "1.00";
+        } else {
+          const v = m[i][j];
+          td.className = "cell";
+          td.textContent = v.toFixed(2);
+          // ramp: 0 → paper, 1 → accent 90%
+          const opacity = Math.max(0.06, v * 0.9);
+          td.style.background = `rgba(63, 91, 71, ${opacity.toFixed(2)})`;
+          if (v > 0.55) td.classList.add("dark");
+          const hk = `${i},${j}`;
+          if (highlights[hk] === "flg") td.classList.add("highlight");
+          else if (highlights[hk] === "ok") td.classList.add("highlight-ok");
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    mount.appendChild(table);
+  }
+
+  /* ---------- Risk-reward horizon tabs ---------- */
+  function wireRRTabs() {
+    const VALUES = {
+      sharpe: { "3Y": { primary: "0.81", delta: "+0.15", secondary: "vs 0.66 benchmark" },
+                "5Y": { primary: "0.74", delta: "+0.16", secondary: "vs 0.58 benchmark" } },
+      alpha:  { "3Y": { primary: "2.40", secondary: "5Y: 2.10" },
+                "5Y": { primary: "2.10", secondary: "3Y: 2.40" } },
+      beta:   { "3Y": { primary: "1.04", secondary: "5Y: 1.02" },
+                "5Y": { primary: "1.02", secondary: "3Y: 1.04" } },
+      rsq:    { "3Y": { primary: "89.50", secondary: "5Y: 88.20" },
+                "5Y": { primary: "88.20", secondary: "3Y: 89.50" } },
+    };
+    document.querySelectorAll(".rr-card").forEach(card => {
+      const stat = card.dataset.stat;
+      const tabs = card.querySelectorAll(".rr-horizon-tabs button");
+      tabs.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabs.forEach(b => b.classList.toggle("is-active", b === btn));
+          const h = btn.dataset.h;
+          const v = VALUES[stat][h];
+          card.querySelector('[data-val="primary"]').textContent = v.primary;
+          const sec = card.querySelector('[data-val="secondary"]');
+          if (sec) sec.textContent = v.secondary;
+          const delta = card.querySelector('[data-val="delta"]');
+          if (delta) delta.textContent = v.delta || "";
+        });
+      });
+    });
+  }
+
+  renderDonut();
+  renderMMDR();
+  renderTSChart();
+  renderMCPie();
+  renderCorrMatrix();
+  wireRRTabs();
+})();
+</script>
+
+</body>
+</html>

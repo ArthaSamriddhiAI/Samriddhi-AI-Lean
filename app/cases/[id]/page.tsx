@@ -1,7 +1,10 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { AnalysisTab } from "@/components/case-detail/AnalysisTab";
+import { WireframeMount } from "@/components/case-detail/WireframeMount";
 import { CaseStubBadge } from "@/components/case-detail/CaseStubBadge";
 import { OutcomeTab } from "@/components/case-detail/OutcomeTab";
 import { AnalystReportsTab } from "@/components/case-detail/AnalystReportsTab";
@@ -22,6 +25,10 @@ type PageProps = {
 
 export const dynamic = "force-dynamic";
 
+/* Demo: Surana's case detail is served from a static wireframe HTML
+ * (public/wireframes/surana.html) instead of the default rendered view. */
+const SURANA_WIREFRAME_CASE_ID = "c-2026-05-15-surana-01";
+
 function formatFrozen(d: Date) {
   const date = d.toLocaleDateString("en-IN", { day: "numeric", month: "short" });
   const time = d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: false });
@@ -34,6 +41,13 @@ function formatSnapshot(d: Date) {
 
 export default async function CaseDetailPage({ params, searchParams }: PageProps) {
   const [{ id }, { tab }] = await Promise.all([params, searchParams]);
+
+  if (id === SURANA_WIREFRAME_CASE_ID) {
+    const wireframePath = path.join(process.cwd(), "public", "wireframes", "surana.html");
+    const html = await fs.readFile(wireframePath, "utf-8");
+    return <WireframeMount html={html} />;
+  }
+
   const c = await prisma.case.findUnique({
     where: { id },
     include: { investor: true, snapshot: true },
