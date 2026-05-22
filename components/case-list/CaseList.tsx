@@ -129,6 +129,72 @@ export function CaseList({ cases }: Props) {
         })}
       </div>
 
+      {/* Phone layout: the same six cases re-flowed into stacked cards.
+       * Hidden at >=768px; the .case-table above is hidden below 768px.
+       * See the responsive block in globals.css. Clickable/ambient split,
+       * ordering, and filtering are identical to the table above. */}
+      <div className="case-cards">
+        {cases.map((c) => {
+          const clickable = CLICKABLE_CASE_IDS.has(c.id);
+          const cardInner = (
+            <>
+              <div className="cc-top">
+                <span className={`severity-mark sev-${c.severity}`} />
+                <div className="cc-investor">
+                  <span className="investor-name">{c.investor.name}</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="investor-meta">{c.investor.metaLine}</span>
+                    <span className={`wf-tag ${c.workflow === "s1" ? "wt-s1" : "wt-s2"}`}>
+                      {c.workflow === "s1" ? "prop" : "diag"}
+                    </span>
+                    {c.stubbed === true && (
+                      <span className="stub-meta" title="Assembled from STUB_MODE replay">
+                        · stub
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="cc-right">
+                  {c.status === "ready" && (
+                    <span className="status-tag ready">
+                      <span className="sdot" />
+                      Unread
+                    </span>
+                  )}
+                  {c.status === "archived" && (
+                    <span className="status-tag archived">
+                      <span className="sdot" />
+                      Archived
+                    </span>
+                  )}
+                  {clickable && <Chev size={13} dir="r" />}
+                </div>
+              </div>
+              <div className="headline">{c.headline}</div>
+              <div className="timestamp">{formatGenerated(c.frozenAt)}</div>
+            </>
+          );
+
+          if (clickable) {
+            return (
+              <Link
+                href={`/cases/${c.id}`}
+                key={c.id}
+                className="case-card cc-clickable no-underline"
+              >
+                {cardInner}
+              </Link>
+            );
+          }
+
+          return (
+            <div className="case-card cc-ambient" key={c.id}>
+              {cardInner}
+            </div>
+          );
+        })}
+      </div>
+
       <div className="mt-[18px] text-[11.5px] text-ink-4 font-mono">
         {cases.length} case{cases.length === 1 ? "" : "s"} · {investorCount} investor
         {investorCount === 1 ? "" : "s"} · {counts.proposals} proposals · {counts.diagnostics} diagnostics

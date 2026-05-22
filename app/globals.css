@@ -424,6 +424,73 @@
   .ct-row--ambient { cursor: default; }
   .ct-row--ambient:hover { background: transparent; }
 
+  /* Phone card layout for the cases list; hidden at >=768px. */
+  .case-cards { display: none; }
+
+  /* ============================================================
+     Cases list — phone responsive treatment (<768px).
+     At >=768px the existing 4-column table + inline filter row
+     render unchanged. The card markup lives in CaseList.tsx and
+     is shown only here.
+     ============================================================ */
+  @media (max-width: 767px) {
+    /* Tighter page gutters on phone (shared by the list pages). */
+    .page-inner { padding-left: 18px; padding-right: 18px; }
+
+    /* Stack the page head so the title block and action buttons
+       don't fight for width on a narrow screen. */
+    .page-head { flex-direction: column; align-items: stretch; gap: 16px; }
+
+    /* Filter pills scroll horizontally instead of wrapping/overflowing;
+       the secondary controls drop to their own line beneath. */
+    .filter-row { flex-direction: column; align-items: stretch; gap: 10px; }
+    .filter-pills {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+      mask-image: linear-gradient(to right, #000 calc(100% - 22px), transparent);
+    }
+    .filter-pills::-webkit-scrollbar { display: none; }
+    .pill { flex-shrink: 0; white-space: nowrap; }
+
+    /* Swap the 4-column table for a stack of cards. */
+    .case-table { display: none; }
+    .case-cards { display: flex; flex-direction: column; gap: 8px; }
+
+    .case-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid var(--color-rule);
+      border-radius: var(--radius-2);
+      background: var(--color-paper-raised);
+    }
+    .cc-clickable { cursor: pointer; transition: background var(--duration-1); }
+    .cc-clickable:hover { background: var(--color-paper-hover); }
+    .cc-ambient { cursor: default; opacity: 0.85; }
+
+    .cc-top { display: flex; align-items: flex-start; gap: 10px; }
+    .cc-investor {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cc-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      color: var(--color-ink-5);
+    }
+    .case-card .severity-mark { flex-shrink: 0; margin-left: 0; }
+    .case-card .headline { max-width: none; }
+  }
+
   /* ---- Workflow type tags ---- */
   .wf-tag {
     display: inline-flex;
