@@ -2131,6 +2131,31 @@ button { font: inherit; color: inherit; cursor: pointer; background: none; borde
 
   /* A little more usable width on the smallest screens. */
   .page { padding-left: 20px; padding-right: 20px; }
+
+  /* Path C: stack the case-header on phone. The download button widened
+     the right-hand status-block enough to squeeze the headline into 6 lines
+     (vs 4 without it) and push the takeaway below the fold. Drop to a single
+     column so the title takes full width and the status-block (button + pill
+     + caption) flows beneath it as a left-aligned row. */
+  .case-header { grid-template-columns: 1fr; gap: 16px; }
+  .status-block {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px 12px;
+  }
+  .risk-caption { width: 100%; }
+
+  /* Sub-390px horizontal overflow: the accordion body carries a 52px left
+     indent, so on narrow phones the remaining width is too small and
+     intrinsic-width content (the 320px composition donut, the market-context
+     cards, section tables) spills past the viewport (~32px scroll at 360px,
+     ~17px at 375px). Remove the indent on phone and let the market-context
+     grid shrink to the container. */
+  .acc-body { padding-left: 0; }
+  .macro-grid { grid-template-columns: minmax(0, 1fr); }
+  .indicator-row { grid-template-columns: minmax(0, 1fr) auto auto; }
 }
 </style>
 </head>
