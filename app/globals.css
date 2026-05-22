@@ -2219,6 +2219,48 @@
   .ar-gov-pill.clarify .status { color: var(--color-warn); }
   .ar-gov-pill .note { color: var(--color-ink-4); font-size: 10.5px; }
 
+  /* ============================================================
+     Case detail — phone responsive treatment (<768px).
+     Two fixes: (1) the toolbar (breadcrumb + frozen pill + tabs) was a
+     single fixed-height non-wrapping row that overflowed; (2) the
+     synthesis-verdict / governance-gates band was a 2-column grid whose
+     gates column got crushed and clipped. Surana's case detail is
+     intercepted by WireframeMount (different markup) and is unaffected.
+     Tablet (>=768px) and desktop are unchanged.
+     ============================================================ */
+  @media (max-width: 767px) {
+    /* Toolbar: drop the fixed 52px height and stack the rows. */
+    .case-toolbar {
+      height: auto;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    /* Allow the frozen pill / stub badge to wrap under the breadcrumb. */
+    .case-toolbar .breadcrumbs { flex-wrap: wrap; }
+    /* Tabs on their own row; scroll if they ever outgrow the width. */
+    .case-tabs {
+      margin-left: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .case-tabs::-webkit-scrollbar { display: none; }
+    .case-tab { flex-shrink: 0; white-space: nowrap; }
+
+    /* Verdict band: stack synthesis verdict over governance gates; turn
+       the vertical column divider into a horizontal one. */
+    .ar-verdict { grid-template-columns: 1fr; gap: 18px; }
+    .ar-verdict .ar-vsplit {
+      border-right: none;
+      padding-right: 0;
+      border-bottom: 1px solid var(--color-rule);
+      padding-bottom: 18px;
+    }
+  }
+
   .ar-diag {
     display: grid;
     grid-template-columns: 1fr auto;
