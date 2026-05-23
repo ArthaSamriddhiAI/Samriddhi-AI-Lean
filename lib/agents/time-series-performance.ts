@@ -39,6 +39,7 @@ export type WindowReturn = {
   window: TimeSeriesWindow;
   absolute_return: number | null;
   annualised_return: number | null; // null where the window does not justify annualisation
+  sentinel: TimeSeriesSentinel | null; // e.g. insufficient_history when the window exceeds available history
 };
 
 export type BenchmarkRelativeReturn = {
@@ -113,16 +114,117 @@ export type TimeSeriesPerformanceScope = {
 
 /* ----- Layer 1 helpers (deterministic). Bodies are TODO T-5.06-impl stubs. ----- */
 
+/* ----- Month-key + return helpers (deterministic, pure) ----- */
+
+const WINDOW_MONTHS: Record<Exclude<TimeSeriesWindow, "SI">, number> = {
+  "1M": 1,
+  "3M": 3,
+  "6M": 6,
+  "1Y": 12,
+  "3Y": 36,
+};
+
+function round4(x: number): number {
+  return Math.round(x * 1e4) / 1e4;
+}
+
+/* Subtract `months` from a "YYYY-MM" key, returning a "YYYY-MM" key. */
+function monthKeyMinus(key: string, months: number): string {
+  const [y, m] = key.split("-").map(Number);
+  const total = y * 12 + (m - 1) - months;
+  const ny = Math.floor(total / 12);
+  const nm = ((total % 12) + 12) % 12 + 1;
+  return `${ny}-${String(nm).padStart(2, "0")}`;
+}
+
+/* Largest key <= target ("nearest available prior month"): the gap-handling
+ * rule is that a missing exact month falls back to the closest earlier month.
+ * Returns null when no month at or before the target exists (series too short). */
+function valueAsOf(
+  series: Record<string, number>,
+  sortedMonthKeys: string[],
+  target: string,
+): { key: string; value: number } | null {
+  let lo = 0;
+  let hi = sortedMonthKeys.length - 1;
+  let ans = -1;
+  while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    if (sortedMonthKeys[mid] <= target) {
+      ans = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  if (ans < 0) return null;
+  const k = sortedMonthKeys[ans];
+  return { key: k, value: series[k] };
+}
+
 /* Pure. Works on either monthly_nav (funds) or monthly_prices (stocks); the
- * symmetry across instrument types is the whole point of the Option-B decision. */
+ * symmetry across instrument types is the whole point of the Option-B decision
+ * (ADR-0028). asOfDate is an ISO date; its "YYYY-MM" prefix selects the end month.
+ * A window whose start point predates the available history returns the
+ * insufficient_history sentinel for that window (never a silent zero or null). */
 function computeTrailingWindowReturns(
   monthlySeries: Record<string, number>,
   windows: readonly TimeSeriesWindow[],
   asOfDate: string,
 ): WindowReturn[] {
-  // TODO T-5.06-impl: slice the trailing window off the sorted monthly series,
-  // compute absolute return, annualise where the window length justifies it.
-  throw new Error("TODO T-5.06-impl: computeTrailingWindowReturns");
+  const keys = Object.keys(monthlySeries).sort();
+  const asMonth = asOfDate.slice(0, 7);
+  const insufficient = (w: TimeSeriesWindow): WindowReturn => ({
+    window: w,
+    absolute_return: null,
+    annualised_return: null,
+    sentinel: "insufficient_history",
+  });
+
+  const end = valueAsOf(monthlySeries, keys, asMonth);
+  if (!end) return windows.map(insufficient);
+
+  const out: WindowReturn[] = [];
+  for (const w of windows) {
+    let start: { key: string; value: number } | null;
+    let years: number;
+    if (w === "SI") {
+      start = { key: keys[0], value: monthlySeries[keys[0]] };
+      const [sy, sm] = keys[0].split("-").map(Number);
+      const [ey, em] = end.key.split("-").map(Number);
+      years = (ey * 12 + em - (sy * 12 + sm)) / 12;
+    } else {
+      const target = monthKeyMinus(end.key, WINDOW_MONTHS[w]);
+      start = valueAsOf(monthlySeries, keys, target);
+      years = WINDOW_MONTHS[w] / 12;
+    }
+    if (!start || start.key === end.key) {
+      out.push(insufficient(w));
+      continue;
+    }
+    // NAVs/prices are positive by construction; guard against bad data rather
+    // than dividing by a non-positive base (data-quality guard).
+    if (!(start.value > 0) || !Number.isFinite(end.value)) {
+      out.push(insufficient(w));
+      continue;
+    }
+    const abs = (end.value - start.value) / start.value;
+    let ann: number | null;
+    if (w === "1M" || w === "3M" || w === "6M") {
+      ann = null; // period absolute returns; not annualised
+    } else if (w === "1Y") {
+      ann = abs; // a 12-month point-to-point return is already annual
+    } else {
+      ann = years > 0 ? Math.pow(1 + abs, 1 / years) - 1 : null; // 3Y, SI: compound-annualise over the span
+    }
+    out.push({
+      window: w,
+      absolute_return: round4(abs),
+      annualised_return: ann === null ? null : round4(ann),
+      sentinel: null,
+    });
+  }
+  return out;
 }
 
 function computeBenchmarkRelative(instrumentReturn: number, benchmarkReturn: number): number {
