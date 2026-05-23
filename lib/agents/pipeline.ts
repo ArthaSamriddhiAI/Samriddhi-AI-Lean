@@ -19,9 +19,10 @@
 
 import { prisma } from "@/lib/prisma";
 import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
-import { loadSnapshot } from "./snapshot-loader";
+import { loadSnapshot, loadSnapshotPair } from "./snapshot-loader";
 import { computeMetrics } from "./portfolio-risk-analytics";
 import { runRiskRewardDeterministic } from "./risk-reward-stats";
+import { runTimeSeriesPerformanceDeterministic, type TimeSeriesPerformanceOutput } from "./time-series-performance";
 import { route } from "./router";
 import { buildListedScope } from "./listed-equity-scope";
 import { buildWrapperScope, buildMutualFundScope } from "./wrapper-scope";
@@ -66,6 +67,28 @@ function describeScope(holdings: StructuredHoldings): string {
     else counts.alt_other += 1;
   }
   return `Liquid AUM Rs ${holdings.totalLiquidAumCr} Cr across ${holdings.holdings.length} holdings: ${counts.pms} PMS, ${counts.aif} AIF, ${counts.mf} MF, ${counts.listed} direct/intl listed, ${counts.debt} debt, ${counts.cash} cash, ${counts.alt_other} other.`;
+}
+
+/* Resolve the immediately-prior snapshot id for cross-snapshot evolution
+ * (ADR-0028; MVP scope is t_n vs t_{n-1} only, T19 tracks configurable
+ * reference points). The dev snapshot suite is quarterly (t0=q2_2026,
+ * t1=q3_2026, ...), so the prior id decrements both the t-index and the
+ * calendar quarter by one. Returns null at t0 (no prior) or when the id does
+ * not match the canonical `t<N>_q<Q>_<YYYY>` shape; the caller treats null as
+ * no_prior_snapshot_available. */
+function priorSnapshotId(currentId: string): string | null {
+  const m = /^t(\d+)_q([1-4])_(\d{4})$/.exec(currentId);
+  if (!m) return null;
+  const n = Number(m[1]);
+  if (n <= 0) return null;
+  let q = Number(m[2]);
+  let y = Number(m[3]);
+  q -= 1;
+  if (q === 0) {
+    q = 4;
+    y -= 1;
+  }
+  return `t${n - 1}_q${q}_${y}`;
 }
 
 export async function runDiagnosticPipeline(opts: {
@@ -113,6 +136,41 @@ export async function runDiagnosticPipeline(opts: {
           },
         })
       : null;
+
+    /* Time-series-performance: deterministic sibling, two-snapshot-aware
+     * (ADR-0028). Fires after risk-reward. Loads the immediately-prior snapshot
+     * (t_{n-1}) via loadSnapshotPair and threads the pair to the agent; at t0
+     * there is no prior, so the agent runs with a null reference and emits
+     * no_prior_snapshot_available while standard windows still compute.
+     * SKELETON: the agent's Layer-1 helpers are TODO T-5.06-impl, so the call is
+     * try/caught to degrade to a null block (the case does not fail on the
+     * unimplemented skeleton) until the implementation lands. Ships data only
+     * (content.time_series_performance); the renderer never reads it (WA9). */
+    let timeSeries: TimeSeriesPerformanceOutput | null = null;
+    if (routerDecision.timeSeriesPerformance) {
+      try {
+        const refId = priorSnapshotId(opts.snapshotId);
+        const tsScope = {
+          caseId: opts.caseId,
+          asOfDate,
+          investor: {
+            riskAppetite: investor.riskAppetite,
+            liquidityTier: investor.liquidityTier,
+          },
+        };
+        if (refId) {
+          const pair = await loadSnapshotPair(opts.snapshotId, refId);
+          timeSeries = await runTimeSeriesPerformanceDeterministic(pair.current, pair.reference, holdings, tsScope);
+        } else {
+          timeSeries = await runTimeSeriesPerformanceDeterministic(snapshot, null, holdings, tsScope);
+        }
+      } catch (err) {
+        console.warn(
+          `[pipeline] time-series-performance skipped (skeleton TODO or load error): ${err instanceof Error ? err.message : String(err)}`,
+        );
+        timeSeries = null;
+      }
+    }
 
     const stocksInScope = buildListedScope(holdings, snapshot);
     const wrappersInScope = buildWrapperScope(holdings, snapshot);
@@ -246,6 +304,7 @@ export async function runDiagnosticPipeline(opts: {
       evidence,
       a2_classification: a2Result.output,
       risk_reward_stats: riskReward,
+      time_series_performance: timeSeries,
       usage_summary: {
         per_agent: usage,
         total_input_tokens:
