@@ -74,6 +74,7 @@ export type SleeveTimeSeries = {
 
 export type CrossSnapshotEvolution = {
   available: boolean; // false => no_prior_snapshot_available
+  sentinel: TimeSeriesSentinel | null; // "no_prior_snapshot_available" when available is false, else null
   current_snapshot_id: string;
   reference_snapshot_id: string | null;
   per_instrument: Array<{
@@ -383,6 +384,7 @@ function computeCrossSnapshotEvolution(
 
   return {
     available: true,
+    sentinel: null,
     current_snapshot_id: curId,
     reference_snapshot_id: refId,
     per_instrument: perInstrument,
@@ -572,7 +574,7 @@ export async function runTimeSeriesPerformanceDeterministic(
 
   const cross_snapshot_evolution: CrossSnapshotEvolution = referenceSnapshot
     ? computeCrossSnapshotEvolution(currentSnapshot, referenceSnapshot, holdings)
-    : { available: false, current_snapshot_id: snapshot_context.current_snapshot_id, reference_snapshot_id: null, per_instrument: [], per_sleeve: [] };
+    : { available: false, sentinel: "no_prior_snapshot_available", current_snapshot_id: snapshot_context.current_snapshot_id, reference_snapshot_id: null, per_instrument: [], per_sleeve: [] };
 
   const notice = buildPmsAifFrameworkNotice(holdings.holdings);
 

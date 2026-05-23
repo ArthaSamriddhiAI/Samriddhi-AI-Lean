@@ -149,9 +149,10 @@
     "crossSnapshotEvolution": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["available", "current_snapshot_id", "reference_snapshot_id", "per_instrument", "per_sleeve"],
+      "required": ["available", "sentinel", "current_snapshot_id", "reference_snapshot_id", "per_instrument", "per_sleeve"],
       "properties": {
         "available": { "type": "boolean" },
+        "sentinel": { "$ref": "#/definitions/sentinel" },
         "current_snapshot_id": { "type": "string" },
         "reference_snapshot_id": { "type": ["string", "null"] },
         "per_instrument": {
