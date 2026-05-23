@@ -407,7 +407,56 @@ function sentinelInstrument(h: Holding, sentinel: TimeSeriesSentinel): Instrumen
   };
 }
 
-/* ----- Orchestrator (deterministic path). SKELETON: throws until helpers land. ----- */
+/* ----- Classification + benchmark resolution + format helpers ----- */
+
+const SLEEVES: Array<Exclude<SleeveTimeSeries["sleeve"], "portfolio">> = ["Equity", "Debt", "Alternatives", "Cash"];
+
+function isPMS(sub: string): boolean {
+  return sub.startsWith("pms_");
+}
+function isAIF(sub: string): boolean {
+  return sub.startsWith("aif_");
+}
+function isIntl(sub: string): boolean {
+  return sub.startsWith("intl_");
+}
+function isNotApplicable(sub: string): boolean {
+  return (
+    sub === "bank_fd" || sub === "tax_free_bond" || sub === "physical_gold" ||
+    sub === "sovereign_gold_bond" || sub === "reit" || sub === "savings"
+  );
+}
+
+function round2(x: number): number {
+  return Math.round(x * 100) / 100;
+}
+function fmtPct(x: number | null | undefined): string {
+  return x == null ? "n/a" : `${(x * 100).toFixed(1)}%`;
+}
+
+/* Read-through benchmark resolution (ADR-0017): consume tier_b_stats._meta.
+ * benchmark_index_id / _benchmark_resolution; never reinvent the mapping. */
+function resolveBenchmark(row: MutualFundRow | Nifty500Company | undefined): { benchId: string | null; sentinel: TimeSeriesSentinel | null } {
+  const tb = row?.tier_b_stats;
+  const res = tb?._benchmark_resolution;
+  if (res === "benchmark_structurally_inapplicable") return { benchId: null, sentinel: "benchmark_structurally_inapplicable" };
+  if (res === "benchmark_not_in_snapshot") return { benchId: null, sentinel: "benchmark_not_in_snapshot" };
+  const benchId = tb?._meta?.benchmark_index_id ?? null;
+  if (!benchId) return { benchId: null, sentinel: "benchmark_not_in_snapshot" };
+  return { benchId, sentinel: null };
+}
+
+/* Structural sentinel for an unevaluable holding, or null if evaluable
+ * (MF / domestic listed). Inherited from risk-reward (ADR-0019). */
+function classify(h: Holding): TimeSeriesSentinel | null {
+  if (isAIF(h.subCategory)) return "opaque_wrapper";
+  if (isPMS(h.subCategory)) return "pms_disclosure_limited";
+  if (isIntl(h.subCategory)) return "currency_conversion_pending";
+  if (isNotApplicable(h.subCategory)) return "not_applicable_for_risk_reward";
+  return null;
+}
+
+/* ----- Orchestrator (deterministic path) ----- */
 
 export async function runTimeSeriesPerformanceDeterministic(
   currentSnapshot: Snapshot,
@@ -415,33 +464,141 @@ export async function runTimeSeriesPerformanceDeterministic(
   holdings: StructuredHoldings,
   scope: TimeSeriesPerformanceScope,
 ): Promise<TimeSeriesPerformanceOutput> {
-  // Intended Layer-1 flow (helpers are TODO stubs; orchestration body not yet wired):
-  //
-  // for each evaluable holding, resolve the monthly series (monthly_nav | monthly_prices) and:
-  //
-  //   // Computed at agent runtime per ADR-0012 exception (see ADR-0028).
-  //   // See T18 (tech debt log) for production deployment considerations
-  //   // re: firm-specific data management layers.
-  //   const trailing = computeTrailingWindowReturns(series, STANDARD_WINDOWS, scope.asOfDate);
-  //
-  // resolve the benchmark via tier_b_stats._meta.benchmark_index_id (ADR-0017),
-  // computeBenchmarkRelative per window, rollupSleeve, rollupPortfolio, and
-  // (when referenceSnapshot !== null) computeCrossSnapshotEvolution; otherwise
-  // emit the no_prior_snapshot_available sentinel on the evolution block while
-  // the trailing windows still compute.
-  //
-  // pms_aif_framework_notice is reused from risk-reward (verbatim four-thesis text):
-  void buildPmsAifFrameworkNotice;
-  void sentinelInstrument;
-  void computeBenchmarkRelative;
-  void rollupSleeve;
-  void rollupPortfolio;
-  void computeCrossSnapshotEvolution;
-  void computeTrailingWindowReturns;
-  void currentSnapshot;
-  void referenceSnapshot;
-  void holdings;
-  void scope;
+  const sm = currentSnapshot.snapshot_metadata ?? {};
+  const refSm = referenceSnapshot?.snapshot_metadata ?? null;
+  const snapshot_context: SnapshotContextPair = {
+    current_snapshot_id: (sm.snapshot_id as string | undefined) ?? "unknown",
+    reference_snapshot_id: refSm ? ((refSm.snapshot_id as string | undefined) ?? "unknown") : null,
+    current_snapshot_date: (sm.snapshot_date as string | undefined) ?? (sm.date as string | undefined) ?? scope.asOfDate,
+    reference_snapshot_date: refSm ? ((refSm.snapshot_date as string | undefined) ?? (refSm.date as string | undefined) ?? null) : null,
+  };
 
-  throw new Error("TODO T-5.06-impl: runTimeSeriesPerformanceDeterministic orchestration");
+  const per_holding: InstrumentTimeSeries[] = [];
+  type Evaluable = { h: Holding; trailing: WindowReturn[] };
+  const evalBySleeve: Record<string, Evaluable[]> = {};
+
+  for (const h of holdings.holdings) {
+    const sent = classify(h);
+    if (sent) {
+      per_holding.push(sentinelInstrument(h, sent));
+      continue;
+    }
+    const isFund = isMF(h.subCategory);
+    const row = isFund ? findFundRow(currentSnapshot, h.instrument) : findStockRow(currentSnapshot, h.instrument);
+    const series = isFund
+      ? (row as MutualFundRow | undefined)?.monthly_nav
+      : (row as Nifty500Company | undefined)?.monthly_prices;
+    if (!row || !series || Object.keys(series).length === 0) {
+      per_holding.push(sentinelInstrument(h, "not_applicable_for_risk_reward"));
+      continue;
+    }
+
+    // Computed at agent runtime per ADR-0012 exception (see ADR-0028).
+    // See T18 (tech debt log) for production deployment considerations
+    // re: firm-specific data management layers.
+    const trailing = computeTrailingWindowReturns(series, STANDARD_WINDOWS, scope.asOfDate);
+
+    const { benchId, sentinel: benchSent } = resolveBenchmark(row);
+    const benchSeries = benchId ? currentSnapshot.indices?.[benchId]?.monthly_values : undefined;
+    const benchTrailing = benchSeries ? computeTrailingWindowReturns(benchSeries, STANDARD_WINDOWS, scope.asOfDate) : null;
+    const benchmark_relative: BenchmarkRelativeReturn[] = STANDARD_WINDOWS.map((w) => {
+      const ir = trailing.find((r) => r.window === w)?.absolute_return ?? null;
+      const br = benchTrailing?.find((r) => r.window === w)?.absolute_return ?? null;
+      return { window: w, alpha: benchId ? computeBenchmarkRelative(ir, br) : null, benchmark_return: br };
+    });
+
+    per_holding.push({
+      holding_ref: h.instrument,
+      instrument_display_name: h.instrument,
+      asset_class: h.assetClass,
+      sub_category: h.subCategory,
+      weight_pct: h.weightPct,
+      currency_basis: "INR",
+      source: "computed_runtime",
+      sentinel: benchSent, // self-returns valid; benchmark-relative reflects this sentinel
+      benchmark_index_id: benchId,
+      trailing_returns: trailing,
+      benchmark_relative,
+    });
+    (evalBySleeve[h.assetClass] ??= []).push({ h, trailing });
+  }
+
+  const per_sleeve: SleeveTimeSeries[] = [];
+  const sleeveReturnsForPortfolio: WindowReturn[][] = [];
+  const sleeveValueWeights: number[] = [];
+  for (const sleeve of SLEEVES) {
+    const hs = holdings.holdings.filter((h) => h.assetClass === sleeve);
+    if (hs.length === 0) continue;
+    const evals = evalBySleeve[sleeve] ?? [];
+    const evalWeight = evals.reduce((a, e) => a + e.h.weightPct, 0);
+    const sentWeight = hs.reduce((a, h) => a + h.weightPct, 0) - evalWeight;
+    const constituents = hs.map((h) => h.instrument);
+    if (evals.length === 0) {
+      per_sleeve.push({
+        sleeve, constituents,
+        evaluable_weight_pct: round2(evalWeight), sentinelled_weight_pct: round2(sentWeight),
+        method: "sentinel", sentinel: "no_constituents_evaluable", trailing_returns: null,
+      });
+      continue;
+    }
+    const totalVal = evals.reduce((a, e) => a + e.h.valueCr, 0) || 1;
+    const weights = evals.map((e) => e.h.valueCr / totalVal);
+    const sleeveReturns = rollupSleeve(evals.map((e) => e.trailing), weights, sleeve);
+    per_sleeve.push({
+      sleeve, constituents,
+      evaluable_weight_pct: round2(evalWeight), sentinelled_weight_pct: round2(sentWeight),
+      method: evals.length === 1 ? "single_holding_passthrough" : "weighted_rollup",
+      sentinel: null, trailing_returns: sleeveReturns,
+    });
+    sleeveReturnsForPortfolio.push(sleeveReturns);
+    sleeveValueWeights.push(totalVal);
+  }
+
+  const portfolioTotal = sleeveValueWeights.reduce((a, b) => a + b, 0) || 1;
+  const portfolio: SleeveTimeSeries =
+    sleeveReturnsForPortfolio.length === 0
+      ? {
+          sleeve: "portfolio", constituents: holdings.holdings.map((h) => h.instrument),
+          evaluable_weight_pct: 0, sentinelled_weight_pct: 100,
+          method: "sentinel", sentinel: "no_constituents_evaluable", trailing_returns: null,
+        }
+      : {
+          sleeve: "portfolio", constituents: holdings.holdings.map((h) => h.instrument),
+          evaluable_weight_pct: round2(per_sleeve.reduce((a, s) => a + s.evaluable_weight_pct, 0)),
+          sentinelled_weight_pct: round2(per_sleeve.reduce((a, s) => a + s.sentinelled_weight_pct, 0)),
+          method: "weighted_rollup", sentinel: null,
+          trailing_returns: rollupPortfolio(sleeveReturnsForPortfolio, sleeveValueWeights.map((w) => w / portfolioTotal)),
+        };
+
+  const cross_snapshot_evolution: CrossSnapshotEvolution = referenceSnapshot
+    ? computeCrossSnapshotEvolution(currentSnapshot, referenceSnapshot, holdings)
+    : { available: false, current_snapshot_id: snapshot_context.current_snapshot_id, reference_snapshot_id: null, per_instrument: [], per_sleeve: [] };
+
+  const notice = buildPmsAifFrameworkNotice(holdings.holdings);
+
+  const p3y = portfolio.trailing_returns?.find((r) => r.window === "3Y");
+  const rollupText = !portfolio.trailing_returns
+    ? "Time-series performance is not computable: every evaluable sleeve is sentinelled (opaque wrappers, disclosure-limited PMS, or non-applicable instruments)."
+    : `Portfolio 3Y annualised return ${fmtPct(p3y?.annualised_return)} (absolute ${fmtPct(p3y?.absolute_return)})` +
+      (cross_snapshot_evolution.available
+        ? `; evolution measured ${snapshot_context.reference_snapshot_id} to ${snapshot_context.current_snapshot_id}.`
+        : `; no prior snapshot for cross-snapshot evolution (${snapshot_context.current_snapshot_id} is the baseline).`);
+
+  return {
+    agent_id: "time_series_performance",
+    case_id: scope.caseId,
+    as_of_date: scope.asOfDate,
+    snapshot_context,
+    per_holding,
+    per_sleeve,
+    portfolio,
+    cross_snapshot_evolution,
+    pms_aif_framework_notice: notice,
+    rollup: { text: rollupText, generation_method: "templated" },
+    reasoning_summary:
+      "Trailing-window returns (1M/3M/6M/1Y/3Y/SI) computed at agent runtime from monthly_nav (funds) and monthly_prices (stocks); " +
+      "benchmark-relative alpha against the read-through benchmark (tier_b_stats._meta.benchmark_index_id, ADR-0017); " +
+      "sleeve and portfolio rollups are market-value weighted; cross-snapshot evolution diffs NAV/cmp_rs across the snapshot pair. " +
+      "Sentinels mark instruments where returns are not computable by construction.",
+  };
 }
