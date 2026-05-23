@@ -22,6 +22,7 @@ import type { E4Output } from "./e4-behavioural";
 import type { E6Output } from "./e6-wrappers";
 import type { E7Output } from "./e7-mutual-fund";
 import type { AgentUsage } from "./harness";
+import type { TimeSeriesPerformanceOutput } from "./time-series-performance";
 
 export type EvidenceBundle = {
   e1: E1Output | null;
@@ -66,6 +67,10 @@ export type StitchedContext = {
   router_decision: ApplicabilityVector;
   metrics: PortfolioMetrics;
   evidence: EvidenceBundle;
+  /* Time-series-performance threaded into S1 per ADR-0029 (Option II: the
+   * deliberate departure from risk-reward's S1 bypass, ADR-0021/ADR-0028).
+   * Null when the agent did not run or produced no output. */
+  time_series_performance: TimeSeriesPerformanceOutput | null;
   pre_observations: PreObservation[];
   usage_summary: {
     total_input_tokens: number;
@@ -87,6 +92,7 @@ export type StitchInput = {
   evidence: EvidenceBundle;
   router_decision: ApplicabilityVector;
   usage: UsageBundle;
+  time_series_performance?: TimeSeriesPerformanceOutput | null;
 };
 
 export function stitch(input: StitchInput): StitchedContext {
@@ -100,6 +106,7 @@ export function stitch(input: StitchInput): StitchedContext {
     router_decision: input.router_decision,
     metrics: input.metrics,
     evidence: input.evidence,
+    time_series_performance: input.time_series_performance ?? null,
     pre_observations: preObs,
     usage_summary: {
       total_input_tokens: totalInput,

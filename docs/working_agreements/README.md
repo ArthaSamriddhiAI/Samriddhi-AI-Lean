@@ -4,7 +4,7 @@ Pre-specified rules for how the AI agents and the product owner collaborate on t
 
 Reading these is mandatory for anyone making changes. Non-engineering humans-in-the-loop should start here: each file is written to be understood without reading code.
 
-This per-file structure is the durable home for working agreements; it supersedes the deferred single `docs/conventions.md` idea and closes debt entry T8. WA1 through WA9 were transcribed from out-of-repo CC build prompts (rationale and trigger are partial and marked as such); WA10 and WA11 originated in the A2 workstream; WA12 originated in the risk-reward workstream.
+This per-file structure is the durable home for working agreements; it supersedes the deferred single `docs/conventions.md` idea and closes debt entry T8. WA1 through WA9 were transcribed from out-of-repo CC build prompts (rationale and trigger are partial and marked as such); WA10 and WA11 originated in the A2 workstream; WA12 originated in the risk-reward workstream; WA13 and WA14 originated in the s1-case-generation workstream; WA15 through WA18 were codified from planner v11.3 during T-5.06 (time-series-performance).
 
 | WA | Title |
 |----|-------|
@@ -22,5 +22,9 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA12](WA12_api_call_gate.md) | Explicit API-call gate |
 | [WA13](WA13_samriddhi_1_2_naming.md) | Samriddhi 1 / Samriddhi 2 naming discipline |
 | [WA14](WA14_privacy_boundary_for_data_artifacts.md) | Privacy boundary for data artifacts |
+| [WA15](WA15_wireframe_before_capability.md) | Wireframe before capability |
+| [WA16](WA16_real_reasoning_over_stubs.md) | Real reasoning over stubs |
+| [WA17](WA17_questions_in_message_output.md) | Questions live in the message output |
+| [WA18](WA18_prompts_ship_as_markdown.md) | Prompts ship as markdown files by default |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).

@@ -228,3 +228,25 @@ export function _cacheKeys(): string[] {
 export function _cacheClear(): void {
   cache.clear();
 }
+
+/* Pair-aware loader (ADR-0028, Seam 4a). Loads the current and reference
+ * snapshots in parallel through the existing single-snapshot path, so both
+ * benefit from the LRU cache. Time-series-performance is the only consumer;
+ * every other agent stays single-snapshot. Does not modify loadSnapshot. */
+export async function loadSnapshotPair(
+  currentId: string,
+  referenceId: string,
+): Promise<{ current: Snapshot; reference: Snapshot }> {
+  try {
+    const [current, reference] = await Promise.all([
+      loadSnapshot(currentId),
+      loadSnapshot(referenceId),
+    ]);
+    return { current, reference };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(
+      `loadSnapshotPair failed for current="${currentId}", reference="${referenceId}": ${msg}`,
+    );
+  }
+}

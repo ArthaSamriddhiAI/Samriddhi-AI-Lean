@@ -75,6 +75,9 @@ export type ApplicabilityVector = {
    * every proposed_action, parallel to portfolioRiskAnalytics (not in
    * `activated`, which lists only the E-series LLM agents). */
   riskRewardStats: boolean;
+  /** Time-series-performance sibling agent (ADR-0028). Active on every Samriddhi 2
+   * diagnostic; not run on proposed_action (Samriddhi 1). Parallel to riskRewardStats. */
+  timeSeriesPerformance: boolean;
   activated: string[];
   reasoning: string;
 };
@@ -153,6 +156,7 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
   const indianContext = false;
   const portfolioRiskAnalytics = true;
   const riskRewardStats = true;
+  const timeSeriesPerformance = true;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -177,6 +181,7 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
     indianContext,
     portfolioRiskAnalytics,
     riskRewardStats,
+    timeSeriesPerformance,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };
@@ -216,6 +221,7 @@ export function routeProposedAction(
   const indianContext = true;
   const portfolioRiskAnalytics = true;
   const riskRewardStats = true;
+  const timeSeriesPerformance = false;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -242,6 +248,7 @@ export function routeProposedAction(
     indianContext,
     portfolioRiskAnalytics,
     riskRewardStats,
+    timeSeriesPerformance,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };

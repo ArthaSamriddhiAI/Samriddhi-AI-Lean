@@ -1,0 +1,12 @@
+# Operational debt log
+
+O-series. Forward audit obligations and operational observations surfaced during execution, routed to the periodic audit pass (Slice 7) rather than fixed in the originating workstream. Restructured out of the combined `PRODUCT_DEBT_LOG.md`; see `README.md` for the convention.
+
+| ID | Description | Severity | Originating workstream | Target fix workstream |
+|----|-------------|----------|------------------------|------------------------|
+| O1 | Sentinel-validity audit. For every sentinel-typed record across all fixtures, verify the sentinel reason is still accurate against current data: a fund sentinelled `data_window_insufficient` may have accrued enough NAV history since; a fund sentinelled `benchmark_not_in_snapshot` may have its index added to the canonical set by then. | Medium | Risk-reward (Step 3) | Slice 7 audit |
+| O2 | Quality audit. Does the output the system produces still match what the diagnostic register and skill files say it should? | Medium | Risk-reward (Step 3) | Slice 7 audit |
+| O3 | Risk audit. Are the sentinels and debt entries still honestly representing the system's limits, or has the system silently drifted? | Medium | Risk-reward (Step 3) | Slice 7 audit |
+| O4 | WA10 push-immediately discipline: commits referenced in a report without first verifying push state; surfaced twice in the risk-reward workstream. Going-forward discipline adopted (verify `git log origin/<branch>..HEAD` at the start of every commit-referencing response; surface push failures in-message). Open question for evaluation: whether to add a pre-commit or post-commit hook that enforces push, or whether the explicit per-report verification is sufficient discipline. | Low | Risk-reward (Step 3) | Slice 7 audit (hook-vs-discipline decision) |
+| O5 | Execution-pattern observations (risk-reward workstream). The thesis decisions stayed stable through execution; ADRs were writable in-flight. The two methodology pivots (Option A NAV regeneration, ADR-0014; calendar-aligned recompute, ADR-0015) were caught by the pre-recompute sample sub-checkpoint, and the WA12 API-call gate scoped LLM spend; both pieces of discipline paid for themselves on first use (the sample caught the fund-NAV-versus-synthetic-index incoherence before any 908-fund write-back). Logged for the Slice 7 process retrospective. | Low | Risk-reward (Step 7) | Slice 7 audit (process retrospective) |
+

@@ -23,7 +23,7 @@ Two sentinels partition the non-resolvable set, and they route to different down
 
 Fund-level information ratio runs systematically negative across the dev-phase data because Option A regeneration (ADR-0014) preserves fund volatility while synthesised canonical indices use a tighter volatility envelope than real-world indices. This elevates beta values, which produces negative active returns and therefore negative IR by construction. The diagnostic vocabulary's negative-IR interpretation (complexity-premium-not-earned, fee-inefficiency) is consistent with the demo seed's curated intent. Production data with real index vol envelopes would not exhibit this systematic property; per-case IR would vary in sign and magnitude per actual fund performance. The model-portfolio workstream calibrating corridors against this data should account for this systematic methodology consequence rather than treat negative IR as the empirical norm. Cross-references ADR-0014.
 
-Cross-references: `docs/debt/PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data debt), O1/O2/O3 (forward-audit obligations), P15/P16 (Option C deferral, Sortino instability), `docs/debt/UI_UX_DEBT_LOG.md` UX1/UX2/UX3 (render-layer disclosure of benchmark and sentinel state). Decisions: ADR-0013 (loader consolidation), ADR-0014 (fund NAV regeneration), ADR-0015 (calendar-aligned recompute) onward.
+Cross-references: `docs/debt/PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data debt), O1/O2/O3 (forward-audit obligations), P15/P16 (Option C deferral, Sortino instability), `docs/debt/ui_ux_debt_log.md` UX1/UX2/UX3 (render-layer disclosure of benchmark and sentinel state). Decisions: ADR-0013 (loader consolidation), ADR-0014 (fund NAV regeneration), ADR-0015 (calendar-aligned recompute) onward.
 
 ## What this workstream shipped
 
@@ -42,7 +42,7 @@ Cross-references: `docs/debt/PRODUCT_DEBT_LOG.md` DD1/DD2/DD3 (production data d
 
 **Snapshot-data-extension workstream.** Owns expanding the canonical-16 set to cover the `benchmark_not_in_snapshot` funds (smart-beta, sector ex Bank/IT, target-maturity debt, non-US international, commodity ex-gold); see DD3.
 
-**Capability Surfaces Design workstream.** Receives risk-reward's data layer; render decisions are deferred (`UI_UX_DEBT_LOG.md` UX1 to UX9): per-stat benchmark disclosure, sentinel display register, synthetic-forward visual, rollup placement, S2-tab render, PDF, slides.
+**Capability Surfaces Design workstream.** Receives risk-reward's data layer; render decisions are deferred (`ui_ux_debt_log.md` UX1 to UX9): per-stat benchmark disclosure, sentinel display register, synthetic-forward visual, rollup placement, S2-tab render, PDF, slides.
 
 ## Integration posture with E6 and the broader S2 pipeline
 

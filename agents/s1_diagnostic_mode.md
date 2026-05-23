@@ -46,6 +46,8 @@ Current allocation against mandate bands per asset class. Drift indicators (per 
 
 Net of fees, benchmark-relative, risk-adjusted. Cite specific numbers. Distinguish portfolio-level performance from manager-level (E6/E7 manager performance) and from market-driven (E3 macro context).
 
+The `time_series_performance` block in the stitched context (ADR-0029) is the return-evidence source for this output. It carries trailing-window returns (1M / 3M / 6M / 1Y / 3Y / SI) and benchmark-relative alpha per instrument and per sleeve, the portfolio TWR, and cross-snapshot evolution ("how performance moved since the prior snapshot"). Ground performance statements in it: e.g. if `cross_snapshot_evolution` shows a sleeve's return between snapshots exceeded its benchmark materially, or a window's alpha is materially positive or negative, surface it with the figure. If the block is null or every sleeve is sentinelled, state that performance is not computable rather than inventing numbers.
+
 ### Output 4: Drift indicators
 
 Per cluster 4 model portfolio framework:
@@ -117,6 +119,8 @@ The foundation §6 briefing the runtime contract produces also carries the Conce
 - Honor mandate as reference. Drift is measured against mandate bands; not against advisor preferences or generic industry benchmarks.
 - Recommendations have priority and timing. "Review will" without timing is unactionable; "review will within next quarter" is actionable.
 - Cite specific data. "Rs 15.9 Cr personal liquid" is informative; "well-funded" is not.
+- Time-series facts cite their snapshots. When citing a cross-snapshot evolution figure from `time_series_performance`, name both snapshot IDs it spans (e.g. "up 4.1% from t4_q2_2027 to t5_q3_2027"); a "since prior quarter" number without its snapshot IDs is unanchored.
+- Never invent return numbers. Every performance figure traces to `time_series_performance` (or an evidence verdict); if a window or sleeve is sentinelled (`insufficient_history`, `pms_disclosure_limited`, `no_prior_snapshot_available`, and the rest), surface the gap honestly rather than fabricating a number.
 
 ## Edge Cases
 
