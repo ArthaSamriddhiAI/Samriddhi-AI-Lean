@@ -10,7 +10,7 @@ Transcribed from CC build prompts; original rationale not in-repo. In-repo evide
 
 ## Trigger
 
-Transcribed from CC build prompts; original rationale not in-repo. Reinforced in-repo during A2 (data-only ship) and risk-reward (UX1-UX3 deferred to `UI_UX_DEBT_LOG.md`).
+Transcribed from CC build prompts; original rationale not in-repo. Reinforced in-repo during A2 (data-only ship) and risk-reward (UX1-UX3 deferred to `ui_ux_debt_log.md`).
 
 ## Examples
 
@@ -20,4 +20,4 @@ Transcribed from CC build prompts; original rationale not in-repo. Reinforced in
 
 ## Cross-references
 
-`docs/debt/UI_UX_DEBT_LOG.md` (the deferred-render surface); WA05 (scope discipline); the Capability Surfaces Design workstream consumes both.
+`docs/debt/ui_ux_debt_log.md` (the deferred-render surface); WA05 (scope discipline); the Capability Surfaces Design workstream consumes both.

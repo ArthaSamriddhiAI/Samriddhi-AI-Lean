@@ -30,7 +30,7 @@ Per-instrument (read-through): vol/Sharpe/Sortino/maxDD (3Y and 5Y), Calmar/beta
 ## Debt entries surfaced
 
 - `docs/debt/PRODUCT_DEBT_LOG.md`: T13 (storage format); P15-P21 (Option C calibration, Sortino instability, RF configurability, production data-onboarding, bucket corridors, sleeve phrasing, S1 deferral); D8 (cluster-3 remainder); O1-O5 (forward-audit obligations, WA10 discipline, execution patterns); DD1-DD3 (production data debt; T8 marked resolved).
-- `docs/debt/UI_UX_DEBT_LOG.md`: UX1-UX9 (per-stat benchmark disclosure, sentinel display, canonical-set visibility, S2-tab render, synthetic-forward visual, rollup placement, PDF, slides, archived cases).
+- `docs/debt/ui_ux_debt_log.md`: UX1-UX9 (per-stat benchmark disclosure, sentinel display, canonical-set visibility, S2-tab render, synthetic-forward visual, rollup placement, PDF, slides, archived cases).
 
 ## Dual-write completeness
 

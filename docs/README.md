@@ -10,7 +10,7 @@ Code, configuration, and runtime artifacts live at the repository root; this fol
 - `audits/`, per-workstream institutional-memory audit docs
 - `workstreams/`, cross-workstream hand-off and PR docs
 - `working_agreements/`, the WA per-file records (one file per agreement; supersedes the deferred single conventions doc)
-- `debt/`, the debt logs (`PRODUCT_DEBT_LOG.md`, `UI_UX_DEBT_LOG.md`)
+- `debt/`, the debt logs (`PRODUCT_DEBT_LOG.md`, `ui_ux_debt_log.md`)
 - `reference/`, build-context docs referenced during work (product theses, schema diff, lift inventory, deferred backlog, next-slice proposal, M0 build notes)
 - `slices/`, per-slice orientation, gate samples, and build notes
 - root, orientation-level only (`README.md`, `QUICK_START.md`, `BUILD_ROADMAP.md`)

@@ -97,7 +97,7 @@ Resolved during execution and recorded in `docs/audits/2026-05-19_risk_reward.md
 
 ## Deferred to Capability Surfaces Design Workstream
 
-Render placement of risk-reward stats, the sentinel display register, the per-stat benchmark disclosure, the synthetic-forward visual treatment, and the rollup placement are all deferred (`docs/UI_UX_DEBT_LOG.md` UX1-UX3). Risk-reward ships the data layer; the design pass renders it against all five Capability Phase outputs together.
+Render placement of risk-reward stats, the sentinel display register, the per-stat benchmark disclosure, the synthetic-forward visual treatment, and the rollup placement are all deferred (`docs/debt/ui_ux_debt_log.md` UX1-UX3). Risk-reward ships the data layer; the design pass renders it against all five Capability Phase outputs together.
 
 ## Anti-Patterns to Avoid
 
