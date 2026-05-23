@@ -238,13 +238,44 @@ function computeBenchmarkRelative(
   return round4(instrumentReturn - benchmarkReturn);
 }
 
+/* Weighted rollup over a sleeve's constituents. For each window, weight-average
+ * the instruments that carry a non-null return for that window, reweighting the
+ * present set to sum to 1 (an instrument sentinelled or missing for a window is
+ * dropped and the remainder reweighted). A window with no present instrument
+ * carries insufficient_history. `weights` is aligned by index with
+ * `instrumentReturns` (constituent i's weight as a fraction of the sleeve). */
 function rollupSleeve(
   instrumentReturns: WindowReturn[][],
   weights: number[],
   sleeveDefinition: SleeveTimeSeries["sleeve"],
 ): WindowReturn[] {
-  // TODO T-5.06-impl: market-value-weighted rollup over the evaluable constituents.
-  throw new Error("TODO T-5.06-impl: rollupSleeve");
+  void sleeveDefinition; // sleeve name carried by the caller; retained for signature parity
+  return STANDARD_WINDOWS.map((w) => {
+    let presentWeight = 0;
+    let absAcc = 0;
+    let annAcc = 0;
+    let annPresentWeight = 0;
+    for (let i = 0; i < instrumentReturns.length; i++) {
+      const wr = instrumentReturns[i]?.find((r) => r.window === w);
+      if (!wr || wr.absolute_return === null) continue;
+      presentWeight += weights[i];
+      absAcc += weights[i] * wr.absolute_return;
+      if (wr.annualised_return !== null) {
+        annAcc += weights[i] * wr.annualised_return;
+        annPresentWeight += weights[i];
+      }
+    }
+    if (presentWeight === 0) {
+      return { window: w, absolute_return: null, annualised_return: null, sentinel: "insufficient_history" };
+    }
+    const ann = annPresentWeight > 0 ? round4(annAcc / annPresentWeight) : null;
+    return {
+      window: w,
+      absolute_return: round4(absAcc / presentWeight),
+      annualised_return: ann,
+      sentinel: null,
+    };
+  });
 }
 
 function rollupPortfolio(sleeveReturns: WindowReturn[][], sleeveWeights: number[]): WindowReturn[] {
