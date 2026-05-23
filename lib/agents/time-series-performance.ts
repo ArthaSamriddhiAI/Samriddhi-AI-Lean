@@ -227,9 +227,15 @@ function computeTrailingWindowReturns(
   return out;
 }
 
-function computeBenchmarkRelative(instrumentReturn: number, benchmarkReturn: number): number {
-  // TODO T-5.06-impl: alpha = instrumentReturn - benchmarkReturn, per window.
-  throw new Error("TODO T-5.06-impl: computeBenchmarkRelative");
+/* Simple alpha: instrumentReturn - benchmarkReturn, both already in INR (FX
+ * translation happens upstream). Returns null when either input is null (e.g.
+ * the benchmark could not be resolved); the caller emits benchmark_not_in_snapshot. */
+function computeBenchmarkRelative(
+  instrumentReturn: number | null,
+  benchmarkReturn: number | null,
+): number | null {
+  if (instrumentReturn === null || benchmarkReturn === null) return null;
+  return round4(instrumentReturn - benchmarkReturn);
 }
 
 function rollupSleeve(
