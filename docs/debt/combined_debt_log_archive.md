@@ -1,3 +1,7 @@
+> **Archived.** This combined log has been restructured into per-series files in `docs/debt/` (one file per series). See `docs/debt/README.md` for the index. New entries land in the per-series files going forward (`tech_debt_log.md`, `product_debt_log.md`, `data_debt_log.md`, `design_debt_log.md`, `production_data_debt_log.md`, `operational_debt_log.md`, `ui_ux_debt_log.md`). The original content is preserved beneath this notice for historical traceability; do not add new entries here.
+>
+> *(Renamed from `PRODUCT_DEBT_LOG.md` during T-5.06; the lowercase `product_debt_log.md` per-series name collided with the original on the case-insensitive macOS filesystem.)*
+
 # Product debt log
 
 A living catalogue of debt taken on for demo expediency, organised into four categories: Tech, Product, Data, Design. Each entry is a brief description, a severity (Critical / High / Medium / Low), the workstream that originated or surfaced it, and the workstream expected to resolve it.
