@@ -278,9 +278,10 @@ function rollupSleeve(
   });
 }
 
+/* Portfolio TWR: the same weighted rollup as rollupSleeve, one level up over the
+ * sleeves (sleeveWeights aligned by index with sleeveReturns). */
 function rollupPortfolio(sleeveReturns: WindowReturn[][], sleeveWeights: number[]): WindowReturn[] {
-  // TODO T-5.06-impl: portfolio TWR weighted across sleeves.
-  throw new Error("TODO T-5.06-impl: rollupPortfolio");
+  return rollupSleeve(sleeveReturns, sleeveWeights, "portfolio");
 }
 
 function computeCrossSnapshotEvolution(
