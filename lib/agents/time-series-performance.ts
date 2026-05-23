@@ -18,7 +18,7 @@
  *   Layer 2: templated rollup in the live pipeline; LLM rollup fixture-only (P23).
  */
 
-import type { Snapshot } from "./snapshot-loader";
+import type { Snapshot, MutualFundRow, Nifty500Company } from "./snapshot-loader";
 import type { StructuredHoldings, Holding } from "@/db/fixtures/structured-holdings";
 import { type RiskRewardSentinel, buildPmsAifFrameworkNotice } from "./risk-reward-stats";
 
@@ -76,7 +76,12 @@ export type CrossSnapshotEvolution = {
   available: boolean; // false => no_prior_snapshot_available
   current_snapshot_id: string;
   reference_snapshot_id: string | null;
-  per_instrument: Array<{ holding_ref: string; nav_or_price_delta: number | null; return_between_snapshots: number | null }>;
+  per_instrument: Array<{
+    holding_ref: string;
+    status: "computed" | "new_position_no_evolution" | "closed_position" | "field_missing_in_one_snapshot";
+    nav_or_price_delta: number | null;
+    return_between_snapshots: number | null;
+  }>;
   per_sleeve: Array<{ sleeve: string; return_between_snapshots: number | null }>;
 };
 
@@ -284,14 +289,105 @@ function rollupPortfolio(sleeveReturns: WindowReturn[][], sleeveWeights: number[
   return rollupSleeve(sleeveReturns, sleeveWeights, "portfolio");
 }
 
+/* ----- Holding classification + snapshot row finding (mirrors risk-reward's
+ * private matching convention). ----- */
+
+function isMF(sub: string): boolean {
+  return sub.startsWith("mf_");
+}
+function isListed(sub: string): boolean {
+  return sub.startsWith("listed_") || sub.startsWith("intl_");
+}
+function normName(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+function findFundRow(snapshot: Snapshot, instrument: string): MutualFundRow | undefined {
+  const t = normName(instrument);
+  if (!t) return undefined;
+  return snapshot.mf_funds.find((f) => {
+    const n = normName(f.fund_name ?? "");
+    return n.length > 0 && (n.startsWith(t) || n.includes(t));
+  });
+}
+function findStockRow(snapshot: Snapshot, instrument: string): Nifty500Company | undefined {
+  const comps = snapshot.nifty500.companies;
+  if (!comps) return undefined;
+  const t = normName(instrument);
+  if (!t) return undefined;
+  return comps.find((c) => {
+    const n = normName(c.name ?? "");
+    return n.length > 0 && (n === t || n.startsWith(t) || t.startsWith(n));
+  });
+}
+/* Point value used for cross-snapshot evolution: NAV for funds, cmp_rs for
+ * stocks (the fields the snapshot actually evolves across t-keys; ADR-0028
+ * diffs real values, never evolved_fields). */
+function fundPoint(row: MutualFundRow | undefined): number | undefined {
+  return typeof row?.NAV === "number" ? row.NAV : undefined;
+}
+function stockPoint(row: Nifty500Company | undefined): number | undefined {
+  const v = row?.cmp_rs;
+  return typeof v === "number" ? v : undefined;
+}
+
 function computeCrossSnapshotEvolution(
   currentSnapshot: Snapshot,
   referenceSnapshot: Snapshot,
   holdings: StructuredHoldings,
 ): CrossSnapshotEvolution {
-  // TODO T-5.06-impl: diff actual NAV/price values across the pair (never trust
-  // evolved_fields); compute per-instrument and per-sleeve return between snapshots.
-  throw new Error("TODO T-5.06-impl: computeCrossSnapshotEvolution");
+  const curId = (currentSnapshot.snapshot_metadata?.snapshot_id as string | undefined) ?? "unknown";
+  const refId = (referenceSnapshot.snapshot_metadata?.snapshot_id as string | undefined) ?? "unknown";
+  const perInstrument: CrossSnapshotEvolution["per_instrument"] = [];
+  const sleeveAcc: Record<string, { wsum: number; racc: number }> = {};
+
+  for (const h of holdings.holdings) {
+    const isFund = isMF(h.subCategory);
+    const isStock = isListed(h.subCategory);
+    if (!isFund && !isStock) continue; // PMS/AIF/FD/cash carry no evolvable point value
+
+    const cRow = isFund ? findFundRow(currentSnapshot, h.instrument) : findStockRow(currentSnapshot, h.instrument);
+    const rRow = isFund ? findFundRow(referenceSnapshot, h.instrument) : findStockRow(referenceSnapshot, h.instrument);
+    if (!cRow && !rRow) continue; // not in either snapshot's universe; nothing to evolve
+
+    if (cRow && !rRow) {
+      perInstrument.push({ holding_ref: h.instrument, status: "new_position_no_evolution", nav_or_price_delta: null, return_between_snapshots: null });
+      continue;
+    }
+    if (!cRow && rRow) {
+      perInstrument.push({ holding_ref: h.instrument, status: "closed_position", nav_or_price_delta: null, return_between_snapshots: null });
+      continue;
+    }
+    const cVal = isFund ? fundPoint(cRow as MutualFundRow) : stockPoint(cRow as Nifty500Company);
+    const rVal = isFund ? fundPoint(rRow as MutualFundRow) : stockPoint(rRow as Nifty500Company);
+    if (cVal === undefined || rVal === undefined || !(rVal > 0)) {
+      perInstrument.push({ holding_ref: h.instrument, status: "field_missing_in_one_snapshot", nav_or_price_delta: null, return_between_snapshots: null });
+      continue;
+    }
+    const ret = round4((cVal - rVal) / rVal);
+    perInstrument.push({
+      holding_ref: h.instrument,
+      status: "computed",
+      nav_or_price_delta: round4(cVal - rVal),
+      return_between_snapshots: ret,
+    });
+    const acc = sleeveAcc[h.assetClass] ?? { wsum: 0, racc: 0 };
+    acc.wsum += h.weightPct;
+    acc.racc += h.weightPct * ret;
+    sleeveAcc[h.assetClass] = acc;
+  }
+
+  const perSleeve = Object.entries(sleeveAcc).map(([sleeve, a]) => ({
+    sleeve,
+    return_between_snapshots: a.wsum > 0 ? round4(a.racc / a.wsum) : null,
+  }));
+
+  return {
+    available: true,
+    current_snapshot_id: curId,
+    reference_snapshot_id: refId,
+    per_instrument: perInstrument,
+    per_sleeve: perSleeve,
+  };
 }
 
 /* Sentinel-emission helper, matching the risk-reward pattern. */

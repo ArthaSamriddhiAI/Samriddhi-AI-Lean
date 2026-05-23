@@ -79,6 +79,8 @@ One **new** sentinel, justified because it is the only structurally-new case tim
 
 - `no_prior_snapshot_available`: the reference snapshot does not exist (e.g. at `t0`, where there is no immediately-prior snapshot). Cross-snapshot evolution is skipped and sentinelled; the standard trailing-window returns still compute against the current snapshot.
 
+**Cross-snapshot evolution statuses (distinct from the stat sentinels above).** The `cross_snapshot_evolution.per_instrument` block carries a per-instrument `status` that records the evolution outcome, not a stat-evaluability sentinel: `computed` (both snapshots carry the point value), `new_position_no_evolution` (in the current snapshot's universe but not the reference's), `closed_position` (in the reference but not the current), and `field_missing_in_one_snapshot` (the row is present but the NAV / cmp_rs point value is absent in one). These are evolution statuses on the evolution block, not members of the `TimeSeriesSentinel` union; they are enumerated here per the don't-coin-silently discipline.
+
 ## Four-Thesis Framework Notice (PMS / AIF)
 
 Carried verbatim from risk-reward, populated deterministically when the portfolio holds any PMS or AIF:
