@@ -1,12 +1,13 @@
 /* Time-Series Performance, the return-evolution evidence layer.
  *
  * Skill: agents/time_series_performance.md
+ * Output schema: schemas/time_series_performance_output.schema.json
  * Placement: ADR-0028 (sibling to portfolio-risk-analytics and risk-reward-stats).
+ * S1 integration: ADR-0029 (threaded into StitchedContext, Option II departure
+ * from risk-reward's bypass precedent).
  *
- * SKELETON. The Layer-1 helpers are `// TODO T-5.06-impl` stubs; the orchestrator
- * shows the intended deterministic flow but is not yet functional. The follow-up
- * implementation task fills the helpers. Until then the pipeline wiring degrades
- * gracefully (see lib/agents/pipeline.ts, the time-series step is try/caught).
+ * Implementation complete. Verified 45/45 deterministic (5 archetypes x 9
+ * snapshots) and 3/3 live S1 smoke (see docs/verification/T-5.06-verification.md).
  *
  * Shape mirrors lib/agents/risk-reward-stats.ts:
  *   Layer 1: pure, deterministic. Trailing-window returns computed fresh at agent
