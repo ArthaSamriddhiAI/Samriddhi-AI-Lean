@@ -245,6 +245,7 @@ export async function runDiagnosticPipeline(opts: {
       evidence,
       router_decision: routerDecision,
       usage,
+      time_series_performance: timeSeries, // Option II (ADR-0029): thread time-series into S1's StitchedContext
     });
 
     const holdingsForAppendix = holdings.holdings.map((h) => ({
