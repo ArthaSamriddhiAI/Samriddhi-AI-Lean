@@ -24,5 +24,6 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA14](WA14_privacy_boundary_for_data_artifacts.md) | Privacy boundary for data artifacts |
 | [WA15](WA15_wireframe_before_capability.md) | Wireframe before capability |
 | [WA16](WA16_real_reasoning_over_stubs.md) | Real reasoning over stubs |
+| [WA17](WA17_questions_in_message_output.md) | Questions live in the message output |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).
