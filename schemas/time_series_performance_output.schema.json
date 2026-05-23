@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "time_series_performance_output.schema.json",
+  "title": "Time-Series Performance Output",
+  "description": "Deterministic output of runTimeSeriesPerformanceDeterministic (T-5.06, ADR-0028). Drafted against the real implementation output, not the skill prose.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_id",
+    "case_id",
+    "as_of_date",
+    "snapshot_context",
+    "per_holding",
+    "per_sleeve",
+    "portfolio",
+    "cross_snapshot_evolution",
+    "pms_aif_framework_notice",
+    "rollup",
+    "reasoning_summary"
+  ],
+  "properties": {
+    "agent_id": { "const": "time_series_performance" },
+    "case_id": { "type": "string" },
+    "as_of_date": { "type": "string" },
+    "snapshot_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["current_snapshot_id", "reference_snapshot_id", "current_snapshot_date", "reference_snapshot_date"],
+      "properties": {
+        "current_snapshot_id": { "type": "string" },
+        "reference_snapshot_id": { "type": ["string", "null"] },
+        "current_snapshot_date": { "type": "string" },
+        "reference_snapshot_date": { "type": ["string", "null"] }
+      }
+    },
+    "per_holding": { "type": "array", "items": { "$ref": "#/definitions/instrumentTimeSeries" } },
+    "per_sleeve": { "type": "array", "items": { "$ref": "#/definitions/sleeveTimeSeries" } },
+    "portfolio": { "$ref": "#/definitions/sleeveTimeSeries" },
+    "cross_snapshot_evolution": { "$ref": "#/definitions/crossSnapshotEvolution" },
+    "pms_aif_framework_notice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["applies", "text"],
+      "properties": {
+        "applies": { "type": "boolean" },
+        "text": { "type": ["string", "null"] }
+      }
+    },
+    "rollup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "generation_method"],
+      "properties": {
+        "text": { "type": "string" },
+        "generation_method": { "enum": ["templated", "llm_fallback"] }
+      }
+    },
+    "reasoning_summary": { "type": "string" }
+  },
+  "definitions": {
+    "sentinel": {
+      "enum": [
+        "opaque_wrapper",
+        "pms_disclosure_limited",
+        "not_applicable_for_risk_reward",
+        "insufficient_history",
+        "benchmark_structurally_inapplicable",
+        "benchmark_not_in_snapshot",
+        "currency_conversion_pending",
+        "no_constituents_evaluable",
+        "no_prior_snapshot_available",
+        null
+      ]
+    },
+    "window": { "enum": ["1M", "3M", "6M", "1Y", "3Y", "SI"] },
+    "windowReturn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["window", "absolute_return", "annualised_return", "sentinel"],
+      "properties": {
+        "window": { "$ref": "#/definitions/window" },
+        "absolute_return": { "type": ["number", "null"] },
+        "annualised_return": { "type": ["number", "null"] },
+        "sentinel": { "$ref": "#/definitions/sentinel" }
+      }
+    },
+    "benchmarkRelativeReturn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["window", "alpha", "benchmark_return"],
+      "properties": {
+        "window": { "$ref": "#/definitions/window" },
+        "alpha": { "type": ["number", "null"] },
+        "benchmark_return": { "type": ["number", "null"] }
+      }
+    },
+    "instrumentTimeSeries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "holding_ref",
+        "instrument_display_name",
+        "asset_class",
+        "sub_category",
+        "weight_pct",
+        "currency_basis",
+        "source",
+        "sentinel",
+        "benchmark_index_id",
+        "trailing_returns",
+        "benchmark_relative"
+      ],
+      "properties": {
+        "holding_ref": { "type": "string" },
+        "instrument_display_name": { "type": "string" },
+        "asset_class": { "type": "string" },
+        "sub_category": { "type": "string" },
+        "weight_pct": { "type": "number" },
+        "currency_basis": { "enum": ["INR", "USD", "native"] },
+        "source": { "enum": ["computed_runtime", "sentinel"] },
+        "sentinel": { "$ref": "#/definitions/sentinel" },
+        "benchmark_index_id": { "type": ["string", "null"] },
+        "trailing_returns": { "type": ["array", "null"], "items": { "$ref": "#/definitions/windowReturn" } },
+        "benchmark_relative": { "type": ["array", "null"], "items": { "$ref": "#/definitions/benchmarkRelativeReturn" } }
+      }
+    },
+    "sleeveTimeSeries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sleeve",
+        "constituents",
+        "evaluable_weight_pct",
+        "sentinelled_weight_pct",
+        "method",
+        "sentinel",
+        "trailing_returns"
+      ],
+      "properties": {
+        "sleeve": { "enum": ["Equity", "Debt", "Alternatives", "Cash", "portfolio"] },
+        "constituents": { "type": "array", "items": { "type": "string" } },
+        "evaluable_weight_pct": { "type": "number" },
+        "sentinelled_weight_pct": { "type": "number" },
+        "method": { "enum": ["weighted_rollup", "single_holding_passthrough", "sentinel"] },
+        "sentinel": { "$ref": "#/definitions/sentinel" },
+        "trailing_returns": { "type": ["array", "null"], "items": { "$ref": "#/definitions/windowReturn" } }
+      }
+    },
+    "crossSnapshotEvolution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["available", "current_snapshot_id", "reference_snapshot_id", "per_instrument", "per_sleeve"],
+      "properties": {
+        "available": { "type": "boolean" },
+        "current_snapshot_id": { "type": "string" },
+        "reference_snapshot_id": { "type": ["string", "null"] },
+        "per_instrument": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["holding_ref", "status", "nav_or_price_delta", "return_between_snapshots"],
+            "properties": {
+              "holding_ref": { "type": "string" },
+              "status": { "enum": ["computed", "new_position_no_evolution", "closed_position", "field_missing_in_one_snapshot"] },
+              "nav_or_price_delta": { "type": ["number", "null"] },
+              "return_between_snapshots": { "type": ["number", "null"] }
+            }
+          }
+        },
+        "per_sleeve": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["sleeve", "return_between_snapshots"],
+            "properties": {
+              "sleeve": { "type": "string" },
+              "return_between_snapshots": { "type": ["number", "null"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}
