@@ -9,10 +9,12 @@ gate clears. Capability ships as T-5.07 on `features/portfolio-overlap`.
 
 T-5.07 introduces pairwise portfolio overlap as a new deterministic capability
 in the Samriddhi 2 diagnostic pipeline. Overlap is computed across holdings in
-a single portfolio at three resolution layers: top-5-stock overlap (on the
-~220 of 1,773 funds with top-5 disclosure), wrapper-level overlap (on all
-wrappers with any holdings disclosure), and sub-category / asset-class overlap
-(on all holdings).
+a single portfolio at three resolution layers, each pair reported at the finest
+layer both holdings support: stock-level overlap (over disclosed top holdings —
+MF top-5 and PMS `portfolio_composition.top_holdings`), structural similarity
+(over cap-split vectors, when stock-level disclosure is absent), and categorical
+similarity (sub-category / asset-class match, always available). The layer model
+is detailed in the Decision section below.
 
 A grounding correction surfaced during T-5.07/T-5.08 discovery: the pair-aware
 loader introduced by ADR-0028 (`loadSnapshotPair`) operates on the snapshot
