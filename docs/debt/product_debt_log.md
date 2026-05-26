@@ -43,6 +43,28 @@ P-series. Capabilities the product says it does, or could do, but defers for sco
 
 **P25 detail (mandatory re-fire protocol).** When the G2 MF scheme-rule curation lands: (1) identify affected case_ids by querying `db/fixtures/cases/*.json` for `target_category` in {mutual_fund, mutual_fund_debt, mutual_fund_equity}; (2) for each, clear the existing case row from the DB, re-run via `scripts/generate-s1-batch.ts <slug>` against the updated pipeline, overwrite the case JSON fixture, and re-record the stub set (delete the old stub directory first for a clean re-record); (3) commit each re-fired fixture in its own commit on the G2 workstream's branch; (4) document in the G2 workstream's PR body that iyengar and surana were re-fired against the updated G2, referencing this entry. Do NOT surgically inject G2 verdicts: G2 changes cascade through materiality, IC1, S1, and A1, so surgical injection produces mixed-provenance fixtures (explicitly considered and rejected during ideation). Estimated re-fire cost at time of writing: ~Rs 300-400 per case, ~Rs 600-800 for the iyengar+surana pair. Unblocking-fix definition: curate SEBI MF scheme-level rules into the G2 store, wire G2 to consume them for all MF target categories (`mutual_fund`, `mutual_fund_debt`, future variants), and add pass / clarify / breach tests. Cross-references: ADR-0023, ADR-0024, ADR-0025, and the inline "future slice" comment in `g2-sebi.ts`.
 
+**P28 update, 2026-05, from T-5.07/T-5.08 workstream:** A further resolution arm
+is added. P28 already enumerates three tooling arms — (A) pre-commit hook,
+(B) CI check, (C) both. This adds (D), a mechanical rename of the fixture
+schema enum values: `workflow: "s1" | "s2"` → `workflow: "samriddhi_1" |
+"samriddhi_2"`. The drift vector (schema values bleed into prose because that
+is what the data calls itself) is closed at the source rather than only at the
+reviewer gate.
+
+The rename touches:
+- `prisma/schema.prisma` (the `workflow` column; plain `String`, no union to
+  tighten).
+- `db/seed.ts` (the `workflow: string` field and the seeding assignment).
+- `lib/fixtures/new-case.ts` (the `"s2" as const` literal).
+- All twelve fixture files under `db/fixtures/cases/`.
+- Any test file hard-coding the enum value.
+
+Out of scope for T-5.07/T-5.08 but bounded enough to ship as a small
+standalone PR whenever someone touches the area. Arms (A)/(B)/(C) protect
+against prose drift in new content; (D) removes the drift vector from the
+existing schema. They are complementary, not alternatives; closing a tooling
+arm plus (D) fully retires P28.
+
 ---
 
 ID: P30
