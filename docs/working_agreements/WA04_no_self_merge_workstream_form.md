@@ -1,23 +1,44 @@
-# WA04: No self-merge (workstream-template form)
+# WA04: Consolidated into WA01
 
-## Agreement
+## Status
 
-No self-merge (the workstream-template phrasing of WA01; to be consolidated with WA01 in the eventual single working-agreements home).
+Stubbed out, 2026-05, during T-5.07 workstream.
 
-## Rationale
+## What this slot used to hold
 
-Transcribed from CC build prompts; original rationale not in-repo. This is a duplicate of WA01 that arose because the rule appears both in the standing conventions and in each workstream template. It is preserved as its own entry so the numbering stays stable and the duplication is visible rather than silently merged.
+This file previously contained a workstream-template duplicate of WA01
+(no-self-merge / merge-discipline). It was self-described as awaiting
+consolidation into WA01. The consolidation happens here: the duplicate
+content is removed from this slot and WA01 is the canonical merge-discipline
+agreement.
 
-## Trigger
+## Why the slot is preserved
 
-Transcribed from CC build prompts; original rationale not in-repo. The duplication itself is the artifact: the same rule was stated in two places (standing conventions and the per-workstream template) and the conventions-consolidation audit chose to surface it rather than hide it.
+The WA04 slot is preserved rather than the file deleted because in-repo
+references to WA numbering (in code comments, ADRs, debt logs, and skill
+files) follow the on-disk numbering. Removing the slot would cause cascading
+renumbering. Leaving the slot stubbed lets the registry stay aligned with
+those references while honestly recording that the original content was a
+duplicate.
 
-## Examples
+## Canonical merge-discipline agreement
 
-**Compliance:** Same as WA01: open the PR, do not merge unprompted.
+See `WA01_no_self_merge.md` for the canonical agreement on merge discipline,
+including the refined confirmation-gated squash-merge protocol and the
+T-5.07 clarification on repository-level protection rule respect.
 
-**Non-compliance:** Same as WA01.
+## Provenance
+
+Surfaced during T-5.07 workstream's WA registry audit. The audit also
+revealed a broader misalignment between on-disk numbering and Plan v12
+canonical numbering for the WA04-WA09 band. The directional decision
+(hybrid: Plan v12 reconciles to on-disk numbering, codified at planner-chat
+handoff; repo-side change is only this WA04 consolidation) is recorded as
+a planner-chat handoff item rather than executed in this workstream. The
+broader reconciliation is deferred to a future workstream chat with
+sufficient context to deliberate properly.
 
 ## Cross-references
 
-WA01 (canonical form). The eventual consolidation should fold WA04 into WA01 and note the merge here.
+WA01 (canonical merge-discipline agreement); WA21 (verify-before-adding,
+the discipline that surfaced this consolidation gap during T-5.07).
