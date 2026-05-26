@@ -2,8 +2,10 @@
 
 ## Status
 
-Proposed. Primary review is the next gate; moves to Accepted only after that
-gate clears. Capability ships as T-5.07 on `features/portfolio-overlap`.
+Accepted, 2026-05. Capability shipped as T-5.07 on `features/portfolio-overlap`,
+verified deterministically (5 cases, 16 assertions, all green) per
+`scripts/_verify-portfolio-overlap.ts`. PR #9 opens this ADR alongside the
+capability code.
 
 ## Context
 
