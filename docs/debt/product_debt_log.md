@@ -35,6 +35,7 @@ P-series. Capabilities the product says it does, or could do, but defers for sco
 | P29 | Refresh cadence and assembly methodology for the real-world-sourced data (the 9 enriched snapshots plus `scripts/sector_map.json`) are documented as debt in the private `Samriddhi-AI-Data-Snapshots` repository (its `docs/debt/DATA_DEBT_LOG.md`, entries DM1 and DM2). The public repo references this for awareness; the substantive unblock-work happens in the private repo. Future workstreams in this public repo that depend on more recent market data or refresh-tooling integration will block on those private-repo debts. Per the contracted privacy boundary (ADR-0027), only real-world-sourced data is private; the fictional investor holdings/mandates and the Sharma verdicts are public, in-repo, and carry no such debt. Unblocking-fix: see private-repo DM1 (refresh cadence frozen) and DM2 (assembly methodology not documented). Cross-references: this repo's ADR-0027; private repo `DATA_DEBT_LOG.md` (DM1, DM2). Numbering note for the Slice 7 audit: numbered P29 rather than the next-free P25 because P25-P28 are reserved by the concurrent case-batch and Phase-A workstreams not yet merged to `main` (the gap closes when those branches land). The private repo uses a distinct DM-series (Data Mirror) prefix precisely so it does not collide with this log's Section 5 DD-series. | Low (cross-reference only; substantive debt lives elsewhere) | snapshot-data-extraction (Phase B) | Whichever workstream is triggered by a need for fresh market data; it pulls private-repo DM1 / DM2 unblocking into scope |
 | P31 | Firm-onboarding implications of the data-management-layer concern: which custodians, what data-quality SLA, pre-compute vs agent-runtime, canonical-field communication. Forward-looking; no action until the first real-firm deployment conversation. | Medium | T-5.06 (time-series-performance) | TBD (first real-firm deployment) |
 | P32 | Indicative-investor showcase case: one deliberately-curated case designed from cross-case learnings after future investor batches, built to exercise every capability dimension end-to-end with meaningful data. Forward-looking; a new designed case added alongside the real fixtures, not a modification of any existing fixture. | Low | T-5.07/T-5.08 workstream | Package 6 or 7 (trigger-gated on the second real-investor batch) |
+| P33 | Within-sleeve-only pairing in portfolio-overlap produces fully-sentinelled output for cross-asset-class portfolios (e.g., Menon-shape: 3 holdings in 3 asset classes). T-5.08 review will surface whether this is the right user-facing shape; revisit pairing design if needed. | Low | T-5.07/T-5.08 workstream | Trigger-gated on T-5.08 review feedback |
 
 **P3 update, 2026-05, from T-5.07/T-5.08 workstream:** P3 splits into two
 sub-questions, only one of which is being addressed in the T-5.07/T-5.08
@@ -239,4 +240,34 @@ adds one new showcase case alongside the real ones, not a retroactive
 modification of the real ones.
 
 Severity: Low. Status: Open, trigger-gated on the second investor batch.
+
+**P33 detail, 2026-05, from T-5.07/T-5.08 workstream:** Within-sleeve-only
+pairing design in pairwise overlap, and its consequence for cross-asset-class
+portfolios.
+
+T-5.07's portfolio-overlap agent pairs holdings only within an asset-class
+sleeve (so a large-cap fund and a gold ETF do not form an overlap pair).
+Reasoning: cross-sleeve pairs would resolve to categorical similarity ~0 and
+emit noise rather than signal. Implementation discretion under ADR-0030.
+
+The consequence: portfolios whose holdings are spread across multiple
+asset classes with no two holdings in the same class produce zero pairs
+overall. The agent emits `single_holding_sleeve_overlap` at every sleeve
+and `insufficient_overlap_coverage` at the portfolio rollup. This is the
+case for Menon's portfolio (three holdings, three different asset classes)
+among the current Samriddhi 2 fixtures.
+
+The user-facing question this raises: when T-5.08 renders the Analyst
+Reports surface, Menon's overlap section will show as fully-sentinelled.
+This is technically honest (no two holdings can be compared within an
+asset class) but may not be the most useful surface for advisors. An
+alternative design would preserve cross-sleeve pairs at the categorical
+layer, capturing the diversification-across-classes signal as a low score
+rather than a sentinel.
+
+Decision deferred. T-5.07 ships with within-sleeve-only as the deliberate
+design. T-5.08 review surfaces whether the Menon-shape rendering is the
+right product surface; if not, revisit the pairing design here.
+
+Severity: Low. Status: Open, trigger-gated on T-5.08 review feedback.
 
