@@ -21,18 +21,20 @@
 
 import type { Snapshot, MutualFundRow, Nifty500Company } from "./snapshot-loader";
 import type { StructuredHoldings, Holding } from "@/db/fixtures/structured-holdings";
-import { type RiskRewardSentinel, buildPmsAifFrameworkNotice } from "./risk-reward-stats";
+import { buildPmsAifFrameworkNotice } from "./risk-reward-stats";
+import type { EvidenceSentinel } from "./case/sentinels";
 
 /* ----- Standard window set (computed at agent runtime, ADR-0028 / ADR-0012 exception) ----- */
 
 export type TimeSeriesWindow = "1M" | "3M" | "6M" | "1Y" | "3Y" | "SI";
 export const STANDARD_WINDOWS: readonly TimeSeriesWindow[] = ["1M", "3M", "6M", "1Y", "3Y", "SI"] as const;
 
-/* ----- Sentinels: 8 inherited verbatim from risk-reward (ADR-0019) + 1 new ----- */
+/* ----- Sentinels: the shared EvidenceSentinel union (ADR-0019), relocated to
+   lib/agents/case/sentinels.ts per ADR-0030. That union absorbed the
+   time-series-only `no_prior_snapshot_available` member, so TimeSeriesSentinel
+   is now a direct alias. ----- */
 
-export type TimeSeriesSentinel =
-  | RiskRewardSentinel
-  | "no_prior_snapshot_available"; // reference snapshot absent (e.g. t0); evolution skipped, windows still compute
+export type TimeSeriesSentinel = EvidenceSentinel;
 
 /* ----- Output shape (mirrors RiskRewardOutput; schema in schemas/time_series_performance_output.schema.json, follow-up) ----- */
 

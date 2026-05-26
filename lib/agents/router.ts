@@ -78,6 +78,10 @@ export type ApplicabilityVector = {
   /** Time-series-performance sibling agent (ADR-0028). Active on every Samriddhi 2
    * diagnostic; not run on proposed_action (Samriddhi 1). Parallel to riskRewardStats. */
   timeSeriesPerformance: boolean;
+  /** Portfolio-overlap sibling agent (ADR-0030). Active on every Samriddhi 2
+   * diagnostic with at least two holdings; not run on proposed_action.
+   * Parallel to riskRewardStats / timeSeriesPerformance. */
+  portfolioOverlap: boolean;
   activated: string[];
   reasoning: string;
 };
@@ -157,6 +161,13 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
   const portfolioRiskAnalytics = true;
   const riskRewardStats = true;
   const timeSeriesPerformance = true;
+  // Portfolio-overlap (ADR-0030): permissive activation — true whenever the
+  // portfolio has >=2 holdings, since the categorical (Layer 3) resolution is
+  // always available for any pair. Finer layers (stock-level, structural
+  // similarity) are gated per-pair inside the agent, not here, so the router
+  // never starves the agent of evaluable cases; non-evaluable pairs are
+  // sentinelled by the agent rather than gated away at the router.
+  const portfolioOverlap = holdings.holdings.length >= 2;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -182,6 +193,7 @@ export function route(holdings: StructuredHoldings): ApplicabilityVector {
     portfolioRiskAnalytics,
     riskRewardStats,
     timeSeriesPerformance,
+    portfolioOverlap,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };
@@ -222,6 +234,9 @@ export function routeProposedAction(
   const portfolioRiskAnalytics = true;
   const riskRewardStats = true;
   const timeSeriesPerformance = false;
+  // Portfolio-overlap is a Samriddhi 2 diagnostic capability (ADR-0030); not
+  // run on proposed_action, mirroring timeSeriesPerformance.
+  const portfolioOverlap = false;
 
   const reasoning = [
     `case_mode=${caseMode}`,
@@ -249,6 +264,7 @@ export function routeProposedAction(
     portfolioRiskAnalytics,
     riskRewardStats,
     timeSeriesPerformance,
+    portfolioOverlap,
     activated: buildActivatedList({ indianContext, e1, e2, e3, e4, e5, e6, e7 }),
     reasoning,
   };

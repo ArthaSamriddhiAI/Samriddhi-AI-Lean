@@ -23,6 +23,7 @@ import { loadSnapshot, loadSnapshotPair } from "./snapshot-loader";
 import { computeMetrics } from "./portfolio-risk-analytics";
 import { runRiskRewardDeterministic } from "./risk-reward-stats";
 import { runTimeSeriesPerformanceDeterministic, type TimeSeriesPerformanceOutput } from "./time-series-performance";
+import { runPortfolioOverlapDeterministic } from "./portfolio-overlap";
 import { route } from "./router";
 import { buildListedScope } from "./listed-equity-scope";
 import { buildWrapperScope, buildMutualFundScope } from "./wrapper-scope";
@@ -126,6 +127,24 @@ export async function runDiagnosticPipeline(opts: {
      * the interpretive verdict skill when it ships in cluster 7. */
     const riskReward = routerDecision.riskRewardStats
       ? runRiskRewardDeterministic({
+          caseId: opts.caseId,
+          asOfDate,
+          holdings,
+          snapshot,
+          investor: {
+            riskAppetite: investor.riskAppetite,
+            liquidityTier: investor.liquidityTier,
+          },
+        })
+      : null;
+
+    /* Portfolio-overlap: deterministic sibling (ADR-0030), synchronous and
+     * single-snapshot like risk-reward (NOT the async pair-aware shape of
+     * time-series; no try/catch needed, no skeleton). Pairwise holding overlap
+     * at three resolution layers. Ships data only (content.portfolio_overlap);
+     * the renderer and S1 never read it (WA9), S1-bypass per ADR-0021. */
+    const portfolioOverlap = routerDecision.portfolioOverlap
+      ? runPortfolioOverlapDeterministic({
           caseId: opts.caseId,
           asOfDate,
           holdings,
@@ -306,6 +325,7 @@ export async function runDiagnosticPipeline(opts: {
       a2_classification: a2Result.output,
       risk_reward_stats: riskReward,
       time_series_performance: timeSeries,
+      portfolio_overlap: portfolioOverlap,
       usage_summary: {
         per_agent: usage,
         total_input_tokens:

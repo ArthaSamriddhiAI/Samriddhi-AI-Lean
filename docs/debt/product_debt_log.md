@@ -34,6 +34,45 @@ P-series. Capabilities the product says it does, or could do, but defers for sco
 | P28 | WA13 (Samriddhi 1 / Samriddhi 2 naming discipline) is enforced only by reviewer discipline and ad-hoc proofreading. The bare "S1 / S2" shorthand collides with the S1 / S2 synthesis-agent vocabulary and creates read-confusion; without automated enforcement, future ADRs, PR bodies, debt entries, code comments, and audit docs may drift back to it. WA13 was authored during s1-case-generation but nothing lints or CI-checks compliance. Unblocking fix: (A, recommended minimal) a pre-commit hook grepping changed files for `\bS1\b` / `\bS2\b`, whitelisting legitimate references (synthesis-agent names, file names like `s1_case_mode.md`, code identifiers like `runProposedActionPipeline`), blocking non-whitelisted matches with a WA13 pointer; (B) a CI check on PRs touching `docs/` / ADRs running the same grep; (C) both (pre-commit catches local, CI catches web edits / force-pushes). Cross-references WA13, ADR-0023. | Medium | s1-case-generation (authored WA13) | Tooling / repo-hygiene workstream (likely combined with other discipline-enforcement items) |
 | P29 | Refresh cadence and assembly methodology for the real-world-sourced data (the 9 enriched snapshots plus `scripts/sector_map.json`) are documented as debt in the private `Samriddhi-AI-Data-Snapshots` repository (its `docs/debt/DATA_DEBT_LOG.md`, entries DM1 and DM2). The public repo references this for awareness; the substantive unblock-work happens in the private repo. Future workstreams in this public repo that depend on more recent market data or refresh-tooling integration will block on those private-repo debts. Per the contracted privacy boundary (ADR-0027), only real-world-sourced data is private; the fictional investor holdings/mandates and the Sharma verdicts are public, in-repo, and carry no such debt. Unblocking-fix: see private-repo DM1 (refresh cadence frozen) and DM2 (assembly methodology not documented). Cross-references: this repo's ADR-0027; private repo `DATA_DEBT_LOG.md` (DM1, DM2). Numbering note for the Slice 7 audit: numbered P29 rather than the next-free P25 because P25-P28 are reserved by the concurrent case-batch and Phase-A workstreams not yet merged to `main` (the gap closes when those branches land). The private repo uses a distinct DM-series (Data Mirror) prefix precisely so it does not collide with this log's Section 5 DD-series. | Low (cross-reference only; substantive debt lives elsewhere) | snapshot-data-extraction (Phase B) | Whichever workstream is triggered by a need for fresh market data; it pulls private-repo DM1 / DM2 unblocking into scope |
 | P31 | Firm-onboarding implications of the data-management-layer concern: which custodians, what data-quality SLA, pre-compute vs agent-runtime, canonical-field communication. Forward-looking; no action until the first real-firm deployment conversation. | Medium | T-5.06 (time-series-performance) | TBD (first real-firm deployment) |
+| P32 | Indicative-investor showcase case: one deliberately-curated case designed from cross-case learnings after future investor batches, built to exercise every capability dimension end-to-end with meaningful data. Forward-looking; a new designed case added alongside the real fixtures, not a modification of any existing fixture. | Low | T-5.07/T-5.08 workstream | Package 6 or 7 (trigger-gated on the second real-investor batch) |
+| P33 | Within-sleeve-only pairing in portfolio-overlap produces fully-sentinelled output for cross-asset-class portfolios (e.g., Menon-shape: 3 holdings in 3 asset classes). T-5.08 review will surface whether this is the right user-facing shape; revisit pairing design if needed. | Low | T-5.07/T-5.08 workstream | Trigger-gated on T-5.08 review feedback |
+
+**P3 update, 2026-05, from T-5.07/T-5.08 workstream:** P3 splits into two
+sub-questions, only one of which is being addressed in the T-5.07/T-5.08
+workstream:
+
+- **P3a (landing now via T-5.07):** Deterministic pairwise overlap
+  computation. Per-pair overlap percentages at three resolution layers
+  (top-5-stock, wrapper-level, sub-category) with explicit `resolution_layer`
+  reporting on every emitted pair. No verdict layer, no judgment-grade
+  language; the output is descriptive evidence. Ships as a sibling agent at
+  `lib/agents/portfolio-overlap.ts` per ADR-0030.
+- **P3b (remains deferred under P3):** Judgment-grade recommendations atop
+  the deterministic computation, i.e. "this overlap is concerning" or "this
+  overlap is acceptable given the mandate." Requires LLM synthesis to produce
+  the interpretive layer and a verdict-rendering surface. Routed to a future
+  Samriddhi 2 enrichment workstream.
+
+The kickoff for T-5.07/T-5.08 separately proposed logging the verdict-layered
+Analyst Reports surface ambition (kickoff scope (b)) as a new P-series entry
+(P32). That ambition is the same content as P3b and is therefore tracked here
+under P3 rather than as a new entry. No new P-series number allocated.
+
+See ADR-0030 for the no-verdict-layer scope decision in T-5.07.
+
+**Fixture-curation observation, 2026-05:** Current Samriddhi 2 production
+fixtures do not include MF holdings from the ~233-with-top-5-disclosure set
+in snapshot `t0_q2_2026`, leaving Layer 1 (stock-level overlap) sparsely
+exercised on production fixtures (real Layer 1 output emits only on Bhatt's
+Marcellus × Motilal Value Migration PMS pair). This is the honest state of
+the current investor universe; the fixtures represent the actual investors
+being modelled, not a curated demonstration set. T-5.07 ships against these
+fixtures unchanged; verification uses dedicated synthetic test fixtures per
+the original kickoff plan. Production-fixture coverage of Layer 1 will
+broaden organically as future investor batches are added to the case set
+(any investor whose holdings include funds from the ~233-with-top-5 set
+will exercise Layer 1 directly). The deliberately-curated showcase case
+idea is tracked separately under P32.
 
 **P12 detail (product-stance question, not a missing feature).** Surfaced by the A2 Slice 4.6a Checkpoint 2 review of the Bhatt classifications. Concrete case: Bhatt holds HDFC Bank equity at 11.3% and HDFC Bank FD at 7% of liquid AUM. Same issuer, 18.3% aggregate exposure across two asset classes. A2 correctly classifies the FD as Maintain (the 7% position is below the 10% threshold within debt), because the model portfolio framework specifies thresholds per asset class and does not aggregate across them. The product question this surfaces: should Samriddhi's model portfolio framework include cross-asset-class issuer aggregation as a concentration dimension? Some Indian wealth firms do (treating bank exposure as equity plus deposits plus bonds combined); some do not. This was also surfaced in prior conversations with the product owner's colleagues. Routing: this is an M0 / model-portfolio-framework enhancement, not an A2 enhancement. Defer to the Slice 7 product debt audit pass, which should evaluate it as a product-stance question (what should Samriddhi do?) not as a missing-feature question (why does it not do this?). The Slice 7 audit pass is the right venue precisely because that audit is designed to evaluate what Samriddhi should do alongside what it currently does. P12 is an exemplar of that audit's value: A2 surfaced a real product question through the discipline of not inventing thresholds, and it is the first entry to explicitly invoke the product-stance framing so the Slice 7 pass has a template for other entries of the same kind.
 
@@ -42,6 +81,28 @@ P-series. Capabilities the product says it does, or could do, but defers for sco
 **P14 detail (product-stance question).** Surfaced by the A2 Slice 4.6a Step 4 dry-run on the Iyengar and Sharma-S2 cases. Concrete cases: Iyengar holds HDFC FD at 27.3% and SBI FD at 27.0% of liquid AUM, both senior-citizen-rate FDs in a conservative-medium-term mandate; A2 correctly classifies them as Review because they exceed the 15% position-escalate threshold within the debt asset class. Sharma-S2 holds HDFC FD at 15.6%, also above the 15% threshold, triggering Review. The product question this surfaces: are senior-citizen FDs (or similar cash-adjacent debt instruments: liquid debt funds, short-tenor FDs, sweep deposits) functionally cash-equivalent for diagnostic purposes? Some Indian wealth firms treat them that way, since concentrated FD positions in a conservative mandate are not the same risk shape as concentrated equity positions. The current model portfolio framework places FDs in debt, which is structurally correct (FDs carry duration and reinvestment risk that pure cash does not), but the threshold-application logic does not distinguish short-tenor cash-adjacent debt from longer-tenor structural debt. A2 correctly does not invent this distinction. Routing: same as P12 and P13, an M0 / model-portfolio-framework product-stance question deferred to the Slice 7 audit. The boundary between P14 and ADR 0006 is informative: ADR 0006 ships a narrow carve-out because the skill file already established the non-propagation rule for cash; P14 asks whether a similar differentiation should apply to cash-adjacent debt. The Slice 7 answer may be no (FDs stay in debt, position thresholds apply), yes (cash-adjacent debt gets its own treatment), or partial (only certain debt sub-categories such as senior-citizen FDs); A2 does not pre-empt that decision.
 
 **P25 detail (mandatory re-fire protocol).** When the G2 MF scheme-rule curation lands: (1) identify affected case_ids by querying `db/fixtures/cases/*.json` for `target_category` in {mutual_fund, mutual_fund_debt, mutual_fund_equity}; (2) for each, clear the existing case row from the DB, re-run via `scripts/generate-s1-batch.ts <slug>` against the updated pipeline, overwrite the case JSON fixture, and re-record the stub set (delete the old stub directory first for a clean re-record); (3) commit each re-fired fixture in its own commit on the G2 workstream's branch; (4) document in the G2 workstream's PR body that iyengar and surana were re-fired against the updated G2, referencing this entry. Do NOT surgically inject G2 verdicts: G2 changes cascade through materiality, IC1, S1, and A1, so surgical injection produces mixed-provenance fixtures (explicitly considered and rejected during ideation). Estimated re-fire cost at time of writing: ~Rs 300-400 per case, ~Rs 600-800 for the iyengar+surana pair. Unblocking-fix definition: curate SEBI MF scheme-level rules into the G2 store, wire G2 to consume them for all MF target categories (`mutual_fund`, `mutual_fund_debt`, future variants), and add pass / clarify / breach tests. Cross-references: ADR-0023, ADR-0024, ADR-0025, and the inline "future slice" comment in `g2-sebi.ts`.
+
+**P28 update, 2026-05, from T-5.07/T-5.08 workstream:** A further resolution arm
+is added. P28 already enumerates three tooling arms — (A) pre-commit hook,
+(B) CI check, (C) both. This adds (D), a mechanical rename of the fixture
+schema enum values: `workflow: "s1" | "s2"` → `workflow: "samriddhi_1" |
+"samriddhi_2"`. The drift vector (schema values bleed into prose because that
+is what the data calls itself) is closed at the source rather than only at the
+reviewer gate.
+
+The rename touches:
+- `prisma/schema.prisma` (the `workflow` column; plain `String`, no union to
+  tighten).
+- `db/seed.ts` (the `workflow: string` field and the seeding assignment).
+- `lib/fixtures/new-case.ts` (the `"s2" as const` literal).
+- All twelve fixture files under `db/fixtures/cases/`.
+- Any test file hard-coding the enum value.
+
+Out of scope for T-5.07/T-5.08 but bounded enough to ship as a small
+standalone PR whenever someone touches the area. Arms (A)/(B)/(C) protect
+against prose drift in new content; (D) removes the drift vector from the
+existing schema. They are complementary, not alternatives; closing a tooling
+arm plus (D) fully retires P28.
 
 ---
 
@@ -149,4 +210,64 @@ Notes: This debt entry exists to ensure future contributors do not
 (d) How do we communicate to the firm what canonical fields Samriddhi expects?
 
 Linked to T18 (technical-debt facing) and ADR-0028 production deployment considerations.
+
+**P32 detail, 2026-05, from T-5.07/T-5.08 workstream:** Indicative-investor
+showcase case. Future addition, not a modification of existing fixtures.
+
+When subsequent batches of real investors are run through Samriddhi as case
+fixtures, the accumulated learnings (which holdings shapes most exercise
+which capabilities, which fund/wrapper combinations carry the richest
+disclosure surface, which behavioural patterns most exercise the
+diagnostic pipeline) will inform the design of one deliberately-curated
+"indicative investor" case. The purpose of that case is to showcase
+Samriddhi end-to-end: a single case that exercises every capability
+dimension with meaningful data, designed from real-investor learnings
+rather than synthesised cold.
+
+The trigger for picking this up is: a second batch of real investors has
+been processed through Samriddhi as cases, and there is enough cross-case
+learning to inform deliberate showcase-case design. Estimated timing:
+mid-to-late Package 6 or Package 7, depending on when the second investor
+batch lands. Out of scope for the current Capability Phase workstreams
+(Package 5).
+
+Importantly, this is NOT a backdated curation of existing Samriddhi 2
+fixtures. The six current fixtures (bhatt, iyengar, malhotra, menon,
+sharma, surana) represent real investors and ship unchanged. Layer 1
+exercise on those fixtures is the honest state of those investors'
+holdings (see P3 addendum). P32 is a forward-looking design exercise that
+adds one new showcase case alongside the real ones, not a retroactive
+modification of the real ones.
+
+Severity: Low. Status: Open, trigger-gated on the second investor batch.
+
+**P33 detail, 2026-05, from T-5.07/T-5.08 workstream:** Within-sleeve-only
+pairing design in pairwise overlap, and its consequence for cross-asset-class
+portfolios.
+
+T-5.07's portfolio-overlap agent pairs holdings only within an asset-class
+sleeve (so a large-cap fund and a gold ETF do not form an overlap pair).
+Reasoning: cross-sleeve pairs would resolve to categorical similarity ~0 and
+emit noise rather than signal. Implementation discretion under ADR-0030.
+
+The consequence: portfolios whose holdings are spread across multiple
+asset classes with no two holdings in the same class produce zero pairs
+overall. The agent emits `single_holding_sleeve_overlap` at every sleeve
+and `insufficient_overlap_coverage` at the portfolio rollup. This is the
+case for Menon's portfolio (three holdings, three different asset classes)
+among the current Samriddhi 2 fixtures.
+
+The user-facing question this raises: when T-5.08 renders the Analyst
+Reports surface, Menon's overlap section will show as fully-sentinelled.
+This is technically honest (no two holdings can be compared within an
+asset class) but may not be the most useful surface for advisors. An
+alternative design would preserve cross-sleeve pairs at the categorical
+layer, capturing the diversification-across-classes signal as a low score
+rather than a sentinel.
+
+Decision deferred. T-5.07 ships with within-sleeve-only as the deliberate
+design. T-5.08 review surfaces whether the Menon-shape rendering is the
+right product surface; if not, revisit the pairing design here.
+
+Severity: Low. Status: Open, trigger-gated on T-5.08 review feedback.
 

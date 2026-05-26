@@ -33,20 +33,12 @@ import type { Snapshot, MutualFundRow, TierBStats } from "./snapshot-loader";
 import type { StructuredHoldings, Holding, AssetClass } from "@/db/fixtures/structured-holdings";
 import { callAgent, type AgentUsage } from "./harness";
 import { stripLongDashes } from "./a2-classification"; // reuse the WA7 sanitiser; do not redefine
+import type { EvidenceSentinel } from "./case/sentinels";
 
 export const RISK_FREE_ANN = 0.0525; // per ADR-0012 (repo rate at t0); not read from provenance (D2)
 
-/* ----- Sentinel taxonomy (ADR-0017 candidate; Checkpoint 1 approved) ----- */
-
-export type RiskRewardSentinel =
-  | "opaque_wrapper" // AIF: no return data exists (foundation opaque-by-design)
-  | "pms_disclosure_limited" // PMS: no monthly NAV; rolling stats not computable
-  | "not_applicable_for_risk_reward" // FD, gold, savings: no return series
-  | "insufficient_history" // tier_b data_window_insufficient
-  | "benchmark_structurally_inapplicable" // fund design resists single-index comparison
-  | "benchmark_not_in_snapshot" // comparator exists but not in the canonical 16
-  | "currency_conversion_pending" // foreign-currency holding, FX series absent
-  | "no_constituents_evaluable"; // sleeve where every constituent is sentinelled
+/* Sentinel taxonomy (ADR-0017 candidate; Checkpoint 1 approved) relocated to
+ * ./case/sentinels.ts as the shared `EvidenceSentinel` union per ADR-0030. */
 
 export const TIER_B_FIELDS = [
   "vol_3y_annualized", "vol_5y_annualized", "sharpe_3y", "sharpe_5y",
@@ -72,7 +64,7 @@ export type HoldingStats = {
   weight_pct: number;
   currency_basis: "INR" | "USD" | "native";
   source: "tier_b_read_through" | "sentinel";
-  sentinel: RiskRewardSentinel | null;
+  sentinel: EvidenceSentinel | null;
   benchmark_index_id: string | null;
   stats: TierBValues | null;
 };
@@ -85,7 +77,7 @@ export type SleeveStats = {
   partial_evaluation: boolean;
   currency_basis: "INR";
   method: "synthesised_series" | "single_holding_passthrough" | "sentinel";
-  sentinel: RiskRewardSentinel | null;
+  sentinel: EvidenceSentinel | null;
   benchmark_index_id: string | null;
   stats: TierBValues | null;
 };
@@ -339,7 +331,7 @@ function classifyHolding(h: Holding, snapshot: Snapshot): HoldingStats {
     weight_pct: h.weightPct,
     currency_basis: (h.subCategory.startsWith("intl_") ? "native" : "INR") as "INR" | "native",
   };
-  const sentinel = (s: RiskRewardSentinel): HoldingStats => ({
+  const sentinel = (s: EvidenceSentinel): HoldingStats => ({
     ...base, source: "sentinel", sentinel: s, benchmark_index_id: null, stats: null,
   });
 
