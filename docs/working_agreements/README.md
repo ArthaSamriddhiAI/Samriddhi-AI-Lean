@@ -26,5 +26,12 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA16](WA16_real_reasoning_over_stubs.md) | Real reasoning over stubs |
 | [WA17](WA17_questions_in_message_output.md) | Questions live in the message output |
 | [WA18](WA18_prompts_ship_as_markdown.md) | Prompts ship as markdown files by default |
+| [WA19](WA19_ping_internal_gates.md) | Ping-internal gates are criterion-based |
+| [WA20](WA20_no_unsanctioned_memory_writes.md) | No unsanctioned memory writes |
+| [WA21](WA21_verify_before_adding.md) | Verify before adding |
+| [WA22](WA22_audit_phase_as_deliverable.md) | Audit phase as a versioned deliverable |
+| [WA23](WA23_conventions_by_reference.md) | Conventions inherited by reference, not by re-listing |
+| [WA24](WA24_numbering_at_landing.md) | Numbering allocated at landing, not at planning |
+| [WA25](WA25_planner_vs_task_chat.md) | Planner chat for planning, task chats for execution |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).
