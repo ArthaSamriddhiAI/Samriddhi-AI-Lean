@@ -34,6 +34,7 @@ P-series. Capabilities the product says it does, or could do, but defers for sco
 | P28 | WA13 (Samriddhi 1 / Samriddhi 2 naming discipline) is enforced only by reviewer discipline and ad-hoc proofreading. The bare "S1 / S2" shorthand collides with the S1 / S2 synthesis-agent vocabulary and creates read-confusion; without automated enforcement, future ADRs, PR bodies, debt entries, code comments, and audit docs may drift back to it. WA13 was authored during s1-case-generation but nothing lints or CI-checks compliance. Unblocking fix: (A, recommended minimal) a pre-commit hook grepping changed files for `\bS1\b` / `\bS2\b`, whitelisting legitimate references (synthesis-agent names, file names like `s1_case_mode.md`, code identifiers like `runProposedActionPipeline`), blocking non-whitelisted matches with a WA13 pointer; (B) a CI check on PRs touching `docs/` / ADRs running the same grep; (C) both (pre-commit catches local, CI catches web edits / force-pushes). Cross-references WA13, ADR-0023. | Medium | s1-case-generation (authored WA13) | Tooling / repo-hygiene workstream (likely combined with other discipline-enforcement items) |
 | P29 | Refresh cadence and assembly methodology for the real-world-sourced data (the 9 enriched snapshots plus `scripts/sector_map.json`) are documented as debt in the private `Samriddhi-AI-Data-Snapshots` repository (its `docs/debt/DATA_DEBT_LOG.md`, entries DM1 and DM2). The public repo references this for awareness; the substantive unblock-work happens in the private repo. Future workstreams in this public repo that depend on more recent market data or refresh-tooling integration will block on those private-repo debts. Per the contracted privacy boundary (ADR-0027), only real-world-sourced data is private; the fictional investor holdings/mandates and the Sharma verdicts are public, in-repo, and carry no such debt. Unblocking-fix: see private-repo DM1 (refresh cadence frozen) and DM2 (assembly methodology not documented). Cross-references: this repo's ADR-0027; private repo `DATA_DEBT_LOG.md` (DM1, DM2). Numbering note for the Slice 7 audit: numbered P29 rather than the next-free P25 because P25-P28 are reserved by the concurrent case-batch and Phase-A workstreams not yet merged to `main` (the gap closes when those branches land). The private repo uses a distinct DM-series (Data Mirror) prefix precisely so it does not collide with this log's Section 5 DD-series. | Low (cross-reference only; substantive debt lives elsewhere) | snapshot-data-extraction (Phase B) | Whichever workstream is triggered by a need for fresh market data; it pulls private-repo DM1 / DM2 unblocking into scope |
 | P31 | Firm-onboarding implications of the data-management-layer concern: which custodians, what data-quality SLA, pre-compute vs agent-runtime, canonical-field communication. Forward-looking; no action until the first real-firm deployment conversation. | Medium | T-5.06 (time-series-performance) | TBD (first real-firm deployment) |
+| P32 | Indicative-investor showcase case: one deliberately-curated case designed from cross-case learnings after future investor batches, built to exercise every capability dimension end-to-end with meaningful data. Forward-looking; a new designed case added alongside the real fixtures, not a modification of any existing fixture. | Low | T-5.07/T-5.08 workstream | Package 6 or 7 (trigger-gated on the second real-investor batch) |
 
 **P3 update, 2026-05, from T-5.07/T-5.08 workstream:** P3 splits into two
 sub-questions, only one of which is being addressed in the T-5.07/T-5.08
@@ -208,4 +209,34 @@ Notes: This debt entry exists to ensure future contributors do not
 (d) How do we communicate to the firm what canonical fields Samriddhi expects?
 
 Linked to T18 (technical-debt facing) and ADR-0028 production deployment considerations.
+
+**P32 detail, 2026-05, from T-5.07/T-5.08 workstream:** Indicative-investor
+showcase case. Future addition, not a modification of existing fixtures.
+
+When subsequent batches of real investors are run through Samriddhi as case
+fixtures, the accumulated learnings (which holdings shapes most exercise
+which capabilities, which fund/wrapper combinations carry the richest
+disclosure surface, which behavioural patterns most exercise the
+diagnostic pipeline) will inform the design of one deliberately-curated
+"indicative investor" case. The purpose of that case is to showcase
+Samriddhi end-to-end: a single case that exercises every capability
+dimension with meaningful data, designed from real-investor learnings
+rather than synthesised cold.
+
+The trigger for picking this up is: a second batch of real investors has
+been processed through Samriddhi as cases, and there is enough cross-case
+learning to inform deliberate showcase-case design. Estimated timing:
+mid-to-late Package 6 or Package 7, depending on when the second investor
+batch lands. Out of scope for the current Capability Phase workstreams
+(Package 5).
+
+Importantly, this is NOT a backdated curation of existing Samriddhi 2
+fixtures. The six current fixtures (bhatt, iyengar, malhotra, menon,
+sharma, surana) represent real investors and ship unchanged. Layer 1
+exercise on those fixtures is the honest state of those investors'
+holdings (see P3 addendum). P32 is a forward-looking design exercise that
+adds one new showcase case alongside the real ones, not a retroactive
+modification of the real ones.
+
+Severity: Low. Status: Open, trigger-gated on the second investor batch.
 
