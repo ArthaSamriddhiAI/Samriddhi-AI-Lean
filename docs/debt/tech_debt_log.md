@@ -36,6 +36,19 @@ The Slice 7 product debt audit should turn this into an explicit RAG roadmap ent
 
 **T9 detail (Layer 2 fact-grounding verification).** Surfaced by the A2 Slice 4.6a Step 5 review. The recurring "5Y return 6.86%" across three different fund references in the reason text was investigated against the source data snapshot and confirmed as genuine coincidence: Axis Large Cap Fund 5Y = 0.068625 (snapshot `mf_funds.amfi_code=112277`; "Axis Bluechip" is the old name, renamed 2024); Kotak Global Emerging Market Overseas Equity Omni FOF 5Y = 0.068588 (snapshot `amfi_code=106441`; the D6-mislabelled "Kotak Emerging Equity" maps here). Both round to 6.86% at two decimal places. Layer 2 is correctly sourcing per-fund data in this instance; the recurrence is the data telling the truth, not fabrication. The general question the investigation surfaced: how does future audit work confirm Layer 2 is grounded in source data rather than fabricating or mis-attributing? Layer 1 is deterministic and replayable; Layer 2 is not. The current discipline (human spot-check at Step 5) is the only grounding check and does not scale beyond a handful of cases or suspect-looking patterns. Options for the Slice 7 technical debt audit to evaluate: (a) a number-grounding validator that parses Layer 2 reason text for numeric claims and confirms each appears in the structured input bundle; (b) a structured-reasons-plus-gloss split where Layer 2 returns structured driver records with explicit input-source references and a separate pass produces the prose, so the structured layer is verifiable independently of the prose; (c) accept the current discipline as adequate for the diagnostic-only MVP and revisit when A2 verdicts feed proposal-side flows. Routing: a Layer 2 architecture question, not an A2-specific implementation question; deferred to the Slice 7 technical debt audit pass. This entry is the durable record that the 6.86% investigation happened, what it found, and the general question it raised, so a future audit does not have to re-derive the forensic work.
 
+**T16 update, 2026-05, from T-5.07/T-5.08 workstream:** The Samriddhi 2 Analyst
+Reports port (T-5.08) considered rendering an E5 row with a "pending
+implementation" sentinel and rejected the option on WA15 grounds (a UI element
+without capability behind it is a wireframe-without-capability inversion). The
+ported component therefore does not render an E5 row at all; the adapter from
+the Samriddhi 2 evidence bundle to the rendered surface omits E5 entirely. E5
+implementation remains deferred to a future workstream (likely Package 6 or
+later). When the implementation lands, it touches: a new
+`lib/agents/e5-unlisted-equity.ts` sibling, an `e5` slot in `EvidenceBundle`,
+an enqueue branch in `runDiagnosticPipeline`, fixture injection across
+affected cases, and the T-5.08 adapter's E5 emission path. See ADR-0030 for
+the don't-render decision context.
+
 **T18 detail (deferred production decision).** Trailing-window return computation (1M / 3M / 6M / 1Y / 3Y / SI) runs at agent invocation rather than at snapshot enrichment.
 
 Two future-state considerations:
