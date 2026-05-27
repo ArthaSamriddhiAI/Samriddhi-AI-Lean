@@ -49,6 +49,8 @@ an enqueue branch in `runDiagnosticPipeline`, fixture injection across
 affected cases, and the T-5.08 adapter's E5 emission path. See ADR-0030 for
 the don't-render decision context.
 
+**T17 v14 sharpening (2026-05-27).** The planner v14 scopes "Samriddhi 2 A1 challenge" (provisional task ID T-5.13, not yet landed) under "Decision 2A": adopt the existing flat `A1Output = { challenges: AdvisoryChallengeItem[] }` shape on the diagnostic firing path; do NOT expand to the richer `approval_recommendation` enum (proceed / proceed_with_conditions / defer / escalate_to_compliance), `confidence` float, and categorized concern arrays that the skill file describes. Rationale: the richer schema was authored against Samriddhi 1 proposed-action semantics; it has no clean fit on a diagnostic case that has no action to approve. T17 reconciliation for the richer schema therefore stays a Samriddhi 1 workstream and does not gate the diagnostic firing path. CC grounding ping (read-only, 2026-05-27) confirmed `A1Output` in `lib/agents/case/a1-case.ts` is the flat shape today.
+
 **T18 detail (deferred production decision).** Trailing-window return computation (1M / 3M / 6M / 1Y / 3Y / SI) runs at agent invocation rather than at snapshot enrichment.
 
 Two future-state considerations:
