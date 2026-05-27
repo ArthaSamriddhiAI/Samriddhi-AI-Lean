@@ -13,6 +13,7 @@ Per-series debt logs for the Samriddhi AI build. The combined `PRODUCT_DEBT_LOG.
 | DD | `production_data_debt_log.md` | Forward-looking production / enterprise data debt (data not wrong, not yet sourced for production). |
 | O | `operational_debt_log.md` | Operational and forward-audit obligations, routed to the periodic Slice 7 audit. |
 | UX | `ui_ux_debt_log.md` | Render-layer debt deferred by capability workstreams under WA09. |
+| ET | `enterprise_readiness_debt_log.md` | Anticipatory enterprise-readiness seam considerations; activate at first paying client. Severity tag is `Deferred` (singular) rather than Low / Medium / High — pre-activation severity is not meaningful. |
 
 DM-series (Data Mirror) debt lives in the private `Samriddhi-AI-Data-Snapshots` repository's debt log (entries DM1, DM2); this public repo only cross-references it (see the P-series snapshot-refresh entry). No local DM file exists by design.
 
