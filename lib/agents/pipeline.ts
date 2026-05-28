@@ -325,6 +325,9 @@ export async function runDiagnosticPipeline(opts: {
       a2Output: a2Result.output,
       metrics,
       preObservations: stitched.pre_observations,
+      riskReward,
+      overlap: portfolioOverlap,
+      evidence,
     });
     usage.a3 = a3Result.usage;
     runningTokens += a3Result.usage.inputTokens + a3Result.usage.outputTokens;

@@ -28,6 +28,10 @@ import { runA3Diagnostic } from "../lib/agents/a3-so-what";
 import { stitch, type EvidenceBundle, type StitchInput } from "../lib/agents/stitcher";
 import type { PortfolioMetrics } from "../lib/agents/portfolio-risk-analytics";
 import type { A2Output } from "../lib/agents/a2-classification";
+import type { RiskRewardOutput } from "../lib/agents/risk-reward-stats";
+import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "../lib/agents/portfolio-overlap";
+import { loadSnapshot } from "../lib/agents/snapshot-loader";
+import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
 
 const FIXTURE_DIR = path.resolve(process.cwd(), "db", "fixtures", "cases");
 
@@ -59,6 +63,7 @@ type CaseFixture = {
     metrics?: PortfolioMetrics;
     evidence?: Partial<EvidenceBundle>;
     a2_classification?: A2Output;
+    risk_reward_stats?: RiskRewardOutput;
     router_decision?: unknown;
     a3_so_what?: unknown;
     [k: string]: unknown;
@@ -121,12 +126,35 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
       }).pre_observations
     : [];
 
+  // Recompute portfolio_overlap deterministically (no API), using the same
+  // function and output type the live pipeline persists, so the Redundancy
+  // signal A3 judges over is structurally identical to live (shape parity,
+  // T-5.12 requirement). The 5 fixtures predate T-5.07, so overlap was never
+  // frozen; recompute it from the frozen holdings + snapshot.
+  const holdings = HOLDINGS_BY_INVESTOR[fixture.investorId];
+  if (!holdings) {
+    throw new Error(`No structured holdings for investor "${fixture.investorId}" (${fixture.id}).`);
+  }
+  const snapshot = await loadSnapshot(fixture.snapshotId);
+  const overlap: PortfolioOverlapOutput = runPortfolioOverlapDeterministic({
+    caseId: fixture.id,
+    asOfDate,
+    holdings,
+    snapshot,
+    investor: {},
+  });
+
+  const riskReward = fixture.content.risk_reward_stats ?? null;
+
   const { output, usage, responseId, responseModel } = await runA3Diagnostic({
     caseId: fixture.id,
     asOfDate,
     a2Output,
     metrics,
     preObservations,
+    riskReward,
+    overlap,
+    evidence,
   });
 
   // --- Readout ---

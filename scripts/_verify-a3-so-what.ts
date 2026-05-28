@@ -1,216 +1,239 @@
-/* Deterministic verification for A3.so_what (T-5.12). No API.
+/* Deterministic verification for A3.so_what (T-5.12, combined build). No API.
  *
- * Exercises A3 Layer 1 (computeA3) and the no-LLM orchestration path of
- * runA3Diagnostic against synthetic, minimal inputs (WA15). Asserts the
- * glide-path math, the three-surface construction, sentinel routing, the
- * honest-8 observation set (with sector pulled from A2 drivers), severity
- * dedup, and the all-clear skip path (which makes no Claude call). The
- * recommendatory advisor-action prose is Layer 2 and is exercised under the
- * WA12-gated live verify, not here.
+ * Part A (synthetic units): glide-path/trim math, redeployment closure
+ * (freed == deployed + leftover) across the edge cases, exit-eligibility gate,
+ * reconciled-decision coherence (both surfaces agree per holding), and sentinel
+ * routing for the thin/opaque dimensions.
  *
- * Run: npx tsx scripts/_verify-a3-so-what.ts  (exits non-zero on failure).
+ * Part B (fixture-driven, free): overlap recomputes present and well-formed for
+ * all 5 Samriddhi 2 fixtures (so a silent recompute failure cannot leave
+ * Redundancy hollow), and Surana's Axis Large Cap is NOT exit-eligible (one
+ * soft thesis signal plus a concentration flag is not a hard-corroborated
+ * two-dimension convergence), so it lands on trim.
+ *
+ * The Layer-2 LLM judgment and prose are exercised under the WA12-gated
+ * re-backfill, not here. Run: npx tsx scripts/_verify-a3-so-what.ts
  */
-import { computeA3, runA3Diagnostic, type A3Input } from "@/lib/agents/a3-so-what";
+import {
+  computeA3,
+  computeRedeployment,
+  type A3Input,
+  type A3ReconciledDecision,
+} from "@/lib/agents/a3-so-what";
 import type { A2Output, A2HoldingVerdict, A2Verdict, A2Driver } from "@/lib/agents/a2-classification";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
-import type { PreObservation } from "@/lib/agents/stitcher";
+import { MODEL_BANDS } from "@/lib/agents/portfolio-risk-analytics";
+import type { RiskRewardOutput } from "@/lib/agents/risk-reward-stats";
+import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
+import { stitch, type EvidenceBundle, type StitchInput } from "@/lib/agents/stitcher";
+import { loadSnapshot } from "@/lib/agents/snapshot-loader";
+import { HOLDINGS_BY_INVESTOR } from "@/db/fixtures/structured-holdings";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 
 const failures: string[] = [];
 function assert(cond: boolean, name: string, detail = ""): void {
   if (!cond) failures.push(name);
   console.log(`  [${cond ? "PASS" : "FAIL"}] ${name}${cond ? "" : ` :: ${detail}`}`);
 }
+function round1(n: number): number { return Math.round(n * 10) / 10; }
 
-/* ----- Builders ----- */
+/* ----- Synthetic builders ----- */
 
 function driver(source_observation: string, severity: A2Driver["severity"], driver_type: A2Driver["driver_type"]): A2Driver {
   return { driver_type, severity, scope: "holding", source_observation, reason: "" };
 }
-
-function holding(
-  ref: string,
-  verdict: A2Verdict,
-  drivers: A2Driver[],
-): A2HoldingVerdict {
+function holding(ref: string, verdict: A2Verdict, drivers: A2Driver[], opts?: { assetClass?: string; subCategory?: string; weightPct?: number }): A2HoldingVerdict {
   return {
-    holding_ref: ref,
-    instrument_display_name: ref,
-    asset_class: "Equity",
-    sub_category: "listed_equity",
-    weight_pct: 10,
-    verdict,
-    drivers,
+    holding_ref: ref, instrument_display_name: ref,
+    asset_class: opts?.assetClass ?? "Equity", sub_category: opts?.subCategory ?? "listed_equity",
+    weight_pct: opts?.weightPct ?? 10, verdict, drivers,
   };
 }
-
-function a2Output(holding_verdicts: A2HoldingVerdict[]): A2Output {
+function a2Output(hv: A2HoldingVerdict[]): A2Output {
   return {
-    agent_id: "a2_classification",
-    case_id: "verify-a3",
-    as_of_date: "2026-04-30",
-    holding_verdicts,
-    summary: {
-      maintain_count: 0,
-      monitor_count: 0,
-      discuss_count: 0,
-      review_count: 0,
-      unable_to_classify_count: 0,
-      one_line_characterization: "x",
-    },
+    agent_id: "a2_classification", case_id: "verify-a3", as_of_date: "2026-04-30",
+    holding_verdicts: hv,
+    summary: { maintain_count: 0, monitor_count: 0, discuss_count: 0, review_count: 0, unable_to_classify_count: 0, one_line_characterization: "x" },
     reasoning_summary: "x",
   };
 }
-
 function metrics(
   positionFlags: Array<{ instrument: string; weightPct: number; severity: "flag" | "escalate" }>,
+  actuals?: Partial<Record<"Equity" | "Debt" | "Alternatives" | "Cash", number>>,
 ): PortfolioMetrics {
-  const cls = { actualPct: 0, targetPct: 0, band: [0, 0] as [number, number], deviationPct: 0, inBand: true };
+  const cls = (c: "Equity" | "Debt" | "Alternatives" | "Cash") => {
+    const target = MODEL_BANDS[c].target;
+    const actual = actuals?.[c] ?? target;
+    return { actualPct: actual, targetPct: target, band: [MODEL_BANDS[c].min, MODEL_BANDS[c].max] as [number, number], deviationPct: actual - target, inBand: actual >= MODEL_BANDS[c].min && actual <= MODEL_BANDS[c].max };
+  };
   return {
-    totalLiquidAumCr: 10,
-    holdingsCount: positionFlags.length,
-    assetClass: { Equity: cls, Debt: cls, Alternatives: cls, Cash: cls },
+    totalLiquidAumCr: 10, holdingsCount: positionFlags.length,
+    assetClass: { Equity: cls("Equity"), Debt: cls("Debt"), Alternatives: cls("Alternatives"), Cash: cls("Cash") },
     concentration: {
-      hhiHoldingLevel: 0,
-      hhiAssetClassLevel: 0,
-      top1: { instrument: "", weightPct: 0 },
-      top5: [],
-      bucketCeilingHhi: 0,
-      bucketTier: "Aggressive",
-      hhiBreach: false,
-      positionFlags,
-      wrappers: {
-        pmsCount: 0, pmsAggregatePct: 0, pmsList: [],
-        aifCount: 0, aifAggregatePct: 0, aifList: [],
-        wrapperCountFlag: false, wrapperShareFlag: false,
-      },
-      sectorExposureMfLookThrough: [],
-      mfCoverage: { coveredCount: 0, uncoveredCount: 0, coveredWeightPct: 0, uncoveredWeightPct: 0 },
+      hhiHoldingLevel: 0, hhiAssetClassLevel: 0, top1: { instrument: "", weightPct: 0 }, top5: [],
+      bucketCeilingHhi: 0, bucketTier: "Aggressive", hhiBreach: false, positionFlags,
+      wrappers: { pmsCount: 0, pmsAggregatePct: 0, pmsList: [], aifCount: 0, aifAggregatePct: 0, aifList: [], wrapperCountFlag: false, wrapperShareFlag: false },
+      sectorExposureMfLookThrough: [], mfCoverage: { coveredCount: 0, uncoveredCount: 0, coveredWeightPct: 0, uncoveredWeightPct: 0 },
     },
-    liquidity: {
-      bucketBreakdown: { T_30: 0, T_90: 0, T_365: 0, Locked: 0 },
-      t30PlusT90Pct: 0,
-      tier: "secondary",
-      tierFloor: { minPct: 0, maxPct: 0 },
-      floorBreach: false,
-    },
-    cashDeployment: { cashSharePct: 0, deploymentGapPct: 0, cashDragFlag: false },
-    computedAt: "",
+    liquidity: { bucketBreakdown: { T_30: 0, T_90: 0, T_365: 0, Locked: 0 }, t30PlusT90Pct: 0, tier: "secondary", tierFloor: { minPct: 0, maxPct: 0 }, floorBreach: false },
+    cashDeployment: { cashSharePct: 0, deploymentGapPct: 0, cashDragFlag: false }, computedAt: "",
   };
 }
-
-function preObs(vocab_candidate: string, severity_hint: PreObservation["severity_hint"]): PreObservation {
-  return { vocab_candidate, source: "metric", severity_hint, payload: {} };
+function riskReward(perHolding: Array<{ ref: string; sharpe?: number | null }>): RiskRewardOutput {
+  return {
+    per_holding: perHolding.map((p) => ({
+      holding_ref: p.ref, instrument_display_name: p.ref, asset_class: "Equity", sub_category: "listed_equity",
+      weight_pct: 10, currency_basis: "INR", source: p.sharpe === undefined ? "sentinel" : "tier_b_read_through",
+      sentinel: p.sharpe === undefined ? "insufficient_history" : null, benchmark_index_id: "nifty_500_tri",
+      stats: p.sharpe === undefined ? null : { sharpe_3y: p.sharpe },
+    })),
+  } as unknown as RiskRewardOutput;
+}
+function overlap(pairs: Array<{ a: string; b: string; score: number }>): PortfolioOverlapOutput {
+  return {
+    agent_id: "portfolio_overlap", case_id: "v", as_of_date: "2026-04-30",
+    per_pair: pairs.map((p) => ({ holding_a: p.a, holding_b: p.b, asset_class: "Equity", sub_category_a: "x", sub_category_b: "x", weight_pct_a: 10, weight_pct_b: 10, resolution_layer: "stock_level", score: p.score, shared_holdings: null, shared_holding_count: null, limited_by: null })),
+    per_sleeve: [], portfolio: { total_holdings: 0, evaluated_pair_count: pairs.length, layer_breakdown: { stock_level: pairs.length, structural_similarity: 0, categorical: 0 }, strongest_pair: null, sentinel: null },
+    rollup: { text: "", generation_method: "templated" }, reasoning_summary: "",
+  } as unknown as PortfolioOverlapOutput;
+}
+function evidence(e4Magnitude?: "material" | "moderate" | "minor" | "none"): EvidenceBundle {
+  return {
+    e1: null, e2: null, e3: null,
+    e4: e4Magnitude ? ({ stated_vs_revealed_divergence: { direction: "stated_more_conservative_than_revealed", magnitude: e4Magnitude, implication: "x" } } as unknown as EvidenceBundle["e4"]) : null,
+    e6: null, e7: null,
+  };
+}
+function input(partial: Partial<A3Input> & { a2Output: A2Output }): A3Input {
+  return {
+    caseId: "v", asOfDate: "2026-04-30", metrics: null, preObservations: [],
+    riskReward: null, overlap: null, evidence: null, ...partial,
+  };
+}
+function decision(d: "trim" | "exit" | "maintain", weight: number): A3ReconciledDecision {
+  return { holding_ref: "x", instrument_display_name: "x", asset_class: "Equity", sub_category: "listed_equity", weight_pct: weight, over_concentrated: weight > 10, a2_verdict: "review", signals: [], exit_eligible: false, decision: d, dimensions_failing: [], judgment_reasoning: "" } as A3ReconciledDecision;
 }
 
 (async () => {
-  // --- Case 1: glide-path math, escalate position 18.4% over two steps ---
-  console.log("Case 1: glide-path math (Reliance 18.4% escalate)");
-  const c1 = computeA3({
-    caseId: "c1",
-    asOfDate: "2026-04-30",
-    a2Output: a2Output([
-      holding("Reliance Industries", "review", [driver("position_over_concentration", "escalate", "position_concentration")]),
-    ]),
+  // --- Case 1: glide-path/trim math via the decision path ---
+  console.log("Case 1: trim glide-path (Reliance 18.4 escalate)");
+  const c1 = computeA3(input({
+    a2Output: a2Output([holding("Reliance Industries", "review", [driver("position_over_concentration", "escalate", "position_concentration")], { weightPct: 18.4 })]),
     metrics: metrics([{ instrument: "Reliance Industries", weightPct: 18.4, severity: "escalate" }]),
-    preObservations: [
-      preObs("position_over_concentration", "flag"),
-      preObs("position_over_concentration", "escalate"),
-    ],
-  });
+    riskReward: riskReward([{ ref: "Reliance Industries", sharpe: 0.8 }]),
+    overlap: overlap([]),
+  }));
   const reb1 = c1.rebalance_proposal;
-  assert(reb1.kind === "proposal", "C1: rebalance is a proposal", `got ${reb1.kind}`);
+  assert(reb1.kind === "proposal", "C1: proposal", reb1.kind);
   if (reb1.kind === "proposal") {
     const p = reb1.computed.positions[0];
-    assert(p.current_weight_pct === 18.4, "C1: current 18.4", `got ${p.current_weight_pct}`);
-    assert(p.breach_threshold_pct === 15, "C1: breach threshold 15 (escalate)", `got ${p.breach_threshold_pct}`);
-    assert(p.target_weight_pct === 10, "C1: target 10", `got ${p.target_weight_pct}`);
-    assert(p.total_trim_pct_points === 8.4, "C1: total trim 8.4", `got ${p.total_trim_pct_points}`);
-    assert(p.glide_path.length === 2, "C1: two steps (ceil 8.4/5)", `got ${p.glide_path.length}`);
-    assert(p.glide_path[0].step === 1 && p.glide_path[0].trim_pct_points === 4.2 && p.glide_path[0].resulting_weight_pct === 14.2 && p.glide_path[0].trigger_at_weight_pct === 18.4, "C1: step 1 = trim 4.2 -> 14.2, trigger 18.4", JSON.stringify(p.glide_path[0]));
-    assert(p.glide_path[1].step === 2 && p.glide_path[1].trim_pct_points === 4.2 && p.glide_path[1].resulting_weight_pct === 10 && p.glide_path[1].trigger_at_weight_pct === 14.2, "C1: step 2 = trim 4.2 -> 10, trigger 14.2", JSON.stringify(p.glide_path[1]));
-    assert(p.glide_path[p.glide_path.length - 1].resulting_weight_pct === 10, "C1: last step lands exactly on target", `got ${p.glide_path[p.glide_path.length - 1].resulting_weight_pct}`);
+    assert(p.decision === "trim" && p.total_trim_pct_points === 8.4 && p.glide_path.length === 2, "C1: trim 8.4 over 2 steps", JSON.stringify(p.glide_path));
+    assert(p.glide_path[1].resulting_weight_pct === 10, "C1: lands on 10", String(p.glide_path[1].resulting_weight_pct));
   }
-  // honest-8 dedup: two position_over_concentration pre-obs collapse to one, max severity escalate
-  const posObs = c1.observation_actions.filter((o) => o.observation_category === "position_over_concentration");
-  assert(posObs.length === 1, "C1: position_over_concentration deduped to one observation", `got ${posObs.length}`);
-  assert(posObs[0]?.severity_hint === "escalate", "C1: dedup keeps max severity (escalate)", `got ${posObs[0]?.severity_hint}`);
-  // holding action
-  assert(c1.holding_actions.length === 1 && c1.holding_actions[0].kind === "action", "C1: one holding action", JSON.stringify(c1.holding_actions.map((h) => h.kind)));
-  const ha1 = c1.holding_actions[0];
-  assert(ha1.a2_verdict === "review", "C1: holding action carries Review verdict", `got ${ha1.a2_verdict}`);
-  assert(ha1.kind === "action" && ha1.source_observation === "position_over_concentration", "C1: source_observation linked", JSON.stringify(ha1));
+  const d1 = c1.decisions.find((d) => d.holding_ref === "Reliance Industries");
+  assert(d1?.decision === "trim", "C1: reconciled decision trim", d1?.decision);
 
-  // --- Case 2: flag position 12.0% over a single step ---
-  console.log("Case 2: single-step trim (12.0% flag)");
-  const c2 = computeA3({
-    caseId: "c2",
-    asOfDate: "2026-04-30",
-    a2Output: a2Output([holding("HDFC Bank", "discuss", [driver("position_over_concentration", "flag", "position_concentration")])]),
-    metrics: metrics([{ instrument: "HDFC Bank", weightPct: 12.0, severity: "flag" }]),
-    preObservations: [preObs("position_over_concentration", "flag")],
-  });
-  const reb2 = c2.rebalance_proposal;
-  assert(reb2.kind === "proposal", "C2: proposal", `got ${reb2.kind}`);
-  if (reb2.kind === "proposal") {
-    const p = reb2.computed.positions[0];
-    assert(p.breach_threshold_pct === 10, "C2: breach threshold 10 (flag)", `got ${p.breach_threshold_pct}`);
-    assert(p.total_trim_pct_points === 2, "C2: total trim 2.0", `got ${p.total_trim_pct_points}`);
-    assert(p.glide_path.length === 1, "C2: one step (ceil 2/5)", `got ${p.glide_path.length}`);
-    assert(p.glide_path[0].resulting_weight_pct === 10 && p.glide_path[0].trim_pct_points === 2 && p.glide_path[0].trigger_at_weight_pct === 12, "C2: step 1 = trim 2 -> 10, trigger 12", JSON.stringify(p.glide_path[0]));
+  // --- Case 2: coherence (both surfaces reflect the same decision) ---
+  console.log("Case 2: coherence");
+  const ha1 = c1.holding_actions.find((h) => h.holding_ref === "Reliance Industries");
+  assert(ha1?.kind === "action" && ha1.decision === "trim", "C2: holding action carries decision trim", JSON.stringify(ha1));
+  assert(reb1.kind === "proposal" && reb1.computed.positions.some((p) => p.instrument === "Reliance Industries" && p.decision === "trim"), "C2: rebalance reflects the same trim decision", "");
+
+  // --- Case 3: redeployment closure ---
+  console.log("Case 3: redeployment closure");
+  // freed 8.4 (trim 18.4->10), Debt under by 5, Alternatives under by 4 (capacity 9 > 8.4 -> all deployed)
+  const m3 = metrics([], { Equity: 70, Debt: 20, Alternatives: 3, Cash: 7 });
+  const r3 = computeRedeployment([decision("trim", 18.4)], m3);
+  const deployed3 = r3.deployments.reduce((s, x) => s + x.add_pct_points, 0);
+  assert(r3.freed_capital_pct === 8.4, "C3: freed 8.4", String(r3.freed_capital_pct));
+  assert(round1(deployed3 + r3.leftover_to_cash_pct) === r3.freed_capital_pct, "C3: freed == deployed + leftover", `${deployed3}+${r3.leftover_to_cash_pct} vs ${r3.freed_capital_pct}`);
+  assert(r3.leftover_to_cash_pct === 0, "C3: nothing left to cash (capacity exceeds freed)", String(r3.leftover_to_cash_pct));
+  assert(r3.deployments.every((d) => d.sleeve !== "Cash"), "C3: cash is never a deployment destination", "");
+
+  // freed exceeds capacity -> leftover to cash
+  console.log("Case 4: redeployment leftover-to-cash (freed exceeds capacity)");
+  const m4 = metrics([], { Equity: 64, Debt: 24, Alternatives: 6, Cash: 6 }); // gaps: Eq1, Debt1, Alt1 = 3 capacity
+  const r4 = computeRedeployment([decision("exit", 20)], m4); // exit frees 20
+  const deployed4 = r4.deployments.reduce((s, x) => s + x.add_pct_points, 0);
+  assert(r4.freed_capital_pct === 20, "C4: exit frees full weight 20", String(r4.freed_capital_pct));
+  assert(round1(deployed4) === 3 && r4.leftover_to_cash_pct === 17, "C4: 3 deployed to capacity, 17 leftover", `${deployed4}/${r4.leftover_to_cash_pct}`);
+  assert(round1(deployed4 + r4.leftover_to_cash_pct) === r4.freed_capital_pct, "C4: closure holds", "");
+
+  // no underweight sleeve -> all leftover
+  console.log("Case 5: redeployment no-underweight (all to cash)");
+  const m5 = metrics([], { Equity: 70, Debt: 30, Alternatives: 10, Cash: 3 });
+  const r5 = computeRedeployment([decision("trim", 15)], m5); // freed 5
+  assert(r5.freed_capital_pct === 5 && r5.deployments.length === 0 && r5.leftover_to_cash_pct === 5, "C5: no underweight sleeve, all 5 to cash", JSON.stringify(r5));
+
+  // --- Case 6: exit-eligibility gate ---
+  console.log("Case 6: exit-eligibility gate");
+  // Performance concern (sharpe<0) AND thesis negative -> eligible
+  const c6a = computeA3(input({
+    a2Output: a2Output([holding("BadFund", "review", [driver("e7_overall_verdict_negative", "escalate", "thesis")], { weightPct: 12 })]),
+    metrics: metrics([{ instrument: "BadFund", weightPct: 12, severity: "flag" }]),
+    riskReward: riskReward([{ ref: "BadFund", sharpe: -0.3 }]),
+    overlap: overlap([]),
+  }));
+  assert(c6a.decisions.find((d) => d.holding_ref === "BadFund")?.exit_eligible === true, "C6a: perf-negative + thesis-negative => exit_eligible", "");
+  // thesis negative but sharpe >= 0 -> NOT eligible
+  const c6b = computeA3(input({
+    a2Output: a2Output([holding("SoundFund", "review", [driver("e7_overall_verdict_negative", "escalate", "thesis")], { weightPct: 12 })]),
+    metrics: metrics([{ instrument: "SoundFund", weightPct: 12, severity: "flag" }]),
+    riskReward: riskReward([{ ref: "SoundFund", sharpe: 0.5 }]),
+    overlap: overlap([]),
+  }));
+  assert(c6b.decisions.find((d) => d.holding_ref === "SoundFund")?.exit_eligible === false, "C6b: thesis-negative alone (sharpe>=0) => NOT exit_eligible", "");
+  // opaque (no stats) -> performance sentinelled -> not eligible even with thesis negative
+  const c6c = computeA3(input({
+    a2Output: a2Output([holding("OpaquePMS", "review", [driver("e6_overall_verdict_negative", "escalate", "thesis")], { weightPct: 12, subCategory: "pms_equity" })]),
+    metrics: metrics([{ instrument: "OpaquePMS", weightPct: 12, severity: "flag" }]),
+    riskReward: riskReward([{ ref: "OpaquePMS" }]), // sharpe undefined -> sentinel
+    overlap: overlap([]),
+  }));
+  const d6c = c6c.decisions.find((d) => d.holding_ref === "OpaquePMS");
+  assert(d6c?.exit_eligible === false, "C6c: opaque (performance sentinelled) => NOT exit_eligible", "");
+  assert(d6c?.signals.find((s) => s.dimension === "performance")?.status === "sentinelled", "C6c: performance sentinelled for opaque", "");
+
+  // --- Case 7: sentinel routing for thin dimensions ---
+  console.log("Case 7: thin-dimension sentinel routing");
+  const sig = c6b.decisions.find((d) => d.holding_ref === "SoundFund")?.signals ?? [];
+  assert(sig.find((s) => s.dimension === "cost_efficiency")?.status === "sentinelled", "C7: cost_efficiency sentinelled (no fee-vs-peer benchmark)", "");
+  assert(sig.find((s) => s.dimension === "suitability")?.status === "sentinelled", "C7: suitability sentinelled (portfolio-level only)", "");
+  assert(sig.find((s) => s.dimension === "redundancy")?.status === "sentinelled", "C7: redundancy sentinelled when no overlap pair", "");
+
+  // --- Part B: fixture-driven ---
+  const FIX = path.resolve(process.cwd(), "db", "fixtures", "cases");
+  const SNAPSHOT_DATE: Record<string, string> = { t0_q2_2026: "2026-04-02" };
+  const fixtures = ["c-2026-05-14-bhatt-01", "c-2026-05-15-menon-01", "c-2026-05-15-surana-01", "c-2026-05-15-iyengar-01", "c-2026-05-15-malhotra-01"];
+
+  console.log("Case 8: overlap recompute present and well-formed for all 5 fixtures");
+  for (const f of fixtures) {
+    const fx = JSON.parse(await fs.readFile(path.join(FIX, `${f}.json`), "utf-8"));
+    const holdings = HOLDINGS_BY_INVESTOR[fx.investorId];
+    const snap = await loadSnapshot(fx.snapshotId);
+    const ov = runPortfolioOverlapDeterministic({ caseId: fx.id, asOfDate: SNAPSHOT_DATE[fx.snapshotId], holdings, snapshot: snap, investor: {} });
+    const wellFormed = ov.agent_id === "portfolio_overlap" && Array.isArray(ov.per_pair) && Array.isArray(ov.per_sleeve) && !!ov.portfolio && Array.isArray(ov.per_sleeve);
+    assert(wellFormed, `C8: ${fx.investorId} overlap present and well-formed`, JSON.stringify(Object.keys(ov)));
   }
 
-  // --- Case 3: no breach -> no_action_needed (position at exactly target, and empty) ---
-  console.log("Case 3: no concentration breach");
-  const c3 = computeA3({
-    caseId: "c3",
-    asOfDate: "2026-04-30",
-    a2Output: a2Output([holding("At Target Co", "monitor", [driver("allocation_drift", "watch", "allocation_drift")])]),
-    metrics: metrics([{ instrument: "At Target Co", weightPct: 10.0, severity: "flag" }]),
-    preObservations: [],
-  });
-  assert(c3.rebalance_proposal.kind === "no_action_needed", "C3: at-target position yields no_action_needed", `got ${c3.rebalance_proposal.kind}`);
-  const c3b = computeA3({ caseId: "c3b", asOfDate: "2026-04-30", a2Output: a2Output([]), metrics: metrics([]), preObservations: [] });
-  assert(c3b.rebalance_proposal.kind === "no_action_needed", "C3b: empty positionFlags yields no_action_needed", `got ${c3b.rebalance_proposal.kind}`);
-
-  // --- Case 4: metrics absent -> rebalance sentinel ---
-  console.log("Case 4: metrics absent");
-  const c4 = computeA3({ caseId: "c4", asOfDate: "2026-04-30", a2Output: a2Output([]), metrics: null, preObservations: [] });
-  assert(c4.rebalance_proposal.kind === "sentinel", "C4: null metrics yields sentinel", `got ${c4.rebalance_proposal.kind}`);
-  if (c4.rebalance_proposal.kind === "sentinel") {
-    assert(c4.rebalance_proposal.sentinel_reason === "upstream_evidence_unavailable", "C4: sentinel reason upstream_evidence_unavailable", c4.rebalance_proposal.sentinel_reason);
+  console.log("Case 9: Surana Axis Large Cap is NOT exit-eligible (lands on trim)");
+  const sf = JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-surana-01.json"), "utf-8"));
+  const sc = sf.content;
+  const sHoldings = HOLDINGS_BY_INVESTOR[sf.investorId];
+  const sSnap = await loadSnapshot(sf.snapshotId);
+  const sOverlap = runPortfolioOverlapDeterministic({ caseId: sf.id, asOfDate: "2026-04-02", holdings: sHoldings, snapshot: sSnap, investor: {} });
+  const sPreObs = sc.metrics ? stitch({ caseMeta: { case_id: sf.id, investor_id: sf.investorId, investor_name: sf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: sc.metrics.concentration.bucketTier }, metrics: sc.metrics, evidence: sc.evidence, router_decision: (sc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
+  const sa3 = computeA3({ caseId: sf.id, asOfDate: "2026-04-02", a2Output: sc.a2_classification, metrics: sc.metrics, preObservations: sPreObs, riskReward: sc.risk_reward_stats ?? null, overlap: sOverlap, evidence: sc.evidence ?? null });
+  const axis = sa3.decisions.find((d) => /axis/i.test(d.instrument_display_name));
+  assert(!!axis, "C9: Axis decision present in Surana", "");
+  if (axis) {
+    const perf = axis.signals.find((s) => s.dimension === "performance");
+    const thesis = axis.signals.find((s) => s.dimension === "thesis_quality");
+    console.log(`     Axis: decision=${axis.decision} exit_eligible=${axis.exit_eligible} perf=${perf?.status}/${perf?.concern} thesis=${thesis?.status}/${thesis?.concern} | ${perf?.detail}`);
+    assert(axis.exit_eligible === false, "C9: Axis NOT exit-eligible (one soft thesis signal, not a hard-corroborated convergence)", `perf concern=${perf?.concern}`);
+    assert(axis.decision === "trim", "C9: Axis lands on trim", axis.decision);
   }
-
-  // --- Case 5: holding filtering, sentinel routing, sector pulled from A2 drivers ---
-  console.log("Case 5: holding surface filtering + sector observation from A2");
-  const c5 = computeA3({
-    caseId: "c5",
-    asOfDate: "2026-04-30",
-    a2Output: a2Output([
-      holding("Maintain Co", "maintain", []),
-      holding("Monitor Co", "monitor", [driver("allocation_drift", "watch", "allocation_drift")]),
-      holding("Unknown Co", "unable_to_classify", [driver("evidence_unavailable: missing", "flag", "evidence_unavailable")]),
-      holding("Bank A", "discuss", [driver("sector_over_concentration", "flag", "sector_concentration")]),
-    ]),
-    metrics: metrics([]),
-    preObservations: [preObs("cash_drag", "flag"), preObs("allocation_drift", "info")],
-  });
-  assert(c5.holding_actions.length === 3, "C5: Maintain excluded, 3 holding actions", `got ${c5.holding_actions.length}`);
-  const sentinels = c5.holding_actions.filter((h) => h.kind === "sentinel");
-  assert(sentinels.length === 1 && sentinels[0].holding_ref === "Unknown Co", "C5: unable_to_classify routes to sentinel", JSON.stringify(sentinels.map((s) => s.holding_ref)));
-  // sector_over_concentration pulled from A2 driver; cash_drag + allocation_drift from pre-obs; honest-8 order
-  const cats = c5.observation_actions.map((o) => o.observation_category);
-  assert(cats.includes("sector_over_concentration"), "C5: sector_over_concentration pulled from A2 drivers", cats.join(","));
-  assert(cats.includes("cash_drag") && cats.includes("allocation_drift"), "C5: cash_drag and allocation_drift from pre-observations", cats.join(","));
-  assert(cats.indexOf("sector_over_concentration") < cats.indexOf("cash_drag"), "C5: observation order follows the honest-8 declaration", cats.join(","));
-
-  // --- Case 6: all-clear skip path makes no Claude call ---
-  console.log("Case 6: all-clear skip path (no LLM call)");
-  const input6: A3Input = { caseId: "c6", asOfDate: "2026-04-30", a2Output: a2Output([holding("Healthy Co", "maintain", [])]), metrics: metrics([]), preObservations: [] };
-  const r6 = await runA3Diagnostic(input6);
-  assert(r6.usage.inputTokens === 0 && r6.usage.outputTokens === 0, "C6: no token spend on the all-clear path", JSON.stringify(r6.usage));
-  assert(r6.output.holding_actions.length === 0, "C6: no holding actions", `got ${r6.output.holding_actions.length}`);
-  assert(r6.output.summary.rebalance === "no_action_needed", "C6: summary rebalance no_action_needed", r6.output.summary.rebalance);
-  assert(r6.output.reasoning_summary.length > 0 && !/healthy portfolio/i.test(r6.output.summary.one_line_characterization), "C6: deterministic summary does not claim portfolio health", r6.output.summary.one_line_characterization);
 
   console.log("");
   if (failures.length) {
