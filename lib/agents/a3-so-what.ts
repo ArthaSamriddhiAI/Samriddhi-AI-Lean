@@ -402,7 +402,11 @@ function computeSignals(
     performanceSignal(stats, kind),
     thesisSignal(h, kind, e6),
     suitabilitySignal(evidence),
-  ];
+    // Signal details may copy upstream evidence prose (e.g., the opaque
+    // redundancy detail copies E6's strategy profile, which can carry a long
+    // dash). Strip per WA07; the canonical sanitiser is idempotent on the
+    // constructed numeric details.
+  ].map((s) => ({ ...s, detail: stripLongDashes(s.detail) }));
 }
 
 /* Type-specific exit-eligibility gate (deterministic; sets who may be CONSIDERED

@@ -1913,70 +1913,656 @@
       "agent_id": "a3_so_what",
       "case_id": "c-2026-05-15-surana-01",
       "as_of_date": "2026-04-02",
+      "decisions": [
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 11.6,
+          "holding_kind": "transparent",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9420000000000001 with Axis Large Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 1.0601, sortino 0.9793, calmar 1.5403, max_drawdown -0.1012"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11,
+          "holding_kind": "transparent",
+          "over_concentrated": true,
+          "a2_verdict": "review",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.987 with Reliance Industries (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.3363, sortino 0.2733, calmar 0.677, max_drawdown -0.1451"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": true,
+              "detail": "negative evidence verdict (e7_overall_verdict_negative)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [
+            "thesis_quality"
+          ],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 8.7,
+          "holding_kind": "transparent",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Parag Parikh Flexi Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.372, sortino 0.3309, calmar 0.6768, max_drawdown -0.1558"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e7_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_mid_cap",
+          "weight_pct": 8.7,
+          "holding_kind": "transparent",
+          "over_concentrated": false,
+          "a2_verdict": "review",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with Parag Parikh Flexi Cap Fund (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: not_applicable_for_risk_reward"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": true,
+              "detail": "negative evidence verdict (e7_overall_verdict_negative)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [
+            "thesis_quality"
+          ],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "SBI Small Cap Fund",
+          "instrument_display_name": "SBI Small Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_small_cap",
+          "weight_pct": 6.4,
+          "holding_kind": "transparent",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with Kotak Emerging Equity Fund (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.457, sortino 0.4452, calmar 0.5894, max_drawdown -0.2207"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e7_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 8.7,
+          "holding_kind": "opaque",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): White Oak India Pioneers is a high-conviction growth-quality strategy. Published positioning: ~25, 35 stocks; multi-cap with a tilt toward large and mid-cap qual"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "fee 360 bps, complexity_premium_earned mixed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "E6 overall_verdict positive_with_caution"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 20.3,
+          "holding_kind": "transparent",
+          "over_concentrated": true,
+          "a2_verdict": "review",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.987 with Axis Large Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.1835, sortino 0.1818, calmar 0.4621, max_drawdown -0.216"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e1_overall_verdict_hold_with_attention)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 5.8,
+          "holding_kind": "transparent",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.987 with Axis Large Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.3102, sortino 0.2695, calmar 0.6383, max_drawdown -0.154"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e1_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Vanguard S&P 500 ETF (GIFT)",
+          "instrument_display_name": "Vanguard S&P 500 ETF (GIFT)",
+          "asset_class": "Equity",
+          "sub_category": "intl_us_etf",
+          "weight_pct": 8.7,
+          "holding_kind": "transparent",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with Parag Parikh Flexi Cap Fund (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: not_applicable_for_risk_reward"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Physical gold",
+          "instrument_display_name": "Physical gold",
+          "asset_class": "Alternatives",
+          "sub_category": "physical_gold",
+          "weight_pct": 5.8,
+          "holding_kind": "allocation",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "redundancy not assessable: no within-sleeve overlap pair"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: allocation instrument (no tier_b)"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Bank savings",
+          "instrument_display_name": "Bank savings",
+          "asset_class": "Cash",
+          "sub_category": "savings",
+          "weight_pct": 4.3,
+          "holding_kind": "allocation",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "redundancy not assessable: no within-sleeve overlap pair"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: allocation instrument (no tier_b)"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: minor (aligned)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        }
+      ],
       "holding_actions": [
         {
           "holding_ref": "Parag Parikh Flexi Cap Fund",
           "instrument_display_name": "Parag Parikh Flexi Cap Fund",
           "a2_verdict": "discuss",
           "kind": "action",
+          "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling; the position is the strongest conviction holding in the book, so frame the trim as discipline on sizing rather than a view on the manager."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction; the holding is sound, but the position has drifted above the concentration threshold and is worth bringing back into line."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
           "instrument_display_name": "Axis Large Cap Fund",
           "a2_verdict": "review",
           "kind": "action",
-          "source_observation": "e7_overall_verdict_negative",
-          "advisor_action": "Propose exiting Axis Large Cap Fund and redeploying the proceeds; the diagnostic returned a negative overall verdict, so the conversation should move past monitoring and toward replacement within the large-cap sleeve."
+          "decision": "trim",
+          "source_observation": "thesis_quality",
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10%, a 1 point reduction, and use the conversation to flag the underlying thesis and quality concerns on the fund so the client understands this is a position the advisor would not want to see grow further."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
           "instrument_display_name": "Mirae Asset Large Cap Fund",
           "a2_verdict": "monitor",
           "kind": "action",
-          "source_observation": "e7_overall_verdict_positive_with_caution",
-          "advisor_action": "Propose keeping Mirae Asset Large Cap Fund in place but flagging it for the next review cycle; the verdict is positive with caution, so the action is to watch the cautionary driver, not to change the position today."
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund; the position warrants monitoring rather than action at this meeting."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
           "instrument_display_name": "Kotak Emerging Equity Fund",
           "a2_verdict": "review",
           "kind": "action",
-          "source_observation": "e7_overall_verdict_negative",
-          "advisor_action": "Propose exiting Kotak Emerging Equity Fund and reallocating within the mid-cap sleeve; with a negative overall verdict, continuing to hold the fund is the harder call to defend."
+          "decision": "maintain",
+          "source_observation": "thesis_quality",
+          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund; while the thesis and quality picture deserves an honest discussion with the client, the position itself does not call for a trim today."
         },
         {
           "holding_ref": "SBI Small Cap Fund",
           "instrument_display_name": "SBI Small Cap Fund",
           "a2_verdict": "monitor",
           "kind": "action",
-          "source_observation": "e7_overall_verdict_positive_with_caution",
-          "advisor_action": "Propose holding SBI Small Cap Fund with active monitoring; the positive-with-caution verdict means the position earns its place for now, but the cautionary driver should be revisited at the next review."
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining SBI Small Cap Fund; keep the position under monitoring and revisit at the next review."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
           "instrument_display_name": "White Oak India Pioneers PMS",
           "a2_verdict": "monitor",
           "kind": "action",
-          "source_observation": "complexity_premium_not_earned",
-          "advisor_action": "Propose putting White Oak India Pioneers PMS on the watch list, with a clear bar for what the structure must deliver to justify its fee and complexity; if the premium remains unearned at the next review, the conversation should shift to exiting the wrapper."
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining White Oak India Pioneers PMS; the holding is on monitor and does not require action at this meeting."
         },
         {
           "holding_ref": "Reliance Industries",
           "instrument_display_name": "Reliance Industries",
           "a2_verdict": "review",
           "kind": "action",
+          "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing the Reliance Industries position from 20.3% of liquid assets toward the 10% single-position ceiling; at more than double the ceiling and above the 15% escalate threshold, this is the portfolio's most pressing single-name concentration and should be staged carefully."
+          "advisor_action": "Propose reducing Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling, a 10.3 point trim staged over three steps; at more than a fifth of liquid assets the position sits above the 15% escalation threshold and is the portfolio's largest concentration risk."
         },
         {
           "holding_ref": "HDFC Bank",
           "instrument_display_name": "HDFC Bank",
           "a2_verdict": "monitor",
           "kind": "action",
-          "source_observation": "e1_overall_verdict_positive_with_caution",
-          "advisor_action": "Propose holding HDFC Bank with monitoring on the cautionary driver flagged in the diagnostic; no change to the position today, but the driver should be revisited at the next review."
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining HDFC Bank; the position is on monitor and does not need to be touched at this meeting."
         }
       ],
       "observation_actions": [
@@ -1984,13 +2570,13 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose a staged trim across the three positions sitting above the 10% single-position ceiling, starting with Reliance Industries at 20.3% as the escalate-level breach and following with Parag Parikh Flexi Cap and Axis Large Cap; this is the portfolio's primary concentration risk and warrants a structured glide-path rather than a single sale."
+          "advisor_action": "Frame the meeting around single-position concentration: Reliance Industries at 20.3% sits above the 15% escalation threshold, and both Parag Parikh Flexi Cap Fund at 11.6% and Axis Large Cap Fund at 11% sit above the 10% single-position ceiling. Propose bringing all three back toward their ceilings as a coherent risk-management step rather than three isolated trades."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the proceeds from the concentration trims to bring the portfolio's sleeve weights back toward the policy allocation; the drift is at flag level, so the rebalance can be folded into the same conversation rather than treated as a separate exercise."
+          "advisor_action": "Use the concentration trims as the lever to address allocation drift: the portfolio carries no Debt against a 25% model target and is light on Alternatives against a 7% target, and the freed capital from the trims is the natural source to begin closing both gaps in this meeting."
         }
       ],
       "rebalance_proposal": {
@@ -1999,6 +2585,7 @@
           "positions": [
             {
               "instrument": "Parag Parikh Flexi Cap Fund",
+              "decision": "trim",
               "current_weight_pct": 11.6,
               "breach_threshold_pct": 10,
               "target_weight_pct": 10,
@@ -2014,6 +2601,7 @@
             },
             {
               "instrument": "Axis Large Cap Fund",
+              "decision": "trim",
               "current_weight_pct": 11,
               "breach_threshold_pct": 10,
               "target_weight_pct": 10,
@@ -2029,6 +2617,7 @@
             },
             {
               "instrument": "Reliance Industries",
+              "decision": "trim",
               "current_weight_pct": 20.3,
               "breach_threshold_pct": 15,
               "target_weight_pct": 10,
@@ -2054,10 +2643,31 @@
                 }
               ]
             }
-          ]
+          ],
+          "redeployment": {
+            "freed_capital_pct": 12.9,
+            "deployments": [
+              {
+                "sleeve": "Debt",
+                "current_pct": 0,
+                "target_pct": 25,
+                "add_pct_points": 12.3,
+                "resulting_pct": 12.3
+              },
+              {
+                "sleeve": "Alternatives",
+                "current_pct": 5.8,
+                "target_pct": 7,
+                "add_pct_points": 0.6,
+                "resulting_pct": 6.4
+              }
+            ],
+            "leftover_to_cash_pct": 0,
+            "note": "Freed 12.9 points deployed toward under-allocated sleeves, moving the allocation toward the model."
+          }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated trim across three positions, staged to manage market impact and the capital-gains event. For Parag Parikh Flexi Cap Fund, propose a single-step trim of 1.6 points from 11.6% to the 10% target, triggered at the current 11.6%. For Axis Large Cap Fund, propose a single-step trim of 1 point from 11% to the 10% target, triggered at the current 11%. For Reliance Industries, which at 20.3% sits well above the 15% escalate threshold, propose a three-step glide-path to the 10% target, a total trim of 10.3 points: step one trims 3.4 points from 20.3% to 16.9%, triggered at the current 20.3%; step two trims 3.5 points from 16.9% to 13.4%, triggered once the position has settled near 16.9%; step three trims 3.4 points from 13.4% to the 10% ceiling, triggered once the position has settled near 13.4%. Staging the Reliance sale in three legs paces the market impact of the largest trim and spreads the capital-gains realisation across the cadence of the program.",
+          "advisor_action": "Propose a single coordinated rebalance. On Reliance Industries, stage the reduction from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points: the first trim now from 20.3% to 16.9%, the second once the position has settled near 16.9% bringing it to 13.4%, and the third from 13.4% to the 10% ceiling, pacing the sale to manage market impact and the capital-gains event. On Parag Parikh Flexi Cap Fund, trim 1.6 points in a single step from 11.6% to 10%. On Axis Large Cap Fund, trim 1 point in a single step from 11% to 10%. Together these trims free 12.9 points of capital. Propose redeploying 12.3 points into the Debt sleeve, which currently sits at 0% against a 25% model target, taking it to 12.3% and beginning to build the missing fixed-income foundation, and 0.6 points into Alternatives, moving the sleeve from 5.8% to 6.4% against its 7% target. The freed capital is fully absorbed by the under-allocated sleeves with nothing left in cash.",
           "generation_method": "llm"
         }
       },
@@ -2066,10 +2676,12 @@
         "holding_actions_sentinelled": 0,
         "observation_actions_surfaced": 2,
         "observation_actions_sentinelled": 0,
+        "trim_count": 3,
+        "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "8 holding actions and 2 observation actions surfaced, with a three-position concentration trim proposed."
+        "one_line_characterization": "Three concentration trims free 12.9 points that the advisor proposes to redirect into Debt and Alternatives, moving the portfolio toward the model."
       },
-      "reasoning_summary": "The portfolio's central problem is single-name and single-fund concentration: Reliance Industries at 20.3% is an escalate-level breach, and both Parag Parikh Flexi Cap and Axis Large Cap sit modestly above the 10% ceiling. Two funds, Axis Large Cap and Kotak Emerging Equity, returned negative overall verdicts and warrant exit conversations rather than monitoring. The remaining holdings are either positive-with-caution positions to watch or, in the case of White Oak, a complexity wrapper that has not yet earned its premium. The rebalance proposal stages the Reliance trim across three legs to manage market impact and the capital-gains event, while the smaller breaches resolve in single steps."
+      "reasoning_summary": "The dominant action is the staged reduction of Reliance Industries from 20.3% toward the 10% ceiling, paired with smaller corrective trims on Parag Parikh and Axis Large Cap. The freed capital lines up directly with the two drift gaps the portfolio carries, no Debt against a 25% target and a small Alternatives shortfall, so the advisor can frame the trims and the redeployment as one coherent rebalance rather than separate decisions. Mirae, Kotak, SBI Small Cap, White Oak, and HDFC Bank are left in place; the meeting load sits squarely on concentration and allocation drift."
     }
   },
   "tokenUsage": {
