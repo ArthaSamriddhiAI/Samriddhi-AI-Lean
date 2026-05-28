@@ -6,32 +6,25 @@
  *
  *   Layer 1 (computeA3): pure, deterministic. Per holding it computes the fixed
  *   five-dimension signal set (only metrics the audit confirmed exist, each
- *   tagged assessable or sentinelled), a deterministic exit-eligibility gate,
+ *   tagged assessable or sentinelled), a type-specific exit-eligibility gate,
  *   and a baseline reconciled decision (maintain/trim/exit). Both the
  *   per-holding action surface and the rebalance proposal read from the SAME
- *   reconciled decision, so they can never disagree about a holding. Layer 1
- *   also computes the rebalance glide-path math and the deterministic
- *   redeployment of freed capital toward under-allocated model sleeves. Same
- *   inputs produce the same numbers; this is the audit surface, asserted
- *   deterministically in verify.
+ *   reconciled decision. Layer 1 also computes the rebalance glide-path math and
+ *   the deterministic redeployment of freed capital toward under-allocated model
+ *   sleeves. Same inputs produce the same numbers; asserted in verify.
  *
  *   Layer 2 (LLM): over the fixed signal set, returns a structured judgment
  *   (refining the baseline decision: it may upgrade a trim to exit ONLY for an
- *   exit-eligible holding, or downgrade a marginal flag to maintain) plus the
- *   advisor-action prose. The LLM judges; it cannot compute, invent, or alter
- *   any number. (The judgment step lands in the Step-2 commit; this Step-1
- *   commit ships the deterministic Layer 1 + baseline narration.)
+ *   exit-eligible holding) plus the advisor-action prose. The LLM judges; it
+ *   cannot compute, invent, or alter any number. (The judgment step lands in the
+ *   Step-2b commit; this commit ships the deterministic gates + baseline
+ *   narration.)
  *
- * A3 is the single product surface that recommends an action rather than
- * characterising a state. It runs on Samriddhi 2 (diagnostic) cases, after A2,
- * M0, risk-reward, overlap, and the evidence layer, consuming their
- * already-produced outputs. Ships as data only (content.a3_so_what); the
- * renderer is untouched (WA09).
- *
- * A3 invents no concentration thresholds (10% flag, 15% escalate imported from
- * portfolio-risk-analytics.ts) and no model targets (MODEL_BANDS via
- * metrics.assetClass). The glide-path cadence is A3's own execution-pacing
- * parameter.
+ * A3 runs on Samriddhi 2 (diagnostic) cases, consuming A2, M0, risk-reward,
+ * overlap, and the evidence layer. Ships data only (content.a3_so_what); the
+ * renderer is untouched (WA09). A3 invents no concentration thresholds (10/15%
+ * from portfolio-risk-analytics.ts) and no model targets (MODEL_BANDS via
+ * metrics.assetClass). The glide-path cadence is A3's own pacing parameter.
  */
 
 import type { A2Output, A2Verdict, A2HoldingVerdict } from "./a2-classification";
@@ -41,9 +34,10 @@ import { POSITION_FLAG_PCT, POSITION_ESCALATE_PCT, MODEL_BANDS } from "./portfol
 import type { PreObservation, EvidenceBundle } from "./stitcher";
 import type { RiskRewardOutput, HoldingStats } from "./risk-reward-stats";
 import type { PortfolioOverlapOutput } from "./portfolio-overlap";
+import type { E6PerProduct } from "./e6-wrappers";
 import { callAgent, type AgentCallResult, type AgentUsage } from "./harness";
 
-/* ----- Output contract (skill Output Schema, as TypeScript types) ----- */
+/* ----- Output contract ----- */
 
 export type A3SentinelReason =
   | "no_client_specific_context"
@@ -55,8 +49,6 @@ export type A3Sentinel = {
   note: string;
 };
 
-/* ----- The five trim-vs-exit dimensions ----- */
-
 export type A3Dimension =
   | "redundancy"
   | "cost_efficiency"
@@ -65,13 +57,11 @@ export type A3Dimension =
   | "suitability";
 
 /* A per-holding, per-dimension signal. `status` distinguishes a real reading
- * from a sentinel (source absent, opaque wrapper, insufficient history); the
- * LLM never judges over a sentinelled dimension. `concern` is set ONLY where a
- * non-invented boundary exists (Performance: Sharpe below zero; Thesis: a
- * negative evidence verdict). Dimensions without a non-invented threshold
- * (Redundancy, Cost) carry the computed value in `detail` for the LLM to weigh
- * but do not set `concern` deterministically. `hard_number` marks the two
- * hard-number dimensions (Redundancy, Performance). */
+ * from a sentinel (source absent, opaque wrapper without E6, insufficient
+ * history). `concern` is set only where a non-invented boundary exists
+ * (Performance: Sharpe below zero; Thesis: a negative evidence verdict; Cost
+ * for opaque: complexity_premium_earned "no"). Dimensions without a boundary
+ * carry the value in `detail` for the LLM but do not set `concern`. */
 export type A3DimensionSignal = {
   dimension: A3Dimension;
   status: "assessable" | "sentinelled";
@@ -81,6 +71,15 @@ export type A3DimensionSignal = {
 };
 
 export type A3DecisionKind = "maintain" | "trim" | "exit";
+
+/* Holding kind drives the type-specific eligibility gate (Step 2).
+ *  - transparent: a merit-evaluable instrument with numeric tier_b (MF, listed,
+ *    intl). Exit gate: numeric Performance-concern AND Thesis-concern.
+ *  - opaque: PMS / AIF wrapper, no tier_b, rich E6. Exit gate: E6 verdict
+ *    negative AND complexity_premium_earned "no" (Thesis-concern AND
+ *    Cost-concern, via E6).
+ *  - allocation: FD, bond, gold, cash. No merit signal; never exit-eligible. */
+export type A3HoldingKind = "transparent" | "opaque" | "allocation";
 
 /* The reconciled per-holding decision. Both surfaces read this; neither
  * decides independently (the coherence fix). `decision` is the baseline at
@@ -92,16 +91,18 @@ export type A3ReconciledDecision = {
   asset_class: string;
   sub_category: string;
   weight_pct: number;
+  holding_kind: A3HoldingKind;
   over_concentrated: boolean;
   a2_verdict: A2Verdict;
   signals: A3DimensionSignal[];
   exit_eligible: boolean;
   decision: A3DecisionKind;
   dimensions_failing: A3Dimension[];
+  /* Structured justification when decision is exit (Layer-2 judgment, Step 2b).
+   * Empty at the Layer-1 baseline. */
+  exit_rationale: string;
   judgment_reasoning: string;
 };
-
-/* ----- Per-holding action surface (derived from the reconciled decision) ----- */
 
 export type A3HoldingVerdict = Exclude<A2Verdict, "maintain">;
 
@@ -118,8 +119,6 @@ export type A3HoldingAction = {
   a2_verdict: A3HoldingVerdict;
 } & (A3HoldingActionBody | A3Sentinel);
 
-/* The honest 8: 7 live stitcher pre-observations plus sector_over_concentration
- * from A2's drivers (T-5.12 decision D4). */
 export type A3ObservationCategory =
   | "position_over_concentration"
   | "sector_over_concentration"
@@ -130,17 +129,12 @@ export type A3ObservationCategory =
   | "stated_revealed_divergence"
   | "complexity_premium_not_earned";
 
-export type A3ObservationActionBody = {
-  kind: "action";
-  advisor_action: string;
-};
+export type A3ObservationActionBody = { kind: "action"; advisor_action: string };
 
 export type A3ObservationAction = {
   observation_category: A3ObservationCategory;
   severity_hint: string;
 } & (A3ObservationActionBody | A3Sentinel);
-
-/* ----- Rebalance proposal (derived from the reconciled decision) ----- */
 
 export type A3GlidePathStep = {
   step: number;
@@ -151,7 +145,6 @@ export type A3GlidePathStep = {
 
 export type A3RebalancePosition = {
   instrument: string;
-  /** "trim" trims to the 10% ceiling; "exit" liquidates to 0 (judged exit). */
   decision: "trim" | "exit";
   current_weight_pct: number;
   breach_threshold_pct: number;
@@ -168,10 +161,6 @@ export type A3RedeploymentTarget = {
   resulting_pct: number;
 };
 
-/* Deterministic redeployment of freed capital toward under-allocated model
- * sleeves. Numbers visibly close: freed_capital_pct == sum(add_pct_points) +
- * leftover_to_cash_pct. Honest edge cases (no underweight sleeve, freed exceeds
- * capacity) report leftover_to_cash_pct rather than fabricating destinations. */
 export type A3Redeployment = {
   freed_capital_pct: number;
   deployments: A3RedeploymentTarget[];
@@ -242,16 +231,53 @@ export type A3Layer1Result = {
 const GLIDE_MAX_TRIM_PER_STEP_PCT = 5;
 const TARGET_WEIGHT_PCT = POSITION_FLAG_PCT;
 
-const SEVERITY_RANK: Record<string, number> = {
-  escalate: 4, flag: 3, watch: 2, info: 1, ok: 0,
-};
+const SEVERITY_RANK: Record<string, number> = { escalate: 4, flag: 3, watch: 2, info: 1, ok: 0 };
 
-function round1(n: number): number {
-  return Math.round(n * 10) / 10;
+function round1(n: number): number { return Math.round(n * 10) / 10; }
+function normalise(s: string): string { return s.toLowerCase().replace(/[^a-z0-9]/g, ""); }
+
+/* ----- Robust wrapper-name matcher (mirrors case/scope-builders.ts) -----
+ *
+ * PMS/AIF names carry corporate noise and strategy suffixes that defeat exact
+ * matching, so a holding may not exact-match its E6 record (e.g., "Motilal
+ * Oswal Value Migration PMS" vs the E6 record "...Value Strategy PMS"). Token
+ * overlap links them; exact match does not. No stable instrument id / ISIN
+ * exists on the E6 record (audit docs/audits/2026-05-28_qualitative_data_snapshot.md),
+ * so name overlap is the only available join, and it carries a logged caveat:
+ * the link is name-based, and the matched E6 record may itself flag a
+ * snapshot-name mismatch (the judgment treats such links conservatively). */
+const WRAPPER_STOP = new Set([
+  "fund", "pvt", "ltd", "limited", "llp", "investment", "managers", "asset",
+  "management", "amc", "portfolio", "plan", "growth", "regular", "direct",
+  "private", "client", "advisors", "the", "and", "of", "pms", "aif",
+]);
+function wrapperTokens(s: string): Set<string> {
+  return new Set(s.toLowerCase().replace(/[^a-z0-9 ]+/g, " ").split(/\s+/).filter((t) => t && !WRAPPER_STOP.has(t)));
+}
+function tokenOverlap(query: string, candidate: string): number {
+  const q = wrapperTokens(query);
+  if (!q.size) return 0;
+  const c = wrapperTokens(candidate);
+  let n = 0;
+  for (const t of q) if (c.has(t)) n++;
+  return n / q.size;
+}
+function findE6Eval(evidence: EvidenceBundle | null, ref: string): E6PerProduct | null {
+  const evals = evidence?.e6?.per_product_evaluations;
+  if (!evals || evals.length === 0) return null;
+  let best: E6PerProduct | null = null;
+  let bestScore = 0;
+  for (const e of evals) {
+    const s = tokenOverlap(ref, e.instrument);
+    if (s > bestScore) { bestScore = s; best = e; }
+  }
+  return bestScore >= 0.6 ? best : null;
 }
 
-function normalise(s: string): string {
-  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+function holdingKind(subCategory: string): A3HoldingKind {
+  if (subCategory.startsWith("pms_") || subCategory.startsWith("aif_")) return "opaque";
+  if (subCategory.startsWith("mf_") || subCategory.startsWith("listed_") || subCategory.startsWith("intl_")) return "transparent";
+  return "allocation";
 }
 
 /* ----- Layer 1: per-holding signal set ----- */
@@ -262,19 +288,21 @@ function findHoldingStats(riskReward: RiskRewardOutput | null, ref: string): Hol
   return riskReward.per_holding.find((s) => normalise(s.holding_ref) === key) ?? null;
 }
 
-/* Performance (hard). Concern marker is Sharpe (or Sortino) below zero, the
- * natural boundary (return below the risk-free rate); no invented threshold. */
-function performanceSignal(stats: HoldingStats | null): A3DimensionSignal {
-  if (!stats || stats.source === "sentinel" || !stats.stats) {
-    return {
-      dimension: "performance",
-      status: "sentinelled",
-      hard_number: true,
-      concern: false,
-      detail: stats?.sentinel
-        ? `performance not assessable: ${stats.sentinel}`
-        : "performance not assessable: no tier_b stats (opaque wrapper or insufficient history)",
-    };
+/* Performance. Transparent: Sharpe/Sortino below zero is the concern marker
+ * (the natural risk-free boundary; no invented threshold). Opaque/allocation:
+ * no tier_b, so numeric performance is sentinelled (for opaque the qualitative
+ * read lives in Cost via complexity_premium_earned). */
+function performanceSignal(stats: HoldingStats | null, kind: A3HoldingKind): A3DimensionSignal {
+  if (kind !== "transparent" || !stats || stats.source === "sentinel" || !stats.stats) {
+    const detail =
+      kind === "opaque"
+        ? "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+        : kind === "allocation"
+          ? "performance not assessable: allocation instrument (no tier_b)"
+          : stats?.sentinel
+            ? `performance not assessable: ${stats.sentinel}`
+            : "performance not assessable: no tier_b stats (insufficient history)";
+    return { dimension: "performance", status: "sentinelled", hard_number: true, concern: false, detail };
   }
   const s = stats.stats;
   const sharpe = s.sharpe_3y ?? s.sharpe_5y ?? null;
@@ -286,23 +314,22 @@ function performanceSignal(stats: HoldingStats | null): A3DimensionSignal {
   if (s.calmar_3y != null) parts.push(`calmar ${s.calmar_3y}`);
   if (s.max_drawdown_3y != null) parts.push(`max_drawdown ${s.max_drawdown_3y}`);
   return {
-    dimension: "performance",
-    status: "assessable",
-    hard_number: true,
-    concern,
+    dimension: "performance", status: "assessable", hard_number: true, concern,
     detail: parts.length ? parts.join(", ") : "tier_b present, no risk-adjusted return fields",
   };
 }
 
-/* Redundancy (hard). The holding's strongest pairwise overlap. No non-invented
- * threshold for "too redundant", so the value is presented for the LLM; concern
- * is not set deterministically. */
-function redundancySignal(overlap: PortfolioOverlapOutput | null, ref: string): A3DimensionSignal {
+/* Redundancy. Numeric overlap where present (sentinelled for opaque, which
+ * resolves at categorical). For opaque, the E6 strategy profile carries a
+ * qualitative overlap read. No non-invented threshold, so concern is never set
+ * deterministically; the value informs the LLM. */
+function redundancySignal(overlap: PortfolioOverlapOutput | null, ref: string, kind: A3HoldingKind, e6: E6PerProduct | null): A3DimensionSignal {
+  if (kind === "opaque" && e6) {
+    const prof = (e6.concentration_or_strategy_profile ?? "").slice(0, 160);
+    return { dimension: "redundancy", status: "assessable", hard_number: true, concern: false, detail: `qualitative (E6 strategy profile): ${prof}` };
+  }
   if (!overlap) {
-    return {
-      dimension: "redundancy", status: "sentinelled", hard_number: true, concern: false,
-      detail: "redundancy not assessable: portfolio_overlap absent for this case",
-    };
+    return { dimension: "redundancy", status: "sentinelled", hard_number: true, concern: false, detail: "redundancy not assessable: portfolio_overlap absent" };
   }
   const key = normalise(ref);
   let best: { other: string; score: number; layer: string } | null = null;
@@ -313,116 +340,108 @@ function redundancySignal(overlap: PortfolioOverlapOutput | null, ref: string): 
     if (!best || p.score > best.score) best = { other, score: p.score, layer: p.resolution_layer };
   }
   if (!best) {
-    return {
-      dimension: "redundancy", status: "sentinelled", hard_number: true, concern: false,
-      detail: "redundancy not assessable: no within-sleeve overlap pair for this holding",
-    };
+    return { dimension: "redundancy", status: "sentinelled", hard_number: true, concern: false, detail: "redundancy not assessable: no within-sleeve overlap pair" };
   }
-  return {
-    dimension: "redundancy", status: "assessable", hard_number: true, concern: false,
-    detail: `max overlap ${round1(best.score * 100) / 100} with ${best.other} (${best.layer})`,
-  };
+  return { dimension: "redundancy", status: "assessable", hard_number: true, concern: false, detail: `max overlap ${round1(best.score * 100) / 100} with ${best.other} (${best.layer})` };
 }
 
-/* Thesis/quality (soft). Derived from A2's thesis driver, which A2 produced by
- * matching the holding to its E1/E6/E7 verdict. Concern marker is a negative
- * verdict (A2 maps a negative evidence verdict to an escalate-severity thesis
- * driver). */
-function thesisSignal(h: A2HoldingVerdict): A3DimensionSignal {
+/* Thesis/quality. Opaque: the matched E6 overall_verdict (negative is the
+ * concern marker). Transparent: A2's thesis driver (A2 mapped the E1/E7 verdict
+ * to an escalate-severity driver for a negative verdict). Allocation: no thesis. */
+function thesisSignal(h: A2HoldingVerdict, kind: A3HoldingKind, e6: E6PerProduct | null): A3DimensionSignal {
+  if (kind === "opaque") {
+    if (!e6) {
+      return { dimension: "thesis_quality", status: "sentinelled", hard_number: false, concern: false, detail: "thesis not assessable: no E6 record matched for this opaque holding" };
+    }
+    const negative = e6.overall_verdict === "negative";
+    return { dimension: "thesis_quality", status: "assessable", hard_number: false, concern: negative, detail: `E6 overall_verdict ${e6.overall_verdict}` };
+  }
   const thesisDrivers = h.drivers.filter((d) => d.driver_type === "thesis");
-  const complexity = h.drivers.find((d) => d.driver_type === "complexity_premium");
-  if (thesisDrivers.length === 0 && !complexity) {
-    return {
-      dimension: "thesis_quality", status: "sentinelled", hard_number: false, concern: false,
-      detail: "thesis not flagged by the evidence layer for this holding",
-    };
+  if (thesisDrivers.length === 0) {
+    return { dimension: "thesis_quality", status: "sentinelled", hard_number: false, concern: false, detail: "thesis not flagged by the evidence layer for this holding" };
   }
   const negative = thesisDrivers.some((d) => d.severity === "escalate");
-  const obs = thesisDrivers[0]?.source_observation ?? complexity?.source_observation ?? "thesis";
-  return {
-    dimension: "thesis_quality", status: "assessable", hard_number: false, concern: negative,
-    detail: negative ? `negative evidence verdict (${obs})` : `evidence verdict caution (${obs})`,
-  };
+  const obs = thesisDrivers[0]?.source_observation ?? "thesis";
+  return { dimension: "thesis_quality", status: "assessable", hard_number: false, concern: negative, detail: negative ? `negative evidence verdict (${obs})` : `evidence verdict caution (${obs})` };
 }
 
-/* Cost-efficiency (thin). Raw expense ratio / fee exist (E7 ter_pct, E6
- * fee_normalised_bps) but there is no deterministic fee-vs-peer benchmark, so
- * "overpriced for its category" is not computable; sentinel rather than fake.
- * P37 (benchmarking) would enrich this. */
-function costSignal(): A3DimensionSignal {
-  return {
-    dimension: "cost_efficiency", status: "sentinelled", hard_number: false, concern: false,
-    detail: "cost-efficiency not deterministically assessable: raw fees exist (E7 ter_pct, E6 fee_normalised_bps) but no fee-vs-peer benchmark is computed",
-  };
+/* Cost-efficiency. Opaque: E6 fee_normalised_bps plus complexity_premium_earned
+ * (the concern marker is "no", the fee premium not earned, an assessable
+ * judgment E6 makes). Transparent/allocation: raw fee exists (E7 ter_pct) but
+ * no fee-vs-peer benchmark, so the concern is not computable; sentinelled. P37
+ * (benchmarking) would enrich the transparent side. */
+function costSignal(kind: A3HoldingKind, e6: E6PerProduct | null): A3DimensionSignal {
+  if (kind === "opaque" && e6) {
+    const cpe = e6.complexity_premium_earned;
+    const concern = cpe === "no";
+    return { dimension: "cost_efficiency", status: "assessable", hard_number: false, concern, detail: `fee ${e6.fee_normalised_bps ?? "n/a"} bps, complexity_premium_earned ${cpe}` };
+  }
+  return { dimension: "cost_efficiency", status: "sentinelled", hard_number: false, concern: false, detail: "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed" };
 }
 
-/* Suitability/mandate (thin). E4 stated-revealed divergence is portfolio-level,
- * not per-holding; surfaced as context, never a per-holding concern. */
+/* Suitability/mandate (thin). E4 divergence is portfolio-level, not per-holding. */
 function suitabilitySignal(evidence: EvidenceBundle | null): A3DimensionSignal {
   const div = evidence?.e4?.stated_vs_revealed_divergence;
   const detail = div && div.magnitude !== "none"
     ? `portfolio-level stated-revealed divergence: ${div.magnitude} (${div.direction})`
     : "suitability not assessable per-holding (mandate fit is portfolio-level)";
-  return {
-    dimension: "suitability", status: "sentinelled", hard_number: false, concern: false, detail,
-  };
+  return { dimension: "suitability", status: "sentinelled", hard_number: false, concern: false, detail };
 }
 
 function computeSignals(
   h: A2HoldingVerdict,
+  kind: A3HoldingKind,
   stats: HoldingStats | null,
   overlap: PortfolioOverlapOutput | null,
   evidence: EvidenceBundle | null,
+  e6: E6PerProduct | null,
 ): A3DimensionSignal[] {
   return [
-    redundancySignal(overlap, h.holding_ref),
-    costSignal(),
-    performanceSignal(stats),
-    thesisSignal(h),
+    redundancySignal(overlap, h.holding_ref, kind, e6),
+    costSignal(kind, e6),
+    performanceSignal(stats, kind),
+    thesisSignal(h, kind, e6),
     suitabilitySignal(evidence),
   ];
 }
 
-/* Deterministic exit-eligibility gate. Exit is a high bar: it requires the
- * hard-number Performance dimension to show a concern (Sharpe/Sortino below
- * zero) AND the Thesis dimension to show a negative verdict. Both must be
- * assessable. Redundancy and Cost have no non-invented threshold, so they
- * inform the LLM's reasoning but do not deterministically gate exit; this keeps
- * the gate conservative (exit needs hard underperformance plus a broken
- * thesis). Opaque wrappers (no tier_b) have Performance sentinelled, so they
- * are never exit-eligible and bias to trim/maintain, as intended. */
-function computeExitEligible(signals: A3DimensionSignal[]): boolean {
-  const perf = signals.find((s) => s.dimension === "performance");
-  const thesis = signals.find((s) => s.dimension === "thesis_quality");
-  const perfFails = perf?.status === "assessable" && perf.concern;
-  const thesisFails = thesis?.status === "assessable" && thesis.concern;
-  return Boolean(perfFails && thesisFails);
+/* Type-specific exit-eligibility gate (deterministic; sets who may be CONSIDERED
+ * for exit). Exit is a high bar. Transparent: hard-number Performance-concern
+ * AND Thesis-concern. Opaque: Thesis-concern (E6 negative) AND Cost-concern
+ * (complexity premium not earned), the conservative qualitative convergence the
+ * audit established. Allocation: never. Redundancy informs the LLM but never
+ * gates (no non-invented threshold); logged as a boundary (P38). */
+function computeExitEligible(kind: A3HoldingKind, signals: A3DimensionSignal[]): boolean {
+  const get = (dim: A3Dimension) => signals.find((s) => s.dimension === dim);
+  const fails = (dim: A3Dimension) => {
+    const s = get(dim);
+    return s?.status === "assessable" && s.concern;
+  };
+  if (kind === "opaque") return Boolean(fails("thesis_quality") && fails("cost_efficiency"));
+  if (kind === "transparent") return Boolean(fails("performance") && fails("thesis_quality"));
+  return false;
 }
 
 function buildReconciledDecisions(input: A3Input): A3ReconciledDecision[] {
   const { a2Output, metrics, riskReward, overlap, evidence } = input;
   const flagByInstrument = new Map<string, number>();
   if (metrics) {
-    for (const pf of metrics.concentration.positionFlags) {
-      flagByInstrument.set(normalise(pf.instrument), pf.weightPct);
-    }
+    for (const pf of metrics.concentration.positionFlags) flagByInstrument.set(normalise(pf.instrument), pf.weightPct);
   }
 
   const decisions: A3ReconciledDecision[] = [];
   for (const h of a2Output.holding_verdicts) {
+    const kind = holdingKind(h.sub_category);
+    const e6 = kind === "opaque" ? findE6Eval(evidence, h.holding_ref) : null;
     const stats = findHoldingStats(riskReward, h.holding_ref);
-    const signals = computeSignals(h, stats, overlap, evidence);
-    const exitEligible = computeExitEligible(signals);
+    const signals = computeSignals(h, kind, stats, overlap, evidence, e6);
+    const exitEligible = computeExitEligible(kind, signals);
     const overConcentrated = (flagByInstrument.get(normalise(h.holding_ref)) ?? 0) > TARGET_WEIGHT_PCT;
 
-    // Baseline decision (deterministic). Over-concentrated holdings trim to the
-    // 10% ceiling. Other A2-flagged holdings carry their conversation via the
-    // holding-action surface but get no size action at baseline. Exit is never
-    // a baseline decision: only the Layer-2 judgment may set it, and only when
-    // exit_eligible. Clean holdings maintain.
-    let decision: A3DecisionKind;
-    if (overConcentrated) decision = "trim";
-    else decision = "maintain";
+    // Baseline decision (deterministic): over-concentrated -> trim to 10%;
+    // other holdings -> maintain. Exit is never a baseline decision; only the
+    // Layer-2 judgment may set it, and only when exit_eligible.
+    const decision: A3DecisionKind = overConcentrated ? "trim" : "maintain";
 
     const dimensions_failing = signals
       .filter((s) => s.status === "assessable" && s.concern)
@@ -434,12 +453,14 @@ function buildReconciledDecisions(input: A3Input): A3ReconciledDecision[] {
       asset_class: h.asset_class,
       sub_category: h.sub_category,
       weight_pct: h.weight_pct,
+      holding_kind: kind,
       over_concentrated: overConcentrated,
       a2_verdict: h.verdict,
       signals,
       exit_eligible: exitEligible,
       decision,
       dimensions_failing,
+      exit_rationale: "",
       judgment_reasoning: "",
     });
   }
@@ -455,14 +476,8 @@ function buildGlidePath(currentWeight: number, target: number): A3GlidePathStep[
   const path: A3GlidePathStep[] = [];
   let prevWeight = round1(currentWeight);
   for (let k = 1; k <= steps; k++) {
-    const resulting =
-      k === steps ? round1(target) : round1(currentWeight - (totalTrim * k) / steps);
-    path.push({
-      step: k,
-      trim_pct_points: round1(prevWeight - resulting),
-      resulting_weight_pct: resulting,
-      trigger_at_weight_pct: prevWeight,
-    });
+    const resulting = k === steps ? round1(target) : round1(currentWeight - (totalTrim * k) / steps);
+    path.push({ step: k, trim_pct_points: round1(prevWeight - resulting), resulting_weight_pct: resulting, trigger_at_weight_pct: prevWeight });
     prevWeight = resulting;
   }
   return path;
@@ -472,11 +487,7 @@ function buildGlidePath(currentWeight: number, target: number): A3GlidePathStep[
 
 const ASSET_CLASSES = ["Equity", "Debt", "Alternatives", "Cash"] as const;
 
-export function computeRedeployment(
-  decisions: A3ReconciledDecision[],
-  metrics: PortfolioMetrics,
-): A3Redeployment {
-  // Freed capital = trims (current - 10) + exits (full current weight).
+export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: PortfolioMetrics): A3Redeployment {
   let freed = 0;
   for (const d of decisions) {
     if (d.decision === "trim") freed += Math.max(0, d.weight_pct - TARGET_WEIGHT_PCT);
@@ -484,14 +495,11 @@ export function computeRedeployment(
   }
   freed = round1(freed);
 
-  // Under-allocated sleeves (actual below model target), excluding Cash (cash
-  // is where leftover lands, not a deployment destination).
   const under = ASSET_CLASSES
     .filter((c) => c !== "Cash")
     .map((c) => {
       const a = metrics.assetClass[c];
-      const gap = Math.max(0, a.targetPct - a.actualPct);
-      return { sleeve: c, current: a.actualPct, target: a.targetPct, gap };
+      return { sleeve: c, current: a.actualPct, target: a.targetPct, gap: Math.max(0, a.targetPct - a.actualPct) };
     })
     .filter((x) => x.gap > 0);
 
@@ -500,19 +508,11 @@ export function computeRedeployment(
   let deployed = 0;
 
   if (freed > 0 && totalGap > 0) {
-    // Distribute proportional to each sleeve's gap, capped at the gap (do not
-    // overshoot target). If freed exceeds total capacity, fill all gaps.
     const deployable = Math.min(freed, totalGap);
     for (const u of under) {
       const add = round1((u.gap / totalGap) * deployable);
       if (add <= 0) continue;
-      deployments.push({
-        sleeve: u.sleeve,
-        current_pct: round1(u.current),
-        target_pct: round1(u.target),
-        add_pct_points: add,
-        resulting_pct: round1(u.current + add),
-      });
+      deployments.push({ sleeve: u.sleeve, current_pct: round1(u.current), target_pct: round1(u.target), add_pct_points: add, resulting_pct: round1(u.current + add) });
       deployed += add;
     }
   }
@@ -520,15 +520,10 @@ export function computeRedeployment(
   const leftover = round1(freed - deployed);
 
   let note: string;
-  if (freed <= 0) {
-    note = "No trims or exits, so no capital is freed for redeployment.";
-  } else if (totalGap <= 0) {
-    note = `No sleeve is below its model target, so the freed ${freed} points have no model-consistent destination and are reported as leftover to cash.`;
-  } else if (leftover > 0) {
-    note = `Freed ${freed} points exceeds the ${round1(totalGap)} points of under-allocation capacity; sleeves are filled to target and the remaining ${leftover} points are reported as leftover to cash.`;
-  } else {
-    note = `Freed ${freed} points deployed toward under-allocated sleeves, moving the allocation toward the model.`;
-  }
+  if (freed <= 0) note = "No trims or exits, so no capital is freed for redeployment.";
+  else if (totalGap <= 0) note = `No sleeve is below its model target, so the freed ${freed} points have no model-consistent destination and are reported as leftover to cash.`;
+  else if (leftover > 0) note = `Freed ${freed} points exceeds the ${round1(totalGap)} points of under-allocation capacity; sleeves are filled to target and the remaining ${leftover} points are reported as leftover to cash.`;
+  else note = `Freed ${freed} points deployed toward under-allocated sleeves, moving the allocation toward the model.`;
 
   return { freed_capital_pct: freed, deployments, leftover_to_cash_pct: leftover, note };
 }
@@ -538,123 +533,66 @@ export function computeRedeployment(
 function buildHoldingActions(decisions: A3ReconciledDecision[]): A3HoldingAction[] {
   const out: A3HoldingAction[] = [];
   for (const d of decisions) {
-    if (d.decision === "maintain" && d.a2_verdict === "maintain") continue; // nothing to surface
-    const base = {
-      holding_ref: d.holding_ref,
-      instrument_display_name: d.instrument_display_name,
-      a2_verdict: d.a2_verdict as A3HoldingVerdict,
-    };
+    if (d.decision === "maintain" && d.a2_verdict === "maintain") continue;
+    const base = { holding_ref: d.holding_ref, instrument_display_name: d.instrument_display_name, a2_verdict: d.a2_verdict as A3HoldingVerdict };
     if (d.a2_verdict === "unable_to_classify") {
-      out.push({
-        ...base,
-        kind: "sentinel",
-        sentinel_reason: "upstream_evidence_unavailable",
-        note: `Recommendation not surfaced: the Samriddhi 2 diagnostic could not classify ${d.instrument_display_name}.`,
-      });
+      out.push({ ...base, kind: "sentinel", sentinel_reason: "upstream_evidence_unavailable", note: `Recommendation not surfaced: the Samriddhi 2 diagnostic could not classify ${d.instrument_display_name}.` });
       continue;
     }
-    // Find the A2 dominant driver observation for the deterministic link.
     out.push({
       ...base,
       kind: "action",
       decision: d.decision,
-      source_observation:
-        d.dimensions_failing.length > 0 ? d.dimensions_failing.join("+") : (d.over_concentrated ? "position_over_concentration" : "a2_flag"),
+      source_observation: d.dimensions_failing.length > 0 ? d.dimensions_failing.join("+") : (d.over_concentrated ? "position_over_concentration" : "a2_flag"),
       advisor_action: "",
     });
   }
   return out;
 }
 
-function buildRebalanceProposal(
-  decisions: A3ReconciledDecision[],
-  metrics: PortfolioMetrics | null,
-): A3RebalanceProposal {
+function buildRebalanceProposal(decisions: A3ReconciledDecision[], metrics: PortfolioMetrics | null): A3RebalanceProposal {
   if (!metrics) {
-    return {
-      kind: "sentinel",
-      sentinel_reason: "upstream_evidence_unavailable",
-      note: "Rebalance proposal not surfaced: M0.PortfolioRiskAnalytics metrics absent.",
-    };
+    return { kind: "sentinel", sentinel_reason: "upstream_evidence_unavailable", note: "Rebalance proposal not surfaced: M0.PortfolioRiskAnalytics metrics absent." };
   }
-
   const positions: A3RebalancePosition[] = [];
   for (const d of decisions) {
-    if (d.decision === "trim") {
-      const breachThreshold = d.weight_pct >= POSITION_ESCALATE_PCT ? POSITION_ESCALATE_PCT : POSITION_FLAG_PCT;
-      positions.push({
-        instrument: d.instrument_display_name,
-        decision: "trim",
-        current_weight_pct: round1(d.weight_pct),
-        breach_threshold_pct: breachThreshold,
-        target_weight_pct: TARGET_WEIGHT_PCT,
-        total_trim_pct_points: round1(d.weight_pct - TARGET_WEIGHT_PCT),
-        glide_path: buildGlidePath(d.weight_pct, TARGET_WEIGHT_PCT),
-      });
-    } else if (d.decision === "exit") {
-      const breachThreshold = d.weight_pct >= POSITION_ESCALATE_PCT ? POSITION_ESCALATE_PCT : POSITION_FLAG_PCT;
-      positions.push({
-        instrument: d.instrument_display_name,
-        decision: "exit",
-        current_weight_pct: round1(d.weight_pct),
-        breach_threshold_pct: breachThreshold,
-        target_weight_pct: 0,
-        total_trim_pct_points: round1(d.weight_pct),
-        glide_path: buildGlidePath(d.weight_pct, 0),
-      });
-    }
+    if (d.decision !== "trim" && d.decision !== "exit") continue;
+    const target = d.decision === "exit" ? 0 : TARGET_WEIGHT_PCT;
+    const breachThreshold = d.weight_pct >= POSITION_ESCALATE_PCT ? POSITION_ESCALATE_PCT : POSITION_FLAG_PCT;
+    positions.push({
+      instrument: d.instrument_display_name,
+      decision: d.decision,
+      current_weight_pct: round1(d.weight_pct),
+      breach_threshold_pct: breachThreshold,
+      target_weight_pct: target,
+      total_trim_pct_points: round1(d.weight_pct - target),
+      glide_path: buildGlidePath(d.weight_pct, target),
+    });
   }
-
   const redeployment = computeRedeployment(decisions, metrics);
-
   if (positions.length === 0) {
-    return {
-      kind: "no_action_needed",
-      note: "No holding is decided for trim or exit; no rebalance proposed.",
-    };
+    return { kind: "no_action_needed", note: "No holding is decided for trim or exit; no rebalance proposed." };
   }
-
-  return {
-    kind: "proposal",
-    computed: { positions, redeployment },
-    narrated: { advisor_action: "", generation_method: "llm" },
-  };
+  return { kind: "proposal", computed: { positions, redeployment }, narrated: { advisor_action: "", generation_method: "llm" } };
 }
 
-/* ----- Layer 1: per-observation surface ----- */
-
 const OBSERVATION_ORDER: A3ObservationCategory[] = [
-  "position_over_concentration",
-  "sector_over_concentration",
-  "wrapper_over_accumulation",
-  "cash_drag",
-  "allocation_drift",
-  "liquidity_gap",
-  "stated_revealed_divergence",
-  "complexity_premium_not_earned",
+  "position_over_concentration", "sector_over_concentration", "wrapper_over_accumulation",
+  "cash_drag", "allocation_drift", "liquidity_gap", "stated_revealed_divergence", "complexity_premium_not_earned",
 ];
-
 function isA3ObservationCategory(s: string): s is A3ObservationCategory {
   return (OBSERVATION_ORDER as string[]).includes(s);
 }
-
-function buildObservationActions(
-  a2Output: A2Output,
-  preObservations: PreObservation[],
-): A3ObservationAction[] {
+function buildObservationActions(a2Output: A2Output, preObservations: PreObservation[]): A3ObservationAction[] {
   const bestSeverity = new Map<A3ObservationCategory, string>();
   const consider = (category: string, severity: string) => {
     if (!isA3ObservationCategory(category)) return;
     const prev = bestSeverity.get(category);
-    if (prev === undefined || (SEVERITY_RANK[severity] ?? 0) > (SEVERITY_RANK[prev] ?? 0)) {
-      bestSeverity.set(category, severity);
-    }
+    if (prev === undefined || (SEVERITY_RANK[severity] ?? 0) > (SEVERITY_RANK[prev] ?? 0)) bestSeverity.set(category, severity);
   };
   for (const o of preObservations) consider(o.vocab_candidate, o.severity_hint);
   for (const h of a2Output.holding_verdicts) {
-    for (const d of h.drivers) {
-      if (d.source_observation === "sector_over_concentration") consider("sector_over_concentration", d.severity);
-    }
+    for (const d of h.drivers) if (d.source_observation === "sector_over_concentration") consider("sector_over_concentration", d.severity);
   }
   const out: A3ObservationAction[] = [];
   for (const category of OBSERVATION_ORDER) {
@@ -677,7 +615,7 @@ export function computeA3(input: A3Input): A3Layer1Result {
   };
 }
 
-/* ----- Layer 2: LLM advisor-action prose (baseline narration; judgment lands in Step 2) ----- */
+/* ----- Layer 2: LLM advisor-action prose (baseline narration; judgment lands in Step 2b) ----- */
 
 type A3ReasonPayload = {
   holding_actions: Array<{ holding_ref: string; advisor_action: string }>;
@@ -690,20 +628,11 @@ type A3ReasonPayload = {
 function buildReasonPrompt(layer1: A3Layer1Result): string {
   const holdingsNeedingProse = layer1.holding_actions
     .filter((h): h is A3HoldingAction & A3HoldingActionBody => h.kind === "action")
-    .map((h) => ({
-      holding_ref: h.holding_ref,
-      instrument: h.instrument_display_name,
-      a2_verdict: h.a2_verdict,
-      decision: h.decision,
-      source_observation: h.source_observation,
-    }));
-
+    .map((h) => ({ holding_ref: h.holding_ref, instrument: h.instrument_display_name, a2_verdict: h.a2_verdict, decision: h.decision, source_observation: h.source_observation }));
   const observationsNeedingProse = layer1.observation_actions
     .filter((o): o is A3ObservationAction & A3ObservationActionBody => o.kind === "action")
     .map((o) => ({ observation_category: o.observation_category, severity_hint: o.severity_hint }));
-
-  const rebalance =
-    layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed : null;
+  const rebalance = layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed : null;
 
   const lines: string[] = [
     `# A3 Advisor-Action Request`,
@@ -730,7 +659,6 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
     JSON.stringify(observationsNeedingProse, null, 2),
     "```",
   ];
-
   if (rebalance) {
     lines.push(
       ``,
@@ -749,7 +677,6 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
       "```",
     );
   }
-
   lines.push(
     ``,
     `## Output`,
@@ -771,7 +698,6 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
     `Provide exactly one entry for every holding_ref and observation_category in`,
     `the input, and no others. Single fenced JSON block, no prose outside it.`,
   );
-
   return lines.join("\n");
 }
 
@@ -796,11 +722,7 @@ function validateReasonPayload(parsed: unknown): A3ReasonPayload {
 }
 
 export async function runA3ReasonText(layer1: A3Layer1Result): Promise<AgentCallResult<A3ReasonPayload>> {
-  return callAgent<A3ReasonPayload>({
-    skillId: "a3_so_what",
-    userPrompt: buildReasonPrompt(layer1),
-    validate: validateReasonPayload,
-  });
+  return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1), validate: validateReasonPayload });
 }
 
 /* ----- Orchestration ----- */
@@ -817,21 +739,12 @@ function countSurfaced<T extends { kind: "action" | "sentinel" }>(items: T[]): {
   for (const i of items) (i.kind === "action" ? surfaced++ : sentinelled++);
   return { surfaced, sentinelled };
 }
-
 function needsLayer2(layer1: A3Layer1Result): boolean {
-  return (
-    layer1.holding_actions.some((h) => h.kind === "action") ||
-    layer1.observation_actions.some((o) => o.kind === "action") ||
-    layer1.rebalance_proposal.kind === "proposal"
-  );
+  return layer1.holding_actions.some((h) => h.kind === "action") || layer1.observation_actions.some((o) => o.kind === "action") || layer1.rebalance_proposal.kind === "proposal";
 }
-
 function decisionCounts(decisions: A3ReconciledDecision[]): { trim: number; exit: number } {
   let trim = 0, exit = 0;
-  for (const d of decisions) {
-    if (d.decision === "trim") trim++;
-    else if (d.decision === "exit") exit++;
-  }
+  for (const d of decisions) { if (d.decision === "trim") trim++; else if (d.decision === "exit") exit++; }
   return { trim, exit };
 }
 
@@ -869,7 +782,6 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
 
   const reasonResult = await runA3ReasonText(layer1);
   const payload = reasonResult.output;
-
   const holdingProse = new Map<string, string>();
   for (const r of payload.holding_actions) holdingProse.set(r.holding_ref, r.advisor_action);
   const observationProse = new Map<string, string>();
@@ -881,7 +793,6 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
     if (!prose) throw new Error(`A3 Layer 2 did not return an advisor_action for holding ${h.holding_ref}. Layer 1 structure is intact; rerun Layer 2.`);
     return { ...h, advisor_action: stripLongDashes(prose) };
   });
-
   const observation_actions: A3ObservationAction[] = layer1.observation_actions.map((o) => {
     if (o.kind !== "action") return o;
     const prose = observationProse.get(o.observation_category);
@@ -893,11 +804,7 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
   if (layer1.rebalance_proposal.kind === "proposal") {
     const prose = payload.rebalance_advisor_action;
     if (!prose || prose.trim() === "") throw new Error("A3 Layer 2 did not return rebalance_advisor_action for a proposal. Layer 1 glide-path is intact; rerun Layer 2.");
-    rebalance_proposal = {
-      kind: "proposal",
-      computed: layer1.rebalance_proposal.computed,
-      narrated: { advisor_action: stripLongDashes(prose), generation_method: "llm" },
-    };
+    rebalance_proposal = { kind: "proposal", computed: layer1.rebalance_proposal.computed, narrated: { advisor_action: stripLongDashes(prose), generation_method: "llm" } };
   }
 
   const output: A3Output = {
@@ -920,6 +827,5 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
     },
     reasoning_summary: stripLongDashes(payload.reasoning_summary),
   };
-
   return { output, usage: reasonResult.usage, responseId: reasonResult.id, responseModel: reasonResult.model };
 }

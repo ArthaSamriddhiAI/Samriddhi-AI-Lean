@@ -105,6 +105,12 @@ function evidence(e4Magnitude?: "material" | "moderate" | "minor" | "none"): Evi
     e6: null, e7: null,
   };
 }
+function e6Eval(instrument: string, verdict: string, complexity: string, feeBps = 360): unknown {
+  return { instrument, wrapper_type: "PMS", sub_category: "pms_value", weight_pct: 12, manager_quality: "adequate", strategy_consistency: "moderate", fee_structure_assessment: "x", fee_normalised_bps: feeBps, liquidity_terms: "x", concentration_or_strategy_profile: "concentrated quality; overlap with peers", performance_vs_benchmark: "negative since-inception alpha", complexity_premium_earned: complexity, capacity_concern: "low", overall_verdict: verdict, key_drivers: [], key_risks: [], recommended_alternatives: [], confidence: 0.6, reasoning_trace: "x" };
+}
+function evidenceWithE6(evals: unknown[]): EvidenceBundle {
+  return { e1: null, e2: null, e3: null, e4: null, e6: { per_product_evaluations: evals } as unknown as EvidenceBundle["e6"], e7: null };
+}
 function input(partial: Partial<A3Input> & { a2Output: A2Output }): A3Input {
   return {
     caseId: "v", asOfDate: "2026-04-30", metrics: null, preObservations: [],
@@ -112,7 +118,7 @@ function input(partial: Partial<A3Input> & { a2Output: A2Output }): A3Input {
   };
 }
 function decision(d: "trim" | "exit" | "maintain", weight: number): A3ReconciledDecision {
-  return { holding_ref: "x", instrument_display_name: "x", asset_class: "Equity", sub_category: "listed_equity", weight_pct: weight, over_concentrated: weight > 10, a2_verdict: "review", signals: [], exit_eligible: false, decision: d, dimensions_failing: [], judgment_reasoning: "" } as A3ReconciledDecision;
+  return { holding_ref: "x", instrument_display_name: "x", asset_class: "Equity", sub_category: "listed_equity", weight_pct: weight, holding_kind: "transparent", over_concentrated: weight > 10, a2_verdict: "review", signals: [], exit_eligible: false, decision: d, dimensions_failing: [], exit_rationale: "", judgment_reasoning: "" } as A3ReconciledDecision;
 }
 
 (async () => {
@@ -184,16 +190,49 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
     overlap: overlap([]),
   }));
   assert(c6b.decisions.find((d) => d.holding_ref === "SoundFund")?.exit_eligible === false, "C6b: thesis-negative alone (sharpe>=0) => NOT exit_eligible", "");
-  // opaque (no stats) -> performance sentinelled -> not eligible even with thesis negative
+  // opaque with NO matched E6 -> thesis/cost sentinelled -> not eligible
   const c6c = computeA3(input({
-    a2Output: a2Output([holding("OpaquePMS", "review", [driver("e6_overall_verdict_negative", "escalate", "thesis")], { weightPct: 12, subCategory: "pms_equity" })]),
-    metrics: metrics([{ instrument: "OpaquePMS", weightPct: 12, severity: "flag" }]),
-    riskReward: riskReward([{ ref: "OpaquePMS" }]), // sharpe undefined -> sentinel
+    a2Output: a2Output([holding("Unmatched PMS", "discuss", [driver("wrapper_over_accumulation", "flag", "wrapper_over_accumulation")], { weightPct: 12, subCategory: "pms_equity" })]),
+    metrics: metrics([{ instrument: "Unmatched PMS", weightPct: 12, severity: "flag" }]),
+    overlap: overlap([]),
+    evidence: evidence(), // no E6
+  }));
+  const d6c = c6c.decisions.find((d) => d.holding_ref === "Unmatched PMS");
+  assert(d6c?.exit_eligible === false, "C6c: opaque with no matched E6 => NOT exit_eligible", "");
+  assert(d6c?.signals.find((s) => s.dimension === "performance")?.status === "sentinelled", "C6c: performance sentinelled for opaque", "");
+
+  // opaque with matched E6 (negative + complexity no), via a NAME-MISMATCH join
+  // (Migration vs Strategy) -> exit-eligible. Tests the opaque gate AND the
+  // token-overlap join the exact matcher would miss.
+  const c6d = computeA3(input({
+    a2Output: a2Output([holding("Motilal Oswal Value Migration PMS", "discuss", [driver("wrapper_over_accumulation", "flag", "wrapper_over_accumulation")], { weightPct: 12, subCategory: "pms_value" })]),
+    metrics: metrics([{ instrument: "Motilal Oswal Value Migration PMS", weightPct: 12, severity: "flag" }]),
+    overlap: overlap([]),
+    evidence: evidenceWithE6([e6Eval("Motilal Oswal Value Strategy PMS", "negative", "no")]),
+  }));
+  const d6d = c6d.decisions.find((d) => /motilal/i.test(d.holding_ref));
+  assert(d6d?.exit_eligible === true, "C6d: opaque E6 negative + complexity-no (name-mismatch join) => exit_eligible", JSON.stringify(d6d?.signals.map((s) => `${s.dimension}:${s.status}/${s.concern}`)));
+  assert(/E6 overall_verdict negative/.test(d6d?.signals.find((s) => s.dimension === "thesis_quality")?.detail ?? ""), "C6d: token-overlap linked the holding to its E6 record (not sentinelled)", d6d?.signals.find((s) => s.dimension === "thesis_quality")?.detail ?? "");
+
+  // opaque with matched E6 positive -> NOT eligible
+  const c6e = computeA3(input({
+    a2Output: a2Output([holding("Good PMS", "discuss", [], { weightPct: 12, subCategory: "pms_growth_quality" })]),
+    metrics: metrics([{ instrument: "Good PMS", weightPct: 12, severity: "flag" }]),
+    overlap: overlap([]),
+    evidence: evidenceWithE6([e6Eval("Good PMS", "positive", "yes")]),
+  }));
+  assert(c6e.decisions.find((d) => d.holding_ref === "Good PMS")?.exit_eligible === false, "C6e: opaque E6 positive => NOT exit_eligible", "");
+
+  // allocation instrument (FD) -> never exit-eligible (even when over-concentrated)
+  const c6f = computeA3(input({
+    a2Output: a2Output([holding("HDFC Bank FD", "review", [driver("position_over_concentration", "escalate", "position_concentration")], { weightPct: 27, assetClass: "Debt", subCategory: "bank_fd" })]),
+    metrics: metrics([{ instrument: "HDFC Bank FD", weightPct: 27, severity: "escalate" }]),
     overlap: overlap([]),
   }));
-  const d6c = c6c.decisions.find((d) => d.holding_ref === "OpaquePMS");
-  assert(d6c?.exit_eligible === false, "C6c: opaque (performance sentinelled) => NOT exit_eligible", "");
-  assert(d6c?.signals.find((s) => s.dimension === "performance")?.status === "sentinelled", "C6c: performance sentinelled for opaque", "");
+  const d6f = c6f.decisions.find((d) => d.holding_ref === "HDFC Bank FD");
+  assert(d6f?.holding_kind === "allocation", "C6f: FD classified as allocation", d6f?.holding_kind);
+  assert(d6f?.exit_eligible === false, "C6f: allocation instrument never exit-eligible", "");
+  assert(d6f?.decision === "trim", "C6f: over-concentrated FD still trims", d6f?.decision);
 
   // --- Case 7: sentinel routing for thin dimensions ---
   console.log("Case 7: thin-dimension sentinel routing");
@@ -233,6 +272,25 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
     console.log(`     Axis: decision=${axis.decision} exit_eligible=${axis.exit_eligible} perf=${perf?.status}/${perf?.concern} thesis=${thesis?.status}/${thesis?.concern} | ${perf?.detail}`);
     assert(axis.exit_eligible === false, "C9: Axis NOT exit-eligible (one soft thesis signal, not a hard-corroborated convergence)", `perf concern=${perf?.concern}`);
     assert(axis.decision === "trim", "C9: Axis lands on trim", axis.decision);
+  }
+
+  console.log("Case 10: Motilal Oswal (bhatt) links to its E6 record via token overlap and is exit-eligible");
+  const bf = JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-14-bhatt-01.json"), "utf-8"));
+  const bc = bf.content;
+  const bHoldings = HOLDINGS_BY_INVESTOR[bf.investorId];
+  const bSnap = await loadSnapshot(bf.snapshotId);
+  const bOverlap = runPortfolioOverlapDeterministic({ caseId: bf.id, asOfDate: "2026-04-02", holdings: bHoldings, snapshot: bSnap, investor: {} });
+  const bPreObs = bc.metrics ? stitch({ caseMeta: { case_id: bf.id, investor_id: bf.investorId, investor_name: bf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: bc.metrics.concentration.bucketTier }, metrics: bc.metrics, evidence: bc.evidence, router_decision: (bc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
+  const ba3 = computeA3({ caseId: bf.id, asOfDate: "2026-04-02", a2Output: bc.a2_classification, metrics: bc.metrics, preObservations: bPreObs, riskReward: bc.risk_reward_stats ?? null, overlap: bOverlap, evidence: bc.evidence ?? null });
+  const motilal = ba3.decisions.find((d) => /motilal/i.test(d.instrument_display_name));
+  assert(!!motilal, "C10: Motilal decision present in bhatt", "");
+  if (motilal) {
+    const th = motilal.signals.find((s) => s.dimension === "thesis_quality");
+    const cost = motilal.signals.find((s) => s.dimension === "cost_efficiency");
+    console.log(`     Motilal: kind=${motilal.holding_kind} exit_eligible=${motilal.exit_eligible} thesis=${th?.status}/${th?.concern} (${th?.detail}) cost=${cost?.status}/${cost?.concern}`);
+    assert(motilal.holding_kind === "opaque", "C10: Motilal classified opaque", motilal.holding_kind);
+    assert(th?.status === "assessable", "C10: token-overlap linked Motilal to its E6 record (thesis assessable, not sentinelled)", th?.detail ?? "");
+    assert(motilal.exit_eligible === true, "C10: Motilal exit-eligible (E6 negative verdict + complexity premium not earned)", `thesis concern=${th?.concern} cost concern=${cost?.concern}`);
   }
 
   console.log("");
