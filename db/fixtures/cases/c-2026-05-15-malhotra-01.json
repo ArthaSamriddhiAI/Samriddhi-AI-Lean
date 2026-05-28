@@ -1394,6 +1394,203 @@
         "applies": false,
         "text": null
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-15-malhotra-01",
+      "as_of_date": "2026-04-02",
+      "holding_actions": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% of the portfolio toward the 10% single-position ceiling; at this size it has crossed the 15% escalate threshold and warrants a staged reduction rather than a single sale."
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing a reduction of Axis Large Cap Fund from 11.8% to 10%, which would clear the single-position flag and also tighten the overlap with the other large-cap holding in the book."
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing a trim of Parag Parikh Flexi Cap Fund from 14.2% to 10%; the conviction in the fund is clear, but at this weight the single position is doing more of the work than the allocation framework intends."
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_negative",
+          "advisor_action": "Propose reviewing Kotak Emerging Equity Fund on the merits: the evidence picture on the fund is negative, and the position is marginally over the 10% ceiling at 10.5%, so the question is whether to trim back to 10% or exit the holding entirely on the back of the evidence."
+        },
+        {
+          "holding_ref": "NHAI Tax-Free Bonds 2032",
+          "instrument_display_name": "NHAI Tax-Free Bonds 2032",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose reviewing NHAI Tax-Free Bonds 2032; at 18.1% the position sits well above the 15% escalate threshold and is the portfolio's largest single concentration, and any reduction needs to be set against the tax-free coupon the client would give up."
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing the HDFC Bank FD position at 13.1%; reducing it toward the 10% ceiling frees capital that can be redeployed into the asset classes the allocation drift observation has surfaced as under-weight."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Frame the meeting around the concentration picture as a whole: multiple positions sit above the 10% ceiling and two have crossed the 15% escalate threshold, so the conversation is about staging reductions across the book rather than a single trade."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose using the proceeds from the concentration trims to bring the portfolio back toward its target allocation, so the rebalance does double duty: it relieves the single-position risk and corrects the drift in one set of trades."
+        },
+        {
+          "observation_category": "stated_revealed_divergence",
+          "severity_hint": "info",
+          "kind": "action",
+          "advisor_action": "Surface the gap between what the client has said about how they want to be invested and how the portfolio is actually positioned; the goal is to confirm whether the stated brief still holds before the rebalance trades go in, not to litigate past decisions."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "Mirae Asset Large Cap Fund",
+              "current_weight_pct": 15.6,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 5.6,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 2.8,
+                  "resulting_weight_pct": 12.8,
+                  "trigger_at_weight_pct": 15.6
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 2.8,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 12.8
+                }
+              ]
+            },
+            {
+              "instrument": "Axis Large Cap Fund",
+              "current_weight_pct": 11.8,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.8,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.8,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.8
+                }
+              ]
+            },
+            {
+              "instrument": "Parag Parikh Flexi Cap Fund",
+              "current_weight_pct": 14.2,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 4.2,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.2,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.2
+                }
+              ]
+            },
+            {
+              "instrument": "Kotak Emerging Equity Fund",
+              "current_weight_pct": 10.5,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 0.5,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 0.5,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 10.5
+                }
+              ]
+            },
+            {
+              "instrument": "NHAI Tax-Free Bonds 2032",
+              "current_weight_pct": 18.1,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 8.1,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4,
+                  "resulting_weight_pct": 14.1,
+                  "trigger_at_weight_pct": 18.1
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.1,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.1
+                }
+              ]
+            },
+            {
+              "instrument": "HDFC Bank FD",
+              "current_weight_pct": 13.1,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 3.1,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 3.1,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 13.1
+                }
+              ]
+            }
+          ]
+        },
+        "narrated": {
+          "advisor_action": "Propose a coordinated trim across six positions back to the 10% single-position ceiling, staged to manage market impact and the capital-gains event. For Mirae Asset Large Cap Fund, currently 15.6% and above the 15% escalate threshold, propose a two-step reduction of 5.6 points in total: step one trims 2.8 points from 15.6% to 12.8%, taken now; step two trims a further 2.8 points from 12.8% to the 10% target once the position has settled near 12.8%. For NHAI Tax-Free Bonds 2032, currently 18.1% and the largest single concentration in the book, propose a two-step reduction of 8.1 points in total: step one trims 4 points from 18.1% to 14.1%, taken now; step two trims a further 4.1 points from 14.1% to the 10% target once the position has settled near 14.1%. The remaining four positions are single-step trims directly to the 10% ceiling: Axis Large Cap Fund down 1.8 points from 11.8% to 10%; Parag Parikh Flexi Cap Fund down 4.2 points from 14.2% to 10%; Kotak Emerging Equity Fund down 0.5 points from 10.5% to 10%; HDFC Bank FD down 3.1 points from 13.1% to 10%. Staging the two largest positions over two steps spaces the capital-gains realisation and limits the market impact of selling concentrated holdings in one trade; the four smaller trims can move in a single step because the size of each is contained.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 6,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 3,
+        "observation_actions_sentinelled": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "Six holding actions surfaced, three portfolio observations surfaced, and a six-position concentration trim proposed."
+      },
+      "reasoning_summary": "The picture is dominated by concentration: six positions sit above the 10% single-position ceiling and two of those, Mirae Asset Large Cap Fund and NHAI Tax-Free Bonds 2032, have crossed the 15% escalate threshold and need staged reductions rather than single trades. The allocation has drifted at the same time, so the rebalance proceeds can be redeployed to close that gap rather than simply sitting in cash. The Kotak Emerging Equity Fund review is the one position where the trim conversation sits alongside an evidence-driven question about whether to hold the fund at all, and that should be flagged ahead of the meeting. The stated-revealed divergence is informational: worth surfacing so the rebalance lands against a confirmed brief, not a stale one."
     }
   },
   "tokenUsage": {

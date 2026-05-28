@@ -888,6 +888,157 @@
         "applies": false,
         "text": null
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-15-menon-01",
+      "as_of_date": "2026-04-02",
+      "holding_actions": [],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose a structured deployment of the bank savings account balance, which at 86.6% of liquid assets sits far above the 15% escalate threshold and the 10% single-position ceiling; frame the conversation around moving the client from a single-instrument portfolio toward a diversified allocation consistent with the Samriddhi 1 plan."
+        },
+        {
+          "observation_category": "cash_drag",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose addressing the cash drag head-on: with 86.6% of liquid assets parked in a bank savings account, the portfolio is earning a real return well below what a deployed allocation would generate, and the client should understand the opportunity cost they are absorbing every month the cash sits idle."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose walking the client through the gap between the Samriddhi 1 target allocation and the current 86.6% cash weight, and use that gap to anchor the deployment sequence; the drift is not a small tilt to correct but the central rebalancing task for this portfolio."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "Bank savings account",
+              "current_weight_pct": 86.6,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 76.6,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 81.8,
+                  "trigger_at_weight_pct": 86.6
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 77,
+                  "trigger_at_weight_pct": 81.8
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 72.2,
+                  "trigger_at_weight_pct": 77
+                },
+                {
+                  "step": 4,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 67.4,
+                  "trigger_at_weight_pct": 72.2
+                },
+                {
+                  "step": 5,
+                  "trim_pct_points": 4.7,
+                  "resulting_weight_pct": 62.7,
+                  "trigger_at_weight_pct": 67.4
+                },
+                {
+                  "step": 6,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 57.9,
+                  "trigger_at_weight_pct": 62.7
+                },
+                {
+                  "step": 7,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 53.1,
+                  "trigger_at_weight_pct": 57.9
+                },
+                {
+                  "step": 8,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 48.3,
+                  "trigger_at_weight_pct": 53.1
+                },
+                {
+                  "step": 9,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 43.5,
+                  "trigger_at_weight_pct": 48.3
+                },
+                {
+                  "step": 10,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 38.7,
+                  "trigger_at_weight_pct": 43.5
+                },
+                {
+                  "step": 11,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 33.9,
+                  "trigger_at_weight_pct": 38.7
+                },
+                {
+                  "step": 12,
+                  "trim_pct_points": 4.7,
+                  "resulting_weight_pct": 29.2,
+                  "trigger_at_weight_pct": 33.9
+                },
+                {
+                  "step": 13,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 24.4,
+                  "trigger_at_weight_pct": 29.2
+                },
+                {
+                  "step": 14,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 19.6,
+                  "trigger_at_weight_pct": 24.4
+                },
+                {
+                  "step": 15,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 14.8,
+                  "trigger_at_weight_pct": 19.6
+                },
+                {
+                  "step": 16,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.8
+                }
+              ]
+            }
+          ]
+        },
+        "narrated": {
+          "advisor_action": "Propose deploying the bank savings account balance from its current 86.6% of liquid assets toward the 10% single-position target in a sixteen-step glide-path, trimming roughly 4.8 points at a time to manage market impact on the receiving allocations and to spread the realisation across tax years. Step 1 trims 4.8 points from 86.6% to 81.8%, taken at the current 86.6% weight; step 2 trims 4.8 points to 77% once the position has settled near 81.8%; step 3 trims 4.8 points to 72.2% from 77%; step 4 trims 4.8 points to 67.4% from 72.2%; step 5 trims 4.7 points to 62.7% from 67.4%; step 6 trims 4.8 points to 57.9% from 62.7%; step 7 trims 4.8 points to 53.1% from 57.9%; step 8 trims 4.8 points to 48.3% from 53.1%; step 9 trims 4.8 points to 43.5% from 48.3%; step 10 trims 4.8 points to 38.7% from 43.5%; step 11 trims 4.8 points to 33.9% from 38.7%; step 12 trims 4.7 points to 29.2% from 33.9%; step 13 trims 4.8 points to 24.4% from 29.2%; step 14 trims 4.8 points to 19.6% from 24.4%; step 15 trims 4.8 points to 14.8% from 19.6%; and step 16 trims 4.8 points to the 10% target from 14.8%, completing the total 76.6-point reduction from the original 86.6% weight against the 15% breach threshold.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 0,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 3,
+        "observation_actions_sentinelled": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "3 portfolio-level actions surfaced, one sixteen-step deployment of the bank savings account proposed."
+      },
+      "reasoning_summary": "This portfolio is effectively a single-instrument holding: 86.6% of liquid assets sit in a bank savings account, which simultaneously triggers position over-concentration at escalate severity, material cash drag at escalate severity, and allocation drift against the Samriddhi 1 plan. The central recommendation is therefore a single one: a staged deployment of the cash position toward the 10% ceiling, with the other two observations framed as the rationale the client should hear for why the deployment matters. The sixteen-step cadence is deliberately patient given the size of the move, the receiving allocations that will need to absorb it, and the capital-gains event spread that staging permits."
     }
   },
   "tokenUsage": {

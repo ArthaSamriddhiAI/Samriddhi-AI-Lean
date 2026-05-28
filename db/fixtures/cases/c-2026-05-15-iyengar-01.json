@@ -1319,6 +1319,204 @@
         "applies": false,
         "text": null
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-15-iyengar-01",
+      "as_of_date": "2026-04-02",
+      "holding_actions": [
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose a staged reduction of the HDFC Bank FD position from 27.3% of liquid assets toward the 10% single-position ceiling; at nearly double the 15% escalate threshold, this is the largest concentration in the book and the central item for the meeting."
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming the SBI FD alongside the HDFC Bank FD, taking it from 27% toward the 10% ceiling; the two deposits together account for more than half of liquid assets and concentrate the client in a single instrument type."
+        },
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "instrument_display_name": "Franklin India Corporate Debt Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Raise the Franklin India Corporate Debt Fund position at 10.3% as a discussion item, since it sits just over the 10% single-position flag; propose a small 0.3 point trim back to 10% as part of the broader rebalance."
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Discuss the Axis Large Cap Fund at 11.7%, modestly above the 10% single-position flag; propose a 1.7 point trim back to 10% to keep equity exposures balanced across the line-up."
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "instrument_display_name": "HDFC Index Fund Nifty 50",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Discuss the HDFC Index Fund Nifty 50 at 14.1%, approaching the 15% escalate threshold; propose a 4.1 point trim back to the 10% ceiling so the position does not drift into a harder breach."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Anchor the meeting on single-position concentration: two FDs sit above the 15% escalate threshold and three further positions sit above the 10% flag, so propose the staged trim plan as the central rebalance action of the review."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Walk the client through how the portfolio has drifted from the intended asset mix and frame the position-level trims as the lever that brings the overall allocation back into line; propose reinvesting the freed weight against the target mix rather than back into the same concentrations."
+        },
+        {
+          "observation_category": "stated_revealed_divergence",
+          "severity_hint": "info",
+          "kind": "action",
+          "advisor_action": "Note for the meeting that what the portfolio is actually doing diverges from what the client has stated they want; use this as the opening to revisit objectives in Samriddhi 1 before locking the rebalance, so the target mix the trims feed into reflects the client's current intent."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "HDFC Bank FD",
+              "current_weight_pct": 27.3,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 17.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 23,
+                  "trigger_at_weight_pct": 27.3
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 18.7,
+                  "trigger_at_weight_pct": 23
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 4.4,
+                  "resulting_weight_pct": 14.3,
+                  "trigger_at_weight_pct": 18.7
+                },
+                {
+                  "step": 4,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.3
+                }
+              ]
+            },
+            {
+              "instrument": "SBI FD",
+              "current_weight_pct": 27,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 17,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.2,
+                  "resulting_weight_pct": 22.8,
+                  "trigger_at_weight_pct": 27
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 18.5,
+                  "trigger_at_weight_pct": 22.8
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 4.2,
+                  "resulting_weight_pct": 14.3,
+                  "trigger_at_weight_pct": 18.5
+                },
+                {
+                  "step": 4,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.3
+                }
+              ]
+            },
+            {
+              "instrument": "Franklin India Corporate Debt Fund",
+              "current_weight_pct": 10.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 0.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 0.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 10.3
+                }
+              ]
+            },
+            {
+              "instrument": "Axis Large Cap Fund",
+              "current_weight_pct": 11.7,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.7,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.7,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.7
+                }
+              ]
+            },
+            {
+              "instrument": "HDFC Index Fund Nifty 50",
+              "current_weight_pct": 14.1,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 4.1,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.1,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.1
+                }
+              ]
+            }
+          ]
+        },
+        "narrated": {
+          "advisor_action": "Propose a coordinated single-position trim across five holdings, staged to manage market impact and the capital-gains event. For HDFC Bank FD, take the position from 27.3% toward the 10% single-position ceiling in four steps of roughly 4.3 points each: step 1 trims 4.3 points to 23% at the current 27.3% weight, step 2 trims 4.3 points to 18.7% once the position has settled near 23%, step 3 trims 4.4 points to 14.3% at 18.7%, and step 4 trims 4.3 points to 10% at 14.3%. For SBI FD, take the position from 27% to 10% in four similar steps: 4.2 points to 22.8% at 27%, 4.3 points to 18.5% at 22.8%, 4.2 points to 14.3% at 18.5%, and 4.3 points to 10% at 14.3%. Pair the FD steps so the two deposits are not unwound on the same date, smoothing reinvestment. For the three smaller breaches, propose a single step each: Franklin India Corporate Debt Fund trims 0.3 points from 10.3% to 10%, Axis Large Cap Fund trims 1.7 points from 11.7% to 10%, and HDFC Index Fund Nifty 50 trims 4.1 points from 14.1% to 10%. Sequence the smaller equity and debt fund trims around the FD glide-path so the freed weight can be redirected against the target allocation rather than back into the names being reduced.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 5,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 3,
+        "observation_actions_sentinelled": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "Five holding actions surfaced, three portfolio observations flagged, one multi-position concentration trim proposed."
+      },
+      "reasoning_summary": "The portfolio is dominated by two fixed deposits at 27.3% and 27% of liquid assets, both well past the 15% escalate threshold, so the central recommendation is a staged trim back to the 10% ceiling across four steps each to manage market impact and the tax event. Three further positions sit modestly above the 10% flag and clear in one step apiece, freeing weight that can be redirected against the intended allocation. The allocation drift and stated-revealed divergence observations point to the same underlying issue: the portfolio's revealed shape no longer matches the client's stated intent, so the meeting should reopen objectives in Samriddhi 1 before the rebalance is finalised."
     }
   },
   "tokenUsage": {

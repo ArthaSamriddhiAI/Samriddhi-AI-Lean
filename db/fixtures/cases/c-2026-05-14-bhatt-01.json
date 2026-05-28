@@ -2150,6 +2150,197 @@
         "applies": true,
         "text": "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies."
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-14-bhatt-01",
+      "as_of_date": "2026-04-02",
+      "holding_actions": [
+        {
+          "holding_ref": "Marcellus Consistent Compounder PMS",
+          "instrument_display_name": "Marcellus Consistent Compounder PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "wrapper_over_accumulation",
+          "advisor_action": "Propose discussing whether the Marcellus Consistent Compounder PMS sleeve continues to earn its place alongside three other PMS mandates; at 11.3% it has crossed the 10% single-position ceiling, and the conversation should test whether the client is paying PMS fees for what is effectively duplicated large-cap exposure."
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "wrapper_over_accumulation",
+          "advisor_action": "Propose discussing the role of White Oak India Pioneers PMS within a stack of four PMS mandates, surfacing whether its mandate is genuinely distinct from the others or whether the wrapper is contributing to fee drag without commensurate differentiation."
+        },
+        {
+          "holding_ref": "Motilal Oswal Value Migration PMS",
+          "instrument_display_name": "Motilal Oswal Value Migration PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "wrapper_over_accumulation",
+          "advisor_action": "Propose discussing whether the Motilal Oswal Value Migration PMS mandate is pulling its weight against the other three PMS sleeves, framing the conversation around whether the client needs four separately managed mandates or whether consolidation would sharpen the portfolio."
+        },
+        {
+          "holding_ref": "Alchemy Smart Alpha 250 PMS",
+          "instrument_display_name": "Alchemy Smart Alpha 250 PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "wrapper_over_accumulation",
+          "advisor_action": "Propose discussing the Alchemy Smart Alpha 250 PMS allocation as part of the wider four-PMS conversation; the client should hear an honest view on whether this mandate is contributing alpha that justifies its fees or whether it is one wrapper too many."
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing the Reliance Industries position; at 12.2% of liquid assets it sits above the 10% single-position ceiling, and the client should hear a clear case for trimming the holding back toward 10%."
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing the HDFC Bank position; at 11.3% it has crossed the 10% single-position ceiling, and the client should hear a recommendation to trim it back to 10% in a single step."
+        },
+        {
+          "holding_ref": "ITC Limited",
+          "instrument_display_name": "ITC Limited",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "e1_overall_verdict_positive_with_caution",
+          "advisor_action": "Propose monitoring the ITC Limited position; the holding screens positively overall, but flag the cautionary signal noted in the Samriddhi 1 evidence layer so the client knows it is being watched rather than left unattended."
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_positive_with_caution",
+          "advisor_action": "Propose monitoring the Mirae Asset Large Cap Fund holding; the evidence layer reads positive with a caution, so frame this as a holding the advisor is keeping an eye on rather than one that needs action today."
+        },
+        {
+          "holding_ref": "Avendus Absolute Return Fund",
+          "instrument_display_name": "Avendus Absolute Return Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose discussing the Avendus Absolute Return Fund position; at 13.6% it is the portfolio's largest single concentration breach and warrants a clear recommendation to reduce it back toward the 10% ceiling."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose walking the client through the four positions that sit above the 10% single-position ceiling and framing the trim plan as a single coherent piece of work rather than four separate conversations, so the rationale for reducing concentration risk lands as one decision."
+        },
+        {
+          "observation_category": "wrapper_over_accumulation",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose a direct conversation about the four PMS mandates the client is holding in parallel; the recommendation should be to consolidate to one or at most two mandates, on the basis that the current wrapper count is escalating fees without delivering proportionate differentiation."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose tabling the allocation drift against the client's stated targets and using the concentration trims as the first lever to bring the portfolio back toward its intended mix, rather than treating drift correction as a separate exercise."
+        },
+        {
+          "observation_category": "stated_revealed_divergence",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose surfacing the gap between what the client said they wanted from this portfolio and what the holdings actually express; the advisor should walk the client through the divergence and ask whether the stated objectives still hold or whether the revealed positioning is the truer signal."
+        },
+        {
+          "observation_category": "complexity_premium_not_earned",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose telling the client plainly that the complexity in the portfolio, in the form of four PMS sleeves and an absolute-return fund, is not earning its keep against simpler alternatives; the recommendation is to simplify the stack so the client stops paying for complexity that is not showing up in outcomes."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "Marcellus Consistent Compounder PMS",
+              "current_weight_pct": 11.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.3
+                }
+              ]
+            },
+            {
+              "instrument": "Reliance Industries",
+              "current_weight_pct": 12.2,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 2.2,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 2.2,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 12.2
+                }
+              ]
+            },
+            {
+              "instrument": "HDFC Bank",
+              "current_weight_pct": 11.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.3
+                }
+              ]
+            },
+            {
+              "instrument": "Avendus Absolute Return Fund",
+              "current_weight_pct": 13.6,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 3.6,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 3.6,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 13.6
+                }
+              ]
+            }
+          ]
+        },
+        "narrated": {
+          "advisor_action": "Propose a coordinated trim across the four positions that breach the 10% single-position ceiling, each taken as a single step to bring the holding back to the 10% target. Trim Avendus Absolute Return Fund first, as the largest breach: 3.6 points from 13.6% to 10%, triggered at the current 13.6%. Trim Reliance Industries by 2.2 points from 12.2% to 10%, triggered at 12.2%. Trim Marcellus Consistent Compounder PMS by 1.3 points from 11.3% to 10%, triggered at 11.3%. Trim HDFC Bank by 1.3 points from 11.3% to 10%, triggered at 11.3%. Stage the four trades rather than running them simultaneously, so market impact on the listed equities is contained and the capital-gains event is sequenced across the trims rather than landing as a single concentrated tax hit.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 9,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 5,
+        "observation_actions_sentinelled": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "Nine holding actions surfaced, five portfolio observations to address, and a four-position concentration trim proposed."
+      },
+      "reasoning_summary": "The portfolio's central problems are wrapper accumulation and single-position concentration: four PMS mandates running in parallel are driving the complexity-premium-not-earned escalation, and four separate holdings sit above the 10% ceiling, including Avendus at 13.6%. The recommended conversation centres on simplifying the PMS stack and executing a staged trim across the four breaches to pull concentration risk back to target. The two monitor verdicts on ITC Limited and Mirae Asset Large Cap Fund are watch items, not action items, and should be framed that way. Allocation drift and stated-revealed divergence are best addressed alongside the trims, since the same trades that reduce concentration also begin to close the gap to the client's stated targets."
     }
   },
   "tokenUsage": {

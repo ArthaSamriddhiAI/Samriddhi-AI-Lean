@@ -1908,6 +1908,168 @@
         "applies": true,
         "text": "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies."
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-15-surana-01",
+      "as_of_date": "2026-04-02",
+      "holding_actions": [
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling; the position is the strongest conviction holding in the book, so frame the trim as discipline on sizing rather than a view on the manager."
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_negative",
+          "advisor_action": "Propose exiting Axis Large Cap Fund and redeploying the proceeds; the diagnostic returned a negative overall verdict, so the conversation should move past monitoring and toward replacement within the large-cap sleeve."
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_positive_with_caution",
+          "advisor_action": "Propose keeping Mirae Asset Large Cap Fund in place but flagging it for the next review cycle; the verdict is positive with caution, so the action is to watch the cautionary driver, not to change the position today."
+        },
+        {
+          "holding_ref": "Kotak Emerging Equity Fund",
+          "instrument_display_name": "Kotak Emerging Equity Fund",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_negative",
+          "advisor_action": "Propose exiting Kotak Emerging Equity Fund and reallocating within the mid-cap sleeve; with a negative overall verdict, continuing to hold the fund is the harder call to defend."
+        },
+        {
+          "holding_ref": "SBI Small Cap Fund",
+          "instrument_display_name": "SBI Small Cap Fund",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "e7_overall_verdict_positive_with_caution",
+          "advisor_action": "Propose holding SBI Small Cap Fund with active monitoring; the positive-with-caution verdict means the position earns its place for now, but the cautionary driver should be revisited at the next review."
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "complexity_premium_not_earned",
+          "advisor_action": "Propose putting White Oak India Pioneers PMS on the watch list, with a clear bar for what the structure must deliver to justify its fee and complexity; if the premium remains unearned at the next review, the conversation should shift to exiting the wrapper."
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "a2_verdict": "review",
+          "kind": "action",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose reducing the Reliance Industries position from 20.3% of liquid assets toward the 10% single-position ceiling; at more than double the ceiling and above the 15% escalate threshold, this is the portfolio's most pressing single-name concentration and should be staged carefully."
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "source_observation": "e1_overall_verdict_positive_with_caution",
+          "advisor_action": "Propose holding HDFC Bank with monitoring on the cautionary driver flagged in the diagnostic; no change to the position today, but the driver should be revisited at the next review."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose a staged trim across the three positions sitting above the 10% single-position ceiling, starting with Reliance Industries at 20.3% as the escalate-level breach and following with Parag Parikh Flexi Cap and Axis Large Cap; this is the portfolio's primary concentration risk and warrants a structured glide-path rather than a single sale."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Propose using the proceeds from the concentration trims to bring the portfolio's sleeve weights back toward the policy allocation; the drift is at flag level, so the rebalance can be folded into the same conversation rather than treated as a separate exercise."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "Parag Parikh Flexi Cap Fund",
+              "current_weight_pct": 11.6,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.6,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.6,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.6
+                }
+              ]
+            },
+            {
+              "instrument": "Axis Large Cap Fund",
+              "current_weight_pct": 11,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11
+                }
+              ]
+            },
+            {
+              "instrument": "Reliance Industries",
+              "current_weight_pct": 20.3,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 10.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 3.4,
+                  "resulting_weight_pct": 16.9,
+                  "trigger_at_weight_pct": 20.3
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 3.5,
+                  "resulting_weight_pct": 13.4,
+                  "trigger_at_weight_pct": 16.9
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 3.4,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 13.4
+                }
+              ]
+            }
+          ]
+        },
+        "narrated": {
+          "advisor_action": "Propose a coordinated trim across three positions, staged to manage market impact and the capital-gains event. For Parag Parikh Flexi Cap Fund, propose a single-step trim of 1.6 points from 11.6% to the 10% target, triggered at the current 11.6%. For Axis Large Cap Fund, propose a single-step trim of 1 point from 11% to the 10% target, triggered at the current 11%. For Reliance Industries, which at 20.3% sits well above the 15% escalate threshold, propose a three-step glide-path to the 10% target, a total trim of 10.3 points: step one trims 3.4 points from 20.3% to 16.9%, triggered at the current 20.3%; step two trims 3.5 points from 16.9% to 13.4%, triggered once the position has settled near 16.9%; step three trims 3.4 points from 13.4% to the 10% ceiling, triggered once the position has settled near 13.4%. Staging the Reliance sale in three legs paces the market impact of the largest trim and spreads the capital-gains realisation across the cadence of the program.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 8,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 2,
+        "observation_actions_sentinelled": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "8 holding actions and 2 observation actions surfaced, with a three-position concentration trim proposed."
+      },
+      "reasoning_summary": "The portfolio's central problem is single-name and single-fund concentration: Reliance Industries at 20.3% is an escalate-level breach, and both Parag Parikh Flexi Cap and Axis Large Cap sit modestly above the 10% ceiling. Two funds, Axis Large Cap and Kotak Emerging Equity, returned negative overall verdicts and warrant exit conversations rather than monitoring. The remaining holdings are either positive-with-caution positions to watch or, in the case of White Oak, a complexity wrapper that has not yet earned its premium. The rebalance proposal stages the Reliance trim across three legs to manage market impact and the capital-gains event, while the smaller breaches resolve in single steps."
     }
   },
   "tokenUsage": {

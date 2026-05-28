@@ -525,6 +525,10 @@ export async function runA3ReasonText(
 export type A3DiagnosticResult = {
   output: A3Output;
   usage: AgentUsage;
+  /** Live API response id and returned model from the Layer 2 call. Undefined
+   * on the all-clear path (no LLM call). */
+  responseId?: string;
+  responseModel?: string;
 };
 
 function countSurfaced<T extends { kind: "action" | "sentinel" }>(
@@ -648,5 +652,10 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
     reasoning_summary: stripLongDashes(payload.reasoning_summary),
   };
 
-  return { output, usage: reasonResult.usage };
+  return {
+    output,
+    usage: reasonResult.usage,
+    responseId: reasonResult.id,
+    responseModel: reasonResult.model,
+  };
 }
