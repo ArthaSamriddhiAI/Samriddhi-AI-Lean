@@ -35,6 +35,7 @@ import { runE6 } from "./e6-wrappers";
 import { runE7 } from "./e7-mutual-fund";
 import { runS1Diagnostic } from "./s1-diagnostic";
 import { runA2Diagnostic } from "./a2-classification";
+import { runA3Diagnostic } from "./a3-so-what";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -310,6 +311,30 @@ export async function runDiagnosticPipeline(opts: {
       );
     }
 
+    /* A3.so_what: the advisor-action ("so what") layer. Samriddhi 2
+     * diagnostic path only, after A2 and M0, consuming the A2 verdicts, the
+     * deterministic pre-observations, and the M0 concentration breach data
+     * already in scope. Layer 1 is deterministic (glide-path math); Layer 2
+     * writes the recommendatory prose (one Claude call). The single product
+     * surface that recommends an action rather than characterising a state.
+     * Ships as data only (content.a3_so_what); the S2 renderer reads only
+     * briefing and never touches this key (WA09). */
+    const a3Result = await runA3Diagnostic({
+      caseId: opts.caseId,
+      asOfDate,
+      a2Output: a2Result.output,
+      metrics,
+      preObservations: stitched.pre_observations,
+    });
+    usage.a3 = a3Result.usage;
+    runningTokens += a3Result.usage.inputTokens + a3Result.usage.outputTokens;
+    if (runningTokens > tokenBudget) {
+      throw new Error(
+        `Token budget exceeded after A3 so-what: used ${runningTokens} of ${tokenBudget} tokens. ` +
+          `Raise tokenBudgetPerCase in Settings or scope the case smaller.`,
+      );
+    }
+
     const elapsedMs = Date.now() - startedAt;
 
     /* Persist contentJson with the briefing plus diagnostic provenance:
@@ -323,6 +348,7 @@ export async function runDiagnosticPipeline(opts: {
       router_decision: routerDecision,
       evidence,
       a2_classification: a2Result.output,
+      a3_so_what: a3Result.output,
       risk_reward_stats: riskReward,
       time_series_performance: timeSeries,
       portfolio_overlap: portfolioOverlap,
@@ -331,11 +357,13 @@ export async function runDiagnosticPipeline(opts: {
         total_input_tokens:
           stitched.usage_summary.total_input_tokens +
           (usage.s1?.inputTokens ?? 0) +
-          (usage.a2?.inputTokens ?? 0),
+          (usage.a2?.inputTokens ?? 0) +
+          (usage.a3?.inputTokens ?? 0),
         total_output_tokens:
           stitched.usage_summary.total_output_tokens +
           (usage.s1?.outputTokens ?? 0) +
-          (usage.a2?.outputTokens ?? 0),
+          (usage.a2?.outputTokens ?? 0) +
+          (usage.a3?.outputTokens ?? 0),
         elapsed_ms: elapsedMs,
         generated_at: new Date().toISOString(),
       },
