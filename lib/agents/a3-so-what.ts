@@ -670,7 +670,8 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
       `destination or amount beyond the computed deployments. If`,
       `leftover_to_cash_pct is above zero, state plainly that the freed capital`,
       `beyond the under-allocated capacity sits in cash; do not narrate it as`,
-      `reinvested.`,
+      `reinvested. Tell it as one coherent story: which trims and exits free the`,
+      `capital, and which under-allocated sleeves receive it.`,
       ``,
       "```json",
       JSON.stringify(rebalance, null, 2),
@@ -725,13 +726,120 @@ export async function runA3ReasonText(layer1: A3Layer1Result): Promise<AgentCall
   return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1), validate: validateReasonPayload });
 }
 
+/* ----- Layer 2 call 1: the trim / exit / maintain judgment ----- */
+
+type A3JudgmentRow = {
+  holding_ref: string;
+  decision: A3DecisionKind;
+  dimensions_failing: A3Dimension[];
+  exit_rationale: string;
+};
+type A3JudgmentPayload = { judgments: A3JudgmentRow[] };
+
+function buildJudgmentPrompt(eligible: A3ReconciledDecision[]): string {
+  const rows = eligible.map((d) => ({
+    holding_ref: d.holding_ref,
+    instrument: d.instrument_display_name,
+    holding_kind: d.holding_kind,
+    weight_pct: d.weight_pct,
+    over_concentrated: d.over_concentrated,
+    valid_decisions: d.over_concentrated ? ["trim", "exit"] : ["maintain", "exit"],
+    signals: d.signals.map((s) => ({ dimension: s.dimension, status: s.status, concern: s.concern, detail: s.detail })),
+  }));
+  return [
+    `# A3 Trim / Exit / Maintain Judgment`,
+    ``,
+    `Decide each holding's action by reasoning ONLY over the computed signals`,
+    `below. Do not invent or assume any figure not present; cite the actual`,
+    `numbers and verdicts from the signals.`,
+    ``,
+    `## The rule`,
+    ``,
+    `Trim is the default. EXIT is a high bar: recommend exit only on a strong,`,
+    `cited, multi-dimension convergence where trim is articulably insufficient.`,
+    `When in doubt, trim. A lone signal is never an exit. Each holding below has`,
+    `already passed a deterministic exit-eligibility gate, so exit is permitted;`,
+    `your job is to confirm whether exit is genuinely warranted or whether trim`,
+    `(or maintain, where there is no concentration to trim) is the right call.`,
+    ``,
+    `Respect valid_decisions per holding: an over-concentrated holding is trim or`,
+    `exit; a holding that is not over-concentrated is maintain or exit (there is`,
+    `no concentration to trim).`,
+    ``,
+    `For opaque wrappers the numeric performance is unavailable; the convergence`,
+    `rests on the E6 verdict and complexity-premium signals, which carry a`,
+    `confidence discount. Judge conservatively: prefer maintain or trim unless`,
+    `the qualitative convergence is unambiguous.`,
+    ``,
+    "```json",
+    JSON.stringify(rows, null, 2),
+    "```",
+    ``,
+    `## Output`,
+    ``,
+    `Return a single fenced JSON block:`,
+    "```json",
+    `{ "judgments": [ { "holding_ref": "<verbatim>", "decision": "<one of valid_decisions>", "dimensions_failing": ["<dimensions that drove it>"], "exit_rationale": "<REQUIRED and non-empty ONLY when decision is exit: which dimensions converged, the cited figures, and why trim is insufficient; empty string otherwise>" } ] }`,
+    "```",
+    ``,
+    `One entry per holding_ref above, no others. No prose outside the fence.`,
+  ].join("\n");
+}
+
+function validateJudgmentPayload(parsed: unknown): A3JudgmentPayload {
+  if (typeof parsed !== "object" || parsed === null) throw new Error("A3 judgment output is not an object");
+  const o = parsed as Record<string, unknown>;
+  if (!Array.isArray(o.judgments)) throw new Error("A3 judgment output.judgments must be an array");
+  for (const r of o.judgments as unknown[]) {
+    const row = r as Record<string, unknown>;
+    if (typeof row.holding_ref !== "string" || row.holding_ref.trim() === "") throw new Error("A3 judgment row missing holding_ref");
+    if (row.decision !== "trim" && row.decision !== "exit" && row.decision !== "maintain") throw new Error(`A3 judgment row ${String(row.holding_ref)}: decision must be trim, exit, or maintain`);
+    if (row.decision === "exit" && (typeof row.exit_rationale !== "string" || row.exit_rationale.trim() === "")) throw new Error(`A3 judgment row ${String(row.holding_ref)}: exit requires a non-empty exit_rationale (guardrail 2)`);
+  }
+  return o as unknown as A3JudgmentPayload;
+}
+
+async function runA3Judgment(eligible: A3ReconciledDecision[]): Promise<AgentCallResult<A3JudgmentPayload>> {
+  return callAgent<A3JudgmentPayload>({ skillId: "a3_so_what", userPrompt: buildJudgmentPrompt(eligible), validate: validateJudgmentPayload });
+}
+
+/* Apply judged decisions to the reconciled decisions. Only exit-eligible
+ * holdings are judged; the rest keep their deterministic baseline. The judged
+ * decision is clamped to the holding's valid space (defensive): an
+ * over-concentrated holding is never simply maintained (at least trim); a
+ * holding with no concentration cannot be trimmed (maintain or exit). */
+function applyJudgment(decisions: A3ReconciledDecision[], judgments: A3JudgmentRow[]): A3ReconciledDecision[] {
+  const byRef = new Map(judgments.map((j) => [j.holding_ref, j]));
+  return decisions.map((d) => {
+    if (!d.exit_eligible) return d;
+    const j = byRef.get(d.holding_ref);
+    if (!j) return d;
+    let decision = j.decision;
+    if (d.over_concentrated) {
+      if (decision === "maintain") decision = "trim";
+    } else if (decision === "trim") {
+      decision = "maintain";
+    }
+    return {
+      ...d,
+      decision,
+      dimensions_failing: Array.isArray(j.dimensions_failing) && j.dimensions_failing.length ? j.dimensions_failing : d.dimensions_failing,
+      exit_rationale: decision === "exit" ? j.exit_rationale : "",
+      judgment_reasoning: j.exit_rationale || d.judgment_reasoning,
+    };
+  });
+}
+
 /* ----- Orchestration ----- */
 
 export type A3DiagnosticResult = {
   output: A3Output;
   usage: AgentUsage;
+  /** Narration-call (Layer-2 call 2) response id + model. */
   responseId?: string;
   responseModel?: string;
+  /** Judgment-call (Layer-2 call 1) response id, when a judgment ran. */
+  judgmentResponseId?: string;
 };
 
 function countSurfaced<T extends { kind: "action" | "sentinel" }>(items: T[]): { surfaced: number; sentinelled: number } {
@@ -750,12 +858,11 @@ function decisionCounts(decisions: A3ReconciledDecision[]): { trim: number; exit
 
 export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResult> {
   const layer1 = computeA3(input);
-  const holdingCounts = countSurfaced(layer1.holding_actions);
-  const observationCounts = countSurfaced(layer1.observation_actions);
-  const dc = decisionCounts(layer1.decisions);
-  const rebalanceKind = layer1.rebalance_proposal.kind;
 
   if (!needsLayer2(layer1)) {
+    const c0 = countSurfaced(layer1.holding_actions);
+    const o0 = countSurfaced(layer1.observation_actions);
+    const dc0 = decisionCounts(layer1.decisions);
     const output: A3Output = {
       agent_id: "a3_so_what",
       case_id: layer1.case_id,
@@ -765,13 +872,13 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
       observation_actions: layer1.observation_actions,
       rebalance_proposal: layer1.rebalance_proposal,
       summary: {
-        holding_actions_surfaced: holdingCounts.surfaced,
-        holding_actions_sentinelled: holdingCounts.sentinelled,
-        observation_actions_surfaced: observationCounts.surfaced,
-        observation_actions_sentinelled: observationCounts.sentinelled,
-        trim_count: dc.trim,
-        exit_count: dc.exit,
-        rebalance: rebalanceKind,
+        holding_actions_surfaced: c0.surfaced,
+        holding_actions_sentinelled: c0.sentinelled,
+        observation_actions_surfaced: o0.surfaced,
+        observation_actions_sentinelled: o0.sentinelled,
+        trim_count: dc0.trim,
+        exit_count: dc0.exit,
+        rebalance: layer1.rebalance_proposal.kind,
         one_line_characterization: "No advisor actions surfaced from the Samriddhi 2 diagnostic for this case.",
       },
       reasoning_summary:
@@ -780,38 +887,69 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
     return { output, usage: { inputTokens: 0, outputTokens: 0 } };
   }
 
-  const reasonResult = await runA3ReasonText(layer1);
+  // Layer-2 call 1: the trim/exit/maintain judgment, over exit-eligible holdings
+  // only (the rest keep their deterministic baseline).
+  const eligible = layer1.decisions.filter((d) => d.exit_eligible);
+  let judgedDecisions = layer1.decisions;
+  let judgeUsage: AgentUsage = { inputTokens: 0, outputTokens: 0 };
+  let judgmentResponseId: string | undefined;
+  if (eligible.length > 0) {
+    const jr = await runA3Judgment(eligible);
+    judgedDecisions = applyJudgment(layer1.decisions, jr.output.judgments);
+    judgeUsage = jr.usage;
+    judgmentResponseId = jr.id;
+  }
+
+  // Deterministic re-compute of surfaces and redeployment from the judged
+  // decisions (exit frees full weight; trim frees weight above the 10% ceiling).
+  const finalLayer1: A3Layer1Result = {
+    case_id: layer1.case_id,
+    as_of_date: layer1.as_of_date,
+    decisions: judgedDecisions,
+    holding_actions: buildHoldingActions(judgedDecisions),
+    observation_actions: layer1.observation_actions,
+    rebalance_proposal: buildRebalanceProposal(judgedDecisions, input.metrics),
+  };
+  const holdingCounts = countSurfaced(finalLayer1.holding_actions);
+  const observationCounts = countSurfaced(finalLayer1.observation_actions);
+  const dc = decisionCounts(finalLayer1.decisions);
+
+  // Layer-2 call 2: constrained narration of the computed surfaces. The
+  // narration receives the computed numbers as FIXED input and may only phrase
+  // them; it cannot recompute or invent (the structural anti-fabrication
+  // guarantee: the numbers are already proven to close in deterministic verify).
+  const reasonResult = await runA3ReasonText(finalLayer1);
   const payload = reasonResult.output;
   const holdingProse = new Map<string, string>();
   for (const r of payload.holding_actions) holdingProse.set(r.holding_ref, r.advisor_action);
   const observationProse = new Map<string, string>();
   for (const r of payload.observation_actions) observationProse.set(r.observation_category, r.advisor_action);
 
-  const holding_actions: A3HoldingAction[] = layer1.holding_actions.map((h) => {
+  const holding_actions: A3HoldingAction[] = finalLayer1.holding_actions.map((h) => {
     if (h.kind !== "action") return h;
     const prose = holdingProse.get(h.holding_ref);
-    if (!prose) throw new Error(`A3 Layer 2 did not return an advisor_action for holding ${h.holding_ref}. Layer 1 structure is intact; rerun Layer 2.`);
+    if (!prose) throw new Error(`A3 narration did not return an advisor_action for holding ${h.holding_ref}. Computed structure is intact; rerun narration.`);
     return { ...h, advisor_action: stripLongDashes(prose) };
   });
-  const observation_actions: A3ObservationAction[] = layer1.observation_actions.map((o) => {
+  const observation_actions: A3ObservationAction[] = finalLayer1.observation_actions.map((o) => {
     if (o.kind !== "action") return o;
     const prose = observationProse.get(o.observation_category);
-    if (!prose) throw new Error(`A3 Layer 2 did not return an advisor_action for observation ${o.observation_category}. Layer 1 structure is intact; rerun Layer 2.`);
+    if (!prose) throw new Error(`A3 narration did not return an advisor_action for observation ${o.observation_category}. Computed structure is intact; rerun narration.`);
     return { ...o, advisor_action: stripLongDashes(prose) };
   });
 
-  let rebalance_proposal: A3RebalanceProposal = layer1.rebalance_proposal;
-  if (layer1.rebalance_proposal.kind === "proposal") {
+  let rebalance_proposal: A3RebalanceProposal = finalLayer1.rebalance_proposal;
+  if (finalLayer1.rebalance_proposal.kind === "proposal") {
     const prose = payload.rebalance_advisor_action;
-    if (!prose || prose.trim() === "") throw new Error("A3 Layer 2 did not return rebalance_advisor_action for a proposal. Layer 1 glide-path is intact; rerun Layer 2.");
-    rebalance_proposal = { kind: "proposal", computed: layer1.rebalance_proposal.computed, narrated: { advisor_action: stripLongDashes(prose), generation_method: "llm" } };
+    if (!prose || prose.trim() === "") throw new Error("A3 narration did not return rebalance_advisor_action for a proposal. Computed glide-path and redeployment are intact; rerun narration.");
+    rebalance_proposal = { kind: "proposal", computed: finalLayer1.rebalance_proposal.computed, narrated: { advisor_action: stripLongDashes(prose), generation_method: "llm" } };
   }
 
   const output: A3Output = {
     agent_id: "a3_so_what",
-    case_id: layer1.case_id,
-    as_of_date: layer1.as_of_date,
-    decisions: layer1.decisions,
+    case_id: finalLayer1.case_id,
+    as_of_date: finalLayer1.as_of_date,
+    decisions: judgedDecisions,
     holding_actions,
     observation_actions,
     rebalance_proposal,
@@ -822,10 +960,16 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
       observation_actions_sentinelled: observationCounts.sentinelled,
       trim_count: dc.trim,
       exit_count: dc.exit,
-      rebalance: rebalanceKind,
+      rebalance: finalLayer1.rebalance_proposal.kind,
       one_line_characterization: stripLongDashes(payload.one_line_characterization),
     },
     reasoning_summary: stripLongDashes(payload.reasoning_summary),
   };
-  return { output, usage: reasonResult.usage, responseId: reasonResult.id, responseModel: reasonResult.model };
+  return {
+    output,
+    usage: { inputTokens: judgeUsage.inputTokens + reasonResult.usage.inputTokens, outputTokens: judgeUsage.outputTokens + reasonResult.usage.outputTokens },
+    responseId: reasonResult.id,
+    responseModel: reasonResult.model,
+    judgmentResponseId,
+  };
 }

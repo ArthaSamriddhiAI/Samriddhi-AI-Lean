@@ -146,7 +146,7 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
 
   const riskReward = fixture.content.risk_reward_stats ?? null;
 
-  const { output, usage, responseId, responseModel } = await runA3Diagnostic({
+  const { output, usage, responseId, responseModel, judgmentResponseId } = await runA3Diagnostic({
     caseId: fixture.id,
     asOfDate,
     a2Output,
@@ -160,15 +160,21 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   // --- Readout ---
   const usd = (usage.inputTokens / 1e6) * USD_PER_M_INPUT + (usage.outputTokens / 1e6) * USD_PER_M_OUTPUT;
   console.log(`\n=== ${fixture.id}  (${fixture.investorId})  as of ${asOfDate} ===`);
-  console.log(`api: response_id=${responseId ?? "(none, no LLM call)"}  model=${responseModel ?? "n/a"}`);
-  console.log(`cost: ${usage.inputTokens} in / ${usage.outputTokens} out  ->  USD ${usd.toFixed(4)} (INR ${(usd * INR_PER_USD).toFixed(2)}) at Opus 4.7 $15/$75 per M`);
+  console.log(`api: judgment_id=${judgmentResponseId ?? "(no judgment call)"}  narration_id=${responseId ?? "(none)"}  model=${responseModel ?? "n/a"}`);
+  console.log(`cost (both calls): ${usage.inputTokens} in / ${usage.outputTokens} out  ->  USD ${usd.toFixed(4)} (INR ${(usd * INR_PER_USD).toFixed(2)}) at Opus 4.7 $15/$75 per M`);
   const s = output.summary;
   console.log(
     `summary: holding actions ${s.holding_actions_surfaced} surfaced / ${s.holding_actions_sentinelled} sentinel; ` +
       `observation actions ${s.observation_actions_surfaced} surfaced / ${s.observation_actions_sentinelled} sentinel; ` +
-      `rebalance ${s.rebalance}`,
+      `decisions ${s.trim_count} trim / ${s.exit_count} exit; rebalance ${s.rebalance}`,
   );
   console.log(`one_line: ${s.one_line_characterization}`);
+
+  const exits = output.decisions.filter((d) => d.decision === "exit");
+  if (exits.length > 0) {
+    console.log(`\nEXIT DECISIONS (${exits.length}):`);
+    for (const d of exits) console.log(`  ${d.instrument_display_name} [${d.holding_kind}] :: ${d.exit_rationale}`);
+  }
 
   console.log(`\nHOLDING ACTIONS (${output.holding_actions.length}):`);
   for (const h of output.holding_actions) {
@@ -196,11 +202,14 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   console.log(`\nREBALANCE PROPOSAL (${reb.kind}):`);
   if (reb.kind === "proposal") {
     for (const p of reb.computed.positions) {
-      console.log(`  ${p.instrument}: current ${p.current_weight_pct}% -> target ${p.target_weight_pct}% (breach threshold ${p.breach_threshold_pct}%, total trim ${p.total_trim_pct_points} pts)`);
+      console.log(`  [${p.decision.toUpperCase()}] ${p.instrument}: current ${p.current_weight_pct}% -> target ${p.target_weight_pct}% (breach ${p.breach_threshold_pct}%, total ${p.total_trim_pct_points} pts)`);
       for (const g of p.glide_path) {
         console.log(`     step ${g.step}: trim ${g.trim_pct_points} pts -> ${g.resulting_weight_pct}% (take at weight ${g.trigger_at_weight_pct}%)`);
       }
     }
+    const rd = reb.computed.redeployment;
+    console.log(`  REDEPLOYMENT: freed ${rd.freed_capital_pct} pts; ${rd.deployments.map((x) => `${x.sleeve} +${x.add_pct_points}`).join(", ") || "no deployable sleeve"}; leftover_to_cash ${rd.leftover_to_cash_pct} pts`);
+    console.log(`     ${rd.note}`);
     console.log(`  narrated (${reb.narrated.generation_method}): "${reb.narrated.advisor_action}"`);
   } else if (reb.kind === "no_action_needed") {
     console.log(`  ${reb.note}`);
