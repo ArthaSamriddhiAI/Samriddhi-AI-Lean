@@ -157,6 +157,9 @@ export type A3RedeploymentTarget = {
   sleeve: string;
   current_pct: number;
   target_pct: number;
+  /** Deployment ceiling: the sleeve's upper tolerance band (MODEL_BANDS max).
+   * Freed capital fills up to here, not merely to the model target. */
+  upper_band_pct: number;
   add_pct_points: number;
   resulting_pct: number;
 };
@@ -503,7 +506,12 @@ export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: 
     .filter((c) => c !== "Cash")
     .map((c) => {
       const a = metrics.assetClass[c];
-      return { sleeve: c, current: a.actualPct, target: a.targetPct, gap: Math.max(0, a.targetPct - a.actualPct) };
+      // Deployment capacity is headroom to the UPPER band (band[1]), not the
+      // target: a sleeve at its target still has legitimate room before it is
+      // over-allocated. This is the Finding 4 fix; the upper band is already on
+      // the metrics A3 receives.
+      const upperBand = a.band[1];
+      return { sleeve: c, current: a.actualPct, target: a.targetPct, upperBand, gap: Math.max(0, upperBand - a.actualPct) };
     })
     .filter((x) => x.gap > 0);
 
@@ -516,7 +524,7 @@ export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: 
     for (const u of under) {
       const add = round1((u.gap / totalGap) * deployable);
       if (add <= 0) continue;
-      deployments.push({ sleeve: u.sleeve, current_pct: round1(u.current), target_pct: round1(u.target), add_pct_points: add, resulting_pct: round1(u.current + add) });
+      deployments.push({ sleeve: u.sleeve, current_pct: round1(u.current), target_pct: round1(u.target), upper_band_pct: round1(u.upperBand), add_pct_points: add, resulting_pct: round1(u.current + add) });
       deployed += add;
     }
   }
@@ -525,9 +533,9 @@ export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: 
 
   let note: string;
   if (freed <= 0) note = "No trims or exits, so no capital is freed for redeployment.";
-  else if (totalGap <= 0) note = `No sleeve is below its model target, so the freed ${freed} points have no model-consistent destination and are reported as leftover to cash.`;
-  else if (leftover > 0) note = `Freed ${freed} points exceeds the ${round1(totalGap)} points of under-allocation capacity; sleeves are filled to target and the remaining ${leftover} points are reported as leftover to cash.`;
-  else note = `Freed ${freed} points deployed toward under-allocated sleeves, moving the allocation toward the model.`;
+  else if (totalGap <= 0) note = `No sleeve sits below its upper band, so the freed ${freed} points have no model-consistent destination and are reported as leftover to cash.`;
+  else if (leftover > 0) note = `Freed ${freed} points exceeds the ${round1(totalGap)} points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining ${leftover} points are reported as leftover to cash.`;
+  else note = `Freed ${freed} points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model.`;
 
   return { freed_capital_pct: freed, deployments, leftover_to_cash_pct: leftover, note };
 }

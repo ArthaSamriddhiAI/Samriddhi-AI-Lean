@@ -146,31 +146,51 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(ha1?.kind === "action" && ha1.decision === "trim", "C2: holding action carries decision trim", JSON.stringify(ha1));
   assert(reb1.kind === "proposal" && reb1.computed.positions.some((p) => p.instrument === "Reliance Industries" && p.decision === "trim"), "C2: rebalance reflects the same trim decision", "");
 
-  // --- Case 3: redeployment closure ---
+  // --- Case 3: redeployment closure (deploys toward upper band) ---
   console.log("Case 3: redeployment closure");
-  // freed 8.4 (trim 18.4->10), Debt under by 5, Alternatives under by 4 (capacity 9 > 8.4 -> all deployed)
+  // freed 8.4; Debt headroom-to-upper-band 10 (20->30), Alternatives 7 (3->10): capacity 17 > 8.4 -> all deployed
   const m3 = metrics([], { Equity: 70, Debt: 20, Alternatives: 3, Cash: 7 });
   const r3 = computeRedeployment([decision("trim", 18.4)], m3);
   const deployed3 = r3.deployments.reduce((s, x) => s + x.add_pct_points, 0);
   assert(r3.freed_capital_pct === 8.4, "C3: freed 8.4", String(r3.freed_capital_pct));
   assert(round1(deployed3 + r3.leftover_to_cash_pct) === r3.freed_capital_pct, "C3: freed == deployed + leftover", `${deployed3}+${r3.leftover_to_cash_pct} vs ${r3.freed_capital_pct}`);
-  assert(r3.leftover_to_cash_pct === 0, "C3: nothing left to cash (capacity exceeds freed)", String(r3.leftover_to_cash_pct));
+  assert(r3.leftover_to_cash_pct === 0, "C3: nothing left to cash (upper-band capacity exceeds freed)", String(r3.leftover_to_cash_pct));
   assert(r3.deployments.every((d) => d.sleeve !== "Cash"), "C3: cash is never a deployment destination", "");
 
-  // freed exceeds capacity -> leftover to cash
-  console.log("Case 4: redeployment leftover-to-cash (freed exceeds capacity)");
-  const m4 = metrics([], { Equity: 64, Debt: 24, Alternatives: 6, Cash: 6 }); // gaps: Eq1, Debt1, Alt1 = 3 capacity
+  // freed exceeds upper-band capacity -> leftover to cash
+  console.log("Case 4: redeployment leftover-to-cash (freed exceeds upper-band capacity)");
+  const m4 = metrics([], { Equity: 64, Debt: 24, Alternatives: 6, Cash: 6 }); // upper-band gaps: Eq 6, Debt 6, Alt 4 = 16
   const r4 = computeRedeployment([decision("exit", 20)], m4); // exit frees 20
   const deployed4 = r4.deployments.reduce((s, x) => s + x.add_pct_points, 0);
   assert(r4.freed_capital_pct === 20, "C4: exit frees full weight 20", String(r4.freed_capital_pct));
-  assert(round1(deployed4) === 3 && r4.leftover_to_cash_pct === 17, "C4: 3 deployed to capacity, 17 leftover", `${deployed4}/${r4.leftover_to_cash_pct}`);
+  assert(round1(deployed4) === 16 && r4.leftover_to_cash_pct === 4, "C4: 16 deployed to upper bands, 4 leftover", `${deployed4}/${r4.leftover_to_cash_pct}`);
   assert(round1(deployed4 + r4.leftover_to_cash_pct) === r4.freed_capital_pct, "C4: closure holds", "");
 
-  // no underweight sleeve -> all leftover
-  console.log("Case 5: redeployment no-underweight (all to cash)");
+  // all non-cash sleeves at/above upper band -> all leftover
+  console.log("Case 5: redeployment no upper-band headroom (all to cash)");
   const m5 = metrics([], { Equity: 70, Debt: 30, Alternatives: 10, Cash: 3 });
   const r5 = computeRedeployment([decision("trim", 15)], m5); // freed 5
-  assert(r5.freed_capital_pct === 5 && r5.deployments.length === 0 && r5.leftover_to_cash_pct === 5, "C5: no underweight sleeve, all 5 to cash", JSON.stringify(r5));
+  assert(r5.freed_capital_pct === 5 && r5.deployments.length === 0 && r5.leftover_to_cash_pct === 5, "C5: no sleeve below its upper band, all 5 to cash", JSON.stringify(r5));
+
+  // --- Case 5b: a sleeve AT its target still deploys (upper-band headroom) ---
+  console.log("Case 5b: sleeve at target still deploys to its upper band");
+  // Debt at 25 (== target), upper band 30: gap-to-target 0 but gap-to-upper-band 5. Target-only logic parked all to cash.
+  const m5b = metrics([], { Equity: 70, Debt: 25, Alternatives: 10, Cash: 3 });
+  const r5b = computeRedeployment([decision("trim", 13)], m5b); // freed 3
+  const debtDep = r5b.deployments.find((d) => d.sleeve === "Debt");
+  assert(!!debtDep && debtDep.add_pct_points === 3, "C5b: Debt (at target) receives the freed 3 via upper-band headroom", JSON.stringify(r5b.deployments));
+  assert(r5b.leftover_to_cash_pct === 0, "C5b: nothing parked to cash (target-only logic would have parked all 3)", String(r5b.leftover_to_cash_pct));
+  assert(!!debtDep && debtDep.upper_band_pct === 30 && debtDep.target_pct === 25, "C5b: deployment reports both the 25 target and the 30 upper band", JSON.stringify(debtDep));
+
+  // --- Case 5c: Bhatt real-metrics, upper-band deployment consumes more than the old 10.8 ---
+  console.log("Case 5c: Bhatt redeployment consumes > 10.8 with upper-band deployment");
+  const mB = metrics([], { Equity: 72.2, Debt: 14.2, Alternatives: 13.6, Cash: 0 });
+  // The live judgment on Bhatt: four trims plus the Motilal exit (freed 1.3+2.2+1.3+3.6+9.5 = 17.9).
+  const rB = computeRedeployment([decision("trim", 11.3), decision("trim", 12.2), decision("trim", 11.3), decision("trim", 13.6), decision("exit", 9.5)], mB);
+  const deployedB = round1(rB.deployments.reduce((s, x) => s + x.add_pct_points, 0));
+  assert(rB.freed_capital_pct === 17.9, "C5c: freed 17.9 (four trims + Motilal exit)", String(rB.freed_capital_pct));
+  assert(deployedB > 10.8, "C5c: upper-band deployment consumes > 10.8 (the old target-capped amount)", String(deployedB));
+  assert(deployedB === 15.8 && rB.leftover_to_cash_pct === 2.1, "C5c: Debt fills to its 30 upper band (15.8 deployed), leftover drops 7.1 -> 2.1", `${deployedB}/${rB.leftover_to_cash_pct}`);
 
   // --- Case 6: exit-eligibility gate ---
   console.log("Case 6: exit-eligibility gate");
