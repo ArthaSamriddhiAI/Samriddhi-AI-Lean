@@ -387,12 +387,12 @@ async function main() {
       const newReb = layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed.redeployment : null;
       const oldReb = oldA3?.rebalance_proposal?.computed?.redeployment ?? null;
 
-      const newEq = layer1.decisions.find((d) => d.asset_class === "Equity");
+      const ac = input.metrics?.assetClass;
       const newCashTrimmed = layer1.decisions.some((d) => d.asset_class === "Cash" && (d.decision === "trim" || d.decision === "exit"));
       const oldCashTrimmed = (oldA3?.decisions ?? []).some((d) => d.asset_class === "Cash" && (d.decision === "trim" || d.decision === "exit"));
 
       console.log(`\n  === ${fx.investorId} (${f}) ===`);
-      console.log(`    equity target: ${newEq ? `now ${layer1.decisions.find((d) => d.asset_class === "Equity")?.weight_pct ?? "?"}% actual vs target ${fmtTarget(input, "Equity")}` : "(no equity decision)"}`);
+      console.log(`    sleeve actuals: Equity ${ac?.Equity.actualPct ?? "?"}%, Debt ${ac?.Debt.actualPct ?? "?"}%, Alt ${ac?.Alternatives.actualPct ?? "?"}%, Cash ${ac?.Cash.actualPct ?? "?"}%`);
       console.log(`    target source: per-investor mandate -> Equity target ${fmtTarget(input, "Equity")}, Debt ${fmtTarget(input, "Debt")}, Alt ${fmtTarget(input, "Alternatives")}, Cash ${fmtTarget(input, "Cash")}`);
       console.log(`    cash flagged as over-concentration (a position trim)?  old=${oldCashTrimmed}  new=${newCashTrimmed}`);
       if (oldReb) {
