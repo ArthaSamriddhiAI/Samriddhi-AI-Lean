@@ -11,11 +11,17 @@
  * API). Layer 2 (advisor-action prose) is one live Claude call per case
  * (Opus 4.7 per the skill frontmatter). An all-clear case makes no call.
  *
- * Usage:
- *   npx tsx scripts/backfill-a3.ts --case <id> --dry-run   # print only
- *   npx tsx scripts/backfill-a3.ts --dry-run                # all S2, print only
- *   npx tsx scripts/backfill-a3.ts                          # all S2, write fixtures
- *   npx tsx scripts/backfill-a3.ts --case <id>              # one case, write fixture
+ * Usage (explicit case enumeration is REQUIRED; there is no implicit all-cases
+ * default, which previously caused an off-list case to be backfilled by mistake,
+ * see product debt P42):
+ *   npx tsx scripts/backfill-a3.ts --cases=bhatt --dry-run        # free: list targets, no API
+ *   npx tsx scripts/backfill-a3.ts --cases=bhatt                  # one case, live API + write
+ *   npx tsx scripts/backfill-a3.ts --cases=bhatt,menon,surana     # several, live API + write
+ *   npx tsx scripts/backfill-a3.ts --cases=c-2026-05-14-bhatt-01  # by full case id (exact)
+ * A token matches a fixture whose filename stem equals it or contains it as a
+ * hyphen-delimited segment (so "bhatt" resolves the bhatt case). Non-Samriddhi-2
+ * fixtures among the matches are skipped. Invoking with no --cases exits 1.
+ * --dry-run resolves and lists targets WITHOUT any API call or fixture write.
  *
  * A3 reads the frozen a2_classification (run backfill-a2 first if absent),
  * the frozen metrics, and the frozen evidence; it does not re-run A2 or the
@@ -280,24 +286,68 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   }
 }
 
+/* Parse the REQUIRED --cases list. Accepts --cases=a,b,c or --cases a,b,c.
+ * No fall-through to an all-cases glob: an empty list is a usage error so a
+ * re-backfill can only ever touch the cases the operator enumerated (P42). */
+function parseCases(args: string[]): string[] {
+  for (const a of args) {
+    const m = /^--cases=(.*)$/.exec(a);
+    if (m) return m[1].split(",").map((s) => s.trim()).filter(Boolean);
+  }
+  const i = args.indexOf("--cases");
+  if (i >= 0 && args[i + 1] && !args[i + 1].startsWith("--")) {
+    return args[i + 1].split(",").map((s) => s.trim()).filter(Boolean);
+  }
+  return [];
+}
+
+function stemOf(file: string): string {
+  return file.replace(/\.json$/, "");
+}
+
+/* A token matches a fixture when it equals the filename stem (exact case id) or
+ * appears as a hyphen/underscore-delimited segment of it (the investor slug). */
+function matchesToken(file: string, token: string): boolean {
+  const s = stemOf(file);
+  return s === token || s.split(/[-_]/).includes(token);
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes("--dry-run");
-  const caseIdx = args.indexOf("--case");
-  const onlyCase = caseIdx >= 0 ? args[caseIdx + 1] : null;
+  const cases = parseCases(args);
 
-  const entries = (await fs.readdir(FIXTURE_DIR)).filter((f) => f.endsWith(".json"));
-  let targets = entries;
-  if (onlyCase) {
-    targets = entries.filter((f) => f === `${onlyCase}.json` || f === onlyCase);
-    if (targets.length === 0) {
-      throw new Error(`No fixture matching --case ${onlyCase} in ${FIXTURE_DIR}`);
-    }
+  if (cases.length === 0) {
+    console.error("backfill-a3: refusing to run, no explicit cases given.");
+    console.error("This script requires an explicit case list; there is no implicit all-cases default (product debt P42).");
+    console.error("Usage: npx tsx scripts/backfill-a3.ts --cases=<id-or-investor>[,<...>] [--dry-run]");
+    console.error("Example: --cases=bhatt    or    --cases=c-2026-05-14-bhatt-01,menon");
+    process.exit(1);
   }
 
-  console.log(`A3 backfill: ${targets.length} fixture(s), mode=${dryRun ? "dry-run" : "WRITE"}`);
-  for (const file of targets.sort()) {
-    await processFixture(file, { write: !dryRun });
+  const entries = (await fs.readdir(FIXTURE_DIR)).filter((f) => f.endsWith(".json"));
+  const unmatched = cases.filter((t) => !entries.some((f) => matchesToken(f, t)));
+  if (unmatched.length > 0) {
+    console.error(`backfill-a3: no fixture matched these tokens: ${unmatched.join(", ")}`);
+    console.error(`Available fixtures: ${entries.map(stemOf).join(", ")}`);
+    process.exit(1);
+  }
+  const targets = entries.filter((f) => cases.some((t) => matchesToken(f, t))).sort();
+
+  console.log(`A3 backfill: cases=[${cases.join(", ")}] -> ${targets.length} matched fixture(s), mode=${dryRun ? "DRY-RUN (no API, no write)" : "WRITE (live API)"}`);
+  for (const f of targets) console.log(`  target: ${f}`);
+
+  if (dryRun) {
+    for (const f of targets) {
+      const fx = JSON.parse(await fs.readFile(path.join(FIXTURE_DIR, f), "utf-8")) as CaseFixture;
+      console.log(`  ${f}: workflow=${fx.workflow} -> ${fx.workflow === "s2" ? "WOULD PROCESS (one A3 call set, would write)" : "skip (not Samriddhi 2)"}`);
+    }
+    console.log(`\nDry-run complete: no API spent, no fixture written.`);
+    return;
+  }
+
+  for (const file of targets) {
+    await processFixture(file, { write: true });
   }
   console.log(`\nDone. ${targets.length} fixture(s) processed.`);
 }
