@@ -22,7 +22,8 @@ import {
 } from "@/lib/agents/a3-so-what";
 import type { A2Output, A2HoldingVerdict, A2Verdict, A2Driver } from "@/lib/agents/a2-classification";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
-import { MODEL_BANDS } from "@/lib/agents/portfolio-risk-analytics";
+import { MODEL_BANDS, computeMetrics } from "@/lib/agents/portfolio-risk-analytics";
+import { MANDATES_BY_INVESTOR } from "@/db/fixtures/structured-mandates";
 import type { RiskRewardOutput } from "@/lib/agents/risk-reward-stats";
 import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
 import { stitch, type EvidenceBundle, type StitchInput } from "@/lib/agents/stitcher";
@@ -148,51 +149,61 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(ha1?.kind === "action" && ha1.decision === "trim", "C2: holding action carries decision trim", JSON.stringify(ha1));
   assert(reb1.kind === "proposal" && reb1.computed.positions.some((p) => p.instrument === "Reliance Industries" && p.decision === "trim"), "C2: rebalance reflects the same trim decision", "");
 
-  // --- Case 3: redeployment closure (deploys toward upper band) ---
-  console.log("Case 3: redeployment closure");
-  // freed 8.4; Debt headroom-to-upper-band 10 (20->30), Alternatives 7 (3->10): capacity 17 > 8.4 -> all deployed
-  const m3 = metrics([], { Equity: 70, Debt: 20, Alternatives: 3, Cash: 7 });
+  // --- Case 3 (Finding 5): deploy-to-target closure, trims only, no cash funding ---
+  console.log("Case 3: redeployment closure (deploy to target)");
+  // Cash AT target (3) so cash_funding 0. freed 8.4. gaps-to-target: Debt 25-20=5, Alt 7-3=4 (Equity over). total 9 > 8.4 -> all deployed proportionally, no leftover.
+  const m3 = metrics([], { Equity: 70, Debt: 20, Alternatives: 3, Cash: 3 });
   const r3 = computeRedeployment([decision("trim", 18.4)], m3);
-  const deployed3 = r3.deployments.reduce((s, x) => s + x.add_pct_points, 0);
-  assert(r3.freed_capital_pct === 8.4, "C3: freed 8.4", String(r3.freed_capital_pct));
-  assert(round1(deployed3 + r3.leftover_to_cash_pct) === r3.freed_capital_pct, "C3: freed == deployed + leftover", `${deployed3}+${r3.leftover_to_cash_pct} vs ${r3.freed_capital_pct}`);
-  assert(r3.leftover_to_cash_pct === 0, "C3: nothing left to cash (upper-band capacity exceeds freed)", String(r3.leftover_to_cash_pct));
+  const deployed3 = round1(r3.deployments.reduce((s, x) => s + x.add_pct_points, 0));
+  assert(r3.freed_capital_pct === 8.4 && r3.cash_funding_pct === 0, "C3: freed 8.4, no cash funding (cash at target)", `${r3.freed_capital_pct}/${r3.cash_funding_pct}`);
+  assert(round1(deployed3 + r3.leftover_to_cash_pct) === round1(r3.freed_capital_pct + r3.cash_funding_pct), "C3: books close (freed + cash = deployed + leftover)", `${deployed3}+${r3.leftover_to_cash_pct} vs ${r3.freed_capital_pct}+${r3.cash_funding_pct}`);
+  assert(r3.leftover_to_cash_pct === 0, "C3: nothing left to cash (under-target capacity exceeds funding)", String(r3.leftover_to_cash_pct));
   assert(r3.deployments.every((d) => d.sleeve !== "Cash"), "C3: cash is never a deployment destination", "");
 
-  // freed exceeds upper-band capacity -> leftover to cash
-  console.log("Case 4: redeployment leftover-to-cash (freed exceeds upper-band capacity)");
-  const m4 = metrics([], { Equity: 64, Debt: 24, Alternatives: 6, Cash: 6 }); // upper-band gaps: Eq 6, Debt 6, Alt 4 = 16
-  const r4 = computeRedeployment([decision("exit", 20)], m4); // exit frees 20
-  const deployed4 = r4.deployments.reduce((s, x) => s + x.add_pct_points, 0);
+  // --- Case 4 (Finding 5): honest leftover, funding exceeds total gap-to-target ---
+  console.log("Case 4: honest leftover (funding exceeds gap-to-target, NOT band-fill)");
+  // Cash at target. exit frees 20. gaps-to-target: Eq 65-64=1, Debt 25-24=1, Alt 7-6=1 = 3. (Band-fill would have absorbed 16.)
+  const m4 = metrics([], { Equity: 64, Debt: 24, Alternatives: 6, Cash: 3 });
+  const r4 = computeRedeployment([decision("exit", 20)], m4);
+  const deployed4 = round1(r4.deployments.reduce((s, x) => s + x.add_pct_points, 0));
   assert(r4.freed_capital_pct === 20, "C4: exit frees full weight 20", String(r4.freed_capital_pct));
-  assert(round1(deployed4) === 16 && r4.leftover_to_cash_pct === 4, "C4: 16 deployed to upper bands, 4 leftover", `${deployed4}/${r4.leftover_to_cash_pct}`);
-  assert(round1(deployed4 + r4.leftover_to_cash_pct) === r4.freed_capital_pct, "C4: closure holds", "");
+  assert(deployed4 === 3 && r4.leftover_to_cash_pct === 17, "C4: only 3 deployed to TARGET (not 16 to band), 17 honest leftover", `${deployed4}/${r4.leftover_to_cash_pct}`);
+  assert(round1(deployed4 + r4.leftover_to_cash_pct) === round1(r4.freed_capital_pct + r4.cash_funding_pct), "C4: books close", "");
 
-  // all non-cash sleeves at/above upper band -> all leftover
-  console.log("Case 5: redeployment no upper-band headroom (all to cash)");
-  const m5 = metrics([], { Equity: 70, Debt: 30, Alternatives: 10, Cash: 3 });
+  // --- Case 5 (Finding 5): all sleeves at/above target -> all leftover ---
+  console.log("Case 5: no under-target sleeve, all to cash");
+  const m5 = metrics([], { Equity: 65, Debt: 25, Alternatives: 7, Cash: 3 });
   const r5 = computeRedeployment([decision("trim", 15)], m5); // freed 5
-  assert(r5.freed_capital_pct === 5 && r5.deployments.length === 0 && r5.leftover_to_cash_pct === 5, "C5: no sleeve below its upper band, all 5 to cash", JSON.stringify(r5));
+  assert(r5.freed_capital_pct === 5 && r5.deployments.length === 0 && r5.leftover_to_cash_pct === 5, "C5: no sleeve below its target, all 5 to cash", JSON.stringify(r5));
 
-  // --- Case 5b: a sleeve AT its target still deploys (upper-band headroom) ---
-  console.log("Case 5b: sleeve at target still deploys to its upper band");
-  // Debt at 25 (== target), upper band 30: gap-to-target 0 but gap-to-upper-band 5. Target-only logic parked all to cash.
-  const m5b = metrics([], { Equity: 70, Debt: 25, Alternatives: 10, Cash: 3 });
-  const r5b = computeRedeployment([decision("trim", 13)], m5b); // freed 3
-  const debtDep = r5b.deployments.find((d) => d.sleeve === "Debt");
-  assert(!!debtDep && debtDep.add_pct_points === 3, "C5b: Debt (at target) receives the freed 3 via upper-band headroom", JSON.stringify(r5b.deployments));
-  assert(r5b.leftover_to_cash_pct === 0, "C5b: nothing parked to cash (target-only logic would have parked all 3)", String(r5b.leftover_to_cash_pct));
-  assert(!!debtDep && debtDep.upper_band_pct === 30 && debtDep.target_pct === 25, "C5b: deployment reports both the 25 target and the 30 upper band", JSON.stringify(debtDep));
+  // --- Case 5b (Finding 5): a sleeve ABOVE target but below band is NOT a destination ---
+  console.log("Case 5b: above-target/below-band sleeve receives nothing (deploy-to-target, not band-fill)");
+  // Debt at 27: above target 25, below band 30. Band-fill would have given it 3 (to reach 30); deploy-to-target gives 0.
+  const m5b = metrics([], { Equity: 70, Debt: 27, Alternatives: 10, Cash: 3 });
+  const r5b = computeRedeployment([decision("trim", 13)], m5b); // freed 3, no under-target sleeve
+  assert(!r5b.deployments.some((d) => d.sleeve === "Debt"), "C5b: Debt (above target, below band) is NOT a destination", JSON.stringify(r5b.deployments));
+  assert(r5b.leftover_to_cash_pct === 3, "C5b: the freed 3 is honest leftover, not filled into the band cushion", String(r5b.leftover_to_cash_pct));
 
-  // --- Case 5c: Bhatt real-metrics, upper-band deployment consumes more than the old 10.8 ---
-  console.log("Case 5c: Bhatt redeployment consumes > 10.8 with upper-band deployment");
+  // --- Case 5c (Finding 5): Bhatt real metrics deploy-to-target = pre-Finding-4 (Debt to 25, leftover 7.1) ---
+  console.log("Case 5c: Bhatt redeployment fills Debt to its 25 target (reverts Finding 4 band-fill)");
   const mB = metrics([], { Equity: 72.2, Debt: 14.2, Alternatives: 13.6, Cash: 0 });
-  // The live judgment on Bhatt: four trims plus the Motilal exit (freed 1.3+2.2+1.3+3.6+9.5 = 17.9).
   const rB = computeRedeployment([decision("trim", 11.3), decision("trim", 12.2), decision("trim", 11.3), decision("trim", 13.6), decision("exit", 9.5)], mB);
   const deployedB = round1(rB.deployments.reduce((s, x) => s + x.add_pct_points, 0));
-  assert(rB.freed_capital_pct === 17.9, "C5c: freed 17.9 (four trims + Motilal exit)", String(rB.freed_capital_pct));
-  assert(deployedB > 10.8, "C5c: upper-band deployment consumes > 10.8 (the old target-capped amount)", String(deployedB));
-  assert(deployedB === 15.8 && rB.leftover_to_cash_pct === 2.1, "C5c: Debt fills to its 30 upper band (15.8 deployed), leftover drops 7.1 -> 2.1", `${deployedB}/${rB.leftover_to_cash_pct}`);
+  const debtB = rB.deployments.find((d) => d.sleeve === "Debt");
+  assert(rB.freed_capital_pct === 17.9 && rB.cash_funding_pct === 0, "C5c: freed 17.9 (four trims + Motilal exit), no cash (cash 0)", `${rB.freed_capital_pct}/${rB.cash_funding_pct}`);
+  assert(!!debtB && debtB.add_pct_points === 10.8 && debtB.resulting_pct === 25, "C5c: Debt fills to its 25 TARGET (10.8 deployed), not the 30 band", JSON.stringify(debtB));
+  assert(deployedB === 10.8 && rB.leftover_to_cash_pct === 7.1, "C5c: leftover is the honest 7.1 (Finding 4 band-fill reverted)", `${deployedB}/${rB.leftover_to_cash_pct}`);
+
+  // --- Case 5d (Finding 5): cash as a funding source, deploy across ALL under-target sleeves ---
+  console.log("Case 5d: cash-as-funding deploys across all under-target sleeves (incl Alternatives)");
+  // No trims; cash 30 (target 3) -> cash_funding 27. Under-target: Eq 65-60=5, Debt 25-20=5, Alt 7-2=5 = 15. funding 27 > 15 -> all filled to target, 12 honest leftover stays in cash.
+  const m5d = metrics([], { Equity: 60, Debt: 20, Alternatives: 2, Cash: 30 });
+  const r5d = computeRedeployment([], m5d);
+  const sleeves5d = new Set(r5d.deployments.map((d) => d.sleeve));
+  assert(r5d.freed_capital_pct === 0 && r5d.cash_funding_pct === 27, "C5d: funding is cash dry powder (27), no trims", `${r5d.freed_capital_pct}/${r5d.cash_funding_pct}`);
+  assert(sleeves5d.has("Equity") && sleeves5d.has("Debt") && sleeves5d.has("Alternatives"), "C5d: deploys across all three under-target sleeves (Equity, Debt, Alternatives)", JSON.stringify([...sleeves5d]));
+  assert(round1(r5d.deployments.reduce((s, x) => s + x.add_pct_points, 0)) === 15 && r5d.leftover_to_cash_pct === 12, "C5d: sleeves filled to target (15), 12 honest leftover in cash", JSON.stringify(r5d));
+  assert(round1(15 + 12) === round1(r5d.freed_capital_pct + r5d.cash_funding_pct), "C5d: books close under cash-as-funding", "");
 
   // --- Case 6: exit-eligibility gate ---
   console.log("Case 6: exit-eligibility gate");
@@ -358,6 +369,39 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(typeof askOp?.exit_redemption_terms === "string" && (askOp?.exit_redemption_terms?.length ?? 0) > 0, "C13: AIF redemption terms flow", askOp?.exit_redemption_terms);
   assert(typeof askOp?.structure === "string", "C13: AIF structure flows", askOp?.structure);
   assert(askOp?.fund_tenure === undefined && askOp?.tenure_extendable === undefined, "C13: Reading-B: snapshot 'NA' tenure fields are omitted, not surfaced", `tenure=${askOp?.fund_tenure} extendable=${askOp?.tenure_extendable}`);
+
+  // --- Case 14 (Finding 5): per-investor mandate is the target source ---
+  console.log("Case 14: per-investor mandate target (Iyengar conservative != flat aggressive)");
+  const t0Snap = await loadSnapshot("t0_q2_2026");
+  const iyMetricsMandate = computeMetrics(HOLDINGS_BY_INVESTOR.iyengar, t0Snap, { riskAppetite: "Conservative", liquidityTier: "Secondary" }, MANDATES_BY_INVESTOR.iyengar);
+  const iyMetricsFlat = computeMetrics(HOLDINGS_BY_INVESTOR.iyengar, t0Snap, { riskAppetite: "Conservative", liquidityTier: "Secondary" }, null);
+  assert(iyMetricsMandate.assetClass.Equity.targetPct === 35, "C14: Iyengar equity target is her conservative-mandate midpoint (25-45 -> 35)", String(iyMetricsMandate.assetClass.Equity.targetPct));
+  assert(iyMetricsMandate.assetClass.Equity.targetPct !== iyMetricsFlat.assetClass.Equity.targetPct && iyMetricsFlat.assetClass.Equity.targetPct === 65, "C14: differs from the flat 65 aggressive target (fallback proves the wiring)", `${iyMetricsMandate.assetClass.Equity.targetPct} vs flat ${iyMetricsFlat.assetClass.Equity.targetPct}`);
+  assert(iyMetricsMandate.assetClass.Debt.targetPct === 55 && iyMetricsMandate.assetClass.Debt.band[0] === 45 && iyMetricsMandate.assetClass.Debt.band[1] === 65, "C14: Iyengar debt target 55 with band 45-65 (her mandate, not flat 20-30)", JSON.stringify(iyMetricsMandate.assetClass.Debt));
+
+  // --- Case 15 (Finding 5): cash excluded from concentration, gap modeling preserved ---
+  console.log("Case 15: cash-as-funding (86% savings not flagged as over-concentration)");
+  const menonMetrics = computeMetrics(HOLDINGS_BY_INVESTOR.menon, t0Snap, { riskAppetite: "Aggressive", liquidityTier: "Essential" }, MANDATES_BY_INVESTOR.menon);
+  const cashFlagged = menonMetrics.concentration.positionFlags.some((f) => /savings/i.test(f.instrument));
+  assert(!cashFlagged, "C15: Menon's 86.6% savings is NOT in positionFlags (cash excluded from concentration)", JSON.stringify(menonMetrics.concentration.positionFlags));
+  assert(menonMetrics.cashDeployment.cashDragFlag === true && menonMetrics.cashDeployment.deploymentGapPct > 0, "C15: cashDeployment gap modeling preserved (cashDragFlag true, deploymentGapPct > 0)", JSON.stringify(menonMetrics.cashDeployment));
+
+  // --- Case 16 (Finding 5): Menon end-to-end, cash funds deploy across all under-target sleeves ---
+  console.log("Case 16: Menon cash-as-funding deploys across Equity/Debt/Alternatives, no cash trim");
+  const menonA3 = computeA3({ caseId: "v-menon", asOfDate: "2026-04-02", a2Output: JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-menon-01.json"), "utf-8")).content.a2_classification, metrics: menonMetrics, preObservations: [], riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [] });
+  const menonCashTrim = menonA3.decisions.some((d) => d.asset_class === "Cash" && d.decision !== "maintain");
+  assert(!menonCashTrim, "C16: no Cash holding is trimmed/exited (cash is funding, not a position)", JSON.stringify(menonA3.decisions.filter((d) => d.asset_class === "Cash").map((d) => d.decision)));
+  if (menonA3.rebalance_proposal.kind === "proposal") {
+    const mr = menonA3.rebalance_proposal.computed.redeployment;
+    const ms = new Set(mr.deployments.map((d) => d.sleeve));
+    assert(mr.cash_funding_pct > 0 && mr.freed_capital_pct === 0, "C16: funding is cash dry powder (cash_funding > 0, freed 0)", `${mr.freed_capital_pct}/${mr.cash_funding_pct}`);
+    assert(ms.has("Equity") && ms.has("Debt") && ms.has("Alternatives"), "C16: deploys across all three under-target sleeves", JSON.stringify([...ms]));
+    assert(!ms.has("Cash"), "C16: cash is never a deployment destination", "");
+    const mDep = round1(mr.deployments.reduce((s, x) => s + x.add_pct_points, 0));
+    assert(round1(mDep + mr.leftover_to_cash_pct) === round1(mr.freed_capital_pct + mr.cash_funding_pct), "C16: books close under cash-as-funding", `${mDep}+${mr.leftover_to_cash_pct} vs ${mr.freed_capital_pct}+${mr.cash_funding_pct}`);
+  } else {
+    assert(false, "C16: Menon produces a rebalance proposal", menonA3.rebalance_proposal.kind);
+  }
 
   console.log("");
   if (failures.length) {

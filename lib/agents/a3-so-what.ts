@@ -162,15 +162,20 @@ export type A3RedeploymentTarget = {
   sleeve: string;
   current_pct: number;
   target_pct: number;
-  /** Deployment ceiling: the sleeve's upper tolerance band (MODEL_BANDS max).
-   * Freed capital fills up to here, not merely to the model target. */
+  /** The sleeve's upper tolerance band (mandate max). Context only: the band
+   * is cushion, NOT the deployment ceiling. Finding 5 fills to target_pct, not
+   * to here (this corrects Finding 4's band-fill). */
   upper_band_pct: number;
   add_pct_points: number;
   resulting_pct: number;
 };
 
 export type A3Redeployment = {
+  /** Capital freed by trims and exits (the overweight side of the gap). */
   freed_capital_pct: number;
+  /** Existing cash deployed as dry powder (the cash above its target). Part of
+   * the funding alongside freed_capital_pct (Finding 5 cash-as-funding). */
+  cash_funding_pct: number;
   deployments: A3RedeploymentTarget[];
   leftover_to_cash_pct: number;
   note: string;
@@ -508,11 +513,24 @@ function buildGlidePath(currentWeight: number, target: number): A3GlidePathStep[
   return path;
 }
 
-/* ----- Layer 1: deterministic redeployment vs MODEL_BANDS ----- */
+/* ----- Layer 1: deterministic gap-closing redeployment (Finding 5) ----- *
+ *
+ * One gap-closing operation. Capital to deploy comes from two sources on the
+ * over-allocated/idle side of the gap: capital FREED by trims and exits, and
+ * existing CASH above its target (dry powder). That funding fills the
+ * under-target sleeves toward their TARGET (the band is cushion, not a
+ * destination, correcting Finding 4's band-fill), distributed in proportion to
+ * each sleeve's gap-to-target. Any funding beyond the total gap-to-target is
+ * honest leftover that stays in cash, surfaced as advisor guidance, never
+ * hidden by over-filling a sleeve past its target.
+ *
+ * Books-close invariant: freed + cash_funding = sum(deployments) + leftover. */
 
 const ASSET_CLASSES = ["Equity", "Debt", "Alternatives", "Cash"] as const;
 
 export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: PortfolioMetrics): A3Redeployment {
+  // Funding source 1: capital freed by trims (above the 10% position ceiling)
+  // and exits (full weight).
   let freed = 0;
   for (const d of decisions) {
     if (d.decision === "trim") freed += Math.max(0, d.weight_pct - TARGET_WEIGHT_PCT);
@@ -520,25 +538,28 @@ export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: 
   }
   freed = round1(freed);
 
+  // Funding source 2: existing cash above its target is deployable dry powder.
+  const cashBlock = metrics.assetClass.Cash;
+  const cashFunding = round1(Math.max(0, cashBlock.actualPct - cashBlock.targetPct));
+
+  const funding = round1(freed + cashFunding);
+
+  // Under-target sleeves: every non-cash sleeve below its TARGET is a
+  // destination (Equity, Debt, Alternatives, gold rides inside Alternatives).
   const under = ASSET_CLASSES
     .filter((c) => c !== "Cash")
     .map((c) => {
       const a = metrics.assetClass[c];
-      // Deployment capacity is headroom to the UPPER band (band[1]), not the
-      // target: a sleeve at its target still has legitimate room before it is
-      // over-allocated. This is the Finding 4 fix; the upper band is already on
-      // the metrics A3 receives.
-      const upperBand = a.band[1];
-      return { sleeve: c, current: a.actualPct, target: a.targetPct, upperBand, gap: Math.max(0, upperBand - a.actualPct) };
+      return { sleeve: c, current: a.actualPct, target: a.targetPct, upperBand: a.band[1], gap: Math.max(0, a.targetPct - a.actualPct) };
     })
     .filter((x) => x.gap > 0);
 
-  const totalGap = under.reduce((s, x) => s + x.gap, 0);
+  const totalGap = round1(under.reduce((s, x) => s + x.gap, 0));
   const deployments: A3RedeploymentTarget[] = [];
   let deployed = 0;
 
-  if (freed > 0 && totalGap > 0) {
-    const deployable = Math.min(freed, totalGap);
+  if (funding > 0 && totalGap > 0) {
+    const deployable = Math.min(funding, totalGap);
     for (const u of under) {
       const add = round1((u.gap / totalGap) * deployable);
       if (add <= 0) continue;
@@ -547,15 +568,28 @@ export function computeRedeployment(decisions: A3ReconciledDecision[], metrics: 
     }
   }
   deployed = round1(deployed);
-  const leftover = round1(freed - deployed);
+  const leftover = round1(funding - deployed);
+
+  // Funding-source phrase for the note, honest about where the capital is from.
+  const sourcePhrase =
+    freed > 0 && cashFunding > 0
+      ? `${freed} points freed by trims and exits plus ${cashFunding} points of deployable cash`
+      : cashFunding > 0
+        ? `${cashFunding} points of deployable cash`
+        : `${freed} points freed by trims and exits`;
 
   let note: string;
-  if (freed <= 0) note = "No trims or exits, so no capital is freed for redeployment.";
-  else if (totalGap <= 0) note = `No sleeve sits below its upper band, so the freed ${freed} points have no model-consistent destination and are reported as leftover to cash.`;
-  else if (leftover > 0) note = `Freed ${freed} points exceeds the ${round1(totalGap)} points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining ${leftover} points are reported as leftover to cash.`;
-  else note = `Freed ${freed} points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model.`;
+  if (funding <= 0) {
+    note = "No capital is available for redeployment: no trims or exits free capital, and cash is at or below its target.";
+  } else if (totalGap <= 0) {
+    note = `No sleeve sits below its target, so the ${sourcePhrase} (${funding} points) has no under-target destination and stays in cash, available for staged deployment or a review of the target weights.`;
+  } else if (leftover > 0) {
+    note = `The ${sourcePhrase} (${funding} points) exceeds the ${totalGap} points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining ${leftover} points stay in cash, available for staged deployment or a review of the target weights.`;
+  } else {
+    note = `The ${sourcePhrase} (${funding} points) is deployed toward under-target sleeves in proportion to each sleeve's gap, moving the allocation toward target.`;
+  }
 
-  return { freed_capital_pct: freed, deployments, leftover_to_cash_pct: leftover, note };
+  return { freed_capital_pct: freed, cash_funding_pct: cashFunding, deployments, leftover_to_cash_pct: leftover, note };
 }
 
 /* ----- Layer 1: surfaces derived from the reconciled decision ----- */
@@ -600,8 +634,13 @@ function buildRebalanceProposal(decisions: A3ReconciledDecision[], metrics: Port
     });
   }
   const redeployment = computeRedeployment(decisions, metrics);
-  if (positions.length === 0) {
-    return { kind: "no_action_needed", note: "No holding is decided for trim or exit; no rebalance proposed." };
+  // A proposal exists when there is something to do on EITHER side of the gap:
+  // a trim/exit (the overweight side), OR a deployment of capital (the
+  // under-allocated side, which for a heavily-under-deployed investor is funded
+  // by cash dry powder with no trims at all, Finding 5). Only when both sides
+  // are empty is there genuinely no action.
+  if (positions.length === 0 && redeployment.deployments.length === 0) {
+    return { kind: "no_action_needed", note: "No holding is decided for trim or exit, and no capital is available to deploy; no rebalance proposed." };
   }
   return { kind: "proposal", computed: { positions, redeployment }, narrated: { advisor_action: "", generation_method: "llm" } };
 }
@@ -789,16 +828,27 @@ function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext): string {
   if (rebalance) {
     lines.push(
       ``,
-      `## Rebalance proposal (trims/exits and the computed redeployment of freed capital)`,
+      `## Rebalance proposal (the gap-closing: trims, exits, deployable cash, and the computed redeployment)`,
       ``,
-      `Narrate the glide-path for each position citing every computed number`,
-      `exactly, and the redeployment exactly as computed (the sleeves, the`,
-      `add_pct_points, and the leftover_to_cash_pct). Do NOT invent any`,
-      `destination or amount beyond the computed deployments. If`,
-      `leftover_to_cash_pct is above zero, state plainly that the freed capital`,
-      `beyond the under-allocated capacity sits in cash; do not narrate it as`,
-      `reinvested. Tell it as one coherent story: which trims and exits free the`,
-      `capital, and which under-allocated sleeves receive it.`,
+      `This is one gap-closing operation: move the allocation toward the target.`,
+      `The funding has up to two sources, both computed: freed_capital_pct (from`,
+      `trims and exits) and cash_funding_pct (existing cash above its target,`,
+      `deployed as dry powder). Narrate the glide-path for each position citing`,
+      `every computed number exactly, and the redeployment exactly as computed:`,
+      `the sleeves, the add_pct_points, the target_pct each sleeve is moved`,
+      `toward, and the leftover_to_cash_pct. Sleeves are filled toward their`,
+      `TARGET, not their band edge; the band is cushion, so do not describe`,
+      `filling a sleeve "to its band" or "to its maximum". Do NOT invent any`,
+      `destination or amount beyond the computed deployments.`,
+      ``,
+      `If cash_funding_pct is above zero, frame this as deploying idle cash (dry`,
+      `powder) into the under-target sleeves, not as trimming a cash position. If`,
+      `leftover_to_cash_pct is above zero, state plainly that the capital beyond`,
+      `the under-target capacity stays in cash, framed as advisor guidance (it is`,
+      `available for staged deployment, or grounds to revisit the target weights);`,
+      `do not narrate it as reinvested and do not apologise for it. Tell it as one`,
+      `coherent story: what funds the gap-closing (trims, exits, deployable cash),`,
+      `and which under-target sleeves receive it.`,
       ``,
       `Where a trimmed or exited position carries operational or tax context in`,
       `its per-holding regulatory_operational_context above, ground the staging`,

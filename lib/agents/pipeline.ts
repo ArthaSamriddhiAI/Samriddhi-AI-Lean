@@ -19,6 +19,7 @@
 
 import { prisma } from "@/lib/prisma";
 import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
+import type { Mandate } from "@/db/fixtures/structured-mandates";
 import { loadSnapshot, loadSnapshotPair } from "./snapshot-loader";
 import { computeMetrics } from "./portfolio-risk-analytics";
 import { runRiskRewardDeterministic } from "./risk-reward-stats";
@@ -117,10 +118,20 @@ export async function runDiagnosticPipeline(opts: {
     const snapshot = await loadSnapshot(opts.snapshotId);
     const asOfDate = snapshotRow.date.toISOString().slice(0, 10);
 
-    const metrics = computeMetrics(holdings, snapshot, {
-      riskAppetite: investor.riskAppetite,
-      liquidityTier: investor.liquidityTier,
-    });
+    /* Finding 5: thread the investor's mandate into the metrics so the
+     * asset-class targets and bands are per-investor (a conservative investor
+     * is assessed against her conservative mandate, not the flat aggressive
+     * MODEL_BANDS). Falls back to the flat bands when no mandate is seeded. */
+    const investorMandate = investor.mandateJson ? (JSON.parse(investor.mandateJson) as Mandate) : null;
+    const metrics = computeMetrics(
+      holdings,
+      snapshot,
+      {
+        riskAppetite: investor.riskAppetite,
+        liquidityTier: investor.liquidityTier,
+      },
+      investorMandate,
+    );
     const routerDecision = route(holdings);
 
     /* Risk-Reward statistics: deterministic sibling to the M0 metrics module,

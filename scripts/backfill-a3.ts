@@ -30,9 +30,9 @@
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
-import { runA3Diagnostic } from "../lib/agents/a3-so-what";
+import { runA3Diagnostic, computeA3, type A3Input } from "../lib/agents/a3-so-what";
 import { stitch, type EvidenceBundle, type StitchInput } from "../lib/agents/stitcher";
-import type { PortfolioMetrics } from "../lib/agents/portfolio-risk-analytics";
+import { computeMetrics, type PortfolioMetrics } from "../lib/agents/portfolio-risk-analytics";
 import type { A2Output } from "../lib/agents/a2-classification";
 import type { RiskRewardOutput } from "../lib/agents/risk-reward-stats";
 import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "../lib/agents/portfolio-overlap";
@@ -40,6 +40,21 @@ import { loadSnapshot } from "../lib/agents/snapshot-loader";
 import { buildA3IndianContext, type A3TaxProductFamily } from "../lib/agents/m0-indian-context";
 import { buildOperationalScope, taxProductFamily } from "../lib/agents/operational-scope";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
+import { MANDATES_BY_INVESTOR } from "../db/fixtures/structured-mandates";
+
+/* Per-investor risk classification, mirroring db/seed.ts INVESTORS so the
+ * backfill can recompute metrics with the same inputs the live pipeline uses
+ * (Finding 5: metrics now also take the per-investor mandate). The Samriddhi 2
+ * personas are locked (WA26); if a persona's riskAppetite/liquidityTier changes
+ * in the seed, update it here too. */
+const INVESTOR_PROFILE: Record<string, { riskAppetite: string; liquidityTier: string }> = {
+  malhotra: { riskAppetite: "Aggressive", liquidityTier: "Essential" },
+  iyengar: { riskAppetite: "Conservative", liquidityTier: "Secondary" },
+  bhatt: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential" },
+  menon: { riskAppetite: "Aggressive", liquidityTier: "Essential (deep, transitional)" },
+  surana: { riskAppetite: "Aggressive", liquidityTier: "Essential" },
+  sharma: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential" },
+};
 
 /* Persona structure lines, mirroring db/seed.ts INVESTORS[].structureLine. The
  * Samriddhi 2 personas are locked (WA26, product debt P40); A3's tax-structure
@@ -98,26 +113,48 @@ function pad(s: string, n: number): string {
   return s.length >= n ? s : s + " ".repeat(n - s.length);
 }
 
-async function processFixture(file: string, opts: { write: boolean }): Promise<void> {
-  const filePath = path.join(FIXTURE_DIR, file);
-  const fixture = JSON.parse(await fs.readFile(filePath, "utf-8")) as CaseFixture;
+/* Shape of a redeployment block as it may appear in a frozen fixture (cash
+ * funding is absent pre-Finding-5); used only for the preview diff. */
+type A3RedeploymentLike = {
+  freed_capital_pct?: number;
+  cash_funding_pct?: number;
+  leftover_to_cash_pct?: number;
+  deployments?: Array<{ sleeve: string; target_pct: number; add_pct_points: number }>;
+};
 
-  if (fixture.workflow !== "s2") {
-    console.log(`  skip ${fixture.id}: workflow=${fixture.workflow} (A3 is Samriddhi 2 only)`);
-    return;
-  }
+function fmtTarget(input: A3Input, cls: "Equity" | "Debt" | "Alternatives" | "Cash"): string {
+  const b = input.metrics?.assetClass?.[cls];
+  return b ? `${b.targetPct}% (band ${b.band[0]}-${b.band[1]})` : "?";
+}
 
+/* Assemble the A3 input for a fixture, deterministically and with no API.
+ * Recomputes the metrics with the per-investor mandate (Finding 5), the
+ * overlap, the pre-observations, and the Finding 2 tax/operational context, so
+ * both the live backfill and the free dry-run preview reason against identical,
+ * Finding-5-correct inputs. The frozen content.metrics is NOT used as the A3
+ * target source any more: it predates Finding 5 (flat bands, cash-as-position),
+ * so reusing it would mask the very correction this build makes. */
+async function assembleA3Input(fixture: CaseFixture, asOfDate: string): Promise<A3Input> {
   const a2Output = fixture.content.a2_classification;
   if (!a2Output) {
     throw new Error(
       `${fixture.id}: content.a2_classification absent; run backfill-a2 first (A3 reads A2's frozen output).`,
     );
   }
-  const metrics = fixture.content.metrics ?? null;
-  const asOfDate = SNAPSHOT_DATE[fixture.snapshotId];
-  if (!asOfDate) {
-    throw new Error(`Unknown snapshot "${fixture.snapshotId}" for ${fixture.id}; add it to SNAPSHOT_DATE.`);
+  const holdings = HOLDINGS_BY_INVESTOR[fixture.investorId];
+  if (!holdings) {
+    throw new Error(`No structured holdings for investor "${fixture.investorId}" (${fixture.id}).`);
   }
+  const profile = INVESTOR_PROFILE[fixture.investorId];
+  if (!profile) {
+    throw new Error(`No INVESTOR_PROFILE (riskAppetite/liquidityTier) for "${fixture.investorId}" (${fixture.id}).`);
+  }
+  const snapshot = await loadSnapshot(fixture.snapshotId);
+  const mandate = MANDATES_BY_INVESTOR[fixture.investorId] ?? null;
+
+  // Finding 5: recompute metrics with the per-investor mandate (target source)
+  // and the cash-exclusion from positionFlags. Deterministic, no API.
+  const metrics = computeMetrics(holdings, snapshot, profile, mandate);
 
   const ev = fixture.content.evidence ?? {};
   const evidence: EvidenceBundle = {
@@ -129,36 +166,24 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
     e7: ev.e7 ?? null,
   };
 
-  // Recompute the 7 live pre-observations deterministically from the frozen
-  // metrics and evidence (no API). stitch() assembles them via the same
-  // derivePreObservations the live pipeline uses; we read only pre_observations.
-  let preObservations = metrics
-    ? stitch({
-        caseMeta: {
-          case_id: fixture.id,
-          investor_id: fixture.investorId,
-          investor_name: fixture.investorId,
-          as_of_date: asOfDate,
-          case_mode: "diagnostic",
-          bucket_tier: metrics.concentration.bucketTier,
-        },
-        metrics,
-        evidence,
-        router_decision: (fixture.content.router_decision ?? {}) as StitchInput["router_decision"],
-        usage: {},
-      }).pre_observations
-    : [];
+  // Pre-observations from the RECOMPUTED metrics (so the cash-exclusion and the
+  // per-investor bands flow through to the observation surface too).
+  const preObservations = stitch({
+    caseMeta: {
+      case_id: fixture.id,
+      investor_id: fixture.investorId,
+      investor_name: fixture.investorId,
+      as_of_date: asOfDate,
+      case_mode: "diagnostic",
+      bucket_tier: metrics.concentration.bucketTier,
+    },
+    metrics,
+    evidence,
+    router_decision: (fixture.content.router_decision ?? {}) as StitchInput["router_decision"],
+    usage: {},
+  }).pre_observations;
 
-  // Recompute portfolio_overlap deterministically (no API), using the same
-  // function and output type the live pipeline persists, so the Redundancy
-  // signal A3 judges over is structurally identical to live (shape parity,
-  // T-5.12 requirement). The 5 fixtures predate T-5.07, so overlap was never
-  // frozen; recompute it from the frozen holdings + snapshot.
-  const holdings = HOLDINGS_BY_INVESTOR[fixture.investorId];
-  if (!holdings) {
-    throw new Error(`No structured holdings for investor "${fixture.investorId}" (${fixture.id}).`);
-  }
-  const snapshot = await loadSnapshot(fixture.snapshotId);
+  // Recompute portfolio_overlap deterministically (shape parity with live).
   const overlap: PortfolioOverlapOutput = runPortfolioOverlapDeterministic({
     caseId: fixture.id,
     asOfDate,
@@ -169,9 +194,7 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
 
   const riskReward = fixture.content.risk_reward_stats ?? null;
 
-  // Finding 2: M0 tax + SEBI context (product-structure-scoped) and per-holding
-  // snapshot operational metadata (category-guarded), mirroring the live
-  // pipeline. Deterministic, no API.
+  // Finding 2: M0 tax + SEBI context and per-holding operational metadata.
   const a3TaxFamilies = Array.from(
     new Set(
       holdings.holdings
@@ -187,18 +210,24 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   });
   const operational = buildOperationalScope(holdings, snapshot);
 
-  const { output, usage, responseId, responseModel, judgmentResponseId } = await runA3Diagnostic({
-    caseId: fixture.id,
-    asOfDate,
-    a2Output,
-    metrics,
-    preObservations,
-    riskReward,
-    overlap,
-    evidence,
-    indianContext,
-    operational,
-  });
+  return { caseId: fixture.id, asOfDate, a2Output, metrics, preObservations, riskReward, overlap, evidence, indianContext, operational };
+}
+
+async function processFixture(file: string, opts: { write: boolean }): Promise<void> {
+  const filePath = path.join(FIXTURE_DIR, file);
+  const fixture = JSON.parse(await fs.readFile(filePath, "utf-8")) as CaseFixture;
+
+  if (fixture.workflow !== "s2") {
+    console.log(`  skip ${fixture.id}: workflow=${fixture.workflow} (A3 is Samriddhi 2 only)`);
+    return;
+  }
+  const asOfDate = SNAPSHOT_DATE[fixture.snapshotId];
+  if (!asOfDate) {
+    throw new Error(`Unknown snapshot "${fixture.snapshotId}" for ${fixture.id}; add it to SNAPSHOT_DATE.`);
+  }
+
+  const input = await assembleA3Input(fixture, asOfDate);
+  const { output, usage, responseId, responseModel, judgmentResponseId } = await runA3Diagnostic(input);
 
   // --- Readout ---
   const usd = (usage.inputTokens / 1e6) * USD_PER_M_INPUT + (usage.outputTokens / 1e6) * USD_PER_M_OUTPUT;
@@ -251,7 +280,7 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
       }
     }
     const rd = reb.computed.redeployment;
-    console.log(`  REDEPLOYMENT: freed ${rd.freed_capital_pct} pts; ${rd.deployments.map((x) => `${x.sleeve} +${x.add_pct_points}`).join(", ") || "no deployable sleeve"}; leftover_to_cash ${rd.leftover_to_cash_pct} pts`);
+    console.log(`  REDEPLOYMENT: freed ${rd.freed_capital_pct} + cash_funding ${rd.cash_funding_pct} pts; ${rd.deployments.map((x) => `${x.sleeve} +${x.add_pct_points} -> ${x.resulting_pct} (target ${x.target_pct})`).join(", ") || "no deployable sleeve"}; leftover_to_cash ${rd.leftover_to_cash_pct} pts`);
     console.log(`     ${rd.note}`);
     console.log(`  narrated (${reb.narrated.generation_method}): "${reb.narrated.advisor_action}"`);
   } else if (reb.kind === "no_action_needed") {
@@ -338,11 +367,64 @@ async function main() {
   for (const f of targets) console.log(`  target: ${f}`);
 
   if (dryRun) {
+    console.log(`\nFinding 5 deterministic preview (computed Layer 1 only, NO API, NO write):`);
+    const changed: string[] = [];
     for (const f of targets) {
       const fx = JSON.parse(await fs.readFile(path.join(FIXTURE_DIR, f), "utf-8")) as CaseFixture;
-      console.log(`  ${f}: workflow=${fx.workflow} -> ${fx.workflow === "s2" ? "WOULD PROCESS (one A3 call set, would write)" : "skip (not Samriddhi 2)"}`);
+      if (fx.workflow !== "s2") {
+        console.log(`\n  ${f}: skip (workflow=${fx.workflow}, not Samriddhi 2)`);
+        continue;
+      }
+      const asOfDate = SNAPSHOT_DATE[fx.snapshotId] ?? "?";
+      const input = await assembleA3Input(fx, asOfDate);
+      const layer1 = computeA3(input);
+
+      // Old (frozen) vs new (Finding 5) computed redeployment + targets.
+      const oldA3 = (fx.content.a3_so_what ?? null) as {
+        rebalance_proposal?: { kind?: string; computed?: { redeployment?: A3RedeploymentLike; positions?: Array<{ instrument: string; decision: string }> } };
+        decisions?: Array<{ holding_ref: string; decision: string; over_concentrated: boolean; asset_class: string }>;
+      } | null;
+      const newReb = layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed.redeployment : null;
+      const oldReb = oldA3?.rebalance_proposal?.computed?.redeployment ?? null;
+
+      const newEq = layer1.decisions.find((d) => d.asset_class === "Equity");
+      const newCashTrimmed = layer1.decisions.some((d) => d.asset_class === "Cash" && (d.decision === "trim" || d.decision === "exit"));
+      const oldCashTrimmed = (oldA3?.decisions ?? []).some((d) => d.asset_class === "Cash" && (d.decision === "trim" || d.decision === "exit"));
+
+      console.log(`\n  === ${fx.investorId} (${f}) ===`);
+      console.log(`    equity target: ${newEq ? `now ${layer1.decisions.find((d) => d.asset_class === "Equity")?.weight_pct ?? "?"}% actual vs target ${fmtTarget(input, "Equity")}` : "(no equity decision)"}`);
+      console.log(`    target source: per-investor mandate -> Equity target ${fmtTarget(input, "Equity")}, Debt ${fmtTarget(input, "Debt")}, Alt ${fmtTarget(input, "Alternatives")}, Cash ${fmtTarget(input, "Cash")}`);
+      console.log(`    cash flagged as over-concentration (a position trim)?  old=${oldCashTrimmed}  new=${newCashTrimmed}`);
+      if (oldReb) {
+        console.log(`    OLD redeployment: freed=${oldReb.freed_capital_pct} deploy=[${(oldReb.deployments ?? []).map((d) => `${d.sleeve}->${d.target_pct}(+${d.add_pct_points})`).join(", ")}] leftover=${oldReb.leftover_to_cash_pct}`);
+      } else {
+        console.log(`    OLD redeployment: (none in frozen fixture)`);
+      }
+      if (newReb) {
+        console.log(`    NEW redeployment: freed=${newReb.freed_capital_pct} cash_funding=${newReb.cash_funding_pct} deploy=[${newReb.deployments.map((d) => `${d.sleeve}->${d.target_pct}(+${d.add_pct_points})`).join(", ")}] leftover=${newReb.leftover_to_cash_pct}`);
+        console.log(`    note: ${newReb.note}`);
+      } else {
+        console.log(`    NEW redeployment: ${layer1.rebalance_proposal.kind}`);
+      }
+
+      const material =
+        oldCashTrimmed !== newCashTrimmed ||
+        !oldReb !== !newReb ||
+        (oldReb && newReb && (
+          Math.abs((oldReb.leftover_to_cash_pct ?? 0) - newReb.leftover_to_cash_pct) > 0.5 ||
+          Math.abs((oldReb.freed_capital_pct ?? 0) - newReb.freed_capital_pct) > 0.5 ||
+          (newReb.cash_funding_pct ?? 0) > 0.5 ||
+          (oldReb.deployments ?? []).map((d) => `${d.sleeve}:${d.target_pct}`).join("|") !== newReb.deployments.map((d) => `${d.sleeve}:${d.target_pct}`).join("|")
+        ));
+      console.log(`    --> ${material ? "MATERIALLY CHANGED (needs paid narration re-backfill)" : "barely changed (skip)"}`);
+      if (material) changed.push(fx.investorId);
     }
-    console.log(`\nDry-run complete: no API spent, no fixture written.`);
+    console.log(`\nPreview complete: no API spent, no fixture written.`);
+    console.log(`Materially-changed fixtures (paid re-backfill candidates): ${changed.length ? changed.join(", ") : "(none)"}`);
+    if (changed.length) {
+      const tokens = changed.join(",");
+      console.log(`Scoped paid command would be: npx tsx scripts/backfill-a3.ts --cases=${tokens}`);
+    }
     return;
   }
 
