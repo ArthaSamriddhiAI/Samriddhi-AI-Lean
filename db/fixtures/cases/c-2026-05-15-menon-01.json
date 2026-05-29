@@ -1059,7 +1059,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the bank savings account from 86.6% of liquid assets toward the 10% single-position ceiling; at current levels it is the dominant position in the portfolio and well above the 15% concentration threshold, and the freed capital is what funds the move toward the model allocation."
+          "advisor_action": "Propose trimming the bank savings account from 86.6% of liquid assets toward the 10% single-position ceiling; at 86.6% it is far above the 15% escalate threshold and is the dominant call on the portfolio's risk and return profile."
         }
       ],
       "observation_actions": [
@@ -1067,19 +1067,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Anchor the meeting on the single-name concentration: the bank savings account at 86.6% sits far above the 15% ceiling, and propose the staged reduction toward 10% as the central action of the review."
+          "advisor_action": "Propose addressing the single-position concentration in the bank savings account at 86.6% by staging it down toward the 10% ceiling, framing this as the central conversation of the meeting."
         },
         {
           "observation_category": "cash_drag",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Frame the cash drag as the cost of the status quo: with 86.6% sitting in a savings account, the portfolio is not earning a return commensurate with the client's goals, and propose redeploying the freed capital into the equity, debt, and alternatives sleeves as the remedy."
+          "advisor_action": "Propose putting the cash-equivalent balance to work by redeploying it into the under-allocated equity, debt, and alternatives sleeves, so the portfolio earns a return commensurate with the client's plan rather than sitting in transactional cash."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Walk the client through how far the portfolio has drifted from the model, with equity at 6.6% against a 65% target, debt at 6.8% against 25%, and alternatives at 0% against 7%, and propose the staged trim of the savings balance as the mechanism that closes the gap."
+          "advisor_action": "Propose using the redeployment of freed capital to pull the portfolio back to the model, lifting equity from 6.6% toward its 65% target and debt from 6.8% toward its 25% target, and seeding the alternatives sleeve from 0% toward its 7% target."
         }
       ],
       "rebalance_proposal": {
@@ -1200,30 +1200,33 @@
                 "sleeve": "Equity",
                 "current_pct": 6.6,
                 "target_pct": 65,
-                "add_pct_points": 53.5,
-                "resulting_pct": 60.1
+                "upper_band_pct": 70,
+                "add_pct_points": 50.3,
+                "resulting_pct": 56.9
               },
               {
                 "sleeve": "Debt",
                 "current_pct": 6.8,
                 "target_pct": 25,
-                "add_pct_points": 16.7,
-                "resulting_pct": 23.5
+                "upper_band_pct": 30,
+                "add_pct_points": 18.4,
+                "resulting_pct": 25.2
               },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 0,
                 "target_pct": 7,
-                "add_pct_points": 6.4,
-                "resulting_pct": 6.4
+                "upper_band_pct": 10,
+                "add_pct_points": 7.9,
+                "resulting_pct": 7.9
               }
             ],
             "leftover_to_cash_pct": 0,
-            "note": "Freed 76.6 points deployed toward under-allocated sleeves, moving the allocation toward the model."
+            "note": "Freed 76.6 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
           }
         },
         "narrated": {
-          "advisor_action": "Propose trimming the bank savings account from 86.6% toward the 10% single-position target, a total reduction of 76.6 percentage points, in sixteen steps of roughly 4.8 points each: the first step takes it from 86.6% to 81.8%, and subsequent steps trigger at each successive weight level (81.8%, 77%, 72.2%, 67.4%, 62.7%, 57.9%, 53.1%, 48.3%, 43.5%, 38.7%, 33.9%, 29.2%, 24.4%, 19.6%, and 14.8%) until the position lands at 10%. The 76.6 points freed by this glide-path are redeployed across the three under-allocated sleeves: 53.5 points into equity, taking it from 6.6% to 60.1% against a 65% target; 16.7 points into debt, taking it from 6.8% to 23.5% against a 25% target; and 6.4 points into alternatives, taking it from 0% to 6.4% against a 7% target. The deployments fully absorb the freed capital, leaving nothing additional in cash and moving the allocation materially toward the model.",
+          "advisor_action": "Propose trimming the bank savings account from 86.6% toward the 10% single-position ceiling, a total reduction of 76.6 points staged across sixteen steps of roughly 4.8 points each, taking the position from 86.6% to 81.8%, then 77%, 72.2%, 67.4%, 62.7%, 57.9%, 53.1%, 48.3%, 43.5%, 38.7%, 33.9%, 29.2%, 24.4%, 19.6%, 14.8%, and finally 10%, with each step triggered once the position has settled at the previous level; this cadence manages market and tax friction across what is a substantial reweighting. The 76.6 points of freed capital are deployed in full to the under-allocated sleeves up to their upper bands: 50.3 points to equity, lifting it from 6.6% to 56.9%; 18.4 points to debt, lifting it from 6.8% to 25.2%; and 7.9 points to alternatives, lifting it from 0% to 7.9%. Nothing is left to cash; the redeployment closes the freed capital cleanly against the model bands.",
           "generation_method": "llm"
         }
       },
@@ -1235,9 +1238,9 @@
         "trim_count": 1,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "One dominant action: stage the savings-account reduction from 86.6% to 10% and redeploy the freed 76.6 points into the equity, debt, and alternatives sleeves."
+        "one_line_characterization": "The meeting centers on staging an 86.6% cash position down to 10% and redeploying the 76.6 points into equity, debt, and alternatives to pull the portfolio onto the model."
       },
-      "reasoning_summary": "The whole conversation turns on a single fact: 86.6% of the client's liquid assets sits in a savings account, and the portfolio bears almost no equity, debt, or alternatives exposure against the model. The recommendation is a staged sixteen-step trim of that position toward the 10% ceiling, with each step triggered at a defined weight level to manage execution. The 76.6 points freed flow in computed proportions into the three under-allocated sleeves, closing the drift in one coordinated move."
+      "reasoning_summary": "The portfolio is dominated by a single 86.6% cash position, so the action that matters is the staged trim toward the 10% ceiling and the redeployment of the freed 76.6 points. The sixteen-step glide-path paces a large reweighting, and the freed capital lands in equity, debt, and alternatives up to their upper bands, leaving nothing in cash. Carry the trim cadence and the three sleeve destinations into the meeting as one coherent plan."
     }
   },
   "tokenUsage": {

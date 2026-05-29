@@ -2499,7 +2499,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction; the holding is sound, but the position has drifted above the concentration threshold and is worth bringing back into line."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction, to bring the position within the concentration threshold while preserving the core allocation to a fund the client values."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -2508,7 +2508,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10%, a 1 point reduction, and use the conversation to flag the underlying thesis and quality concerns on the fund so the client understands this is a position the advisor would not want to see grow further."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10%, a 1 point reduction, both to address the single-position breach and to begin scaling back exposure to a fund whose thesis no longer holds up on the evidence."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2517,7 +2517,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund; the position warrants monitoring rather than action at this meeting."
+          "advisor_action": "Maintain the position; the holding warrants a check-in conversation, but the evidence does not call for a change in allocation."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -2526,7 +2526,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund; while the thesis and quality picture deserves an honest discussion with the client, the position itself does not call for a trim today."
+          "advisor_action": "Maintain the position for now; raise the thesis concern with the client, but the evidence does not yet justify a trim."
         },
         {
           "holding_ref": "SBI Small Cap Fund",
@@ -2535,7 +2535,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining SBI Small Cap Fund; keep the position under monitoring and revisit at the next review."
+          "advisor_action": "Maintain the position; flag it for monitoring at the meeting, but no change in allocation is warranted on current evidence."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2544,7 +2544,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining White Oak India Pioneers PMS; the holding is on monitor and does not require action at this meeting."
+          "advisor_action": "Maintain the position; surface it for discussion as part of the broader portfolio review, but no allocation change is called for."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2553,7 +2553,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling, a 10.3 point trim staged over three steps; at more than a fifth of liquid assets the position sits above the 15% escalation threshold and is the portfolio's largest concentration risk."
+          "advisor_action": "Propose reducing Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling, a 10.3 point trim staged in three steps of roughly 3.4, 3.5, and 3.4 points, to bring the portfolio's largest single-name exposure within the concentration framework while managing market impact and the capital-gains event."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2562,7 +2562,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining HDFC Bank; the position is on monitor and does not need to be touched at this meeting."
+          "advisor_action": "Maintain the position; flag it for monitoring at the meeting, but the evidence does not support a change in allocation."
         }
       ],
       "observation_actions": [
@@ -2570,13 +2570,13 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Frame the meeting around single-position concentration: Reliance Industries at 20.3% sits above the 15% escalation threshold, and both Parag Parikh Flexi Cap Fund at 11.6% and Axis Large Cap Fund at 11% sit above the 10% single-position ceiling. Propose bringing all three back toward their ceilings as a coherent risk-management step rather than three isolated trades."
+          "advisor_action": "Propose the staged single-position trims as a package at the meeting, framing them as bringing the portfolio's largest single-name exposures within the concentration framework rather than as calls on the individual holdings; Reliance Industries at 20.3% is the most material breach and anchors the conversation."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Use the concentration trims as the lever to address allocation drift: the portfolio carries no Debt against a 25% model target and is light on Alternatives against a 7% target, and the freed capital from the trims is the natural source to begin closing both gaps in this meeting."
+          "advisor_action": "Propose using the capital freed by the concentration trims to close the drift versus the model, principally by rebuilding the Debt sleeve from zero and topping up Alternatives toward target, framing the rebalance and the redeployment as one move rather than two."
         }
       ],
       "rebalance_proposal": {
@@ -2651,23 +2651,25 @@
                 "sleeve": "Debt",
                 "current_pct": 0,
                 "target_pct": 25,
-                "add_pct_points": 12.3,
-                "resulting_pct": 12.3
+                "upper_band_pct": 30,
+                "add_pct_points": 11.3,
+                "resulting_pct": 11.3
               },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 5.8,
                 "target_pct": 7,
-                "add_pct_points": 0.6,
-                "resulting_pct": 6.4
+                "upper_band_pct": 10,
+                "add_pct_points": 1.6,
+                "resulting_pct": 7.4
               }
             ],
             "leftover_to_cash_pct": 0,
-            "note": "Freed 12.9 points deployed toward under-allocated sleeves, moving the allocation toward the model."
+            "note": "Freed 12.9 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a single coordinated rebalance. On Reliance Industries, stage the reduction from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points: the first trim now from 20.3% to 16.9%, the second once the position has settled near 16.9% bringing it to 13.4%, and the third from 13.4% to the 10% ceiling, pacing the sale to manage market impact and the capital-gains event. On Parag Parikh Flexi Cap Fund, trim 1.6 points in a single step from 11.6% to 10%. On Axis Large Cap Fund, trim 1 point in a single step from 11% to 10%. Together these trims free 12.9 points of capital. Propose redeploying 12.3 points into the Debt sleeve, which currently sits at 0% against a 25% model target, taking it to 12.3% and beginning to build the missing fixed-income foundation, and 0.6 points into Alternatives, moving the sleeve from 5.8% to 6.4% against its 7% target. The freed capital is fully absorbed by the under-allocated sleeves with nothing left in cash.",
+          "advisor_action": "Propose a single coordinated rebalance to the client. On the equity side: trim Reliance Industries from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points, taking the first step now from 20.3%, the second once the position has settled near 16.9%, and the third from 13.4%; trim Parag Parikh Flexi Cap Fund from 11.6% to 10% in a single 1.6 point step; and trim Axis Large Cap Fund from 11% to 10% in a single 1 point step. Together these trims free 12.9 points of capital. Redeploy 11.3 points into the Debt sleeve, which currently sits at zero against a 25% target, taking it to 11.3% and beginning to rebuild a sleeve that is materially under-allocated; and add 1.6 points to Alternatives, moving the sleeve from 5.8% to 7.4%, inside its upper band of 10%. The freed capital is fully deployed, with nothing left in cash, and the portfolio moves materially closer to the model allocation.",
           "generation_method": "llm"
         }
       },
@@ -2679,9 +2681,9 @@
         "trim_count": 3,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Three concentration trims free 12.9 points that the advisor proposes to redirect into Debt and Alternatives, moving the portfolio toward the model."
+        "one_line_characterization": "Three single-position trims, two of them light and one substantial on Reliance Industries, fully redeployed into the under-allocated Debt and Alternatives sleeves to close the drift against the model."
       },
-      "reasoning_summary": "The dominant action is the staged reduction of Reliance Industries from 20.3% toward the 10% ceiling, paired with smaller corrective trims on Parag Parikh and Axis Large Cap. The freed capital lines up directly with the two drift gaps the portfolio carries, no Debt against a 25% target and a small Alternatives shortfall, so the advisor can frame the trims and the redeployment as one coherent rebalance rather than separate decisions. Mirae, Kotak, SBI Small Cap, White Oak, and HDFC Bank are left in place; the meeting load sits squarely on concentration and allocation drift."
+      "reasoning_summary": "The concentration breaches drive three trims, with Reliance Industries the meaningful one at 10.3 points staged over three steps and the two fund trims modest at 1.6 and 1 point. The 12.9 points freed map cleanly onto the two sleeves the portfolio is short on, principally Debt at zero against a 25% target and a top-up to Alternatives, with nothing left in cash. Frame the rebalance and the redeployment as one coordinated move at the meeting, anchored on bringing single-name exposure within the framework and rebuilding the Debt sleeve."
     }
   },
   "tokenUsage": {

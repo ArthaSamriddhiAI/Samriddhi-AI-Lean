@@ -1646,7 +1646,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank fixed deposit from 27.3% of the portfolio toward the 10% single-position ceiling; at more than two and a half times the flag threshold it is the portfolio's largest single-name concentration and the dominant driver of the bank-deposit overweight."
+          "advisor_action": "Propose trimming the HDFC Bank fixed deposit from 27.3% of liquid assets toward the 10% single-position ceiling; at more than two and a half times the ceiling, this is the portfolio's largest single-name concentration and the primary driver of the review verdict."
         },
         {
           "holding_ref": "SBI FD",
@@ -1655,7 +1655,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the SBI fixed deposit from 27% toward the 10% single-position ceiling; alongside the HDFC Bank deposit it sits well above the threshold and compounds the same concentration in bank paper."
+          "advisor_action": "Propose trimming the SBI fixed deposit from 27% toward the 10% single-position ceiling; alongside the HDFC Bank deposit, it leaves the portfolio with two near-equal positions each well above the escalate threshold and warrants the same staged reduction."
         },
         {
           "holding_ref": "Franklin India Corporate Debt Fund",
@@ -1664,7 +1664,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose a light trim of the Franklin India Corporate Debt Fund from 10.3% to 10%, bringing it just inside the single-position ceiling."
+          "advisor_action": "Propose a light trim of the Franklin India Corporate Debt Fund from 10.3% to the 10% single-position ceiling; the breach is small but worth correcting in one move to bring the position cleanly inside the threshold."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1673,7 +1673,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to the 10% single-position ceiling, reducing the modest overweight in a single active large-cap vehicle."
+          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to the 10% single-position ceiling; a single 1.7 point reduction returns the position to compliance with the concentration discipline."
         },
         {
           "holding_ref": "HDFC Index Fund Nifty 50",
@@ -1682,7 +1682,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to the 10% single-position ceiling, bringing the largest equity position back inside the threshold."
+          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to the 10% single-position ceiling; a single 4.1 point reduction brings the position back inside the threshold without disturbing the underlying core-equity role."
         }
       ],
       "observation_actions": [
@@ -1690,19 +1690,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose taking the five over-threshold positions back to the 10% single-position ceiling as one coordinated rebalance, with the two bank deposits glided down in four steps each and the three mutual funds trimmed in a single step."
+          "advisor_action": "Address the portfolio's concentration profile directly with the client: five positions currently sit above the 10% single-position ceiling, with two fixed deposits well past the 15% escalate threshold. Propose the staged trim program as the central action of the meeting, framing it as a discipline-restoring step rather than a view on any single name."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital to close the allocation drift by lifting Equity from 35.5% to its 65% target and standing up the Alternatives sleeve from 0% to its 7% target, returning the portfolio to its model bands."
+          "advisor_action": "Walk the client through how far the portfolio has drifted from the model bands, with Equity at 35.5% against a 65% target and Alternatives at 0% against a 7% target. Propose using the capital freed by the concentration trims to close the drift in the same conversation, so the concentration fix and the allocation fix become one decision rather than two."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Propose an explicit conversation with the client about the gap between stated risk appetite and the revealed conservatism in the current mix, using the rebalance itself as the occasion to confirm that lifting Equity toward 65% and seeding Alternatives at 7% is genuinely the intended posture."
+          "advisor_action": "Surface the gap between what the client has said about risk appetite and what the current holdings reveal; raise it lightly given the informational severity, and use it to frame the rebalance as bringing the portfolio back into line with the client's stated intent rather than imposing a new posture."
         }
       ],
       "rebalance_proposal": {
@@ -1833,23 +1833,25 @@
                 "sleeve": "Equity",
                 "current_pct": 35.5,
                 "target_pct": 65,
-                "add_pct_points": 29.5,
-                "resulting_pct": 65
+                "upper_band_pct": 70,
+                "add_pct_points": 31.3,
+                "resulting_pct": 66.8
               },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 0,
                 "target_pct": 7,
-                "add_pct_points": 7,
-                "resulting_pct": 7
+                "upper_band_pct": 10,
+                "add_pct_points": 9.1,
+                "resulting_pct": 9.1
               }
             ],
-            "leftover_to_cash_pct": 3.9,
-            "note": "Freed 40.4 points exceeds the 36.5 points of under-allocation capacity; sleeves are filled to target and the remaining 3.9 points are reported as leftover to cash."
+            "leftover_to_cash_pct": 0,
+            "note": "Freed 40.4 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
           }
         },
         "narrated": {
-          "advisor_action": "Propose one coordinated rebalance that takes the five over-threshold positions back to the 10% single-position ceiling and redeploys the freed capital into the under-allocated sleeves. The HDFC Bank fixed deposit at 27.3% comes down 17.3 points in four roughly equal steps: 4.3 points from 27.3% to 23%, 4.3 points from 23% to 18.7%, 4.4 points from 18.7% to 14.3%, and a final 4.3 points from 14.3% to 10%, each step triggered once the position has settled at the prior level. The SBI fixed deposit at 27% comes down 17 points on the same four-step cadence: 4.2 points to 22.8%, 4.3 points to 18.5%, 4.2 points to 14.3%, and a final 4.3 points to 10%. The Franklin India Corporate Debt Fund is trimmed 0.3 points from 10.3% to 10% in a single step, the Axis Large Cap Fund 1.7 points from 11.7% to 10% in a single step, and the HDFC Index Fund Nifty 50 4.1 points from 14.1% to 10% in a single step. Together these trims free 40.4 points of capital. Propose redeploying 29.5 of those points into Equity, lifting the sleeve from 35.5% to its 65% target, and 7 points into Alternatives, standing the sleeve up from 0% to its 7% target. The freed capital exceeds the 36.5 points of under-allocation capacity by 3.9 points; that residual sits in cash rather than being reinvested, since the model sleeves are now at target.",
+          "advisor_action": "Propose a coordinated rebalance that addresses concentration and allocation drift in one program. The two fixed deposits carry the bulk of the work: trim the HDFC Bank deposit from 27.3% to the 10% ceiling in four steps of roughly 4.3 points each, taken at 27.3%, 23%, 18.7%, and 14.3%; trim the SBI deposit from 27% to 10% in four comparable steps of about 4.2 to 4.3 points, taken at 27%, 22.8%, 18.5%, and 14.3%. Staging both deposits in four steps manages reinvestment timing and any premature-withdrawal frictions. Alongside these, take three single-step trims on the funds: Franklin India Corporate Debt Fund by 0.3 points from 10.3% to 10%, Axis Large Cap Fund by 1.7 points from 11.7% to 10%, and HDFC Index Fund Nifty 50 by 4.1 points from 14.1% to 10%. Together these moves free 40.4 points of capital. Redeploy 31.3 points into Equity, lifting the sleeve from 35.5% to 66.8% and into its upper band against the 65% target, and 9.1 points into Alternatives, lifting that sleeve from 0% to 9.1% against the 7% target. With the under-allocated sleeves filled to their upper bands, no freed capital is left sitting in cash; the rebalance closes cleanly and moves the portfolio back toward the model in a single program.",
           "generation_method": "llm"
         }
       },
@@ -1861,9 +1863,9 @@
         "trim_count": 5,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "A coordinated rebalance: glide the two bank deposits down over four steps, trim the three over-threshold funds in one step each, and use the freed capital to fill Equity and Alternatives to target, with a small residual left in cash."
+        "one_line_characterization": "A coordinated concentration-and-drift rebalance: two staged deposit trims and three single-step fund trims free 40.4 points, fully redeployed into under-allocated Equity and Alternatives."
       },
-      "reasoning_summary": "The portfolio's defining issue is single-name concentration on the deposit side compounded by drift away from the model. The recommendation pairs a staged trim of the two bank deposits with light single-step trims of the three over-threshold funds, then routes the freed capital into the two under-allocated sleeves at their model targets. The honest residual to cash is worth flagging in the meeting alongside the stated-versus-revealed risk conversation, so the client owns the posture the rebalance produces."
+      "reasoning_summary": "The dominant action is the staged reduction of the two fixed deposits, which together account for over half the portfolio and drive both the concentration breaches and the allocation drift. The three fund trims are small, single-step corrections that clean up minor breaches. Because Equity and Alternatives are both under-allocated with room to their upper bands, the entire 40.4 points of freed capital deploys cleanly into the model, leaving nothing parked in cash and turning the concentration fix into the allocation fix in the same conversation."
     }
   },
   "tokenUsage": {

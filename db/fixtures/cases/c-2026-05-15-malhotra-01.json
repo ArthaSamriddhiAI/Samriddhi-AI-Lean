@@ -1827,7 +1827,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position ceiling; at 15.6% it sits above the 15% escalate threshold and is the portfolio's largest equity single-name concentration."
+          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position ceiling; at 15.6% it has crossed the 15% escalate threshold and is the larger of the two large-cap concentrations in the book."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1836,7 +1836,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11.8% to the 10% single-position ceiling; the position is modestly above the flag threshold and worth right-sizing alongside the broader large-cap rebalance."
+          "advisor_action": "Propose a modest trim of Axis Large Cap Fund from 11.8% back to 10%; the position sits above the 10% single-position flag and overlaps materially with the other large-cap holding."
         },
         {
           "holding_ref": "Parag Parikh Flexi Cap Fund",
@@ -1845,7 +1845,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position ceiling; the position has run well above the flag threshold and warrants right-sizing."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to 10%; at 14.2% the position is well above the 10% single-position flag and represents the largest active equity bet in the portfolio."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -1854,7 +1854,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% single-position ceiling; the position is marginally over the threshold and the thesis no longer carries the conviction to justify an overweight."
+          "advisor_action": "Propose a small trim of Kotak Emerging Equity Fund from 10.5% to 10% to bring it back inside the single-position flag, and use the discussion to revisit the fund's thesis given the diagnostic concern there."
         },
         {
           "holding_ref": "NHAI Tax-Free Bonds 2032",
@@ -1863,7 +1863,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward the 10% single-position ceiling; at 18.1% it sits above the 15% escalate threshold and is the portfolio's largest single-instrument concentration on the fixed-income side."
+          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward 10%; the position has crossed the 15% escalate threshold and is the single largest exposure in the portfolio."
         },
         {
           "holding_ref": "HDFC Bank FD",
@@ -1872,7 +1872,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank fixed deposit from 13.1% to the 10% single-position ceiling; the deposit has grown into a concentration that no longer reflects its intended role in the portfolio."
+          "advisor_action": "Propose trimming the HDFC Bank FD from 13.1% to 10%; the deposit sits above the 10% single-position flag and the freed capital is better deployed against the under-allocated equity sleeve."
         }
       ],
       "observation_actions": [
@@ -1880,19 +1880,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose addressing the portfolio's pattern of single-position concentrations as one coordinated rebalance, bringing each flagged holding back to the 10% ceiling rather than handling them one at a time, so the client sees a single, deliberate reshaping of the book."
+          "advisor_action": "Propose the staged trim programme below to bring every flagged position back to 10% and the two escalate-level positions, Mirae Asset Large Cap Fund and NHAI Tax-Free Bonds 2032, down through their interim levels first."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the concentration trims to close the equity sleeve's drift below its target band, framing the rebalance as the mechanism that simultaneously fixes the position-level breaches and the sleeve-level under-allocation."
+          "advisor_action": "Propose using the freed capital from the trims to close the equity under-allocation, lifting equity from 52.1% toward the 65% target, with alternatives also moving back into band."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Propose surfacing the gap between the client's stated risk posture and what the current portfolio actually expresses, and use the conversation about the rebalance to confirm which side of that divergence the portfolio should be moved toward."
+          "advisor_action": "Surface the gap between the client's stated posture and the portfolio's revealed positioning in the meeting, and use the rebalance as the moment to reconcile the two before acting."
         }
       ],
       "rebalance_proposal": {
@@ -2015,16 +2015,25 @@
                 "sleeve": "Equity",
                 "current_pct": 52.1,
                 "target_pct": 65,
-                "add_pct_points": 12.9,
-                "resulting_pct": 65
+                "upper_band_pct": 70,
+                "add_pct_points": 17.9,
+                "resulting_pct": 70
+              },
+              {
+                "sleeve": "Alternatives",
+                "current_pct": 8.4,
+                "target_pct": 7,
+                "upper_band_pct": 10,
+                "add_pct_points": 1.6,
+                "resulting_pct": 10
               }
             ],
-            "leftover_to_cash_pct": 10.4,
-            "note": "Freed 23.3 points exceeds the 12.9 points of under-allocation capacity; sleeves are filled to target and the remaining 10.4 points are reported as leftover to cash."
+            "leftover_to_cash_pct": 3.8,
+            "note": "Freed 23.3 points exceeds the 19.5 points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining 3.8 points are reported as leftover to cash."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that brings every flagged position back to the 10% single-position ceiling. On the equity side: trim Mirae Asset Large Cap Fund from 15.6% in two steps of 2.8 points each, the first now and the second once the position has settled near 12.8%; trim Axis Large Cap Fund from 11.8% by 1.8 points in a single step to 10%; trim Parag Parikh Flexi Cap Fund from 14.2% by 4.2 points in a single step to 10%; trim Kotak Emerging Equity Fund from 10.5% by 0.5 points in a single step to 10%. On the fixed-income side: trim NHAI Tax-Free Bonds 2032 from 18.1% in two steps, first by 4 points to 14.1%, then by 4.1 points to 10% once the position has settled; and trim the HDFC Bank fixed deposit from 13.1% by 3.1 points in a single step to 10%. Together these trims free 23.3 points of capital. Propose redeploying 12.9 points into the equity sleeve, taking it from 52.1% to its 65% target and closing the allocation drift. The remaining 10.4 points exceed the available under-allocation capacity across the model sleeves, and sit in cash; flag this to the client honestly as capital awaiting a deployment path rather than narrating it as reinvested.",
+          "advisor_action": "Propose a coordinated rebalance that frees 23.3 points of capital across six positions and redeploys it into the under-allocated equity and alternatives sleeves. Begin with the two escalate-level positions: trim Mirae Asset Large Cap Fund from 15.6% in two steps of 2.8 points each, the first now and the second once the position has settled near 12.8%, landing at 10%; and trim NHAI Tax-Free Bonds 2032 from 18.1% in two steps, 4 points now to 14.1% and a further 4.1 points once the position has settled, landing at 10%. The remaining four positions move in a single step each: Axis Large Cap Fund from 11.8% down 1.8 points to 10%, Parag Parikh Flexi Cap Fund from 14.2% down 4.2 points to 10%, Kotak Emerging Equity Fund from 10.5% down 0.5 points to 10%, and the HDFC Bank FD from 13.1% down 3.1 points to 10%. Redeploy the 23.3 freed points into the under-allocated sleeves: 17.9 points into Equity, taking it from 52.1% to 70%, the upper band; and 1.6 points into Alternatives, taking it from 8.4% to 10%, also the upper band. The freed capital exceeds the 19.5 points of headroom available to the sleeves' upper bands; the remaining 3.8 points sit in cash rather than being forced into a sleeve that is already at its limit.",
           "generation_method": "llm"
         }
       },
@@ -2036,9 +2045,9 @@
         "trim_count": 6,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Six concentration trims spanning equity and fixed income, freeing 23.3 points that close the equity sleeve's drift to target with 10.4 points honestly parked in cash."
+        "one_line_characterization": "A coordinated six-position trim programme that frees 23.3 points, refills equity and alternatives to their upper bands, and leaves 3.8 points honestly in cash."
       },
-      "reasoning_summary": "The portfolio's central issue is a pattern of single-position concentrations across both equity and fixed income, not an isolated breach, so the advisor should frame the trims as one coordinated rebalance rather than six separate conversations. The freed capital naturally closes the equity sleeve's drift below target, which lets the same action address both the position-level and sleeve-level findings. The leftover 10.4 points in cash should be surfaced plainly, not papered over, and the stated-revealed divergence opens the door to confirming the intended risk posture before that cash is put to work."
+      "reasoning_summary": "The portfolio carries six single-position breaches, two of them at the escalate level, and the trims to bring each back to 10% free enough capital to close the equity under-allocation in one move. Equity and alternatives absorb what their upper bands will hold; the rest sits in cash rather than being pushed past the model. The two escalate-level positions, Mirae and NHAI, are staged in two steps each to manage market impact; the rest move in a single step."
     }
   },
   "tokenUsage": {

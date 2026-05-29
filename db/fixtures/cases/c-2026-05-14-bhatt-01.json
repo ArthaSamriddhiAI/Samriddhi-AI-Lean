@@ -2312,8 +2312,8 @@
             "thesis_quality",
             "cost_efficiency"
           ],
-          "exit_rationale": "Two independent qualitative signals converge against the wrapper: E6 overall_verdict is negative on thesis/quality, and the 360 bps fee is not earning its complexity premium (complexity_premium_earned: no). Because the position is not over-concentrated (weight 9.5%), trim is not an available remedy here; the choice is between continuing to pay 360 bps for a strategy whose thesis E6 has flagged negatively, or exiting. Given the convergence of a negative thesis verdict with an unearned complexity premium, and that the cost drag persists at any sub-threshold weight, exit is the articulable response.",
-          "judgment_reasoning": "Two independent qualitative signals converge against the wrapper: E6 overall_verdict is negative on thesis/quality, and the 360 bps fee is not earning its complexity premium (complexity_premium_earned: no). Because the position is not over-concentrated (weight 9.5%), trim is not an available remedy here; the choice is between continuing to pay 360 bps for a strategy whose thesis E6 has flagged negatively, or exiting. Given the convergence of a negative thesis verdict with an unearned complexity premium, and that the cost drag persists at any sub-threshold weight, exit is the articulable response."
+          "exit_rationale": "Qualitative convergence on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency shows a 360 bps fee with complexity_premium_earned = no, meaning the client is paying a material complexity premium that the strategy is not delivering. Because the position is not over-concentrated (9.5%), trim is not an available remedy; the choice is between continuing to pay 360 bps for an unearned premium against a negative thesis verdict, or exiting. The convergence of a negative thesis read and an explicitly unearned complexity premium on a high-fee opaque wrapper makes exit the warranted call.",
+          "judgment_reasoning": "Qualitative convergence on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency shows a 360 bps fee with complexity_premium_earned = no, meaning the client is paying a material complexity premium that the strategy is not delivering. Because the position is not over-concentrated (9.5%), trim is not an available remedy; the choice is between continuing to pay 360 bps for an unearned premium against a negative thesis verdict, or exiting. The convergence of a negative thesis read and an explicitly unearned complexity premium on a high-fee opaque wrapper makes exit the warranted call."
         },
         {
           "holding_ref": "Alchemy Smart Alpha 250 PMS",
@@ -2792,7 +2792,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the Marcellus Consistent Compounder PMS position from 11.3% of liquid assets to the 10% single-position ceiling, a 1.3 point reduction; the holding itself is sound, the issue is sizing."
+          "advisor_action": "Propose trimming Marcellus Consistent Compounder PMS from 11.3% toward the 10% single-position ceiling; the position has drifted just above the flag threshold and a 1.3-point reduction brings it back in line, a conversation worth having with the client given the PMS wrapper concentration sitting alongside it."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2801,7 +2801,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining the White Oak India Pioneers PMS position; surface it in the meeting to walk the client through the rationale, but no sizing change is warranted at this time."
+          "advisor_action": "Propose holding White Oak India Pioneers PMS at its current weight; the position is worth raising with the client as part of the broader PMS wrapper discussion, but on its own merits there is no case to trim or exit."
         },
         {
           "holding_ref": "Motilal Oswal Value Migration PMS",
@@ -2810,7 +2810,7 @@
           "kind": "action",
           "decision": "exit",
           "source_observation": "thesis_quality+cost_efficiency",
-          "advisor_action": "Propose exiting the Motilal Oswal Value Migration PMS position in full, currently 9.5% of liquid assets, staged across two steps of 4.7 and 4.8 points; the thesis and cost case no longer justify the complexity of the wrapper."
+          "advisor_action": "Propose exiting Motilal Oswal Value Migration PMS in full from its 9.5% weight; the manager thesis is no longer holding up and the complexity premium of the PMS wrapper is not being earned on this sleeve, the convergence that warrants exit rather than a trim."
         },
         {
           "holding_ref": "Alchemy Smart Alpha 250 PMS",
@@ -2819,7 +2819,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining the Alchemy Smart Alpha 250 PMS position; raise it in the meeting to discuss the role it plays in the portfolio, but no sizing change is warranted at this time."
+          "advisor_action": "Propose holding Alchemy Smart Alpha 250 PMS at its current weight; the position belongs in the wider PMS wrapper conversation with the client, but the position-level signals do not support a trim or exit on their own."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2828,7 +2828,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Reliance Industries from 12.2% of liquid assets to the 10% single-position ceiling, a 2.2 point reduction; this is the portfolio's largest single-name concentration."
+          "advisor_action": "Propose trimming Reliance Industries from 12.2% toward the 10% single-position ceiling, a 2.2-point reduction; at this weight the position is the portfolio's largest single-name concentration and sits clearly above the flag threshold."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2837,7 +2837,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming HDFC Bank from 11.3% of liquid assets to the 10% single-position ceiling, a 1.3 point reduction, to bring the position back within the single-name limit."
+          "advisor_action": "Propose trimming HDFC Bank from 11.3% toward the 10% single-position ceiling, a 1.3-point reduction to bring the position back inside the flag threshold."
         },
         {
           "holding_ref": "ITC Limited",
@@ -2846,7 +2846,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining the ITC Limited position; flag it in the meeting for ongoing monitoring, but no sizing change is warranted at this time."
+          "advisor_action": "Propose holding ITC Limited at its current weight; the position is worth flagging to the client in the broader discussion but does not warrant a trim on the position-level signals."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2855,7 +2855,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining the Mirae Asset Large Cap Fund position; flag it in the meeting for ongoing monitoring, but no sizing change is warranted at this time."
+          "advisor_action": "Propose holding Mirae Asset Large Cap Fund at its current weight; the fund is worth keeping under watch with the client but the position-level signals do not call for action."
         },
         {
           "holding_ref": "Avendus Absolute Return Fund",
@@ -2864,7 +2864,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the Avendus Absolute Return Fund position from 13.6% of liquid assets to the 10% single-position ceiling, a 3.6 point reduction; the strategy can stay in the portfolio, the sizing cannot."
+          "advisor_action": "Propose trimming Avendus Absolute Return Fund from 13.6% toward the 10% single-position ceiling, a 3.6-point reduction; this is the most concentrated single position in the portfolio and the trim brings it back inside the flag threshold."
         }
       ],
       "observation_actions": [
@@ -2872,31 +2872,31 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose bringing every position currently above the 10% single-position ceiling back to 10%, as set out in the rebalance proposal, so that no single name or fund dominates the portfolio's risk."
+          "advisor_action": "Propose addressing the four positions that sit above the 10% single-position ceiling, Avendus Absolute Return Fund at 13.6%, Reliance Industries at 12.2%, HDFC Bank at 11.3%, and Marcellus Consistent Compounder PMS at 11.3%, by staging trims back to the 10% ceiling and redeploying the freed capital as set out in the rebalance proposal."
         },
         {
           "observation_category": "wrapper_over_accumulation",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose acknowledging to the client that the portfolio has accumulated more PMS wrappers than the complexity is earning, and that the Motilal Oswal Value Migration exit is the first step in reducing that wrapper footprint."
+          "advisor_action": "Propose framing the PMS wrapper as a portfolio-level issue with the client rather than a per-manager call; the cumulative PMS exposure has accumulated past where the wrapper's complexity premium is being earned, and the full exit of Motilal Oswal Value Migration PMS combined with the trim of Marcellus Consistent Compounder PMS is the right first move to draw down the wrapper footprint."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the trims and exit to close the allocation drift, primarily by lifting the Debt sleeve back toward its model target."
+          "advisor_action": "Propose using the freed capital from the trims and the Motilal Oswal exit to close the allocation drift, with the Debt sleeve being the principal beneficiary as set out in the rebalance proposal."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose surfacing the gap between what the client has said they want from the portfolio and how the portfolio is actually positioned, and use the rebalance as the occasion to reconcile the two."
+          "advisor_action": "Propose raising the gap between the client's stated risk posture and what the portfolio is actually carrying; the PMS wrapper concentration and the single-name equity weights are revealing a more aggressive book than the stated profile, and the proposed trims and Debt redeployment narrow that gap."
         },
         {
           "observation_category": "complexity_premium_not_earned",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose telling the client plainly that the more complex, higher-cost wrappers in the portfolio are not delivering returns commensurate with their complexity and cost, and that the Motilal Oswal Value Migration exit reflects exactly that judgment."
+          "advisor_action": "Propose making the case to the client that the PMS wrapper is not paying for its complexity at the portfolio level, with Motilal Oswal Value Migration PMS being the clearest instance and the basis for proposing a full exit rather than a trim."
         }
       ],
       "rebalance_proposal": {
@@ -2997,16 +2997,17 @@
                 "sleeve": "Debt",
                 "current_pct": 14.2,
                 "target_pct": 25,
-                "add_pct_points": 10.8,
-                "resulting_pct": 25
+                "upper_band_pct": 30,
+                "add_pct_points": 15.8,
+                "resulting_pct": 30
               }
             ],
-            "leftover_to_cash_pct": 7.1,
-            "note": "Freed 17.9 points exceeds the 10.8 points of under-allocation capacity; sleeves are filled to target and the remaining 7.1 points are reported as leftover to cash."
+            "leftover_to_cash_pct": 2.1,
+            "note": "Freed 17.9 points exceeds the 15.8 points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining 2.1 points are reported as leftover to cash."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that brings every over-sized position back to the 10% single-position ceiling and exits the position whose thesis and cost case no longer hold. Trim Marcellus Consistent Compounder PMS from 11.3% to 10% in a single 1.3 point step; trim Reliance Industries from 12.2% to 10% in a single 2.2 point step; trim HDFC Bank from 11.3% to 10% in a single 1.3 point step; and trim the Avendus Absolute Return Fund from 13.6% to 10% in a single 3.6 point step. Exit the Motilal Oswal Value Migration PMS position in full from 9.5% in two steps, the first taking 4.7 points off to leave the position at 4.8%, the second taking the remaining 4.8 points to zero. Together these trims and the exit free 17.9 points of capital. Of that, 10.8 points goes to the Debt sleeve, which is under-allocated at 14.2% against its 25% target, lifting it back to 25%. The remaining 7.1 points exceeds the under-allocated capacity in the sleeves and, until the model bands accommodate further deployment, sits in cash; it is not being reinvested in this pass.",
+          "advisor_action": "Propose staging the concentration trims and the one full exit as a single coordinated rebalance, freeing 17.9 points of capital that is then redeployed as computed. On the equity side, propose trimming Reliance Industries from 12.2% to 10% in a single 2.2-point step, HDFC Bank from 11.3% to 10% in a 1.3-point step, and Marcellus Consistent Compounder PMS from 11.3% to 10% in a 1.3-point step. Propose trimming Avendus Absolute Return Fund, the portfolio's most concentrated position, from 13.6% to 10% in a 3.6-point step. Propose exiting Motilal Oswal Value Migration PMS in full from its 9.5% weight in two steps of 4.7 points and then 4.8 points, taking the second step once the position has settled at 4.8%, staging the sale to manage market impact and the capital-gains event. The 17.9 points freed by these moves redeploys into the Debt sleeve, which is the under-allocated sleeve carrying the drift: Debt moves from 14.2% up by 15.8 points to its 30% upper band, filling its available headroom. The freed 17.9 points exceeds the 15.8 points of headroom to the sleeves' upper bands, so the remaining 2.1 points sit in cash as leftover rather than being redeployed; flag this honestly to the client as a residual to place once a further sleeve opens up.",
           "generation_method": "llm"
         }
       },
@@ -3018,9 +3019,9 @@
         "trim_count": 4,
         "exit_count": 1,
         "rebalance": "proposal",
-        "one_line_characterization": "Coordinated concentration cleanup: four trims to the 10% ceiling, one full PMS exit, freed capital refills the Debt sleeve to target with 7.1 points parked in cash."
+        "one_line_characterization": "Five trims and one full PMS exit free 17.9 points, with 15.8 points refilling the under-allocated Debt sleeve to its upper band and 2.1 points honestly held in cash."
       },
-      "reasoning_summary": "The portfolio's main issue is sizing, not selection: five positions sit above the 10% single-position ceiling, and one PMS wrapper, Motilal Oswal Value Migration, has lost its thesis-and-cost case. The proposal trims the four over-sized holdings back to 10%, exits Motilal Oswal Value Migration in two staged steps, and routes 10.8 of the 17.9 freed points into the under-allocated Debt sleeve to close it to the 25% target. The remaining 7.1 points honestly sits in cash; the advisor should frame this as a deliberate pause rather than a placement decision, pending a further conversation on where to deploy it next."
+      "reasoning_summary": "The action picture is dominated by four single-position trims back to the 10% ceiling and one full PMS exit where the manager thesis and wrapper cost converge against the position. The freed capital has a clear home in the Debt sleeve, which is the drift the portfolio is carrying, and the redeployment fills that sleeve to its upper band. The residual 2.1 points sitting in cash is worth naming to the client plainly rather than dressing up. Two PMS positions and two listed equities are held at current weight because the position-level signals do not support action even though they belong in the wider wrapper conversation."
     }
   },
   "tokenUsage": {
