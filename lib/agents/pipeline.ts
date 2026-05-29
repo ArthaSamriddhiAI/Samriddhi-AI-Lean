@@ -36,6 +36,8 @@ import { runE7 } from "./e7-mutual-fund";
 import { runS1Diagnostic } from "./s1-diagnostic";
 import { runA2Diagnostic } from "./a2-classification";
 import { runA3Diagnostic } from "./a3-so-what";
+import { buildA3IndianContext, type A3TaxProductFamily } from "./m0-indian-context";
+import { buildOperationalScope, taxProductFamily } from "./operational-scope";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -319,6 +321,27 @@ export async function runDiagnosticPipeline(opts: {
      * surface that recommends an action rather than characterising a state.
      * Ships as data only (content.a3_so_what); the S2 renderer reads only
      * briefing and never touches this key (WA09). */
+    /* Finding 2: M0.IndianContext tax + SEBI context (product-structure-scoped,
+     * deterministic, no API) and per-holding snapshot operational metadata
+     * (category-guarded strict join), threaded into A3 alongside the existing
+     * inputs. Tax/SEBI applies to every holding regardless of snapshot match;
+     * operational metadata is present only for holdings with a consistent
+     * snapshot record (Reading B: the rest are silent). */
+    const a3TaxFamilies = Array.from(
+      new Set(
+        holdings.holdings
+          .map((h) => taxProductFamily(h.subCategory))
+          .filter((f): f is A3TaxProductFamily => f !== null),
+      ),
+    );
+    const a3IndianContext = await buildA3IndianContext({
+      caseId: opts.caseId,
+      asOfDate,
+      investorStructureLine: investor.structureLine,
+      productFamilies: a3TaxFamilies,
+    });
+    const a3Operational = buildOperationalScope(holdings, snapshot);
+
     const a3Result = await runA3Diagnostic({
       caseId: opts.caseId,
       asOfDate,
@@ -328,6 +351,8 @@ export async function runDiagnosticPipeline(opts: {
       riskReward,
       overlap: portfolioOverlap,
       evidence,
+      indianContext: a3IndianContext,
+      operational: a3Operational,
     });
     usage.a3 = a3Result.usage;
     runningTokens += a3Result.usage.inputTokens + a3Result.usage.outputTokens;

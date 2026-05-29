@@ -27,7 +27,9 @@ import type { RiskRewardOutput } from "@/lib/agents/risk-reward-stats";
 import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
 import { stitch, type EvidenceBundle, type StitchInput } from "@/lib/agents/stitcher";
 import { loadSnapshot } from "@/lib/agents/snapshot-loader";
-import { HOLDINGS_BY_INVESTOR } from "@/db/fixtures/structured-holdings";
+import { buildA3IndianContext, resolveA3TaxStructure, type A3TaxProductFamily } from "@/lib/agents/m0-indian-context";
+import { buildOperationalScope, taxProductFamily, findConsistentMatch } from "@/lib/agents/operational-scope";
+import { HOLDINGS_BY_INVESTOR, type StructuredHoldings } from "@/db/fixtures/structured-holdings";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -114,11 +116,11 @@ function evidenceWithE6(evals: unknown[]): EvidenceBundle {
 function input(partial: Partial<A3Input> & { a2Output: A2Output }): A3Input {
   return {
     caseId: "v", asOfDate: "2026-04-30", metrics: null, preObservations: [],
-    riskReward: null, overlap: null, evidence: null, ...partial,
+    riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [], ...partial,
   };
 }
 function decision(d: "trim" | "exit" | "maintain", weight: number): A3ReconciledDecision {
-  return { holding_ref: "x", instrument_display_name: "x", asset_class: "Equity", sub_category: "listed_equity", weight_pct: weight, holding_kind: "transparent", over_concentrated: weight > 10, a2_verdict: "review", signals: [], exit_eligible: false, decision: d, dimensions_failing: [], exit_rationale: "", judgment_reasoning: "" } as A3ReconciledDecision;
+  return { holding_ref: "x", instrument_display_name: "x", asset_class: "Equity", sub_category: "listed_equity", weight_pct: weight, holding_kind: "transparent", tax_product_family: "listed_equity", over_concentrated: weight > 10, a2_verdict: "review", signals: [], exit_eligible: false, decision: d, dimensions_failing: [], exit_rationale: "", judgment_reasoning: "" } as A3ReconciledDecision;
 }
 
 (async () => {
@@ -283,7 +285,7 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   const sSnap = await loadSnapshot(sf.snapshotId);
   const sOverlap = runPortfolioOverlapDeterministic({ caseId: sf.id, asOfDate: "2026-04-02", holdings: sHoldings, snapshot: sSnap, investor: {} });
   const sPreObs = sc.metrics ? stitch({ caseMeta: { case_id: sf.id, investor_id: sf.investorId, investor_name: sf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: sc.metrics.concentration.bucketTier }, metrics: sc.metrics, evidence: sc.evidence, router_decision: (sc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
-  const sa3 = computeA3({ caseId: sf.id, asOfDate: "2026-04-02", a2Output: sc.a2_classification, metrics: sc.metrics, preObservations: sPreObs, riskReward: sc.risk_reward_stats ?? null, overlap: sOverlap, evidence: sc.evidence ?? null });
+  const sa3 = computeA3({ caseId: sf.id, asOfDate: "2026-04-02", a2Output: sc.a2_classification, metrics: sc.metrics, preObservations: sPreObs, riskReward: sc.risk_reward_stats ?? null, overlap: sOverlap, evidence: sc.evidence ?? null, indianContext: null, operational: [] });
   const axis = sa3.decisions.find((d) => /axis/i.test(d.instrument_display_name));
   assert(!!axis, "C9: Axis decision present in Surana", "");
   if (axis) {
@@ -301,7 +303,7 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   const bSnap = await loadSnapshot(bf.snapshotId);
   const bOverlap = runPortfolioOverlapDeterministic({ caseId: bf.id, asOfDate: "2026-04-02", holdings: bHoldings, snapshot: bSnap, investor: {} });
   const bPreObs = bc.metrics ? stitch({ caseMeta: { case_id: bf.id, investor_id: bf.investorId, investor_name: bf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: bc.metrics.concentration.bucketTier }, metrics: bc.metrics, evidence: bc.evidence, router_decision: (bc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
-  const ba3 = computeA3({ caseId: bf.id, asOfDate: "2026-04-02", a2Output: bc.a2_classification, metrics: bc.metrics, preObservations: bPreObs, riskReward: bc.risk_reward_stats ?? null, overlap: bOverlap, evidence: bc.evidence ?? null });
+  const ba3 = computeA3({ caseId: bf.id, asOfDate: "2026-04-02", a2Output: bc.a2_classification, metrics: bc.metrics, preObservations: bPreObs, riskReward: bc.risk_reward_stats ?? null, overlap: bOverlap, evidence: bc.evidence ?? null, indianContext: null, operational: [] });
   const motilal = ba3.decisions.find((d) => /motilal/i.test(d.instrument_display_name));
   assert(!!motilal, "C10: Motilal decision present in bhatt", "");
   if (motilal) {
@@ -312,6 +314,50 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
     assert(th?.status === "assessable", "C10: token-overlap linked Motilal to its E6 record (thesis assessable, not sentinelled)", th?.detail ?? "");
     assert(motilal.exit_eligible === true, "C10: Motilal exit-eligible (E6 negative verdict + complexity premium not earned)", `thesis concern=${th?.concern} cost concern=${cost?.concern}`);
   }
+
+  // --- Case 11: operational metadata flows where matched; silent where not (Reading B) ---
+  console.log("Case 11: operational metadata flows where matched, silent where not (Reading B + Kotak guard)");
+  const bOps = buildOperationalScope(bHoldings, bSnap);
+  const motilalOp = bOps.find((o) => /motilal/i.test(o.holding_ref));
+  assert(!!motilalOp && motilalOp.kind === "pms", "C11: Motilal PMS operational present", JSON.stringify(motilalOp));
+  assert(motilalOp?.effective_lock_in_years === 1, "C11: Motilal lock-in 1y flows through", String(motilalOp?.effective_lock_in_years));
+  assert(!!motilalOp?.exit_load, "C11: Motilal exit-load (year-1 2%) flows through", JSON.stringify(motilalOp?.exit_load));
+  for (const r of ["Avendus", "Marcellus", "White Oak", "Alchemy"]) {
+    assert(!bOps.some((o) => o.holding_ref.toLowerCase().includes(r.toLowerCase())), `C11: ${r} stays silent (no consistent snapshot match, Reading B)`, "");
+  }
+  const sOps = buildOperationalScope(sHoldings, sSnap);
+  assert(!sOps.some((o) => /kotak/i.test(o.holding_ref)), "C11: Kotak Emerging Equity silent (category guard rejects the overseas FoF)", JSON.stringify(sOps.map((o) => o.holding_ref)));
+  assert(findConsistentMatch(sSnap, "mf_active_mid_cap", "Kotak Emerging Equity Fund") === null, "C11: findConsistentMatch returns null for Kotak (no category-consistent match)", "");
+
+  // --- Case 12: M0 tax_matrix + SEBI context reaches A3; tax-structure resolver delivers correct tax ---
+  console.log("Case 12: M0 tax + SEBI context, product-structure-scoped");
+  const bhattTaxStruct = resolveA3TaxStructure("Family business · partnership firm");
+  assert(bhattTaxStruct.structure_type === "individual", "C12: partnership-firm persona resolves to individual personal-portfolio tax structure (Finding 2 fix)", bhattTaxStruct.structure_type);
+  const iyengarTaxStruct = resolveA3TaxStructure("Distribution · inherited corpus");
+  assert(iyengarTaxStruct.structure_type === "individual", "C12: 'inherited corpus' does not mis-resolve to a company tax structure", iyengarTaxStruct.structure_type);
+  const bFamilies = Array.from(new Set(bHoldings.holdings.map((h) => taxProductFamily(h.subCategory)).filter((f): f is A3TaxProductFamily => f !== null)));
+  const bCtx = await buildA3IndianContext({ caseId: "v-bhatt", asOfDate: "2026-04-02", investorStructureLine: "Family business · partnership firm", productFamilies: bFamilies });
+  const findBundle = (fam: string) => bCtx.tax_by_product.find((b) => b.product_family === fam);
+  assert((findBundle("listed_equity")?.entries.some((e) => e.section === "capital_gains")) === true, "C12: listed-equity capital_gains tax flows for bhatt (not starved by structure mis-resolution)", JSON.stringify(findBundle("listed_equity")?.entries.map((e) => e.entry_id)));
+  assert((findBundle("equity_mf")?.entries.some((e) => e.section === "mf_classification")) === true, "C12: equity-MF classification tax flows", "");
+  assert((findBundle("pms")?.entries.some((e) => e.section === "pms_lookthrough")) === true, "C12: PMS look-through tax present", "");
+  assert((findBundle("aif_cat_iii")?.entries.some((e) => e.section === "aif_passthrough")) === true, "C12: AIF Cat III pass-through tax present", "");
+  assert(bCtx.sebi_minimums.some((m) => m.product === "pms") && bCtx.sebi_minimums.some((m) => m.product === "aif"), "C12: SEBI minimum-ticket rules present (pms + aif)", JSON.stringify(bCtx.sebi_minimums.map((m) => m.product)));
+  assert(bCtx.tax_by_product.length === bFamilies.length, "C12: one tax bundle per product family present", `${bCtx.tax_by_product.length} vs ${bFamilies.length}`);
+
+  // --- Case 13: AIF operational path proven against a real Cat III snapshot record + Reading-B NA-skip ---
+  console.log("Case 13: AIF operational path (real Cat III record) + Reading-B NA-skip");
+  const askHoldings: StructuredHoldings = {
+    totalLiquidAumCr: 10,
+    holdings: [{ instrument: "ASK Absolute Return Fund", assetClass: "Alternatives", subCategory: "aif_cat_iii_long_short", valueCr: 1, weightPct: 10 }],
+  };
+  const askOp = buildOperationalScope(askHoldings, bSnap)[0];
+  assert(!!askOp && askOp.kind === "aif", "C13: ASK Absolute Return Fund (real Cat III) operational flows through", JSON.stringify(askOp));
+  assert((askOp?.sebi_category ?? "").toUpperCase().includes("III"), "C13: AIF SEBI category (CAT III) flows", askOp?.sebi_category);
+  assert(askOp?.min_commitment_cr === 1, "C13: AIF minimum commitment flows", String(askOp?.min_commitment_cr));
+  assert(typeof askOp?.exit_redemption_terms === "string" && (askOp?.exit_redemption_terms?.length ?? 0) > 0, "C13: AIF redemption terms flow", askOp?.exit_redemption_terms);
+  assert(typeof askOp?.structure === "string", "C13: AIF structure flows", askOp?.structure);
+  assert(askOp?.fund_tenure === undefined && askOp?.tenure_extendable === undefined, "C13: Reading-B: snapshot 'NA' tenure fields are omitted, not surfaced", `tenure=${askOp?.fund_tenure} extendable=${askOp?.tenure_extendable}`);
 
   console.log("");
   if (failures.length) {

@@ -615,3 +615,259 @@ export async function buildIndianContext(
     },
   };
 }
+
+/* ---- A3 diagnostic context (Finding 2) ----------------------------------- *
+ *
+ * A3.so_what runs on the Samriddhi 2 diagnostic, which holds a MULTI-product
+ * portfolio rather than a single proposal, so it cannot use buildIndianContext
+ * (single-product shaped). This builder retrieves the tax_matrix treatment per
+ * product family present in the portfolio, scoped by the investor structure,
+ * plus the SEBI minimum-ticket rules (via getSebiTicketRule, the same source
+ * G2 uses). Product-structure-scoped, never instrument-matched: every holding
+ * receives its correct tax treatment regardless of whether its specific
+ * product variant matches a snapshot record. Reuses this module's loadStores /
+ * resolveStructure / entryAppliesToStructure / getSebiTicketRule primitives.
+ */
+
+export type A3TaxProductFamily =
+  | "listed_equity"
+  | "equity_mf"
+  | "hybrid_mf"
+  | "arbitrage_mf"
+  | "debt_mf"
+  | "pms"
+  | "aif_cat_ii"
+  | "aif_cat_iii"
+  | "gold"
+  | "intl_equity";
+
+export type A3TaxEntry = {
+  entry_id: string;
+  section: string;
+  topic: string;
+  rule: Record<string, unknown> | null;
+  citation: string;
+  confidence: "authoritative" | "indicative";
+};
+
+export type A3TaxBundle = {
+  product_family: A3TaxProductFamily;
+  label: string;
+  entries: A3TaxEntry[];
+};
+
+export type A3SebiMinimum = {
+  product: string;
+  min_ticket_cr: number;
+  min_ticket_inr: number;
+  source_entry_id: string;
+  citation: string;
+  confidence: "authoritative" | "indicative";
+};
+
+export type A3IndianContext = {
+  generated_by: "m0_indian_context_a3";
+  investor_structure: ResolvedStructure;
+  store_versions: Record<StoreId, string>;
+  tax_by_product: A3TaxBundle[];
+  sebi_minimums: A3SebiMinimum[];
+  reasoning_trace: string;
+};
+
+type TaxSectionSpec = { section: string; match: (e: KnowledgeEntry) => boolean };
+
+function appHas(e: KnowledgeEntry, key: string, value: string): boolean {
+  return applicabilityList(e.applicability[key]).includes(value.toLowerCase());
+}
+function appHasAny(e: KnowledgeEntry, key: string, values: string[]): boolean {
+  const declared = applicabilityList(e.applicability[key]);
+  return values.some((v) => declared.includes(v.toLowerCase()));
+}
+
+const A3_TAX_FAMILY_SPECS: Record<A3TaxProductFamily, { label: string; specs: TaxSectionSpec[] }> = {
+  listed_equity: {
+    label: "Listed equity (direct)",
+    specs: [
+      { section: "capital_gains", match: (e) => appHas(e, "asset_class", "listed_equity") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  equity_mf: {
+    label: "Equity-oriented mutual fund",
+    specs: [
+      { section: "mf_classification", match: (e) => appHas(e, "mf_category", "equity_oriented") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  hybrid_mf: {
+    label: "Hybrid mutual fund",
+    specs: [
+      { section: "mf_classification", match: (e) => appHas(e, "mf_category", "hybrid_balanced") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  arbitrage_mf: {
+    label: "Arbitrage mutual fund (equity-taxed)",
+    specs: [
+      { section: "mf_classification", match: (e) => appHas(e, "mf_category", "arbitrage") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  debt_mf: {
+    label: "Debt mutual fund (specified MF)",
+    specs: [
+      { section: "mf_classification", match: (e) => appHas(e, "mf_category", "specified_mutual_fund") },
+      { section: "indexation", match: (e) => appHas(e, "asset_class", "debt_mutual_fund") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  pms: {
+    label: "PMS (taxed at underlying-instrument level)",
+    specs: [
+      { section: "pms_lookthrough", match: () => true },
+      { section: "capital_gains", match: (e) => appHas(e, "asset_class", "listed_equity") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  aif_cat_ii: {
+    label: "AIF Category II",
+    specs: [
+      { section: "aif_passthrough", match: (e) => appHasAny(e, "aif_category", ["I", "II"]) },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  aif_cat_iii: {
+    label: "AIF Category III",
+    specs: [
+      { section: "aif_passthrough", match: (e) => appHas(e, "aif_category", "III") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  gold: {
+    label: "Gold (physical / ETF / SGB)",
+    specs: [
+      { section: "capital_gains", match: (e) => appHas(e, "asset_class", "gold") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+  intl_equity: {
+    label: "Foreign equity (direct)",
+    specs: [
+      { section: "capital_gains", match: (e) => appHas(e, "asset_class", "foreign_equity") },
+      { section: "surcharge", match: () => true },
+    ],
+  },
+};
+
+/* Per-section caps keep the prompt lean where a section carries many variants:
+ * surcharge has six income bands (one conveys the capital-gains cap mechanics);
+ * Cat III aif_passthrough has four structures (the determinate + indeterminate
+ * trust pair is the canonical narration ground). Other sections are small. */
+const A3_TAX_SECTION_CAP: Record<string, number> = {
+  surcharge: 1,
+  aif_passthrough: 2,
+};
+
+function toA3TaxEntry(e: KnowledgeEntry): A3TaxEntry {
+  return {
+    entry_id: e.entry_id,
+    section: e.__section ?? "",
+    topic: e.topic,
+    rule: (e.rule as Record<string, unknown>) ?? null,
+    citation: e.citation,
+    confidence: e.confidence,
+  };
+}
+
+/* A3 resolves the investor's PERSONAL-portfolio tax structure, not the
+ * operating-business entity the persona line may describe. Personal capital
+ * gains are taxed in the holder's individual or HUF capacity; "Family business
+ * partnership firm" or "Distribution inherited corpus" describe the wealth
+ * source, not the portfolio's filing structure, and the shared resolveStructure
+ * over-reads them (partnership_firm; "corpus" matched as "corp" -> company),
+ * which then fails the tax_matrix investor_type axis (individual / huf / nri)
+ * and empties the tax context. This keeps only the capital-gains-relevant
+ * personal axes: HUF vs individual, plus residency (resident / NRI / RNOR).
+ * resolveStructure is left untouched so Samriddhi 1 is unaffected. */
+export function resolveA3TaxStructure(structureLine: string): ResolvedStructure {
+  const base = resolveStructure(structureLine);
+  const s = (structureLine || "").toLowerCase();
+  const structure_type = /\bhuf\b|hindu undivided/.test(s) ? "huf" : "individual";
+  return {
+    structure_type,
+    residency: base.residency,
+    legacy_alias_applied: `a3 personal-portfolio tax structure: ${structure_type} + residency=${base.residency}; operating-business entity descriptors ignored for personal capital-gains taxation`,
+  };
+}
+
+export async function buildA3IndianContext(input: {
+  caseId: string;
+  asOfDate: string;
+  investorStructureLine: string;
+  productFamilies: A3TaxProductFamily[];
+}): Promise<A3IndianContext> {
+  const stores = await loadStores();
+  const structure = resolveA3TaxStructure(input.investorStructureLine);
+  const taxEntries = stores.tax_matrix.entries;
+
+  const families = Array.from(new Set(input.productFamilies));
+  const tax_by_product: A3TaxBundle[] = [];
+  for (const fam of families) {
+    const famSpec = A3_TAX_FAMILY_SPECS[fam];
+    if (!famSpec) continue;
+    const entries: A3TaxEntry[] = [];
+    const seen = new Set<string>();
+    for (const ss of famSpec.specs) {
+      const cap = A3_TAX_SECTION_CAP[ss.section] ?? Infinity;
+      let taken = 0;
+      for (const e of taxEntries) {
+        if (taken >= cap) break;
+        if (e.__section !== ss.section) continue;
+        if (!ss.match(e)) continue;
+        if (!entryAppliesToStructure(e, structure)) continue;
+        if (seen.has(e.entry_id)) continue;
+        seen.add(e.entry_id);
+        entries.push(toA3TaxEntry(e));
+        taken += 1;
+      }
+    }
+    tax_by_product.push({ product_family: fam, label: famSpec.label, entries });
+  }
+
+  const sebi_minimums: A3SebiMinimum[] = [];
+  const wantSebi: string[] = [];
+  if (families.includes("pms")) wantSebi.push("pms");
+  if (families.includes("aif_cat_ii") || families.includes("aif_cat_iii")) wantSebi.push("aif");
+  for (const cat of wantSebi) {
+    const rule = await getSebiTicketRule(cat);
+    if (rule) {
+      sebi_minimums.push({
+        product: cat,
+        min_ticket_cr: rule.min_ticket_cr,
+        min_ticket_inr: rule.min_ticket_inr,
+        source_entry_id: rule.source_entry_id,
+        citation: rule.citation,
+        confidence: rule.confidence,
+      });
+    }
+  }
+
+  const storeVersionOf = (id: StoreId) =>
+    String((stores[id].metadata as { version?: unknown }).version ?? "unknown");
+
+  return {
+    generated_by: "m0_indian_context_a3",
+    investor_structure: structure,
+    store_versions: {
+      tax_matrix: storeVersionOf("tax_matrix"),
+      sebi_boundaries: storeVersionOf("sebi_boundaries"),
+      structure_matrix: storeVersionOf("structure_matrix"),
+      demat_mechanics: storeVersionOf("demat_mechanics"),
+      gift_city_routing: storeVersionOf("gift_city_routing"),
+      regulatory_changelog: storeVersionOf("regulatory_changelog"),
+    },
+    tax_by_product,
+    sebi_minimums,
+    reasoning_trace: `Deterministic tax_matrix retrieval for ${families.length} product families [${families.join(", ")}], scoped to investor structure ${structure.structure_type}/${structure.residency}; ${tax_by_product.reduce((s, b) => s + b.entries.length, 0)} tax entries; ${sebi_minimums.length} SEBI minimum-ticket rules.`,
+  };
+}

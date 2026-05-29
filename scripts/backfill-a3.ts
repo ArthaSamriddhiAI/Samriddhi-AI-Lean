@@ -31,7 +31,24 @@ import type { A2Output } from "../lib/agents/a2-classification";
 import type { RiskRewardOutput } from "../lib/agents/risk-reward-stats";
 import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "../lib/agents/portfolio-overlap";
 import { loadSnapshot } from "../lib/agents/snapshot-loader";
+import { buildA3IndianContext, type A3TaxProductFamily } from "../lib/agents/m0-indian-context";
+import { buildOperationalScope, taxProductFamily } from "../lib/agents/operational-scope";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
+
+/* Persona structure lines, mirroring db/seed.ts INVESTORS[].structureLine. The
+ * Samriddhi 2 personas are locked (WA26, product debt P40); A3's tax-structure
+ * resolver reads only the residency and HUF axes from these, so the descriptive
+ * business-entity text is informational. Kept here so the backfill stays
+ * fixture-driven without a DB round-trip; if a persona's structureLine changes
+ * in the seed, update it here too. */
+const STRUCTURE_LINE_BY_INVESTOR: Record<string, string> = {
+  malhotra: "Dual-professional · dermatology + cardiothoracic",
+  iyengar: "Distribution · inherited corpus",
+  bhatt: "Family business · partnership firm",
+  menon: "Founder exit · NRE → resident",
+  surana: "Tech founder · Series D",
+  sharma: "Family business · individual filer",
+};
 
 const FIXTURE_DIR = path.resolve(process.cwd(), "db", "fixtures", "cases");
 
@@ -146,6 +163,24 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
 
   const riskReward = fixture.content.risk_reward_stats ?? null;
 
+  // Finding 2: M0 tax + SEBI context (product-structure-scoped) and per-holding
+  // snapshot operational metadata (category-guarded), mirroring the live
+  // pipeline. Deterministic, no API.
+  const a3TaxFamilies = Array.from(
+    new Set(
+      holdings.holdings
+        .map((h) => taxProductFamily(h.subCategory))
+        .filter((f): f is A3TaxProductFamily => f !== null),
+    ),
+  );
+  const indianContext = await buildA3IndianContext({
+    caseId: fixture.id,
+    asOfDate,
+    investorStructureLine: STRUCTURE_LINE_BY_INVESTOR[fixture.investorId] ?? "",
+    productFamilies: a3TaxFamilies,
+  });
+  const operational = buildOperationalScope(holdings, snapshot);
+
   const { output, usage, responseId, responseModel, judgmentResponseId } = await runA3Diagnostic({
     caseId: fixture.id,
     asOfDate,
@@ -155,6 +190,8 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
     riskReward,
     overlap,
     evidence,
+    indianContext,
+    operational,
   });
 
   // --- Readout ---
@@ -215,6 +252,21 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
     console.log(`  ${reb.note}`);
   } else {
     console.log(`  sentinel (${reb.sentinel_reason}): ${reb.note}`);
+  }
+
+  console.log(`\nINDIAN CONTEXT (tax + SEBI):`);
+  if (output.indian_context) {
+    const ic = output.indian_context;
+    console.log(`  investor structure: ${ic.investor_structure.structure_type}/${ic.investor_structure.residency}`);
+    for (const b of ic.tax_by_product) console.log(`  tax[${b.product_family}]: ${b.entries.map((e) => e.entry_id).join(", ") || "(none)"}`);
+    console.log(`  sebi_minimums: ${ic.sebi_minimums.map((m) => `${m.product} ${m.min_ticket_cr}cr`).join(", ") || "(none)"}`);
+  } else {
+    console.log(`  (none)`);
+  }
+  console.log(`OPERATIONAL (snapshot-matched, ${output.operational.length}):`);
+  for (const op of output.operational) {
+    const { holding_ref, kind, matched_record_name: _m, ...fields } = op;
+    console.log(`  ${holding_ref} [${kind}]: ${JSON.stringify(fields)}`);
   }
 
   console.log(`\nreasoning_summary: ${output.reasoning_summary}`);

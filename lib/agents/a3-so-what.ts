@@ -35,6 +35,8 @@ import type { PreObservation, EvidenceBundle } from "./stitcher";
 import type { RiskRewardOutput, HoldingStats } from "./risk-reward-stats";
 import type { PortfolioOverlapOutput } from "./portfolio-overlap";
 import type { E6PerProduct } from "./e6-wrappers";
+import type { A3IndianContext, A3TaxBundle, A3TaxProductFamily } from "./m0-indian-context";
+import { taxProductFamily, type A3OperationalMetadata } from "./operational-scope";
 import { callAgent, type AgentCallResult, type AgentUsage } from "./harness";
 
 /* ----- Output contract ----- */
@@ -92,6 +94,9 @@ export type A3ReconciledDecision = {
   sub_category: string;
   weight_pct: number;
   holding_kind: A3HoldingKind;
+  /* The tax_matrix product family for M0 tax-context lookup (Finding 2);
+   * null for sub-categories with no capital-gains treatment (FD, cash, bond). */
+  tax_product_family: A3TaxProductFamily | null;
   over_concentrated: boolean;
   a2_verdict: A2Verdict;
   signals: A3DimensionSignal[];
@@ -207,6 +212,11 @@ export type A3Output = {
   rebalance_proposal: A3RebalanceProposal;
   summary: A3Summary;
   reasoning_summary: string;
+  /* Regulatory and operational provenance (Finding 2): the deterministic
+   * context A3's narration was constrained to cite. Persisted for audit so a
+   * reviewer can confirm every operational / tax claim traces to real data. */
+  indian_context: A3IndianContext | null;
+  operational: A3OperationalMetadata[];
 };
 
 export type A3Input = {
@@ -218,6 +228,13 @@ export type A3Input = {
   riskReward: RiskRewardOutput | null;
   overlap: PortfolioOverlapOutput | null;
   evidence: EvidenceBundle | null;
+  /* M0.IndianContext tax-matrix + SEBI minimums, product-structure-scoped
+   * (Finding 2); null when M0 is unavailable. */
+  indianContext: A3IndianContext | null;
+  /* Per-holding snapshot operational metadata (PMS lock-in / exit-load, AIF
+   * tenure / redemption / min-commitment, MF exit-load), category-guarded
+   * (Finding 2 / Option 2A). Empty when no holding has a consistent match. */
+  operational: A3OperationalMetadata[];
 };
 
 export type A3Layer1Result = {
@@ -461,6 +478,7 @@ function buildReconciledDecisions(input: A3Input): A3ReconciledDecision[] {
       sub_category: h.sub_category,
       weight_pct: h.weight_pct,
       holding_kind: kind,
+      tax_product_family: taxProductFamily(h.sub_category),
       over_concentrated: overConcentrated,
       a2_verdict: h.verdict,
       signals,
@@ -627,6 +645,59 @@ export function computeA3(input: A3Input): A3Layer1Result {
   };
 }
 
+/* ----- Layer 2: regulatory + operational context for the prompts (Finding 2) -----
+ *
+ * Both the judgment call and the narration call receive, per holding, its
+ * tax_matrix treatment (product-structure-scoped, from M0), any snapshot
+ * operational metadata (PMS lock-in / exit-load, AIF tenure / redemption /
+ * min-commitment, MF exit-load), and the SEBI minimum ticket where it bears on
+ * a partial trim. Reading B is load-bearing: a field absent here MUST stay
+ * silent in the prose; the narration is hard-constrained to cite only what is
+ * passed, never to invent a lock-in, tax rate, ticket threshold, or window. */
+
+type A3RegContext = {
+  indianContext: A3IndianContext | null;
+  operationalByRef: Map<string, A3OperationalMetadata>;
+  taxByFamily: Map<A3TaxProductFamily, A3TaxBundle>;
+};
+
+function buildRegContext(input: A3Input): A3RegContext {
+  const operationalByRef = new Map<string, A3OperationalMetadata>();
+  for (const op of input.operational) operationalByRef.set(normalise(op.holding_ref), op);
+  const taxByFamily = new Map<A3TaxProductFamily, A3TaxBundle>();
+  for (const b of input.indianContext?.tax_by_product ?? []) taxByFamily.set(b.product_family, b);
+  return { indianContext: input.indianContext, operationalByRef, taxByFamily };
+}
+
+type A3HoldingRegContext = {
+  tax_treatment: { family: string; entries: { topic: string; rule: Record<string, unknown> | null; citation: string }[] } | null;
+  operational: A3OperationalMetadata | null;
+  sebi_min_ticket_cr: number | null;
+};
+
+/* Compact cite-only context for one holding. Returns null sub-fields where the
+ * data is genuinely absent so the prompt carries no placeholder to speculate on. */
+function holdingRegContext(d: A3ReconciledDecision, reg: A3RegContext): A3HoldingRegContext {
+  const operational = reg.operationalByRef.get(normalise(d.holding_ref)) ?? null;
+  const bundle = d.tax_product_family ? reg.taxByFamily.get(d.tax_product_family) ?? null : null;
+  const tax_treatment = bundle
+    ? { family: bundle.label, entries: bundle.entries.map((e) => ({ topic: e.topic, rule: e.rule, citation: e.citation })) }
+    : null;
+  let sebi_min_ticket_cr: number | null = null;
+  if (reg.indianContext) {
+    const fam = d.tax_product_family;
+    const want = fam === "pms" ? "pms" : fam === "aif_cat_ii" || fam === "aif_cat_iii" ? "aif" : null;
+    if (want) sebi_min_ticket_cr = reg.indianContext.sebi_minimums.find((m) => m.product === want)?.min_ticket_cr ?? null;
+  }
+  return { tax_treatment, operational, sebi_min_ticket_cr };
+}
+
+function decisionsByRef(decisions: A3ReconciledDecision[]): Map<string, A3ReconciledDecision> {
+  const m = new Map<string, A3ReconciledDecision>();
+  for (const d of decisions) m.set(normalise(d.holding_ref), d);
+  return m;
+}
+
 /* ----- Layer 2: LLM advisor-action prose (baseline narration; judgment lands in Step 2b) ----- */
 
 type A3ReasonPayload = {
@@ -637,14 +708,28 @@ type A3ReasonPayload = {
   reasoning_summary: string;
 };
 
-function buildReasonPrompt(layer1: A3Layer1Result): string {
+function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext): string {
+  const byRef = decisionsByRef(layer1.decisions);
   const holdingsNeedingProse = layer1.holding_actions
     .filter((h): h is A3HoldingAction & A3HoldingActionBody => h.kind === "action")
-    .map((h) => ({ holding_ref: h.holding_ref, instrument: h.instrument_display_name, a2_verdict: h.a2_verdict, decision: h.decision, source_observation: h.source_observation }));
+    .map((h) => {
+      const d = byRef.get(normalise(h.holding_ref));
+      return {
+        holding_ref: h.holding_ref,
+        instrument: h.instrument_display_name,
+        a2_verdict: h.a2_verdict,
+        decision: h.decision,
+        source_observation: h.source_observation,
+        regulatory_operational_context: d ? holdingRegContext(d, reg) : null,
+      };
+    });
   const observationsNeedingProse = layer1.observation_actions
     .filter((o): o is A3ObservationAction & A3ObservationActionBody => o.kind === "action")
     .map((o) => ({ observation_category: o.observation_category, severity_hint: o.severity_hint }));
   const rebalance = layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed : null;
+  const regSummary = reg.indianContext
+    ? { investor_structure: reg.indianContext.investor_structure, sebi_minimums: reg.indianContext.sebi_minimums }
+    : null;
 
   const lines: string[] = [
     `# A3 Advisor-Action Request`,
@@ -658,6 +743,29 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
     `client. Use only commas, semicolons, colons, or periods; never an em dash,`,
     `en dash, or any other long dash. Write "Samriddhi 1" and "Samriddhi 2" in`,
     `full. Propose actions as text and stop: no scheduling, approval, or status.`,
+    ``,
+    `## Operational, tax, and regulatory context (Reading B, cite-only)`,
+    ``,
+    `Each holding below carries a regulatory_operational_context: its tax`,
+    `treatment (tax_treatment, the tax_matrix entries and their rule fields for`,
+    `the holding's product family), any snapshot operational metadata`,
+    `(operational: PMS lock-in / exit-load, AIF SEBI category / tenure /`,
+    `redemption / min-commitment, mutual-fund exit-load), and the SEBI minimum`,
+    `ticket (sebi_min_ticket_cr). Ground a meaningful trim or exit in this where`,
+    `it is present: the capital-gains implication and the LTCG / STCG rate and`,
+    `threshold from tax_treatment, the holding period and any indexation, an`,
+    `exit-load or lock-in that affects timing, and whether a partial trim risks`,
+    `dropping below the SEBI minimum ticket. Reading B is strict and load-bearing:`,
+    `cite ONLY fields actually present in the context; where a field is absent,`,
+    `say nothing about it. Never write that a detail is "unknown" or "not`,
+    `available" (that invites speculation); simply omit it. Never invent a`,
+    `lock-in, exit-load, tax rate, threshold, redemption window, or ticket figure.`,
+    `Cite figures as given (for example LTCG 12.5% above the Rs 1.25 L threshold,`,
+    `STCG 20%); do not compute a tax amount.`,
+    ``,
+    "```json",
+    JSON.stringify({ portfolio_regulatory_context: regSummary }, null, 2),
+    "```",
     ``,
     `## Per-holding actions (decision is fixed: trim, exit, or maintain)`,
     ``,
@@ -684,6 +792,13 @@ function buildReasonPrompt(layer1: A3Layer1Result): string {
       `beyond the under-allocated capacity sits in cash; do not narrate it as`,
       `reinvested. Tell it as one coherent story: which trims and exits free the`,
       `capital, and which under-allocated sleeves receive it.`,
+      ``,
+      `Where a trimmed or exited position carries operational or tax context in`,
+      `its per-holding regulatory_operational_context above, ground the staging`,
+      `rationale in it: an exit-load or lock-in that argues for staging the sale,`,
+      `the capital-gains event the sale triggers (with the cited LTCG / STCG rate`,
+      `and threshold), and whether a partial trim risks the SEBI minimum-ticket`,
+      `residual. Reading B holds: cite only what is present for that position.`,
       ``,
       "```json",
       JSON.stringify(rebalance, null, 2),
@@ -734,8 +849,8 @@ function validateReasonPayload(parsed: unknown): A3ReasonPayload {
   return o as unknown as A3ReasonPayload;
 }
 
-export async function runA3ReasonText(layer1: A3Layer1Result): Promise<AgentCallResult<A3ReasonPayload>> {
-  return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1), validate: validateReasonPayload });
+export async function runA3ReasonText(layer1: A3Layer1Result, reg: A3RegContext): Promise<AgentCallResult<A3ReasonPayload>> {
+  return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1, reg), validate: validateReasonPayload });
 }
 
 /* ----- Layer 2 call 1: the trim / exit / maintain judgment ----- */
@@ -748,7 +863,7 @@ type A3JudgmentRow = {
 };
 type A3JudgmentPayload = { judgments: A3JudgmentRow[] };
 
-function buildJudgmentPrompt(eligible: A3ReconciledDecision[]): string {
+function buildJudgmentPrompt(eligible: A3ReconciledDecision[], reg: A3RegContext): string {
   const rows = eligible.map((d) => ({
     holding_ref: d.holding_ref,
     instrument: d.instrument_display_name,
@@ -757,6 +872,7 @@ function buildJudgmentPrompt(eligible: A3ReconciledDecision[]): string {
     over_concentrated: d.over_concentrated,
     valid_decisions: d.over_concentrated ? ["trim", "exit"] : ["maintain", "exit"],
     signals: d.signals.map((s) => ({ dimension: s.dimension, status: s.status, concern: s.concern, detail: s.detail })),
+    regulatory_operational_context: holdingRegContext(d, reg),
   }));
   return [
     `# A3 Trim / Exit / Maintain Judgment`,
@@ -782,6 +898,21 @@ function buildJudgmentPrompt(eligible: A3ReconciledDecision[]): string {
     `rests on the E6 verdict and complexity-premium signals, which carry a`,
     `confidence discount. Judge conservatively: prefer maintain or trim unless`,
     `the qualitative convergence is unambiguous.`,
+    ``,
+    `## Operational and regulatory context (regulatory_operational_context)`,
+    ``,
+    `Use the operational and regulatory context where it genuinely bears on the`,
+    `decision, never as a tie-breaker invented from thin air:`,
+    `- A PMS or AIF still inside its lock-in (effective_lock_in_years), or an AIF`,
+    `  whose redemption is a window or a fixed tenure rather than open, constrains`,
+    `  whether a clean exit is even available now; it may force staging or defer.`,
+    `- An exit-load that still bites (exit_load) is a real cost of exiting now and`,
+    `  weighs toward staging or trim over a full immediate exit.`,
+    `- The tax treatment (tax_treatment) and the SEBI minimum ticket`,
+    `  (sebi_min_ticket_cr, whether a partial trim would drop the residual below`,
+    `  the regulatory floor) are decision context, not overrides.`,
+    `These refine HOW and WHETHER, not a fresh reason to exit. Reading B holds: if`,
+    `a field is absent, it is unknown; do not assume a lock-in, load, or window.`,
     ``,
     "```json",
     JSON.stringify(rows, null, 2),
@@ -811,8 +942,8 @@ function validateJudgmentPayload(parsed: unknown): A3JudgmentPayload {
   return o as unknown as A3JudgmentPayload;
 }
 
-async function runA3Judgment(eligible: A3ReconciledDecision[]): Promise<AgentCallResult<A3JudgmentPayload>> {
-  return callAgent<A3JudgmentPayload>({ skillId: "a3_so_what", userPrompt: buildJudgmentPrompt(eligible), validate: validateJudgmentPayload });
+async function runA3Judgment(eligible: A3ReconciledDecision[], reg: A3RegContext): Promise<AgentCallResult<A3JudgmentPayload>> {
+  return callAgent<A3JudgmentPayload>({ skillId: "a3_so_what", userPrompt: buildJudgmentPrompt(eligible, reg), validate: validateJudgmentPayload });
 }
 
 /* Apply judged decisions to the reconciled decisions. Only exit-eligible
@@ -870,6 +1001,7 @@ function decisionCounts(decisions: A3ReconciledDecision[]): { trim: number; exit
 
 export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResult> {
   const layer1 = computeA3(input);
+  const reg = buildRegContext(input);
 
   if (!needsLayer2(layer1)) {
     const c0 = countSurfaced(layer1.holding_actions);
@@ -895,6 +1027,8 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
       },
       reasoning_summary:
         "A3 surfaced no advisor actions: the Samriddhi 2 diagnostic flagged no holdings for Monitor, Discuss, or Review, no portfolio-level observations, and no single-position concentration breach. Portfolio-level health remains the Samriddhi 2 diagnostic surface's characterisation, not A3's.",
+      indian_context: input.indianContext,
+      operational: input.operational,
     };
     return { output, usage: { inputTokens: 0, outputTokens: 0 } };
   }
@@ -906,7 +1040,7 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
   let judgeUsage: AgentUsage = { inputTokens: 0, outputTokens: 0 };
   let judgmentResponseId: string | undefined;
   if (eligible.length > 0) {
-    const jr = await runA3Judgment(eligible);
+    const jr = await runA3Judgment(eligible, reg);
     judgedDecisions = applyJudgment(layer1.decisions, jr.output.judgments);
     judgeUsage = jr.usage;
     judgmentResponseId = jr.id;
@@ -930,7 +1064,7 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
   // narration receives the computed numbers as FIXED input and may only phrase
   // them; it cannot recompute or invent (the structural anti-fabrication
   // guarantee: the numbers are already proven to close in deterministic verify).
-  const reasonResult = await runA3ReasonText(finalLayer1);
+  const reasonResult = await runA3ReasonText(finalLayer1, reg);
   const payload = reasonResult.output;
   const holdingProse = new Map<string, string>();
   for (const r of payload.holding_actions) holdingProse.set(r.holding_ref, r.advisor_action);
@@ -976,6 +1110,8 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
       one_line_characterization: stripLongDashes(payload.one_line_characterization),
     },
     reasoning_summary: stripLongDashes(payload.reasoning_summary),
+    indian_context: input.indianContext,
+    operational: input.operational,
   };
   return {
     output,

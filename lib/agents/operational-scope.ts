@@ -23,6 +23,7 @@
 
 import type { StructuredHoldings, SubCategory } from "@/db/fixtures/structured-holdings";
 import type { Snapshot } from "./snapshot-loader";
+import type { A3TaxProductFamily } from "./m0-indian-context";
 
 /* ----- strict name matcher (mirrors wrapper-scope.ts overlapsName) ----- */
 
@@ -165,6 +166,28 @@ export function findConsistentMatch(
     if (guard && !(rec.category != null && guard.test(rec.category))) continue;
     return { collection, record: rec };
   }
+  return null;
+}
+
+/* ----- tax product family (M0 tax_matrix scoping) ----- *
+ *
+ * Maps a holding's sub-category to the tax_matrix product family A3 asks M0 to
+ * resolve (buildA3IndianContext). Product-structure-scoped, so it applies to
+ * every holding regardless of any snapshot operational match. Returns null for
+ * sub-categories with no capital-gains tax_matrix treatment (bank FDs and
+ * savings are slab-taxed interest, not capital gains; tax-free bonds and REITs
+ * have no curated entry; unlisted positions are out of advisory scope). */
+export function taxProductFamily(subCategory: string): A3TaxProductFamily | null {
+  if (subCategory.startsWith("pms_")) return "pms";
+  if (subCategory.startsWith("aif_cat_ii_")) return "aif_cat_ii";
+  if (subCategory.startsWith("aif_cat_iii_")) return "aif_cat_iii";
+  if (subCategory.startsWith("listed_")) return "listed_equity";
+  if (subCategory.startsWith("intl_")) return "intl_equity";
+  if (subCategory === "mf_hybrid_dynamic_aa") return "hybrid_mf";
+  if (subCategory === "mf_arbitrage") return "arbitrage_mf";
+  if (subCategory === "mf_corporate_debt" || subCategory === "mf_short_term_debt") return "debt_mf";
+  if (subCategory.startsWith("mf_")) return "equity_mf";
+  if (subCategory === "physical_gold" || subCategory === "sovereign_gold_bond") return "gold";
   return null;
 }
 
