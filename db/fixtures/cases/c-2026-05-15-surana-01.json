@@ -1921,6 +1921,7 @@
           "sub_category": "mf_active_flexi_cap",
           "weight_pct": 11.6,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1973,6 +1974,7 @@
           "sub_category": "mf_active_large_cap",
           "weight_pct": 11,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -2027,6 +2029,7 @@
           "sub_category": "mf_active_large_cap",
           "weight_pct": 8.7,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": false,
           "a2_verdict": "monitor",
           "signals": [
@@ -2079,6 +2082,7 @@
           "sub_category": "mf_active_mid_cap",
           "weight_pct": 8.7,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": false,
           "a2_verdict": "review",
           "signals": [
@@ -2133,6 +2137,7 @@
           "sub_category": "mf_active_small_cap",
           "weight_pct": 6.4,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": false,
           "a2_verdict": "monitor",
           "signals": [
@@ -2185,6 +2190,7 @@
           "sub_category": "pms_growth_quality",
           "weight_pct": 8.7,
           "holding_kind": "opaque",
+          "tax_product_family": "pms",
           "over_concentrated": false,
           "a2_verdict": "monitor",
           "signals": [
@@ -2237,6 +2243,7 @@
           "sub_category": "listed_large_cap",
           "weight_pct": 20.3,
           "holding_kind": "transparent",
+          "tax_product_family": "listed_equity",
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -2289,6 +2296,7 @@
           "sub_category": "listed_large_cap",
           "weight_pct": 5.8,
           "holding_kind": "transparent",
+          "tax_product_family": "listed_equity",
           "over_concentrated": false,
           "a2_verdict": "monitor",
           "signals": [
@@ -2341,6 +2349,7 @@
           "sub_category": "intl_us_etf",
           "weight_pct": 8.7,
           "holding_kind": "transparent",
+          "tax_product_family": "intl_equity",
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -2393,6 +2402,7 @@
           "sub_category": "physical_gold",
           "weight_pct": 5.8,
           "holding_kind": "allocation",
+          "tax_product_family": "gold",
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -2445,6 +2455,7 @@
           "sub_category": "savings",
           "weight_pct": 4.3,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -2499,7 +2510,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction, to bring the position within the concentration threshold while preserving the core allocation to a fund the client values."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction taken in a single step. The sale is in an equity-oriented mutual fund, so gains held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L annual exemption, and gains within twelve months attract STCG at 20%; size the redemption against units with the most favourable holding period to keep the capital-gains event proportionate to the trim."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -2508,7 +2519,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10%, a 1 point reduction, both to address the single-position breach and to begin scaling back exposure to a fund whose thesis no longer holds up on the evidence."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10% in a single 1 point step, framed against the thesis-quality concern that placed the holding in Review. The redemption is in an equity-oriented mutual fund, so units held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L exemption and units within twelve months attract STCG at 20%; select units to keep the realised gain measured."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2517,7 +2528,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain the position; the holding warrants a check-in conversation, but the evidence does not call for a change in allocation."
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund. The Monitor flag warrants noting at the meeting, but the holding does not sit above the single-position ceiling and no trim is indicated; revisit at the next review."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -2526,7 +2537,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "thesis_quality",
-          "advisor_action": "Maintain the position for now; raise the thesis concern with the client, but the evidence does not yet justify a trim."
+          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund despite the thesis-quality observation that produced the Review verdict. The concern is worth airing with the client to test conviction, but a trim is not warranted at this weight; revisit if the thesis concern deepens."
         },
         {
           "holding_ref": "SBI Small Cap Fund",
@@ -2535,7 +2546,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain the position; flag it for monitoring at the meeting, but no change in allocation is warranted on current evidence."
+          "advisor_action": "Propose maintaining SBI Small Cap Fund. The Monitor flag is worth surfacing in conversation, but no action is required on the position now."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2544,7 +2555,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain the position; surface it for discussion as part of the broader portfolio review, but no allocation change is called for."
+          "advisor_action": "Propose maintaining White Oak India Pioneers PMS. The Monitor flag warrants discussion at the meeting; the PMS is held above the SEBI Rs 0.5 Cr minimum ticket, so any future partial reduction would need to preserve a residual that does not fall below that floor, but no trim is being proposed now."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2553,7 +2564,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling, a 10.3 point trim staged in three steps of roughly 3.4, 3.5, and 3.4 points, to bring the portfolio's largest single-name exposure within the concentration framework while managing market impact and the capital-gains event."
+          "advisor_action": "Propose trimming Reliance Industries from 20.3% toward the 10% single-position ceiling in three steps of roughly 3.4, 3.5, and 3.4 points, taken first now from 20.3%, then once the position has settled near 16.9%, and finally from 13.4%. Staging the sale manages market impact and the capital-gains event: gains on shares held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L annual exemption, gains within twelve months attract STCG at 20%, and spreading the realisation across the steps lets the LTCG exemption be used across tax years where lot selection allows."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2562,7 +2573,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain the position; flag it for monitoring at the meeting, but the evidence does not support a change in allocation."
+          "advisor_action": "Propose maintaining HDFC Bank. The Monitor flag is worth noting in the conversation, but the position does not sit above the single-position ceiling and no trim is indicated."
         }
       ],
       "observation_actions": [
@@ -2570,13 +2581,13 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose the staged single-position trims as a package at the meeting, framing them as bringing the portfolio's largest single-name exposures within the concentration framework rather than as calls on the individual holdings; Reliance Industries at 20.3% is the most material breach and anchors the conversation."
+          "advisor_action": "Propose addressing the single-position concentration at the portfolio level by staging trims on the three names sitting above the 10% ceiling, anchored by Reliance Industries at 20.3% which is also above the 15% escalate threshold. Frame this with the client as a deliberate de-risking of single-name exposure rather than a view on any one company."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the capital freed by the concentration trims to close the drift versus the model, principally by rebuilding the Debt sleeve from zero and topping up Alternatives toward target, framing the rebalance and the redeployment as one move rather than two."
+          "advisor_action": "Propose using the capital freed by the concentration trims to close the allocation drift, directing it to the under-allocated Debt and Alternatives sleeves so the portfolio moves materially back toward the model bands in a single coordinated step rather than through standalone top-ups."
         }
       ],
       "rebalance_proposal": {
@@ -2669,7 +2680,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose a single coordinated rebalance to the client. On the equity side: trim Reliance Industries from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points, taking the first step now from 20.3%, the second once the position has settled near 16.9%, and the third from 13.4%; trim Parag Parikh Flexi Cap Fund from 11.6% to 10% in a single 1.6 point step; and trim Axis Large Cap Fund from 11% to 10% in a single 1 point step. Together these trims free 12.9 points of capital. Redeploy 11.3 points into the Debt sleeve, which currently sits at zero against a 25% target, taking it to 11.3% and beginning to rebuild a sleeve that is materially under-allocated; and add 1.6 points to Alternatives, moving the sleeve from 5.8% to 7.4%, inside its upper band of 10%. The freed capital is fully deployed, with nothing left in cash, and the portfolio moves materially closer to the model allocation.",
+          "advisor_action": "Propose a coordinated rebalance: trim Parag Parikh Flexi Cap Fund by 1.6 points from 11.6% to 10% in a single step; trim Axis Large Cap Fund by 1 point from 11% to 10% in a single step; and stage Reliance Industries down from 20.3% to 10% in three steps of roughly 3.4, 3.5, and 3.4 points, the first now from 20.3%, the second once the position settles near 16.9%, and the third from 13.4%, with the staging managing market impact and spreading the listed-equity LTCG event (12.5% above the Rs 1.25 L exemption, STCG at 20% within twelve months) and the equity-mutual-fund LTCG event (12.5% above the Rs 1.25 L exemption, STCG at 20% within twelve months) across the sequence. The combined trims free 12.9 points of capital, which redeploys into the two under-allocated sleeves up to their upper bands: 11.3 points into Debt, taking it from 0% to 11.3% against a 25% target and 30% upper band, and 1.6 points into Alternatives, taking it from 5.8% to 7.4% against a 7% target and 10% upper band. Nothing is left to cash; the full 12.9 points is absorbed into the under-allocated sleeves, moving the overall allocation toward the model in one coordinated move.",
           "generation_method": "llm"
         }
       },
@@ -2681,9 +2692,337 @@
         "trim_count": 3,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Three single-position trims, two of them light and one substantial on Reliance Industries, fully redeployed into the under-allocated Debt and Alternatives sleeves to close the drift against the model."
+        "one_line_characterization": "Coordinated trim of three concentrated names, with the freed 12.9 points fully redeployed into the under-allocated Debt and Alternatives sleeves."
       },
-      "reasoning_summary": "The concentration breaches drive three trims, with Reliance Industries the meaningful one at 10.3 points staged over three steps and the two fund trims modest at 1.6 and 1 point. The 12.9 points freed map cleanly onto the two sleeves the portfolio is short on, principally Debt at zero against a 25% target and a top-up to Alternatives, with nothing left in cash. Frame the rebalance and the redeployment as one coordinated move at the meeting, anchored on bringing single-name exposure within the framework and rebuilding the Debt sleeve."
+      "reasoning_summary": "The portfolio's central action is a staged concentration trim, dominated by Reliance Industries' three-step glide from 20.3% to 10%, alongside single-step trims on Parag Parikh Flexi Cap and Axis Large Cap back to the 10% ceiling. The capital-gains framing comes from the cited LTCG and STCG rates on listed equity and equity-oriented mutual funds, which argue for staging Reliance and for careful unit selection on the fund redemptions. The freed 12.9 points absorbs cleanly into the under-allocated Debt and Alternatives sleeves up to their upper bands, with nothing left to cash, so the rebalance simultaneously closes the concentration breach and the allocation drift in one coordinated move.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "resident",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=resident; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "equity_mf",
+            "label": "Equity-oriented mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_001",
+                "section": "mf_classification",
+                "topic": "Equity-oriented mutual fund, long-term holding, tax treatment",
+                "rule": {
+                  "classification_basis": "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "stcg_threshold_months": 12,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4,
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "pms",
+            "label": "PMS (taxed at underlying-instrument level)",
+            "entries": [
+              {
+                "entry_id": "pmlt_001",
+                "section": "pms_lookthrough",
+                "topic": "PMS gains taxed at underlying instrument level, pass-through to investor",
+                "rule": {
+                  "tax_treatment": "pass-through; investor taxed as if executed every underlying trade directly",
+                  "wrapper_taxation": false,
+                  "gain_characterization": "follows underlying instrument; listed equity gains at 111A/112A rates, unlisted at 112, debt at slab",
+                  "tax_section_used": "follows instrument: 111A for listed STCG, 112A for listed LTCG, 112 for unlisted, slab for debt instruments",
+                  "stt_required": "applicable per instrument and exchange rules",
+                  "turnover_drag_warning": "high-turnover PMS generates persistent STCG drag; foundation document estimates 2.4 to 4.8 percent annual drag for 180 percent turnover at Rs 2 Cr+ income",
+                  "losses": "investor can offset PMS losses against gains in own portfolio per normal capital loss rules"
+                },
+                "citation": "SEBI (Portfolio Managers) Regulations 2020 establish the pass-through legal structure; CBDT communications; Income Tax Act 1961 Sections 111A, 112, 112A apply to underlying instruments",
+                "confidence": "indicative"
+              },
+              {
+                "entry_id": "pmlt_002",
+                "section": "pms_lookthrough",
+                "topic": "PMS surcharge cap interaction",
+                "rule": {
+                  "surcharge_cap_applies": true,
+                  "cap_rate_pct": 15,
+                  "basis": "PMS gains on listed equity inherit the 111A/112A character; the 15 percent surcharge cap applies as it would for direct equity",
+                  "non_listed_treatment": "PMS gains on unlisted holdings, debt instruments do not get the cap; full surcharge applies"
+                },
+                "citation": "Income Tax Act 1961, Sections 111A, 112A, First Schedule to Finance Act 2025; established PMS pass-through application",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_001",
+                "section": "capital_gains",
+                "topic": "Listed equity LTCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "annual_exemption_inr": 125000,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 112A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_002",
+                "section": "capital_gains",
+                "topic": "Listed equity STCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 20,
+                  "annual_exemption_inr": 0,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 111A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "listed_equity",
+            "label": "Listed equity (direct)",
+            "entries": [
+              {
+                "entry_id": "cg_001",
+                "section": "capital_gains",
+                "topic": "Listed equity LTCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "annual_exemption_inr": 125000,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 112A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_002",
+                "section": "capital_gains",
+                "topic": "Listed equity STCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 20,
+                  "annual_exemption_inr": 0,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 111A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "intl_equity",
+            "label": "Foreign equity (direct)",
+            "entries": [
+              {
+                "entry_id": "cg_007",
+                "section": "capital_gains",
+                "topic": "Foreign equity, direct holding via LRS",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "stcg_treatment": "slab rate if held less than 24 months",
+                  "foreign_tax_credit_available": "yes, subject to DTAA with country of source"
+                },
+                "citation": "Income Tax Act 1961, Section 112 read with Section 48 (cost in foreign currency provisions); Section 90/91 for FTC",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "gold",
+            "label": "Gold (physical / ETF / SGB)",
+            "entries": [
+              {
+                "entry_id": "cg_006",
+                "section": "capital_gains",
+                "topic": "Gold ETF and physical gold LTCG, post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "sgb_special_treatment": "Sovereign Gold Bonds held to maturity are exempt under Section 47(viic); applies to early redemption otherwise"
+                },
+                "citation": "Income Tax Act 1961, Section 112 as amended by Finance (No. 2) Act 2024; Section 47(viic) for SGB maturity exemption",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [
+          {
+            "product": "pms",
+            "min_ticket_cr": 0.5,
+            "min_ticket_inr": 5000000,
+            "source_entry_id": "sebi_001",
+            "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+            "confidence": "authoritative"
+          }
+        ],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 5 product families [equity_mf, pms, listed_equity, intl_equity, gold], scoped to investor structure individual/resident; 14 tax entries; 1 SEBI minimum-ticket rules."
+      },
+      "operational": [
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Flexi Cap Fund"
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Axis Large Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Mirae Asset Large Cap Fund - Growth Plan",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "SBI Small Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "SBI Small Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Small Cap Fund"
+        }
+      ]
     }
   },
   "tokenUsage": {

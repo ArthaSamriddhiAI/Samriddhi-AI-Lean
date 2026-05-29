@@ -1332,6 +1332,7 @@
           "sub_category": "bank_fd",
           "weight_pct": 27.3,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -1384,6 +1385,7 @@
           "sub_category": "bank_fd",
           "weight_pct": 27,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -1436,6 +1438,7 @@
           "sub_category": "mf_corporate_debt",
           "weight_pct": 10.3,
           "holding_kind": "transparent",
+          "tax_product_family": "debt_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1488,6 +1491,7 @@
           "sub_category": "mf_active_large_cap",
           "weight_pct": 11.7,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1540,6 +1544,7 @@
           "sub_category": "mf_passive_index",
           "weight_pct": 14.1,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1592,6 +1597,7 @@
           "sub_category": "mf_hybrid_dynamic_aa",
           "weight_pct": 9.7,
           "holding_kind": "transparent",
+          "tax_product_family": "hybrid_mf",
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -1646,7 +1652,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank fixed deposit from 27.3% of liquid assets toward the 10% single-position ceiling; at more than two and a half times the ceiling, this is the portfolio's largest single-name concentration and the primary driver of the review verdict."
+          "advisor_action": "Propose trimming the HDFC Bank FD from 27.3% of liquid assets toward the 10% single-position ceiling; at nearly three times the threshold this is the portfolio's largest single-name concentration and the dominant driver of the rebalance."
         },
         {
           "holding_ref": "SBI FD",
@@ -1655,7 +1661,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the SBI fixed deposit from 27% toward the 10% single-position ceiling; alongside the HDFC Bank deposit, it leaves the portfolio with two near-equal positions each well above the escalate threshold and warrants the same staged reduction."
+          "advisor_action": "Propose trimming the SBI FD from 27.0% toward the 10% single-position ceiling; alongside the HDFC Bank FD it represents a second outsized single-name deposit that needs to be brought back inside the threshold."
         },
         {
           "holding_ref": "Franklin India Corporate Debt Fund",
@@ -1664,7 +1670,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose a light trim of the Franklin India Corporate Debt Fund from 10.3% to the 10% single-position ceiling; the breach is small but worth correcting in one move to bring the position cleanly inside the threshold."
+          "advisor_action": "Propose a small trim of the Franklin India Corporate Debt Fund from 10.3% to 10% to bring it just inside the single-position ceiling; note that under Section 50AA the gain on debt mutual-fund units is treated as short-term regardless of holding period and taxed at the client's applicable slab rate plus 4% cess, so size and timing should be set with the slab impact in view."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1673,7 +1679,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to the 10% single-position ceiling; a single 1.7 point reduction returns the position to compliance with the concentration discipline."
+          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to 10% to bring it inside the single-position ceiling; the sale triggers an equity-oriented mutual-fund capital-gains event, LTCG at 12.5% above the Rs 1.25 L annual exemption for units held over 12 months, STCG at 20% for units held under 12 months, plus 4% cess."
         },
         {
           "holding_ref": "HDFC Index Fund Nifty 50",
@@ -1682,7 +1688,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to the 10% single-position ceiling; a single 4.1 point reduction brings the position back inside the threshold without disturbing the underlying core-equity role."
+          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to 10% to bring it inside the single-position ceiling; as an equity-oriented mutual fund the sale triggers LTCG at 12.5% above the Rs 1.25 L annual exemption for units held over 12 months, STCG at 20% for units held under 12 months, plus 4% cess, so prefer lots held beyond 12 months where available."
         }
       ],
       "observation_actions": [
@@ -1690,19 +1696,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Address the portfolio's concentration profile directly with the client: five positions currently sit above the 10% single-position ceiling, with two fixed deposits well past the 15% escalate threshold. Propose the staged trim program as the central action of the meeting, framing it as a discipline-restoring step rather than a view on any single name."
+          "advisor_action": "Propose the staged single-position trims set out in the rebalance proposal, bringing each of the five flagged positions to the 10% ceiling and freeing capital to redeploy into the under-allocated sleeves."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Walk the client through how far the portfolio has drifted from the model bands, with Equity at 35.5% against a 65% target and Alternatives at 0% against a 7% target. Propose using the capital freed by the concentration trims to close the drift in the same conversation, so the concentration fix and the allocation fix become one decision rather than two."
+          "advisor_action": "Propose using the freed capital from the position trims to lift the Equity sleeve from 35.5% toward the 65% model target and to seed the Alternatives sleeve from 0% toward the 7% model target, closing the drift in a single coordinated move rather than as a separate exercise."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Surface the gap between what the client has said about risk appetite and what the current holdings reveal; raise it lightly given the informational severity, and use it to frame the rebalance as bringing the portfolio back into line with the client's stated intent rather than imposing a new posture."
+          "advisor_action": "Propose surfacing the gap between the client's stated risk posture and the portfolio's revealed positioning in the meeting, using the rebalance toward the model allocation as the conversation through which the stated profile is either confirmed or restated."
         }
       ],
       "rebalance_proposal": {
@@ -1851,7 +1857,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that addresses concentration and allocation drift in one program. The two fixed deposits carry the bulk of the work: trim the HDFC Bank deposit from 27.3% to the 10% ceiling in four steps of roughly 4.3 points each, taken at 27.3%, 23%, 18.7%, and 14.3%; trim the SBI deposit from 27% to 10% in four comparable steps of about 4.2 to 4.3 points, taken at 27%, 22.8%, 18.5%, and 14.3%. Staging both deposits in four steps manages reinvestment timing and any premature-withdrawal frictions. Alongside these, take three single-step trims on the funds: Franklin India Corporate Debt Fund by 0.3 points from 10.3% to 10%, Axis Large Cap Fund by 1.7 points from 11.7% to 10%, and HDFC Index Fund Nifty 50 by 4.1 points from 14.1% to 10%. Together these moves free 40.4 points of capital. Redeploy 31.3 points into Equity, lifting the sleeve from 35.5% to 66.8% and into its upper band against the 65% target, and 9.1 points into Alternatives, lifting that sleeve from 0% to 9.1% against the 7% target. With the under-allocated sleeves filled to their upper bands, no freed capital is left sitting in cash; the rebalance closes cleanly and moves the portfolio back toward the model in a single program.",
+          "advisor_action": "Propose a coordinated rebalance that addresses all five single-position breaches and redeploys the freed capital into the under-allocated sleeves. The two deposit concentrations are the bulk of the work: trim the HDFC Bank FD from 27.3% to 10% over four steps of roughly 4.3 points each (to 23%, then 18.7%, then 14.3%, then 10%, each triggered as the prior step settles), and trim the SBI FD from 27.0% to 10% over four steps of roughly 4.2 to 4.3 points each (to 22.8%, then 18.5%, then 14.3%, then 10%, on the same trigger cadence); pacing both deposits across four steps manages the redeployment risk of moving such large weights at once. Alongside, trim the Franklin India Corporate Debt Fund from 10.3% to 10% in a single 0.3-point step, the Axis Large Cap Fund from 11.7% to 10% in a single 1.7-point step, and the HDFC Index Fund Nifty 50 from 14.1% to 10% in a single 4.1-point step. The three mutual-fund trims trigger capital-gains events: the two equity-oriented funds at LTCG 12.5% above the Rs 1.25 L annual exemption for units held over 12 months or STCG 20% below that holding period, and the debt fund as short-term under Section 50AA at the client's applicable slab rate, each with 4% cess; stage the equity trims to prefer long-term lots where available. The five trims free 40.4 points of capital in total, which deploys as follows: 31.3 points into the Equity sleeve, lifting it from 35.5% to 66.8% (inside the 65% target and 70% upper band), and 9.1 points into the Alternatives sleeve, lifting it from 0% to 9.1% (above the 7% target and inside the 10% upper band). Nothing is left over to cash; the freed capital is fully absorbed by the under-allocated sleeves, moving the portfolio decisively toward the model.",
           "generation_method": "llm"
         }
       },
@@ -1863,9 +1869,195 @@
         "trim_count": 5,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "A coordinated concentration-and-drift rebalance: two staged deposit trims and three single-step fund trims free 40.4 points, fully redeployed into under-allocated Equity and Alternatives."
+        "one_line_characterization": "Five single-position trims, dominated by two outsized deposits, that together free 40.4 points to rebuild the under-allocated Equity and Alternatives sleeves toward the model."
       },
-      "reasoning_summary": "The dominant action is the staged reduction of the two fixed deposits, which together account for over half the portfolio and drive both the concentration breaches and the allocation drift. The three fund trims are small, single-step corrections that clean up minor breaches. Because Equity and Alternatives are both under-allocated with room to their upper bands, the entire 40.4 points of freed capital deploys cleanly into the model, leaving nothing parked in cash and turning the concentration fix into the allocation fix in the same conversation."
+      "reasoning_summary": "The action picture is a single coordinated rebalance: bring all five flagged positions to the 10% single-position ceiling and use the freed 40.4 points to close the allocation drift. The two deposit trims do most of the work and are staged over four steps each to manage the size of the move; the three mutual-fund trims are single-step but should be sequenced with the LTCG and Section 50AA tax implications in view. The Equity sleeve absorbs 31.3 points to 66.8% and Alternatives takes 9.1 points to 9.1%, with no residual to cash, so the rebalance and the drift-correction are the same conversation.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "resident",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=resident; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "debt_mf",
+            "label": "Debt mutual fund (specified MF)",
+            "entries": [
+              {
+                "entry_id": "mf_002",
+                "section": "mf_classification",
+                "topic": "Specified Mutual Fund (debt MF), units acquired on or after 2023-04-01",
+                "rule": {
+                  "classification_basis": "Section 50AA: mutual fund where not more than 35 percent of total proceeds invested in equity shares of domestic companies; revised definition effective 2026-04-01 redefines as fund investing more than 65 percent in debt/money market or 65 percent or more in units of such a fund",
+                  "treatment": "deemed short-term capital gains regardless of holding period",
+                  "tax_rate_basis": "applicable slab rate of investor",
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "pre_change_treatment": "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months; STCG at slab if held less"
+                },
+                "citation": "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; definition revised by Finance Act 2025 effective 2026-04-01",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "idx_003",
+                "section": "indexation",
+                "topic": "Indexation for debt MF, removed in 2023 then further codified in 2024",
+                "rule": {
+                  "indexation_available": false,
+                  "treatment": "Section 50AA deems all gains as short-term, taxed at slab rate regardless of holding period",
+                  "pre_change_treatment_2023": "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months",
+                  "pre_2014_treatment": "before 2014-07-11: LTCG at 10 percent without or 20 percent with indexation"
+                },
+                "citation": "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; further refined by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "equity_mf",
+            "label": "Equity-oriented mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_001",
+                "section": "mf_classification",
+                "topic": "Equity-oriented mutual fund, long-term holding, tax treatment",
+                "rule": {
+                  "classification_basis": "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "stcg_threshold_months": 12,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4,
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "hybrid_mf",
+            "label": "Hybrid mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_003",
+                "section": "mf_classification",
+                "topic": "Hybrid mutual fund, mid-equity allocation, post-2024-07-23 acquisition",
+                "rule": {
+                  "classification_basis": "not equity-oriented (below 65 percent) and not specified mutual fund (above 35 percent equity for pre-2026-04-01 definition; below 65 percent debt for post-2026-04-01 definition); falls under residual mutual fund category",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_holding_period_months": 24,
+                  "stcg_treatment": "applicable slab rate of investor",
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4
+                },
+                "citation": "Income Tax Act 1961, Section 112 read with definition exclusions in Section 2(42A); Finance (No. 2) Act 2024 amendments",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 3 product families [debt_mf, equity_mf, hybrid_mf], scoped to investor structure individual/resident; 7 tax entries; 0 SEBI minimum-ticket rules."
+      },
+      "operational": [
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "kind": "mf",
+          "matched_record_name": "Franklin India Corporate Debt Fund - Growth",
+          "sebi_category": "Corporate Bond Fund"
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Axis Large Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "kind": "mf",
+          "matched_record_name": "HDFC Nifty 50 Index Fund - Direct Plan",
+          "sebi_category": "Equity Index Funds"
+        },
+        {
+          "holding_ref": "ICICI Prudential Balanced Advantage Fund",
+          "kind": "mf",
+          "matched_record_name": "ICICI Prudential Balanced Advantage Fund - Growth",
+          "sebi_category": "Dynamic Asset Allocation or Bal"
+        }
+      ]
     }
   },
   "tokenUsage": {

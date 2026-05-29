@@ -901,6 +901,7 @@
           "sub_category": "savings",
           "weight_pct": 86.6,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": true,
           "a2_verdict": "maintain",
           "signals": [
@@ -953,6 +954,7 @@
           "sub_category": "bank_fd",
           "weight_pct": 6.8,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -1005,6 +1007,7 @@
           "sub_category": "intl_us_individual",
           "weight_pct": 6.6,
           "holding_kind": "transparent",
+          "tax_product_family": "intl_equity",
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -1059,7 +1062,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the bank savings account from 86.6% of liquid assets toward the 10% single-position ceiling; at 86.6% it is far above the 15% escalate threshold and is the dominant call on the portfolio's risk and return profile."
+          "advisor_action": "Propose drawing down the bank savings balance from 86.6% of liquid assets toward the 10% single-position ceiling; the cash sits far above the 15% concentration threshold and is the dominant source of the portfolio's allocation drift away from the model."
         }
       ],
       "observation_actions": [
@@ -1067,19 +1070,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose addressing the single-position concentration in the bank savings account at 86.6% by staging it down toward the 10% ceiling, framing this as the central conversation of the meeting."
+          "advisor_action": "Propose a staged reduction of the bank savings position from 86.6% to the 10% single-position ceiling, freeing 76.6 points to be redeployed into the under-allocated equity, debt, and alternatives sleeves."
         },
         {
           "observation_category": "cash_drag",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose putting the cash-equivalent balance to work by redeploying it into the under-allocated equity, debt, and alternatives sleeves, so the portfolio earns a return commensurate with the client's plan rather than sitting in transactional cash."
+          "advisor_action": "Propose putting the idle cash to work by redeploying the freed 76.6 points into the equity, debt, and alternatives sleeves, where the client is currently under-allocated relative to the model."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the redeployment of freed capital to pull the portfolio back to the model, lifting equity from 6.6% toward its 65% target and debt from 6.8% toward its 25% target, and seeding the alternatives sleeve from 0% toward its 7% target."
+          "advisor_action": "Propose closing the gap to the model bands by lifting equity from 6.6% toward its 65% target, debt from 6.8% toward its 25% target, and alternatives from 0% toward its 7% target, funded by the bank savings drawdown."
         }
       ],
       "rebalance_proposal": {
@@ -1226,7 +1229,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose trimming the bank savings account from 86.6% toward the 10% single-position ceiling, a total reduction of 76.6 points staged across sixteen steps of roughly 4.8 points each, taking the position from 86.6% to 81.8%, then 77%, 72.2%, 67.4%, 62.7%, 57.9%, 53.1%, 48.3%, 43.5%, 38.7%, 33.9%, 29.2%, 24.4%, 19.6%, 14.8%, and finally 10%, with each step triggered once the position has settled at the previous level; this cadence manages market and tax friction across what is a substantial reweighting. The 76.6 points of freed capital are deployed in full to the under-allocated sleeves up to their upper bands: 50.3 points to equity, lifting it from 6.6% to 56.9%; 18.4 points to debt, lifting it from 6.8% to 25.2%; and 7.9 points to alternatives, lifting it from 0% to 7.9%. Nothing is left to cash; the redeployment closes the freed capital cleanly against the model bands.",
+          "advisor_action": "Propose trimming the bank savings position from 86.6% toward the 10% single-position ceiling in sixteen steps of roughly 4.8 points each, taking the first step now from 86.6% to 81.8% and each subsequent step once the position has settled at the prior level, working down through 77%, 72.2%, 67.4%, 62.7%, 57.9%, 53.1%, 48.3%, 43.5%, 38.7%, 33.9%, 29.2%, 24.4%, 19.6%, 14.8%, and finally 10%. The staging paces a 76.6-point drawdown so the client is not forced to deploy the entire balance into the market in a single move. The freed 76.6 points are then redeployed into the under-allocated sleeves up to their upper bands: 50.3 points into equity, lifting it from 6.6% to 56.9% against a 65% target and 70% upper band; 18.4 points into debt, lifting it from 6.8% to 25.2% against a 25% target and 30% upper band; and 7.9 points into alternatives, lifting it from 0% to 7.9% against a 7% target and 10% upper band. The deployments absorb the full 76.6 points, with no leftover sitting in cash, moving the allocation decisively toward the model.",
           "generation_method": "llm"
         }
       },
@@ -1238,9 +1241,71 @@
         "trim_count": 1,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "The meeting centers on staging an 86.6% cash position down to 10% and redeploying the 76.6 points into equity, debt, and alternatives to pull the portfolio onto the model."
+        "one_line_characterization": "A single concentrated cash position drives the entire action picture: stage it down and redeploy into the under-allocated equity, debt, and alternatives sleeves."
       },
-      "reasoning_summary": "The portfolio is dominated by a single 86.6% cash position, so the action that matters is the staged trim toward the 10% ceiling and the redeployment of the freed 76.6 points. The sixteen-step glide-path paces a large reweighting, and the freed capital lands in equity, debt, and alternatives up to their upper bands, leaving nothing in cash. Carry the trim cadence and the three sleeve destinations into the meeting as one coherent plan."
+      "reasoning_summary": "The portfolio's one meaningful action is the bank savings position at 86.6%, which simultaneously trips the single-position concentration flag, the cash-drag observation, and the allocation drift away from the model. The recommendation is a sixteen-step glide-path down to the 10% ceiling, paced to avoid forcing the full 76.6 points into the market at once. The freed capital fills the under-allocated equity, debt, and alternatives sleeves to their upper bands with no residual cash, which closes the drift in a single coordinated move.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "rnor",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=rnor; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "intl_equity",
+            "label": "Foreign equity (direct)",
+            "entries": [
+              {
+                "entry_id": "cg_007",
+                "section": "capital_gains",
+                "topic": "Foreign equity, direct holding via LRS",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "stcg_treatment": "slab rate if held less than 24 months",
+                  "foreign_tax_credit_available": "yes, subject to DTAA with country of source"
+                },
+                "citation": "Income Tax Act 1961, Section 112 read with Section 48 (cost in foreign currency provisions); Section 90/91 for FTC",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 1 product families [intl_equity], scoped to investor structure individual/rnor; 2 tax entries; 0 SEBI minimum-ticket rules."
+      },
+      "operational": []
     }
   },
   "tokenUsage": {

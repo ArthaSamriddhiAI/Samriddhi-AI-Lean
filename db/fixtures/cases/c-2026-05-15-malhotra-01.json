@@ -1407,6 +1407,7 @@
           "sub_category": "mf_active_large_cap",
           "weight_pct": 15.6,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -1459,6 +1460,7 @@
           "sub_category": "mf_active_large_cap",
           "weight_pct": 11.8,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1511,6 +1513,7 @@
           "sub_category": "mf_active_flexi_cap",
           "weight_pct": 14.2,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1563,6 +1566,7 @@
           "sub_category": "mf_active_mid_cap",
           "weight_pct": 10.5,
           "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -1617,6 +1621,7 @@
           "sub_category": "tax_free_bond",
           "weight_pct": 18.1,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": true,
           "a2_verdict": "review",
           "signals": [
@@ -1669,6 +1674,7 @@
           "sub_category": "tax_free_bond",
           "weight_pct": 8.2,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -1721,6 +1727,7 @@
           "sub_category": "bank_fd",
           "weight_pct": 13.1,
           "holding_kind": "allocation",
+          "tax_product_family": null,
           "over_concentrated": true,
           "a2_verdict": "discuss",
           "signals": [
@@ -1773,6 +1780,7 @@
           "sub_category": "physical_gold",
           "weight_pct": 8.4,
           "holding_kind": "allocation",
+          "tax_product_family": "gold",
           "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
@@ -1827,7 +1835,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position ceiling; at 15.6% it has crossed the 15% escalate threshold and is the larger of the two large-cap concentrations in the book."
+          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position ceiling; at 15.6% it sits above the 15% escalate threshold and is the portfolio's largest equity-fund concentration. Stage the sale in two roughly equal steps of 2.8 points, the first now from 15.6% to 12.8% and the second once the position has settled near 12.8%, taking it to 10%. The sale is a capital-gains event on an equity-oriented mutual fund: long-term gains above the Rs 1.25 L threshold are taxed at 12.5% (LTCG), short-term gains at 20% (STCG), with the 12-month holding line separating the two, so favour lots past the 12-month mark where they are available."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1836,7 +1844,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose a modest trim of Axis Large Cap Fund from 11.8% back to 10%; the position sits above the 10% single-position flag and overlaps materially with the other large-cap holding."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11.8% to the 10% single-position ceiling in a single step of 1.8 points; the position is above the 10% flag threshold and the trim is small enough to take in one move. The sale realises capital gains on an equity-oriented mutual fund, with LTCG at 12.5% above the Rs 1.25 L threshold and STCG at 20% inside 12 months; harvest lots past the 12-month mark first."
         },
         {
           "holding_ref": "Parag Parikh Flexi Cap Fund",
@@ -1845,7 +1853,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to 10%; at 14.2% the position is well above the 10% single-position flag and represents the largest active equity bet in the portfolio."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position ceiling in a single step of 4.2 points; the position is above the 10% flag threshold and within a one-step move. The sale is an equity-oriented mutual fund capital-gains event: LTCG 12.5% above the Rs 1.25 L threshold, STCG 20% inside 12 months. Sequence lots past the 12-month mark first to keep more of the realisation in the long-term band."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -1854,7 +1862,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose a small trim of Kotak Emerging Equity Fund from 10.5% to 10% to bring it back inside the single-position flag, and use the discussion to revisit the fund's thesis given the diagnostic concern there."
+          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% ceiling in a single step of 0.5 points. The trim is small in concentration terms, but the action is grounded in the thesis-and-quality concern the Samriddhi 2 diagnostic surfaced on this fund; the trim is the first move while the broader thesis question is taken up in the meeting. The sale realises equity-oriented mutual fund gains, LTCG at 12.5% above Rs 1.25 L and STCG at 20% inside 12 months."
         },
         {
           "holding_ref": "NHAI Tax-Free Bonds 2032",
@@ -1863,7 +1871,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward 10%; the position has crossed the 15% escalate threshold and is the single largest exposure in the portfolio."
+          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward the 10% single-position ceiling; at 18.1% the position is above the 15% escalate threshold and is the portfolio's single largest line item. Stage the sale in two steps of about 4 points and 4.1 points, the first now from 18.1% to 14.1% and the second once the position has settled near 14.1%, taking it to 10%."
         },
         {
           "holding_ref": "HDFC Bank FD",
@@ -1872,7 +1880,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank FD from 13.1% to 10%; the deposit sits above the 10% single-position flag and the freed capital is better deployed against the under-allocated equity sleeve."
+          "advisor_action": "Propose trimming the HDFC Bank FD from 13.1% to the 10% single-position ceiling in a single step of 3.1 points; the position is above the 10% flag threshold. Sequence the trim against the FD's maturity ladder so the reduction lands on a maturing tranche where possible, rather than forcing a premature break."
         }
       ],
       "observation_actions": [
@@ -1880,19 +1888,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose the staged trim programme below to bring every flagged position back to 10% and the two escalate-level positions, Mirae Asset Large Cap Fund and NHAI Tax-Free Bonds 2032, down through their interim levels first."
+          "advisor_action": "Propose the staged single-position trims at the portfolio level: Mirae Asset Large Cap Fund and NHAI Tax-Free Bonds 2032 from above the 15% escalate threshold back to 10%, and Axis Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund, and the HDFC Bank FD from above the 10% flag threshold back to 10%. Frame the rebalance as the portfolio's single largest house-keeping move, with the freed capital deployed as set out in the rebalance proposal."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the trims to close the equity under-allocation, lifting equity from 52.1% toward the 65% target, with alternatives also moving back into band."
+          "advisor_action": "Propose using the freed capital from the concentration trims to close the allocation drift: equity is currently 52.1% against a 65% target, and the rebalance lifts it to its 70% upper band; alternatives at 8.4% against a 7% target are lifted to their 10% upper band. After the move, both sleeves sit at their upper tolerance bands rather than at target, which is the deliberate consequence of how much capital the concentration trims free; flag this to the client as a planned, not residual, outcome of the rebalance."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Surface the gap between the client's stated posture and the portfolio's revealed positioning in the meeting, and use the rebalance as the moment to reconcile the two before acting."
+          "advisor_action": "Raise the gap between the client's stated risk posture and what the portfolio actually reveals as a discussion point in the meeting, alongside the rebalance. The action here is conversational, not transactional: surface the divergence, hear the client's read of it, and let that reading inform whether the post-rebalance shape (equity at its upper 70% band, alternatives at 10%) is where the portfolio should sit, or whether the targets themselves need revisiting."
         }
       ],
       "rebalance_proposal": {
@@ -2033,7 +2041,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that frees 23.3 points of capital across six positions and redeploys it into the under-allocated equity and alternatives sleeves. Begin with the two escalate-level positions: trim Mirae Asset Large Cap Fund from 15.6% in two steps of 2.8 points each, the first now and the second once the position has settled near 12.8%, landing at 10%; and trim NHAI Tax-Free Bonds 2032 from 18.1% in two steps, 4 points now to 14.1% and a further 4.1 points once the position has settled, landing at 10%. The remaining four positions move in a single step each: Axis Large Cap Fund from 11.8% down 1.8 points to 10%, Parag Parikh Flexi Cap Fund from 14.2% down 4.2 points to 10%, Kotak Emerging Equity Fund from 10.5% down 0.5 points to 10%, and the HDFC Bank FD from 13.1% down 3.1 points to 10%. Redeploy the 23.3 freed points into the under-allocated sleeves: 17.9 points into Equity, taking it from 52.1% to 70%, the upper band; and 1.6 points into Alternatives, taking it from 8.4% to 10%, also the upper band. The freed capital exceeds the 19.5 points of headroom available to the sleeves' upper bands; the remaining 3.8 points sit in cash rather than being forced into a sleeve that is already at its limit.",
+          "advisor_action": "Propose a coordinated rebalance that trims six single-position concentrations and redeploys the freed capital into the two under-allocated sleeves. On the equity-fund side, trim Mirae Asset Large Cap Fund from 15.6% to 10% in two steps of 2.8 points (first from 15.6% to 12.8%, then from 12.8% to 10%); trim Axis Large Cap Fund from 11.8% to 10% in one step of 1.8 points; trim Parag Parikh Flexi Cap Fund from 14.2% to 10% in one step of 4.2 points; and trim Kotak Emerging Equity Fund from 10.5% to 10% in one step of 0.5 points. Each of these is an equity-oriented mutual fund sale, with LTCG at 12.5% above the Rs 1.25 L threshold and STCG at 20% inside the 12-month line, so sequence lots past 12 months first where they are available. On the fixed-income and cash side, trim NHAI Tax-Free Bonds 2032 from 18.1% to 10% in two steps of 4 points and 4.1 points (first from 18.1% to 14.1%, then from 14.1% to 10%), and trim the HDFC Bank FD from 13.1% to 10% in one step of 3.1 points, sequenced against the FD's maturity ladder where possible. Together the trims free 23.3 points. Deploy 17.9 points into Equity, lifting it from 52.1% to its 70% upper band, and 1.6 points into Alternatives, lifting it from 8.4% to its 10% upper band. The freed capital exceeds the sleeves' combined headroom by 3.8 points; that 3.8 points sits in cash rather than being reinvested, and the advisor should frame it as deliberate residual liquidity from the rebalance, available for the next deployment window.",
           "generation_method": "llm"
         }
       },
@@ -2045,9 +2053,132 @@
         "trim_count": 6,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "A coordinated six-position trim programme that frees 23.3 points, refills equity and alternatives to their upper bands, and leaves 3.8 points honestly in cash."
+        "one_line_characterization": "A coordinated rebalance: six single-position trims back to 10%, freeing 23.3 points that fill Equity and Alternatives to their upper bands with 3.8 points left in cash."
       },
-      "reasoning_summary": "The portfolio carries six single-position breaches, two of them at the escalate level, and the trims to bring each back to 10% free enough capital to close the equity under-allocation in one move. Equity and alternatives absorb what their upper bands will hold; the rest sits in cash rather than being pushed past the model. The two escalate-level positions, Mirae and NHAI, are staged in two steps each to manage market impact; the rest move in a single step."
+      "reasoning_summary": "The portfolio's central action is a concentration clean-up: two positions sit above the 15% escalate threshold and four more above the 10% flag, so each is staged back to 10% with the larger trims taken in two steps. The freed 23.3 points more than fills the under-allocated equity and alternatives sleeves to their upper bands, leaving 3.8 points honestly in cash rather than forced into a sleeve. The equity-fund trims are framed as capital-gains events at the cited LTCG and STCG rates, and the stated-versus-revealed divergence is set up as the conversation that should accompany, not follow, the rebalance.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "resident",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=resident; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "equity_mf",
+            "label": "Equity-oriented mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_001",
+                "section": "mf_classification",
+                "topic": "Equity-oriented mutual fund, long-term holding, tax treatment",
+                "rule": {
+                  "classification_basis": "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "stcg_threshold_months": 12,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4,
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "gold",
+            "label": "Gold (physical / ETF / SGB)",
+            "entries": [
+              {
+                "entry_id": "cg_006",
+                "section": "capital_gains",
+                "topic": "Gold ETF and physical gold LTCG, post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "sgb_special_treatment": "Sovereign Gold Bonds held to maturity are exempt under Section 47(viic); applies to early redemption otherwise"
+                },
+                "citation": "Income Tax Act 1961, Section 112 as amended by Finance (No. 2) Act 2024; Section 47(viic) for SGB maturity exemption",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 2 product families [equity_mf, gold], scoped to investor structure individual/resident; 4 tax entries; 0 SEBI minimum-ticket rules."
+      },
+      "operational": [
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Mirae Asset Large Cap Fund - Growth Plan",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Axis Large Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Flexi Cap Fund"
+        }
+      ]
     }
   },
   "tokenUsage": {
