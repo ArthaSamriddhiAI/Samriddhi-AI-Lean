@@ -2510,7 +2510,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% to the 10% single-position target, a 1.6-point reduction taken in one step. As an equity-oriented mutual fund held long-term, the sale will be a Section 112A event at LTCG 12.5% above the Rs 1.25 L annual threshold, or STCG at 20% on units under twelve months; size the redemption with the client's realised-gains position in mind."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% to the 10% single-position ceiling, a 1.6-point reduction in one step. The sale on units held over twelve months attracts LTCG at 12.5% above the Rs 1.25 L annual threshold; units under twelve months attract STCG at 20%. Size the trim to favour long-held units where available, and consider it against the client's other equity LTCG realisations for the year to use the annual exemption efficiently."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -2519,7 +2519,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to the 10% single-position target, a 1-point reduction taken in one step, on the back of the negative thesis-quality verdict. Frame the sale as an equity-oriented mutual fund redemption: LTCG 12.5% above the Rs 1.25 L annual threshold for units held over twelve months, STCG 20% otherwise."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10% in a single 1-point step, on the back of the thesis-quality concern surfaced in the diagnostic. The redemption attracts LTCG at 12.5% above the Rs 1.25 L threshold for units held over twelve months, and STCG at 20% for units under twelve months; the same coordination with the client's other equity realisations applies."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2528,7 +2528,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund and revisiting at the next review. No trim is warranted at this point; the position carries a monitor flag, not a concentration breach or a thesis concern that has converged."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -2537,7 +2537,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund at its current weight while flagging the thesis-quality concern for discussion; the position is not a trim candidate at this weight, but the client should hear the qualitative reservation and understand it is on the watch list."
+          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund. The diagnostic surfaces a thesis-quality concern worth discussing with the client, but a single signal does not clear the bar for a trim; flag it for closer observation and reassess at the next review."
         },
         {
           "holding_ref": "SBI Small Cap Fund",
@@ -2546,7 +2546,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining SBI Small Cap Fund at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
+          "advisor_action": "Propose maintaining SBI Small Cap Fund. The position carries a monitor flag from the diagnostic but no convergence of signals to act on; revisit at the next review."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2555,7 +2555,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining the White Oak India Pioneers PMS position; the Monitor verdict is a watch-item to revisit at the next review. Note for the file that the SEBI PMS minimum ticket of Rs 0.5 Cr would constrain the shape of any future partial trim, and that PMS gains pass through to the investor at the underlying-instrument level: listed-equity LTCG at 12.5% above the Rs 1.25 L annual threshold under Section 112A and STCG at 20% under Section 111A, with the 15% surcharge cap on listed-equity gains."
+          "advisor_action": "Propose maintaining the White Oak India Pioneers PMS allocation. The position carries a monitor flag but no thesis or cost convergence warranting a trim, and any future partial reduction would need to respect the SEBI PMS minimum ticket of Rs 50 L on the residual."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2564,7 +2564,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling; at 20.3% the position is well above the 15% escalate threshold and is the portfolio's largest single-name concentration. Take it down 10.3 points in three roughly equal steps of 3.4, 3.5, and 3.4 points: the first now from 20.3% to 16.9%, the second once the position has settled near 16.9% to 13.4%, and the third from 13.4% to 10%. Staging serves two purposes: it manages market impact on a single name, and it spreads the Section 112A capital-gains event at LTCG 12.5% above the Rs 1.25 L annual threshold (or STCG at 20% under Section 111A on any lots under twelve months) across the tax window."
+          "advisor_action": "Propose trimming Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling, a 10.3-point reduction staged in three steps of roughly 3.4, 3.5, and 3.4 points, taken at 20.3%, 16.9%, and 13.4% respectively. The position sits well above the 15% escalation threshold and is the portfolio's largest single-name concentration. The sale triggers a capital-gains event on listed equity: LTCG at 12.5% above the Rs 1.25 L annual threshold on shares held over twelve months, and STCG at 20% on shares under twelve months. Staging the sale across three tranches manages market impact in the name and spreads the LTCG realisation across the annual exemption efficiently."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2573,7 +2573,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining HDFC Bank at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
+          "advisor_action": "Propose maintaining HDFC Bank. The diagnostic carries a monitor flag, not a concentration breach or a thesis concern that has converged; revisit at the next review."
         }
       ],
       "observation_actions": [
@@ -2581,13 +2581,13 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose addressing the position-level concentration in this meeting: Reliance Industries at 20.3% is above the 15% escalate threshold and is the lead item, with Parag Parikh Flexi Cap at 11.6% and Axis Large Cap at 11% sitting just above the 10% single-position ceiling. The rebalance proposal below carries all three down to target as one coordinated set."
+          "advisor_action": "Propose addressing the single-position concentration at the portfolio level through the staged trims set out in the rebalance: Reliance Industries from 20.3% toward 10% in three steps, Parag Parikh Flexi Cap from 11.6% to 10%, and Axis Large Cap from 11% to 10%. Frame this with the client as restoring single-position discipline against the 10% ceiling and the 15% escalation line."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the concentration trims to close the allocation drift in the same conversation: debt is at 0% against a 25% target, and alternatives are below target, so the trims directly fund the gap rather than being a separate exercise."
+          "advisor_action": "Propose closing the allocation gap by deploying the 12.9 points freed by the trims together with 0.8 points of deployable cash, 13.7 points in total, into the under-target Debt sleeve (currently at 0%, moving toward the 25% target with a 12.8-point add) and the under-target Alternatives sleeve (currently at 5.8%, moving toward the 7.5% target with a 0.9-point add). Position this with the client as one coherent rebalance rather than two separate decisions."
         }
       ],
       "rebalance_proposal": {
@@ -2681,7 +2681,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose a single coordinated rebalance that closes both the concentration and the allocation drift in one operation. On the funding side: trim Reliance Industries from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points (20.3% to 16.9%, then to 13.4%, then to 10%), staged to manage single-name market impact and to spread the Section 112A capital-gains event at LTCG 12.5% above the Rs 1.25 L threshold across the tax window; trim Parag Parikh Flexi Cap from 11.6% to 10% in a single 1.6-point step; and trim Axis Large Cap from 11% to 10% in a single 1-point step, both as Section 112A equity-mutual-fund redemptions at the same LTCG treatment. Together the trims free 12.9 points, and a further 0.8 points of cash above its target is available as dry powder, for 13.7 points of deployable capital. Deploy it toward the under-target sleeves in proportion to each sleeve's gap: 12.8 points into debt, taking it from 0% toward its 25% target and landing at 12.8%, and 0.9 points into alternatives, taking it from 5.8% toward its 7.5% target and landing at 6.7%. Nothing is left over to cash; the gap-closing is fully absorbed by the under-target sleeves.",
+          "advisor_action": "Propose the rebalance as a single gap-closing operation. On the trim side: Reliance Industries comes down from 20.3% toward the 10% ceiling in three steps of 3.4, 3.5, and 3.4 points, triggered at 20.3%, 16.9%, and 13.4%; Parag Parikh Flexi Cap is reduced from 11.6% to 10% in one 1.6-point step; and Axis Large Cap is reduced from 11% to 10% in one 1-point step. Together these free 12.9 points of capital, and a further 0.8 points of deployable cash is added as dry powder, giving 13.7 points to deploy. That capital is directed in proportion to each under-target sleeve's gap: 12.8 points into Debt, moving it from 0% toward the 25% target to reach 12.8%, and 0.9 points into Alternatives, moving it from 5.8% toward the 7.5% target to reach 6.7%. There is no residual leftover to cash. The Reliance trim is staged in three tranches partly to manage market impact in the name and partly to spread the listed-equity capital-gains event, with LTCG at 12.5% above the Rs 1.25 L annual threshold on long-held shares and STCG at 20% on shares under twelve months; the same LTCG and STCG treatment applies to the mutual-fund redemptions. Frame the whole move with the client as restoring single-position discipline and closing the allocation drift in one coordinated step.",
           "generation_method": "llm"
         }
       },
@@ -2693,9 +2693,9 @@
         "trim_count": 3,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "One coordinated rebalance: trim Reliance Industries from 20.3% to 10% over three steps plus 1.6 and 1.0-point trims on two equity funds, with the 12.9 points freed and 0.8 points of deployable cash redeployed into debt and alternatives to close the allocation drift."
+        "one_line_characterization": "Stage Reliance Industries down from 20.3% toward 10% with concurrent trims on two large-cap funds, and deploy the freed 12.9 points plus 0.8 points of cash into the missing Debt sleeve and the under-target Alternatives sleeve as one coordinated rebalance."
       },
-      "reasoning_summary": "The portfolio has one heavy single-name concentration in Reliance Industries and two equity funds sitting marginally above the 10% ceiling, all against a debt sleeve at 0% versus a 25% target. The cleanest move is to treat concentration and drift as the same operation: trim the three positions to target, deploy the freed 12.9 points and the 0.8 points of cash above target into the under-target debt and alternatives sleeves, and stage the Reliance sale across three steps for market-impact and tax reasons. The Monitor and thesis-concern Maintain positions are watch-items to surface in the conversation, not trades for this meeting.",
+      "reasoning_summary": "The portfolio's defining issue is a 20.3% single-name concentration in Reliance Industries against a 0% Debt sleeve, so the rebalance is genuinely one operation: trim the breaches, deploy the freed capital plus a small slice of dry powder into Debt and Alternatives, no leftover. Staging on Reliance is three steps to manage both market impact in the name and the listed-equity LTCG realisation across the Rs 1.25 L annual exemption. The two large-cap fund trims are small one-step adjustments to restore the 10% ceiling. Instrument selection follows the funnel: lowest-cost picks within the strong three-year risk-adjusted cohort for debt and gold, with the non-gold AIF portion honestly flagged as advisor-select.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {
@@ -3023,7 +3023,381 @@
           "matched_record_name": "SBI Small Cap Fund - Regular Plan - Growth",
           "sebi_category": "Small Cap Fund"
         }
-      ]
+      ],
+      "deployment_plan": [
+        {
+          "sleeve": "Debt",
+          "add_pct_points": 12.8,
+          "deploy_cr": 4.42,
+          "equity": null,
+          "debt": {
+            "target_duration": "long",
+            "credit_buckets": [
+              {
+                "bucket": "sovereign",
+                "target_duration": "long",
+                "split_pct": 25,
+                "deploy_pct": 3.2,
+                "deploy_cr": 1.1,
+                "shortlist": {
+                  "label": "sovereign debt, long duration",
+                  "surfaced": [
+                    {
+                      "fund_name": "ICICI Prudential Constant Maturity Gilt Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund with 10 year Constant",
+                      "ter_pct": 0.4,
+                      "aum_cr": 2419.0813,
+                      "age_years": 11.57,
+                      "sharpe_3y": 0.5026,
+                      "sortino_3y": 0.4333,
+                      "calmar_3y": 3.7064,
+                      "return_3y": 6.98,
+                      "duration_y": 6.96,
+                      "aaa_pct": null,
+                      "sov_pct": 95.96
+                    },
+                    {
+                      "fund_name": "Baroda BNP Paribas GILT FUND - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.45,
+                      "aum_cr": 1024.7684,
+                      "age_years": 24.06,
+                      "sharpe_3y": 0.1889,
+                      "sortino_3y": 0.1543,
+                      "calmar_3y": 2.5103,
+                      "return_3y": 6.1,
+                      "duration_y": 7.88,
+                      "aaa_pct": null,
+                      "sov_pct": 97.34
+                    },
+                    {
+                      "fund_name": "SBI CONSTANT MATURITY 10 Year GILT FUND - REGULAR PLAN - GROWTH",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund with 10 year Constant",
+                      "ter_pct": 0.63,
+                      "aum_cr": 1772.7621,
+                      "age_years": 25.28,
+                      "sharpe_3y": 0.3323,
+                      "sortino_3y": 0.2776,
+                      "calmar_3y": 3.2657,
+                      "return_3y": 6.53,
+                      "duration_y": 6.9,
+                      "aaa_pct": null,
+                      "sov_pct": 97.19
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Axis Gilt Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.83,
+                      "aum_cr": 595.8013,
+                      "age_years": 14.21,
+                      "sharpe_3y": 0.354,
+                      "sortino_3y": 0.3193,
+                      "calmar_3y": 2.4611,
+                      "return_3y": 6.34,
+                      "duration_y": 8.28,
+                      "aaa_pct": null,
+                      "sov_pct": 91.66
+                    },
+                    {
+                      "fund_name": "UTI - GILT FUND - Discontinued PF Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.9,
+                      "aum_cr": 527.7088,
+                      "age_years": 22.53,
+                      "sharpe_3y": 0.366,
+                      "sortino_3y": 0.3327,
+                      "calmar_3y": 2.1944,
+                      "return_3y": 6.35,
+                      "duration_y": 6.73,
+                      "aaa_pct": null,
+                      "sov_pct": 80.84
+                    }
+                  ],
+                  "eligible_count": 21,
+                  "cohort_count": 11,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 1.1,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 1.1,
+                  "note": "Deploy in a single step; 1.1 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "high_grade",
+                "target_duration": "long",
+                "split_pct": 55,
+                "deploy_pct": 7,
+                "deploy_cr": 2.42,
+                "shortlist": {
+                  "label": "high grade debt, long duration",
+                  "surfaced": [
+                    {
+                      "fund_name": "ICICI Prudential Bond Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Medium to Long Duration Fund",
+                      "ter_pct": 1.03,
+                      "aum_cr": 2767.8095,
+                      "age_years": 17.64,
+                      "sharpe_3y": 0.5815,
+                      "sortino_3y": 0.4936,
+                      "calmar_3y": 5.1847,
+                      "return_3y": 6.71,
+                      "duration_y": 6.52,
+                      "aaa_pct": 40.1,
+                      "sov_pct": 54.9
+                    },
+                    {
+                      "fund_name": "HDFC Income Fund - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Medium to Long Duration Fund",
+                      "ter_pct": 1.44,
+                      "aum_cr": 854.3013,
+                      "age_years": 25.58,
+                      "sharpe_3y": 0.156,
+                      "sortino_3y": 0.135,
+                      "calmar_3y": 2.9736,
+                      "return_3y": 5.82,
+                      "duration_y": 6.4204,
+                      "aaa_pct": 27.95,
+                      "sov_pct": 68.11
+                    }
+                  ],
+                  "overflow": [],
+                  "eligible_count": 4,
+                  "cohort_count": 2,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 2.42,
+                  "tranches": 2,
+                  "window_days": 14,
+                  "per_tranche_cr": 1.21,
+                  "note": "Stage the 2.42 Cr deploy over 2 tranches across roughly 14 days, about 1.21 Cr per tranche, to manage entry risk; daily traded volume is unavailable, so the pacing is sized on the deploy amount and the destination AUM, not live turnover."
+                }
+              },
+              {
+                "bucket": "credit_risk",
+                "target_duration": "long",
+                "split_pct": 20,
+                "deploy_pct": 2.6,
+                "deploy_cr": 0.9,
+                "shortlist": {
+                  "label": "credit risk debt (no long-duration fund eligible; credit-bucket-wide)",
+                  "surfaced": [
+                    {
+                      "fund_name": "Axis Strategic Bond Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.33,
+                      "aum_cr": 2110.2191,
+                      "age_years": 14.03,
+                      "sharpe_3y": 1.546,
+                      "sortino_3y": 1.6276,
+                      "calmar_3y": 14.5853,
+                      "return_3y": 7.57,
+                      "duration_y": 3.52,
+                      "aaa_pct": 8.8,
+                      "sov_pct": 24.88
+                    },
+                    {
+                      "fund_name": "ICICI Prudential Credit Risk Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Credit Risk Fund",
+                      "ter_pct": 1.37,
+                      "aum_cr": 5886.5711,
+                      "age_years": 15.35,
+                      "sharpe_3y": 2.6039,
+                      "sortino_3y": 2.9912,
+                      "calmar_3y": 37.6426,
+                      "return_3y": 8.11,
+                      "duration_y": 2.29,
+                      "aaa_pct": 11.45,
+                      "sov_pct": 9.72
+                    },
+                    {
+                      "fund_name": "ICICI Prudential Medium Term Bond Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.39,
+                      "aum_cr": 5613.5633,
+                      "age_years": 21.57,
+                      "sharpe_3y": 1.6899,
+                      "sortino_3y": 1.6255,
+                      "calmar_3y": 14.146,
+                      "return_3y": 7.55,
+                      "duration_y": 3.55,
+                      "aaa_pct": 18.46,
+                      "sov_pct": 13.88
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Nippon India Credit Risk Fund  - Growth Plan",
+                      "source": "mf",
+                      "sub_category": "Credit Risk Fund",
+                      "ter_pct": 1.48,
+                      "aum_cr": 1059.4879,
+                      "age_years": 20.84,
+                      "sharpe_3y": 3.0071,
+                      "sortino_3y": 2.7862,
+                      "calmar_3y": 86.0474,
+                      "return_3y": 8.09,
+                      "duration_y": 1.98,
+                      "aaa_pct": 17.82,
+                      "sov_pct": 16.81
+                    },
+                    {
+                      "fund_name": "Aditya Birla Sun Life Medium Term Plan - Growth - Regular Plan",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.56,
+                      "aum_cr": 3085.1724,
+                      "age_years": 17.04,
+                      "sharpe_3y": 2.1402,
+                      "sortino_3y": 3.283,
+                      "calmar_3y": 29.319,
+                      "return_3y": 9.6,
+                      "duration_y": 2.96,
+                      "aaa_pct": 23.67,
+                      "sov_pct": 19.53
+                    }
+                  ],
+                  "eligible_count": 12,
+                  "cohort_count": 6,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.9,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.9,
+                  "note": "Deploy in a single step; 0.9 Cr is below the 2 Cr staging threshold."
+                }
+              }
+            ]
+          },
+          "alternatives": null,
+          "top_ups": []
+        },
+        {
+          "sleeve": "Alternatives",
+          "add_pct_points": 0.9,
+          "deploy_cr": 0.31,
+          "equity": null,
+          "debt": null,
+          "alternatives": {
+            "alt_target_pct": 6.7,
+            "gold_pct": 5,
+            "non_gold_aif_pct": 1.7,
+            "gold_shortlist": {
+              "label": "gold (commodity ETF)",
+              "surfaced": [
+                {
+                  "fund_name": "Mirae Asset Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.35,
+                  "aum_cr": 3262.2584,
+                  "age_years": 3.12,
+                  "sharpe_3y": 1.6734,
+                  "sortino_3y": 2.4164,
+                  "calmar_3y": 3.2508,
+                  "return_3y": 33.43,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "Aditya Birla Sun Life Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.43,
+                  "aum_cr": 2908.6994,
+                  "age_years": 14.91,
+                  "sharpe_3y": 1.6676,
+                  "sortino_3y": 2.3729,
+                  "calmar_3y": 3.1367,
+                  "return_3y": 33.27,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "UTI GOLD Exchange Traded Fund",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.47,
+                  "aum_cr": 4439.6636,
+                  "age_years": 18.99,
+                  "sharpe_3y": 1.6457,
+                  "sortino_3y": 2.3619,
+                  "calmar_3y": 3.2915,
+                  "return_3y": 33.62,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                }
+              ],
+              "overflow": [
+                {
+                  "fund_name": "ICICI Prudential Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.5,
+                  "aum_cr": 25941.6271,
+                  "age_years": 15.63,
+                  "sharpe_3y": 1.6638,
+                  "sortino_3y": 2.391,
+                  "calmar_3y": 3.2335,
+                  "return_3y": 33.47,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "KOTAK GOLD ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.55,
+                  "aum_cr": 15574.4898,
+                  "age_years": 18.71,
+                  "sharpe_3y": 1.6619,
+                  "sortino_3y": 2.3847,
+                  "calmar_3y": 3.2149,
+                  "return_3y": 33.37,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                }
+              ],
+              "eligible_count": 18,
+              "cohort_count": 9,
+              "degraded": false,
+              "degradation_reason": null
+            },
+            "non_gold_advisor_select": {
+              "reason": "AIF carries no performance metrics and the snapshot AIF universe does not reliably match a deployable product for this investor (product debt P40); the non-gold alternatives portion is advisor-select, not auto-ranked.",
+              "aif_universe_count": 162
+            }
+          },
+          "top_ups": []
+        }
+      ],
+      "deployment_narration": "On the Debt side, deploy Rs 4.42 Cr (12.8 points) across the three credit buckets at the long-duration end. Sovereign takes 25% of the sleeve, roughly Rs 1.1 Cr (3.2 points) in one tranche: the shortlist is ICICI Prudential Constant Maturity Gilt Fund (TER 0.40%, 3-year Sharpe 0.50, Sortino 0.43, Calmar 3.71, return 6.98%, AUM Rs 2,419 Cr), SBI Constant Maturity 10 Year Gilt Fund (TER 0.63%, Sharpe 0.33, Sortino 0.28, Calmar 3.27, return 6.53%, AUM Rs 1,773 Cr), and Baroda BNP Paribas Gilt Fund (TER 0.45%, Sharpe 0.19, Sortino 0.15, Calmar 2.51, return 6.10%, AUM Rs 1,025 Cr); the ICICI Prudential constant-maturity gilt is the lowest-cost fund among the consistently strong three-year risk-adjusted performers and is the recommended pick. High-grade takes 55% of the sleeve, roughly Rs 2.42 Cr (7 points) staged across two tranches over the standard two-week window: the shortlist is ICICI Prudential Bond Fund (TER 1.03%, Sharpe 0.58, Sortino 0.49, Calmar 5.18, return 6.71%, AUM Rs 2,768 Cr) and HDFC Income Fund (TER 1.44%, Sharpe 0.16, Sortino 0.14, Calmar 2.97, return 5.82%, AUM Rs 854 Cr); ICICI Prudential Bond Fund is the lead pick, being both the lower-cost and the stronger three-year risk-adjusted performer. Credit risk takes the remaining 20%, roughly Rs 0.9 Cr (2.6 points) in one tranche; no long-duration credit-risk fund was eligible so the shortlist is drawn credit-bucket-wide and comes in at medium duration: ICICI Prudential Credit Risk Fund (TER 1.37%, Sharpe 2.60, Sortino 2.99, Calmar 37.64, return 8.11%, AUM Rs 5,887 Cr), ICICI Prudential Medium Term Bond Fund (TER 1.39%, Sharpe 1.69, Sortino 1.63, Calmar 14.15, return 7.55%, AUM Rs 5,614 Cr), and Axis Strategic Bond Fund (TER 1.33%, Sharpe 1.55, Sortino 1.63, Calmar 14.59, return 7.57%, AUM Rs 2,110 Cr); Axis Strategic Bond Fund is the lowest-cost of the three and sits in the strong performer cohort, with ICICI Prudential Credit Risk available as an alternative where the client is comfortable with the higher credit profile. Flag with the client that the duration mismatch on the credit-risk bucket is a deliberate substitution given the eligibility limits at the long end. On the Alternatives side, deploy Rs 0.31 Cr (0.9 points) split into a 5% gold core and a 1.7% non-gold AIF portion. For gold, the shortlist is Mirae Asset Gold ETF (TER 0.35%), Aditya Birla Sun Life Gold ETF (TER 0.43%), and UTI Gold ETF (TER 0.47%); the Mirae Asset Gold ETF is the lowest-cost pick. The non-gold AIF portion is advisor-select rather than auto-ranked: AIF carries no performance metrics and the snapshot AIF universe of 162 products does not reliably match a deployable product for this investor, so the specific AIF is the advisor's call with the client rather than a system pick, and capital may be staged into it once the choice is made.",
+      "advisor_framing_note": null
     }
   },
   "tokenUsage": {

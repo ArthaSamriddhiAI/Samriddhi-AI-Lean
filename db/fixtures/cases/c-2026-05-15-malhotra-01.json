@@ -1835,7 +1835,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position target in two steps of 2.8 points each, the first now and the second once the position has settled near 12.8%, staging the sale to manage the capital-gains event. The fund is equity-oriented, so units held over twelve months attract LTCG at 12.5% above the Rs 1.25 L threshold and units held under twelve months attract STCG at 20%; size each step against the client's realised gains for the year."
+          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position target in two steps of roughly 2.8 points each, the first now and the second once the position has settled near 12.8%. The sale triggers an equity-oriented mutual fund capital-gains event: LTCG at 12.5% above the Rs 1.25 L annual threshold for units held twelve months or longer, STCG at 20% for units held under twelve months; stagger the sale across the two steps to manage that event."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1844,7 +1844,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing Axis Large Cap Fund from 11.8% to the 10% single-position target in a single step of 1.8 points. As an equity-oriented mutual fund, the sale triggers LTCG at 12.5% above the Rs 1.25 L threshold on units held over twelve months and STCG at 20% on units held under twelve months; sequence the lots accordingly."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11.8% to the 10% single-position target in a single step of 1.8 points. The sale triggers an equity-oriented mutual fund capital-gains event: LTCG at 12.5% above the Rs 1.25 L threshold for units held twelve months or longer, STCG at 20% for units held under twelve months."
         },
         {
           "holding_ref": "Parag Parikh Flexi Cap Fund",
@@ -1853,7 +1853,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position target in a single step of 4.2 points. Equity-oriented treatment applies: LTCG at 12.5% above the Rs 1.25 L threshold on units held over twelve months, STCG at 20% on units held under twelve months; favour long-term lots to keep the realised tax measured."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position target in a single step of 4.2 points. The sale triggers an equity-oriented mutual fund capital-gains event: LTCG at 12.5% above the Rs 1.25 L threshold for units held twelve months or longer, STCG at 20% for units held under twelve months."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -1862,7 +1862,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% single-position target in a single step of 0.5 points, in line with the thesis-quality concern the diagnostic surfaced. As an equity-oriented fund, the sale attracts LTCG at 12.5% above the Rs 1.25 L threshold on long-term units and STCG at 20% on short-term units."
+          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% single-position target in a single step of 0.5 points, on the back of the thesis-quality concern flagged in the diagnostic. The sale triggers an equity-oriented mutual fund capital-gains event: LTCG at 12.5% above the Rs 1.25 L threshold for units held twelve months or longer, STCG at 20% for units held under twelve months."
         },
         {
           "holding_ref": "NHAI Tax-Free Bonds 2032",
@@ -1871,7 +1871,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing the NHAI Tax-Free Bonds 2032 position from 18.1% toward the 10% single-position target in two steps of roughly 4 and 4.1 points, the first now and the second once the position has settled near 14.1%, staging the sale to manage market liquidity in the secondary bond market."
+          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward the 10% single-position target in two steps of roughly 4 and 4.1 points, the first now and the second once the position has settled near 14.1%, staging the disposal to manage execution in the bond market."
         },
         {
           "holding_ref": "HDFC Bank FD",
@@ -1880,7 +1880,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose reducing the HDFC Bank FD from 13.1% to the 10% single-position target in a single step of 3.1 points, releasing the proceeds on maturity or via a partial premature withdrawal of the relevant deposit so the residual sits at the 10% ceiling."
+          "advisor_action": "Propose trimming the HDFC Bank FD position from 13.1% to the 10% single-position target in a single step of 3.1 points; size the partial redemption around the deposit's maturity schedule to avoid pre-closure friction."
         }
       ],
       "observation_actions": [
@@ -1888,19 +1888,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose the staged rebalance: trim Mirae Asset Large Cap Fund, Axis Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund, NHAI Tax-Free Bonds 2032, and HDFC Bank FD each to the 10% single-position target, freeing 23.3 points of weight to redirect into the under-target equity sleeve. Frame the escalate severity to the client as the reason for acting now rather than letting the concentrations sit."
+          "advisor_action": "Propose addressing single-name concentration across the portfolio in one coordinated pass: trim Mirae Asset Large Cap from 15.6% and NHAI Tax-Free Bonds 2032 from 18.1% (both above the 15% escalate threshold) toward the 10% target in two steps, and trim Axis Large Cap (11.8%), Parag Parikh Flexi Cap (14.2%), Kotak Emerging Equity (10.5%), and HDFC Bank FD (13.1%) to 10% in a single step each. Frame the trims as portfolio-construction discipline rather than calls on the individual names."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose addressing the equity-sleeve drift directly through the trims: the freed capital lifts Equity from 52.1% toward its 65% target, closing the gap to mandate without any standalone purchases. Position this to the client as bringing the allocation back to the agreed mix, not as a tactical equity call."
+          "advisor_action": "Propose using the capital freed by the concentration trims to close the drift toward the model mix: equity sits at 52.1% against a 65% target, and the redeployment carries it back to target. Position the rebalance as a single coordinated move on construction discipline rather than a series of disconnected trades."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Propose surfacing the divergence between the client's stated mandate and the revealed allocation as a conversation point alongside the rebalance, so the trims and redeployment land as a return to the mandate rather than a new direction. Confirm with the client that the 65% equity target still reflects their intent before executing."
+          "advisor_action": "Pace the rebalance conversation gently; lead with reassurance and frame the changes as construction discipline that brings the portfolio in line with the investor's stated direction, rather than a corrective on past choices. Let the investor set the pace on the trims that have a real tax event."
         }
       ],
       "rebalance_proposal": {
@@ -2034,7 +2034,7 @@
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that trims every position above its single-position ceiling toward the 10% target: Mirae Asset Large Cap Fund from 15.6% in two steps of 2.8 points (the first now, the second once the position settles near 12.8%), Axis Large Cap Fund from 11.8% in one step of 1.8 points, Parag Parikh Flexi Cap Fund from 14.2% in one step of 4.2 points, Kotak Emerging Equity Fund from 10.5% in one step of 0.5 points, NHAI Tax-Free Bonds 2032 from 18.1% in two steps of 4 and 4.1 points (the first now, the second once it settles near 14.1%), and the HDFC Bank FD from 13.1% in one step of 3.1 points. For the equity-oriented mutual fund trims, the sales trigger LTCG at 12.5% above the Rs 1.25 L threshold on long-term units and STCG at 20% on short-term units; stage the lot sequencing to manage the realised tax. The trims free 23.3 points of weight; with no deployable cash above its target to add to the funding, the redeployment lifts the under-target Equity sleeve from 52.1% by 12.9 points to its 65% target. The remaining 10.4 points sit honestly in cash, available for staged deployment as opportunities present, or as grounds to revisit the target weights with the client.",
+          "advisor_action": "Propose the rebalance as one coordinated gap-closing move. The trims free 23.3 points: Mirae Asset Large Cap from 15.6% to 10% (5.6 points, in two steps of 2.8), Axis Large Cap from 11.8% to 10% (1.8 points), Parag Parikh Flexi Cap from 14.2% to 10% (4.2 points), Kotak Emerging Equity from 10.5% to 10% (0.5 points), NHAI Tax-Free Bonds 2032 from 18.1% to 10% (8.1 points, in two steps of 4 and 4.1), and the HDFC Bank FD from 13.1% to 10% (3.1 points). Of the 23.3 points freed, 12.9 points flow to the equity sleeve, taking it from 52.1% to its 65% target. The remaining 10.4 points stay in cash; that is honest leftover beyond the under-target capacity, available for staged deployment as opportunities open up, or grounds to revisit the target weights with the investor in the next review. Each mutual fund trim triggers an equity-oriented capital-gains event (LTCG at 12.5% above the Rs 1.25 L threshold, STCG at 20% for units held under twelve months), which is the second reason to stage the larger trims rather than execute them in one go.",
           "generation_method": "llm"
         }
       },
@@ -2046,9 +2046,9 @@
         "trim_count": 6,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Six single-position breaches trimmed to the 10% ceiling, freeing 23.3 points to bring Equity back to its 65% target with 10.4 points held in cash as dry powder."
+        "one_line_characterization": "Six concentration trims free 23.3 points; 12.9 points close the equity gap to the 65% target across international, mid and small cap, with 10.4 points held back as honest cash."
       },
-      "reasoning_summary": "The portfolio is carrying six positions above their single-position ceilings, and the diagnostic has escalated the concentration picture; the right move is a staged trim of all six to the 10% target. The trims free 23.3 points of weight, more than enough to close the 12.9-point gap on Equity to its 65% target, leaving 10.4 points to sit in cash as deployable capital. Frame the rebalance to the client as returning the portfolio to the agreed mandate, and use the conversation to confirm the 65% equity target still reflects their intent.",
+      "reasoning_summary": "Six positions sit above the single-position thresholds, and the rebalance handles them as one coordinated pass rather than six separate calls. The freed capital more than covers the under-target equity gap, so the recommendation is to fill equity to target across the three under-target sub-buckets, top up Parag Parikh Flexi Cap as the diversified incumbent, and keep the remaining 10.4 points in cash as honest leftover. The mutual fund trims carry an equity-oriented capital-gains event, which is reason to stage the larger ones; the stated-vs-observed divergence is reason to pace the conversation gently.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {
@@ -2171,7 +2171,575 @@
           "matched_record_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
           "sebi_category": "Flexi Cap Fund"
         }
-      ]
+      ],
+      "deployment_plan": [
+        {
+          "sleeve": "Equity",
+          "add_pct_points": 12.9,
+          "deploy_cr": 1.53,
+          "equity": {
+            "equity_target_pct": 65,
+            "look_through": [
+              {
+                "instrument": "Mirae Asset Large Cap Fund",
+                "weight_pct": 15.6,
+                "domestic_large_pct": 13.3,
+                "domestic_mid_pct": 1.4,
+                "domestic_small_pct": 0.8,
+                "international_pct": 0,
+                "type_label": "Large Cap Fund",
+                "composition_source": "snapshot"
+              },
+              {
+                "instrument": "Axis Large Cap Fund",
+                "weight_pct": 11.8,
+                "domestic_large_pct": 11.8,
+                "domestic_mid_pct": 0,
+                "domestic_small_pct": 0,
+                "international_pct": 0,
+                "type_label": "large-cap fund",
+                "composition_source": "category_default"
+              },
+              {
+                "instrument": "Parag Parikh Flexi Cap Fund",
+                "weight_pct": 14.2,
+                "domestic_large_pct": 9,
+                "domestic_mid_pct": 0.3,
+                "domestic_small_pct": 0.4,
+                "international_pct": 4,
+                "type_label": "Flexi Cap Fund (flexi-cap, ~29% international)",
+                "composition_source": "snapshot"
+              },
+              {
+                "instrument": "Kotak Emerging Equity Fund",
+                "weight_pct": 10.5,
+                "domestic_large_pct": 0,
+                "domestic_mid_pct": 10.5,
+                "domestic_small_pct": 0,
+                "international_pct": 0,
+                "type_label": "mid-cap fund",
+                "composition_source": "category_default"
+              }
+            ],
+            "sub_buckets": [
+              {
+                "bucket": "international",
+                "target_pct": 13,
+                "current_pct": 4,
+                "gap_pct": 9,
+                "deploy_pct": 3.9,
+                "deploy_cr": 0.46,
+                "shortlist": {
+                  "label": "international equity",
+                  "surfaced": [
+                    {
+                      "fund_name": "Navi Total Stock Market US Specific Equity Passive FoF- Regular Plan- Growth",
+                      "source": "mf",
+                      "sub_category": "FoFs Overseas",
+                      "ter_pct": 0.06,
+                      "aum_cr": 954.864,
+                      "age_years": 4.12,
+                      "sharpe_3y": 1.4751,
+                      "sortino_3y": 1.5796,
+                      "calmar_3y": 2.5164,
+                      "return_3y": 22.51,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Navi NASDAQ100 US Specific Equity Passive FOF- Regular- Growth",
+                      "source": "mf",
+                      "sub_category": "FoFs Overseas",
+                      "ter_pct": 0.3,
+                      "aum_cr": 1038.0311,
+                      "age_years": 4.04,
+                      "sharpe_3y": 1.5193,
+                      "sortino_3y": 1.7839,
+                      "calmar_3y": 2.8122,
+                      "return_3y": 27.36,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Motilal Oswal Nasdaq 100 Fund of Fund- Regular Plan Growth",
+                      "source": "mf",
+                      "sub_category": "FoFs Overseas",
+                      "ter_pct": 0.58,
+                      "aum_cr": 5881.85,
+                      "age_years": 7.35,
+                      "sharpe_3y": 1.3497,
+                      "sortino_3y": 1.935,
+                      "calmar_3y": 1.7935,
+                      "return_3y": 30.73,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Motilal Oswal Nasdaq 100 ETF (MOFN100)",
+                      "source": "mf",
+                      "sub_category": "ETFs- Global",
+                      "ter_pct": 0.59,
+                      "aum_cr": 11230.2297,
+                      "age_years": 15.03,
+                      "sharpe_3y": 1.5902,
+                      "sortino_3y": 1.9141,
+                      "calmar_3y": 2.7544,
+                      "return_3y": 28.04,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Mirae Asset S&P 500 Top 50 ETF",
+                      "source": "mf",
+                      "sub_category": "ETFs- Global",
+                      "ter_pct": 0.6,
+                      "aum_cr": 981.231,
+                      "age_years": 4.54,
+                      "sharpe_3y": 1.697,
+                      "sortino_3y": 1.9086,
+                      "calmar_3y": 2.6051,
+                      "return_3y": 26.07,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "eligible_count": 26,
+                  "cohort_count": 13,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.46,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.46,
+                  "note": "Deploy in a single step; 0.46 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "domestic_large",
+                "target_pct": 18.2,
+                "current_pct": 34.1,
+                "gap_pct": 0,
+                "deploy_pct": 0,
+                "deploy_cr": 0,
+                "shortlist": {
+                  "label": "domestic large cap",
+                  "surfaced": [
+                    {
+                      "fund_name": "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth",
+                      "source": "mf",
+                      "sub_category": "Large Cap Fund",
+                      "ter_pct": 1.4,
+                      "aum_cr": 77451.5856,
+                      "age_years": 17.88,
+                      "sharpe_3y": 0.7069,
+                      "sortino_3y": 0.6357,
+                      "calmar_3y": 1.044,
+                      "return_3y": 14.39,
+                      "duration_y": null,
+                      "aaa_pct": 1.39,
+                      "sov_pct": 1.41
+                    },
+                    {
+                      "fund_name": "Nippon India Large Cap  Fund- Growth Plan -Growth Option",
+                      "source": "mf",
+                      "sub_category": "Large Cap Fund",
+                      "ter_pct": 1.47,
+                      "aum_cr": 51403.7963,
+                      "age_years": 18.67,
+                      "sharpe_3y": 0.6973,
+                      "sortino_3y": 0.6273,
+                      "calmar_3y": 1.0338,
+                      "return_3y": 15.41,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "HDFC Large Cap Fund - Growth Option - Regular Plan",
+                      "source": "mf",
+                      "sub_category": "Large Cap Fund",
+                      "ter_pct": 1.59,
+                      "aum_cr": 40085.1928,
+                      "age_years": 29.5,
+                      "sharpe_3y": 0.4886,
+                      "sortino_3y": 0.3898,
+                      "calmar_3y": 0.7974,
+                      "return_3y": 11.81,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": 0.48
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "CANARA ROBECO LARGE CAP FUND - REGULAR PLAN - GROWTH OPTION",
+                      "source": "mf",
+                      "sub_category": "Large Cap Fund",
+                      "ter_pct": 1.65,
+                      "aum_cr": 17103.6242,
+                      "age_years": 15.64,
+                      "sharpe_3y": 0.4824,
+                      "sortino_3y": 0.3895,
+                      "calmar_3y": 0.7989,
+                      "return_3y": 11.65,
+                      "duration_y": null,
+                      "aaa_pct": 0.01,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Kotak Large Cap Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Large Cap Fund",
+                      "ter_pct": 1.73,
+                      "aum_cr": 10925.2288,
+                      "age_years": 27.29,
+                      "sharpe_3y": 0.4995,
+                      "sortino_3y": 0.3985,
+                      "calmar_3y": 0.7828,
+                      "return_3y": 12.08,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "eligible_count": 25,
+                  "cohort_count": 13,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0,
+                  "note": "Deploy in a single step; 0 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "domestic_mid",
+                "target_pct": 20.8,
+                "current_pct": 12.2,
+                "gap_pct": 8.6,
+                "deploy_pct": 3.8,
+                "deploy_cr": 0.45,
+                "shortlist": {
+                  "label": "domestic mid cap",
+                  "surfaced": [
+                    {
+                      "fund_name": "HDFC Mid Cap Fund - Growth Plan",
+                      "source": "mf",
+                      "sub_category": "Mid Cap Fund",
+                      "ter_pct": 1.36,
+                      "aum_cr": 94256.8954,
+                      "age_years": 18.79,
+                      "sharpe_3y": 1.0585,
+                      "sortino_3y": 0.9247,
+                      "calmar_3y": 1.3489,
+                      "return_3y": 22.31,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Kotak Midcap Fund - Regular Plan - Growth",
+                      "source": "mf",
+                      "sub_category": "Mid Cap Fund",
+                      "ter_pct": 1.38,
+                      "aum_cr": 61694.4013,
+                      "age_years": 19.03,
+                      "sharpe_3y": 0.8675,
+                      "sortino_3y": 0.7116,
+                      "calmar_3y": 1.0226,
+                      "return_3y": 18.6,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Nippon India Growth Mid Cap Fund-Growth Plan-Growth Option",
+                      "source": "mf",
+                      "sub_category": "Mid Cap Fund",
+                      "ter_pct": 1.52,
+                      "aum_cr": 43982.5075,
+                      "age_years": 30.35,
+                      "sharpe_3y": 1.0328,
+                      "sortino_3y": 0.894,
+                      "calmar_3y": 1.2224,
+                      "return_3y": 22.97,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Edelweiss Mid Cap Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Mid Cap Fund",
+                      "ter_pct": 1.67,
+                      "aum_cr": 14355.2206,
+                      "age_years": 18.29,
+                      "sharpe_3y": 1.0363,
+                      "sortino_3y": 0.8771,
+                      "calmar_3y": 1.2774,
+                      "return_3y": 22.23,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Invesco India Midcap Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Mid Cap Fund",
+                      "ter_pct": 1.71,
+                      "aum_cr": 10771.9009,
+                      "age_years": 18.98,
+                      "sharpe_3y": 1.0028,
+                      "sortino_3y": 0.7978,
+                      "calmar_3y": 1.3638,
+                      "return_3y": 23.1,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "eligible_count": 27,
+                  "cohort_count": 14,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.45,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.45,
+                  "note": "Deploy in a single step; 0.45 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "domestic_small",
+                "target_pct": 13,
+                "current_pct": 1.2,
+                "gap_pct": 11.8,
+                "deploy_pct": 5.2,
+                "deploy_cr": 0.62,
+                "shortlist": {
+                  "label": "domestic small cap",
+                  "surfaced": [
+                    {
+                      "fund_name": "Nippon India Small Cap Fund - Growth Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Small Cap Fund",
+                      "ter_pct": 1.4,
+                      "aum_cr": 67641.5014,
+                      "age_years": 15.56,
+                      "sharpe_3y": 0.729,
+                      "sortino_3y": 0.7401,
+                      "calmar_3y": 0.8279,
+                      "return_3y": 18.33,
+                      "duration_y": null,
+                      "aaa_pct": 1.46,
+                      "sov_pct": null
+                    },
+                    {
+                      "fund_name": "Axis Small Cap Fund - Regular Plan - Growth",
+                      "source": "mf",
+                      "sub_category": "Small Cap Fund",
+                      "ter_pct": 1.61,
+                      "aum_cr": 26007.7232,
+                      "age_years": 12.36,
+                      "sharpe_3y": 0.6768,
+                      "sortino_3y": 0.5964,
+                      "calmar_3y": 0.8767,
+                      "return_3y": 15.43,
+                      "duration_y": null,
+                      "aaa_pct": 1.15,
+                      "sov_pct": 0.58
+                    },
+                    {
+                      "fund_name": "BANDHAN SMALL CAP FUND - REGULAR PLAN GROWTH",
+                      "source": "mf",
+                      "sub_category": "Small Cap Fund",
+                      "ter_pct": 1.62,
+                      "aum_cr": 20474.1236,
+                      "age_years": 6.12,
+                      "sharpe_3y": 1.1661,
+                      "sortino_3y": 1.2465,
+                      "calmar_3y": 1.3469,
+                      "return_3y": 27.65,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "quant Small Cap Fund - Growth - Regular Plan",
+                      "source": "mf",
+                      "sub_category": "Small Cap Fund",
+                      "ter_pct": 1.64,
+                      "aum_cr": 27653.6498,
+                      "age_years": 29.26,
+                      "sharpe_3y": 0.7381,
+                      "sortino_3y": 0.775,
+                      "calmar_3y": 0.8417,
+                      "return_3y": 17.96,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": 1.21
+                    },
+                    {
+                      "fund_name": "Invesco India Smallcap Fund - Regular Plan - Growth",
+                      "source": "mf",
+                      "sub_category": "Small Cap Fund",
+                      "ter_pct": 1.7,
+                      "aum_cr": 9716.3977,
+                      "age_years": 7.44,
+                      "sharpe_3y": 0.8981,
+                      "sortino_3y": 0.738,
+                      "calmar_3y": 1.0925,
+                      "return_3y": 20.92,
+                      "duration_y": null,
+                      "aaa_pct": null,
+                      "sov_pct": null
+                    }
+                  ],
+                  "eligible_count": 24,
+                  "cohort_count": 12,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.62,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.62,
+                  "note": "Deploy in a single step; 0.62 Cr is below the 2 Cr staging threshold."
+                }
+              }
+            ],
+            "diversified_option": {
+              "label": "diversified equity (flexi / multi / large-and-mid / ELSS / value / contra / dividend-yield)",
+              "surfaced": [
+                {
+                  "fund_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+                  "source": "mf",
+                  "sub_category": "Flexi Cap Fund",
+                  "ter_pct": 1.28,
+                  "aum_cr": 134253.1711,
+                  "age_years": 12.87,
+                  "sharpe_3y": 1.0601,
+                  "sortino_3y": 0.9793,
+                  "calmar_3y": 1.5403,
+                  "return_3y": 16.83,
+                  "duration_y": null,
+                  "aaa_pct": 13.4,
+                  "sov_pct": 0.55
+                },
+                {
+                  "fund_name": "HDFC Flexi Cap Fund - Growth Plan",
+                  "source": "mf",
+                  "sub_category": "Flexi Cap Fund",
+                  "ter_pct": 1.34,
+                  "aum_cr": 100455.3195,
+                  "age_years": 31.28,
+                  "sharpe_3y": 0.9841,
+                  "sortino_3y": 0.8419,
+                  "calmar_3y": 1.4488,
+                  "return_3y": 18.06,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": 0.51
+                },
+                {
+                  "fund_name": "ICICI Prudential Value Fund (erstwhile Value Discovery Fund) - Growth",
+                  "source": "mf",
+                  "sub_category": "Value Fund",
+                  "ter_pct": 1.47,
+                  "aum_cr": 60571.3367,
+                  "age_years": 21.65,
+                  "sharpe_3y": 0.9307,
+                  "sortino_3y": 0.8928,
+                  "calmar_3y": 1.3473,
+                  "return_3y": 17.14,
+                  "duration_y": null,
+                  "aaa_pct": 0.74,
+                  "sov_pct": 1.03
+                }
+              ],
+              "overflow": [
+                {
+                  "fund_name": "Nippon India Multi Cap Fund-Growth Plan-Growth Option",
+                  "source": "mf",
+                  "sub_category": "Multi Cap Fund",
+                  "ter_pct": 1.49,
+                  "aum_cr": 50820.0115,
+                  "age_years": 21.04,
+                  "sharpe_3y": 0.8593,
+                  "sortino_3y": 0.7938,
+                  "calmar_3y": 1.0379,
+                  "return_3y": 18.57,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "SBI CONTRA FUND - REGULAR PLAN -GROWTH",
+                  "source": "mf",
+                  "sub_category": "Contra Fund",
+                  "ter_pct": 1.5,
+                  "aum_cr": 49111.4968,
+                  "age_years": 26.75,
+                  "sharpe_3y": 0.7263,
+                  "sortino_3y": 0.5925,
+                  "calmar_3y": 1.0295,
+                  "return_3y": 15.83,
+                  "duration_y": null,
+                  "aaa_pct": 2.86,
+                  "sov_pct": 2.45
+                }
+              ],
+              "eligible_count": 151,
+              "cohort_count": 76,
+              "degraded": false,
+              "degradation_reason": null
+            }
+          },
+          "debt": null,
+          "alternatives": null,
+          "top_ups": [
+            {
+              "holding_ref": "Mirae Asset Large Cap Fund",
+              "matched_fund": "Mirae Asset Large Cap Fund - Growth Plan",
+              "in_cohort": false,
+              "recommendation": "top_up_or_switch"
+            },
+            {
+              "holding_ref": "Axis Large Cap Fund",
+              "matched_fund": "Axis Large Cap Fund - Regular Plan - Growth",
+              "in_cohort": false,
+              "recommendation": "top_up_or_switch"
+            },
+            {
+              "holding_ref": "Parag Parikh Flexi Cap Fund",
+              "matched_fund": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+              "in_cohort": true,
+              "recommendation": "top_up"
+            }
+          ]
+        }
+      ],
+      "deployment_narration": "The 12.9 points going to equity translate to roughly 1.53 Cr, deployed across three under-target sub-buckets and offered alongside top-ups in the buckets that are already at or above target. The deterministic shortlists are the lowest-cost funds among the consistently strong three-year risk-adjusted performers in each bucket. International equity has a 9-point gap (4% current against a 13% target); deploy 3.9 points (about 0.46 Cr) in a single tranche, with three candidates: Navi Total Stock Market US Specific Equity Passive FoF (TER 0.06%, 3-year Sharpe 1.48, Sortino 1.58, Calmar 2.52, return 22.51%, AUM 954.86 Cr), Navi NASDAQ100 US Specific Equity Passive FoF (TER 0.30%, Sharpe 1.52, Sortino 1.78, Calmar 2.81, return 27.36%, AUM 1038.03 Cr), and Motilal Oswal Nasdaq 100 Fund of Fund (TER 0.58%, Sharpe 1.35, Sortino 1.94, Calmar 1.79, return 30.73%, AUM 5881.85 Cr). Domestic mid cap has an 8.6-point gap (12.2% against 20.8%); deploy 3.8 points (about 0.45 Cr) in a single tranche, with HDFC Mid Cap (TER 1.36%, Sharpe 1.06, Sortino 0.92, Calmar 1.35, return 22.31%, AUM 94256.90 Cr), Kotak Midcap (TER 1.38%, Sharpe 0.87, Sortino 0.71, Calmar 1.02, return 18.60%, AUM 61694.40 Cr), and Nippon India Growth Mid Cap (TER 1.52%, Sharpe 1.03, Sortino 0.89, Calmar 1.22, return 22.97%, AUM 43982.51 Cr). Domestic small cap has an 11.8-point gap (1.2% against 13%); deploy 5.2 points (about 0.62 Cr) in a single tranche, with Nippon India Small Cap (TER 1.40%, Sharpe 0.73, Sortino 0.74, Calmar 0.83, return 18.33%, AUM 67641.50 Cr), Axis Small Cap (TER 1.61%, Sharpe 0.68, Sortino 0.60, Calmar 0.88, return 15.43%, AUM 26007.72 Cr), and Bandhan Small Cap (TER 1.62%, Sharpe 1.17, Sortino 1.25, Calmar 1.35, return 27.65%, AUM 20474.12 Cr). Domestic large cap has no gap (34.1% against an 18.2% target) and takes no fresh deployment; it is itself a source of the trims. On top-ups: for Mirae Asset Large Cap and Axis Large Cap, the existing holdings match the funnel's record but the bucket is over target rather than under, so present each as either a top-up of the incumbent or a switch to a better fresh candidate in another bucket and let the investor choose; for Parag Parikh Flexi Cap, the look-through shows the holding already contributes about 9 points to domestic large, 4 points to international, and small slices to mid and small, so a top-up of the incumbent is the recommended route into diversified exposure. As a distinct diversified equity option alongside the cap buckets, the funnel also surfaces Parag Parikh Flexi Cap (TER 1.28%, Sharpe 1.06, Sortino 0.98, Calmar 1.54, return 16.83%, AUM 134253.17 Cr), HDFC Flexi Cap (TER 1.34%, Sharpe 0.98, Sortino 0.84, Calmar 1.45, return 18.06%, AUM 100455.32 Cr), and ICICI Prudential Value Fund (TER 1.47%, Sharpe 0.93, Sortino 0.89, Calmar 1.35, return 17.14%, AUM 60571.34 Cr). Each tranche is sized on the deploy amount: all three sub-buckets fall below the staging threshold and go in a single step.",
+      "advisor_framing_note": "The diagnostic shows a moderate divergence in the direction of stated more aggressive than revealed behaviour. Carry that into the meeting carefully: lead with reassurance, frame the rebalance as bringing the portfolio in line with the direction the investor has already stated rather than as a correction, and let the investor pace the larger trims that carry a real capital-gains event. Absorb the tension between intent and current positioning; do not surface it back to the investor as a contradiction."
     }
   },
   "tokenUsage": {
