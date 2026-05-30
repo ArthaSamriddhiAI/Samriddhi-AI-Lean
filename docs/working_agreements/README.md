@@ -34,5 +34,7 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA24](WA24_numbering_at_landing.md) | Numbering allocated at landing, not at planning |
 | [WA25](WA25_planner_vs_task_chat.md) | Planner chat for planning, task chats for execution |
 | [WA26](WA26_persona_snapshot_alignment.md) | Persona holdings verified against the snapshot before locking |
+| [WA27](WA27_repo_relative_paths.md) | Repo-relative paths when referencing files |
+| [WA28](WA28_product_shape_stop_and_propose.md) | Product-shape decisions require stop-and-propose, not a silent default |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).
