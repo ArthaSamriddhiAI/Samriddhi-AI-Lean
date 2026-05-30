@@ -39,6 +39,7 @@ import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from ".
 import { loadSnapshot } from "../lib/agents/snapshot-loader";
 import { buildA3IndianContext, type A3TaxProductFamily } from "../lib/agents/m0-indian-context";
 import { buildOperationalScope, taxProductFamily } from "../lib/agents/operational-scope";
+import { buildInstrumentUniverse, resolveTilt, buildDeploymentPlan } from "../lib/agents/instrument-selection";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
 import { MANDATES_BY_INVESTOR } from "../db/fixtures/structured-mandates";
 
@@ -210,7 +211,16 @@ async function assembleA3Input(fixture: CaseFixture, asOfDate: string): Promise<
   });
   const operational = buildOperationalScope(holdings, snapshot);
 
-  return { caseId: fixture.id, asOfDate, a2Output, metrics, preObservations, riskReward, overlap, evidence, indianContext, operational };
+  // Finding 1: instrument-selection context (universe + resolved tilt + holdings
+  // for top-up + corpus for cadence). Deterministic, no API.
+  const selection = {
+    universe: buildInstrumentUniverse(snapshot),
+    tilt: resolveTilt(metrics.concentration.bucketTier, mandate?.sub_sleeve_tilt),
+    holdings,
+    liquidAumCr: holdings.totalLiquidAumCr,
+  };
+
+  return { caseId: fixture.id, asOfDate, a2Output, metrics, preObservations, riskReward, overlap, evidence, indianContext, operational, selection };
 }
 
 async function processFixture(file: string, opts: { write: boolean }): Promise<void> {
@@ -407,7 +417,34 @@ async function main() {
         console.log(`    NEW redeployment: ${layer1.rebalance_proposal.kind}`);
       }
 
+      // Finding 1: the instrument-selection plan the funnel computes for the
+      // deployed sleeves (Layer-1 redeployment; Bhatt's understates until the
+      // paid judgment fires the Motilal exit, as in Finding 5).
+      if (newReb && newReb.deployments.length > 0 && input.selection) {
+        const plan = buildDeploymentPlan({ deployments: layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed.redeployment.deployments : [], holdings: input.selection.holdings, universe: input.selection.universe, tilt: input.selection.tilt, liquidAumCr: input.selection.liquidAumCr });
+        console.log(`    FINDING-1 deployment plan (tilt eq=${input.selection.tilt.equity_cap} debt=${input.selection.tilt.debt_credit}):`);
+        for (const p of plan) {
+          if (p.shortlist) {
+            const tags = p.shortlist.surfaced.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 30)} (TER ${c.ter_pct}%, Sh3y ${c.sharpe_3y})`).join("; ");
+            console.log(`      ${p.sleeve} +${p.add_pct_points}pts (${p.deploy_cr}Cr, ${p.cadence.tranches} tranche${p.cadence.tranches > 1 ? "s" : ""}) sub-sleeve ${p.shortlist.sub_sleeve_label}: ${p.shortlist.eligible_count} eligible -> cohort ${p.shortlist.cohort_count} -> ${p.shortlist.degraded ? "DEGRADED advisor-select" : tags}`);
+            if (p.shortlist.overflow.length) console.log(`         overflow 4-5 (calibration only): ${p.shortlist.overflow.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 26)} TER ${c.ter_pct}%`).join("; ")}`);
+            if (p.top_ups.length) console.log(`         top-ups: ${p.top_ups.map((t) => `${t.holding_ref}->${t.recommendation}`).join(", ")}`);
+          }
+          if (p.alternatives) {
+            const a = p.alternatives;
+            console.log(`      ${p.sleeve} +${p.add_pct_points}pts (${p.deploy_cr}Cr, ${p.cadence.tranches} tranche${p.cadence.tranches > 1 ? "s" : ""}) ALT target ${a.alt_target_pct}% -> gold ${a.gold_pct}%${a.non_gold_aif_pct > 0 ? ` + non-gold AIF ${a.non_gold_aif_pct}% (advisor-select, ${a.non_gold_advisor_select?.aif_universe_count} AIF in universe)` : " (gold-only, sub-5% alt)"}; gold shortlist ${a.gold_shortlist?.surfaced.length ?? 0}`);
+          }
+        }
+      }
+
+      // Finding 1 adds an instrument-level deployment plan + narration that the
+      // frozen Finding-5 fixtures do not carry, so any fixture with a deployment
+      // is materially changed (gains new advisor-facing instrument content),
+      // independently of whether the Finding-5 redeployment numbers shifted.
+      const frozenHasDeploymentPlan = !!(fx.content.a3_so_what as { deployment_plan?: unknown } | undefined)?.deployment_plan;
+      const gainsFinding1 = !!newReb && newReb.deployments.length > 0 && !frozenHasDeploymentPlan;
       const material =
+        gainsFinding1 ||
         oldCashTrimmed !== newCashTrimmed ||
         !oldReb !== !newReb ||
         (oldReb && newReb && (
@@ -416,7 +453,7 @@ async function main() {
           (newReb.cash_funding_pct ?? 0) > 0.5 ||
           (oldReb.deployments ?? []).map((d) => `${d.sleeve}:${d.target_pct}`).join("|") !== newReb.deployments.map((d) => `${d.sleeve}:${d.target_pct}`).join("|")
         ));
-      console.log(`    --> ${material ? "MATERIALLY CHANGED (needs paid narration re-backfill)" : "barely changed (skip)"}`);
+      console.log(`    --> ${material ? "MATERIALLY CHANGED (gains Finding-1 instrument plan; needs paid narration re-backfill)" : "barely changed (skip)"}`);
       if (material) changed.push(fx.investorId);
     }
     console.log(`\nPreview complete: no API spent, no fixture written.`);

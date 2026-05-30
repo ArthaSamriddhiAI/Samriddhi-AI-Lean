@@ -48,12 +48,45 @@ export type PositionConcentrationCeiling = {
   max_pct_of_liquid_aum: number;
 };
 
+/* ----- Sub-sleeve tilt framework (ADR-0033, the model-portfolio foundation
+ * slice) -----
+ *
+ * The asset-class bands say HOW MUCH equity / debt / alternatives an investor
+ * should hold. The sub-sleeve tilt says WHAT KIND within a sleeve: the equity
+ * cap-mix and the debt credit-quality appropriate to the investor's risk
+ * profile. This is the usable foundation of a model portfolio, built to be
+ * extended (not replaced) when the full risk-appetite-by-time-horizon framework
+ * is formalised (product debt P43). It drives the instrument-selection funnel's
+ * sub-sleeve choice (lib/agents/instrument-selection.ts), nothing else. */
+
+export type EquityCapPreference = "large_only" | "large_mid" | "small_mid_lean";
+export type DebtCreditPreference = "high_grade_sovereign" | "high_grade" | "may_include_credit_risk";
+
+export type SubSleeveTilt = {
+  equity_cap: EquityCapPreference;
+  debt_credit: DebtCreditPreference;
+};
+
+/* House-view default tilt by risk tier (the stated mini-framework). The tier
+ * strings match resolveHhiTier / HHI_CEILING_BY_TIER in
+ * portfolio-risk-analytics.ts. A mandate may override via Mandate.sub_sleeve_tilt
+ * (the ADR-0032 optional-field pattern); when it does not, this default applies. */
+export const HOUSE_VIEW_TILT_BY_RISK: Record<string, SubSleeveTilt> = {
+  Conservative: { equity_cap: "large_only", debt_credit: "high_grade_sovereign" },
+  "Moderate-Aggressive": { equity_cap: "large_mid", debt_credit: "high_grade" },
+  Aggressive: { equity_cap: "small_mid_lean", debt_credit: "may_include_credit_risk" },
+  "Ultra-Aggressive": { equity_cap: "small_mid_lean", debt_credit: "may_include_credit_risk" },
+};
+
 export type Mandate = {
   bands: AssetClassBand[];
   wrapper_count_ceilings: WrapperCountCeiling[];
   position_concentration_ceilings: PositionConcentrationCeiling[];
   sector_exclusions: string[];
   instrument_exclusions: string[];
+  /** Optional per-investor sub-sleeve tilt override (ADR-0033). When absent,
+   * the house-view default for the investor's risk tier applies. */
+  sub_sleeve_tilt?: SubSleeveTilt;
   /** Free-text mandate review cadence / governance note. */
   review_cadence_note: string;
   /** Authoring provenance: "foundation_default" when derived from the

@@ -31,6 +31,10 @@ import { loadSnapshot } from "@/lib/agents/snapshot-loader";
 import { buildA3IndianContext, resolveA3TaxStructure, type A3TaxProductFamily } from "@/lib/agents/m0-indian-context";
 import { buildOperationalScope, taxProductFamily, findConsistentMatch } from "@/lib/agents/operational-scope";
 import { HOLDINGS_BY_INVESTOR, type StructuredHoldings } from "@/db/fixtures/structured-holdings";
+import {
+  buildInstrumentUniverse, runFunnel, resolveTilt, classifyPmsSleeve, classifyMfSleeve,
+  buildAlternativesPlan, computeCadence, assessTopUps, buildDeploymentPlan, SELECTION_PARAMS,
+} from "@/lib/agents/instrument-selection";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 
@@ -117,7 +121,7 @@ function evidenceWithE6(evals: unknown[]): EvidenceBundle {
 function input(partial: Partial<A3Input> & { a2Output: A2Output }): A3Input {
   return {
     caseId: "v", asOfDate: "2026-04-30", metrics: null, preObservations: [],
-    riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [], ...partial,
+    riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [], selection: null, ...partial,
   };
 }
 function decision(d: "trim" | "exit" | "maintain", weight: number): A3ReconciledDecision {
@@ -296,7 +300,7 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   const sSnap = await loadSnapshot(sf.snapshotId);
   const sOverlap = runPortfolioOverlapDeterministic({ caseId: sf.id, asOfDate: "2026-04-02", holdings: sHoldings, snapshot: sSnap, investor: {} });
   const sPreObs = sc.metrics ? stitch({ caseMeta: { case_id: sf.id, investor_id: sf.investorId, investor_name: sf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: sc.metrics.concentration.bucketTier }, metrics: sc.metrics, evidence: sc.evidence, router_decision: (sc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
-  const sa3 = computeA3({ caseId: sf.id, asOfDate: "2026-04-02", a2Output: sc.a2_classification, metrics: sc.metrics, preObservations: sPreObs, riskReward: sc.risk_reward_stats ?? null, overlap: sOverlap, evidence: sc.evidence ?? null, indianContext: null, operational: [] });
+  const sa3 = computeA3({ caseId: sf.id, asOfDate: "2026-04-02", a2Output: sc.a2_classification, metrics: sc.metrics, preObservations: sPreObs, riskReward: sc.risk_reward_stats ?? null, overlap: sOverlap, evidence: sc.evidence ?? null, indianContext: null, operational: [], selection: null });
   const axis = sa3.decisions.find((d) => /axis/i.test(d.instrument_display_name));
   assert(!!axis, "C9: Axis decision present in Surana", "");
   if (axis) {
@@ -314,7 +318,7 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   const bSnap = await loadSnapshot(bf.snapshotId);
   const bOverlap = runPortfolioOverlapDeterministic({ caseId: bf.id, asOfDate: "2026-04-02", holdings: bHoldings, snapshot: bSnap, investor: {} });
   const bPreObs = bc.metrics ? stitch({ caseMeta: { case_id: bf.id, investor_id: bf.investorId, investor_name: bf.investorId, as_of_date: "2026-04-02", case_mode: "diagnostic", bucket_tier: bc.metrics.concentration.bucketTier }, metrics: bc.metrics, evidence: bc.evidence, router_decision: (bc.router_decision ?? {}) as StitchInput["router_decision"], usage: {} }).pre_observations : [];
-  const ba3 = computeA3({ caseId: bf.id, asOfDate: "2026-04-02", a2Output: bc.a2_classification, metrics: bc.metrics, preObservations: bPreObs, riskReward: bc.risk_reward_stats ?? null, overlap: bOverlap, evidence: bc.evidence ?? null, indianContext: null, operational: [] });
+  const ba3 = computeA3({ caseId: bf.id, asOfDate: "2026-04-02", a2Output: bc.a2_classification, metrics: bc.metrics, preObservations: bPreObs, riskReward: bc.risk_reward_stats ?? null, overlap: bOverlap, evidence: bc.evidence ?? null, indianContext: null, operational: [], selection: null });
   const motilal = ba3.decisions.find((d) => /motilal/i.test(d.instrument_display_name));
   assert(!!motilal, "C10: Motilal decision present in bhatt", "");
   if (motilal) {
@@ -388,7 +392,7 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
 
   // --- Case 16 (Finding 5): Menon end-to-end, cash funds deploy across all under-target sleeves ---
   console.log("Case 16: Menon cash-as-funding deploys across Equity/Debt/Alternatives, no cash trim");
-  const menonA3 = computeA3({ caseId: "v-menon", asOfDate: "2026-04-02", a2Output: JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-menon-01.json"), "utf-8")).content.a2_classification, metrics: menonMetrics, preObservations: [], riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [] });
+  const menonA3 = computeA3({ caseId: "v-menon", asOfDate: "2026-04-02", a2Output: JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-menon-01.json"), "utf-8")).content.a2_classification, metrics: menonMetrics, preObservations: [], riskReward: null, overlap: null, evidence: null, indianContext: null, operational: [], selection: null });
   const menonCashTrim = menonA3.decisions.some((d) => d.asset_class === "Cash" && d.decision !== "maintain");
   assert(!menonCashTrim, "C16: no Cash holding is trimmed/exited (cash is funding, not a position)", JSON.stringify(menonA3.decisions.filter((d) => d.asset_class === "Cash").map((d) => d.decision)));
   if (menonA3.rebalance_proposal.kind === "proposal") {
@@ -416,6 +420,62 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(surBands.Equity.target === 65 && surBands.Alternatives.target === 7.5 && surBands.Cash.target === 3.5, "C17: Surana (no explicit target) still resolves via midpoint (Alt 5-10 -> 7.5, Cash 2-5 -> 3.5)", JSON.stringify(surBands));
   const iyBands = resolveTargetBands(MANDATES_BY_INVESTOR.iyengar);
   assert(iyBands.Equity.target === 35 && iyBands.Debt.target === 55, "C17: Iyengar (no explicit target) still resolves via midpoint (Equity 35, Debt 55)", JSON.stringify({ Equity: iyBands.Equity.target, Debt: iyBands.Debt.target }));
+
+  // --- Finding 1: instrument-selection funnel ---
+  console.log("Case 18: data-driven classification (no wrapper-type hard-code)");
+  assert(classifyPmsSleeve("equity") === "Equity", "C18: PMS strategy_type 'equity' classifies Equity (from data)", classifyPmsSleeve("equity"));
+  assert(classifyPmsSleeve("debt") === "Debt", "C18: a synthetic DEBT PMS classifies Debt, NOT hard-coded to equity", classifyPmsSleeve("debt"));
+  assert(classifyPmsSleeve("long short") === "Alternatives", "C18: a long-short PMS classifies Alternatives", classifyPmsSleeve("long short"));
+  assert(classifyMfSleeve("Gilt Fund") === "Debt" && classifyMfSleeve("Small Cap Fund") === "Equity" && classifyMfSleeve("ETFs- Commodity") === "Alternatives", "C18: MF sebi_category classifies to the right sleeve from data", "");
+
+  console.log("Case 19: tilt resolves by risk profile");
+  const consTilt = resolveTilt("Conservative");
+  const aggrTilt = resolveTilt("Aggressive");
+  assert(consTilt.equity_cap === "large_only" && consTilt.debt_credit === "high_grade_sovereign", "C19: Conservative -> large-only equity, high-grade/sovereign debt", JSON.stringify(consTilt));
+  assert(aggrTilt.equity_cap === "small_mid_lean" && aggrTilt.debt_credit === "may_include_credit_risk", "C19: Aggressive -> small/mid equity, may-include-credit debt", JSON.stringify(aggrTilt));
+
+  console.log("Case 20: the funnel produces a sensible shortlist for a rich MF sub-sleeve");
+  const universe = buildInstrumentUniverse(t0Snap);
+  const eqShort = runFunnel("Equity", "equity (small_mid_lean)", ["Mid Cap Fund", "Small Cap Fund"], universe);
+  assert(eqShort.eligible_count > 10, "C20: rich eligible pool for aggressive equity (mid+small cap)", String(eqShort.eligible_count));
+  assert(eqShort.cohort_count === Math.ceil(eqShort.eligible_count / 2), "C20: quality cohort is the top-half by risk-adjusted composite", `${eqShort.cohort_count} of ${eqShort.eligible_count}`);
+  assert(eqShort.surfaced.length <= SELECTION_PARAMS.SHORTLIST_SURFACE && eqShort.surfaced.length > 0, "C20: surfaces up to 3 candidates", String(eqShort.surfaced.length));
+  assert(eqShort.surfaced.every((c) => c.ter_pct !== null && c.sharpe_3y !== null), "C20: surfaced candidates carry their cited metrics (TER + 3y risk-adjusted)", "");
+  // lexicographic: within the cohort, surfaced are the lowest-TER; #1 TER <= #2 TER.
+  assert(eqShort.surfaced.length < 2 || (eqShort.surfaced[0].ter_pct ?? 0) <= (eqShort.surfaced[1].ter_pct ?? 0), "C20: lexicographic ranking, lowest TER first within the cohort", JSON.stringify(eqShort.surfaced.map((c) => c.ter_pct)));
+  assert(eqShort.overflow.length > 0 && eqShort.overflow.every((c) => (c.ter_pct ?? 0) >= (eqShort.surfaced[eqShort.surfaced.length - 1].ter_pct ?? 0)), "C20: internal-5 overflow (4-5) are not cheaper than the surfaced 3 (ranking sound)", JSON.stringify(eqShort.overflow.map((c) => c.ter_pct)));
+
+  console.log("Case 21: degradation to advisor-select without fabricating metrics");
+  const emptyShort = runFunnel("Equity", "equity (none)", ["Nonexistent Category"], universe);
+  assert(emptyShort.degraded === true && emptyShort.surfaced.length === 0 && emptyShort.degradation_reason !== null, "C21: an empty sub-sleeve degrades honestly (no fabricated candidate)", JSON.stringify(emptyShort));
+
+  console.log("Case 22: alternatives split (under-5 gold-only; 5+ gold + non-gold advisor-select)");
+  const altLow = buildAlternativesPlan(3, universe);
+  const altHigh = buildAlternativesPlan(15, universe);
+  assert(altLow.gold_pct === 3 && altLow.non_gold_aif_pct === 0 && altLow.non_gold_advisor_select === null, "C22: under 5% alt -> gold only", JSON.stringify(altLow));
+  assert(altHigh.gold_pct === 5 && altHigh.non_gold_aif_pct === 10 && altHigh.non_gold_advisor_select !== null, "C22: 5%+ alt -> 5 gold + non-gold AIF advisor-select", JSON.stringify({ gold: altHigh.gold_pct, nonGold: altHigh.non_gold_aif_pct }));
+  assert((altHigh.gold_shortlist?.surfaced.length ?? 0) > 0, "C22: gold deployable via commodity ETFs (shortlist non-empty)", String(altHigh.gold_shortlist?.surfaced.length));
+
+  console.log("Case 23: cadence sizes on deploy amount and AUM proxy, not volume");
+  const cadSmall = computeCadence(1.0, 2000);
+  const cadLarge = computeCadence(35.4, 2000);
+  assert(cadSmall.tranches === 1, "C23: a sub-threshold deploy is a single tranche", JSON.stringify(cadSmall));
+  assert(cadLarge.tranches === SELECTION_PARAMS.CADENCE_MAX_TRANCHES && cadLarge.window_days === SELECTION_PARAMS.CADENCE_WINDOW_DAYS, "C23: a large deploy stages to the tranche cap over the window", JSON.stringify(cadLarge));
+
+  console.log("Case 24: top-up-first picks an existing matchable holding in the quality cohort");
+  // Surana holds Mirae/Axis/Parag large-cap MFs; conservative-large funnel may match.
+  const suranaUniverse = universe;
+  const topUps = assessTopUps(HOLDINGS_BY_INVESTOR.surana, "Equity", runFunnel("Equity", "eq", ["Large Cap Fund"], suranaUniverse), suranaUniverse);
+  assert(topUps.every((t) => t.recommendation === "top_up" || t.recommendation === "top_up_or_switch"), "C24: matched existing holdings yield a top-up or top-up-or-switch recommendation (never silently dropped)", JSON.stringify(topUps.map((t) => `${t.holding_ref}:${t.recommendation}`)));
+
+  console.log("Case 25: Menon end-to-end deployment plan (cash funds instruments across sleeves)");
+  const menonTilt = resolveTilt("Aggressive", MANDATES_BY_INVESTOR.menon.sub_sleeve_tilt);
+  const menonRedep = JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-menon-01.json"), "utf-8")).content.a3_so_what.rebalance_proposal.computed.redeployment;
+  const menonPlan = buildDeploymentPlan({ deployments: menonRedep.deployments, holdings: HOLDINGS_BY_INVESTOR.menon, universe, tilt: menonTilt, liquidAumCr: HOLDINGS_BY_INVESTOR.menon.totalLiquidAumCr });
+  const eqPlan = menonPlan.find((p) => p.sleeve === "Equity");
+  const altPlan = menonPlan.find((p) => p.sleeve === "Alternatives");
+  assert(!!eqPlan && (eqPlan.shortlist?.surfaced.length ?? 0) > 0 && eqPlan.cadence.tranches > 1, "C25: Menon equity gap gets a funnel shortlist and a staged cadence", JSON.stringify({ surfaced: eqPlan?.shortlist?.surfaced.length, tranches: eqPlan?.cadence.tranches }));
+  assert(!!altPlan && altPlan.alternatives?.gold_pct === 5 && (altPlan.alternatives?.non_gold_aif_pct ?? 0) > 0 && altPlan.alternatives?.non_gold_advisor_select !== null, "C25: Menon 15% alt -> 5 gold + non-gold AIF advisor-select (honest, not forced gold)", JSON.stringify({ gold: altPlan?.alternatives?.gold_pct, nonGold: altPlan?.alternatives?.non_gold_aif_pct }));
 
   console.log("");
   if (failures.length) {

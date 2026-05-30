@@ -39,6 +39,7 @@ import { runA2Diagnostic } from "./a2-classification";
 import { runA3Diagnostic } from "./a3-so-what";
 import { buildA3IndianContext, type A3TaxProductFamily } from "./m0-indian-context";
 import { buildOperationalScope, taxProductFamily } from "./operational-scope";
+import { buildInstrumentUniverse, resolveTilt } from "./instrument-selection";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -353,6 +354,18 @@ export async function runDiagnosticPipeline(opts: {
     });
     const a3Operational = buildOperationalScope(holdings, snapshot);
 
+    /* Finding 1: the instrument-selection context (the eligible per-sleeve
+     * universe, the resolved sub-sleeve tilt, the holdings for the top-up join,
+     * and the corpus size for cadence). Deterministic, no API. The tilt resolves
+     * from the investor's risk tier (metrics.concentration.bucketTier) with the
+     * mandate's optional override. */
+    const a3Selection = {
+      universe: buildInstrumentUniverse(snapshot),
+      tilt: resolveTilt(metrics.concentration.bucketTier, investorMandate?.sub_sleeve_tilt),
+      holdings,
+      liquidAumCr: holdings.totalLiquidAumCr,
+    };
+
     const a3Result = await runA3Diagnostic({
       caseId: opts.caseId,
       asOfDate,
@@ -364,6 +377,7 @@ export async function runDiagnosticPipeline(opts: {
       evidence,
       indianContext: a3IndianContext,
       operational: a3Operational,
+      selection: a3Selection,
     });
     usage.a3 = a3Result.usage;
     runningTokens += a3Result.usage.inputTokens + a3Result.usage.outputTokens;

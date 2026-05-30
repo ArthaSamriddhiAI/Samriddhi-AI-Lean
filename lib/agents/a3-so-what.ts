@@ -37,6 +37,9 @@ import type { PortfolioOverlapOutput } from "./portfolio-overlap";
 import type { E6PerProduct } from "./e6-wrappers";
 import type { A3IndianContext, A3TaxBundle, A3TaxProductFamily } from "./m0-indian-context";
 import { taxProductFamily, type A3OperationalMetadata } from "./operational-scope";
+import { buildDeploymentPlan, type InstrumentUniverse, type SleeveDeploymentPlan } from "./instrument-selection";
+import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
+import type { SubSleeveTilt } from "@/db/fixtures/structured-mandates";
 import { callAgent, type AgentCallResult, type AgentUsage } from "./harness";
 
 /* ----- Output contract ----- */
@@ -222,6 +225,27 @@ export type A3Output = {
    * reviewer can confirm every operational / tax claim traces to real data. */
   indian_context: A3IndianContext | null;
   operational: A3OperationalMetadata[];
+  /* Instrument-level deployment plan (Finding 1): per under-target sleeve, the
+   * deterministic candidate shortlist, top-up assessment, alternatives split,
+   * and cadence the narration was constrained to cite. Null when the selection
+   * universe is not wired. */
+  deployment_plan: SleeveDeploymentPlan[] | null;
+  /* LLM prose articulating the deployment plan (cites only the computed
+   * shortlist metrics; the justification leash). Null when no plan. */
+  deployment_narration: string | null;
+  /* Advisor-equipping framing note for a stated-vs-observed risk divergence
+   * (Finding 3). NOT client-facing. Null when no material divergence. */
+  advisor_framing_note: string | null;
+};
+
+/* Finding 1 selection context, built deterministically in the pipeline /
+ * backfill (the universe, the resolved sub-sleeve tilt, the holdings for the
+ * top-up join, and the corpus size for cadence) and threaded into A3. */
+export type A3SelectionContext = {
+  universe: InstrumentUniverse;
+  tilt: SubSleeveTilt;
+  holdings: StructuredHoldings;
+  liquidAumCr: number;
 };
 
 export type A3Input = {
@@ -240,6 +264,9 @@ export type A3Input = {
    * tenure / redemption / min-commitment, MF exit-load), category-guarded
    * (Finding 2 / Option 2A). Empty when no holding has a consistent match. */
   operational: A3OperationalMetadata[];
+  /* Finding 1 instrument-selection context; null when the universe is not
+   * wired (a metrics-only path). */
+  selection: A3SelectionContext | null;
 };
 
 export type A3Layer1Result = {
@@ -743,11 +770,41 @@ type A3ReasonPayload = {
   holding_actions: Array<{ holding_ref: string; advisor_action: string }>;
   observation_actions: Array<{ observation_category: string; advisor_action: string }>;
   rebalance_advisor_action?: string;
+  deployment_advisor_action?: string | null;
+  advisor_framing_note?: string | null;
   one_line_characterization: string;
   reasoning_summary: string;
 };
 
-function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext): string {
+/* Stated-vs-observed divergence (Finding 3 framing input). */
+type A3FramingSignal = { direction: string; magnitude: string } | null;
+
+/* Compact deployment-plan view for the narration prompt: surfaced candidates
+ * with their cited metrics (never the overflow 4 to 5), the top-ups, the
+ * alternatives split, and the cadence. */
+function deploymentPlanForPrompt(plan: SleeveDeploymentPlan[] | null): unknown {
+  if (!plan) return null;
+  return plan.map((p) => ({
+    sleeve: p.sleeve,
+    add_pct_points: p.add_pct_points,
+    deploy_cr: p.deploy_cr,
+    cadence: { tranches: p.cadence.tranches, window_days: p.cadence.window_days, per_tranche_cr: p.cadence.per_tranche_cr, note: p.cadence.note },
+    sub_sleeve: p.shortlist
+      ? {
+          label: p.shortlist.sub_sleeve_label,
+          degraded: p.shortlist.degraded,
+          degradation_reason: p.shortlist.degradation_reason,
+          candidates: p.shortlist.surfaced.map((c) => ({ fund_name: c.fund_name, sub_category: c.sub_category, ter_pct: c.ter_pct, aum_cr: c.aum_cr, sharpe_3y: c.sharpe_3y, sortino_3y: c.sortino_3y, calmar_3y: c.calmar_3y, return_3y_pct: c.return_3y })),
+        }
+      : null,
+    top_ups: p.top_ups.map((t) => ({ existing_holding: t.holding_ref, matched_fund: t.matched_fund, recommendation: t.recommendation })),
+    alternatives: p.alternatives
+      ? { alt_target_pct: p.alternatives.alt_target_pct, gold_pct: p.alternatives.gold_pct, non_gold_aif_pct: p.alternatives.non_gold_aif_pct, gold_candidates: p.alternatives.gold_shortlist?.surfaced.map((c) => ({ fund_name: c.fund_name, ter_pct: c.ter_pct })) ?? [], non_gold_advisor_select: p.alternatives.non_gold_advisor_select }
+      : null,
+  }));
+}
+
+function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext, deploymentPlan: SleeveDeploymentPlan[] | null, framing: A3FramingSignal): string {
   const byRef = decisionsByRef(layer1.decisions);
   const holdingsNeedingProse = layer1.holding_actions
     .filter((h): h is A3HoldingAction & A3HoldingActionBody => h.kind === "action")
@@ -862,6 +919,52 @@ function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext): string {
       "```",
     );
   }
+  const planView = deploymentPlanForPrompt(deploymentPlan);
+  if (planView) {
+    lines.push(
+      ``,
+      `## Instrument-level deployment (the computed selection funnel)`,
+      ``,
+      `For each deployed sleeve below, a deterministic funnel has already selected`,
+      `the candidate shortlist (up to three per sub-sleeve), the cadence, and the`,
+      `top-up assessment. Narrate the deployment as advisor-facing prose. The`,
+      `JUSTIFICATION LEASH is load-bearing: cite ONLY the computed metrics shown`,
+      `for each candidate (fund name, sub_category, ter_pct, the 3-year`,
+      `sharpe/sortino/calmar, return_3y_pct, AUM) and the computed cadence; explain`,
+      `the deterministic pick in a few lines. Do NOT re-rank, do NOT add any reason`,
+      `absent from the data (no "strong management team", no unquantified`,
+      `qualitative claim), do NOT invent a candidate, metric, or number. The framing`,
+      `to cite is "the lowest-cost funds among the consistently strong 3-year`,
+      `risk-adjusted performers". For a sub_sleeve marked degraded, or an`,
+      `alternatives non_gold_advisor_select block, say honestly that the selection`,
+      `is advisor-select because the data does not support an auto-ranked pick`,
+      `(Reading B); never fabricate metrics to fill it. For top_ups, recommend`,
+      `topping up the existing holding first where recommendation is "top_up", and`,
+      `for "top_up_or_switch" present both the top-up and the better fresh candidate`,
+      `as the advisor's choice. Cite the cadence note's tranche count and per-tranche`,
+      `size as given; the pacing is sized on the deploy amount and AUM, not live`,
+      `volume (do not claim volume-based pacing). Tax/operational context from above`,
+      `still applies where relevant.`,
+      ``,
+      "```json",
+      JSON.stringify(planView, null, 2),
+      "```",
+    );
+  }
+  if (framing && framing.magnitude !== "none" && framing.magnitude !== "minor") {
+    lines.push(
+      ``,
+      `## Advisor framing note (NOT client-facing)`,
+      ``,
+      `The Samriddhi 2 diagnostic found a stated-vs-observed risk divergence for`,
+      `this investor: direction "${framing.direction}", magnitude "${framing.magnitude}".`,
+      `Write a short note that EQUIPS THE ADVISOR to handle the conversation`,
+      `sensitively: where stated risk appetite diverges from observed behaviour,`,
+      `pace the conversation gently and lead with reassurance. This is guidance to`,
+      `the advisor, never client-facing content. Do NOT produce any "you said X but`,
+      `behave like Y" phrasing aimed at the client; the advisor absorbs the tension.`,
+    );
+  }
   lines.push(
     ``,
     `## Output`,
@@ -875,6 +978,12 @@ function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext): string {
     rebalance
       ? `  "rebalance_advisor_action": "<narrates the trims/exits and the computed redeployment, no invented numbers>",`
       : `  "rebalance_advisor_action": null,`,
+    planView
+      ? `  "deployment_advisor_action": "<narrates the instrument shortlists, top-ups, alternatives split, and cadence; cites ONLY the computed metrics shown>",`
+      : `  "deployment_advisor_action": null,`,
+    framing && framing.magnitude !== "none" && framing.magnitude !== "minor"
+      ? `  "advisor_framing_note": "<short advisor-equipping note on the stated-vs-observed divergence; NOT client-facing>",`
+      : `  "advisor_framing_note": null,`,
     `  "one_line_characterization": "<one line on the advisor-action picture>",`,
     `  "reasoning_summary": "<2-4 sentences; advisor register>"`,
     `}`,
@@ -906,8 +1015,8 @@ function validateReasonPayload(parsed: unknown): A3ReasonPayload {
   return o as unknown as A3ReasonPayload;
 }
 
-export async function runA3ReasonText(layer1: A3Layer1Result, reg: A3RegContext): Promise<AgentCallResult<A3ReasonPayload>> {
-  return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1, reg), validate: validateReasonPayload });
+export async function runA3ReasonText(layer1: A3Layer1Result, reg: A3RegContext, deploymentPlan: SleeveDeploymentPlan[] | null, framing: A3FramingSignal): Promise<AgentCallResult<A3ReasonPayload>> {
+  return callAgent<A3ReasonPayload>({ skillId: "a3_so_what", userPrompt: buildReasonPrompt(layer1, reg, deploymentPlan, framing), validate: validateReasonPayload });
 }
 
 /* ----- Layer 2 call 1: the trim / exit / maintain judgment ----- */
@@ -1060,6 +1169,22 @@ function decisionCounts(decisions: A3ReconciledDecision[]): { trim: number; exit
   return { trim, exit };
 }
 
+/* Finding 1: run the deterministic instrument-selection funnel over the final
+ * redeployment's deployed sleeves. Null when no selection context is wired or
+ * there is nothing to deploy. */
+function computeDeploymentPlan(input: A3Input, rebalance: A3RebalanceProposal): SleeveDeploymentPlan[] | null {
+  if (!input.selection || rebalance.kind !== "proposal") return null;
+  const deployments = rebalance.computed.redeployment.deployments;
+  if (deployments.length === 0) return null;
+  return buildDeploymentPlan({
+    deployments,
+    holdings: input.selection.holdings,
+    universe: input.selection.universe,
+    tilt: input.selection.tilt,
+    liquidAumCr: input.selection.liquidAumCr,
+  });
+}
+
 export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResult> {
   const layer1 = computeA3(input);
   const reg = buildRegContext(input);
@@ -1090,6 +1215,9 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
         "A3 surfaced no advisor actions: the Samriddhi 2 diagnostic flagged no holdings for Monitor, Discuss, or Review, no portfolio-level observations, and no single-position concentration breach. Portfolio-level health remains the Samriddhi 2 diagnostic surface's characterisation, not A3's.",
       indian_context: input.indianContext,
       operational: input.operational,
+      deployment_plan: null,
+      deployment_narration: null,
+      advisor_framing_note: null,
     };
     return { output, usage: { inputTokens: 0, outputTokens: 0 } };
   }
@@ -1121,11 +1249,19 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
   const observationCounts = countSurfaced(finalLayer1.observation_actions);
   const dc = decisionCounts(finalLayer1.decisions);
 
+  // Finding 1: deterministic instrument-selection plan for the deployed sleeves,
+  // computed from the FINAL redeployment so the narration can cite the shortlists.
+  const deploymentPlan = computeDeploymentPlan(input, finalLayer1.rebalance_proposal);
+
+  // Finding 3: the stated-vs-observed divergence for the advisor-framing note.
+  const div = input.evidence?.e4?.stated_vs_revealed_divergence;
+  const framing: A3FramingSignal = div ? { direction: div.direction, magnitude: div.magnitude } : null;
+
   // Layer-2 call 2: constrained narration of the computed surfaces. The
   // narration receives the computed numbers as FIXED input and may only phrase
   // them; it cannot recompute or invent (the structural anti-fabrication
   // guarantee: the numbers are already proven to close in deterministic verify).
-  const reasonResult = await runA3ReasonText(finalLayer1, reg);
+  const reasonResult = await runA3ReasonText(finalLayer1, reg, deploymentPlan, framing);
   const payload = reasonResult.output;
   const holdingProse = new Map<string, string>();
   for (const r of payload.holding_actions) holdingProse.set(r.holding_ref, r.advisor_action);
@@ -1173,6 +1309,9 @@ export async function runA3Diagnostic(input: A3Input): Promise<A3DiagnosticResul
     reasoning_summary: stripLongDashes(payload.reasoning_summary),
     indian_context: input.indianContext,
     operational: input.operational,
+    deployment_plan: deploymentPlan,
+    deployment_narration: deploymentPlan && payload.deployment_advisor_action ? stripLongDashes(payload.deployment_advisor_action) : null,
+    advisor_framing_note: framing && payload.advisor_framing_note ? stripLongDashes(payload.advisor_framing_note) : null,
   };
   return {
     output,
