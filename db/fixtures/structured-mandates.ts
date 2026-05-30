@@ -52,30 +52,73 @@ export type PositionConcentrationCeiling = {
  * slice) -----
  *
  * The asset-class bands say HOW MUCH equity / debt / alternatives an investor
- * should hold. The sub-sleeve tilt says WHAT KIND within a sleeve: the equity
- * cap-mix and the debt credit-quality appropriate to the investor's risk
- * profile. This is the usable foundation of a model portfolio, built to be
- * extended (not replaced) when the full risk-appetite-by-time-horizon framework
- * is formalised (product debt P43). It drives the instrument-selection funnel's
- * sub-sleeve choice (lib/agents/instrument-selection.ts), nothing else. */
+ * should hold. The sub-sleeve tilt says WHAT KIND within a sleeve. It is the
+ * usable foundation of a model portfolio, built to be extended (not replaced)
+ * when the full risk-appetite-by-time-horizon framework is formalised (product
+ * debt P43). It drives the instrument-selection funnel (instrument-selection.ts).
+ *
+ * Equity allocates on TWO levels (ADR-0033, ADR-0035, ADR-0036):
+ *   Level 1, domestic vs international (% of the equity sleeve), by risk tier.
+ *   Level 2, domestic cap-split (% of the DOMESTIC portion), by risk tier.
+ * International is its own bucket alongside the domestic cap-split, not inside
+ * it. Every tier keeps a non-zero domestic large-cap core AND a non-zero,
+ * non-dominant international allocation (the never-zero principle).
+ *
+ * Debt allocates on TWO axes (ADR-0037):
+ *   Credit axis (% of the debt sleeve), by risk appetite.
+ *   Duration axis, by the investor's time horizon (a selection preference).
+ * Debt is the portfolio's ballast: even aggressive debt stays predominantly
+ * sovereign+high-grade (credit-risk caps at 20%). */
 
-export type EquityCapPreference = "large_only" | "large_mid" | "small_mid_lean";
-export type DebtCreditPreference = "high_grade_sovereign" | "high_grade" | "may_include_credit_risk";
-
-export type SubSleeveTilt = {
-  equity_cap: EquityCapPreference;
-  debt_credit: DebtCreditPreference;
+/** Equity Level 1 + Level 2 split. international_pct is % of the equity sleeve;
+ * domestic_{large,mid,small}_pct are % of the DOMESTIC portion (they sum to 100
+ * within domestic), so the domestic share of the sleeve is 100 - international_pct. */
+export type EquitySplit = {
+  international_pct: number;
+  domestic_large_pct: number;
+  domestic_mid_pct: number;
+  domestic_small_pct: number;
 };
 
-/* House-view default tilt by risk tier (the stated mini-framework). The tier
- * strings match resolveHhiTier / HHI_CEILING_BY_TIER in
- * portfolio-risk-analytics.ts. A mandate may override via Mandate.sub_sleeve_tilt
- * (the ADR-0032 optional-field pattern); when it does not, this default applies. */
-export const HOUSE_VIEW_TILT_BY_RISK: Record<string, SubSleeveTilt> = {
-  Conservative: { equity_cap: "large_only", debt_credit: "high_grade_sovereign" },
-  "Moderate-Aggressive": { equity_cap: "large_mid", debt_credit: "high_grade" },
-  Aggressive: { equity_cap: "small_mid_lean", debt_credit: "may_include_credit_risk" },
-  "Ultra-Aggressive": { equity_cap: "small_mid_lean", debt_credit: "may_include_credit_risk" },
+/** Debt credit split (% of the debt sleeve); sums to 100. */
+export type DebtCreditSplit = {
+  sovereign_pct: number;
+  high_grade_pct: number;
+  credit_risk_pct: number;
+};
+
+export type DurationBucket = "short" | "medium" | "long";
+
+/* House-view defaults by risk tier. Tier strings match resolveHhiTier /
+ * HHI_CEILING_BY_TIER in portfolio-risk-analytics.ts. A mandate may override via
+ * Mandate.sub_sleeve_tilt (the ADR-0032 optional-field pattern). */
+export const EQUITY_SPLIT_BY_TIER: Record<string, EquitySplit> = {
+  Conservative: { international_pct: 10, domestic_large_pct: 75, domestic_mid_pct: 20, domestic_small_pct: 5 },
+  "Moderate-Aggressive": { international_pct: 15, domestic_large_pct: 55, domestic_mid_pct: 35, domestic_small_pct: 10 },
+  Aggressive: { international_pct: 20, domestic_large_pct: 35, domestic_mid_pct: 40, domestic_small_pct: 25 },
+  "Ultra-Aggressive": { international_pct: 20, domestic_large_pct: 35, domestic_mid_pct: 40, domestic_small_pct: 25 },
+};
+
+export const DEBT_CREDIT_SPLIT_BY_TIER: Record<string, DebtCreditSplit> = {
+  Conservative: { sovereign_pct: 55, high_grade_pct: 42, credit_risk_pct: 3 },
+  "Moderate-Aggressive": { sovereign_pct: 35, high_grade_pct: 55, credit_risk_pct: 10 },
+  Aggressive: { sovereign_pct: 25, high_grade_pct: 55, credit_risk_pct: 20 },
+  "Ultra-Aggressive": { sovereign_pct: 25, high_grade_pct: 55, credit_risk_pct: 20 },
+};
+
+/** Map a free-text time horizon to the preferred debt duration bucket (ADR-0037).
+ * Short horizon prefers short duration (limit rate risk); long horizon can hold
+ * longer duration for yield. Defaults to long (the modal persona). */
+export function durationForHorizon(timeHorizon: string): DurationBucket {
+  const s = (timeHorizon || "").toLowerCase();
+  if (/\bshort\b|under 3|<\s*3|0-3|1-3 ?y|near[- ]?term/.test(s)) return "short";
+  if (/3-5|3 to 5|\bmedium\b|operational/.test(s)) return "medium";
+  return "long";
+}
+
+export type SubSleeveTilt = {
+  equity?: EquitySplit;
+  debt_credit?: DebtCreditSplit;
 };
 
 export type Mandate = {

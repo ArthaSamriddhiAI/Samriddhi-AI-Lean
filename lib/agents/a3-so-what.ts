@@ -37,9 +37,8 @@ import type { PortfolioOverlapOutput } from "./portfolio-overlap";
 import type { E6PerProduct } from "./e6-wrappers";
 import type { A3IndianContext, A3TaxBundle, A3TaxProductFamily } from "./m0-indian-context";
 import { taxProductFamily, type A3OperationalMetadata } from "./operational-scope";
-import { buildDeploymentPlan, type InstrumentUniverse, type SleeveDeploymentPlan } from "./instrument-selection";
+import { buildDeploymentPlan, type InstrumentUniverse, type SleeveDeploymentPlan, type SubSleeveFramework } from "./instrument-selection";
 import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
-import type { SubSleeveTilt } from "@/db/fixtures/structured-mandates";
 import { callAgent, type AgentCallResult, type AgentUsage } from "./harness";
 
 /* ----- Output contract ----- */
@@ -243,7 +242,7 @@ export type A3Output = {
  * top-up join, and the corpus size for cadence) and threaded into A3. */
 export type A3SelectionContext = {
   universe: InstrumentUniverse;
-  tilt: SubSleeveTilt;
+  framework: SubSleeveFramework;
   holdings: StructuredHoldings;
   liquidAumCr: number;
 };
@@ -782,24 +781,37 @@ type A3FramingSignal = { direction: string; magnitude: string } | null;
 /* Compact deployment-plan view for the narration prompt: surfaced candidates
  * with their cited metrics (never the overflow 4 to 5), the top-ups, the
  * alternatives split, and the cadence. */
+/* Compact, narration-facing view: surfaced candidates with their cited metrics
+ * only (never the overflow 4-5), the cadence per sub-bucket, top-ups, the equity
+ * two-level breakdown + look-through, the debt credit-by-duration breakdown, and
+ * the alternatives split. */
+function shortlistView(sl: { label: string; degraded: boolean; degradation_reason: string | null; surfaced: Array<{ fund_name: string; sub_category: string; ter_pct: number | null; aum_cr: number | null; sharpe_3y: number | null; sortino_3y: number | null; calmar_3y: number | null; return_3y: number | null }> }) {
+  return { label: sl.label, degraded: sl.degraded, degradation_reason: sl.degradation_reason, candidates: sl.surfaced.map((c) => ({ fund_name: c.fund_name, sub_category: c.sub_category, ter_pct: c.ter_pct, aum_cr: c.aum_cr, sharpe_3y: c.sharpe_3y, sortino_3y: c.sortino_3y, calmar_3y: c.calmar_3y, return_3y_pct: c.return_3y })) };
+}
+
 function deploymentPlanForPrompt(plan: SleeveDeploymentPlan[] | null): unknown {
   if (!plan) return null;
   return plan.map((p) => ({
     sleeve: p.sleeve,
     add_pct_points: p.add_pct_points,
     deploy_cr: p.deploy_cr,
-    cadence: { tranches: p.cadence.tranches, window_days: p.cadence.window_days, per_tranche_cr: p.cadence.per_tranche_cr, note: p.cadence.note },
-    sub_sleeve: p.shortlist
+    top_ups: p.top_ups.map((t) => ({ existing_holding: t.holding_ref, matched_fund: t.matched_fund, recommendation: t.recommendation })),
+    equity: p.equity
       ? {
-          label: p.shortlist.sub_sleeve_label,
-          degraded: p.shortlist.degraded,
-          degradation_reason: p.shortlist.degradation_reason,
-          candidates: p.shortlist.surfaced.map((c) => ({ fund_name: c.fund_name, sub_category: c.sub_category, ter_pct: c.ter_pct, aum_cr: c.aum_cr, sharpe_3y: c.sharpe_3y, sortino_3y: c.sortino_3y, calmar_3y: c.calmar_3y, return_3y_pct: c.return_3y })),
+          equity_target_pct: p.equity.equity_target_pct,
+          held_fund_look_through: p.equity.look_through.map((l) => ({ instrument: l.instrument, type: l.type_label, domestic_large_pct: l.domestic_large_pct, domestic_mid_pct: l.domestic_mid_pct, domestic_small_pct: l.domestic_small_pct, international_pct: l.international_pct, composition_source: l.composition_source })),
+          sub_buckets: p.equity.sub_buckets.map((b) => ({ bucket: b.bucket, target_pct: b.target_pct, current_pct: b.current_pct, gap_pct: b.gap_pct, deploy_pct: b.deploy_pct, deploy_cr: b.deploy_cr, cadence_tranches: b.cadence.tranches, cadence_note: b.cadence.note, shortlist: shortlistView(b.shortlist) })),
+          diversified_equity_option: shortlistView(p.equity.diversified_option),
         }
       : null,
-    top_ups: p.top_ups.map((t) => ({ existing_holding: t.holding_ref, matched_fund: t.matched_fund, recommendation: t.recommendation })),
+    debt: p.debt
+      ? {
+          target_duration: p.debt.target_duration,
+          credit_buckets: p.debt.credit_buckets.map((b) => ({ credit_bucket: b.bucket, target_duration: b.target_duration, split_pct_of_sleeve: b.split_pct, deploy_pct: b.deploy_pct, deploy_cr: b.deploy_cr, cadence_tranches: b.cadence.tranches, shortlist: shortlistView(b.shortlist) })),
+        }
+      : null,
     alternatives: p.alternatives
-      ? { alt_target_pct: p.alternatives.alt_target_pct, gold_pct: p.alternatives.gold_pct, non_gold_aif_pct: p.alternatives.non_gold_aif_pct, gold_candidates: p.alternatives.gold_shortlist?.surfaced.map((c) => ({ fund_name: c.fund_name, ter_pct: c.ter_pct })) ?? [], non_gold_advisor_select: p.alternatives.non_gold_advisor_select }
+      ? { alt_target_pct: p.alternatives.alt_target_pct, gold_pct: p.alternatives.gold_pct, non_gold_aif_pct: p.alternatives.non_gold_aif_pct, gold_candidates: p.alternatives.gold_shortlist.surfaced.map((c) => ({ fund_name: c.fund_name, ter_pct: c.ter_pct })), non_gold_advisor_select: p.alternatives.non_gold_advisor_select }
       : null,
   }));
 }
@@ -926,25 +938,41 @@ function buildReasonPrompt(layer1: A3Layer1Result, reg: A3RegContext, deployment
       `## Instrument-level deployment (the computed selection funnel)`,
       ``,
       `For each deployed sleeve below, a deterministic funnel has already selected`,
-      `the candidate shortlist (up to three per sub-sleeve), the cadence, and the`,
-      `top-up assessment. Narrate the deployment as advisor-facing prose. The`,
-      `JUSTIFICATION LEASH is load-bearing: cite ONLY the computed metrics shown`,
-      `for each candidate (fund name, sub_category, ter_pct, the 3-year`,
+      `the candidate shortlists (up to three per sub-bucket), the per-bucket cadence,`,
+      `and the top-up assessment. Narrate it as advisor-facing prose. The`,
+      `JUSTIFICATION LEASH is load-bearing: cite ONLY the computed metrics shown for`,
+      `each candidate (fund name, sub_category, ter_pct, the 3-year`,
       `sharpe/sortino/calmar, return_3y_pct, AUM) and the computed cadence; explain`,
-      `the deterministic pick in a few lines. Do NOT re-rank, do NOT add any reason`,
-      `absent from the data (no "strong management team", no unquantified`,
-      `qualitative claim), do NOT invent a candidate, metric, or number. The framing`,
-      `to cite is "the lowest-cost funds among the consistently strong 3-year`,
-      `risk-adjusted performers". For a sub_sleeve marked degraded, or an`,
-      `alternatives non_gold_advisor_select block, say honestly that the selection`,
-      `is advisor-select because the data does not support an auto-ranked pick`,
-      `(Reading B); never fabricate metrics to fill it. For top_ups, recommend`,
-      `topping up the existing holding first where recommendation is "top_up", and`,
-      `for "top_up_or_switch" present both the top-up and the better fresh candidate`,
-      `as the advisor's choice. Cite the cadence note's tranche count and per-tranche`,
-      `size as given; the pacing is sized on the deploy amount and AUM, not live`,
-      `volume (do not claim volume-based pacing). Tax/operational context from above`,
-      `still applies where relevant.`,
+      `the deterministic pick in a few lines. Do NOT re-rank, do NOT add a reason`,
+      `absent from the data (no "strong management team", no unquantified claim),`,
+      `do NOT invent a candidate, metric, or number. The framing to cite is "the`,
+      `lowest-cost funds among the consistently strong 3-year risk-adjusted`,
+      `performers".`,
+      ``,
+      `EQUITY is two levels: the sleeve splits into an INTERNATIONAL bucket and the`,
+      `DOMESTIC cap-split (large, mid, small). Narrate the equity deploy as filling`,
+      `each sub-bucket toward its target_pct, citing the gap and the shortlist. The`,
+      `held_fund_look_through shows how the investor's existing equity already sits`,
+      `across these buckets (a flexi-cap is decomposed into its cap mix plus its`,
+      `international residual, e.g. "Parag Parikh Flexi Cap, a flexi-cap with ~X%`,
+      `international"); cite it to explain why a bucket's gap is what it is (existing`,
+      `exposure counts toward the target; do not double-allocate). Offer the`,
+      `diversified_equity_option (the flexi/multi funds) as a distinct diversified`,
+      `choice, not folded into the cap buckets.`,
+      ``,
+      `DEBT is two axes: each credit bucket (sovereign, high_grade, credit_risk) is`,
+      `allocated its split, and within it the funds are the horizon-appropriate`,
+      `duration (target_duration). Narrate the credit-by-duration placement citing`,
+      `the bucket, the split, and the shortlist.`,
+      ``,
+      `For a degraded shortlist or an alternatives non_gold_advisor_select block,`,
+      `say honestly that the selection is advisor-select because the data does not`,
+      `support an auto-ranked pick (Reading B); never fabricate metrics. For top_ups,`,
+      `recommend topping up the existing holding first where recommendation is`,
+      `"top_up", and for "top_up_or_switch" present both the top-up and the better`,
+      `fresh candidate as the advisor's choice. Cite the cadence tranche count as`,
+      `given; the pacing is sized on the deploy amount and AUM, not live volume (do`,
+      `not claim volume-based pacing). Tax/operational context above still applies.`,
       ``,
       "```json",
       JSON.stringify(planView, null, 2),
@@ -1180,7 +1208,7 @@ function computeDeploymentPlan(input: A3Input, rebalance: A3RebalanceProposal): 
     deployments,
     holdings: input.selection.holdings,
     universe: input.selection.universe,
-    tilt: input.selection.tilt,
+    framework: input.selection.framework,
     liquidAumCr: input.selection.liquidAumCr,
   });
 }

@@ -39,7 +39,7 @@ import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from ".
 import { loadSnapshot } from "../lib/agents/snapshot-loader";
 import { buildA3IndianContext, type A3TaxProductFamily } from "../lib/agents/m0-indian-context";
 import { buildOperationalScope, taxProductFamily } from "../lib/agents/operational-scope";
-import { buildInstrumentUniverse, resolveTilt, buildDeploymentPlan } from "../lib/agents/instrument-selection";
+import { buildInstrumentUniverse, resolveFramework, buildDeploymentPlan } from "../lib/agents/instrument-selection";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
 import { MANDATES_BY_INVESTOR } from "../db/fixtures/structured-mandates";
 
@@ -48,13 +48,13 @@ import { MANDATES_BY_INVESTOR } from "../db/fixtures/structured-mandates";
  * (Finding 5: metrics now also take the per-investor mandate). The Samriddhi 2
  * personas are locked (WA26); if a persona's riskAppetite/liquidityTier changes
  * in the seed, update it here too. */
-const INVESTOR_PROFILE: Record<string, { riskAppetite: string; liquidityTier: string }> = {
-  malhotra: { riskAppetite: "Aggressive", liquidityTier: "Essential" },
-  iyengar: { riskAppetite: "Conservative", liquidityTier: "Secondary" },
-  bhatt: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential" },
-  menon: { riskAppetite: "Aggressive", liquidityTier: "Essential (deep, transitional)" },
-  surana: { riskAppetite: "Aggressive", liquidityTier: "Essential" },
-  sharma: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential" },
+const INVESTOR_PROFILE: Record<string, { riskAppetite: string; liquidityTier: string; timeHorizon: string }> = {
+  malhotra: { riskAppetite: "Aggressive", liquidityTier: "Essential", timeHorizon: "Over 5y" },
+  iyengar: { riskAppetite: "Conservative", liquidityTier: "Secondary", timeHorizon: "3-5y operational" },
+  bhatt: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential", timeHorizon: "Over 5y" },
+  menon: { riskAppetite: "Aggressive", liquidityTier: "Essential (deep, transitional)", timeHorizon: "Over 5y" },
+  surana: { riskAppetite: "Aggressive", liquidityTier: "Essential", timeHorizon: "Over 5y" },
+  sharma: { riskAppetite: "Aggressive · stated", liquidityTier: "Essential", timeHorizon: "Over 5y" },
 };
 
 /* Persona structure lines, mirroring db/seed.ts INVESTORS[].structureLine. The
@@ -215,7 +215,7 @@ async function assembleA3Input(fixture: CaseFixture, asOfDate: string): Promise<
   // for top-up + corpus for cadence). Deterministic, no API.
   const selection = {
     universe: buildInstrumentUniverse(snapshot),
-    tilt: resolveTilt(metrics.concentration.bucketTier, mandate?.sub_sleeve_tilt),
+    framework: resolveFramework(metrics.concentration.bucketTier, profile.timeHorizon, mandate?.sub_sleeve_tilt),
     holdings,
     liquidAumCr: holdings.totalLiquidAumCr,
   };
@@ -421,18 +421,27 @@ async function main() {
       // deployed sleeves (Layer-1 redeployment; Bhatt's understates until the
       // paid judgment fires the Motilal exit, as in Finding 5).
       if (newReb && newReb.deployments.length > 0 && input.selection) {
-        const plan = buildDeploymentPlan({ deployments: layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed.redeployment.deployments : [], holdings: input.selection.holdings, universe: input.selection.universe, tilt: input.selection.tilt, liquidAumCr: input.selection.liquidAumCr });
-        console.log(`    FINDING-1 deployment plan (tilt eq=${input.selection.tilt.equity_cap} debt=${input.selection.tilt.debt_credit}):`);
+        const fw = input.selection.framework;
+        const plan = buildDeploymentPlan({ deployments: layer1.rebalance_proposal.kind === "proposal" ? layer1.rebalance_proposal.computed.redeployment.deployments : [], holdings: input.selection.holdings, universe: input.selection.universe, framework: fw, liquidAumCr: input.selection.liquidAumCr });
+        const tags = (sl: { degraded: boolean; surfaced: Array<{ fund_name: string; ter_pct: number | null; sharpe_3y: number | null }>; overflow: Array<{ fund_name: string; ter_pct: number | null }>; eligible_count: number; cohort_count: number }) =>
+          sl.degraded ? "DEGRADED advisor-select" : `${sl.eligible_count} elig -> cohort ${sl.cohort_count} -> ${sl.surfaced.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 26)} (TER ${c.ter_pct}%, Sh3y ${c.sharpe_3y})`).join("; ")}${sl.overflow.length ? `  [ovf4-5: ${sl.overflow.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 20)} ${c.ter_pct}%`).join("; ")}]` : ""}`;
+        console.log(`    FINDING-1 deployment plan (equity L1 ${fw.equity.international_pct}% intl / dom ${fw.equity.domestic_large_pct}-${fw.equity.domestic_mid_pct}-${fw.equity.domestic_small_pct}; debt credit ${fw.debt_credit.sovereign_pct}-${fw.debt_credit.high_grade_pct}-${fw.debt_credit.credit_risk_pct}, duration ${fw.debt_duration}):`);
         for (const p of plan) {
-          if (p.shortlist) {
-            const tags = p.shortlist.surfaced.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 30)} (TER ${c.ter_pct}%, Sh3y ${c.sharpe_3y})`).join("; ");
-            console.log(`      ${p.sleeve} +${p.add_pct_points}pts (${p.deploy_cr}Cr, ${p.cadence.tranches} tranche${p.cadence.tranches > 1 ? "s" : ""}) sub-sleeve ${p.shortlist.sub_sleeve_label}: ${p.shortlist.eligible_count} eligible -> cohort ${p.shortlist.cohort_count} -> ${p.shortlist.degraded ? "DEGRADED advisor-select" : tags}`);
-            if (p.shortlist.overflow.length) console.log(`         overflow 4-5 (calibration only): ${p.shortlist.overflow.map((c) => `${c.fund_name.replace(/ - .*/, "").slice(0, 26)} TER ${c.ter_pct}%`).join("; ")}`);
-            if (p.top_ups.length) console.log(`         top-ups: ${p.top_ups.map((t) => `${t.holding_ref}->${t.recommendation}`).join(", ")}`);
+          if (p.equity) {
+            console.log(`      EQUITY +${p.add_pct_points}pts (${p.deploy_cr}Cr) target ${p.equity.equity_target_pct}%`);
+            console.log(`        look-through: ${p.equity.look_through.map((l) => `${l.instrument.slice(0, 22)} [${l.type_label}] L${l.domestic_large_pct}/M${l.domestic_mid_pct}/S${l.domestic_small_pct}/Intl${l.international_pct}${l.composition_source !== "snapshot" ? `(${l.composition_source})` : ""}`).join("; ") || "(no held equity)"}`);
+            for (const b of p.equity.sub_buckets) console.log(`        ${b.bucket}: target ${b.target_pct}% cur ${b.current_pct}% gap ${b.gap_pct}% -> deploy ${b.deploy_pct}% (${b.deploy_cr}Cr, ${b.cadence.tranches}x) :: ${tags(b.shortlist)}`);
+            console.log(`        diversified-equity option: ${tags(p.equity.diversified_option)}`);
+            if (p.top_ups.length) console.log(`        top-ups: ${p.top_ups.map((t) => `${t.holding_ref.slice(0, 22)}->${t.recommendation}`).join(", ")}`);
+          }
+          if (p.debt) {
+            console.log(`      DEBT +${p.add_pct_points}pts (${p.deploy_cr}Cr) duration target ${p.debt.target_duration}`);
+            for (const b of p.debt.credit_buckets) console.log(`        ${b.bucket} (${b.split_pct}% of sleeve, ${b.deploy_pct}% = ${b.deploy_cr}Cr, ${b.cadence.tranches}x): ${tags(b.shortlist)}`);
+            if (p.top_ups.length) console.log(`        top-ups: ${p.top_ups.map((t) => `${t.holding_ref.slice(0, 22)}->${t.recommendation}`).join(", ")}`);
           }
           if (p.alternatives) {
             const a = p.alternatives;
-            console.log(`      ${p.sleeve} +${p.add_pct_points}pts (${p.deploy_cr}Cr, ${p.cadence.tranches} tranche${p.cadence.tranches > 1 ? "s" : ""}) ALT target ${a.alt_target_pct}% -> gold ${a.gold_pct}%${a.non_gold_aif_pct > 0 ? ` + non-gold AIF ${a.non_gold_aif_pct}% (advisor-select, ${a.non_gold_advisor_select?.aif_universe_count} AIF in universe)` : " (gold-only, sub-5% alt)"}; gold shortlist ${a.gold_shortlist?.surfaced.length ?? 0}`);
+            console.log(`      ALT +${p.add_pct_points}pts (${p.deploy_cr}Cr) target ${a.alt_target_pct}% -> gold ${a.gold_pct}%${a.non_gold_aif_pct > 0 ? ` + non-gold AIF ${a.non_gold_aif_pct}% (advisor-select, ${a.non_gold_advisor_select?.aif_universe_count} AIF)` : " (gold-only)"}; gold shortlist ${a.gold_shortlist.surfaced.length}`);
           }
         }
       }

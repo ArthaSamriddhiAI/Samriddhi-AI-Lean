@@ -39,7 +39,7 @@ import { runA2Diagnostic } from "./a2-classification";
 import { runA3Diagnostic } from "./a3-so-what";
 import { buildA3IndianContext, type A3TaxProductFamily } from "./m0-indian-context";
 import { buildOperationalScope, taxProductFamily } from "./operational-scope";
-import { buildInstrumentUniverse, resolveTilt } from "./instrument-selection";
+import { buildInstrumentUniverse, resolveFramework } from "./instrument-selection";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -361,7 +361,7 @@ export async function runDiagnosticPipeline(opts: {
      * mandate's optional override. */
     const a3Selection = {
       universe: buildInstrumentUniverse(snapshot),
-      tilt: resolveTilt(metrics.concentration.bucketTier, investorMandate?.sub_sleeve_tilt),
+      framework: resolveFramework(metrics.concentration.bucketTier, investor.timeHorizon, investorMandate?.sub_sleeve_tilt),
       holdings,
       liquidAumCr: holdings.totalLiquidAumCr,
     };

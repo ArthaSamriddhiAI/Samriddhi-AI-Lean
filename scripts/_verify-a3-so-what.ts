@@ -32,8 +32,9 @@ import { buildA3IndianContext, resolveA3TaxStructure, type A3TaxProductFamily } 
 import { buildOperationalScope, taxProductFamily, findConsistentMatch } from "@/lib/agents/operational-scope";
 import { HOLDINGS_BY_INVESTOR, type StructuredHoldings } from "@/db/fixtures/structured-holdings";
 import {
-  buildInstrumentUniverse, runFunnel, resolveTilt, classifyPmsSleeve, classifyMfSleeve,
-  buildAlternativesPlan, computeCadence, assessTopUps, buildDeploymentPlan, SELECTION_PARAMS,
+  buildInstrumentUniverse, resolveFramework, classifyPmsSleeve, classifyMfSleeve,
+  buildAlternativesPlan, computeCadence, buildDeploymentPlan, SELECTION_PARAMS,
+  creditBucketOf, durationBucketOf, decomposeHeldEquity, buildEquityPlan, type SelectionCandidate,
 } from "@/lib/agents/instrument-selection";
 import { promises as fs } from "node:fs";
 import path from "node:path";
@@ -428,54 +429,67 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(classifyPmsSleeve("long short") === "Alternatives", "C18: a long-short PMS classifies Alternatives", classifyPmsSleeve("long short"));
   assert(classifyMfSleeve("Gilt Fund") === "Debt" && classifyMfSleeve("Small Cap Fund") === "Equity" && classifyMfSleeve("ETFs- Commodity") === "Alternatives", "C18: MF sebi_category classifies to the right sleeve from data", "");
 
-  console.log("Case 19: tilt resolves by risk profile");
-  const consTilt = resolveTilt("Conservative");
-  const aggrTilt = resolveTilt("Aggressive");
-  assert(consTilt.equity_cap === "large_only" && consTilt.debt_credit === "high_grade_sovereign", "C19: Conservative -> large-only equity, high-grade/sovereign debt", JSON.stringify(consTilt));
-  assert(aggrTilt.equity_cap === "small_mid_lean" && aggrTilt.debt_credit === "may_include_credit_risk", "C19: Aggressive -> small/mid equity, may-include-credit debt", JSON.stringify(aggrTilt));
+  console.log("Case 19: framework resolves by risk tier + horizon, never-zero core at both levels");
+  const consFw = resolveFramework("Conservative", "3-5y operational");
+  const aggrFw = resolveFramework("Aggressive", "Over 5y");
+  assert(consFw.equity.international_pct === 10 && consFw.equity.domestic_large_pct === 75 && consFw.equity.domestic_mid_pct === 20 && consFw.equity.domestic_small_pct === 5, "C19: Conservative equity 10 intl / 75-20-5 domestic", JSON.stringify(consFw.equity));
+  assert(aggrFw.equity.international_pct === 20 && aggrFw.equity.domestic_large_pct === 35 && aggrFw.equity.domestic_mid_pct === 40 && aggrFw.equity.domestic_small_pct === 25, "C19: Aggressive equity 20 intl / 35-40-25 domestic (large core never zero)", JSON.stringify(aggrFw.equity));
+  assert(consFw.equity.international_pct > 0 && aggrFw.equity.domestic_large_pct > 0 && consFw.equity.domestic_small_pct > 0, "C19: never-zero core, intl and domestic-large both non-zero every tier", "");
+  assert(aggrFw.debt_credit.sovereign_pct === 25 && aggrFw.debt_credit.high_grade_pct === 55 && aggrFw.debt_credit.credit_risk_pct === 20 && (aggrFw.debt_credit.sovereign_pct + aggrFw.debt_credit.high_grade_pct) >= 80, "C19: aggressive debt 25/55/20, still 80% sovereign+high-grade (ballast)", JSON.stringify(aggrFw.debt_credit));
+  assert(consFw.debt_duration === "medium" && aggrFw.debt_duration === "long", "C19: duration by horizon (Iyengar medium-horizon -> medium; long -> long)", `${consFw.debt_duration}/${aggrFw.debt_duration}`);
 
-  console.log("Case 20: the funnel produces a sensible shortlist for a rich MF sub-sleeve");
   const universe = buildInstrumentUniverse(t0Snap);
-  const eqShort = runFunnel("Equity", "equity (small_mid_lean)", ["Mid Cap Fund", "Small Cap Fund"], universe);
-  assert(eqShort.eligible_count > 10, "C20: rich eligible pool for aggressive equity (mid+small cap)", String(eqShort.eligible_count));
-  assert(eqShort.cohort_count === Math.ceil(eqShort.eligible_count / 2), "C20: quality cohort is the top-half by risk-adjusted composite", `${eqShort.cohort_count} of ${eqShort.eligible_count}`);
-  assert(eqShort.surfaced.length <= SELECTION_PARAMS.SHORTLIST_SURFACE && eqShort.surfaced.length > 0, "C20: surfaces up to 3 candidates", String(eqShort.surfaced.length));
-  assert(eqShort.surfaced.every((c) => c.ter_pct !== null && c.sharpe_3y !== null), "C20: surfaced candidates carry their cited metrics (TER + 3y risk-adjusted)", "");
-  // lexicographic: within the cohort, surfaced are the lowest-TER; #1 TER <= #2 TER.
-  assert(eqShort.surfaced.length < 2 || (eqShort.surfaced[0].ter_pct ?? 0) <= (eqShort.surfaced[1].ter_pct ?? 0), "C20: lexicographic ranking, lowest TER first within the cohort", JSON.stringify(eqShort.surfaced.map((c) => c.ter_pct)));
-  assert(eqShort.overflow.length > 0 && eqShort.overflow.every((c) => (c.ter_pct ?? 0) >= (eqShort.surfaced[eqShort.surfaced.length - 1].ter_pct ?? 0)), "C20: internal-5 overflow (4-5) are not cheaper than the surfaced 3 (ranking sound)", JSON.stringify(eqShort.overflow.map((c) => c.ter_pct)));
+  console.log("Case 20: equity two-level plan resolves with never-zero buckets + funnel shortlists");
+  // Aggressive investor (Menon-like), equity target 65, deploy 58.4 pts.
+  const eqp = buildEquityPlan(58.4, 65, aggrFw, HOLDINGS_BY_INVESTOR.menon, universe, HOLDINGS_BY_INVESTOR.menon.totalLiquidAumCr);
+  const bkt = (b: string) => eqp.sub_buckets.find((x) => x.bucket === b)!;
+  assert(eqp.sub_buckets.length === 4 && bkt("international").target_pct > 0 && bkt("domestic_large").target_pct > 0, "C20: four equity sub-buckets, international and domestic-large targets non-zero", JSON.stringify(eqp.sub_buckets.map((b) => `${b.bucket}:${b.target_pct}`)));
+  assert(bkt("international").shortlist.surfaced.length > 0 && bkt("domestic_mid").shortlist.surfaced.length > 0, "C20: international + domestic-mid sub-buckets get funnel shortlists", "");
+  assert(bkt("domestic_mid").shortlist.surfaced.every((c: SelectionCandidate) => c.ter_pct !== null && c.sharpe_3y !== null), "C20: surfaced candidates carry cited metrics", "");
+  assert(eqp.diversified_option.surfaced.length > 0, "C20: flexi/multi offered as a distinct diversified-equity option (not excluded)", "");
 
-  console.log("Case 21: degradation to advisor-select without fabricating metrics");
-  const emptyShort = runFunnel("Equity", "equity (none)", ["Nonexistent Category"], universe);
-  assert(emptyShort.degraded === true && emptyShort.surfaced.length === 0 && emptyShort.degradation_reason !== null, "C21: an empty sub-sleeve degrades honestly (no fabricated candidate)", JSON.stringify(emptyShort));
+  console.log("Case 21: flexi look-through decomposes + retains identity; international residual counted");
+  const ppfas = HOLDINGS_BY_INVESTOR.surana.holdings.find((h) => /parag parikh/i.test(h.instrument))!;
+  const decomp = decomposeHeldEquity(ppfas, universe);
+  assert(decomp.composition_source === "snapshot" && decomp.international_pct > 0, "C21: Parag Parikh decomposed from real composition with a non-zero international residual", JSON.stringify(decomp));
+  assert(/flexi/i.test(decomp.type_label), "C21: retains its flexi-cap type-identity in the label", decomp.type_label);
+  // Residual counting: Surana's international current (PPFAS residual + Vanguard ETF) must be > 0, so he is not double-allocated.
+  const suFw = aggrFw;
+  const suEq = buildEquityPlan(20, 65, suFw, HOLDINGS_BY_INVESTOR.surana, universe, HOLDINGS_BY_INVESTOR.surana.totalLiquidAumCr);
+  assert(suEq.sub_buckets.find((b) => b.bucket === "international")!.current_pct > 0, "C21: Surana's existing international (PPFAS residual + Vanguard) counts toward the international target (no double-allocate)", String(suEq.sub_buckets.find((b) => b.bucket === "international")!.current_pct));
 
-  console.log("Case 22: alternatives split (under-5 gold-only; 5+ gold + non-gold advisor-select)");
+  console.log("Case 22: deterministic decline for a composition-missing flexi (C-LLM-now DEFERRED, ADR-0038)");
+  // Synthetic flexi holding whose name matches no snapshot record -> composition missing -> decline.
+  const synthFlexi = { instrument: "Nonexistent Flexi Cap Fund XYZ", assetClass: "Equity" as const, subCategory: "mf_active_flexi_cap" as const, valueCr: 1, weightPct: 10 };
+  const declined = decomposeHeldEquity(synthFlexi, universe);
+  assert(declined.composition_source === "declined" && /advisor-select/i.test(declined.type_label), "C22: a composition-missing flexi declines to advisor-select, no fabricated split (ADR-0038 deferred)", JSON.stringify(declined));
+
+  console.log("Case 23: 2D debt placement, credit + duration via category-primary + metric-secondary");
+  const gilt = { fund_name: "X Gilt", source: "mf" as const, sub_category: "Gilt Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 8, aaa_pct: null };
+  const corp = { fund_name: "X Corp", source: "mf" as const, sub_category: "Corporate Bond Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.5, aaa_pct: 85 };
+  const shortDurHi = { fund_name: "X ShortHi", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 85 };
+  const shortDurLo = { fund_name: "X ShortLo", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 55 };
+  assert(creditBucketOf(gilt) === "sovereign" && durationBucketOf(gilt) === "long", "C23: gilt -> sovereign by category (no AAA% test), long duration by the 8y metric", `${creditBucketOf(gilt)}/${durationBucketOf(gilt)}`);
+  assert(creditBucketOf(corp) === "high_grade" && durationBucketOf(corp) === "short", "C23: Corporate Bond -> high-grade by category, short by the 2.5y metric", `${creditBucketOf(corp)}/${durationBucketOf(corp)}`);
+  assert(creditBucketOf(shortDurHi) === "high_grade" && creditBucketOf(shortDurLo) === "credit_risk", "C23: a duration-category fund's credit comes from AAA% (85 high-grade, 55 credit-risk; the 70 cutoff)", `${creditBucketOf(shortDurHi)}/${creditBucketOf(shortDurLo)}`);
+
+  console.log("Case 24: alternatives split (under-5 gold-only; 5+ gold + non-gold advisor-select)");
   const altLow = buildAlternativesPlan(3, universe);
   const altHigh = buildAlternativesPlan(15, universe);
-  assert(altLow.gold_pct === 3 && altLow.non_gold_aif_pct === 0 && altLow.non_gold_advisor_select === null, "C22: under 5% alt -> gold only", JSON.stringify(altLow));
-  assert(altHigh.gold_pct === 5 && altHigh.non_gold_aif_pct === 10 && altHigh.non_gold_advisor_select !== null, "C22: 5%+ alt -> 5 gold + non-gold AIF advisor-select", JSON.stringify({ gold: altHigh.gold_pct, nonGold: altHigh.non_gold_aif_pct }));
-  assert((altHigh.gold_shortlist?.surfaced.length ?? 0) > 0, "C22: gold deployable via commodity ETFs (shortlist non-empty)", String(altHigh.gold_shortlist?.surfaced.length));
+  assert(altLow.gold_pct === 3 && altLow.non_gold_aif_pct === 0 && altLow.non_gold_advisor_select === null, "C24: under 5% alt -> gold only", JSON.stringify(altLow));
+  assert(altHigh.gold_pct === 5 && altHigh.non_gold_aif_pct === 10 && altHigh.non_gold_advisor_select !== null, "C24: 5%+ alt -> 5 gold + non-gold AIF advisor-select", JSON.stringify({ gold: altHigh.gold_pct, nonGold: altHigh.non_gold_aif_pct }));
+  assert(altHigh.gold_shortlist.surfaced.length > 0, "C24: gold deployable via commodity ETFs", String(altHigh.gold_shortlist.surfaced.length));
 
-  console.log("Case 23: cadence sizes on deploy amount and AUM proxy, not volume");
-  const cadSmall = computeCadence(1.0, 2000);
-  const cadLarge = computeCadence(35.4, 2000);
-  assert(cadSmall.tranches === 1, "C23: a sub-threshold deploy is a single tranche", JSON.stringify(cadSmall));
-  assert(cadLarge.tranches === SELECTION_PARAMS.CADENCE_MAX_TRANCHES && cadLarge.window_days === SELECTION_PARAMS.CADENCE_WINDOW_DAYS, "C23: a large deploy stages to the tranche cap over the window", JSON.stringify(cadLarge));
-
-  console.log("Case 24: top-up-first picks an existing matchable holding in the quality cohort");
-  // Surana holds Mirae/Axis/Parag large-cap MFs; conservative-large funnel may match.
-  const suranaUniverse = universe;
-  const topUps = assessTopUps(HOLDINGS_BY_INVESTOR.surana, "Equity", runFunnel("Equity", "eq", ["Large Cap Fund"], suranaUniverse), suranaUniverse);
-  assert(topUps.every((t) => t.recommendation === "top_up" || t.recommendation === "top_up_or_switch"), "C24: matched existing holdings yield a top-up or top-up-or-switch recommendation (never silently dropped)", JSON.stringify(topUps.map((t) => `${t.holding_ref}:${t.recommendation}`)));
-
-  console.log("Case 25: Menon end-to-end deployment plan (cash funds instruments across sleeves)");
-  const menonTilt = resolveTilt("Aggressive", MANDATES_BY_INVESTOR.menon.sub_sleeve_tilt);
+  console.log("Case 25: Menon end-to-end (cash funds two-level equity + 2D debt instruments)");
+  const menonFw = resolveFramework("Aggressive", "Over 5y", MANDATES_BY_INVESTOR.menon.sub_sleeve_tilt);
   const menonRedep = JSON.parse(await fs.readFile(path.join(FIX, "c-2026-05-15-menon-01.json"), "utf-8")).content.a3_so_what.rebalance_proposal.computed.redeployment;
-  const menonPlan = buildDeploymentPlan({ deployments: menonRedep.deployments, holdings: HOLDINGS_BY_INVESTOR.menon, universe, tilt: menonTilt, liquidAumCr: HOLDINGS_BY_INVESTOR.menon.totalLiquidAumCr });
-  const eqPlan = menonPlan.find((p) => p.sleeve === "Equity");
-  const altPlan = menonPlan.find((p) => p.sleeve === "Alternatives");
-  assert(!!eqPlan && (eqPlan.shortlist?.surfaced.length ?? 0) > 0 && eqPlan.cadence.tranches > 1, "C25: Menon equity gap gets a funnel shortlist and a staged cadence", JSON.stringify({ surfaced: eqPlan?.shortlist?.surfaced.length, tranches: eqPlan?.cadence.tranches }));
-  assert(!!altPlan && altPlan.alternatives?.gold_pct === 5 && (altPlan.alternatives?.non_gold_aif_pct ?? 0) > 0 && altPlan.alternatives?.non_gold_advisor_select !== null, "C25: Menon 15% alt -> 5 gold + non-gold AIF advisor-select (honest, not forced gold)", JSON.stringify({ gold: altPlan?.alternatives?.gold_pct, nonGold: altPlan?.alternatives?.non_gold_aif_pct }));
+  const menonPlan = buildDeploymentPlan({ deployments: menonRedep.deployments, holdings: HOLDINGS_BY_INVESTOR.menon, universe, framework: menonFw, liquidAumCr: HOLDINGS_BY_INVESTOR.menon.totalLiquidAumCr });
+  const mEq = menonPlan.find((p) => p.sleeve === "Equity");
+  const mDebt = menonPlan.find((p) => p.sleeve === "Debt");
+  const mAlt = menonPlan.find((p) => p.sleeve === "Alternatives");
+  assert(!!mEq?.equity && mEq.equity.sub_buckets.some((b) => b.bucket === "international" && b.deploy_pct > 0) && mEq.equity.sub_buckets.some((b) => b.bucket === "domestic_large" && b.deploy_pct > 0), "C25: Menon equity deploys to international AND a domestic large-cap core (two-level)", JSON.stringify(mEq?.equity?.sub_buckets.map((b) => `${b.bucket}:${b.deploy_pct}`)));
+  assert(!!mDebt?.debt && mDebt.debt.credit_buckets.length === 3 && mDebt.debt.target_duration === "long" && mDebt.debt.credit_buckets.every((b) => b.deploy_pct >= 0), "C25: Menon debt placed across 3 credit buckets at long duration (his horizon)", JSON.stringify({ dur: mDebt?.debt?.target_duration, buckets: mDebt?.debt?.credit_buckets.map((b) => `${b.bucket}:${b.deploy_pct}`) }));
+  assert(!!mAlt?.alternatives && mAlt.alternatives.gold_pct === 5 && (mAlt.alternatives.non_gold_aif_pct ?? 0) > 0 && mAlt.alternatives.non_gold_advisor_select !== null, "C25: Menon 15% alt -> 5 gold + non-gold AIF advisor-select (not forced gold)", "");
 
   console.log("");
   if (failures.length) {

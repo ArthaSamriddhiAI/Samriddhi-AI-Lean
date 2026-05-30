@@ -1,37 +1,50 @@
-# ADR 0033: Sub-sleeve tilt framework, the model-portfolio foundation slice
+# ADR 0033: Sub-sleeve allocation framework, the model-portfolio foundation slice
 
 ## Status
 
-Accepted, 2026-05. Shipped as part of T-5.12 Finding 1 on `features/a3-so-what`, PR #11. The tilt type and house-view default live in `db/fixtures/structured-mandates.ts` (`SubSleeveTilt`, `HOUSE_VIEW_TILT_BY_RISK`, optional `Mandate.sub_sleeve_tilt`); the instrument-selection funnel consumes them (`lib/agents/instrument-selection.ts`).
+Accepted, 2026-05; expanded later in T-5.12 Finding 1 on `features/a3-so-what`, PR #11. The split tables live in `db/fixtures/structured-mandates.ts` (`EquitySplit`, `DebtCreditSplit`, `EQUITY_SPLIT_BY_TIER`, `DEBT_CREDIT_SPLIT_BY_TIER`, `durationForHorizon`, optional `Mandate.sub_sleeve_tilt`); the instrument-selection funnel consumes them (`lib/agents/instrument-selection.ts`).
+
+This ADR carries the "what the target allocation should be" decisions. The "how instruments are picked" mechanics are ADR-0034; flexi look-through is ADR-0035; international placement is ADR-0036; the 2D credit-by-duration debt model is ADR-0037.
 
 ## Context
 
-Finding 1 selects specific instruments to fill an under-target sleeve. To do that well it must know not just how much equity or debt an investor should hold (the asset-class bands, ADR-0032) but what kind within the sleeve: an aggressive long-horizon investor and a conservative distribution-phase investor should both reach their equity target, but with different cap-mixes, and their debt with different credit quality. The instrument-selection pre-build audit (`docs/audits/2026-05-30_instrument_selection_prebuild.md`, Section C) confirmed that `sebi_category` fully distinguishes equity cap-mix (Large / Mid / Small / Flexi / Multi / Large-and-Mid / Focused) and debt credit-quality and duration (Gilt sovereign, Corporate Bond and Banking-and-PSU high-grade, Credit Risk, plus the duration ladder), so a risk-profile tilt is fully data-driven, with no fallback to category-level-only.
+Finding 1 selects specific instruments to fill an under-target sleeve. To do that well it must know not just how much equity or debt an investor should hold (the asset-class bands, ADR-0032) but what kind within the sleeve. The pre-build and look-through audits confirmed `sebi_category` plus the per-fund composition and Duration/AAA% metrics make a risk-profile tilt fully data-driven. There is no risk-appetite-by-time-horizon to model-portfolio framework yet (product debt P43); the per-investor mandates are bespoke. So this is the first stated, reusable slice of that future framework, built to be extended rather than replaced.
 
-There is no risk-appetite-by-time-horizon to model-portfolio framework yet (product debt P43); the per-investor mandates are bespoke and hand-authored. So the sub-sleeve tilt is the first stated, reusable slice of that future framework, and it must be built to be extended rather than replaced.
+An earlier version of this ADR used a directional tilt (`large_only` / `large_mid` / `small_mid_lean`), which the primary corrected: a directional tilt can zero out a sleeve's core (an aggressive investor still needs a large-cap ballast; aggression is a tilt, not the elimination of stability). It was replaced with explicit splits and a never-zero principle.
 
 ## Decision
 
-Add a sub-sleeve tilt to the mandate framework as a stated house-view mini-framework:
+The allocation framework is a set of explicit splits keyed by risk tier (and, for debt duration, by time horizon), with a never-zero core. A mandate may override via the optional `Mandate.sub_sleeve_tilt` (the ADR-0032 optional-field pattern); absent an override, the house-view default for the tier applies.
 
-- `SubSleeveTilt` has two axes: `equity_cap` (`large_only` / `large_mid` / `small_mid_lean`) and `debt_credit` (`high_grade_sovereign` / `high_grade` / `may_include_credit_risk`).
-- The house-view default is keyed by risk tier (`HOUSE_VIEW_TILT_BY_RISK`): Conservative leans large-only equity and high-grade sovereign debt; Moderate-Aggressive leans large-and-mid equity and high-grade debt; Aggressive and Ultra-Aggressive lean small-and-mid equity and may include credit-risk debt. This encodes the stated rule: aggressive leans small/mid, moderate large/mid, conservative large-only; conservative high-grade/sovereign debt, aggressive may include credit risk.
-- A mandate may override the default with an optional `Mandate.sub_sleeve_tilt`, exactly the optional-field extension pattern ADR-0032 established for `target_pct`. When absent, the house-view default for the investor's risk tier applies.
+**Equity, two levels.** Level 1 splits the equity sleeve domestic vs international; Level 2 splits the domestic portion across large/mid/small cap. International is its own bucket alongside the domestic cap-split, not on the domestic cap axis (a different geography). Per cent of the equity sleeve (Level 1) and of the domestic portion (Level 2):
 
-The tilt resolves to a preferred ordered set of `sebi_category` values per sleeve inside the instrument-selection funnel; that mapping is selection logic and lives in `instrument-selection.ts`, not in the mandate data.
+| Tier | Intl | Domestic large | mid | small |
+|---|---|---|---|---|
+| Conservative | 10 | 75 | 20 | 5 |
+| Moderate-Aggressive | 15 | 55 | 35 | 10 |
+| Aggressive / Ultra | 20 | 35 | 40 | 25 |
+
+Monotonic by design (large descends 75 to 35 with rising risk, small ascends 5 to 25, mid is the growth engine that rises then plateaus, international rises 10 to 20). The never-zero core holds at both levels: every tier keeps a meaningful domestic large-cap core AND a real, non-dominant international allocation.
+
+**Debt, credit axis** (per cent of the debt sleeve, by risk appetite):
+
+| Tier | Sovereign/gilt | High-grade/AAA | Corporate/credit-risk |
+|---|---|---|---|
+| Conservative | 55 | 42 | 3 |
+| Moderate-Aggressive | 35 | 55 | 10 |
+| Aggressive / Ultra | 25 | 55 | 20 |
+
+Principle: debt is the portfolio's ballast; even aggressive debt stays at least 80 per cent sovereign-plus-high-grade, and credit-risk caps at 20 per cent. The investor takes risk on the equity side, not in the safe bucket. The credit-bucket-to-`sebi_category` mapping and its SEBI rationale are in ADR-0037.
+
+**Debt, duration axis** by time horizon (a selection preference, ADR-0037): short horizon prefers short duration, long horizon can hold longer duration for yield. `durationForHorizon` maps the free-text horizon to short/medium/long.
 
 ## Consequences
 
-- The instrument funnel fills an aggressive investor's equity gap from mid and small cap categories, and a conservative investor's from large cap only, deterministically and by data.
-- The tilt is per-risk-tier by default and per-investor-overridable, so the demo personas need no per-investor tilt authoring (the default is correct for all five), while a future investor with a specific tilt can state it.
-- The change is additive: an optional mandate field plus a house-view default table, no change to the bands or to Samriddhi 1.
-
-## Forward note
-
-This is the foundation slice, not the final framework. When the model-portfolio framework is formalised (P43), the house-view tilt table is the seed it grows from: the same `SubSleeveTilt` shape extends with more axes (duration tilt, factor tilt, geography) and a richer keying (risk-appetite by time-horizon by life-stage) rather than a parallel structure. The optional mandate override is the seam that lets per-investor customisation arrive without a schema change.
+- Every tier reaches its sleeve target with a risk-appropriate composition and a non-zero core at every level.
+- The splits are house-view-by-tier with a per-investor override seam, so the demo personas need no per-investor tilt authoring while a future investor can state one.
+- This ADR's debt credit-only splits became the CREDIT AXIS of the ADR-0037 2D framework, and the earlier duration-deferred scope boundary is SUPERSEDED by ADR-0037 (recorded here so a reader does not reinstate the deferral).
 
 ## References
 
-- `db/fixtures/structured-mandates.ts` (`SubSleeveTilt`, `HOUSE_VIEW_TILT_BY_RISK`, `Mandate.sub_sleeve_tilt`).
-- `lib/agents/instrument-selection.ts` (the funnel that consumes the tilt; the preferred-category mapping).
-- ADR-0032 (the optional-field extension pattern); ADR-0034 (the selection architecture); the instrument-selection pre-build audit Section C and E.
+- `db/fixtures/structured-mandates.ts` (the split tables; `Mandate.sub_sleeve_tilt`).
+- ADR-0032 (the optional-field pattern and the per-investor targets the redeployment fills toward); ADR-0034 (selection mechanics); ADR-0035 (flexi look-through); ADR-0036 (international placement); ADR-0037 (2D credit-by-duration). Product debt P43 (the future full framework), P45 (selection calibration).
