@@ -43,10 +43,16 @@ export const SELECTION_PARAMS = {
   /** Duration cutoffs (years), ADR-0037 A1: short < 3, medium 3 to 5, long > 5. */
   DURATION_SHORT_MAX_Y: 3,
   DURATION_LONG_MIN_Y: 5,
-  /** AAA% high-grade cutoff, ADR-0037 A2: a duration-category fund with AAA% at
+  /** High-grade cutoff, ADR-0037 A2: a duration-category fund with SOV% + AAA% at
    * or above this is high-grade; below it leans credit-risk. 70 not 80 because
    * AAA% excludes AA+ (which SEBI counts as high-grade), see ADR-0037. */
   AAA_HIGH_GRADE_MIN_PCT: 70,
+  /** Sovereign cutoff, ADR-0037 A2 (SOV-aware): a duration-category fund with
+   * SOV% at or above this is sovereign. 80 mirrors the gilt SOV% profile (gilts
+   * read 93 to 95). Sovereign paper is at least as safe as AAA, so SOV% counts
+   * toward the safety read; an AAA-only test mis-filed sovereign-heavy funds as
+   * credit-risk (the ABSL/HDFC Income mis-pick). See ADR-0037. */
+  SOV_SOVEREIGN_MIN_PCT: 80,
 } as const;
 
 /* ----- Category sets ----- */
@@ -55,6 +61,16 @@ const GOLD_CATEGORIES = ["ETFs- Commodity"];
 const INTERNATIONAL_CATEGORIES = ["FoFs Overseas", "ETFs- Global", "Sectoral- Foreign Equity"];
 const CAP_CATEGORY = { large: "Large Cap Fund", mid: "Mid Cap Fund", small: "Small Cap Fund" } as const;
 const FLEXI_CATEGORIES = ["Flexi Cap Fund", "Multi Cap Fund", "Focused Fund"];
+/* Hybrid categories (L2): a hybrid holds debt alongside equity, so its
+ * non-domestic-non-cash residual is DEBT, not international (see decomposeHeldEquity). */
+const HYBRID_CATEGORIES = ["Dynamic Asset Allocation or Bal", "Balanced Advantage Fund", "Aggressive Hybrid Fund", "Conservative Hybrid Fund", "Equity Savings", "Multi Asset Allocation", "Balanced Hybrid Fund"];
+/* C1 (ADR-0033): the diversified-equity candidate set extends the flexi/multi
+ * treatment to the other multi-exposure, not-pure-cap equity categories the
+ * classification audit surfaced (Large & Mid spans buckets like a flexi; ELSS /
+ * Value / Contra / Dividend Yield are cap-agnostic diversified equity). Offered
+ * as distinct diversified candidates and top-up-eligible, NOT decomposed into the
+ * pure-cap ranking pools (the lexicographic comparison stays apples-to-apples). */
+const DIVERSIFIED_EQUITY_CATEGORIES = [...FLEXI_CATEGORIES, "Large & Mid Cap Fund", "ELSS", "Value Fund", "Contra Fund", "Dividend Yield Fund"];
 const GILT_CATEGORIES = ["Gilt Fund", "Gilt Fund with 10 year Constant"];
 const HIGH_GRADE_CREDIT_CATEGORIES = ["Corporate Bond Fund", "Banking and PSU Fund"];
 const CREDIT_RISK_CATEGORIES = ["Credit Risk Fund"];
@@ -126,9 +142,11 @@ export type SelectionCandidate = {
   calmar_3y: number | null;
   return_3y: number | null;
   /** Debt 2D (ADR-0037): the per-fund metrics that bridge the mutually-exclusive
-   * credit/duration sebi_category, near-complete on eligible debt funds. */
+   * credit/duration sebi_category, near-complete on eligible debt funds. sov_pct
+   * is the sovereign (government-securities) share; the credit read is SOV-aware. */
   duration_y: number | null;
   aaa_pct: number | null;
+  sov_pct: number | null;
 };
 
 function num(v: unknown): number | null {
@@ -148,7 +166,7 @@ function mfToCandidate(row: MutualFundRow): SelectionCandidate {
     fund_name: String(row.fund_name ?? ""), source: "mf", sub_category: String(row.sebi_category ?? ""),
     ter_pct: pct(r["TER (%)"]), aum_cr: num(r["AUM (Cr)"]), age_years: num(r["Age (Yrs)"]),
     sharpe_3y: num(tb.sharpe_3y), sortino_3y: num(tb.sortino_3y), calmar_3y: num(tb.calmar_3y),
-    return_3y: pct(r["3Y"]), duration_y: num(r["Duration"]), aaa_pct: num(r["AAA %"]),
+    return_3y: pct(r["3Y"]), duration_y: num(r["Duration"]), aaa_pct: num(r["AAA %"]), sov_pct: num(r["SOV %"]),
   };
 }
 
@@ -208,11 +226,19 @@ export type CreditBucket = "sovereign" | "high_grade" | "credit_risk";
 
 export function creditBucketOf(c: SelectionCandidate): CreditBucket {
   const cat = c.sub_category;
-  if (GILT_CATEGORIES.includes(cat)) return "sovereign"; // A3: gilts sovereign by category, no AAA% test
+  if (GILT_CATEGORIES.includes(cat)) return "sovereign"; // gilts sovereign by category, no metric test
   if (HIGH_GRADE_CREDIT_CATEGORIES.includes(cat)) return "high_grade"; // Corporate Bond is >=80% AAA/AA+ by SEBI, high-grade despite the name
   if (CREDIT_RISK_CATEGORIES.includes(cat)) return "credit_risk";
-  // Duration-category fund: credit from the AAA% metric (A2). Never sovereign.
-  return (c.aaa_pct !== null && c.aaa_pct >= SELECTION_PARAMS.AAA_HIGH_GRADE_MIN_PCT) ? "high_grade" : "credit_risk";
+  // Duration-category fund: SOV-aware credit read (A2). Sovereign paper is at
+  // least as safe as AAA, so SOV% counts toward the safety read; an AAA-only test
+  // mis-filed sovereign-heavy duration funds as credit-risk (the three no-AAA%
+  // long-duration G-sec funds, and ABSL/HDFC Income at SOV%+AAA% ~95). Govt
+  // securities carry no corporate rating, so AAA% is null for them; read SOV%.
+  const sov = c.sov_pct ?? 0;
+  const aaa = c.aaa_pct ?? 0;
+  if (sov >= SELECTION_PARAMS.SOV_SOVEREIGN_MIN_PCT) return "sovereign";
+  if (sov + aaa >= SELECTION_PARAMS.AAA_HIGH_GRADE_MIN_PCT) return "high_grade";
+  return "credit_risk";
 }
 
 export function durationBucketOf(c: SelectionCandidate): DurationBucket | null {
@@ -351,15 +377,31 @@ export function decomposeHeldEquity(h: Holding, universe: InstrumentUniverse): H
     const r = row as Record<string, unknown> | null;
     const lg = r ? num(r["LargeCap %"]) : null, md = r ? num(r["MidCap %"]) : null, sm = r ? num(r["SmallCap %"]) : null, cash = r ? num(r["Cash %"]) : null;
     const isFlexi = row ? FLEXI_CATEGORIES.includes(String(row.sebi_category ?? "")) : false;
+    const isHybrid = sc.startsWith("mf_hybrid") || (row ? HYBRID_CATEGORIES.includes(String(row.sebi_category ?? "")) : false);
     if (lg !== null && md !== null && sm !== null) {
-      const intl = Math.max(0, 1 - lg - md - sm - (cash ?? 0) / 100); // fractions; cash is a percent
-      const label = isFlexi ? `${row!.sebi_category} (flexi-cap${intl > 0.05 ? `, ~${Math.round(intl * 100)}% international` : ""})` : String(row!.sebi_category ?? "mutual fund");
+      // A hybrid holds debt alongside equity; its non-domestic-non-cash residual
+      // is DEBT, not international (L2). Count its domestic cap exposure, exclude
+      // the debt residual from the equity look-through (international = 0). The
+      // residual-is-international rule (ADR-0036) holds only for all-equity funds.
+      const intl = isHybrid ? 0 : Math.max(0, 1 - lg - md - sm - (cash ?? 0) / 100); // fractions; cash is a percent
+      const label = isHybrid
+        ? `${row!.sebi_category} (hybrid; equity sleeve counted, debt residual excluded)`
+        : isFlexi ? `${row!.sebi_category} (flexi-cap${intl > 0.05 ? `, ~${Math.round(intl * 100)}% international` : ""})` : String(row!.sebi_category ?? "mutual fund");
       return { ...base, domestic_large_pct: round1(w * lg), domestic_mid_pct: round1(w * md), domestic_small_pct: round1(w * sm), international_pct: round1(w * intl), type_label: label, composition_source: "snapshot" };
     }
     // Composition missing. Pure-cap categories take their category (no inference).
     if (sc === "mf_active_large_cap") return { ...base, domestic_large_pct: round1(w), type_label: "large-cap fund", composition_source: "category_default" };
     if (sc === "mf_active_mid_cap") return { ...base, domestic_mid_pct: round1(w), type_label: "mid-cap fund", composition_source: "category_default" };
     if (sc === "mf_active_small_cap") return { ...base, domestic_small_pct: round1(w), type_label: "small-cap fund", composition_source: "category_default" };
+    // Passive index fund (L3): classify by what it tracks, never decline. Broad-
+    // market and large indices (Nifty 50, Sensex, Next 50, Nifty 100 / 500) are
+    // large-cap-dominant; a midcap / smallcap index tracker maps to mid / small.
+    if (sc === "mf_passive_index") {
+      const n = h.instrument.toLowerCase();
+      if (/mid\s?cap|midcp/.test(n)) return { ...base, domestic_mid_pct: round1(w), type_label: "passive index (mid-cap)", composition_source: "category_default" };
+      if (/small\s?cap|smallcp/.test(n)) return { ...base, domestic_small_pct: round1(w), type_label: "passive index (small-cap)", composition_source: "category_default" };
+      return { ...base, domestic_large_pct: round1(w), type_label: "passive index (large-cap / broad market)", composition_source: "category_default" };
+    }
     // A diversified (flexi/multi/focused) fund with NO composition. The bounded
     // LLM inference for this case is DEFERRED (ADR-0038): no flexi in the current
     // universe lacks composition, so this branch is unreachable today, and the
@@ -436,7 +478,7 @@ export function buildEquityPlan(
     return { bucket: b.bucket, target_pct: round1(b.target), current_pct: round1(b.current), gap_pct: round1(b.gap), deploy_pct: deployPct, deploy_cr: deployCr, shortlist: sl, cadence: computeCadence(deployCr, medianAum(poolForBucket(b.bucket, universe))) };
   });
 
-  return { equity_target_pct: round1(equityTargetPct), look_through, sub_buckets, diversified_option: runFunnelOnPool("diversified equity (flexi / multi)", poolFromCategories(universe, FLEXI_CATEGORIES), "no eligible flexi/multi fund") };
+  return { equity_target_pct: round1(equityTargetPct), look_through, sub_buckets, diversified_option: runFunnelOnPool("diversified equity (flexi / multi / large-and-mid / ELSS / value / contra / dividend-yield)", poolFromCategories(universe, DIVERSIFIED_EQUITY_CATEGORIES), "no eligible diversified-equity fund") };
 }
 
 function poolForBucket(bucket: EquitySubBucket["bucket"], universe: InstrumentUniverse): SelectionCandidate[] {
@@ -552,7 +594,7 @@ export function buildDeploymentPlan(input: DeploymentInput): SleeveDeploymentPla
     const deployCr = round2((d.add_pct_points / 100) * input.liquidAumCr);
     if (sleeve === "Equity") {
       const equity = buildEquityPlan(d.add_pct_points, d.target_pct, input.framework, input.holdings, input.universe, input.liquidAumCr);
-      const topUps = assessTopUps(input.holdings, [...poolFromCategories(input.universe, [CAP_CATEGORY.large, CAP_CATEGORY.mid, CAP_CATEGORY.small]), ...poolFromCategories(input.universe, FLEXI_CATEGORIES)]);
+      const topUps = assessTopUps(input.holdings, [...poolFromCategories(input.universe, [CAP_CATEGORY.large, CAP_CATEGORY.mid, CAP_CATEGORY.small]), ...poolFromCategories(input.universe, DIVERSIFIED_EQUITY_CATEGORIES)]);
       out.push({ sleeve, add_pct_points: round1(d.add_pct_points), deploy_cr: deployCr, equity, debt: null, alternatives: null, top_ups: topUps });
     } else if (sleeve === "Debt") {
       const debt = buildDebtPlan(d.add_pct_points, input.framework, input.universe, input.liquidAumCr);

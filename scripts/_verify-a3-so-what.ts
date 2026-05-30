@@ -465,13 +465,13 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(declined.composition_source === "declined" && /advisor-select/i.test(declined.type_label), "C22: a composition-missing flexi declines to advisor-select, no fabricated split (ADR-0038 deferred)", JSON.stringify(declined));
 
   console.log("Case 23: 2D debt placement, credit + duration via category-primary + metric-secondary");
-  const gilt = { fund_name: "X Gilt", source: "mf" as const, sub_category: "Gilt Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 8, aaa_pct: null };
-  const corp = { fund_name: "X Corp", source: "mf" as const, sub_category: "Corporate Bond Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.5, aaa_pct: 85 };
-  const shortDurHi = { fund_name: "X ShortHi", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 85 };
-  const shortDurLo = { fund_name: "X ShortLo", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 55 };
-  assert(creditBucketOf(gilt) === "sovereign" && durationBucketOf(gilt) === "long", "C23: gilt -> sovereign by category (no AAA% test), long duration by the 8y metric", `${creditBucketOf(gilt)}/${durationBucketOf(gilt)}`);
+  const gilt = { fund_name: "X Gilt", source: "mf" as const, sub_category: "Gilt Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 8, aaa_pct: null, sov_pct: 95 };
+  const corp = { fund_name: "X Corp", source: "mf" as const, sub_category: "Corporate Bond Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.5, aaa_pct: 85, sov_pct: 17 };
+  const shortDurHi = { fund_name: "X ShortHi", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 85, sov_pct: 0 };
+  const shortDurLo = { fund_name: "X ShortLo", source: "mf" as const, sub_category: "Short Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 2.2, aaa_pct: 55, sov_pct: 0 };
+  assert(creditBucketOf(gilt) === "sovereign" && durationBucketOf(gilt) === "long", "C23: gilt -> sovereign by category (no metric test), long duration by the 8y metric", `${creditBucketOf(gilt)}/${durationBucketOf(gilt)}`);
   assert(creditBucketOf(corp) === "high_grade" && durationBucketOf(corp) === "short", "C23: Corporate Bond -> high-grade by category, short by the 2.5y metric", `${creditBucketOf(corp)}/${durationBucketOf(corp)}`);
-  assert(creditBucketOf(shortDurHi) === "high_grade" && creditBucketOf(shortDurLo) === "credit_risk", "C23: a duration-category fund's credit comes from AAA% (85 high-grade, 55 credit-risk; the 70 cutoff)", `${creditBucketOf(shortDurHi)}/${creditBucketOf(shortDurLo)}`);
+  assert(creditBucketOf(shortDurHi) === "high_grade" && creditBucketOf(shortDurLo) === "credit_risk", "C23: a duration-category fund's credit from SOV%+AAA% (sov 0, aaa 85 -> high-grade; sov 0, aaa 55 -> credit-risk; the 70 cutoff)", `${creditBucketOf(shortDurHi)}/${creditBucketOf(shortDurLo)}`);
 
   console.log("Case 24: alternatives split (under-5 gold-only; 5+ gold + non-gold advisor-select)");
   const altLow = buildAlternativesPlan(3, universe);
@@ -490,6 +490,38 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   assert(!!mEq?.equity && mEq.equity.sub_buckets.some((b) => b.bucket === "international" && b.deploy_pct > 0) && mEq.equity.sub_buckets.some((b) => b.bucket === "domestic_large" && b.deploy_pct > 0), "C25: Menon equity deploys to international AND a domestic large-cap core (two-level)", JSON.stringify(mEq?.equity?.sub_buckets.map((b) => `${b.bucket}:${b.deploy_pct}`)));
   assert(!!mDebt?.debt && mDebt.debt.credit_buckets.length === 3 && mDebt.debt.target_duration === "long" && mDebt.debt.credit_buckets.every((b) => b.deploy_pct >= 0), "C25: Menon debt placed across 3 credit buckets at long duration (his horizon)", JSON.stringify({ dur: mDebt?.debt?.target_duration, buckets: mDebt?.debt?.credit_buckets.map((b) => `${b.bucket}:${b.deploy_pct}`) }));
   assert(!!mAlt?.alternatives && mAlt.alternatives.gold_pct === 5 && (mAlt.alternatives.non_gold_aif_pct ?? 0) > 0 && mAlt.alternatives.non_gold_advisor_select !== null, "C25: Menon 15% alt -> 5 gold + non-gold AIF advisor-select (not forced gold)", "");
+
+  console.log("Case 26: L1 SOV-aware credit read (sovereign-heavy duration funds out of credit_risk)");
+  // Synthetic shapes for the rule itself.
+  const sovNoAaa = { fund_name: "X LongSov", source: "mf" as const, sub_category: "Long Duration Fund", ter_pct: 0.5, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 11, aaa_pct: null, sov_pct: 96 };
+  const sovHeavyLowAaa = { fund_name: "X Income", source: "mf" as const, sub_category: "Medium to Long Duration Fund", ter_pct: 0.9, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 6.5, aaa_pct: 34, sov_pct: 61 };
+  const genuineCredit = { fund_name: "X Credity", source: "mf" as const, sub_category: "Medium Duration Fund", ter_pct: 1.2, aum_cr: 1000, age_years: 5, sharpe_3y: 1, sortino_3y: 1, calmar_3y: 1, return_3y: 7, duration_y: 4, aaa_pct: 20, sov_pct: 10 };
+  assert(creditBucketOf(sovNoAaa) === "sovereign", "C26: a no-AAA% sovereign-heavy long fund (SOV 96) -> sovereign, not credit_risk", creditBucketOf(sovNoAaa));
+  assert(creditBucketOf(sovHeavyLowAaa) === "high_grade", "C26: a low-AAA% sovereign-heavy fund (SOV 61 + AAA 34 = 95) -> high_grade, not credit_risk", creditBucketOf(sovHeavyLowAaa));
+  assert(creditBucketOf(genuineCredit) === "credit_risk", "C26: a genuinely sub-AAA fund (SOV 10 + AAA 20 = 30) -> credit_risk", creditBucketOf(genuineCredit));
+  // Real data: the three long-duration G-sec funds out of credit_risk; ABSL/HDFC Income high_grade not credit_risk.
+  const findDebt = (re: RegExp) => universe.debt_funds.filter((c) => re.test(c.fund_name)).map((c) => `${c.fund_name.slice(0, 28)}=${creditBucketOf(c)}`);
+  const longSovs = universe.debt_funds.filter((c) => /nivesh lakshya|sbi long duration|hdfc long duration/i.test(c.fund_name));
+  assert(longSovs.length >= 3 && longSovs.every((c) => creditBucketOf(c) !== "credit_risk"), "C26: the 3 long-duration G-sec funds are no longer credit_risk (now sovereign/high-grade)", JSON.stringify(findDebt(/nivesh lakshya|sbi long duration|hdfc long duration/i)));
+  const incomeFunds = universe.debt_funds.filter((c) => /aditya birla sun life income fund|hdfc income fund/i.test(c.fund_name));
+  assert(incomeFunds.length >= 1 && incomeFunds.every((c) => creditBucketOf(c) === "high_grade"), "C26: ABSL/HDFC Income (~95% sovereign+AAA) classify high_grade, out of the credit_risk shortlist", JSON.stringify(findDebt(/aditya birla sun life income fund|hdfc income fund/i)));
+
+  console.log("Case 27: L2 hybrid debt-residual counted as debt, not international");
+  const iyHybrid = HOLDINGS_BY_INVESTOR.iyengar.holdings.find((h) => /balanced advantage/i.test(h.instrument))!;
+  const hybridDecomp = decomposeHeldEquity(iyHybrid, universe);
+  assert(hybridDecomp.international_pct === 0 && (hybridDecomp.domestic_large_pct + hybridDecomp.domestic_mid_pct + hybridDecomp.domestic_small_pct) > 0, "C27: a hybrid's residual is debt (international = 0), domestic cap retained", JSON.stringify(hybridDecomp));
+  assert(/hybrid/i.test(hybridDecomp.type_label), "C27: the hybrid is labelled as such (debt residual excluded), not flexi", hybridDecomp.type_label);
+
+  console.log("Case 28: L3 passive index classified by what it tracks, never declined");
+  const iyIndex = HOLDINGS_BY_INVESTOR.iyengar.holdings.find((h) => /index fund nifty 50/i.test(h.instrument))!;
+  const indexDecomp = decomposeHeldEquity(iyIndex, universe);
+  assert(indexDecomp.composition_source !== "declined" && indexDecomp.domestic_large_pct > 0, "C28: a Nifty 50 passive index classifies large-cap, not declined", JSON.stringify(indexDecomp));
+  const synthMidIdx = { instrument: "XYZ Nifty Midcap 150 Index Fund", assetClass: "Equity" as const, subCategory: "mf_passive_index" as const, valueCr: 1, weightPct: 10 };
+  const midIdxDecomp = decomposeHeldEquity(synthMidIdx, universe);
+  assert(midIdxDecomp.domestic_mid_pct > 0 && midIdxDecomp.composition_source !== "declined", "C28: a midcap index tracker classifies mid-cap", JSON.stringify(midIdxDecomp));
+
+  console.log("Case 29: C1 diversified-equity candidates extend beyond flexi/multi");
+  assert(!!mEq?.equity && mEq.equity.diversified_option.eligible_count > 72 && /large-and-mid|ELSS|value/i.test(mEq.equity.diversified_option.label), "C29: diversified candidates include Large & Mid / ELSS / Value / Contra / Dividend Yield (pool > flexi-only 72)", JSON.stringify({ count: mEq?.equity?.diversified_option.eligible_count, label: mEq?.equity?.diversified_option.label }));
 
   console.log("");
   if (failures.length) {
