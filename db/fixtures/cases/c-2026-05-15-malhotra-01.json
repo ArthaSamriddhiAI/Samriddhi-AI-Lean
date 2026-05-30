@@ -1835,7 +1835,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position ceiling; at 15.6% it sits above the 15% escalate threshold and is the portfolio's largest equity-fund concentration. Stage the sale in two roughly equal steps of 2.8 points, the first now from 15.6% to 12.8% and the second once the position has settled near 12.8%, taking it to 10%. The sale is a capital-gains event on an equity-oriented mutual fund: long-term gains above the Rs 1.25 L threshold are taxed at 12.5% (LTCG), short-term gains at 20% (STCG), with the 12-month holding line separating the two, so favour lots past the 12-month mark where they are available."
+          "advisor_action": "Propose trimming Mirae Asset Large Cap Fund from 15.6% toward the 10% single-position target in two steps of 2.8 points each, the first now and the second once the position has settled near 12.8%, staging the sale to manage the capital-gains event. The fund is equity-oriented, so units held over twelve months attract LTCG at 12.5% above the Rs 1.25 L threshold and units held under twelve months attract STCG at 20%; size each step against the client's realised gains for the year."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1844,7 +1844,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11.8% to the 10% single-position ceiling in a single step of 1.8 points; the position is above the 10% flag threshold and the trim is small enough to take in one move. The sale realises capital gains on an equity-oriented mutual fund, with LTCG at 12.5% above the Rs 1.25 L threshold and STCG at 20% inside 12 months; harvest lots past the 12-month mark first."
+          "advisor_action": "Propose reducing Axis Large Cap Fund from 11.8% to the 10% single-position target in a single step of 1.8 points. As an equity-oriented mutual fund, the sale triggers LTCG at 12.5% above the Rs 1.25 L threshold on units held over twelve months and STCG at 20% on units held under twelve months; sequence the lots accordingly."
         },
         {
           "holding_ref": "Parag Parikh Flexi Cap Fund",
@@ -1853,7 +1853,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position ceiling in a single step of 4.2 points; the position is above the 10% flag threshold and within a one-step move. The sale is an equity-oriented mutual fund capital-gains event: LTCG 12.5% above the Rs 1.25 L threshold, STCG 20% inside 12 months. Sequence lots past the 12-month mark first to keep more of the realisation in the long-term band."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 14.2% to the 10% single-position target in a single step of 4.2 points. Equity-oriented treatment applies: LTCG at 12.5% above the Rs 1.25 L threshold on units held over twelve months, STCG at 20% on units held under twelve months; favour long-term lots to keep the realised tax measured."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -1862,7 +1862,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% ceiling in a single step of 0.5 points. The trim is small in concentration terms, but the action is grounded in the thesis-and-quality concern the Samriddhi 2 diagnostic surfaced on this fund; the trim is the first move while the broader thesis question is taken up in the meeting. The sale realises equity-oriented mutual fund gains, LTCG at 12.5% above Rs 1.25 L and STCG at 20% inside 12 months."
+          "advisor_action": "Propose trimming Kotak Emerging Equity Fund from 10.5% to the 10% single-position target in a single step of 0.5 points, in line with the thesis-quality concern the diagnostic surfaced. As an equity-oriented fund, the sale attracts LTCG at 12.5% above the Rs 1.25 L threshold on long-term units and STCG at 20% on short-term units."
         },
         {
           "holding_ref": "NHAI Tax-Free Bonds 2032",
@@ -1871,7 +1871,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming NHAI Tax-Free Bonds 2032 from 18.1% toward the 10% single-position ceiling; at 18.1% the position is above the 15% escalate threshold and is the portfolio's single largest line item. Stage the sale in two steps of about 4 points and 4.1 points, the first now from 18.1% to 14.1% and the second once the position has settled near 14.1%, taking it to 10%."
+          "advisor_action": "Propose reducing the NHAI Tax-Free Bonds 2032 position from 18.1% toward the 10% single-position target in two steps of roughly 4 and 4.1 points, the first now and the second once the position has settled near 14.1%, staging the sale to manage market liquidity in the secondary bond market."
         },
         {
           "holding_ref": "HDFC Bank FD",
@@ -1880,7 +1880,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank FD from 13.1% to the 10% single-position ceiling in a single step of 3.1 points; the position is above the 10% flag threshold. Sequence the trim against the FD's maturity ladder so the reduction lands on a maturing tranche where possible, rather than forcing a premature break."
+          "advisor_action": "Propose reducing the HDFC Bank FD from 13.1% to the 10% single-position target in a single step of 3.1 points, releasing the proceeds on maturity or via a partial premature withdrawal of the relevant deposit so the residual sits at the 10% ceiling."
         }
       ],
       "observation_actions": [
@@ -1888,19 +1888,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose the staged single-position trims at the portfolio level: Mirae Asset Large Cap Fund and NHAI Tax-Free Bonds 2032 from above the 15% escalate threshold back to 10%, and Axis Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund, and the HDFC Bank FD from above the 10% flag threshold back to 10%. Frame the rebalance as the portfolio's single largest house-keeping move, with the freed capital deployed as set out in the rebalance proposal."
+          "advisor_action": "Propose the staged rebalance: trim Mirae Asset Large Cap Fund, Axis Large Cap Fund, Parag Parikh Flexi Cap Fund, Kotak Emerging Equity Fund, NHAI Tax-Free Bonds 2032, and HDFC Bank FD each to the 10% single-position target, freeing 23.3 points of weight to redirect into the under-target equity sleeve. Frame the escalate severity to the client as the reason for acting now rather than letting the concentrations sit."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the concentration trims to close the allocation drift: equity is currently 52.1% against a 65% target, and the rebalance lifts it to its 70% upper band; alternatives at 8.4% against a 7% target are lifted to their 10% upper band. After the move, both sleeves sit at their upper tolerance bands rather than at target, which is the deliberate consequence of how much capital the concentration trims free; flag this to the client as a planned, not residual, outcome of the rebalance."
+          "advisor_action": "Propose addressing the equity-sleeve drift directly through the trims: the freed capital lifts Equity from 52.1% toward its 65% target, closing the gap to mandate without any standalone purchases. Position this to the client as bringing the allocation back to the agreed mix, not as a tactical equity call."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Raise the gap between the client's stated risk posture and what the portfolio actually reveals as a discussion point in the meeting, alongside the rebalance. The action here is conversational, not transactional: surface the divergence, hear the client's read of it, and let that reading inform whether the post-rebalance shape (equity at its upper 70% band, alternatives at 10%) is where the portfolio should sit, or whether the targets themselves need revisiting."
+          "advisor_action": "Propose surfacing the divergence between the client's stated mandate and the revealed allocation as a conversation point alongside the rebalance, so the trims and redeployment land as a return to the mandate rather than a new direction. Confirm with the client that the 65% equity target still reflects their intent before executing."
         }
       ],
       "rebalance_proposal": {
@@ -2018,30 +2018,23 @@
           ],
           "redeployment": {
             "freed_capital_pct": 23.3,
+            "cash_funding_pct": 0,
             "deployments": [
               {
                 "sleeve": "Equity",
                 "current_pct": 52.1,
                 "target_pct": 65,
                 "upper_band_pct": 70,
-                "add_pct_points": 17.9,
-                "resulting_pct": 70
-              },
-              {
-                "sleeve": "Alternatives",
-                "current_pct": 8.4,
-                "target_pct": 7,
-                "upper_band_pct": 10,
-                "add_pct_points": 1.6,
-                "resulting_pct": 10
+                "add_pct_points": 12.9,
+                "resulting_pct": 65
               }
             ],
-            "leftover_to_cash_pct": 3.8,
-            "note": "Freed 23.3 points exceeds the 19.5 points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining 3.8 points are reported as leftover to cash."
+            "leftover_to_cash_pct": 10.4,
+            "note": "The 23.3 points freed by trims and exits (23.3 points) exceeds the 12.9 points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining 10.4 points stay in cash, available for staged deployment or a review of the target weights."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that trims six single-position concentrations and redeploys the freed capital into the two under-allocated sleeves. On the equity-fund side, trim Mirae Asset Large Cap Fund from 15.6% to 10% in two steps of 2.8 points (first from 15.6% to 12.8%, then from 12.8% to 10%); trim Axis Large Cap Fund from 11.8% to 10% in one step of 1.8 points; trim Parag Parikh Flexi Cap Fund from 14.2% to 10% in one step of 4.2 points; and trim Kotak Emerging Equity Fund from 10.5% to 10% in one step of 0.5 points. Each of these is an equity-oriented mutual fund sale, with LTCG at 12.5% above the Rs 1.25 L threshold and STCG at 20% inside the 12-month line, so sequence lots past 12 months first where they are available. On the fixed-income and cash side, trim NHAI Tax-Free Bonds 2032 from 18.1% to 10% in two steps of 4 points and 4.1 points (first from 18.1% to 14.1%, then from 14.1% to 10%), and trim the HDFC Bank FD from 13.1% to 10% in one step of 3.1 points, sequenced against the FD's maturity ladder where possible. Together the trims free 23.3 points. Deploy 17.9 points into Equity, lifting it from 52.1% to its 70% upper band, and 1.6 points into Alternatives, lifting it from 8.4% to its 10% upper band. The freed capital exceeds the sleeves' combined headroom by 3.8 points; that 3.8 points sits in cash rather than being reinvested, and the advisor should frame it as deliberate residual liquidity from the rebalance, available for the next deployment window.",
+          "advisor_action": "Propose a coordinated rebalance that trims every position above its single-position ceiling toward the 10% target: Mirae Asset Large Cap Fund from 15.6% in two steps of 2.8 points (the first now, the second once the position settles near 12.8%), Axis Large Cap Fund from 11.8% in one step of 1.8 points, Parag Parikh Flexi Cap Fund from 14.2% in one step of 4.2 points, Kotak Emerging Equity Fund from 10.5% in one step of 0.5 points, NHAI Tax-Free Bonds 2032 from 18.1% in two steps of 4 and 4.1 points (the first now, the second once it settles near 14.1%), and the HDFC Bank FD from 13.1% in one step of 3.1 points. For the equity-oriented mutual fund trims, the sales trigger LTCG at 12.5% above the Rs 1.25 L threshold on long-term units and STCG at 20% on short-term units; stage the lot sequencing to manage the realised tax. The trims free 23.3 points of weight; with no deployable cash above its target to add to the funding, the redeployment lifts the under-target Equity sleeve from 52.1% by 12.9 points to its 65% target. The remaining 10.4 points sit honestly in cash, available for staged deployment as opportunities present, or as grounds to revisit the target weights with the client.",
           "generation_method": "llm"
         }
       },
@@ -2053,9 +2046,9 @@
         "trim_count": 6,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "A coordinated rebalance: six single-position trims back to 10%, freeing 23.3 points that fill Equity and Alternatives to their upper bands with 3.8 points left in cash."
+        "one_line_characterization": "Six single-position breaches trimmed to the 10% ceiling, freeing 23.3 points to bring Equity back to its 65% target with 10.4 points held in cash as dry powder."
       },
-      "reasoning_summary": "The portfolio's central action is a concentration clean-up: two positions sit above the 15% escalate threshold and four more above the 10% flag, so each is staged back to 10% with the larger trims taken in two steps. The freed 23.3 points more than fills the under-allocated equity and alternatives sleeves to their upper bands, leaving 3.8 points honestly in cash rather than forced into a sleeve. The equity-fund trims are framed as capital-gains events at the cited LTCG and STCG rates, and the stated-versus-revealed divergence is set up as the conversation that should accompany, not follow, the rebalance.",
+      "reasoning_summary": "The portfolio is carrying six positions above their single-position ceilings, and the diagnostic has escalated the concentration picture; the right move is a staged trim of all six to the 10% target. The trims free 23.3 points of weight, more than enough to close the 12.9-point gap on Equity to its 65% target, leaving 10.4 points to sit in cash as deployable capital. Frame the rebalance to the client as returning the portfolio to the agreed mandate, and use the conversation to confirm the 65% equity target still reflects their intent.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {

@@ -902,7 +902,7 @@
           "weight_pct": 86.6,
           "holding_kind": "allocation",
           "tax_product_family": null,
-          "over_concentrated": true,
+          "over_concentrated": false,
           "a2_verdict": "maintain",
           "signals": [
             {
@@ -942,7 +942,7 @@
             }
           ],
           "exit_eligible": false,
-          "decision": "trim",
+          "decision": "maintain",
           "dimensions_failing": [],
           "exit_rationale": "",
           "judgment_reasoning": ""
@@ -1054,196 +1054,74 @@
           "judgment_reasoning": ""
         }
       ],
-      "holding_actions": [
-        {
-          "holding_ref": "Bank savings account",
-          "instrument_display_name": "Bank savings account",
-          "a2_verdict": "maintain",
-          "kind": "action",
-          "decision": "trim",
-          "source_observation": "position_over_concentration",
-          "advisor_action": "Propose drawing down the bank savings balance from 86.6% of liquid assets toward the 10% single-position ceiling; the cash sits far above the 15% concentration threshold and is the dominant source of the portfolio's allocation drift away from the model."
-        }
-      ],
+      "holding_actions": [],
       "observation_actions": [
-        {
-          "observation_category": "position_over_concentration",
-          "severity_hint": "escalate",
-          "kind": "action",
-          "advisor_action": "Propose a staged reduction of the bank savings position from 86.6% to the 10% single-position ceiling, freeing 76.6 points to be redeployed into the under-allocated equity, debt, and alternatives sleeves."
-        },
         {
           "observation_category": "cash_drag",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose putting the idle cash to work by redeploying the freed 76.6 points into the equity, debt, and alternatives sleeves, where the client is currently under-allocated relative to the model."
+          "advisor_action": "Propose deploying the client's substantial cash balance, currently running well above its target weight, into the under-target equity, debt, and alternatives sleeves. This is idle dry powder, not a position to defend; leaving it parked imposes a real opportunity cost against the mandate. Frame the conversation as putting capital to work against the agreed allocation, staged sensibly to manage entry risk."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose closing the gap to the model bands by lifting equity from 6.6% toward its 65% target, debt from 6.8% toward its 25% target, and alternatives from 0% toward its 7% target, funded by the bank savings drawdown."
+          "advisor_action": "Propose closing the gap to the mandated allocation in one coordinated step. Equity sits at 6.6% against a 65% target, debt at 6.8% against 15%, and alternatives at 0% against 15%; the portfolio is materially under-deployed across every risk-bearing sleeve. Recommend moving each sleeve to its target weight, funded entirely from the deployable cash, so the allocation reflects the mandate rather than inertia."
         }
       ],
       "rebalance_proposal": {
         "kind": "proposal",
         "computed": {
-          "positions": [
-            {
-              "instrument": "Bank savings account",
-              "decision": "trim",
-              "current_weight_pct": 86.6,
-              "breach_threshold_pct": 15,
-              "target_weight_pct": 10,
-              "total_trim_pct_points": 76.6,
-              "glide_path": [
-                {
-                  "step": 1,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 81.8,
-                  "trigger_at_weight_pct": 86.6
-                },
-                {
-                  "step": 2,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 77,
-                  "trigger_at_weight_pct": 81.8
-                },
-                {
-                  "step": 3,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 72.2,
-                  "trigger_at_weight_pct": 77
-                },
-                {
-                  "step": 4,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 67.4,
-                  "trigger_at_weight_pct": 72.2
-                },
-                {
-                  "step": 5,
-                  "trim_pct_points": 4.7,
-                  "resulting_weight_pct": 62.7,
-                  "trigger_at_weight_pct": 67.4
-                },
-                {
-                  "step": 6,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 57.9,
-                  "trigger_at_weight_pct": 62.7
-                },
-                {
-                  "step": 7,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 53.1,
-                  "trigger_at_weight_pct": 57.9
-                },
-                {
-                  "step": 8,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 48.3,
-                  "trigger_at_weight_pct": 53.1
-                },
-                {
-                  "step": 9,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 43.5,
-                  "trigger_at_weight_pct": 48.3
-                },
-                {
-                  "step": 10,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 38.7,
-                  "trigger_at_weight_pct": 43.5
-                },
-                {
-                  "step": 11,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 33.9,
-                  "trigger_at_weight_pct": 38.7
-                },
-                {
-                  "step": 12,
-                  "trim_pct_points": 4.7,
-                  "resulting_weight_pct": 29.2,
-                  "trigger_at_weight_pct": 33.9
-                },
-                {
-                  "step": 13,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 24.4,
-                  "trigger_at_weight_pct": 29.2
-                },
-                {
-                  "step": 14,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 19.6,
-                  "trigger_at_weight_pct": 24.4
-                },
-                {
-                  "step": 15,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 14.8,
-                  "trigger_at_weight_pct": 19.6
-                },
-                {
-                  "step": 16,
-                  "trim_pct_points": 4.8,
-                  "resulting_weight_pct": 10,
-                  "trigger_at_weight_pct": 14.8
-                }
-              ]
-            }
-          ],
+          "positions": [],
           "redeployment": {
-            "freed_capital_pct": 76.6,
+            "freed_capital_pct": 0,
+            "cash_funding_pct": 81.6,
             "deployments": [
               {
                 "sleeve": "Equity",
                 "current_pct": 6.6,
                 "target_pct": 65,
                 "upper_band_pct": 70,
-                "add_pct_points": 50.3,
-                "resulting_pct": 56.9
+                "add_pct_points": 58.4,
+                "resulting_pct": 65
               },
               {
                 "sleeve": "Debt",
                 "current_pct": 6.8,
-                "target_pct": 25,
+                "target_pct": 15,
                 "upper_band_pct": 30,
-                "add_pct_points": 18.4,
-                "resulting_pct": 25.2
+                "add_pct_points": 8.2,
+                "resulting_pct": 15
               },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 0,
-                "target_pct": 7,
-                "upper_band_pct": 10,
-                "add_pct_points": 7.9,
-                "resulting_pct": 7.9
+                "target_pct": 15,
+                "upper_band_pct": 20,
+                "add_pct_points": 15,
+                "resulting_pct": 15
               }
             ],
             "leftover_to_cash_pct": 0,
-            "note": "Freed 76.6 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
+            "note": "The 81.6 points of deployable cash (81.6 points) is deployed toward under-target sleeves in proportion to each sleeve's gap, moving the allocation toward target."
           }
         },
         "narrated": {
-          "advisor_action": "Propose trimming the bank savings position from 86.6% toward the 10% single-position ceiling in sixteen steps of roughly 4.8 points each, taking the first step now from 86.6% to 81.8% and each subsequent step once the position has settled at the prior level, working down through 77%, 72.2%, 67.4%, 62.7%, 57.9%, 53.1%, 48.3%, 43.5%, 38.7%, 33.9%, 29.2%, 24.4%, 19.6%, 14.8%, and finally 10%. The staging paces a 76.6-point drawdown so the client is not forced to deploy the entire balance into the market in a single move. The freed 76.6 points are then redeployed into the under-allocated sleeves up to their upper bands: 50.3 points into equity, lifting it from 6.6% to 56.9% against a 65% target and 70% upper band; 18.4 points into debt, lifting it from 6.8% to 25.2% against a 25% target and 30% upper band; and 7.9 points into alternatives, lifting it from 0% to 7.9% against a 7% target and 10% upper band. The deployments absorb the full 76.6 points, with no leftover sitting in cash, moving the allocation decisively toward the model.",
+          "advisor_action": "This is a portfolio-construction conversation more than a rebalancing one: the client is sitting on 81.6 points of deployable cash against a mandate that calls for the capital to be working in equity, debt, and alternatives. Propose deploying that 81.6 points across the three under-target sleeves to bring each to its target weight. Equity moves from 6.6% to its 65% target, an addition of 58.4 points; debt moves from 6.8% to its 15% target, an addition of 8.2 points; and alternatives, currently empty, is built up to its 15% target, an addition of 15 points. The deployable cash funds the gap exactly, with no leftover and no trims required. Recommend staging the equity build, given its size, over multiple tranches to manage entry risk, while the debt and alternatives allocations can be initiated on a more compressed timeline.",
           "generation_method": "llm"
         }
       },
       "summary": {
-        "holding_actions_surfaced": 1,
+        "holding_actions_surfaced": 0,
         "holding_actions_sentinelled": 0,
-        "observation_actions_surfaced": 3,
+        "observation_actions_surfaced": 2,
         "observation_actions_sentinelled": 0,
-        "trim_count": 1,
+        "trim_count": 0,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "A single concentrated cash position drives the entire action picture: stage it down and redeploy into the under-allocated equity, debt, and alternatives sleeves."
+        "one_line_characterization": "A heavily under-deployed portfolio: 81.6 points of idle cash to be put to work across equity, debt, and alternatives to reach the mandated allocation."
       },
-      "reasoning_summary": "The portfolio's one meaningful action is the bank savings position at 86.6%, which simultaneously trips the single-position concentration flag, the cash-drag observation, and the allocation drift away from the model. The recommendation is a sixteen-step glide-path down to the 10% ceiling, paced to avoid forcing the full 76.6 points into the market at once. The freed capital fills the under-allocated equity, debt, and alternatives sleeves to their upper bands with no residual cash, which closes the drift in a single coordinated move.",
+      "reasoning_summary": "The picture here is not concentration but under-deployment: no single position needs trimming, and the action is to put 81.6 points of dry powder to work. Recommend filling equity, debt, and alternatives to their target weights of 65%, 15%, and 15% respectively, funded entirely from cash. Stage the equity tranche to manage market-impact risk; debt and alternatives can move faster. Frame this with the client as building the portfolio to the agreed mandate, not rebalancing a drifted one.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {

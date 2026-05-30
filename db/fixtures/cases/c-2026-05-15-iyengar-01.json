@@ -1652,7 +1652,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Bank FD from 27.3% of liquid assets toward the 10% single-position ceiling; at nearly three times the threshold this is the portfolio's largest single-name concentration and the dominant driver of the rebalance."
+          "advisor_action": "Propose trimming the HDFC Bank FD from 27.3% toward the 10% single-position ceiling over four steps of roughly 4.3 points each, the first taking the position to 23%, then to 18.7%, then to 14.3%, and finally to 10%. Staging the trims around the deposits' maturity ladder avoids breaking units mid-term and frees capital in a controlled cadence."
         },
         {
           "holding_ref": "SBI FD",
@@ -1661,7 +1661,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the SBI FD from 27.0% toward the 10% single-position ceiling; alongside the HDFC Bank FD it represents a second outsized single-name deposit that needs to be brought back inside the threshold."
+          "advisor_action": "Propose trimming the SBI FD from 27% toward the 10% single-position ceiling over four steps of roughly 4.2 to 4.3 points each, the first taking the position to 22.8%, then to 18.5%, then to 14.3%, and finally to 10%. Align each step with the underlying deposit maturities to avoid premature-withdrawal penalties."
         },
         {
           "holding_ref": "Franklin India Corporate Debt Fund",
@@ -1670,7 +1670,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose a small trim of the Franklin India Corporate Debt Fund from 10.3% to 10% to bring it just inside the single-position ceiling; note that under Section 50AA the gain on debt mutual-fund units is treated as short-term regardless of holding period and taxed at the client's applicable slab rate plus 4% cess, so size and timing should be set with the slab impact in view."
+          "advisor_action": "Propose trimming the Franklin India Corporate Debt Fund from 10.3% to the 10% target in a single 0.3 point step. Under Section 50AA the gain is deemed short-term regardless of holding period and is taxed at the client's applicable slab rate with no indexation, plus 4% cess; size the redemption with that slab impact in mind."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -1679,7 +1679,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to 10% to bring it inside the single-position ceiling; the sale triggers an equity-oriented mutual-fund capital-gains event, LTCG at 12.5% above the Rs 1.25 L annual exemption for units held over 12 months, STCG at 20% for units held under 12 months, plus 4% cess."
+          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to the 10% target in a single 1.7 point step. The redemption is a capital-gains event taxed at 12.5% LTCG above the Rs 1.25 L threshold if held twelve months or longer, otherwise 20% STCG, plus 4% cess; time the sale to use the LTCG threshold efficiently."
         },
         {
           "holding_ref": "HDFC Index Fund Nifty 50",
@@ -1688,7 +1688,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to 10% to bring it inside the single-position ceiling; as an equity-oriented mutual fund the sale triggers LTCG at 12.5% above the Rs 1.25 L annual exemption for units held over 12 months, STCG at 20% for units held under 12 months, plus 4% cess, so prefer lots held beyond 12 months where available."
+          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to the 10% target in a single 4.1 point step. The redemption is a capital-gains event taxed at 12.5% LTCG above the Rs 1.25 L threshold if held twelve months or longer, otherwise 20% STCG, plus 4% cess; coordinate the realised gain with the Axis trim so the combined LTCG sits efficiently against the Rs 1.25 L threshold."
         }
       ],
       "observation_actions": [
@@ -1696,19 +1696,19 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose the staged single-position trims set out in the rebalance proposal, bringing each of the five flagged positions to the 10% ceiling and freeing capital to redeploy into the under-allocated sleeves."
+          "advisor_action": "Propose the staged trims that bring HDFC Bank FD and SBI FD from above 27% to the 10% single-position ceiling, and the smaller trims that bring Franklin India Corporate Debt Fund, Axis Large Cap Fund, and HDFC Index Fund Nifty 50 to 10%. Frame the conversation as moving five single-name overweights, in one coordinated rebalance, off the concentration line."
         },
         {
           "observation_category": "allocation_drift",
-          "severity_hint": "flag",
+          "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Propose using the freed capital from the position trims to lift the Equity sleeve from 35.5% toward the 65% model target and to seed the Alternatives sleeve from 0% toward the 7% model target, closing the drift in a single coordinated move rather than as a separate exercise."
+          "advisor_action": "Propose using the rebalance to address the drift directly: the trims free 40.4 points, of which 5 points lift the Alternatives sleeve from 0% to its 5% target, and the remaining 35.4 points stay in cash as dry powder for staged deployment. Walk the client through the gap between current allocation and target as the frame for the next deployment discussion."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "info",
           "kind": "action",
-          "advisor_action": "Propose surfacing the gap between the client's stated risk posture and the portfolio's revealed positioning in the meeting, using the rebalance toward the model allocation as the conversation through which the stated profile is either confirmed or restated."
+          "advisor_action": "Propose surfacing, in the meeting, the gap between the client's stated mandate and what the current portfolio actually reflects, using the two bank FDs sitting above 27% each as the concrete example. Confirm whether the stated targets still hold or whether the mandate itself needs revisiting before the freed capital is deployed."
         }
       ],
       "rebalance_proposal": {
@@ -1834,30 +1834,23 @@
           ],
           "redeployment": {
             "freed_capital_pct": 40.4,
+            "cash_funding_pct": 0,
             "deployments": [
-              {
-                "sleeve": "Equity",
-                "current_pct": 35.5,
-                "target_pct": 65,
-                "upper_band_pct": 70,
-                "add_pct_points": 31.3,
-                "resulting_pct": 66.8
-              },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 0,
-                "target_pct": 7,
+                "target_pct": 5,
                 "upper_band_pct": 10,
-                "add_pct_points": 9.1,
-                "resulting_pct": 9.1
+                "add_pct_points": 5,
+                "resulting_pct": 5
               }
             ],
-            "leftover_to_cash_pct": 0,
-            "note": "Freed 40.4 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
+            "leftover_to_cash_pct": 35.4,
+            "note": "The 40.4 points freed by trims and exits (40.4 points) exceeds the 5 points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining 35.4 points stay in cash, available for staged deployment or a review of the target weights."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance that addresses all five single-position breaches and redeploys the freed capital into the under-allocated sleeves. The two deposit concentrations are the bulk of the work: trim the HDFC Bank FD from 27.3% to 10% over four steps of roughly 4.3 points each (to 23%, then 18.7%, then 14.3%, then 10%, each triggered as the prior step settles), and trim the SBI FD from 27.0% to 10% over four steps of roughly 4.2 to 4.3 points each (to 22.8%, then 18.5%, then 14.3%, then 10%, on the same trigger cadence); pacing both deposits across four steps manages the redeployment risk of moving such large weights at once. Alongside, trim the Franklin India Corporate Debt Fund from 10.3% to 10% in a single 0.3-point step, the Axis Large Cap Fund from 11.7% to 10% in a single 1.7-point step, and the HDFC Index Fund Nifty 50 from 14.1% to 10% in a single 4.1-point step. The three mutual-fund trims trigger capital-gains events: the two equity-oriented funds at LTCG 12.5% above the Rs 1.25 L annual exemption for units held over 12 months or STCG 20% below that holding period, and the debt fund as short-term under Section 50AA at the client's applicable slab rate, each with 4% cess; stage the equity trims to prefer long-term lots where available. The five trims free 40.4 points of capital in total, which deploys as follows: 31.3 points into the Equity sleeve, lifting it from 35.5% to 66.8% (inside the 65% target and 70% upper band), and 9.1 points into the Alternatives sleeve, lifting it from 0% to 9.1% (above the 7% target and inside the 10% upper band). Nothing is left over to cash; the freed capital is fully absorbed by the under-allocated sleeves, moving the portfolio decisively toward the model.",
+          "advisor_action": "Propose a single coordinated rebalance that trims five concentrated positions to their respective ceilings and redeploys the freed capital against the model. The two bank FDs, HDFC Bank FD at 27.3% and SBI FD at 27%, each step down to 10% over four roughly equal trims of about 4.2 to 4.3 points, staged around the deposit maturity ladder to avoid premature-withdrawal penalties. Franklin India Corporate Debt Fund moves from 10.3% to 10% in a single 0.3 point step, with the redemption taxed at the client's slab rate under Section 50AA with no indexation, plus 4% cess. Axis Large Cap Fund moves from 11.7% to 10% in a single 1.7 point step, and HDFC Index Fund Nifty 50 moves from 14.1% to 10% in a single 4.1 point step; both are equity-oriented and taxed at 12.5% LTCG above the Rs 1.25 L threshold if held twelve months or longer, otherwise 20% STCG, plus 4% cess, so coordinate the two equity redemptions to use the LTCG threshold efficiently. The trims free 40.4 points in total, of which 5 points lift the Alternatives sleeve from 0% to its 5% target. The remaining 35.4 points stay in cash, as advisor guidance: this is dry powder available for staged deployment once a destination is agreed, and it is also fair grounds to revisit the target weights with the client given how much capital the rebalance frees relative to the current model.",
           "generation_method": "llm"
         }
       },
@@ -1869,9 +1862,9 @@
         "trim_count": 5,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Five single-position trims, dominated by two outsized deposits, that together free 40.4 points to rebuild the under-allocated Equity and Alternatives sleeves toward the model."
+        "one_line_characterization": "Five single-name overweights trim to ceiling in one coordinated rebalance, freeing 40.4 points; 5 points fund the Alternatives sleeve to target and 35.4 points stay in cash as dry powder pending a deployment conversation."
       },
-      "reasoning_summary": "The action picture is a single coordinated rebalance: bring all five flagged positions to the 10% single-position ceiling and use the freed 40.4 points to close the allocation drift. The two deposit trims do most of the work and are staged over four steps each to manage the size of the move; the three mutual-fund trims are single-step but should be sequenced with the LTCG and Section 50AA tax implications in view. The Equity sleeve absorbs 31.3 points to 66.8% and Alternatives takes 9.1 points to 9.1%, with no residual to cash, so the rebalance and the drift-correction are the same conversation.",
+      "reasoning_summary": "The portfolio's defining problem is five single-position overweights, dominated by two bank FDs each above 27%, so the rebalance is structured as one gap-closing operation rather than five disconnected trims. The FD trims stage over four steps each to work with the deposit maturity ladder; the mutual fund trims are single-step and grounded in their capital-gains treatment, with the two equity redemptions coordinated against the LTCG threshold. Only the Alternatives sleeve is currently below target, so 5 points of the 40.4 freed go there and the remaining 35.4 points stay in cash as dry powder, which is itself the prompt to have the deployment and mandate-review conversation with the client.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {

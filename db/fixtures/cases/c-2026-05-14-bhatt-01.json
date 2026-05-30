@@ -2315,8 +2315,8 @@
             "thesis_quality",
             "cost_efficiency"
           ],
-          "exit_rationale": "Convergence of two independent negative signals on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency shows a 360 bps fee with complexity_premium_earned = no, meaning the investor is paying a material premium for a strategy whose thesis does not hold. Performance numeric is unavailable (opaque wrapper), so the qualitative read via complexity-premium-not-earned reinforces the thesis concern rather than offsetting it. Trim is insufficient because the position is not over-concentrated (9.5%, valid_decisions exclude trim): there is no concentration to reduce, and a partial reduction would leave the client exposed to the same broken-thesis, fee-heavy wrapper at smaller size. The convergence is unambiguous enough to clear the conservative bar for opaque wrappers.",
-          "judgment_reasoning": "Convergence of two independent negative signals on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency shows a 360 bps fee with complexity_premium_earned = no, meaning the investor is paying a material premium for a strategy whose thesis does not hold. Performance numeric is unavailable (opaque wrapper), so the qualitative read via complexity-premium-not-earned reinforces the thesis concern rather than offsetting it. Trim is insufficient because the position is not over-concentrated (9.5%, valid_decisions exclude trim): there is no concentration to reduce, and a partial reduction would leave the client exposed to the same broken-thesis, fee-heavy wrapper at smaller size. The convergence is unambiguous enough to clear the conservative bar for opaque wrappers."
+          "exit_rationale": "Two independent merit dimensions converge negatively: E6 overall_verdict on thesis is negative, and the 360 bps fee is not earned (complexity_premium_earned: no). For an opaque PMS wrapper the convergence rests on these qualitative signals, and here it is unambiguous: a broken thesis is being paid for at PMS-level fees with no demonstrated premium. Trim is articulably insufficient because the position is not over-concentrated (9.5%, valid_decisions exclude trim), so partial sizing does not address the core problem: the client is paying a complexity premium for a strategy whose thesis E6 rejects. The year-1 2% exit-load and PMS pass-through tax treatment are staging considerations for the narration, not reasons to retain a broken-thesis, fee-unjustified wrapper.",
+          "judgment_reasoning": "Two independent merit dimensions converge negatively: E6 overall_verdict on thesis is negative, and the 360 bps fee is not earned (complexity_premium_earned: no). For an opaque PMS wrapper the convergence rests on these qualitative signals, and here it is unambiguous: a broken thesis is being paid for at PMS-level fees with no demonstrated premium. Trim is articulably insufficient because the position is not over-concentrated (9.5%, valid_decisions exclude trim), so partial sizing does not address the core problem: the client is paying a complexity premium for a strategy whose thesis E6 rejects. The year-1 2% exit-load and PMS pass-through tax treatment are staging considerations for the narration, not reasons to retain a broken-thesis, fee-unjustified wrapper."
         },
         {
           "holding_ref": "Alchemy Smart Alpha 250 PMS",
@@ -2804,7 +2804,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Marcellus Consistent Compounder PMS from 11.3% to the 10% single-position ceiling, a 1.3 point reduction. The residual sits at the SEBI PMS minimum ticket of Rs 0.5 Cr, so size the trim so the residual stays at or above that floor. The PMS is a pass-through, so the sale crystallises gains at the underlying instrument level: listed equity gains carry LTCG at 12.5% above the Rs 1.25 L annual threshold and STCG at 20%, both inheriting the 15% surcharge cap."
+          "advisor_action": "Propose trimming Marcellus Consistent Compounder PMS from 11.3% toward the 10% single-position ceiling, a 1.3-point reduction in one step. As PMS gains pass through to the underlying instrument, the listed-equity portion of the trim triggers LTCG at 12.5% above the Rs 1.25 L annual threshold for units held over a year, or STCG at 20% for any short-term lots; the 15% surcharge cap applies on the listed-equity character. Position the trim as a discipline measure on a holding the client values, not a withdrawal of conviction."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2813,7 +2813,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain White Oak India Pioneers PMS; no trim is required. Use the meeting to walk the client through how the position fits alongside the other PMS exposures rather than to act on it."
+          "advisor_action": "Propose maintaining White Oak India Pioneers PMS. The flag warrants a conversation about its role in the PMS sleeve rather than a change to the position itself; confirm continued alignment with the mandate and surface it alongside the broader wrapper review."
         },
         {
           "holding_ref": "Motilal Oswal Value Migration PMS",
@@ -2822,7 +2822,7 @@
           "kind": "action",
           "decision": "exit",
           "source_observation": "thesis_quality+cost_efficiency",
-          "advisor_action": "Propose exiting Motilal Oswal Value Migration PMS in full from 9.5% in two steps of roughly 4.7 and 4.8 points, the first now and the second once the position has been reduced to around 4.8%. The strategy carries a one-year lock-in and a 2% year-one exit-load on the 2.5% fixed AMC sleeve, so stage the redemption to manage the load drag rather than redeem in one cut. Gains pass through at the underlying instrument level: listed equity LTCG at 12.5% above the Rs 1.25 L annual threshold and STCG at 20%, both within the 15% surcharge cap."
+          "advisor_action": "Propose exiting Motilal Oswal Value Migration PMS in full from its 9.5% weight, on the convergence of a negative thesis verdict and a complexity premium not earned against the 2.5% fixed AMC. The product carries a one-year lock-in and a 2% year-one exit-load, then nil; stage the exit in two roughly equal tranches of 4.7 points and 4.8 points to work around the load and to spread the capital-gains event, which follows the underlying instruments (listed-equity portions at LTCG 12.5% above Rs 1.25 L or STCG 20%, with the 15% surcharge cap on listed character). A partial residual below the SEBI Rs 50 L PMS minimum is not viable, so the second tranche must complete the exit."
         },
         {
           "holding_ref": "Alchemy Smart Alpha 250 PMS",
@@ -2831,7 +2831,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain Alchemy Smart Alpha 250 PMS; no trim is required. Surface it for discussion in the wrapper-accumulation conversation rather than as a standalone action."
+          "advisor_action": "Propose maintaining Alchemy Smart Alpha 250 PMS. The position itself is not changing; carry it into the wrapper-level discussion on how many PMS mandates the client should hold in parallel."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2840,7 +2840,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Reliance Industries from 12.2% to the 10% single-position ceiling, a 2.2 point reduction in a single step triggered at 12.2%. The sale crystallises listed-equity gains: LTCG at 12.5% above the Rs 1.25 L annual threshold and STCG at 20%, both within the 15% surcharge cap; weight the lots toward long-term holding period where the choice is available."
+          "advisor_action": "Propose trimming Reliance Industries from 12.2% toward the 10% single-position ceiling, a 2.2-point reduction in one step. The sale triggers LTCG at 12.5% above the Rs 1.25 L annual threshold for lots held over a year, or STCG at 20% on short-term lots, with the 15% surcharge cap on listed equity; frame the trim as concentration discipline on the largest single name, not a view on the company."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2849,7 +2849,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming HDFC Bank from 11.3% to the 10% single-position ceiling, a 1.3 point reduction in a single step triggered at 11.3%. Listed-equity tax treatment applies: LTCG at 12.5% above the Rs 1.25 L annual threshold and STCG at 20%, both within the 15% surcharge cap."
+          "advisor_action": "Propose trimming HDFC Bank from 11.3% toward the 10% single-position ceiling, a 1.3-point reduction in one step. The sale triggers LTCG at 12.5% above the Rs 1.25 L annual threshold for long-term lots, or STCG at 20% on short-term lots, with the 15% surcharge cap; frame as a single-name concentration adjustment."
         },
         {
           "holding_ref": "ITC Limited",
@@ -2858,7 +2858,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain ITC Limited; no trim is required. Cover the position in the meeting only as part of the broader single-name conversation."
+          "advisor_action": "Propose maintaining ITC Limited. The Monitor flag is a watch item to revisit at the next review, not an action on the position now."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2867,7 +2867,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Maintain Mirae Asset Large Cap Fund - Growth Plan; no trim is required. The Large Cap Fund remains a core equity holding in the model."
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund. The Monitor flag is a watch item; carry it forward and revisit at the next review without action on the position."
         },
         {
           "holding_ref": "Avendus Absolute Return Fund",
@@ -2876,7 +2876,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Avendus Absolute Return Fund from 13.6% to the 10% single-position ceiling, a 3.6 point reduction in a single step triggered at 13.6%. The residual must stay at or above the SEBI AIF minimum ticket of Rs 1 Cr, so size the redemption with that floor in mind. As a Category III AIF the fund is taxed at the fund level, so the investor receives a post-tax distribution and is not taxed again on the redemption proceeds."
+          "advisor_action": "Propose trimming Avendus Absolute Return Fund from 13.6% toward the 10% single-position ceiling, a 3.6-point reduction in one step. As an AIF Category III, the fund is taxed at the fund level (typical effective rates around 31.2% to 42.74% depending on trust structure) and the client receives a post-tax distribution with no further investor-level tax on the distributed amount; the redemption itself does not generate a separate capital-gains event for the client. The trimmed residual must clear the SEBI Rs 1 Cr AIF minimum-commitment floor, so size the redemption against the current commitment before executing."
         }
       ],
       "observation_actions": [
@@ -2884,31 +2884,31 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose taking the five flagged single positions (Marcellus Consistent Compounder PMS, Motilal Oswal Value Migration PMS, Reliance Industries, HDFC Bank, and Avendus Absolute Return Fund) down to the 10% ceiling, with Motilal Oswal Value Migration exited entirely on independent quality and cost grounds. Frame the trims and the exit as a single coordinated rebalance rather than five separate trades."
+          "advisor_action": "Propose addressing the four single-position breaches above the 10% ceiling (Marcellus PMS at 11.3%, Reliance at 12.2%, HDFC Bank at 11.3%, Avendus AIF at 13.6%) through the staged rebalance, returning each to the 10% target as a single coherent discipline measure rather than four isolated decisions."
         },
         {
           "observation_category": "wrapper_over_accumulation",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Open the conversation on the cumulative PMS load. Three PMS strategies sit in the portfolio (Marcellus, White Oak, Alchemy), with a fourth (Motilal Oswal) proposed for exit; once that exit completes, reaffirm that the remaining three PMS positions are the intended wrapper count and that no further PMS allocations are planned without a deliberate review."
+          "advisor_action": "Propose a focused conversation on the PMS wrapper itself: the portfolio holds four separate PMS mandates (Marcellus, White Oak, Motilal Oswal, Alchemy) layered alongside direct equity and an AIF. Recommend consolidating around the highest-conviction mandates after the Motilal Oswal exit, framing this as a structural simplification call the client should make consciously rather than allow to drift further."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose closing the allocation gap by routing the capital freed from the concentration trims and the Motilal Oswal exit into the under-allocated Debt sleeve, lifting it from 14.2% toward its 30% upper band. Treat the rebalance and the drift correction as the same action."
+          "advisor_action": "Propose closing the drift via the computed redeployment: route 10.8 points of freed capital into the Debt sleeve to bring it from 14.2% to its 25% target, and acknowledge that 7.1 points remain in cash for staged deployment or for a deliberate review of the target weights themselves."
         },
         {
           "observation_category": "stated_revealed_divergence",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Walk the client through the gap between the stated risk posture and what the portfolio is actually carrying: heavy concentration in a handful of single names and a meaningful Category III AIF allocation, against a Debt sleeve sitting at 14.2%. Use the proposed trims and the redeployment to Debt as the concrete bridge that brings the revealed positioning back to the stated one."
+          "advisor_action": "Propose surfacing the gap between what the client stated as their intended risk posture and what the portfolio actually reveals, using the concentration breaches and the under-target Debt sleeve as the concrete evidence. Frame the rebalance as the bridge back to the stated mandate, and confirm explicitly whether the stated mandate still holds."
         },
         {
           "observation_category": "complexity_premium_not_earned",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Lead the meeting with the case for exiting Motilal Oswal Value Migration PMS: the strategy carries a 2.5% fixed AMC and the underlying PMS pass-through structure exposes the client to STCG drag on turnover, without delivering returns that justify the complexity premium. Frame the exit as the cleanest expression of the complexity-premium-not-earned finding."
+          "advisor_action": "Propose an honest conversation on whether the complexity layered into the portfolio (four PMS mandates and a Category III AIF, each with elevated fees and, for the AIF, fund-level taxation that compresses net returns) is earning its keep. The Motilal Oswal exit is the first move; recommend setting a clear standard going forward that each complex wrapper must visibly clear a simpler benchmark to retain its place."
         }
       ],
       "rebalance_proposal": {
@@ -3004,22 +3004,23 @@
           ],
           "redeployment": {
             "freed_capital_pct": 17.9,
+            "cash_funding_pct": 0,
             "deployments": [
               {
                 "sleeve": "Debt",
                 "current_pct": 14.2,
                 "target_pct": 25,
                 "upper_band_pct": 30,
-                "add_pct_points": 15.8,
-                "resulting_pct": 30
+                "add_pct_points": 10.8,
+                "resulting_pct": 25
               }
             ],
-            "leftover_to_cash_pct": 2.1,
-            "note": "Freed 17.9 points exceeds the 15.8 points of headroom to the sleeves' upper bands; sleeves are filled to their upper band and the remaining 2.1 points are reported as leftover to cash."
+            "leftover_to_cash_pct": 7.1,
+            "note": "The 17.9 points freed by trims and exits (17.9 points) exceeds the 10.8 points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining 7.1 points stay in cash, available for staged deployment or a review of the target weights."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a single coordinated rebalance that takes the five over-concentrated positions to the 10% single-position ceiling, exits Motilal Oswal Value Migration PMS in full, and routes the freed capital into the under-allocated Debt sleeve. Specifically: trim Marcellus Consistent Compounder PMS by 1.3 points from 11.3% to 10% in one step; exit Motilal Oswal Value Migration PMS from 9.5% in two steps of 4.7 points (to 4.8%) and 4.8 points (to zero), with the second step triggered once the position has settled near 4.8%, staging the redemption around the one-year lock-in and 2% year-one exit-load on the 2.5% fixed AMC sleeve; trim Reliance Industries by 2.2 points from 12.2% to 10% in one step; trim HDFC Bank by 1.3 points from 11.3% to 10% in one step; and trim Avendus Absolute Return Fund by 3.6 points from 13.6% to 10% in one step, sizing the redemption so the residual stays at or above the Rs 1 Cr SEBI AIF minimum ticket. The listed-equity trims (Reliance, HDFC Bank, and the underlying instruments inside the Marcellus and Motilal Oswal PMS sales) crystallise LTCG at 12.5% above the Rs 1.25 L annual threshold and STCG at 20%, both within the 15% surcharge cap; the Avendus trim sits at the Category III AIF fund level and the client receives a post-tax distribution. The trims and the exit free 17.9 points of capital in total. Redeploy 15.8 points into the Debt sleeve, lifting it from 14.2% to its 30% upper band; the remaining 2.1 points exceed the headroom to the sleeves' upper bands and sit in cash rather than being reinvested.",
+          "advisor_action": "Propose a single gap-closing rebalance that addresses the four single-position breaches and the under-target Debt sleeve together. Trim Marcellus Consistent Compounder PMS by 1.3 points from 11.3% to the 10% ceiling in one step; trim Reliance Industries by 2.2 points from 12.2% to 10% in one step; trim HDFC Bank by 1.3 points from 11.3% to 10% in one step; and trim Avendus Absolute Return Fund by 3.6 points from 13.6% to 10% in one step, sized to keep the residual commitment above the SEBI Rs 1 Cr AIF floor. Exit Motilal Oswal Value Migration PMS in full from 9.5% in two roughly equal tranches of 4.7 points and 4.8 points, staged around the one-year lock-in and the 2% year-one exit-load and spreading the underlying-instrument capital-gains event across the sale. Together these moves free 17.9 points of capital; route 10.8 points into the Debt sleeve to bring it from 14.2% to its 25% target, and leave the remaining 7.1 points in cash as dry powder available for staged deployment or as grounds to revisit the target weights with the client. Capital-gains framing on the listed-equity legs follows LTCG 12.5% above Rs 1.25 L and STCG 20%, with the 15% surcharge cap; the AIF trim itself does not generate a separate investor-level capital-gains event.",
           "generation_method": "llm"
         }
       },
@@ -3031,9 +3032,9 @@
         "trim_count": 4,
         "exit_count": 1,
         "rebalance": "proposal",
-        "one_line_characterization": "Five concentration trims, one full PMS exit, and a 15.8 point redeployment that lifts Debt to its upper band, with 2.1 points honestly parked in cash."
+        "one_line_characterization": "A coordinated rebalance: trim four breached positions, exit one PMS on converged thesis and cost grounds, fill the Debt sleeve to target, and hold the honest leftover in cash."
       },
-      "reasoning_summary": "The rebalance is one coherent action, not five: concentration trims across Reliance, HDFC Bank, Marcellus, and Avendus take each name to the 10% ceiling, while Motilal Oswal Value Migration PMS exits in full on independent quality and cost grounds, staged around its one-year lock-in and 2% year-one exit-load. The 17.9 points freed flow to the under-allocated Debt sleeve up to its 30% upper band, with the residual 2.1 points sitting in cash rather than being forced into reinvestment. Tax framing is product-structure scoped: pass-through at the underlying instrument level for the PMS sales, listed-equity 112A and 111A for the direct names, and fund-level Category III treatment for the Avendus trim. The meeting should lead with the Motilal Oswal exit as the cleanest expression of the complexity-premium finding, and use the redeployment to Debt as the bridge between the stated and revealed risk postures.",
+      "reasoning_summary": "The four position-level breaches and the Motilal Oswal exit are best proposed as one gap-closing story rather than as separate trades, since they share funding into the under-target Debt sleeve. Staging is grounded in what the context actually supplies: the Motilal Oswal exit-load and lock-in shape its two-tranche path, the AIF minimum-ticket floor sizes the Avendus trim, and the listed-equity and PMS-pass-through tax treatment frames the capital-gains conversation on the equity legs. The 7.1-point cash residual is surfaced honestly as dry powder, not over-deployed.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {

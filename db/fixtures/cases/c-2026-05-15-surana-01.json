@@ -2510,7 +2510,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% back to the 10% single-position ceiling, a 1.6 point reduction taken in a single step. The sale is in an equity-oriented mutual fund, so gains held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L annual exemption, and gains within twelve months attract STCG at 20%; size the redemption against units with the most favourable holding period to keep the capital-gains event proportionate to the trim."
+          "advisor_action": "Propose trimming Parag Parikh Flexi Cap Fund from 11.6% to the 10% single-position target, a 1.6-point reduction taken in one step. As an equity-oriented mutual fund held long-term, the sale will be a Section 112A event at LTCG 12.5% above the Rs 1.25 L annual threshold, or STCG at 20% on units under twelve months; size the redemption with the client's realised-gains position in mind."
         },
         {
           "holding_ref": "Axis Large Cap Fund",
@@ -2519,7 +2519,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to 10% in a single 1 point step, framed against the thesis-quality concern that placed the holding in Review. The redemption is in an equity-oriented mutual fund, so units held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L exemption and units within twelve months attract STCG at 20%; select units to keep the realised gain measured."
+          "advisor_action": "Propose trimming Axis Large Cap Fund from 11% to the 10% single-position target, a 1-point reduction taken in one step, on the back of the negative thesis-quality verdict. Frame the sale as an equity-oriented mutual fund redemption: LTCG 12.5% above the Rs 1.25 L annual threshold for units held over twelve months, STCG 20% otherwise."
         },
         {
           "holding_ref": "Mirae Asset Large Cap Fund",
@@ -2528,7 +2528,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund. The Monitor flag warrants noting at the meeting, but the holding does not sit above the single-position ceiling and no trim is indicated; revisit at the next review."
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
         },
         {
           "holding_ref": "Kotak Emerging Equity Fund",
@@ -2537,7 +2537,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "thesis_quality",
-          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund despite the thesis-quality observation that produced the Review verdict. The concern is worth airing with the client to test conviction, but a trim is not warranted at this weight; revisit if the thesis concern deepens."
+          "advisor_action": "Propose maintaining Kotak Emerging Equity Fund at its current weight while flagging the thesis-quality concern for discussion; the position is not a trim candidate at this weight, but the client should hear the qualitative reservation and understand it is on the watch list."
         },
         {
           "holding_ref": "SBI Small Cap Fund",
@@ -2546,7 +2546,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining SBI Small Cap Fund. The Monitor flag is worth surfacing in conversation, but no action is required on the position now."
+          "advisor_action": "Propose maintaining SBI Small Cap Fund at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
         },
         {
           "holding_ref": "White Oak India Pioneers PMS",
@@ -2555,7 +2555,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining White Oak India Pioneers PMS. The Monitor flag warrants discussion at the meeting; the PMS is held above the SEBI Rs 0.5 Cr minimum ticket, so any future partial reduction would need to preserve a residual that does not fall below that floor, but no trim is being proposed now."
+          "advisor_action": "Propose maintaining the White Oak India Pioneers PMS position; the Monitor verdict is a watch-item to revisit at the next review. Note for the file that the SEBI PMS minimum ticket of Rs 0.5 Cr would constrain the shape of any future partial trim, and that PMS gains pass through to the investor at the underlying-instrument level: listed-equity LTCG at 12.5% above the Rs 1.25 L annual threshold under Section 112A and STCG at 20% under Section 111A, with the 15% surcharge cap on listed-equity gains."
         },
         {
           "holding_ref": "Reliance Industries",
@@ -2564,7 +2564,7 @@
           "kind": "action",
           "decision": "trim",
           "source_observation": "position_over_concentration",
-          "advisor_action": "Propose trimming Reliance Industries from 20.3% toward the 10% single-position ceiling in three steps of roughly 3.4, 3.5, and 3.4 points, taken first now from 20.3%, then once the position has settled near 16.9%, and finally from 13.4%. Staging the sale manages market impact and the capital-gains event: gains on shares held beyond twelve months attract LTCG at 12.5% above the Rs 1.25 L annual exemption, gains within twelve months attract STCG at 20%, and spreading the realisation across the steps lets the LTCG exemption be used across tax years where lot selection allows."
+          "advisor_action": "Propose trimming Reliance Industries from 20.3% of liquid assets toward the 10% single-position ceiling; at 20.3% the position is well above the 15% escalate threshold and is the portfolio's largest single-name concentration. Take it down 10.3 points in three roughly equal steps of 3.4, 3.5, and 3.4 points: the first now from 20.3% to 16.9%, the second once the position has settled near 16.9% to 13.4%, and the third from 13.4% to 10%. Staging serves two purposes: it manages market impact on a single name, and it spreads the Section 112A capital-gains event at LTCG 12.5% above the Rs 1.25 L annual threshold (or STCG at 20% under Section 111A on any lots under twelve months) across the tax window."
         },
         {
           "holding_ref": "HDFC Bank",
@@ -2573,7 +2573,7 @@
           "kind": "action",
           "decision": "maintain",
           "source_observation": "a2_flag",
-          "advisor_action": "Propose maintaining HDFC Bank. The Monitor flag is worth noting in the conversation, but the position does not sit above the single-position ceiling and no trim is indicated."
+          "advisor_action": "Propose maintaining HDFC Bank at its current weight; the Monitor verdict is a watch-item to revisit at the next review, not a trade to make today."
         }
       ],
       "observation_actions": [
@@ -2581,13 +2581,13 @@
           "observation_category": "position_over_concentration",
           "severity_hint": "escalate",
           "kind": "action",
-          "advisor_action": "Propose addressing the single-position concentration at the portfolio level by staging trims on the three names sitting above the 10% ceiling, anchored by Reliance Industries at 20.3% which is also above the 15% escalate threshold. Frame this with the client as a deliberate de-risking of single-name exposure rather than a view on any one company."
+          "advisor_action": "Propose addressing the position-level concentration in this meeting: Reliance Industries at 20.3% is above the 15% escalate threshold and is the lead item, with Parag Parikh Flexi Cap at 11.6% and Axis Large Cap at 11% sitting just above the 10% single-position ceiling. The rebalance proposal below carries all three down to target as one coordinated set."
         },
         {
           "observation_category": "allocation_drift",
           "severity_hint": "flag",
           "kind": "action",
-          "advisor_action": "Propose using the capital freed by the concentration trims to close the allocation drift, directing it to the under-allocated Debt and Alternatives sleeves so the portfolio moves materially back toward the model bands in a single coordinated step rather than through standalone top-ups."
+          "advisor_action": "Propose using the freed capital from the concentration trims to close the allocation drift in the same conversation: debt is at 0% against a 25% target, and alternatives are below target, so the trims directly fund the gap rather than being a separate exercise."
         }
       ],
       "rebalance_proposal": {
@@ -2657,30 +2657,31 @@
           ],
           "redeployment": {
             "freed_capital_pct": 12.9,
+            "cash_funding_pct": 0.8,
             "deployments": [
               {
                 "sleeve": "Debt",
                 "current_pct": 0,
                 "target_pct": 25,
                 "upper_band_pct": 30,
-                "add_pct_points": 11.3,
-                "resulting_pct": 11.3
+                "add_pct_points": 12.8,
+                "resulting_pct": 12.8
               },
               {
                 "sleeve": "Alternatives",
                 "current_pct": 5.8,
-                "target_pct": 7,
+                "target_pct": 7.5,
                 "upper_band_pct": 10,
-                "add_pct_points": 1.6,
-                "resulting_pct": 7.4
+                "add_pct_points": 0.9,
+                "resulting_pct": 6.7
               }
             ],
             "leftover_to_cash_pct": 0,
-            "note": "Freed 12.9 points deployed toward under-allocated sleeves up to their upper bands, moving the allocation toward the model."
+            "note": "The 12.9 points freed by trims and exits plus 0.8 points of deployable cash (13.7 points) is deployed toward under-target sleeves in proportion to each sleeve's gap, moving the allocation toward target."
           }
         },
         "narrated": {
-          "advisor_action": "Propose a coordinated rebalance: trim Parag Parikh Flexi Cap Fund by 1.6 points from 11.6% to 10% in a single step; trim Axis Large Cap Fund by 1 point from 11% to 10% in a single step; and stage Reliance Industries down from 20.3% to 10% in three steps of roughly 3.4, 3.5, and 3.4 points, the first now from 20.3%, the second once the position settles near 16.9%, and the third from 13.4%, with the staging managing market impact and spreading the listed-equity LTCG event (12.5% above the Rs 1.25 L exemption, STCG at 20% within twelve months) and the equity-mutual-fund LTCG event (12.5% above the Rs 1.25 L exemption, STCG at 20% within twelve months) across the sequence. The combined trims free 12.9 points of capital, which redeploys into the two under-allocated sleeves up to their upper bands: 11.3 points into Debt, taking it from 0% to 11.3% against a 25% target and 30% upper band, and 1.6 points into Alternatives, taking it from 5.8% to 7.4% against a 7% target and 10% upper band. Nothing is left to cash; the full 12.9 points is absorbed into the under-allocated sleeves, moving the overall allocation toward the model in one coordinated move.",
+          "advisor_action": "Propose a single coordinated rebalance that closes both the concentration and the allocation drift in one operation. On the funding side: trim Reliance Industries from 20.3% to 10% in three steps of 3.4, 3.5, and 3.4 points (20.3% to 16.9%, then to 13.4%, then to 10%), staged to manage single-name market impact and to spread the Section 112A capital-gains event at LTCG 12.5% above the Rs 1.25 L threshold across the tax window; trim Parag Parikh Flexi Cap from 11.6% to 10% in a single 1.6-point step; and trim Axis Large Cap from 11% to 10% in a single 1-point step, both as Section 112A equity-mutual-fund redemptions at the same LTCG treatment. Together the trims free 12.9 points, and a further 0.8 points of cash above its target is available as dry powder, for 13.7 points of deployable capital. Deploy it toward the under-target sleeves in proportion to each sleeve's gap: 12.8 points into debt, taking it from 0% toward its 25% target and landing at 12.8%, and 0.9 points into alternatives, taking it from 5.8% toward its 7.5% target and landing at 6.7%. Nothing is left over to cash; the gap-closing is fully absorbed by the under-target sleeves.",
           "generation_method": "llm"
         }
       },
@@ -2692,9 +2693,9 @@
         "trim_count": 3,
         "exit_count": 0,
         "rebalance": "proposal",
-        "one_line_characterization": "Coordinated trim of three concentrated names, with the freed 12.9 points fully redeployed into the under-allocated Debt and Alternatives sleeves."
+        "one_line_characterization": "One coordinated rebalance: trim Reliance Industries from 20.3% to 10% over three steps plus 1.6 and 1.0-point trims on two equity funds, with the 12.9 points freed and 0.8 points of deployable cash redeployed into debt and alternatives to close the allocation drift."
       },
-      "reasoning_summary": "The portfolio's central action is a staged concentration trim, dominated by Reliance Industries' three-step glide from 20.3% to 10%, alongside single-step trims on Parag Parikh Flexi Cap and Axis Large Cap back to the 10% ceiling. The capital-gains framing comes from the cited LTCG and STCG rates on listed equity and equity-oriented mutual funds, which argue for staging Reliance and for careful unit selection on the fund redemptions. The freed 12.9 points absorbs cleanly into the under-allocated Debt and Alternatives sleeves up to their upper bands, with nothing left to cash, so the rebalance simultaneously closes the concentration breach and the allocation drift in one coordinated move.",
+      "reasoning_summary": "The portfolio has one heavy single-name concentration in Reliance Industries and two equity funds sitting marginally above the 10% ceiling, all against a debt sleeve at 0% versus a 25% target. The cleanest move is to treat concentration and drift as the same operation: trim the three positions to target, deploy the freed 12.9 points and the 0.8 points of cash above target into the under-target debt and alternatives sleeves, and stage the Reliance sale across three steps for market-impact and tax reasons. The Monitor and thesis-concern Maintain positions are watch-items to surface in the conversation, not trades for this meeting.",
       "indian_context": {
         "generated_by": "m0_indian_context_a3",
         "investor_structure": {
