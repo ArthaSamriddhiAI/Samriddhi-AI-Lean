@@ -22,7 +22,7 @@ import {
 } from "@/lib/agents/a3-so-what";
 import type { A2Output, A2HoldingVerdict, A2Verdict, A2Driver } from "@/lib/agents/a2-classification";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
-import { MODEL_BANDS, computeMetrics } from "@/lib/agents/portfolio-risk-analytics";
+import { MODEL_BANDS, computeMetrics, resolveTargetBands } from "@/lib/agents/portfolio-risk-analytics";
 import { MANDATES_BY_INVESTOR } from "@/db/fixtures/structured-mandates";
 import type { RiskRewardOutput } from "@/lib/agents/risk-reward-stats";
 import { runPortfolioOverlapDeterministic, type PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
@@ -402,6 +402,20 @@ function decision(d: "trim" | "exit" | "maintain", weight: number): A3Reconciled
   } else {
     assert(false, "C16: Menon produces a rebalance proposal", menonA3.rebalance_proposal.kind);
   }
+
+  // --- Case 17 (Finding 5 completion, ADR-0032): explicit target_pct overrides midpoint ---
+  console.log("Case 17: explicit mandate target_pct (Menon) overrides midpoint; others still midpoint");
+  const menonBands = resolveTargetBands(MANDATES_BY_INVESTOR.menon);
+  assert(
+    menonBands.Equity.target === 65 && menonBands.Debt.target === 15 && menonBands.Alternatives.target === 15 && menonBands.Cash.target === 5,
+    "C17: Menon resolves to explicit targets 65/15/15/5 (not the midpoints 62.5/22.5/12.5/6)",
+    JSON.stringify({ Equity: menonBands.Equity.target, Debt: menonBands.Debt.target, Alt: menonBands.Alternatives.target, Cash: menonBands.Cash.target }),
+  );
+  assert(menonBands.Alternatives.min === 5 && menonBands.Alternatives.max === 20, "C17: Menon's bands are unchanged (Alt still 5-20, only the target is explicit)", JSON.stringify(menonBands.Alternatives));
+  const surBands = resolveTargetBands(MANDATES_BY_INVESTOR.surana);
+  assert(surBands.Equity.target === 65 && surBands.Alternatives.target === 7.5 && surBands.Cash.target === 3.5, "C17: Surana (no explicit target) still resolves via midpoint (Alt 5-10 -> 7.5, Cash 2-5 -> 3.5)", JSON.stringify(surBands));
+  const iyBands = resolveTargetBands(MANDATES_BY_INVESTOR.iyengar);
+  assert(iyBands.Equity.target === 35 && iyBands.Debt.target === 55, "C17: Iyengar (no explicit target) still resolves via midpoint (Equity 35, Debt 55)", JSON.stringify({ Equity: iyBands.Equity.target, Debt: iyBands.Debt.target }));
 
   console.log("");
   if (failures.length) {

@@ -30,6 +30,12 @@ export type AssetClassBand = {
   asset_class: "Equity" | "Debt" | "Alternatives" | "Cash";
   min_pct: number;
   max_pct: number;
+  /** Optional explicit target within the band (ADR-0032). When present it is
+   * the deploy-to-target destination; when absent the target defaults to the
+   * band midpoint. Use it where the intended target is asymmetric within the
+   * band (a permissive ceiling that should not be read as the target, e.g.
+   * Menon's pre-IPO/runway-widened Alternatives and Cash bands). */
+  target_pct?: number;
 };
 
 export type WrapperCountCeiling = {
@@ -92,7 +98,7 @@ const SHARMA_MANDATE: Mandate = {
 
 const BHATT_MANDATE: Mandate = {
   /* Per Slice 2 fixture briefing: "equity at 72.2% breaches the 60-70%
-   * ceiling by 2.2 pp" — confirms the 60-70 band. */
+   * ceiling by 2.2 pp", confirms the 60-70 band. */
   bands: STANDARD_AGGRESSIVE_LONG_TERM,
   wrapper_count_ceilings: [],
   position_concentration_ceilings: STANDARD_CONCENTRATION,
@@ -116,12 +122,16 @@ const MALHOTRA_MANDATE: Mandate = {
 
 const MENON_MANDATE: Mandate = {
   /* Aggressive long-term but post-exit accumulation-stage; widened
-   * alternatives band to accommodate venture / pre-IPO positions. */
+   * alternatives band to accommodate venture / pre-IPO positions, widened
+   * cash band for the deployment runway. These widenings are one-sided
+   * (permissive ceilings), so the band midpoint would overstate the intended
+   * Alternatives and Cash targets; explicit target_pct states the intent
+   * directly (ADR-0032). Targets 65/15/15/5 sum to 100 and sit within bands. */
   bands: [
-    { asset_class: "Equity", min_pct: 55, max_pct: 70 },
-    { asset_class: "Debt", min_pct: 15, max_pct: 30 },
-    { asset_class: "Alternatives", min_pct: 5, max_pct: 20 },
-    { asset_class: "Cash", min_pct: 2, max_pct: 10 },
+    { asset_class: "Equity", min_pct: 55, max_pct: 70, target_pct: 65 },
+    { asset_class: "Debt", min_pct: 15, max_pct: 30, target_pct: 15 },
+    { asset_class: "Alternatives", min_pct: 5, max_pct: 20, target_pct: 15 },
+    { asset_class: "Cash", min_pct: 2, max_pct: 10, target_pct: 5 },
   ],
   wrapper_count_ceilings: [],
   position_concentration_ceilings: STANDARD_CONCENTRATION,

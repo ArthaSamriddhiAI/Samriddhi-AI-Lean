@@ -31,19 +31,22 @@ export const MODEL_BANDS: Record<AssetClass, { target: number; min: number; max:
   Cash: { target: 3, min: 2, max: 5 },
 };
 
-/* Per-investor target bands (Finding 5). The investor's mandate
+/* Per-investor target bands (Finding 5; ADR-0032). The investor's mandate
  * (MANDATES_BY_INVESTOR, serialised to Investor.mandateJson) specifies a
- * tolerance band (min_pct, max_pct) per asset class but NO explicit target.
- * Finding 5 derives the target as the band MIDPOINT: it is the standard
- * "centre of the tolerance band" reading, and for the standard aggressive
- * bands it reproduces the foundation §2 targets exactly on Equity (65) and
- * Debt (25), within ~0.5 point on Alternatives and Cash. When no mandate is
- * supplied (or a class is missing from it), the flat MODEL_BANDS is the
+ * tolerance band (min_pct, max_pct) per asset class and, optionally, an
+ * explicit target_pct. The target resolves as: explicit target_pct when the
+ * band sets one, else the band MIDPOINT. Midpoint is the standard "centre of
+ * the tolerance band" reading and reproduces the foundation §2 targets exactly
+ * on the standard aggressive Equity (65) and Debt (25) bands; the explicit
+ * target_pct exists for the cases where the intended target is asymmetric
+ * within the band (a permissive ceiling that should not be read as the target,
+ * e.g. Menon's pre-IPO/runway-widened Alternatives and Cash). When no mandate
+ * is supplied (or a class is missing from it), the flat MODEL_BANDS is the
  * fallback, so Samriddhi 1 and any unmandated path are unchanged.
  *
  * Cash is NOT a deployment destination (A3 funds the under-target sleeves and
  * lets cash be the residual), so the fact that per-class midpoints do not sum
- * to exactly 100 across a mandate is immaterial here: the midpoint is used as
+ * to exactly 100 across a mandate is immaterial here: the target is used as
  * each sleeve's resting target and, for cash, as the dry-powder floor. */
 export type ResolvedBand = { target: number; min: number; max: number };
 
@@ -53,7 +56,8 @@ export function resolveTargetBands(mandate: Mandate | null | undefined): Record<
   for (const cls of classes) {
     const band = mandate?.bands.find((b) => b.asset_class === cls);
     if (band) {
-      out[cls] = { target: round((band.min_pct + band.max_pct) / 2, 2), min: band.min_pct, max: band.max_pct };
+      const target = typeof band.target_pct === "number" ? band.target_pct : round((band.min_pct + band.max_pct) / 2, 2);
+      out[cls] = { target, min: band.min_pct, max: band.max_pct };
     } else {
       const m = MODEL_BANDS[cls];
       out[cls] = { target: m.target, min: m.min, max: m.max };
