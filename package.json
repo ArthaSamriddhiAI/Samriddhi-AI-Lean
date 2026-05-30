@@ -13,7 +13,8 @@
     "db:seed": "tsx db/seed-cli.ts",
     "db:reset": "prisma db push --force-reset && npm run db:seed",
     "fixtures:copy": "tsx scripts/copy-fixtures.ts",
-    "setup-data": "tsx scripts/setup-data.ts"
+    "setup-data": "tsx scripts/setup-data.ts",
+    "check:persona-snapshot": "tsx scripts/verify-persona-snapshot-alignment.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.40.0",

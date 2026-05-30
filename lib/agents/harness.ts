@@ -41,6 +41,10 @@ export type AgentCallResult<T> = {
   usage: AgentUsage;
   attemptCount: number;
   rawText: string;
+  /** Live SDK response id and resolved model from the API response. Undefined
+   * on the stub-replay path (no live response). */
+  id?: string;
+  model?: string;
 };
 
 export type AgentCallOptions<T> = {
@@ -212,6 +216,8 @@ export async function callAgent<T>(opts: AgentCallOptions<T>): Promise<AgentCall
       usage: { inputTokens: totalInput, outputTokens: totalOutput },
       attemptCount: attempt,
       rawText: lastRaw,
+      id: response.id,
+      model: response.model,
     };
   }
 

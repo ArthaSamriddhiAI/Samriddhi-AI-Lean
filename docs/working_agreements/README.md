@@ -33,5 +33,6 @@ This per-file structure is the durable home for working agreements; it supersede
 | [WA23](WA23_conventions_by_reference.md) | Conventions inherited by reference, not by re-listing |
 | [WA24](WA24_numbering_at_landing.md) | Numbering allocated at landing, not at planning |
 | [WA25](WA25_planner_vs_task_chat.md) | Planner chat for planning, task chats for execution |
+| [WA26](WA26_persona_snapshot_alignment.md) | Persona holdings verified against the snapshot before locking |
 
 When a new working agreement is adopted, add a file here following the same structure and a row above; confirm the next available WA number against this directory rather than a hard-coded number from chat context (numbering discipline, per the debt-log convention).

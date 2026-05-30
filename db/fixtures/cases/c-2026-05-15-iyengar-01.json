@@ -1319,6 +1319,845 @@
         "applies": false,
         "text": null
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-15-iyengar-01",
+      "as_of_date": "2026-04-02",
+      "decisions": [
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27.3,
+          "holding_kind": "allocation",
+          "tax_product_family": null,
+          "over_concentrated": true,
+          "a2_verdict": "review",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 1 with SBI FD (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: allocation instrument (no tier_b)"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 27,
+          "holding_kind": "allocation",
+          "tax_product_family": null,
+          "over_concentrated": true,
+          "a2_verdict": "review",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 1 with HDFC Bank FD (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: allocation instrument (no tier_b)"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "instrument_display_name": "Franklin India Corporate Debt Fund",
+          "asset_class": "Debt",
+          "sub_category": "mf_corporate_debt",
+          "weight_pct": 10.3,
+          "holding_kind": "transparent",
+          "tax_product_family": "debt_mf",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with HDFC Bank FD (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 1.3613, sortino 1.9638, calmar 31.4745, max_drawdown -0.0023"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e7_overall_verdict_hold)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 11.7,
+          "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9940000000000001 with HDFC Index Fund Nifty 50 (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.3363, sortino 0.2733, calmar 0.677, max_drawdown -0.1451"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e7_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "instrument_display_name": "HDFC Index Fund Nifty 50",
+          "asset_class": "Equity",
+          "sub_category": "mf_passive_index",
+          "weight_pct": 14.1,
+          "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9940000000000001 with Axis Large Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: not_applicable_for_risk_reward"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "ICICI Prudential Balanced Advantage Fund",
+          "instrument_display_name": "ICICI Prudential Balanced Advantage Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_hybrid_dynamic_aa",
+          "weight_pct": 9.7,
+          "holding_kind": "transparent",
+          "tax_product_family": "hybrid_mf",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.882 with Axis Large Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.9014, sortino 0.7498, calmar 1.6015, max_drawdown -0.0751"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: moderate (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        }
+      ],
+      "holding_actions": [
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "a2_verdict": "review",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming the HDFC Bank FD from 27.3% of the portfolio toward the 10% single-position ceiling, a total reduction of 17.3 points staged over four roughly equal steps; at more than a quarter of liquid assets it is the largest single-name concentration and sits well above the 15% escalate threshold."
+        },
+        {
+          "holding_ref": "SBI FD",
+          "instrument_display_name": "SBI FD",
+          "a2_verdict": "review",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming the SBI FD from 27% toward the 10% single-position ceiling, a total reduction of 17 points staged over four roughly equal steps; it mirrors the HDFC Bank FD as a second oversized single-name concentration above the 15% escalate threshold."
+        },
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "instrument_display_name": "Franklin India Corporate Debt Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose a small trim of the Franklin India Corporate Debt Fund from 10.3% to the 10% single-position ceiling, a reduction of 0.3 points; the sale will be taxed at the investor's slab rate without indexation under the Section 50AA specified-MF treatment regardless of holding period, and a 4% cess applies on top."
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "instrument_display_name": "Axis Large Cap Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming the Axis Large Cap Fund from 11.7% to the 10% single-position ceiling, a reduction of 1.7 points; the sale triggers a capital-gains event at LTCG 12.5% above the Rs 1,25,000 annual threshold for units held beyond twelve months, and STCG 20% for any units held twelve months or less, with a 4% cess on top."
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "instrument_display_name": "HDFC Index Fund Nifty 50",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming the HDFC Index Fund Nifty 50 from 14.1% to the 10% single-position ceiling, a reduction of 4.1 points in a single step; LTCG at 12.5% above the Rs 1,25,000 annual threshold applies for units held beyond twelve months, STCG at 20% for any held twelve months or less, with a 4% cess on top."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Propose treating the five oversized positions as a single concentration agenda for the meeting: the two FDs above the 15% escalate threshold lead, with the three mutual-fund overweights cleared in single steps; anchor every trim to the 10% single-position ceiling, not to a softer target."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "info",
+          "kind": "action",
+          "advisor_action": "Propose using the concentration trims as the lever to close the allocation gap toward the model: the 40.4 points freed should fund the under-target sleeves to target in the same conversation, so the drift is corrected as a consequence of the trims rather than as a second exercise."
+        },
+        {
+          "observation_category": "stated_revealed_divergence",
+          "severity_hint": "info",
+          "kind": "action",
+          "advisor_action": "Propose pacing the conversation around the gap between the stated appetite and the observed cash-and-FD-heavy posture: lead with reassurance, frame the trims and redeployment as a measured first move toward the stated profile, and let the residual cash give the investor visible room to step in at their own pace."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "HDFC Bank FD",
+              "decision": "trim",
+              "current_weight_pct": 27.3,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 17.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 23,
+                  "trigger_at_weight_pct": 27.3
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 18.7,
+                  "trigger_at_weight_pct": 23
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 4.4,
+                  "resulting_weight_pct": 14.3,
+                  "trigger_at_weight_pct": 18.7
+                },
+                {
+                  "step": 4,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.3
+                }
+              ]
+            },
+            {
+              "instrument": "SBI FD",
+              "decision": "trim",
+              "current_weight_pct": 27,
+              "breach_threshold_pct": 15,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 17,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.2,
+                  "resulting_weight_pct": 22.8,
+                  "trigger_at_weight_pct": 27
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 18.5,
+                  "trigger_at_weight_pct": 22.8
+                },
+                {
+                  "step": 3,
+                  "trim_pct_points": 4.2,
+                  "resulting_weight_pct": 14.3,
+                  "trigger_at_weight_pct": 18.5
+                },
+                {
+                  "step": 4,
+                  "trim_pct_points": 4.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.3
+                }
+              ]
+            },
+            {
+              "instrument": "Franklin India Corporate Debt Fund",
+              "decision": "trim",
+              "current_weight_pct": 10.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 0.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 0.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 10.3
+                }
+              ]
+            },
+            {
+              "instrument": "Axis Large Cap Fund",
+              "decision": "trim",
+              "current_weight_pct": 11.7,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.7,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.7,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.7
+                }
+              ]
+            },
+            {
+              "instrument": "HDFC Index Fund Nifty 50",
+              "decision": "trim",
+              "current_weight_pct": 14.1,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 4.1,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.1,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 14.1
+                }
+              ]
+            }
+          ],
+          "redeployment": {
+            "freed_capital_pct": 40.4,
+            "cash_funding_pct": 0,
+            "deployments": [
+              {
+                "sleeve": "Alternatives",
+                "current_pct": 0,
+                "target_pct": 5,
+                "upper_band_pct": 10,
+                "add_pct_points": 5,
+                "resulting_pct": 5
+              }
+            ],
+            "leftover_to_cash_pct": 35.4,
+            "note": "The 40.4 points freed by trims and exits (40.4 points) exceeds the 5 points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining 35.4 points stay in cash, available for staged deployment or a review of the target weights."
+          }
+        },
+        "narrated": {
+          "advisor_action": "Propose the rebalance as one gap-closing move. On the trims, the HDFC Bank FD comes down from 27.3% to 10% in four steps of 4.3, 4.3, 4.4, and 4.3 points, each triggered as the prior weight settles (at 27.3%, 23%, 18.7%, and 14.3%); the SBI FD comes down from 27% to 10% in four steps of 4.2, 4.3, 4.2, and 4.3 points, triggered at 27%, 22.8%, 18.5%, and 14.3%. The three mutual-fund overweights clear in a single step each: Franklin India Corporate Debt Fund by 0.3 points from 10.3% to 10%, Axis Large Cap Fund by 1.7 points from 11.7% to 10%, and HDFC Index Fund Nifty 50 by 4.1 points from 14.1% to 10%. The staged FD trims pace the redemption load and the four-step cadence on each; the mutual-fund trims carry the capital-gains treatments cited above and should be sized within the annual LTCG exemption where possible. Together the trims free 40.4 points. Of that, 5 points fill the Alternatives sleeve from 0% toward its 5% target; the remaining 35.4 points stay in cash, available for staged deployment as conviction builds or as grounds to revisit the target weights with the investor.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 5,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 3,
+        "observation_actions_sentinelled": 0,
+        "trim_count": 5,
+        "exit_count": 0,
+        "rebalance": "proposal",
+        "one_line_characterization": "Two oversized FDs lead a five-position concentration trim that frees 40.4 points, fills the Alternatives sleeve to its 5% target via low-cost gold ETFs, and leaves 35.4 points in cash for staged deployment."
+      },
+      "reasoning_summary": "The advisor agenda is concentration-led: the two FDs above the 15% escalate threshold drive a four-step glide-path each, with three mutual-fund overweights cleared in single steps, all anchored to the 10% single-position ceiling. The 40.4 points freed fund the Alternatives sleeve to its 5% target through the lowest-cost gold ETF in the cohort, Mirae Asset Gold ETF at 0.35% TER. The remaining 35.4 points sit honestly in cash as dry powder, which also gives the advisor room to pace the stated-vs-observed conversation gently rather than force the full gap closed in one move.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "resident",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=resident; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "debt_mf",
+            "label": "Debt mutual fund (specified MF)",
+            "entries": [
+              {
+                "entry_id": "mf_002",
+                "section": "mf_classification",
+                "topic": "Specified Mutual Fund (debt MF), units acquired on or after 2023-04-01",
+                "rule": {
+                  "classification_basis": "Section 50AA: mutual fund where not more than 35 percent of total proceeds invested in equity shares of domestic companies; revised definition effective 2026-04-01 redefines as fund investing more than 65 percent in debt/money market or 65 percent or more in units of such a fund",
+                  "treatment": "deemed short-term capital gains regardless of holding period",
+                  "tax_rate_basis": "applicable slab rate of investor",
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4,
+                  "pre_change_treatment": "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months; STCG at slab if held less"
+                },
+                "citation": "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; definition revised by Finance Act 2025 effective 2026-04-01",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "idx_003",
+                "section": "indexation",
+                "topic": "Indexation for debt MF, removed in 2023 then further codified in 2024",
+                "rule": {
+                  "indexation_available": false,
+                  "treatment": "Section 50AA deems all gains as short-term, taxed at slab rate regardless of holding period",
+                  "pre_change_treatment_2023": "before 2023-04-01: LTCG at 20 percent with indexation if held 36+ months",
+                  "pre_2014_treatment": "before 2014-07-11: LTCG at 10 percent without or 20 percent with indexation"
+                },
+                "citation": "Income Tax Act 1961, Section 50AA introduced by Finance Act 2023; further refined by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "equity_mf",
+            "label": "Equity-oriented mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_001",
+                "section": "mf_classification",
+                "topic": "Equity-oriented mutual fund, long-term holding, tax treatment",
+                "rule": {
+                  "classification_basis": "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "stcg_threshold_months": 12,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4,
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "hybrid_mf",
+            "label": "Hybrid mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_003",
+                "section": "mf_classification",
+                "topic": "Hybrid mutual fund, mid-equity allocation, post-2024-07-23 acquisition",
+                "rule": {
+                  "classification_basis": "not equity-oriented (below 65 percent) and not specified mutual fund (above 35 percent equity for pre-2026-04-01 definition; below 65 percent debt for post-2026-04-01 definition); falls under residual mutual fund category",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_holding_period_months": 24,
+                  "stcg_treatment": "applicable slab rate of investor",
+                  "indexation_available": false,
+                  "surcharge_cap_applies": false,
+                  "cess_pct": 4
+                },
+                "citation": "Income Tax Act 1961, Section 112 read with definition exclusions in Section 2(42A); Finance (No. 2) Act 2024 amendments",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 3 product families [debt_mf, equity_mf, hybrid_mf], scoped to investor structure individual/resident; 7 tax entries; 0 SEBI minimum-ticket rules."
+      },
+      "operational": [
+        {
+          "holding_ref": "Franklin India Corporate Debt Fund",
+          "kind": "mf",
+          "matched_record_name": "Franklin India Corporate Debt Fund - Growth",
+          "sebi_category": "Corporate Bond Fund"
+        },
+        {
+          "holding_ref": "Axis Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Axis Large Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "HDFC Index Fund Nifty 50",
+          "kind": "mf",
+          "matched_record_name": "HDFC Nifty 50 Index Fund - Direct Plan",
+          "sebi_category": "Equity Index Funds"
+        },
+        {
+          "holding_ref": "ICICI Prudential Balanced Advantage Fund",
+          "kind": "mf",
+          "matched_record_name": "ICICI Prudential Balanced Advantage Fund - Growth",
+          "sebi_category": "Dynamic Asset Allocation or Bal"
+        }
+      ],
+      "deployment_plan": [
+        {
+          "sleeve": "Alternatives",
+          "add_pct_points": 5,
+          "deploy_cr": 0.17,
+          "equity": null,
+          "debt": null,
+          "alternatives": {
+            "alt_target_pct": 5,
+            "gold_pct": 5,
+            "non_gold_aif_pct": 0,
+            "gold_shortlist": {
+              "label": "gold (commodity ETF)",
+              "surfaced": [
+                {
+                  "fund_name": "Mirae Asset Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.35,
+                  "aum_cr": 3262.2584,
+                  "age_years": 3.12,
+                  "sharpe_3y": 1.6734,
+                  "sortino_3y": 2.4164,
+                  "calmar_3y": 3.2508,
+                  "return_3y": 33.43,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "Aditya Birla Sun Life Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.43,
+                  "aum_cr": 2908.6994,
+                  "age_years": 14.91,
+                  "sharpe_3y": 1.6676,
+                  "sortino_3y": 2.3729,
+                  "calmar_3y": 3.1367,
+                  "return_3y": 33.27,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "UTI GOLD Exchange Traded Fund",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.47,
+                  "aum_cr": 4439.6636,
+                  "age_years": 18.99,
+                  "sharpe_3y": 1.6457,
+                  "sortino_3y": 2.3619,
+                  "calmar_3y": 3.2915,
+                  "return_3y": 33.62,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                }
+              ],
+              "overflow": [
+                {
+                  "fund_name": "ICICI Prudential Gold ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.5,
+                  "aum_cr": 25941.6271,
+                  "age_years": 15.63,
+                  "sharpe_3y": 1.6638,
+                  "sortino_3y": 2.391,
+                  "calmar_3y": 3.2335,
+                  "return_3y": 33.47,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                },
+                {
+                  "fund_name": "KOTAK GOLD ETF",
+                  "source": "mf",
+                  "sub_category": "ETFs- Commodity",
+                  "ter_pct": 0.55,
+                  "aum_cr": 15574.4898,
+                  "age_years": 18.71,
+                  "sharpe_3y": 1.6619,
+                  "sortino_3y": 2.3847,
+                  "calmar_3y": 3.2149,
+                  "return_3y": 33.37,
+                  "duration_y": null,
+                  "aaa_pct": null,
+                  "sov_pct": null
+                }
+              ],
+              "eligible_count": 18,
+              "cohort_count": 9,
+              "degraded": false,
+              "degradation_reason": null
+            },
+            "non_gold_advisor_select": {
+              "reason": "AIF carries no performance metrics and the snapshot AIF universe does not reliably match a deployable product for this investor (product debt P40); the non-gold alternatives portion is advisor-select, not auto-ranked.",
+              "aif_universe_count": 162
+            }
+          },
+          "top_ups": []
+        }
+      ],
+      "deployment_narration": "On the Alternatives sleeve, the 5 points (roughly Rs 0.17 Cr) deploy entirely into gold, since the sleeve sits below the 5% threshold at which a non-gold AIF split is added. The gold candidates are the lowest-cost ETFs in the consistently strong cohort: Mirae Asset Gold ETF at 0.35% TER, Aditya Birla Sun Life Gold ETF at 0.43% TER, and UTI GOLD Exchange Traded Fund at 0.47% TER. Mirae Asset Gold ETF is the lowest-cost pick of the three. No existing alternatives holding is in scope for a top-up. The non-gold AIF portion is zero here, so the advisor-select note on AIFs (no performance metrics and no reliable snapshot match across the 162-fund universe) does not bind on this deployment.",
+      "advisor_framing_note": "The diagnostic flags a moderate stated-more-aggressive-than-revealed divergence: the investor describes a higher appetite than the portfolio actually expresses, and the cash-and-FD-heavy posture is the visible expression of that gap. Pace the meeting sensitively. Lead with reassurance: the trims and the Alternatives top-up are a measured first move, sized small enough that the investor stays inside their comfort zone while the portfolio nudges toward the stated profile. The 35.4 points staying in cash is a feature here, not a residual to defend: it gives the investor visible dry powder and a sense of optionality. Do not frame anything as a contradiction between what they said and how they have invested; absorb that tension into the pacing and let the actions speak."
     }
   },
   "tokenUsage": {

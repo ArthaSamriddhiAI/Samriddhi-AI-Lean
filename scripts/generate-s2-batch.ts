@@ -66,11 +66,6 @@ const BATCH: BatchCase[] = [
     caseId: "c-2026-05-15-surana-01",
     contextNote: "Samriddhi 2 diagnostic for Rajiv Surana. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6.",
   },
-  {
-    investorId: "sharma",
-    caseId: "c-2026-05-15-sharma-s2-01",
-    contextNote: "Samriddhi 2 diagnostic for Sharma family. Separate from the Sharma S1 (proposal evaluation) case at c-2026-05-14-sharma-01. Generated in deferred workstream cleanup (2026-05-15). Parallel evidence-agent dispatch; S1 on Sonnet 4.6.",
-  },
 ];
 
 type CaseRow = {

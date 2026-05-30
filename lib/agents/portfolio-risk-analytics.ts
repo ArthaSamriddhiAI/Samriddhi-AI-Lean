@@ -19,6 +19,7 @@ import type {
   SubCategory,
   AssetClass,
 } from "@/db/fixtures/structured-holdings";
+import type { Mandate } from "@/db/fixtures/structured-mandates";
 import type { Snapshot, MutualFundRow } from "./snapshot-loader";
 
 /* ----- Foundation §2: Indicative model portfolio ----- */
@@ -29,6 +30,41 @@ export const MODEL_BANDS: Record<AssetClass, { target: number; min: number; max:
   Alternatives: { target: 7, min: 5, max: 10 },
   Cash: { target: 3, min: 2, max: 5 },
 };
+
+/* Per-investor target bands (Finding 5; ADR-0032). The investor's mandate
+ * (MANDATES_BY_INVESTOR, serialised to Investor.mandateJson) specifies a
+ * tolerance band (min_pct, max_pct) per asset class and, optionally, an
+ * explicit target_pct. The target resolves as: explicit target_pct when the
+ * band sets one, else the band MIDPOINT. Midpoint is the standard "centre of
+ * the tolerance band" reading and reproduces the foundation §2 targets exactly
+ * on the standard aggressive Equity (65) and Debt (25) bands; the explicit
+ * target_pct exists for the cases where the intended target is asymmetric
+ * within the band (a permissive ceiling that should not be read as the target,
+ * e.g. Menon's pre-IPO/runway-widened Alternatives and Cash). When no mandate
+ * is supplied (or a class is missing from it), the flat MODEL_BANDS is the
+ * fallback, so Samriddhi 1 and any unmandated path are unchanged.
+ *
+ * Cash is NOT a deployment destination (A3 funds the under-target sleeves and
+ * lets cash be the residual), so the fact that per-class midpoints do not sum
+ * to exactly 100 across a mandate is immaterial here: the target is used as
+ * each sleeve's resting target and, for cash, as the dry-powder floor. */
+export type ResolvedBand = { target: number; min: number; max: number };
+
+export function resolveTargetBands(mandate: Mandate | null | undefined): Record<AssetClass, ResolvedBand> {
+  const out = {} as Record<AssetClass, ResolvedBand>;
+  const classes: AssetClass[] = ["Equity", "Debt", "Alternatives", "Cash"];
+  for (const cls of classes) {
+    const band = mandate?.bands.find((b) => b.asset_class === cls);
+    if (band) {
+      const target = typeof band.target_pct === "number" ? band.target_pct : round((band.min_pct + band.max_pct) / 2, 2);
+      out[cls] = { target, min: band.min_pct, max: band.max_pct };
+    } else {
+      const m = MODEL_BANDS[cls];
+      out[cls] = { target: m.target, min: m.min, max: m.max };
+    }
+  }
+  return out;
+}
 
 /* ----- Foundation §3: Concentration thresholds ----- */
 
@@ -236,9 +272,15 @@ export function computeMetrics(
   holdings: StructuredHoldings,
   snapshot: Snapshot,
   investor: { riskAppetite: string; liquidityTier: string },
+  mandate?: Mandate | null,
 ): PortfolioMetrics {
   const total = holdings.totalLiquidAumCr;
   const wrapperAggregated = aggregateWrappers(holdings.holdings);
+
+  /* Finding 5: the asset-class targets and bands A3 reasons against come from
+   * the investor's mandate (per-investor), falling back to the flat
+   * MODEL_BANDS when no mandate is supplied. */
+  const bands = resolveTargetBands(mandate);
 
   // Asset-class weights
   const assetClassSum: Record<AssetClass, number> = {
@@ -252,10 +294,10 @@ export function computeMetrics(
   }
 
   const assetClass: PortfolioMetrics["assetClass"] = {
-    Equity: buildAssetClassBlock("Equity", assetClassSum.Equity),
-    Debt: buildAssetClassBlock("Debt", assetClassSum.Debt),
-    Alternatives: buildAssetClassBlock("Alternatives", assetClassSum.Alternatives),
-    Cash: buildAssetClassBlock("Cash", assetClassSum.Cash),
+    Equity: buildAssetClassBlock("Equity", assetClassSum.Equity, bands),
+    Debt: buildAssetClassBlock("Debt", assetClassSum.Debt, bands),
+    Alternatives: buildAssetClassBlock("Alternatives", assetClassSum.Alternatives, bands),
+    Cash: buildAssetClassBlock("Cash", assetClassSum.Cash, bands),
   };
 
   // HHI at holding level (wrapper-aggregated positions)
@@ -282,9 +324,17 @@ export function computeMetrics(
 
   // Position-level threshold flags (against the wrapper-aggregated view;
   // individual PMS instruments above 10% are also flagged because foundation
-  // §3 thresholds apply to "any single instrument's share of liquid AUM")
+  // §3 thresholds apply to "any single instrument's share of liquid AUM").
+  //
+  // Finding 5: cash and cash-equivalents are EXCLUDED. Cash is dry powder, not
+  // an idiosyncratic concentration: an 86% savings balance is undeployed
+  // capital to be deployed (modelled by cashDeployment below as a gap to fund),
+  // not a position to trim toward the 10% ceiling. Excluding the Cash asset
+  // class is the clean discriminant (the only Cash sub-category is savings;
+  // fixed deposits sit in Debt and are a separate question, product debt P14).
   const positionFlags: PortfolioMetrics["concentration"]["positionFlags"] = [];
   for (const h of holdings.holdings) {
+    if (h.assetClass === "Cash") continue;
     if (h.weightPct >= POSITION_ESCALATE_PCT) {
       positionFlags.push({ instrument: h.instrument, weightPct: h.weightPct, severity: "escalate" });
     } else if (h.weightPct >= POSITION_FLAG_PCT) {
@@ -415,8 +465,8 @@ export function computeMetrics(
 
 /* ----- Internal helpers ----- */
 
-function buildAssetClassBlock(cls: AssetClass, actualPct: number) {
-  const b = MODEL_BANDS[cls];
+function buildAssetClassBlock(cls: AssetClass, actualPct: number, bands: Record<AssetClass, ResolvedBand>) {
+  const b = bands[cls];
   const deviationPct = actualPct - b.target;
   const inBand = actualPct >= b.min && actualPct <= b.max;
   return {

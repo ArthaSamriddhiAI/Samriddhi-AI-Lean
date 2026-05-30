@@ -19,6 +19,7 @@
 
 import { prisma } from "@/lib/prisma";
 import type { StructuredHoldings } from "@/db/fixtures/structured-holdings";
+import type { Mandate } from "@/db/fixtures/structured-mandates";
 import { loadSnapshot, loadSnapshotPair } from "./snapshot-loader";
 import { computeMetrics } from "./portfolio-risk-analytics";
 import { runRiskRewardDeterministic } from "./risk-reward-stats";
@@ -35,6 +36,10 @@ import { runE6 } from "./e6-wrappers";
 import { runE7 } from "./e7-mutual-fund";
 import { runS1Diagnostic } from "./s1-diagnostic";
 import { runA2Diagnostic } from "./a2-classification";
+import { runA3Diagnostic } from "./a3-so-what";
+import { buildA3IndianContext, type A3TaxProductFamily } from "./m0-indian-context";
+import { buildOperationalScope, taxProductFamily } from "./operational-scope";
+import { buildInstrumentUniverse, resolveFramework } from "./instrument-selection";
 import { stitch, type EvidenceBundle, type UsageBundle } from "./stitcher";
 import type { BriefingContent } from "./s1-diagnostic";
 import type { AgentCallResult } from "./harness";
@@ -114,10 +119,20 @@ export async function runDiagnosticPipeline(opts: {
     const snapshot = await loadSnapshot(opts.snapshotId);
     const asOfDate = snapshotRow.date.toISOString().slice(0, 10);
 
-    const metrics = computeMetrics(holdings, snapshot, {
-      riskAppetite: investor.riskAppetite,
-      liquidityTier: investor.liquidityTier,
-    });
+    /* Finding 5: thread the investor's mandate into the metrics so the
+     * asset-class targets and bands are per-investor (a conservative investor
+     * is assessed against her conservative mandate, not the flat aggressive
+     * MODEL_BANDS). Falls back to the flat bands when no mandate is seeded. */
+    const investorMandate = investor.mandateJson ? (JSON.parse(investor.mandateJson) as Mandate) : null;
+    const metrics = computeMetrics(
+      holdings,
+      snapshot,
+      {
+        riskAppetite: investor.riskAppetite,
+        liquidityTier: investor.liquidityTier,
+      },
+      investorMandate,
+    );
     const routerDecision = route(holdings);
 
     /* Risk-Reward statistics: deterministic sibling to the M0 metrics module,
@@ -310,6 +325,69 @@ export async function runDiagnosticPipeline(opts: {
       );
     }
 
+    /* A3.so_what: the advisor-action ("so what") layer. Samriddhi 2
+     * diagnostic path only, after A2 and M0, consuming the A2 verdicts, the
+     * deterministic pre-observations, and the M0 concentration breach data
+     * already in scope. Layer 1 is deterministic (glide-path math); Layer 2
+     * writes the recommendatory prose (one Claude call). The single product
+     * surface that recommends an action rather than characterising a state.
+     * Ships as data only (content.a3_so_what); the S2 renderer reads only
+     * briefing and never touches this key (WA09). */
+    /* Finding 2: M0.IndianContext tax + SEBI context (product-structure-scoped,
+     * deterministic, no API) and per-holding snapshot operational metadata
+     * (category-guarded strict join), threaded into A3 alongside the existing
+     * inputs. Tax/SEBI applies to every holding regardless of snapshot match;
+     * operational metadata is present only for holdings with a consistent
+     * snapshot record (Reading B: the rest are silent). */
+    const a3TaxFamilies = Array.from(
+      new Set(
+        holdings.holdings
+          .map((h) => taxProductFamily(h.subCategory))
+          .filter((f): f is A3TaxProductFamily => f !== null),
+      ),
+    );
+    const a3IndianContext = await buildA3IndianContext({
+      caseId: opts.caseId,
+      asOfDate,
+      investorStructureLine: investor.structureLine,
+      productFamilies: a3TaxFamilies,
+    });
+    const a3Operational = buildOperationalScope(holdings, snapshot);
+
+    /* Finding 1: the instrument-selection context (the eligible per-sleeve
+     * universe, the resolved sub-sleeve tilt, the holdings for the top-up join,
+     * and the corpus size for cadence). Deterministic, no API. The tilt resolves
+     * from the investor's risk tier (metrics.concentration.bucketTier) with the
+     * mandate's optional override. */
+    const a3Selection = {
+      universe: buildInstrumentUniverse(snapshot),
+      framework: resolveFramework(metrics.concentration.bucketTier, investor.timeHorizon, investorMandate?.sub_sleeve_tilt),
+      holdings,
+      liquidAumCr: holdings.totalLiquidAumCr,
+    };
+
+    const a3Result = await runA3Diagnostic({
+      caseId: opts.caseId,
+      asOfDate,
+      a2Output: a2Result.output,
+      metrics,
+      preObservations: stitched.pre_observations,
+      riskReward,
+      overlap: portfolioOverlap,
+      evidence,
+      indianContext: a3IndianContext,
+      operational: a3Operational,
+      selection: a3Selection,
+    });
+    usage.a3 = a3Result.usage;
+    runningTokens += a3Result.usage.inputTokens + a3Result.usage.outputTokens;
+    if (runningTokens > tokenBudget) {
+      throw new Error(
+        `Token budget exceeded after A3 so-what: used ${runningTokens} of ${tokenBudget} tokens. ` +
+          `Raise tokenBudgetPerCase in Settings or scope the case smaller.`,
+      );
+    }
+
     const elapsedMs = Date.now() - startedAt;
 
     /* Persist contentJson with the briefing plus diagnostic provenance:
@@ -323,6 +401,7 @@ export async function runDiagnosticPipeline(opts: {
       router_decision: routerDecision,
       evidence,
       a2_classification: a2Result.output,
+      a3_so_what: a3Result.output,
       risk_reward_stats: riskReward,
       time_series_performance: timeSeries,
       portfolio_overlap: portfolioOverlap,
@@ -331,11 +410,13 @@ export async function runDiagnosticPipeline(opts: {
         total_input_tokens:
           stitched.usage_summary.total_input_tokens +
           (usage.s1?.inputTokens ?? 0) +
-          (usage.a2?.inputTokens ?? 0),
+          (usage.a2?.inputTokens ?? 0) +
+          (usage.a3?.inputTokens ?? 0),
         total_output_tokens:
           stitched.usage_summary.total_output_tokens +
           (usage.s1?.outputTokens ?? 0) +
-          (usage.a2?.outputTokens ?? 0),
+          (usage.a2?.outputTokens ?? 0) +
+          (usage.a3?.outputTokens ?? 0),
         elapsed_ms: elapsedMs,
         generated_at: new Date().toISOString(),
       },

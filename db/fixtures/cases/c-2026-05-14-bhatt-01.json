@@ -2150,6 +2150,1525 @@
         "applies": true,
         "text": "PMS and AIF holdings are justified under one of four theses: (1) the mutual fund envelope is a constraint requiring concentration, illiquidity, or mandate personalisation; (2) access to non-public-market asset classes (PE, VC, structured credit, pre-IPO); (3) a specific market-neutral hedging need for concentrated India-equity wealth; (4) customisation pooled vehicles cannot deliver, such as sector exclusion, gain/loss timing, or ESG/religious constraints. The current diagnostic does not evaluate the holdings against these theses; advisor judgement applies."
       }
+    },
+    "a3_so_what": {
+      "agent_id": "a3_so_what",
+      "case_id": "c-2026-05-14-bhatt-01",
+      "as_of_date": "2026-04-02",
+      "decisions": [
+        {
+          "holding_ref": "Marcellus Consistent Compounder PMS",
+          "instrument_display_name": "Marcellus Consistent Compounder PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_concentrated_quality",
+          "weight_pct": 11.3,
+          "holding_kind": "opaque",
+          "tax_product_family": "pms",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): Concentrated quality portfolio of approximately 25 high-ROCE, low-leverage compounders. Top-10 holdings typically ~60-65% of portfolio. Sector-agnostic but stru"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "fee 310 bps, complexity_premium_earned mixed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "E6 overall_verdict positive_with_caution"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_growth_quality",
+          "weight_pct": 10,
+          "holding_kind": "opaque",
+          "tax_product_family": "pms",
+          "over_concentrated": false,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): White Oak India Pioneers is a growth-quality multi-cap strategy managed by Prashant Khemka and team. Portfolio typically 30-40 holdings; diversified across larg"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "fee 320 bps, complexity_premium_earned yes"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "E6 overall_verdict positive"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Motilal Oswal Value Migration PMS",
+          "instrument_display_name": "Motilal Oswal Value Migration PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_value",
+          "weight_pct": 9.5,
+          "holding_kind": "opaque",
+          "tax_product_family": "pms",
+          "over_concentrated": false,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): Snapshot confirms multi-cap/flexi-cap equity strategy benchmarked to S&P BSE 500 TRI. Portfolio is heavily concentrated in Capital Goods (43.44%), Consumer Dura"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": true,
+              "detail": "fee 360 bps, complexity_premium_earned no"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": true,
+              "detail": "E6 overall_verdict negative"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": true,
+          "decision": "exit",
+          "dimensions_failing": [
+            "thesis_quality",
+            "cost_efficiency"
+          ],
+          "exit_rationale": "Convergence of two independent negative signals on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency is a concern at a 360 bps fee with complexity_premium_earned = no. The wrapper is charging full PMS economics without delivering the differentiated exposure that would justify them, and the strategy thesis itself is failing on E6's read. Trim is insufficient because the position is not over-concentrated (9.5%, valid_decisions are maintain or exit): there is no concentration to trim down to, and partially holding a broken-thesis, fee-unjustified opaque wrapper would continue paying 360 bps for a strategy E6 reads negatively. The qualitative convergence is unambiguous and warrants exit despite the opaque-wrapper confidence discount.",
+          "judgment_reasoning": "Convergence of two independent negative signals on an opaque wrapper: E6 overall_verdict is negative on thesis_quality, and cost_efficiency is a concern at a 360 bps fee with complexity_premium_earned = no. The wrapper is charging full PMS economics without delivering the differentiated exposure that would justify them, and the strategy thesis itself is failing on E6's read. Trim is insufficient because the position is not over-concentrated (9.5%, valid_decisions are maintain or exit): there is no concentration to trim down to, and partially holding a broken-thesis, fee-unjustified opaque wrapper would continue paying 360 bps for a strategy E6 reads negatively. The qualitative convergence is unambiguous and warrants exit despite the opaque-wrapper confidence discount."
+        },
+        {
+          "holding_ref": "Alchemy Smart Alpha 250 PMS",
+          "instrument_display_name": "Alchemy Smart Alpha 250 PMS",
+          "asset_class": "Equity",
+          "sub_category": "pms_focused_midcap",
+          "weight_pct": 8.6,
+          "holding_kind": "opaque",
+          "tax_product_family": "pms",
+          "over_concentrated": false,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): Alchemy Smart Alpha 250 applies a quantitative/factor-based stock selection overlay on the Nifty Midcap 250 universe. Strategy selects approximately 30-50 stock"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "fee 310 bps, complexity_premium_earned mixed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "E6 overall_verdict positive_with_caution"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 12.2,
+          "holding_kind": "transparent",
+          "tax_product_family": "listed_equity",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Parag Parikh Flexi Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.1835, sortino 0.1818, calmar 0.4621, max_drawdown -0.216"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e1_overall_verdict_hold_with_attention)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 11.3,
+          "holding_kind": "transparent",
+          "tax_product_family": "listed_equity",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Parag Parikh Flexi Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.3102, sortino 0.2695, calmar 0.6383, max_drawdown -0.154"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e1_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "ITC Limited",
+          "instrument_display_name": "ITC Limited",
+          "asset_class": "Equity",
+          "sub_category": "listed_large_cap",
+          "weight_pct": 5,
+          "holding_kind": "transparent",
+          "tax_product_family": "listed_equity",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Parag Parikh Flexi Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.4214, sortino 0.4101, calmar 0.7332, max_drawdown -0.1601"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e1_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_large_cap",
+          "weight_pct": 2.3,
+          "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
+          "over_concentrated": false,
+          "a2_verdict": "monitor",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Parag Parikh Flexi Cap Fund (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 0.372, sortino 0.3309, calmar 0.6768, max_drawdown -0.1558"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "evidence verdict caution (e7_overall_verdict_positive_with_caution)"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "instrument_display_name": "Parag Parikh Flexi Cap Fund",
+          "asset_class": "Equity",
+          "sub_category": "mf_active_flexi_cap",
+          "weight_pct": 2,
+          "holding_kind": "transparent",
+          "tax_product_family": "equity_mf",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.9279999999999999 with Reliance Industries (structural_similarity)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 1.0601, sortino 0.9793, calmar 1.5403, max_drawdown -0.1012"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "Avendus Absolute Return Fund",
+          "instrument_display_name": "Avendus Absolute Return Fund",
+          "asset_class": "Alternatives",
+          "sub_category": "aif_cat_iii_long_short",
+          "weight_pct": 13.6,
+          "holding_kind": "opaque",
+          "tax_product_family": "aif_cat_iii",
+          "over_concentrated": true,
+          "a2_verdict": "discuss",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "qualitative (E6 strategy profile): Avendus Absolute Return Fund is a long-short equity Cat III AIF managed by Avendus Capital's public markets team. Strategy employs long positions in high-convic"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "fee 390 bps, complexity_premium_earned mixed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance numeric not assessable (opaque wrapper, no tier_b); qualitative read via complexity_premium_earned"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "assessable",
+              "hard_number": false,
+              "concern": false,
+              "detail": "E6 overall_verdict positive_with_caution"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "trim",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "HDFC Bank FD",
+          "instrument_display_name": "HDFC Bank FD",
+          "asset_class": "Debt",
+          "sub_category": "bank_fd",
+          "weight_pct": 7,
+          "holding_kind": "allocation",
+          "tax_product_family": null,
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with HDFC Arbitrage Fund (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "sentinelled",
+              "hard_number": true,
+              "concern": false,
+              "detail": "performance not assessable: allocation instrument (no tier_b)"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        },
+        {
+          "holding_ref": "HDFC Arbitrage Fund",
+          "instrument_display_name": "HDFC Arbitrage Fund",
+          "asset_class": "Debt",
+          "sub_category": "mf_arbitrage",
+          "weight_pct": 7.2,
+          "holding_kind": "transparent",
+          "tax_product_family": "arbitrage_mf",
+          "over_concentrated": false,
+          "a2_verdict": "maintain",
+          "signals": [
+            {
+              "dimension": "redundancy",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "max overlap 0.5 with HDFC Bank FD (categorical)"
+            },
+            {
+              "dimension": "cost_efficiency",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "cost-efficiency not deterministically assessable: raw fees exist but no fee-vs-peer benchmark is computed"
+            },
+            {
+              "dimension": "performance",
+              "status": "assessable",
+              "hard_number": true,
+              "concern": false,
+              "detail": "sharpe 2.9489, sortino 2.2208, calmar 166.8206, max_drawdown -0.0004"
+            },
+            {
+              "dimension": "thesis_quality",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "thesis not flagged by the evidence layer for this holding"
+            },
+            {
+              "dimension": "suitability",
+              "status": "sentinelled",
+              "hard_number": false,
+              "concern": false,
+              "detail": "portfolio-level stated-revealed divergence: material (stated_more_aggressive_than_revealed)"
+            }
+          ],
+          "exit_eligible": false,
+          "decision": "maintain",
+          "dimensions_failing": [],
+          "exit_rationale": "",
+          "judgment_reasoning": ""
+        }
+      ],
+      "holding_actions": [
+        {
+          "holding_ref": "Marcellus Consistent Compounder PMS",
+          "instrument_display_name": "Marcellus Consistent Compounder PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming Marcellus Consistent Compounder PMS from 11.3% toward the 10% single-position ceiling, a reduction of 1.3 points in a single step. The sale flows through as a pass-through capital-gains event at the underlying instrument level, with listed equity gains taxed at the LTCG rate of 12.5% above the Rs 1.25 L annual threshold or STCG at 20% for positions held under twelve months; the 15% surcharge cap applies. A 1.3-point trim leaves the residual well above the SEBI PMS minimum ticket of Rs 0.5 Cr."
+        },
+        {
+          "holding_ref": "White Oak India Pioneers PMS",
+          "instrument_display_name": "White Oak India Pioneers PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining White Oak India Pioneers PMS at its current weight. The position does not breach a single-position threshold and is held on the existing thesis; no trim is warranted."
+        },
+        {
+          "holding_ref": "Motilal Oswal Value Migration PMS",
+          "instrument_display_name": "Motilal Oswal Value Migration PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "exit",
+          "source_observation": "thesis_quality+cost_efficiency",
+          "advisor_action": "Propose a full exit from Motilal Oswal Value Migration PMS, with the decision driven by the thesis and cost-efficiency verdicts. The product carries a one-year lock-in and a 2% year-one exit-load and a 2.5% fixed AMC fee, which argues for staging the redemption in two steps of 4.7 and 4.8 points rather than a single sale, taking the second tranche once the first has settled near 4.8%. Exiting is a pass-through capital-gains event at the underlying instrument level: listed equity gains at LTCG 12.5% above the Rs 1.25 L threshold or STCG 20%, with the 15% surcharge cap. A high-turnover PMS of this kind can carry a meaningful STCG drag, which reinforces the case for exit rather than partial trim."
+        },
+        {
+          "holding_ref": "Alchemy Smart Alpha 250 PMS",
+          "instrument_display_name": "Alchemy Smart Alpha 250 PMS",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining Alchemy Smart Alpha 250 PMS at its current weight. The Discuss verdict is worth talking through with the client but does not, on the current evidence set, support a trim or exit."
+        },
+        {
+          "holding_ref": "Reliance Industries",
+          "instrument_display_name": "Reliance Industries",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming Reliance Industries from 12.2% toward the 10% single-position ceiling, a reduction of 2.2 points in a single step. The sale triggers a listed-equity capital-gains event at the LTCG rate of 12.5% above the Rs 1.25 L annual threshold, or STCG at 20% for any tranches held under twelve months, with the 15% surcharge cap; STT applies."
+        },
+        {
+          "holding_ref": "HDFC Bank",
+          "instrument_display_name": "HDFC Bank",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming HDFC Bank from 11.3% toward the 10% single-position ceiling, a reduction of 1.3 points in a single step. The sale triggers a listed-equity capital-gains event at LTCG 12.5% above the Rs 1.25 L annual threshold, or STCG at 20% for any tranches held under twelve months, with the 15% surcharge cap; STT applies."
+        },
+        {
+          "holding_ref": "ITC Limited",
+          "instrument_display_name": "ITC Limited",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining ITC Limited at its current weight. The Monitor verdict warrants attention but does not call for a trade."
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "instrument_display_name": "Mirae Asset Large Cap Fund",
+          "a2_verdict": "monitor",
+          "kind": "action",
+          "decision": "maintain",
+          "source_observation": "a2_flag",
+          "advisor_action": "Propose maintaining Mirae Asset Large Cap Fund at its current weight. The Monitor verdict is for observation, not action; the fund remains a coherent large-cap holding."
+        },
+        {
+          "holding_ref": "Avendus Absolute Return Fund",
+          "instrument_display_name": "Avendus Absolute Return Fund",
+          "a2_verdict": "discuss",
+          "kind": "action",
+          "decision": "trim",
+          "source_observation": "position_over_concentration",
+          "advisor_action": "Propose trimming Avendus Absolute Return Fund from 13.6% toward the 10% single-position ceiling, a reduction of 3.6 points in a single step. As a Category III AIF, gains are taxed at the fund level rather than passed through, so the investor receives a post-tax distribution and is not taxed again on that amount; the typical effective fund-level rate sits in the 31.2% to 42.74% range depending on structure. The residual after a 3.6-point trim sits well above the SEBI AIF minimum ticket of Rs 1 Cr, so the partial trim is regulatorily clean."
+        }
+      ],
+      "observation_actions": [
+        {
+          "observation_category": "position_over_concentration",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Address the four single-position breaches at the portfolio level as one coordinated trim toward the 10% ceiling: Avendus Absolute Return Fund from 13.6%, Reliance Industries from 12.2%, and Marcellus Consistent Compounder PMS and HDFC Bank from 11.3% each. Frame this to the client as restoring the single-position discipline the mandate already implies, not as a view change on any one name."
+        },
+        {
+          "observation_category": "wrapper_over_accumulation",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Address the heavy build-up across PMS and AIF wrappers by anchoring the conversation on the full Motilal Oswal Value Migration PMS exit and the Avendus Absolute Return Fund trim; together these meaningfully reduce wrapper concentration without disturbing the holdings where the thesis still earns its place."
+        },
+        {
+          "observation_category": "allocation_drift",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Address the drift by closing the gap on the underweight sleeve: the rebalance brings debt from 14.2% to its 25% target, using the 17.9 points freed by the trims and exit. Frame this as restoring the mandate, not as a tactical view on debt."
+        },
+        {
+          "observation_category": "stated_revealed_divergence",
+          "severity_hint": "flag",
+          "kind": "action",
+          "advisor_action": "Use this meeting to revisit the risk-appetite conversation alongside the rebalance, pacing it gently and grounding it in the observed positioning rather than in the prior questionnaire answer. The advisor's framing note below sets the register."
+        },
+        {
+          "observation_category": "complexity_premium_not_earned",
+          "severity_hint": "escalate",
+          "kind": "action",
+          "advisor_action": "Anchor the complexity-premium conversation on the Motilal Oswal Value Migration PMS exit, where the thesis and cost-efficiency evidence converge: a 2.5% fixed AMC and the persistent STCG drag inherent to a high-turnover PMS are not being earned back by the underlying result. The other PMS and AIF holdings are left in place where the thesis still warrants the wrapper."
+        }
+      ],
+      "rebalance_proposal": {
+        "kind": "proposal",
+        "computed": {
+          "positions": [
+            {
+              "instrument": "Marcellus Consistent Compounder PMS",
+              "decision": "trim",
+              "current_weight_pct": 11.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.3
+                }
+              ]
+            },
+            {
+              "instrument": "Motilal Oswal Value Migration PMS",
+              "decision": "exit",
+              "current_weight_pct": 9.5,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 0,
+              "total_trim_pct_points": 9.5,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 4.7,
+                  "resulting_weight_pct": 4.8,
+                  "trigger_at_weight_pct": 9.5
+                },
+                {
+                  "step": 2,
+                  "trim_pct_points": 4.8,
+                  "resulting_weight_pct": 0,
+                  "trigger_at_weight_pct": 4.8
+                }
+              ]
+            },
+            {
+              "instrument": "Reliance Industries",
+              "decision": "trim",
+              "current_weight_pct": 12.2,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 2.2,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 2.2,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 12.2
+                }
+              ]
+            },
+            {
+              "instrument": "HDFC Bank",
+              "decision": "trim",
+              "current_weight_pct": 11.3,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 1.3,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 1.3,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 11.3
+                }
+              ]
+            },
+            {
+              "instrument": "Avendus Absolute Return Fund",
+              "decision": "trim",
+              "current_weight_pct": 13.6,
+              "breach_threshold_pct": 10,
+              "target_weight_pct": 10,
+              "total_trim_pct_points": 3.6,
+              "glide_path": [
+                {
+                  "step": 1,
+                  "trim_pct_points": 3.6,
+                  "resulting_weight_pct": 10,
+                  "trigger_at_weight_pct": 13.6
+                }
+              ]
+            }
+          ],
+          "redeployment": {
+            "freed_capital_pct": 17.9,
+            "cash_funding_pct": 0,
+            "deployments": [
+              {
+                "sleeve": "Debt",
+                "current_pct": 14.2,
+                "target_pct": 25,
+                "upper_band_pct": 30,
+                "add_pct_points": 10.8,
+                "resulting_pct": 25
+              }
+            ],
+            "leftover_to_cash_pct": 7.1,
+            "note": "The 17.9 points freed by trims and exits (17.9 points) exceeds the 10.8 points needed to bring under-target sleeves to their target; sleeves are filled to target and the remaining 7.1 points stay in cash, available for staged deployment or a review of the target weights."
+          }
+        },
+        "narrated": {
+          "advisor_action": "Propose one coordinated rebalance to close the gap to the mandate. On the trims side: Marcellus Consistent Compounder PMS from 11.3% to 10% (1.3 points, single step), Reliance Industries from 12.2% to 10% (2.2 points, single step), HDFC Bank from 11.3% to 10% (1.3 points, single step), and Avendus Absolute Return Fund from 13.6% to 10% (3.6 points, single step). On the exit side: Motilal Oswal Value Migration PMS taken from 9.5% to 0 in two steps of 4.7 and 4.8 points, staged to accommodate the one-year lock-in and the 2% year-one exit-load and to manage the underlying capital-gains event. The trims and exit together free 17.9 points. Of that, 10.8 points are redeployed into the debt sleeve to bring it from 14.2% to its 25% target. The remaining 7.1 points stay in cash, honestly leftover: available for staged deployment over the coming quarters, or grounds to revisit the target weights with the client in a subsequent conversation. There is no deployable cash above target funding this, so the entire redeployment is sourced from the trims and the exit.",
+          "generation_method": "llm"
+        }
+      },
+      "summary": {
+        "holding_actions_surfaced": 9,
+        "holding_actions_sentinelled": 0,
+        "observation_actions_surfaced": 5,
+        "observation_actions_sentinelled": 0,
+        "trim_count": 4,
+        "exit_count": 1,
+        "rebalance": "proposal",
+        "one_line_characterization": "One coordinated rebalance: four trims to the 10% ceiling and a full PMS exit free 17.9 points, of which 10.8 close the debt-sleeve gap to target and 7.1 stay in cash as honest leftover."
+      },
+      "reasoning_summary": "The picture is one rebalance, not nine separate trades. Four single-position breaches come back to the 10% ceiling, one underperforming PMS comes off entirely (staged around its lock-in and exit-load), and the debt sleeve is brought to its mandate target. The remaining 7.1 points stay in cash honestly, available for staged deployment or a separate conversation about whether the target weights themselves want revisiting; do not over-fill a sleeve to hide that. Pace the stated-vs-observed conversation gently in the room.",
+      "indian_context": {
+        "generated_by": "m0_indian_context_a3",
+        "investor_structure": {
+          "structure_type": "individual",
+          "residency": "resident",
+          "legacy_alias_applied": "a3 personal-portfolio tax structure: individual + residency=resident; operating-business entity descriptors ignored for personal capital-gains taxation"
+        },
+        "store_versions": {
+          "tax_matrix": "1.1",
+          "sebi_boundaries": "1.2",
+          "structure_matrix": "1.0",
+          "demat_mechanics": "1.0",
+          "gift_city_routing": "1.0",
+          "regulatory_changelog": "1.0"
+        },
+        "tax_by_product": [
+          {
+            "product_family": "pms",
+            "label": "PMS (taxed at underlying-instrument level)",
+            "entries": [
+              {
+                "entry_id": "pmlt_001",
+                "section": "pms_lookthrough",
+                "topic": "PMS gains taxed at underlying instrument level, pass-through to investor",
+                "rule": {
+                  "tax_treatment": "pass-through; investor taxed as if executed every underlying trade directly",
+                  "wrapper_taxation": false,
+                  "gain_characterization": "follows underlying instrument; listed equity gains at 111A/112A rates, unlisted at 112, debt at slab",
+                  "tax_section_used": "follows instrument: 111A for listed STCG, 112A for listed LTCG, 112 for unlisted, slab for debt instruments",
+                  "stt_required": "applicable per instrument and exchange rules",
+                  "turnover_drag_warning": "high-turnover PMS generates persistent STCG drag; foundation document estimates 2.4 to 4.8 percent annual drag for 180 percent turnover at Rs 2 Cr+ income",
+                  "losses": "investor can offset PMS losses against gains in own portfolio per normal capital loss rules"
+                },
+                "citation": "SEBI (Portfolio Managers) Regulations 2020 establish the pass-through legal structure; CBDT communications; Income Tax Act 1961 Sections 111A, 112, 112A apply to underlying instruments",
+                "confidence": "indicative"
+              },
+              {
+                "entry_id": "pmlt_002",
+                "section": "pms_lookthrough",
+                "topic": "PMS surcharge cap interaction",
+                "rule": {
+                  "surcharge_cap_applies": true,
+                  "cap_rate_pct": 15,
+                  "basis": "PMS gains on listed equity inherit the 111A/112A character; the 15 percent surcharge cap applies as it would for direct equity",
+                  "non_listed_treatment": "PMS gains on unlisted holdings, debt instruments do not get the cap; full surcharge applies"
+                },
+                "citation": "Income Tax Act 1961, Sections 111A, 112A, First Schedule to Finance Act 2025; established PMS pass-through application",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_001",
+                "section": "capital_gains",
+                "topic": "Listed equity LTCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "annual_exemption_inr": 125000,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 112A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_002",
+                "section": "capital_gains",
+                "topic": "Listed equity STCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 20,
+                  "annual_exemption_inr": 0,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 111A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "listed_equity",
+            "label": "Listed equity (direct)",
+            "entries": [
+              {
+                "entry_id": "cg_001",
+                "section": "capital_gains",
+                "topic": "Listed equity LTCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 12.5,
+                  "annual_exemption_inr": 125000,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 112A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "cg_002",
+                "section": "capital_gains",
+                "topic": "Listed equity STCG, base rate post Budget 2024",
+                "rule": {
+                  "base_rate_pct": 20,
+                  "annual_exemption_inr": 0,
+                  "indexation_available": false,
+                  "surcharge_cap_applies": true,
+                  "surcharge_cap_pct": 15,
+                  "cess_pct": 4,
+                  "effective_from": "2024-07-23",
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Section 111A, as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "equity_mf",
+            "label": "Equity-oriented mutual fund",
+            "entries": [
+              {
+                "entry_id": "mf_001",
+                "section": "mf_classification",
+                "topic": "Equity-oriented mutual fund, long-term holding, tax treatment",
+                "rule": {
+                  "classification_basis": "Section 2(42A) and Section 112A; equity-oriented when equity allocation 65 percent or more in domestic listed equity",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "stcg_threshold_months": 12,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4,
+                  "stt_required": true
+                },
+                "citation": "Income Tax Act 1961, Sections 2(42A), 111A, 112A as amended by Finance (No. 2) Act 2024",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "aif_cat_iii",
+            "label": "AIF Category III",
+            "entries": [
+              {
+                "entry_id": "aif_002",
+                "section": "aif_passthrough",
+                "topic": "AIF Category III, irrevocable determinate trust structure",
+                "rule": {
+                  "taxed_at_level": "fund",
+                  "tax_basis": "trustee assessed as Representative Assessee under Section 161; beneficiary brackets flow through to fund-level liability",
+                  "pass_through_to_investor": false,
+                  "investor_receives": "post-tax distribution",
+                  "no_double_taxation": "investor not taxed again on distributed amount",
+                  "typical_effective_rate_high_bracket_pct": 42.74,
+                  "typical_effective_rate_low_bracket_pct": 31.2,
+                  "character_passthrough": false,
+                  "determinate_test": "beneficiaries and their respective shares identifiable as on date of trust deed"
+                },
+                "citation": "Income Tax Act 1961, Section 161 (Representative Assessee), Section 164 (indeterminate trusts); SEBI (AIF) Regulations 2012 for fund classification",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "aif_003",
+                "section": "aif_passthrough",
+                "topic": "AIF Category III, irrevocable indeterminate trust structure",
+                "rule": {
+                  "taxed_at_level": "fund",
+                  "tax_basis": "assessed at Maximum Marginal Rate (MMR) under Section 164",
+                  "pass_through_to_investor": false,
+                  "mmr_effective_rate_pct": 42.74,
+                  "character_passthrough": false,
+                  "indeterminate_test": "beneficiaries or their shares not identifiable as on trust indenture date; subject to Delhi HC 2025 ruling refinement"
+                },
+                "citation": "Income Tax Act 1961, Section 164; CBDT Circular 13/2014 (partially overridden by Delhi HC 2025 Equity Intelligence ruling)",
+                "confidence": "authoritative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          },
+          {
+            "product_family": "arbitrage_mf",
+            "label": "Arbitrage mutual fund (equity-taxed)",
+            "entries": [
+              {
+                "entry_id": "mf_004",
+                "section": "mf_classification",
+                "topic": "Arbitrage fund, post-2026-04-01 classification clarity",
+                "rule": {
+                  "classification_basis": "Arbitrage funds typically maintain 65+ percent gross equity exposure with offsetting derivative hedges; classified as equity-oriented under Section 112A for tax purposes if the equity threshold is met",
+                  "ltcg_rate_pct": 12.5,
+                  "ltcg_exemption_inr": 125000,
+                  "stcg_rate_pct": 20,
+                  "surcharge_cap_applies": true,
+                  "cess_pct": 4
+                },
+                "citation": "AMFI taxation guidance; CBDT clarifications on arbitrage fund classification",
+                "confidence": "indicative"
+              },
+              {
+                "entry_id": "sur_001",
+                "section": "surcharge",
+                "topic": "Surcharge band, individual filer, income above Rs 50 L up to Rs 1 Cr",
+                "rule": {
+                  "surcharge_rate_pct": 10,
+                  "capped_categories": [
+                    "Section 111A income",
+                    "Section 112 income",
+                    "Section 112A income",
+                    "Section 115AD income",
+                    "dividend income"
+                  ],
+                  "cap_rate_pct": 10,
+                  "cap_note": "the 10 percent rate is at the same level as the band; cap is non-binding here, becomes binding at higher bands",
+                  "cess_pct_on_tax_plus_surcharge": 4
+                },
+                "citation": "incometax.gov.in/iec/foportal/help/individual/return-applicable-1 verified 2026-05-14; incometaxindia.gov.in/Tutorials/2 Tax Rates.pdf as amended by Finance Act 2025",
+                "confidence": "authoritative"
+              }
+            ]
+          }
+        ],
+        "sebi_minimums": [
+          {
+            "product": "pms",
+            "min_ticket_cr": 0.5,
+            "min_ticket_inr": 5000000,
+            "source_entry_id": "sebi_001",
+            "citation": "SEBI (Portfolio Managers) Regulations 2020 notified 2020-01-16; SEBI Circular SEBI/HO/IMD/DF1/CIR/P/2020/26 dated 2020-02-13; verified against investor.sebi.gov.in/pms_final.html and SEBI Portfolio Managers FAQ (2020-10-28) on 2026-05-14",
+            "confidence": "authoritative"
+          },
+          {
+            "product": "aif",
+            "min_ticket_cr": 1,
+            "min_ticket_inr": 10000000,
+            "source_entry_id": "sebi_009",
+            "citation": "SEBI (Alternative Investment Funds) Regulations 2012; SEBI Master Circular for AIFs dated 2024-05-07",
+            "confidence": "authoritative"
+          }
+        ],
+        "reasoning_trace": "Deterministic tax_matrix retrieval for 5 product families [pms, listed_equity, equity_mf, aif_cat_iii, arbitrage_mf], scoped to investor structure individual/resident; 15 tax entries; 2 SEBI minimum-ticket rules."
+      },
+      "operational": [
+        {
+          "holding_ref": "Motilal Oswal Value Migration PMS",
+          "kind": "pms",
+          "matched_record_name": "Motilal Oswal Asset Management Company Ltd - Value Migration",
+          "effective_lock_in_years": 1,
+          "exit_load": {
+            "year_1_pct": 2,
+            "year_2_pct": 0,
+            "year_3_pct": 0,
+            "year_4_onwards_pct": 0
+          },
+          "fee_model": "fixed_only",
+          "fixed_amc_pct": 2.5
+        },
+        {
+          "holding_ref": "Mirae Asset Large Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Mirae Asset Large Cap Fund - Growth Plan",
+          "sebi_category": "Large Cap Fund"
+        },
+        {
+          "holding_ref": "Parag Parikh Flexi Cap Fund",
+          "kind": "mf",
+          "matched_record_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+          "sebi_category": "Flexi Cap Fund"
+        },
+        {
+          "holding_ref": "HDFC Arbitrage Fund",
+          "kind": "mf",
+          "matched_record_name": "HDFC ARBITRAGE FUND - Wholesale Growth Option",
+          "sebi_category": "Arbitrage Fund"
+        }
+      ],
+      "deployment_plan": [
+        {
+          "sleeve": "Debt",
+          "add_pct_points": 10.8,
+          "deploy_cr": 2.39,
+          "equity": null,
+          "debt": {
+            "target_duration": "long",
+            "credit_buckets": [
+              {
+                "bucket": "sovereign",
+                "target_duration": "long",
+                "split_pct": 25,
+                "deploy_pct": 2.7,
+                "deploy_cr": 0.6,
+                "shortlist": {
+                  "label": "sovereign debt, long duration",
+                  "surfaced": [
+                    {
+                      "fund_name": "ICICI Prudential Constant Maturity Gilt Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund with 10 year Constant",
+                      "ter_pct": 0.4,
+                      "aum_cr": 2419.0813,
+                      "age_years": 11.57,
+                      "sharpe_3y": 0.5026,
+                      "sortino_3y": 0.4333,
+                      "calmar_3y": 3.7064,
+                      "return_3y": 6.98,
+                      "duration_y": 6.96,
+                      "aaa_pct": null,
+                      "sov_pct": 95.96
+                    },
+                    {
+                      "fund_name": "Baroda BNP Paribas GILT FUND - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.45,
+                      "aum_cr": 1024.7684,
+                      "age_years": 24.06,
+                      "sharpe_3y": 0.1889,
+                      "sortino_3y": 0.1543,
+                      "calmar_3y": 2.5103,
+                      "return_3y": 6.1,
+                      "duration_y": 7.88,
+                      "aaa_pct": null,
+                      "sov_pct": 97.34
+                    },
+                    {
+                      "fund_name": "SBI CONSTANT MATURITY 10 Year GILT FUND - REGULAR PLAN - GROWTH",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund with 10 year Constant",
+                      "ter_pct": 0.63,
+                      "aum_cr": 1772.7621,
+                      "age_years": 25.28,
+                      "sharpe_3y": 0.3323,
+                      "sortino_3y": 0.2776,
+                      "calmar_3y": 3.2657,
+                      "return_3y": 6.53,
+                      "duration_y": 6.9,
+                      "aaa_pct": null,
+                      "sov_pct": 97.19
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Axis Gilt Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.83,
+                      "aum_cr": 595.8013,
+                      "age_years": 14.21,
+                      "sharpe_3y": 0.354,
+                      "sortino_3y": 0.3193,
+                      "calmar_3y": 2.4611,
+                      "return_3y": 6.34,
+                      "duration_y": 8.28,
+                      "aaa_pct": null,
+                      "sov_pct": 91.66
+                    },
+                    {
+                      "fund_name": "UTI - GILT FUND - Discontinued PF Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Gilt Fund",
+                      "ter_pct": 0.9,
+                      "aum_cr": 527.7088,
+                      "age_years": 22.53,
+                      "sharpe_3y": 0.366,
+                      "sortino_3y": 0.3327,
+                      "calmar_3y": 2.1944,
+                      "return_3y": 6.35,
+                      "duration_y": 6.73,
+                      "aaa_pct": null,
+                      "sov_pct": 80.84
+                    }
+                  ],
+                  "eligible_count": 21,
+                  "cohort_count": 11,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.6,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.6,
+                  "note": "Deploy in a single step; 0.6 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "high_grade",
+                "target_duration": "long",
+                "split_pct": 55,
+                "deploy_pct": 5.9,
+                "deploy_cr": 1.3,
+                "shortlist": {
+                  "label": "high grade debt, long duration",
+                  "surfaced": [
+                    {
+                      "fund_name": "ICICI Prudential Bond Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Medium to Long Duration Fund",
+                      "ter_pct": 1.03,
+                      "aum_cr": 2767.8095,
+                      "age_years": 17.64,
+                      "sharpe_3y": 0.5815,
+                      "sortino_3y": 0.4936,
+                      "calmar_3y": 5.1847,
+                      "return_3y": 6.71,
+                      "duration_y": 6.52,
+                      "aaa_pct": 40.1,
+                      "sov_pct": 54.9
+                    },
+                    {
+                      "fund_name": "HDFC Income Fund - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Medium to Long Duration Fund",
+                      "ter_pct": 1.44,
+                      "aum_cr": 854.3013,
+                      "age_years": 25.58,
+                      "sharpe_3y": 0.156,
+                      "sortino_3y": 0.135,
+                      "calmar_3y": 2.9736,
+                      "return_3y": 5.82,
+                      "duration_y": 6.4204,
+                      "aaa_pct": 27.95,
+                      "sov_pct": 68.11
+                    }
+                  ],
+                  "overflow": [],
+                  "eligible_count": 4,
+                  "cohort_count": 2,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 1.3,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 1.3,
+                  "note": "Deploy in a single step; 1.3 Cr is below the 2 Cr staging threshold."
+                }
+              },
+              {
+                "bucket": "credit_risk",
+                "target_duration": "long",
+                "split_pct": 20,
+                "deploy_pct": 2.2,
+                "deploy_cr": 0.49,
+                "shortlist": {
+                  "label": "credit risk debt (no long-duration fund eligible; credit-bucket-wide)",
+                  "surfaced": [
+                    {
+                      "fund_name": "Axis Strategic Bond Fund - Regular Plan - Growth Option",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.33,
+                      "aum_cr": 2110.2191,
+                      "age_years": 14.03,
+                      "sharpe_3y": 1.546,
+                      "sortino_3y": 1.6276,
+                      "calmar_3y": 14.5853,
+                      "return_3y": 7.57,
+                      "duration_y": 3.52,
+                      "aaa_pct": 8.8,
+                      "sov_pct": 24.88
+                    },
+                    {
+                      "fund_name": "ICICI Prudential Credit Risk Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Credit Risk Fund",
+                      "ter_pct": 1.37,
+                      "aum_cr": 5886.5711,
+                      "age_years": 15.35,
+                      "sharpe_3y": 2.6039,
+                      "sortino_3y": 2.9912,
+                      "calmar_3y": 37.6426,
+                      "return_3y": 8.11,
+                      "duration_y": 2.29,
+                      "aaa_pct": 11.45,
+                      "sov_pct": 9.72
+                    },
+                    {
+                      "fund_name": "ICICI Prudential Medium Term Bond Fund - Growth",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.39,
+                      "aum_cr": 5613.5633,
+                      "age_years": 21.57,
+                      "sharpe_3y": 1.6899,
+                      "sortino_3y": 1.6255,
+                      "calmar_3y": 14.146,
+                      "return_3y": 7.55,
+                      "duration_y": 3.55,
+                      "aaa_pct": 18.46,
+                      "sov_pct": 13.88
+                    }
+                  ],
+                  "overflow": [
+                    {
+                      "fund_name": "Nippon India Credit Risk Fund  - Growth Plan",
+                      "source": "mf",
+                      "sub_category": "Credit Risk Fund",
+                      "ter_pct": 1.48,
+                      "aum_cr": 1059.4879,
+                      "age_years": 20.84,
+                      "sharpe_3y": 3.0071,
+                      "sortino_3y": 2.7862,
+                      "calmar_3y": 86.0474,
+                      "return_3y": 8.09,
+                      "duration_y": 1.98,
+                      "aaa_pct": 17.82,
+                      "sov_pct": 16.81
+                    },
+                    {
+                      "fund_name": "Aditya Birla Sun Life Medium Term Plan - Growth - Regular Plan",
+                      "source": "mf",
+                      "sub_category": "Medium Duration Fund",
+                      "ter_pct": 1.56,
+                      "aum_cr": 3085.1724,
+                      "age_years": 17.04,
+                      "sharpe_3y": 2.1402,
+                      "sortino_3y": 3.283,
+                      "calmar_3y": 29.319,
+                      "return_3y": 9.6,
+                      "duration_y": 2.96,
+                      "aaa_pct": 23.67,
+                      "sov_pct": 19.53
+                    }
+                  ],
+                  "eligible_count": 12,
+                  "cohort_count": 6,
+                  "degraded": false,
+                  "degradation_reason": null
+                },
+                "cadence": {
+                  "deploy_cr": 0.49,
+                  "tranches": 1,
+                  "window_days": 0,
+                  "per_tranche_cr": 0.49,
+                  "note": "Deploy in a single step; 0.49 Cr is below the 2 Cr staging threshold."
+                }
+              }
+            ]
+          },
+          "alternatives": null,
+          "top_ups": []
+        }
+      ],
+      "deployment_narration": "Deploy the 10.8 points (Rs 2.39 Cr) into the debt sleeve across three credit buckets at long duration. In sovereign debt (25% of the sleeve, 2.7 points, Rs 0.6 Cr, one tranche), the shortlist is ICICI Prudential Constant Maturity Gilt Fund - Growth (Gilt Fund with 10 year Constant, TER 0.40%, three-year Sharpe 0.50, Sortino 0.43, Calmar 3.71, three-year return 6.98%, AUM Rs 2,419 Cr), Baroda BNP Paribas GILT FUND - Regular Plan - Growth Option (Gilt Fund, TER 0.45%, Sharpe 0.19, Sortino 0.15, Calmar 2.51, return 6.10%, AUM Rs 1,025 Cr), and SBI CONSTANT MATURITY 10 Year GILT FUND - REGULAR PLAN - GROWTH (Gilt Fund with 10 year Constant, TER 0.63%, Sharpe 0.33, Sortino 0.28, Calmar 3.27, return 6.53%, AUM Rs 1,773 Cr); the ICICI Prudential fund is the lead pick as the lowest-cost fund among the consistently strong three-year risk-adjusted performers. In high-grade debt (55% of the sleeve, 5.9 points, Rs 1.3 Cr, one tranche), the shortlist is ICICI Prudential Bond Fund - Growth (Medium to Long Duration Fund, TER 1.03%, Sharpe 0.58, Sortino 0.49, Calmar 5.18, return 6.71%, AUM Rs 2,768 Cr) and HDFC Income Fund - Growth Option (Medium to Long Duration Fund, TER 1.44%, Sharpe 0.16, Sortino 0.14, Calmar 2.97, return 5.82%, AUM Rs 854 Cr); the ICICI Prudential Bond Fund leads on the same logic, lowest TER within the stronger three-year risk-adjusted cohort. In credit risk (20% of the sleeve, 2.2 points, Rs 0.49 Cr, one tranche), no long-duration fund is eligible so the shortlist runs credit-bucket-wide: Axis Strategic Bond Fund - Regular Plan - Growth Option (Medium Duration Fund, TER 1.33%, Sharpe 1.55, Sortino 1.63, Calmar 14.59, return 7.57%, AUM Rs 2,110 Cr), ICICI Prudential Credit Risk Fund - Growth (Credit Risk Fund, TER 1.37%, Sharpe 2.60, Sortino 2.99, Calmar 37.64, return 8.11%, AUM Rs 5,887 Cr), and ICICI Prudential Medium Term Bond Fund - Growth (Medium Duration Fund, TER 1.39%, Sharpe 1.69, Sortino 1.63, Calmar 14.15, return 7.55%, AUM Rs 5,614 Cr); the Axis Strategic Bond Fund is the lowest-cost option in a tight cohort, all three strong on three-year risk-adjusted metrics. No top-ups are flagged against existing debt holdings, so each bucket is a fresh allocation. Each tranche is sized on deploy amount and destination AUM; cadence is a single tranche per bucket.",
+      "advisor_framing_note": "The diagnostic shows a material gap between the investor's stated risk appetite and what the current positioning reveals, in the direction of stated more aggressive than revealed. Open the conversation gently, lead with reassurance that the portfolio's actual posture is defensible and the rebalance is about restoring the mandate the client signed up for, not about correcting a mistake. Resist any framing that contrasts what the client said with how the portfolio behaves; the advisor absorbs that tension and lets the client arrive at the recalibration in their own register. The debt redeployment, in particular, can be framed as honouring the steadier posture the portfolio already implies."
     }
   },
   "tokenUsage": {
