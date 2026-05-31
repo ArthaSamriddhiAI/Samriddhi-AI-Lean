@@ -414,6 +414,51 @@ export function decomposeHeldEquity(h: Holding, universe: InstrumentUniverse): H
   return { ...base, domestic_large_pct: round1(w), type_label: "PMS / other domestic equity", composition_source: "category_default" };
 }
 
+/* ----- Held-debt decomposition (T-5.14): the analog of decomposeHeldEquity for
+ * debt. A debt fund occupies one duration-by-credit cell (ADR-0037), it is
+ * classified, not split across cells the way equity splits across caps. This
+ * resolves the cell now from the cross-sectional Duration / AAA% / SOV% /
+ * sebi_category; the cell-to-index mapping waits for the debt-index grid. ----- */
+
+export type HeldDebtComposition = {
+  instrument: string;
+  weight_pct: number; // of portfolio
+  /** sovereign | high_grade | credit_risk. Null only when the holding did not
+   * match a snapshot fund (creditBucketOf always resolves for a matched fund). */
+  credit_bucket: CreditBucket | null;
+  /** short | medium | long. Null when neither the Duration metric nor the
+   * sebi_category fallback resolves (e.g. Dynamic Bond, which spans by design). */
+  duration_bucket: DurationBucket | null;
+  type_label: string;
+  /** How duration resolved: "metric" (the per-fund Duration drove it),
+   * "category" (the sebi_category fallback), or "unresolved". */
+  duration_source: "metric" | "category" | "unresolved";
+  matched: boolean;
+};
+
+/** Classify a held debt holding into its duration-by-credit cell (ADR-0037),
+ * via the shared creditBucketOf / durationBucketOf over the matched snapshot
+ * fund. Pure-deterministic, cross-sectional only (real today). The caller passes
+ * Debt holdings; an unmatched name returns matched=false. The cell-to-index
+ * blend (T-5.14, tomorrow's debt-index grid) reads credit_bucket + duration_bucket. */
+export function decomposeHeldDebt(h: Holding, universe: InstrumentUniverse): HeldDebtComposition {
+  const base = { instrument: h.instrument, weight_pct: round1(h.weightPct) };
+  const row = findRawMf(universe, h.instrument);
+  if (!row) {
+    return { ...base, credit_bucket: null, duration_bucket: null, type_label: "debt holding, not matched in snapshot", duration_source: "unresolved", matched: false };
+  }
+  const cand = mfToCandidate(row);
+  const credit = creditBucketOf(cand);
+  const duration = durationBucketOf(cand);
+  const duration_source: HeldDebtComposition["duration_source"] =
+    duration === null ? "unresolved" : cand.duration_y !== null ? "metric" : "category";
+  const cat = cand.sub_category || "debt fund";
+  const type_label = duration
+    ? `${cat} (${duration} duration, ${credit.replace("_", " ")})`
+    : `${cat} (duration unresolved, ${credit.replace("_", " ")})`;
+  return { ...base, credit_bucket: credit, duration_bucket: duration, type_label, duration_source, matched: true };
+}
+
 /* ----- Equity two-level sub-allocation + international residual counting ----- */
 
 export type EquitySubBucket = {
