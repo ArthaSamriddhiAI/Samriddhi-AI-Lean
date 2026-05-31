@@ -34,6 +34,10 @@ import type { StructuredHoldings, Holding, AssetClass } from "@/db/fixtures/stru
 import { callAgent, type AgentUsage } from "./harness";
 import { stripLongDashes } from "./a2-classification"; // reuse the WA7 sanitiser; do not redefine
 import type { EvidenceSentinel } from "./case/sentinels";
+// Client-weighted benchmark (T-5.14): equity cap granularity reuses the A3-era
+// held-equity decomposition; no circular dependency (instrument-selection does
+// not import risk-reward-stats).
+import { decomposeHeldEquity, buildInstrumentUniverse, type InstrumentUniverse } from "./instrument-selection";
 
 export const RISK_FREE_ANN = 0.0525; // per ADR-0012 (repo rate at t0); not read from provenance (D2)
 
@@ -48,6 +52,22 @@ export const TIER_B_FIELDS = [
 ] as const;
 
 export type TierBValues = Partial<Record<(typeof TIER_B_FIELDS)[number], number | null>>;
+
+/* Sleeve and portfolio stats extend the read-through tier_b shape with Jensen's
+ * alpha (the CAPM regression intercept against the client-weighted benchmark,
+ * T-5.14). It is computed fresh at the sleeve and portfolio level and has no
+ * per-holding read-through equivalent, so it lives only on SleeveStats. */
+export type SleeveStatValues = TierBValues & { jensens_alpha_3y?: number | null };
+
+/* The client-weighted benchmark for a sleeve or the portfolio: a holdings-
+ * weighted blend of each evaluable holding's own benchmark, blended on returns
+ * (base-invariant). Equity holdings decompose into cap tiers via
+ * decomposeHeldEquity (ADR-0035); non-equity holdings use their read-through
+ * benchmark_index_id. Replaces the single static benchmark id (T-5.14). */
+export type BenchmarkBlend = {
+  method: "client_weighted_blend";
+  constituents: Array<{ index_id: string; weight_pct: number }>;
+};
 
 export type SnapshotContext = {
   snapshot_id: string;
@@ -78,8 +98,16 @@ export type SleeveStats = {
   currency_basis: "INR";
   method: "synthesised_series" | "single_holding_passthrough" | "sentinel";
   sentinel: EvidenceSentinel | null;
+  /* The single static id is retired (T-5.14). benchmark_index_id is kept and
+   * populated only when the blend has exactly one constituent (a readable
+   * single-id case, e.g. a single-holding debt sleeve); else null. The full
+   * weighted blend always lives in benchmark_blend when a benchmark is computed. */
   benchmark_index_id: string | null;
-  stats: TierBValues | null;
+  benchmark_blend: BenchmarkBlend | null;
+  /* Honest-coverage caption text (capability; render is T-5.09). Built from the
+   * evaluable / sentinelled weight split. Null on the all-sentinelled path. */
+  coverage_footnote: string | null;
+  stats: SleeveStatValues | null;
 };
 
 export type RiskRewardRollup = {
@@ -123,14 +151,22 @@ export type RiskRewardInput = {
   investor: { riskAppetite?: string; liquidityTier?: string };
 };
 
-/* ----- Sleeve benchmark mapping (reuses the canonical-16 ids) ----- */
-
-const SLEEVE_BENCHMARK: Record<AssetClass, string | null> = {
-  Equity: "nifty_500_tri",
-  Debt: "crisil_composite_bond",
-  Alternatives: null, // dominated by opaque AIF; sleeve sentinelled when no evaluable constituent
-  Cash: null,
-};
+/* ----- Client-weighted benchmark blend (T-5.14) -----
+ *
+ * The static per-sleeve benchmark map (Equity -> nifty_500_tri, Debt ->
+ * crisil_composite_bond) and the static portfolio nifty_500_tri are retired.
+ * Each sleeve and the portfolio are now benchmarked against a holdings-weighted
+ * blend of their evaluable constituents' own benchmarks (buildBenchmarkBlend),
+ * so an aggressive small-and-mid-heavy book is no longer compared against the
+ * broad 500. Equity holdings contribute their cap-tier indices via the faithful
+ * decomposeHeldEquity split; non-equity holdings contribute their read-through
+ * benchmark_index_id. The cap-tier and international index ids: */
+const EQUITY_CAP_INDEX = {
+  domestic_large: "nifty_100_tri",
+  domestic_mid: "nifty_midcap_150_tri",
+  domestic_small: "nifty_smallcap_250_tri",
+  international: "sp_500_tri_inr",
+} as const;
 
 /* ----- Holding classification ----- */
 
@@ -264,16 +300,23 @@ function round4(x: number | null): number | null {
   return x == null ? null : Math.round(x * 1e4) / 1e4;
 }
 
-/* Calendar-aligned beta/r2/te/ir (ADR-0015): align on shared YYYY-MM keys,
- * beta/r2 over the full intersection, te/ir over the trailing 36. */
+/* Calendar-aligned beta/r2/te/ir + Jensen's alpha (ADR-0015; T-5.14 adds the
+ * CAPM intercept). Align on shared YYYY-MM keys; beta/r2/Jensen's over the full
+ * intersection, te/ir over the trailing 36. Jensen's alpha is the CAPM
+ * regression intercept against the same benchmark and window as beta, with R_f
+ * the documented RISK_FREE_ANN constant (the same R_f sharpe/sortino use; the
+ * time-varying crisil_liquid path is logged future-state debt). Because the
+ * benchmark is composition-matched, portfolio beta sits near 1 and R_f enters
+ * Jensen's only through the (1 - beta) term, so simple excess minus Jensen's
+ * equals (beta - 1)(benchmark - R_f); the signal lives where beta departs 1. */
 function benchRelative(
   navOrPrice: Record<string, number>,
   benchValues: Record<string, number>,
-): { beta_3y: number | null; r_squared_3y: number | null; tracking_error_3y: number | null; information_ratio_3y: number | null } {
+): { beta_3y: number | null; r_squared_3y: number | null; tracking_error_3y: number | null; information_ratio_3y: number | null; jensens_alpha_3y: number | null } {
   const fr = logReturnsByMonth(navOrPrice);
   const br = logReturnsByMonth(benchValues);
   const common = Object.keys(fr).filter((m) => m in br).sort();
-  const nil = { beta_3y: null, r_squared_3y: null, tracking_error_3y: null, information_ratio_3y: null };
+  const nil = { beta_3y: null, r_squared_3y: null, tracking_error_3y: null, information_ratio_3y: null, jensens_alpha_3y: null };
   if (common.length < 12) return nil;
   const s = common.map((m) => fr[m]);
   const b = common.map((m) => br[m]);
@@ -294,11 +337,18 @@ function benchRelative(
   const annS = Math.exp(mean(sw) * 12) - 1;
   const annB = Math.exp(mean(bw) * 12) - 1;
   const ir = te ? (annS - annB) / te : null;
+  // Jensen's alpha (CAPM intercept), same regression/benchmark/window as beta.
+  // Monthly intercept alpha_m = (ms - rfM) - beta*(mb - rfM); annualised on the
+  // file's exp(mean*12)-1 convention (annReturn). rfM is the monthly RISK_FREE_ANN.
+  const rfM = Math.log(1 + RISK_FREE_ANN) / 12;
+  const alphaM = (ms - rfM) - beta * (mb - rfM);
+  const jensens = Math.exp(alphaM * 12) - 1;
   return {
     beta_3y: round4(beta),
     r_squared_3y: round4(r2),
     tracking_error_3y: round4(te),
     information_ratio_3y: ir == null ? null : round4(ir),
+    jensens_alpha_3y: round4(jensens),
   };
 }
 
@@ -392,11 +442,118 @@ function synthesiseSeries(
   return out;
 }
 
+/* ----- Client-weighted benchmark blend (T-5.14) ----- */
+
+/* Per-holding benchmark index weights (fractions summing to ~1 within the
+ * holding). Equity holdings decompose into cap tiers via decomposeHeldEquity
+ * (the faithful large/mid/small split, ADR-0035), mapping each tier to its
+ * cap-tier index; the fractions are renormalised over the holding's own equity
+ * exposure (a hybrid's debt residual is excluded by decompose per ADR-0036, so
+ * it is benchmarked on its equity-cap blend, a documented minor approximation).
+ * Non-equity holdings, and equity holdings whose composition decompose declines,
+ * fall back to the read-through benchmark_index_id (asset-class agnostic). */
+function holdingBenchmarkWeights(
+  h: Holding,
+  snapshot: Snapshot,
+  universe: InstrumentUniverse,
+): Record<string, number> {
+  if (h.assetClass === "Equity") {
+    const comp = decomposeHeldEquity(h, universe);
+    const parts: Array<[string, number]> = [
+      [EQUITY_CAP_INDEX.domestic_large, comp.domestic_large_pct],
+      [EQUITY_CAP_INDEX.domestic_mid, comp.domestic_mid_pct],
+      [EQUITY_CAP_INDEX.domestic_small, comp.domestic_small_pct],
+      [EQUITY_CAP_INDEX.international, comp.international_pct],
+    ];
+    const sum = parts.reduce((a, [, v]) => a + v, 0);
+    if (sum > 0) {
+      const out: Record<string, number> = {};
+      for (const [idx, v] of parts) if (v > 0) out[idx] = (out[idx] ?? 0) + v / sum;
+      return out;
+    }
+  }
+  // Non-equity, or equity with no usable composition: read-through benchmark id.
+  const found = holdingMonthlySeries(h, snapshot);
+  return found?.benchId ? { [found.benchId]: 1 } : {};
+}
+
+/* Blend index monthly_values on returns (base-invariant; the equity TRIs are
+ * terminal-normalised and the debt/intl series start-normalised under uniform
+ * metadata, so a level blend would be wrong). Same recipe as synthesiseSeries:
+ * compound the weighted monthly log-return from an index level of 1000 over the
+ * strict month intersection. Null when no constituent series is usable. */
+function blendIndexReturns(
+  weights: Record<string, number>,
+  snapshot: Snapshot,
+): Record<string, number> | null {
+  const entries = Object.entries(weights)
+    .map(([idx, w]) => ({ w, mv: snapshot.indices?.[idx]?.monthly_values }))
+    .filter((e): e is { w: number; mv: Record<string, number> } => !!e.mv)
+    .map((e) => ({ w: e.w, r: logReturnsByMonth(e.mv) }));
+  if (entries.length === 0) return null;
+  const months = Array.from(new Set(entries.flatMap((e) => Object.keys(e.r)))).sort();
+  const out: Record<string, number> = {};
+  let lvl = 1000;
+  for (const m of months) {
+    const present = entries.filter((e) => m in e.r);
+    if (present.length !== entries.length) continue; // strict intersection
+    const wsum = present.reduce((a, e) => a + e.w, 0);
+    if (wsum <= 0) continue;
+    const r = present.reduce((a, e) => a + (e.w / wsum) * e.r[m], 0);
+    lvl = lvl * Math.exp(r);
+    out[m] = lvl;
+  }
+  return Object.keys(out).length > 0 ? out : null;
+}
+
+/* The composition-matched benchmark for an evaluable set: each holding's own
+ * benchmark, weighted by market value (valueCr) renormalised over the set, the
+ * same weighting synthesiseSeries uses for the portfolio series. Equity splits
+ * into cap tiers; non-equity uses its read-through index. Returns the blended
+ * monthly series plus the BenchmarkBlend descriptor, or null when nothing
+ * resolves (then beta/Jensen's stay null, as with a missing static benchmark). */
+function buildBenchmarkBlend(
+  evaluable: Array<{ h: Holding; series: Record<string, number> }>,
+  snapshot: Snapshot,
+  universe: InstrumentUniverse,
+): { series: Record<string, number>; blend: BenchmarkBlend } | null {
+  const totalVal = evaluable.reduce((a, c) => a + c.h.valueCr, 0) || 1;
+  const indexWeight: Record<string, number> = {};
+  for (const { h } of evaluable) {
+    const wH = h.valueCr / totalVal;
+    const hw = holdingBenchmarkWeights(h, snapshot, universe);
+    for (const [idx, frac] of Object.entries(hw)) indexWeight[idx] = (indexWeight[idx] ?? 0) + wH * frac;
+  }
+  // Keep only indices present in the snapshot, then renormalise the weights.
+  const present = Object.entries(indexWeight).filter(([idx]) => snapshot.indices?.[idx]?.monthly_values);
+  const wsum = present.reduce((a, [, w]) => a + w, 0);
+  if (wsum <= 0) return null;
+  const normed: Record<string, number> = {};
+  for (const [idx, w] of present) normed[idx] = w / wsum;
+  const series = blendIndexReturns(normed, snapshot);
+  if (!series) return null;
+  const constituents = Object.entries(normed)
+    .map(([index_id, w]) => ({ index_id, weight_pct: Math.round(w * 1000) / 10 }))
+    .sort((a, b) => b.weight_pct - a.weight_pct);
+  return { series, blend: { method: "client_weighted_blend", constituents } };
+}
+
+/* Honest-coverage caption (capability; render is T-5.09). Built from the
+ * evaluable / sentinelled weight split; null when nothing is sentinelled. */
+function buildCoverageFootnote(evalPct: number, sentPct: number): string | null {
+  if (sentPct <= 0) return null;
+  return (
+    `Benchmark blend covers ${evalPct}% of weight; ${sentPct}% is sentinelled ` +
+    `(opaque wrappers, disclosure-limited PMS, international, or non-applicable ` +
+    `instruments) and excluded from the blend.`
+  );
+}
+
 function aggregate(
   sleeve: SleeveStats["sleeve"],
   holdings: Holding[],
   snapshot: Snapshot,
-  benchId: string | null,
+  universe: InstrumentUniverse,
 ): SleeveStats {
   const evaluable: Array<{ h: Holding; series: Record<string, number> }> = [];
   let evalWeight = 0;
@@ -414,14 +571,18 @@ function aggregate(
     sentWeight += h.weightPct;
   }
   const constituents = holdings.map((h) => h.instrument);
+  const evalPct0 = Math.round(evalWeight * 100) / 100;
+  const sentPct0 = Math.round(sentWeight * 100) / 100;
   const baseEmpty: SleeveStats = {
     sleeve, constituents,
-    evaluable_weight_pct: Math.round(evalWeight * 100) / 100,
-    sentinelled_weight_pct: Math.round(sentWeight * 100) / 100,
+    evaluable_weight_pct: evalPct0,
+    sentinelled_weight_pct: sentPct0,
     partial_evaluation: evaluable.length > 0 && evaluable.length < holdings.length,
     currency_basis: "INR",
     method: "sentinel", sentinel: "no_constituents_evaluable",
-    benchmark_index_id: null, stats: null,
+    benchmark_index_id: null, benchmark_blend: null,
+    coverage_footnote: buildCoverageFootnote(evalPct0, sentPct0),
+    stats: null,
   };
   if (evaluable.length === 0) return baseEmpty;
 
@@ -429,7 +590,7 @@ function aggregate(
     evaluable.length === 1 ? evaluable[0].series : synthesiseSeries(evaluable);
   const lr = logReturnsByMonth(series);
   const ordered = Object.keys(lr).sort().map((m) => lr[m]);
-  const stats: TierBValues = {
+  const stats: SleeveStatValues = {
     vol_3y_annualized: round4(annVol(ordered, 36)),
     vol_5y_annualized: ordered.length >= 60 ? round4(annVol(ordered, 60)) : null,
     sharpe_3y: round4(sharpe(ordered, 36)),
@@ -440,29 +601,39 @@ function aggregate(
     max_drawdown_5y: Object.keys(series).length >= 60 ? round4(maxDrawdown(Object.fromEntries(Object.keys(series).sort().slice(-60).map((m) => [m, series[m]])))) : null,
     calmar_3y: null,
     beta_3y: null, r_squared_3y: null, tracking_error_3y: null, information_ratio_3y: null,
+    jensens_alpha_3y: null,
   };
   const md3 = stats.max_drawdown_3y;
   const ar3 = annReturn(ordered, 36);
   stats.calmar_3y = md3 && md3 !== 0 && ar3 != null ? round4(ar3 / Math.abs(md3)) : null;
-  if (benchId) {
-    const bench = snapshot.indices?.[benchId]?.monthly_values;
-    if (bench) {
-      const br = benchRelative(series, bench);
-      stats.beta_3y = br.beta_3y;
-      stats.r_squared_3y = br.r_squared_3y;
-      stats.tracking_error_3y = br.tracking_error_3y;
-      stats.information_ratio_3y = br.information_ratio_3y;
-    }
+  // Client-weighted benchmark: blend each evaluable holding's own benchmark,
+  // then regress the sleeve/portfolio series against it (beta + Jensen's alpha).
+  const blended = buildBenchmarkBlend(evaluable, snapshot, universe);
+  if (blended) {
+    const br = benchRelative(series, blended.series);
+    stats.beta_3y = br.beta_3y;
+    stats.r_squared_3y = br.r_squared_3y;
+    stats.tracking_error_3y = br.tracking_error_3y;
+    stats.information_ratio_3y = br.information_ratio_3y;
+    stats.jensens_alpha_3y = br.jensens_alpha_3y;
   }
+  const blend = blended?.blend ?? null;
+  const evalPct = Math.round(evalWeight * 100) / 100;
+  const sentPct = Math.round(sentWeight * 100) / 100;
   return {
     sleeve, constituents,
-    evaluable_weight_pct: Math.round(evalWeight * 100) / 100,
-    sentinelled_weight_pct: Math.round(sentWeight * 100) / 100,
+    evaluable_weight_pct: evalPct,
+    sentinelled_weight_pct: sentPct,
     partial_evaluation: evaluable.length < holdings.length,
     currency_basis: "INR",
     method: evaluable.length === 1 ? "single_holding_passthrough" : "synthesised_series",
     sentinel: null,
-    benchmark_index_id: benchId,
+    // A true blend sets benchmark_index_id null; a single-constituent blend keeps
+    // the readable id (e.g. a single-holding debt sleeve). The full weighted
+    // blend always lives in benchmark_blend.
+    benchmark_index_id: blend && blend.constituents.length === 1 ? blend.constituents[0].index_id : null,
+    benchmark_blend: blend,
+    coverage_footnote: buildCoverageFootnote(evalPct, sentPct),
     stats,
   };
 }
@@ -483,12 +654,24 @@ export function deriveSnapshotContext(snapshot: Snapshot): SnapshotContext {
 const SYNTHETIC_FORWARD_DISCLOSURE =
   "Computed against a synthetic forward-projection snapshot; these figures are a regime-test artifact, not a forecast.";
 
+/* Deterministic-append disclosure (T-5.14). The composition-matched benchmark
+ * pulls portfolio beta structurally toward 1 (matched composition means matched
+ * market sensitivity), so a near-1 portfolio beta is the feature working, not a
+ * null result; the believable signal is at the sleeve and holding level and in
+ * the residual distance from 1. Appended deterministically on the templated path
+ * (the LLM is not trusted to add it), mirroring the synthetic-forward disclosure
+ * seam. Fires whenever the portfolio carries a computed beta. */
+const STRUCTURAL_BETA_NOTE =
+  "The benchmark is blended to match the portfolio's own composition, so a portfolio-level beta near 1 is structural by design; the risk-reward signal is at the sleeve and holding level, and in the residual distance from 1.";
+
 /* ----- Layer 1 orchestration (pure, deterministic) ----- */
 
 export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput, "rollup" | "reasoning_summary" | "pms_aif_framework_notice"> {
   const { holdings, snapshot } = input;
   const ctx = deriveSnapshotContext(snapshot);
   const per_holding = holdings.holdings.map((h) => classifyHolding(h, snapshot));
+  // Built once per case; aggregate() reuses it for the held-equity cap decomposition.
+  const universe = buildInstrumentUniverse(snapshot);
 
   const sleeves: AssetClass[] = ["Equity", "Debt", "Alternatives", "Cash"];
   const per_sleeve: SleeveStats[] = [];
@@ -502,18 +685,19 @@ export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput
         sentinelled_weight_pct: Math.round(hs.reduce((a, h) => a + h.weightPct, 0) * 100) / 100,
         partial_evaluation: false, currency_basis: "INR",
         method: "sentinel", sentinel: "not_applicable_for_risk_reward",
-        benchmark_index_id: null, stats: null,
+        benchmark_index_id: null, benchmark_blend: null, coverage_footnote: null,
+        stats: null,
       });
       continue;
     }
-    per_sleeve.push(aggregate(s, hs, snapshot, SLEEVE_BENCHMARK[s]));
+    per_sleeve.push(aggregate(s, hs, snapshot, universe));
   }
 
   const portfolio = aggregate(
     "portfolio",
     holdings.holdings.filter((h) => h.assetClass !== "Cash"),
     snapshot,
-    "nifty_500_tri",
+    universe,
   );
 
   return {
@@ -581,13 +765,16 @@ export function templatedRollup(
   const parts: string[] = [];
   parts.push(
     `Portfolio 3Y Sharpe ${fmtNum(p.stats.sharpe_3y)} at ${fmtPct(p.stats.vol_3y_annualized)} annualised volatility` +
-      (p.stats.beta_3y != null ? `, beta ${fmtNum(p.stats.beta_3y)} versus Nifty 500 TRI (R-squared ${fmtNum(p.stats.r_squared_3y)})` : "") +
+      (p.stats.beta_3y != null
+        ? `, beta ${fmtNum(p.stats.beta_3y)} versus a composition-matched benchmark blend (R-squared ${fmtNum(p.stats.r_squared_3y)}, Jensen's alpha ${fmtPct(p.stats.jensens_alpha_3y)})`
+        : "") +
       `; max drawdown ${fmtPct(p.stats.max_drawdown_3y)}.`,
   );
   if (lead && lead.stats) {
     parts.push(
       `The ${lead.sleeve.toLowerCase()} sleeve (${fmtPct(lead.evaluable_weight_pct / 100)} evaluable) leads with 3Y Sharpe ${fmtNum(lead.stats.sharpe_3y)}` +
-        (lead.partial_evaluation ? `, partial evaluation (${fmtPct(lead.sentinelled_weight_pct / 100)} sentinelled).` : "."),
+        (lead.stats.beta_3y != null ? `, beta ${fmtNum(lead.stats.beta_3y)} versus its sleeve blend` : "") +
+        (lead.partial_evaluation ? `; partial evaluation (${fmtPct(lead.sentinelled_weight_pct / 100)} sentinelled).` : "."),
     );
   }
   return parts.join(" ");
@@ -623,8 +810,9 @@ export function runRiskRewardDeterministic(input: RiskRewardInput): RiskRewardOu
   const layer1 = computeRiskReward(input);
   const trigger = detectLlmFallbackTrigger(layer1);
   const text = templatedRollup(layer1);
+  const structural = layer1.portfolio.stats?.beta_3y != null ? STRUCTURAL_BETA_NOTE : null;
   const disclosure = layer1.snapshot_context.is_synthetic_forward ? SYNTHETIC_FORWARD_DISCLOSURE : null;
-  const rollupText = disclosure ? `${text} ${disclosure}` : text;
+  const rollupText = [text, structural, disclosure].filter(Boolean).join(" ");
   const out: RiskRewardOutput = {
     ...layer1,
     rollup: {
@@ -673,6 +861,7 @@ function sleeveDigest(s: SleeveStats) {
           vol_3y_annualized: s.stats.vol_3y_annualized,
           beta_3y: s.stats.beta_3y,
           r_squared_3y: s.stats.r_squared_3y,
+          jensens_alpha_3y: s.stats.jensens_alpha_3y,
           information_ratio_3y: s.stats.information_ratio_3y,
           max_drawdown_3y: s.stats.max_drawdown_3y,
         }
@@ -762,10 +951,11 @@ export async function runRiskRewardStats(input: RiskRewardInput): Promise<RiskRe
     generation = "templated";
   }
 
+  const structural = layer1.portfolio.stats?.beta_3y != null ? STRUCTURAL_BETA_NOTE : null;
   const out: RiskRewardOutput = {
     ...layer1,
     rollup: {
-      text: disclosure ? `${baseText} ${disclosure}` : baseText,
+      text: [baseText, structural, disclosure].filter(Boolean).join(" "),
       generation_method: generation,
       llm_fallback_trigger: trigger,
       is_synthetic_forward: layer1.snapshot_context.is_synthetic_forward,
