@@ -83,6 +83,8 @@ function metrics(
       bucketCeilingHhi: 0, bucketTier: "Aggressive", hhiBreach: false, positionFlags,
       wrappers: { pmsCount: 0, pmsAggregatePct: 0, pmsList: [], aifCount: 0, aifAggregatePct: 0, aifList: [], wrapperCountFlag: false, wrapperShareFlag: false },
       sectorExposureMfLookThrough: [], mfCoverage: { coveredCount: 0, uncoveredCount: 0, coveredWeightPct: 0, uncoveredWeightPct: 0 },
+      stockExposureLookThrough: [], sectorExposureLookThrough: [],
+      lookThroughCoverage: { stock: { coveredWeightPct: 0, uncoveredWeightPct: 0, footnote: null }, sector: { coveredWeightPct: 0, uncoveredWeightPct: 0, footnote: null } },
     },
     liquidity: { bucketBreakdown: { T_30: 0, T_90: 0, T_365: 0, Locked: 0 }, t30PlusT90Pct: 0, tier: "secondary", tierFloor: { minPct: 0, maxPct: 0 }, floorBreach: false },
     cashDeployment: { cashSharePct: 0, deploymentGapPct: 0, cashDragFlag: false }, computedAt: "",

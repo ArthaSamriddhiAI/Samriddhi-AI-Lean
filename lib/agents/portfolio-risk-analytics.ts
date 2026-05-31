@@ -184,6 +184,19 @@ export type PortfolioMetrics = {
       coveredWeightPct: number;
       uncoveredWeightPct: number;
     };
+
+    /* T-5.16 whole-book look-through (additive; the MF-only fields above stay for
+     * A2). Per-stock weight roll-up across direct equity + MF Top 5 Holdings +
+     * disclosed PMS top_holdings, and sector roll-up across MF Top 5 Sectors +
+     * disclosed PMS top_sectors. Opaque or undisclosed weight is surfaced as a
+     * coverage footnote (the D12 honest-degradation pattern), never dropped
+     * silently. Ships data and footnote text; render is T-5.09 (WA9). */
+    stockExposureLookThrough: Array<{ stock: string; weightPct: number; sources: string[] }>;
+    sectorExposureLookThrough: Array<{ sector: string; weightPct: number; sources: string[] }>;
+    lookThroughCoverage: {
+      stock: { coveredWeightPct: number; uncoveredWeightPct: number; footnote: string | null };
+      sector: { coveredWeightPct: number; uncoveredWeightPct: number; footnote: string | null };
+    };
   };
 
   liquidity: {
@@ -264,6 +277,50 @@ function parseTopSectors(raw: unknown): Top5SectorRow[] | null {
     }
   }
   return null;
+}
+
+/* ----- T-5.16 look-through helpers ----- */
+
+type Top5HoldingRow = { rank?: number; name: string; weight_pct: number };
+
+function parseTopHoldings(raw: unknown): Top5HoldingRow[] | null {
+  if (Array.isArray(raw)) return raw as Top5HoldingRow[];
+  if (typeof raw === "string") {
+    try { return JSON.parse(raw) as Top5HoldingRow[]; } catch { return null; }
+  }
+  return null;
+}
+
+type PmsRecord = {
+  identity?: { fund_name?: string };
+  fund_name?: string;
+  portfolio_composition?: {
+    holdings_disclosed?: boolean;
+    sectors_disclosed?: boolean;
+    top_holdings?: Array<{ name: string; weight_pct: number }>;
+    top_sectors?: Array<{ sector: string; weight_pct: number }>;
+  };
+};
+
+function normPms(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+/* Match a held PMS to its snapshot record by normalised-name overlap (the seed
+ * names and the snapshot's full legal names diverge, P40). An unmatched PMS
+ * stays uncovered (the coverage footnote), never silently dropped. */
+function findPmsInSnapshot(snapshot: Snapshot, instrument: string): PmsRecord | undefined {
+  const funds = ((snapshot.pms as { funds?: PmsRecord[] })?.funds) ?? [];
+  const t = normPms(instrument);
+  if (!t) return undefined;
+  // Strongest signal: a shared distinctive token (the manager/strategy name).
+  const tokens = instrument.toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 5 && w !== "fund" && w !== "strategy");
+  return funds.find((p) => {
+    const n = normPms(p.identity?.fund_name ?? p.fund_name ?? "");
+    if (n.length === 0) return false;
+    if (n.includes(t) || t.includes(n)) return true;
+    return tokens.some((tok) => n.includes(tok));
+  });
 }
 
 /* ----- Main computation ----- */
@@ -411,6 +468,67 @@ export function computeMetrics(
     }))
     .sort((a, b) => b.weightPct - a.weightPct);
 
+  /* ----- T-5.16: whole-book per-stock + sector look-through with honest coverage.
+   * Per axis (stock, sector) each equity-exposed holding is counted once as
+   * covered or uncovered; debt / cash / gold / FD carry no equity underlying and
+   * are out of the look-through scope. Direct equity is stock-covered but
+   * sector-uncovered (the snapshot has no per-stock sector / sector_map). ----- */
+  const stockAcc = new Map<string, { weightPct: number; sources: Set<string> }>();
+  const sectorAccAll = new Map<string, { weightPct: number; sources: Set<string> }>();
+  let stCovered = 0, stUncovered = 0, secCovered = 0, secUncovered = 0;
+  const addStock = (name: string, w: number, src: string) => {
+    const e = stockAcc.get(name) ?? { weightPct: 0, sources: new Set<string>() };
+    e.weightPct += w; e.sources.add(src); stockAcc.set(name, e);
+  };
+  const addSector = (sector: string, w: number, src: string) => {
+    const e = sectorAccAll.get(sector) ?? { weightPct: 0, sources: new Set<string>() };
+    e.weightPct += w; e.sources.add(src); sectorAccAll.set(sector, e);
+  };
+  for (const h of holdings.holdings) {
+    const w = h.weightPct;
+    if (h.assetClass === "Equity") {
+      if (h.subCategory.startsWith("listed_")) {
+        addStock(h.instrument, w, "direct"); stCovered += w; secUncovered += w; // sector unavailable for direct stocks
+        continue;
+      }
+      if (isMF(h.subCategory)) {
+        // Equity-classed MF (incl. hybrids): roll up its equity Top 5 Holdings / Sectors.
+        const fund = findFundInSnapshot(snapshot, h.instrument);
+        const hr = fund ? parseTopHoldings(fund["Top 5 Holdings (JSON)"]) : null;
+        const sr = fund ? parseTopSectors(fund["Top 5 Sectors (JSON)"]) : null;
+        if (hr && hr.length) { for (const r of hr) addStock(r.name, (w * r.weight_pct) / 100, "mf"); stCovered += w; } else stUncovered += w;
+        if (sr && sr.length) { for (const s of sr) addSector(s.sector, (w * s.weight_pct) / 100, "mf"); secCovered += w; } else secUncovered += w;
+        continue;
+      }
+      if (isPMS(h.subCategory)) {
+        const pc = findPmsInSnapshot(snapshot, h.instrument)?.portfolio_composition;
+        const ph = pc?.holdings_disclosed ? pc.top_holdings : null;
+        const ps = pc?.sectors_disclosed ? pc.top_sectors : null;
+        if (ph && ph.length) { for (const r of ph) addStock(r.name, (w * r.weight_pct) / 100, "pms"); stCovered += w; } else stUncovered += w;
+        if (ps && ps.length) { for (const s of ps) addSector(s.sector, (w * s.weight_pct) / 100, "pms"); secCovered += w; } else secUncovered += w;
+        continue;
+      }
+      // International or unlisted equity: equity-exposed but the underlying is not
+      // in the snapshot, so it cannot be looked through (uncovered, not dropped).
+      stUncovered += w; secUncovered += w;
+      continue;
+    }
+    if (isAIF(h.subCategory)) { stUncovered += w; secUncovered += w; continue; } // opaque alternatives wrapper
+    // Debt / Cash / gold / FD: no equity underlying, out of look-through scope.
+  }
+  const stockExposureLookThrough = Array.from(stockAcc.entries())
+    .map(([stock, v]) => ({ stock, weightPct: round(v.weightPct, 2), sources: Array.from(v.sources) }))
+    .sort((a, b) => b.weightPct - a.weightPct);
+  const sectorExposureLookThrough = Array.from(sectorAccAll.entries())
+    .map(([sector, v]) => ({ sector, weightPct: round(v.weightPct, 2), sources: Array.from(v.sources) }))
+    .sort((a, b) => b.weightPct - a.weightPct);
+  const stockFootnote = stUncovered > 0
+    ? `Per-stock roll-up covers ${round(stCovered, 1)}% of portfolio weight; ${round(stUncovered, 1)}% is not looked through (opaque AIF, undisclosed or unmatched PMS, or funds with no disclosed holdings).`
+    : null;
+  const sectorFootnote = secUncovered > 0
+    ? `Sector look-through covers ${round(secCovered, 1)}% of portfolio weight; ${round(secUncovered, 1)}% is uncovered (direct equity carries no per-stock sector in the snapshot; opaque AIF and undisclosed PMS are not seen through).`
+    : null;
+
   return {
     totalLiquidAumCr: total,
     holdingsCount: holdings.holdings.length,
@@ -440,6 +558,12 @@ export function computeMetrics(
         uncoveredCount,
         coveredWeightPct: round(coveredWeightPct, 2),
         uncoveredWeightPct: round(uncoveredWeightPct, 2),
+      },
+      stockExposureLookThrough,
+      sectorExposureLookThrough,
+      lookThroughCoverage: {
+        stock: { coveredWeightPct: round(stCovered, 2), uncoveredWeightPct: round(stUncovered, 2), footnote: stockFootnote },
+        sector: { coveredWeightPct: round(secCovered, 2), uncoveredWeightPct: round(secUncovered, 2), footnote: sectorFootnote },
       },
     },
     liquidity: {
