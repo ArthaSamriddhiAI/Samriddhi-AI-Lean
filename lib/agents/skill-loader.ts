@@ -19,6 +19,12 @@ import path from "node:path";
 const AGENTS_DIR = path.resolve(process.cwd(), "agents");
 
 const SONNET = "claude-sonnet-4-6";
+/* Model-tiering (T-5.14, 2026-06-01). OPUS is the newest Opus (4.8), same price
+ * as 4.7 and strictly better, used where top reasoning pays off. HAIKU is the
+ * mechanical-gloss tier. The agent id `s1` is the diagnostic synthesis agent;
+ * the products are Samriddhi 1 and Samriddhi 2 (never abbreviated here). */
+const OPUS = "claude-opus-4-8";
+const HAIKU = "claude-haiku-4-5";
 
 export type SkillFrontmatter = {
   agent_id: string;
@@ -44,13 +50,17 @@ export type LoadedSkill = {
 
 /* Slice 2 runtime overrides.
  *
- * Per the orientation approval: force all evidence agents and the S1
- * diagnostic synthesis to Sonnet for demo economics. The skill files
- * themselves declare Opus on E1, E6, and S1; we override those at the
- * runtime call site rather than editing the skill files.
+ * Model-tiering (T-5.14, 2026-06-01, primary's call WA28): per-agent models
+ * matched to cognitive demand. e1-e5 and e7 (bounded structured evidence) stay
+ * Sonnet 4.6. e6 (PMS/AIF, the least-structured, most judgment-heavy evidence,
+ * opaque wrappers and partial disclosure) and `s1` (the load-bearing diagnostic
+ * synthesis) are upgraded to Opus 4.8. a2's Layer 2 is a mechanical gloss of
+ * deterministic Layer 1 verdicts, so it drops to Haiku 4.5. a3 (so-what advisor
+ * action, the product's headline judgment) moves to Opus 4.8 (a free, strictly
+ * better upgrade from 4.7). The e6-vs-the-rest split and the s1 upgrade are
+ * untested hypotheses to eyeball at re-validation (logged, docs/debt).
  *
- * If specific agents read visibly thin at Gate 1 review, we upgrade those
- * targets to Opus by setting llm_model below; we do not edit the skill.
+ * Models are set here at the runtime call site, not by editing the skill files.
  *
  * max_tokens tuned down for demo speed; values are conservative against
  * the skill-declared envelopes.
@@ -73,21 +83,22 @@ export const LEAN_RUNTIME_OVERRIDES: Record<string, Partial<SkillFrontmatter>> =
   e3_macro_policy_news: { llm_model: SONNET },
   e4_behavioural_historical: { llm_model: SONNET },
   e5_unlisted_equity: { llm_model: SONNET },
-  e6_pms_aif_sif: { llm_model: SONNET, max_tokens: 9000 },
+  e6_pms_aif_sif: { llm_model: OPUS, max_tokens: 9000 }, // upgraded: hardest evidence work
   e7_mutual_fund: { llm_model: SONNET, max_tokens: 12000 },
   /* S1 reverted to Sonnet (deferred workstream cleanup, 2026-05-15). The
    * Tier-1 Sonnet rate limit that blocked S1 at Sonnet (10k input tokens /
    * minute, tight against S1's 15-25k input envelope) has lifted at Tier 2. */
-  s1_diagnostic_mode: { llm_model: SONNET, max_tokens: 8000 },
-  /* A2 Layer 2 reason text. Model stays claude-opus-4-7 from the skill
-   * frontmatter (Checkpoint 1 decision; the harness drops temperature for
-   * opus-4.x, which is acceptable because the verdict is Layer 1 and
-   * deterministic, and reason-text phrasing is allowed to vary). Only
-   * max_tokens is tuned up at runtime: batched one-sentence reasons across
-   * up to ~12 holdings exceed the skill default 2000, and the harness
-   * hard-fails on a max_tokens stop. Skill file stays byte-identical per
-   * the Slice 2 Q2 convention. */
-  a2_classification: { max_tokens: 4000 },
+  s1_diagnostic_mode: { llm_model: OPUS, max_tokens: 8000 }, // upgraded: load-bearing synthesis
+  /* A2 Layer 2 reason text. Dropped to Haiku 4.5 (T-5.14 tiering): Layer 1
+   * assigns every verdict deterministically, so Layer 2 only glosses the fixed
+   * verdict into reason text, a mechanical task. max_tokens stays tuned up
+   * because batched one-sentence reasons across up to ~12 holdings exceed the
+   * skill default 2000 and the harness hard-fails on a max_tokens stop. Skill
+   * file stays byte-identical per the Slice 2 Q2 convention. */
+  a2_classification: { llm_model: HAIKU, max_tokens: 4000 },
+  /* A3 so-what / advisor action: the product's headline judgment. Opus 4.8,
+   * a free and strictly better upgrade from the skill frontmatter's 4.7. */
+  a3_so_what: { llm_model: OPUS },
   /* Samriddhi 1 case-mode synthesis, adversarial challenge, and IC1
    * deliberation. The enriched E1/E2 scope (ADR-0024) yields richer evidence
    * verdicts, so the downstream synthesis and deliberation outputs run longer
