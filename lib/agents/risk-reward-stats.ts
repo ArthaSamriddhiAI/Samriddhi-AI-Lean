@@ -41,6 +41,38 @@ import { decomposeHeldEquity, buildInstrumentUniverse, type InstrumentUniverse }
 
 export const RISK_FREE_ANN = 0.0525; // per ADR-0012 (repo rate at t0); not read from provenance (D2)
 
+/* Risk-free rate abstraction (T-5.14). The static constant is the lean-MVP
+ * convenience debt; the enterprise path is a time-varying rate series (the
+ * 91-day T-bill for sharpe/sortino, the 10yr G-Sec for Jensen's). Both sharpe,
+ * sortino, and Jensen's consume this, plus the per-holding tier_b recompute.
+ * The constant is the degenerate flat series: fed constantRiskFree(RISK_FREE_ANN),
+ * the computed numbers reproduce the static-R_f results exactly. */
+export type RiskFree = {
+  /** Annualised risk-free averaged over the given YYYY-MM months (sharpe/sortino numerator). */
+  annual(months: string[]): number;
+  /** Monthly log risk-free for a YYYY-MM (sortino downside threshold; Jensen's intercept). */
+  monthlyLog(month: string): number;
+};
+
+export function constantRiskFree(annual: number): RiskFree {
+  const mLog = Math.log(1 + annual) / 12;
+  return { annual: () => annual, monthlyLog: () => mLog };
+}
+
+/* annualByMonth: YYYY-MM -> the annualised risk-free rate that month (e.g. the
+ * 91-day T-bill yield). fallback covers months the series does not carry. */
+export function seriesRiskFree(annualByMonth: Record<string, number>, fallback: number): RiskFree {
+  return {
+    annual: (months) => {
+      const vals = months.map((m) => annualByMonth[m]).filter((v): v is number => typeof v === "number");
+      return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : fallback;
+    },
+    monthlyLog: (m) => Math.log(1 + (annualByMonth[m] ?? fallback)) / 12,
+  };
+}
+
+export const DEFAULT_RISK_FREE: RiskFree = constantRiskFree(RISK_FREE_ANN);
+
 /* Sentinel taxonomy (ADR-0017 candidate; Checkpoint 1 approved) relocated to
  * ./case/sentinels.ts as the shared `EvidenceSentinel` union per ADR-0030. */
 
@@ -149,6 +181,9 @@ export type RiskRewardInput = {
   holdings: StructuredHoldings;
   snapshot: Snapshot;
   investor: { riskAppetite?: string; liquidityTier?: string };
+  /* Risk-free for sharpe/sortino/Jensen's. Defaults to the static RISK_FREE_ANN
+   * constant (DEFAULT_RISK_FREE); pass a seriesRiskFree to use real G-Sec rates. */
+  riskFree?: RiskFree;
 };
 
 /* ----- Client-weighted benchmark blend (T-5.14) -----
@@ -265,22 +300,27 @@ function annVol(rets: number[], window?: number): number | null {
   if (r.length < 2) return null;
   return Math.sqrt(sampleVar(r)) * Math.sqrt(12);
 }
-function sharpe(rets: number[], window?: number): number | null {
+/* months is aligned by index with rets (the sorted YYYY-MM keys of the return
+ * series); rf supplies the risk-free. Constant rf reproduces the prior numbers
+ * exactly (annual() ignores months, monthlyLog() is flat). */
+function sharpe(rets: number[], months: string[], window: number | undefined, rf: RiskFree): number | null {
   const ar = annReturn(rets, window);
   const av = annVol(rets, window);
   if (ar === null || av === null || av === 0) return null;
-  return (ar - RISK_FREE_ANN) / av;
+  const wm = window ? months.slice(-window) : months;
+  return (ar - rf.annual(wm)) / av;
 }
-function sortino(rets: number[], window?: number): number | null {
+function sortino(rets: number[], months: string[], window: number | undefined, rf: RiskFree): number | null {
   const r = window ? rets.slice(-window) : rets;
+  const wm = window ? months.slice(-window) : months;
   if (r.length < 2) return null;
-  const rfM = Math.log(1 + RISK_FREE_ANN) / 12;
-  const down = r.filter((x) => x < rfM).map((x) => x - rfM);
+  // Per-month downside threshold (constant rf => identical to the prior flat rfM).
+  const down = r.map((x, i) => x - rf.monthlyLog(wm[i])).filter((d) => d < 0);
   if (down.length === 0) return null;
   const dv = Math.sqrt(down.reduce((a, b) => a + b * b, 0) / down.length) * Math.sqrt(12);
   const ar = annReturn(r);
   if (dv === 0 || ar === null) return null;
-  return (ar - RISK_FREE_ANN) / dv;
+  return (ar - rf.annual(wm)) / dv;
 }
 function maxDrawdown(series: Record<string, number>): number | null {
   const ks = Object.keys(series).sort();
@@ -312,6 +352,7 @@ function round4(x: number | null): number | null {
 function benchRelative(
   navOrPrice: Record<string, number>,
   benchValues: Record<string, number>,
+  rf: RiskFree,
 ): { beta_3y: number | null; r_squared_3y: number | null; tracking_error_3y: number | null; information_ratio_3y: number | null; jensens_alpha_3y: number | null } {
   const fr = logReturnsByMonth(navOrPrice);
   const br = logReturnsByMonth(benchValues);
@@ -339,8 +380,9 @@ function benchRelative(
   const ir = te ? (annS - annB) / te : null;
   // Jensen's alpha (CAPM intercept), same regression/benchmark/window as beta.
   // Monthly intercept alpha_m = (ms - rfM) - beta*(mb - rfM); annualised on the
-  // file's exp(mean*12)-1 convention (annReturn). rfM is the monthly RISK_FREE_ANN.
-  const rfM = Math.log(1 + RISK_FREE_ANN) / 12;
+  // file's exp(mean*12)-1 convention (annReturn). rfM is the mean monthly risk-free
+  // over the regression window (constant rf => the flat monthly RISK_FREE_ANN).
+  const rfM = common.reduce((acc, m) => acc + rf.monthlyLog(m), 0) / common.length;
   const alphaM = (ms - rfM) - beta * (mb - rfM);
   const jensens = Math.exp(alphaM * 12) - 1;
   return {
@@ -554,6 +596,7 @@ function aggregate(
   holdings: Holding[],
   snapshot: Snapshot,
   universe: InstrumentUniverse,
+  rf: RiskFree,
 ): SleeveStats {
   const evaluable: Array<{ h: Holding; series: Record<string, number> }> = [];
   let evalWeight = 0;
@@ -589,14 +632,15 @@ function aggregate(
   const series =
     evaluable.length === 1 ? evaluable[0].series : synthesiseSeries(evaluable);
   const lr = logReturnsByMonth(series);
-  const ordered = Object.keys(lr).sort().map((m) => lr[m]);
+  const orderedMonths = Object.keys(lr).sort();
+  const ordered = orderedMonths.map((m) => lr[m]);
   const stats: SleeveStatValues = {
     vol_3y_annualized: round4(annVol(ordered, 36)),
     vol_5y_annualized: ordered.length >= 60 ? round4(annVol(ordered, 60)) : null,
-    sharpe_3y: round4(sharpe(ordered, 36)),
-    sharpe_5y: ordered.length >= 60 ? round4(sharpe(ordered, 60)) : null,
-    sortino_3y: round4(sortino(ordered, 36)),
-    sortino_5y: ordered.length >= 60 ? round4(sortino(ordered, 60)) : null,
+    sharpe_3y: round4(sharpe(ordered, orderedMonths, 36, rf)),
+    sharpe_5y: ordered.length >= 60 ? round4(sharpe(ordered, orderedMonths, 60, rf)) : null,
+    sortino_3y: round4(sortino(ordered, orderedMonths, 36, rf)),
+    sortino_5y: ordered.length >= 60 ? round4(sortino(ordered, orderedMonths, 60, rf)) : null,
     max_drawdown_3y: round4(maxDrawdown(Object.fromEntries(Object.keys(series).sort().slice(-36).map((m) => [m, series[m]])))),
     max_drawdown_5y: Object.keys(series).length >= 60 ? round4(maxDrawdown(Object.fromEntries(Object.keys(series).sort().slice(-60).map((m) => [m, series[m]])))) : null,
     calmar_3y: null,
@@ -610,7 +654,7 @@ function aggregate(
   // then regress the sleeve/portfolio series against it (beta + Jensen's alpha).
   const blended = buildBenchmarkBlend(evaluable, snapshot, universe);
   if (blended) {
-    const br = benchRelative(series, blended.series);
+    const br = benchRelative(series, blended.series, rf);
     stats.beta_3y = br.beta_3y;
     stats.r_squared_3y = br.r_squared_3y;
     stats.tracking_error_3y = br.tracking_error_3y;
@@ -672,6 +716,7 @@ export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput
   const per_holding = holdings.holdings.map((h) => classifyHolding(h, snapshot));
   // Built once per case; aggregate() reuses it for the held-equity cap decomposition.
   const universe = buildInstrumentUniverse(snapshot);
+  const rf = input.riskFree ?? DEFAULT_RISK_FREE;
 
   const sleeves: AssetClass[] = ["Equity", "Debt", "Alternatives", "Cash"];
   const per_sleeve: SleeveStats[] = [];
@@ -690,7 +735,7 @@ export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput
       });
       continue;
     }
-    per_sleeve.push(aggregate(s, hs, snapshot, universe));
+    per_sleeve.push(aggregate(s, hs, snapshot, universe, rf));
   }
 
   const portfolio = aggregate(
@@ -698,6 +743,7 @@ export function computeRiskReward(input: RiskRewardInput): Omit<RiskRewardOutput
     holdings.holdings.filter((h) => h.assetClass !== "Cash"),
     snapshot,
     universe,
+    rf,
   );
 
   return {
