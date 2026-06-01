@@ -37,7 +37,7 @@ import type { EvidenceSentinel } from "./case/sentinels";
 // Client-weighted benchmark (T-5.14): equity cap granularity reuses the A3-era
 // held-equity decomposition; no circular dependency (instrument-selection does
 // not import risk-reward-stats).
-import { decomposeHeldEquity, buildInstrumentUniverse, type InstrumentUniverse } from "./instrument-selection";
+import { decomposeHeldEquity, decomposeHeldDebt, buildInstrumentUniverse, type InstrumentUniverse } from "./instrument-selection";
 
 export const RISK_FREE_ANN = 0.0525; // per ADR-0012 (repo rate at t0); not read from provenance (D2)
 
@@ -202,6 +202,26 @@ const EQUITY_CAP_INDEX = {
   domestic_small: "nifty_smallcap_250_tri",
   international: "sp_500_tri_inr",
 } as const;
+
+/* Debt cell -> benchmark index id (the debt analogue of EQUITY_CAP_INDEX; T-5.14
+ * Phase 3). decomposeHeldDebt resolves each held debt fund to a (credit, duration)
+ * cell (ADR-0037); this maps the cell to its real / real-derived TR series in the
+ * snapshot. High-grade-short and cash map to the superseded crisil_* keys (the
+ * real Nifty Overnight level and the FIMMDA AAA-2Y conversion); the other cells to
+ * the converted FIMMDA / G-Sec grid. Cells with no held fund, and cash / arbitrage
+ * funds (which decompose to a null duration bucket), fall back to the read-through
+ * benchmark id, so per-holding and sleeve resolve to the same series. */
+const DEBT_CELL_INDEX: Record<string, string> = {
+  "high_grade|short": "crisil_short_term_bond",
+  "high_grade|medium": "aaa_5y_tr",
+  "high_grade|long": "aaa_10y_tr",
+  "sovereign|short": "gsec_1y_tr",
+  "sovereign|medium": "gsec_5y_tr",
+  "sovereign|long": "gsec_10y_tr",
+  "credit_risk|short": "a_2y_tr",
+  "credit_risk|medium": "a_3y_tr",
+  "credit_risk|long": "bbb_3y_tr",
+};
 
 /* ----- Holding classification ----- */
 
@@ -514,7 +534,22 @@ function holdingBenchmarkWeights(
       return out;
     }
   }
-  // Non-equity, or equity with no usable composition: read-through benchmark id.
+  if (h.assetClass === "Debt") {
+    // Resolve the held debt fund's (credit, duration) cell to its TR series (T-5.14
+    // Phase 3). Cash-like debt (arbitrage / liquid / overnight) reads through to its
+    // cash benchmark (crisil_liquid): decomposeHeldDebt would mis-route an arbitrage
+    // fund to a credit cell on a spurious credit_risk read, but its authoritative
+    // resolution is the cash floor. Only genuine duration/credit funds take a cell.
+    const benchId = holdingMonthlySeries(h, snapshot)?.benchId;
+    if (benchId !== "crisil_liquid") {
+      const dc = decomposeHeldDebt(h, universe);
+      if (dc.credit_bucket && dc.duration_bucket) {
+        const idx = DEBT_CELL_INDEX[`${dc.credit_bucket}|${dc.duration_bucket}`];
+        if (idx && snapshot.indices?.[idx]?.monthly_values) return { [idx]: 1 };
+      }
+    }
+  }
+  // Non-equity, or equity/debt with no usable composition: read-through benchmark id.
   const found = holdingMonthlySeries(h, snapshot);
   return found?.benchId ? { [found.benchId]: 1 } : {};
 }

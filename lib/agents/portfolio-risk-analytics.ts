@@ -20,6 +20,7 @@ import type {
   AssetClass,
 } from "@/db/fixtures/structured-holdings";
 import type { Mandate } from "@/db/fixtures/structured-mandates";
+import { sectorOf } from "@/db/fixtures/sector-map";
 import type { Snapshot, MutualFundRow } from "./snapshot-loader";
 
 /* ----- Foundation §2: Indicative model portfolio ----- */
@@ -488,7 +489,12 @@ export function computeMetrics(
     const w = h.weightPct;
     if (h.assetClass === "Equity") {
       if (h.subCategory.startsWith("listed_")) {
-        addStock(h.instrument, w, "direct"); stCovered += w; secUncovered += w; // sector unavailable for direct stocks
+        addStock(h.instrument, w, "direct"); stCovered += w;
+        // Direct-equity sector via the sector_map (T-5.14 Phase 4); unmapped names
+        // (e.g. international/unlisted listed_ names) degrade honestly to uncovered.
+        const sec = sectorOf(h.instrument);
+        if (sec) { addSector(sec.sector, w, "direct"); secCovered += w; }
+        else secUncovered += w;
         continue;
       }
       if (isMF(h.subCategory)) {
@@ -526,7 +532,7 @@ export function computeMetrics(
     ? `Per-stock roll-up covers ${round(stCovered, 1)}% of portfolio weight; ${round(stUncovered, 1)}% is not looked through (opaque AIF, undisclosed or unmatched PMS, or funds with no disclosed holdings).`
     : null;
   const sectorFootnote = secUncovered > 0
-    ? `Sector look-through covers ${round(secCovered, 1)}% of portfolio weight; ${round(secUncovered, 1)}% is uncovered (direct equity carries no per-stock sector in the snapshot; opaque AIF and undisclosed PMS are not seen through).`
+    ? `Sector look-through covers ${round(secCovered, 1)}% of portfolio weight; ${round(secUncovered, 1)}% is uncovered (unmapped or international direct equity, opaque AIF, and undisclosed PMS are not seen through).`
     : null;
 
   return {
