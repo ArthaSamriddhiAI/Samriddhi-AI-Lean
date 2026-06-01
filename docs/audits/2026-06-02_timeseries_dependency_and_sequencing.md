@@ -82,3 +82,9 @@ The re-fire loads via the seed registry, which still points `t0_q2_2026` at the 
 ---
 
 This audits and recommends; it builds nothing, runs nothing, and spends nothing. The sequencing call is the primary's.
+
+---
+
+## Correction (2026-06-02)
+
+This audit's conclusion stands (t1-t8 are not a re-fire prerequisite; the re-fire reads only t0), but its premise that T-5.06 is an "unimplemented skeleton" was wrong. It was drawn from two stale code comments (`lib/agents/time-series-performance.ts:124` and `lib/agents/pipeline.ts:179`), which the file's own header and `docs/verification/T-5.06-verification.md` contradict: T-5.06 is implemented and verified 45/45, runs in the pipeline, and is threaded into S1. The corrected reading is in `docs/audits/2026-06-02_timeseries_capability_and_timestepping_rationale.md`; the stale comments and the ADR-0028/0029 status were fixed in the landing kickoff. The mechanism that keeps the conclusion true is unchanged: at t0 the implemented agent has no prior to read, so it computes trailing windows from t0 and sentinels the cross-snapshot evolution.

@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed.
+Accepted. Implemented and verified 45/45 deterministic (see `docs/verification/T-5.06-verification.md`); the agent and the pair-aware loader are live in the pipeline.
 
 ## Context
 

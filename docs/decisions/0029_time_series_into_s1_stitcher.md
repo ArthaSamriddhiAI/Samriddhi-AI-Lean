@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed.
+Accepted. The stitcher-contract change and the S1 threading are implemented (the `time_series_performance` field on `StitchedContext`, the pipeline pass-through, and the S1 skill update); T-5.06 is verified 45/45.
 
 ## Context
 
