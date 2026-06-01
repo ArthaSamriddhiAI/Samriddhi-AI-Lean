@@ -7,26 +7,26 @@
  * JSON.stringify(fixture, null, 2) + newline) so the diff is N-added / 1-removed
  * per fixture and no frozen prose is touched (D7 discipline; WA7).
  *
- * Layer 1 (deterministic, no API) plus, for triggered cases, one Layer 2 LLM
- * rollup call. WA12: dry-run uses the deterministic templated path and fires
- * no API; write fires the LLM fallback for triggered cases (estimate approved:
- * 6 of 6 S2 fixtures trigger). Source flat scalars and rolling_metrics are
- * never read (the three-way do-not-mix rule).
+ * Deterministic on both paths (T-5.14, kickoff point 9): the templated rollup is
+ * prose over computed numbers, so the back-fill diff is stable (numbers-only
+ * churn) and no API fires. opts.write controls only whether the result is
+ * written. Source flat scalars and rolling_metrics are never read (the three-way
+ * do-not-mix rule).
  *
  * Usage:
- *   npx tsx scripts/backfill-risk-reward.ts --dry-run   # all S2, no API, no write
- *   npx tsx scripts/backfill-risk-reward.ts             # all S2, LLM + write
- *   npx tsx scripts/backfill-risk-reward.ts --case <id> # one case, LLM + write
+ *   npx tsx scripts/backfill-risk-reward.ts --dry-run   # all S2, no write (preview)
+ *   npx tsx scripts/backfill-risk-reward.ts             # all S2, deterministic write
+ *   npx tsx scripts/backfill-risk-reward.ts --case <id> # one case, deterministic write
  */
 
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { loadSnapshot } from "../lib/agents/snapshot-loader";
 import {
-  runRiskRewardStats,
   runRiskRewardDeterministic,
   buildPmsAifFrameworkNotice,
   type RiskRewardOutput,
+  type BenchmarkBlend,
   type PmsAifFrameworkNotice,
 } from "../lib/agents/risk-reward-stats";
 import { HOLDINGS_BY_INVESTOR } from "../db/fixtures/structured-holdings";
@@ -71,18 +71,28 @@ async function processFixture(file: string, opts: { write: boolean }): Promise<v
   const input = { caseId: fixture.id, asOfDate, holdings, snapshot,
     investor: { riskAppetite: "Aggressive", liquidityTier: "secondary" } };
 
-  // dry-run: deterministic (no API). write: LLM fallback fires for triggered cases.
-  const output: RiskRewardOutput = opts.write
-    ? (await runRiskRewardStats(input)).output
-    : runRiskRewardDeterministic(input);
+  // Deterministic on both paths (T-5.14); opts.write controls only the file write.
+  const oldRr = fixture.content.risk_reward_stats as
+    | { portfolio?: { stats?: { beta_3y?: number | null } } }
+    | undefined;
+  const oldBeta = oldRr?.portfolio?.stats?.beta_3y ?? null;
+  const output: RiskRewardOutput = runRiskRewardDeterministic(input);
 
   const sent: Record<string, number> = {};
   for (const h of output.per_holding) if (h.sentinel) sent[h.sentinel] = (sent[h.sentinel] ?? 0) + 1;
   const p = output.portfolio.stats;
+  const blendStr = (b: BenchmarkBlend | null) =>
+    b ? b.constituents.map((c) => `${c.index_id} ${c.weight_pct}%`).join(", ") : "none";
   console.log(`\n=== ${fixture.id}  (${fixture.investorId})  as of ${asOfDate} ===`);
-  console.log(`  portfolio: sharpe_3y=${p?.sharpe_3y} vol_3y=${p?.vol_3y_annualized} beta_3y=${p?.beta_3y} ir_3y=${p?.information_ratio_3y} eval=${output.portfolio.evaluable_weight_pct}%`);
+  console.log(`  portfolio: beta ${oldBeta} (vs static 500) -> ${p?.beta_3y} (blend)  jensens_alpha=${p?.jensens_alpha_3y}  sharpe=${p?.sharpe_3y}  vol=${p?.vol_3y_annualized}  ir=${p?.information_ratio_3y}  eval=${output.portfolio.evaluable_weight_pct}%`);
+  console.log(`  portfolio blend: ${blendStr(output.portfolio.benchmark_blend)}`);
+  console.log(`  footnote: ${output.portfolio.coverage_footnote ?? "(none)"}`);
+  for (const sl of output.per_sleeve) {
+    if (sl.sleeve === "Cash") continue;
+    console.log(`  sleeve ${sl.sleeve}: method=${sl.method} eval=${sl.evaluable_weight_pct}% beta=${sl.stats?.beta_3y ?? "-"} jensens=${sl.stats?.jensens_alpha_3y ?? "-"} blend=[${blendStr(sl.benchmark_blend)}]`);
+  }
   console.log(`  sentinels: ${JSON.stringify(sent)}`);
-  console.log(`  rollup [${output.rollup.generation_method}/${output.rollup.llm_fallback_trigger ?? "none"}]: ${output.rollup.text}`);
+  console.log(`  rollup [${output.rollup.generation_method}]: ${output.rollup.text}`);
 
   const already = "risk_reward_stats" in fixture.content;
   const existingKeys = Object.keys(fixture.content);
