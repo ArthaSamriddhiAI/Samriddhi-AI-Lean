@@ -5,9 +5,16 @@ Thumbs.db
 # Editor / IDE / agent state
 .vscode/
 .idea/
-.claude/
 *.swp
 *.swo
+
+# Claude Code state. Ignore local-only files (launch.json, settings.local.json),
+# but track committed, versioned team config so conventions live in the repo.
+# Subagents are un-ignored now; skills, commands, and settings.json are
+# un-ignored at their build waves. (Anchored-glob pattern so git can descend,
+# matching the fixtures block below.)
+.claude/*
+!.claude/agents/
 
 # Node / Next.js (added when scaffolding starts)
 node_modules/
