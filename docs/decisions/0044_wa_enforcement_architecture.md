@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted and built on branch `chore/v15-wa-enforcement-architecture` (waves 1 to 5). Implements ADR-0043 (the spec-versus-implementation north star). Proposal and per-WA triage: `docs/audits/2026-06-02_wa_enforcement_architecture.md` (Rev 2). Scope stops at the proposal's item 5; items 6 (slash commands) and 7 (the plugin) are deferred (O7, O8).
+Accepted and built on branch `chore/v15-wa-enforcement-architecture` (waves 1 to 5). Implements ADR-0043 (the spec-versus-implementation north star). Proposal and per-WA triage: `docs/audits/2026-06-02_wa_enforcement_architecture.md` (Rev 2). Scope stops at the proposal's item 5; items 6 (slash commands) and 7 (the plugin) are deferred (O7, O8). Amended 2026-06-02 (wave 6): adds the ADR-disposition mechanism (WA30); see the Amendment section below.
 
 ## Context
 
@@ -38,9 +38,14 @@ Every enforcement component is repo-resident and versioned (`.claude/agents/`, `
 - Coverage boundaries are explicit, not hidden: WA12 detection is heuristic (the allow-list default-prompt is the first layer); WA13, WA14, and WA26 are warn-only; the WA07 Claude Code hook is complemented by the git pre-commit hook for staged content.
 - Deferrals are logged: the candidate WA (parallel reads, serial writes), O6 (the WA26 block-new variant), O7 (slash commands), O8 (the plugin), and the parked proposal Section 8 items 1 (collaborator inheritance) and 7 (CI).
 
+## Amendment (2026-06-02, wave 6): ADR disposition at the propose stage
+
+Adds a sixth mechanism to the architecture above: at the audit-and-propose stage, each architectural decision a workstream forces is classified against the existing ADR set (read `docs/decisions/` first) as net-new, already-covered, supersedes, or amends, with only net-new and supersedes writing a new ADR and supersedes citing the prior by number (the bidirectional, by-number pattern this repo already uses, ADR-0014 to ADR-0042). The implementation: the audit-and-verify skill gains the disposition as a standing output; the audit doc carries a standing "ADR disposition" section; and the merge gate (`scripts/hooks/gate-sensitive-bash.sh`) requires a one-shot `.claude/.approvals/adr-disposition` marker, recorded when the disposition is done, so a workstream cannot land with an unclassified decision. Codified as WA30. This amendment is itself an instance of the mechanism: its own disposition is amends ADR-0044 in place, not a new ADR. Grounding and build: `docs/audits/2026-06-02_adr_capture_at_propose.md`.
+
 ## References
 
 - ADR-0043 (the spec-versus-implementation north star this implements).
+- WA30 (`docs/working_agreements/WA30_adr_disposition_at_propose.md`) and `docs/audits/2026-06-02_adr_capture_at_propose.md` (the wave-6 amendment, ADR disposition at the propose stage).
 - `docs/audits/2026-06-02_wa_enforcement_architecture.md` (the proposal, the per-WA triage, the workflow-upgrade and model-tiering assessments).
 - `docs/debt/operational_debt_log.md` (O6, O7, O8 deferrals).
 - The build components live under the residency paths above; the proposal's residency map and the branch commits are the file-level record.

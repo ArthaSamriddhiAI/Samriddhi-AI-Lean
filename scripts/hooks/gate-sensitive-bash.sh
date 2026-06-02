@@ -14,14 +14,21 @@ CMD="$(printf '%s' "$INPUT" | node -e 'let s="";process.stdin.on("data",d=>s+=d)
 PROJ="${CLAUDE_PROJECT_DIR:-.}"
 APPROVALS="$PROJ/.claude/.approvals"
 
-# WA01: squash-merge gate.
+# WA30 (ADR disposition recorded) and WA01 (explicit squash-merge confirmation) gates.
 if printf '%s' "$CMD" | grep -Eq 'gh +pr +merge'; then
-  if [ -f "$APPROVALS/merge" ]; then
-    rm -f "$APPROVALS/merge"
-    exit 0
+  # WA30: the ADR disposition must be recorded for this workstream before it can land.
+  if [ ! -f "$APPROVALS/adr-disposition" ]; then
+    echo "WA30: ADR disposition not recorded for this workstream. At the audit-and-propose stage, classify each architectural decision (net-new, already-covered, supersedes, amends, or none) against docs/decisions/, record it in the audit doc and the PR body, then run: mkdir -p .claude/.approvals && touch .claude/.approvals/adr-disposition   and retry. See docs/working_agreements/WA30_adr_disposition_at_propose.md." >&2
+    exit 2
   fi
-  echo "WA01: no merge-approval marker. The primary must explicitly confirm the squash-merge first. On a 'yes', record it with: mkdir -p .claude/.approvals && touch .claude/.approvals/merge   then retry. See docs/working_agreements/WA01_no_self_merge.md." >&2
-  exit 2
+  # WA01: the primary must explicitly confirm the squash-merge.
+  if [ ! -f "$APPROVALS/merge" ]; then
+    echo "WA01: no merge-approval marker. The primary must explicitly confirm the squash-merge first. On a 'yes', record it with: mkdir -p .claude/.approvals && touch .claude/.approvals/merge   then retry. See docs/working_agreements/WA01_no_self_merge.md." >&2
+    exit 2
+  fi
+  # Both gates satisfied: consume the one-shot markers and allow the merge.
+  rm -f "$APPROVALS/adr-disposition" "$APPROVALS/merge"
+  exit 0
 fi
 
 # WA12: an LLM or pipeline run that may incur Anthropic spend (heuristic match; the
