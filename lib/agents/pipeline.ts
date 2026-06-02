@@ -176,10 +176,11 @@ export async function runDiagnosticPipeline(opts: {
      * (t_{n-1}) via loadSnapshotPair and threads the pair to the agent; at t0
      * there is no prior, so the agent runs with a null reference and emits
      * no_prior_snapshot_available while standard windows still compute.
-     * SKELETON: the agent's Layer-1 helpers are TODO T-5.06-impl, so the call is
-     * try/caught to degrade to a null block (the case does not fail on the
-     * unimplemented skeleton) until the implementation lands. Ships data only
-     * (content.time_series_performance); the renderer never reads it (WA9). */
+     * The agent's Layer-1 helpers are implemented and verified (T-5.06, 45/45); the
+     * call is try/caught DEFENSIVELY, so an unexpected error degrades the case to a
+     * null block rather than failing it. Ships data only
+     * (content.time_series_performance); the renderer never reads it (WA9), though
+     * S1 threads it for narrative (ADR-0029). */
     let timeSeries: TimeSeriesPerformanceOutput | null = null;
     if (routerDecision.timeSeriesPerformance) {
       try {

@@ -120,6 +120,12 @@ function makeMetrics(over: {
         coveredWeightPct: 0,
         uncoveredWeightPct: 0,
       },
+      stockExposureLookThrough: [],
+      sectorExposureLookThrough: [],
+      lookThroughCoverage: {
+        stock: { coveredWeightPct: 0, uncoveredWeightPct: 0, footnote: null },
+        sector: { coveredWeightPct: 0, uncoveredWeightPct: 0, footnote: null },
+      },
     },
     liquidity: {
       bucketBreakdown: { T_30: 0, T_90: 0, T_365: 0, Locked: 0 },

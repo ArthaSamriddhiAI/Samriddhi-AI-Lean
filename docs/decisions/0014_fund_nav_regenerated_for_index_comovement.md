@@ -1,5 +1,7 @@
 # ADR 0014: Fund monthly_nav regenerated for index co-movement (Option A; funds-only; supersedes ADR-0007 NAV preservation for funds)
 
+**Status: Reversed by ADR-0042 (2026-06-02).** This was correct for the synthetic foundation (real NAVs had no engineered relationship to the fabricated indices, R-squared about 0.01). With real Bloomberg indices, real NAVs co-move naturally, so the root cause is gone and the regeneration is reversed: real fund history flows through again, restoring the ADR-0007 posture on the real-data foundation. See ADR-0042.
+
 ## Context
 
 The risk-reward pre-recompute sample (Step 3 sub-checkpoint) proved that recomputing fund benchmark-relative metrics (`beta_3y`, `r_squared_3y`, `tracking_error_3y`, `information_ratio_3y`) against the canonical 16 synthesised indices produces meaningless numbers: a Sensex ETF versus the synthesised Sensex TRI returned R-squared of about 0.01 even with correct calendar alignment. Root cause: stock `monthly_prices` and the canonical `indices` were synthesised together sharing market factors (ADR-0008, ADR-0009), so stock benchmark-relative stats are sane, but fund `monthly_nav` is source historical data preserved by ADR-0007 with no engineered relationship to the synthesised indices. Choosing the right benchmark (Step 3 Rulings A to D) is moot if computing against any synthesised index yields noise.

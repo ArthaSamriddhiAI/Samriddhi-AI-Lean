@@ -121,7 +121,9 @@ export type TimeSeriesPerformanceScope = {
   investor: { riskAppetite?: string; liquidityTier?: string };
 };
 
-/* ----- Layer 1 helpers (deterministic). Bodies are TODO T-5.06-impl stubs. ----- */
+/* ----- Layer 1 helpers (deterministic, implemented). T-5.06 is complete and
+   verified 45/45 (see the file header and docs/verification/T-5.06-verification.md);
+   the bodies below are the real implementations, not stubs. ----- */
 
 /* ----- Month-key + return helpers (deterministic, pure) ----- */
 
