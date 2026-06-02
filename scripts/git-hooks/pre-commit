@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# WA07 pre-commit (repo-resident): block a commit whose staged content contains a
+# long dash. This closes the add-and-commit-in-one-invocation gap that a Claude
+# Code PreToolUse hook cannot see (the CC hook reads the index before the command
+# runs). Git stages before running this hook, so the staged content is reliable
+# regardless of how the commit was invoked. The Claude Code hook still covers the
+# commit message; together the two layers are complete.
+# Install (per clone): git config core.hooksPath scripts/git-hooks
+# Dash detection runs in node (portable, no grep -P); the dash set is numeric code
+# points so this script carries no literal long-dash glyph.
+# Reference: docs/working_agreements/WA07_no_long_dashes.md
+set -uo pipefail
+FOUND="$(git diff --cached -U0 2>/dev/null | node -e '
+const codes=new Set([0x2011,0x2012,0x2013,0x2014,0x2015,0x2212]);
+const NL=String.fromCharCode(10);
+const hasDash=(str)=>{ for(const ch of str){ if(codes.has(ch.codePointAt(0))) return true; } return false; };
+let s="";
+process.stdin.on("data",(d)=>s+=d).on("end",()=>{
+  const out=[];
+  for(const l of s.split(NL)){ if(l.startsWith("+") && !l.startsWith("+++") && hasDash(l)) out.push(l.slice(0,200)); }
+  process.stdout.write(out.slice(0,10).join(NL));
+});' 2>/dev/null)"
+if [ -n "$FOUND" ]; then
+  echo "WA07 pre-commit: a long dash is present in the staged content. Replace em, en, and other long dashes with commas, semicolons, colons, or periods. Offending added lines:" >&2
+  printf '%s\n' "$FOUND" >&2
+  echo "See docs/working_agreements/WA07_no_long_dashes.md. Emergency bypass: git commit --no-verify, but fix the dash instead." >&2
+  exit 1
+fi
+exit 0
