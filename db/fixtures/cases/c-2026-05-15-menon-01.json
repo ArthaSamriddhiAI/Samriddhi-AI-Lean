@@ -4,7 +4,7 @@
   "snapshotId": "t0_q2_2026",
   "workflow": "s2",
   "severity": "escalate",
-  "headline": "Cash sits at 86.6% of liquid AUM against a 6% model target, a deployment gap of 81.6pp on a Rs 60.65 Cr aggressive-bucket portfolio.",
+  "headline": "Cash sits at 86.6% of liquid AUM against a 6% model target, a deployment gap of 81.6pp above the 5% model deployment ceiling on a Rs 60.65 Cr aggressive-bucket portfolio.",
   "status": "ready",
   "frozenAt": "2026-05-15T13:21:10.025Z",
   "content": {
@@ -27,8 +27,8 @@
         {
           "vocab": "cash_drag",
           "severity": "escalate",
-          "one_line": "Cash sits at 86.6% of liquid AUM against a 6% model target, a deployment gap of 81.6pp on a Rs 60.65 Cr aggressive-bucket portfolio.",
-          "short_form": "Cash 86.6% vs 6% target; 81.6pp undeployed on Rs 60.65 Cr.",
+          "one_line": "Cash sits at 86.6% of liquid AUM against a 6% model target, a deployment gap of 81.6pp above the 5% model deployment ceiling on a Rs 60.65 Cr aggressive-bucket portfolio.",
+          "short_form": "Cash 86.6% vs 6% target; 81.6pp undeployed above the 5% ceiling on Rs 60.65 Cr.",
           "source": "metric"
         },
         {
@@ -133,7 +133,7 @@
           "category": "Deployment",
           "severity": "escalate",
           "title": "Portfolio functionally undeployed",
-          "body": "86.6% in cash against a 6% target is the dominant structural fact of this portfolio. At Rs 60.65 Cr aggressive mandate, the deployment gap is 81.6pp, and the cash earns below the real rate (3.15%) if inflation re-accelerates per the E3 macro read.",
+          "body": "86.6% in cash against a 6% target is the dominant structural fact of this portfolio. At Rs 60.65 Cr aggressive mandate, the deployment gap is 81.6pp above the 5% model deployment ceiling, and the cash earns below the real rate (3.15%) if inflation re-accelerates per the E3 macro read.",
           "source": "hybrid"
         },
         {
