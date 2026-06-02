@@ -51,6 +51,9 @@
         "matcher": "Bash",
         "hooks": [
           { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hooks/gate-sensitive-bash.sh\"" },
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hooks/wa07-no-long-dashes.sh\"" },
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hooks/wa13-naming-reminder.sh\"" },
+          { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hooks/wa14-data-privacy-flag.sh\"" },
           { "type": "command", "command": "bash \"${CLAUDE_PROJECT_DIR}/scripts/hooks/persona-snapshot-reminder.sh\"" }
         ]
       },
