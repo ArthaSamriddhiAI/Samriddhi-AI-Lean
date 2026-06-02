@@ -464,7 +464,36 @@
             ]
           },
           {
-            "weightPct": 5.44,
+            "sector": "Financial Services",
+            "weightPct": 2.42,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Capital Goods",
+            "weightPct": 1.11,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Information Technology",
+            "weightPct": 0.66,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Healthcare",
+            "weightPct": 0.64,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Telecom",
+            "weightPct": 0.6,
             "sources": [
               "pms"
             ]

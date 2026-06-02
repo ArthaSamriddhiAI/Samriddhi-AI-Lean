@@ -572,12 +572,6 @@
         ],
         "sectorExposureLookThrough": [
           {
-            "weightPct": 14.52,
-            "sources": [
-              "pms"
-            ]
-          },
-          {
             "sector": "Petroleum Products",
             "weightPct": 12.2,
             "sources": [
@@ -596,6 +590,76 @@
             "weightPct": 5,
             "sources": [
               "direct"
+            ]
+          },
+          {
+            "sector": "Financial Services",
+            "weightPct": 2.79,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "BFSI - Credit",
+            "weightPct": 2.37,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Pharma & CDMO",
+            "weightPct": 2.32,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Capital Goods",
+            "weightPct": 1.28,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Consumption",
+            "weightPct": 1.21,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "BFSI - Non Credit",
+            "weightPct": 1.21,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Auto & Auto Ancillary",
+            "weightPct": 1.15,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Information Technology",
+            "weightPct": 0.76,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Healthcare",
+            "weightPct": 0.74,
+            "sources": [
+              "pms"
+            ]
+          },
+          {
+            "sector": "Telecom",
+            "weightPct": 0.69,
+            "sources": [
+              "pms"
             ]
           }
         ],

@@ -299,7 +299,7 @@ type PmsRecord = {
     holdings_disclosed?: boolean;
     sectors_disclosed?: boolean;
     top_holdings?: Array<{ name: string; weight_pct: number }>;
-    top_sectors?: Array<{ sector: string; weight_pct: number }>;
+    top_sectors?: Array<{ name: string; weight_pct: number }>;
   };
 };
 
@@ -511,7 +511,7 @@ export function computeMetrics(
         const ph = pc?.holdings_disclosed ? pc.top_holdings : null;
         const ps = pc?.sectors_disclosed ? pc.top_sectors : null;
         if (ph && ph.length) { for (const r of ph) addStock(r.name, (w * r.weight_pct) / 100, "pms"); stCovered += w; } else stUncovered += w;
-        if (ps && ps.length) { for (const s of ps) addSector(s.sector, (w * s.weight_pct) / 100, "pms"); secCovered += w; } else secUncovered += w;
+        if (ps && ps.length) { for (const s of ps) addSector(s.name, (w * s.weight_pct) / 100, "pms"); secCovered += w; } else secUncovered += w;
         continue;
       }
       // International or unlisted equity: equity-exposed but the underlying is not
