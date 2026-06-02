@@ -15,6 +15,7 @@ Thumbs.db
 # matching the fixtures block below.)
 .claude/*
 !.claude/agents/
+!.claude/settings.json
 
 # Node / Next.js (added when scaffolding starts)
 node_modules/
