@@ -249,7 +249,7 @@ export function AnalysisTab({
                   <span className="mo-eye">Cross-asset frame</span>
                   <p>{e3.reasoning_summary ?? e3.overall_e3_assessment ?? ""}</p>
                   {(e3.key_risks?.length ?? 0) > 0 && (
-                    <p className="mo-risks"><strong>Key risks:</strong> {(e3.key_risks ?? []).join("; ")}</p>
+                    <p className="mo-risks"><strong>Key risks:</strong> {(e3.key_risks ?? []).map((r) => asText(r)).filter(Boolean).join("; ")}</p>
                   )}
                 </div>
                 <aside className="mo-signature">
