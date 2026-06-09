@@ -8,6 +8,9 @@ import { OutcomeTab } from "@/components/case-detail/OutcomeTab";
 import { AnalystReportsTab } from "@/components/case-detail/AnalystReportsTab";
 import { Lock, Download } from "@/components/chrome/Icons";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
+import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
+import type { A3Output } from "@/lib/agents/a3-so-what";
+import type { PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
 import type { BriefingCaseContent } from "@/lib/agents/case/briefing-case-content";
 import type { CaseEvidenceVerdict } from "@/lib/agents/case/case-verdict";
 import type { Proposal } from "@/lib/agents/proposal";
@@ -183,10 +186,22 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
    * page; there is no tab strip. The former "Briefing PDF" tab is now a
    * "Download slide deck" toolbar button wired to the existing PDF path. */
   let content: BriefingContent | null = null;
+  let metrics: PortfolioMetrics | null = null;
+  let soWhat: A3Output | null = null;
+  let overlap: PortfolioOverlapOutput | null = null;
   try {
     const parsed = JSON.parse(c.contentJson);
     if (parsed && parsed.briefing) {
       content = transformRupeesDeep(parsed.briefing as BriefingContent);
+    }
+    if (parsed && parsed.metrics) {
+      metrics = parsed.metrics as PortfolioMetrics;
+    }
+    if (parsed && parsed.a3_so_what) {
+      soWhat = transformRupeesDeep(parsed.a3_so_what as A3Output);
+    }
+    if (parsed && parsed.portfolio_overlap) {
+      overlap = parsed.portfolio_overlap as PortfolioOverlapOutput;
     }
   } catch {
     /* fallthrough: content stays null */
@@ -264,6 +279,9 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           snapshotDate={snapshotDate}
           content={content}
           holdings={holdings}
+          metrics={metrics}
+          soWhat={soWhat}
+          overlap={overlap}
         />
         <ChatPanel />
       </div>

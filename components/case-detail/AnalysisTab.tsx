@@ -16,12 +16,22 @@ import {
   maxSeverity,
 } from "@/lib/format/case-accordion";
 import { Accordion, type AccordionItem } from "./Accordion";
+import { SaaDonut } from "./charts/SaaDonut";
+import { HoldingsDonut } from "./charts/HoldingsDonut";
+import { OverlapHeatmap } from "./charts/OverlapHeatmap";
+import { GlidePath } from "./charts/GlidePath";
+import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
+import type { A3Output } from "@/lib/agents/a3-so-what";
+import type { PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
 
 type Props = {
   investorName: string;
   snapshotDate: string;
   content: BriefingContent;
   holdings: Array<{ instrument: string; sub_category: string; value_cr: number; weight_pct: number }>;
+  metrics: PortfolioMetrics | null;
+  soWhat: A3Output | null;
+  overlap: PortfolioOverlapOutput | null;
 };
 
 /* section_headlines lands in Step 5 (schema additions); until the fixture
@@ -36,9 +46,12 @@ function firstSentence(s: string): string {
   return i === -1 ? s : s.slice(0, i + 1);
 }
 
-export function AnalysisTab({ investorName, snapshotDate, content, holdings }: Props) {
+export function AnalysisTab({ investorName, snapshotDate, content, holdings, metrics, soWhat, overlap }: Props) {
   const h = content.header;
   const headlines = (content as ContentWithHeadlines).section_headlines;
+  const flaggedInstruments = new Set(
+    metrics?.concentration.positionFlags.map((f) => f.instrument) ?? [],
+  );
 
   const rows: AccordionItem[] = [];
 
@@ -83,6 +96,11 @@ export function AnalysisTab({ investorName, snapshotDate, content, holdings }: P
         <div className="mt-2 text-[11.5px] text-ink-4 font-mono">
           {content.section_2_portfolio_overview.liquidity_tier_line}
         </div>
+        {metrics && (
+          <div className="cap-surface">
+            <SaaDonut assetClass={metrics.assetClass} />
+          </div>
+        )}
       </>
     ),
   });
@@ -275,7 +293,110 @@ export function AnalysisTab({ investorName, snapshotDate, content, holdings }: P
     body: <p className="case-paragraph">{content.coverage_note}</p>,
   });
 
-  const numbered = rows.map((r, i) => ({
+  /* T-5.09 capability surfaces, rendered against the locked v7.2 wireframe.
+   * Built as accordion rows here, then interleaved with the briefing rows in
+   * the wireframe's section order. Each renders only when its data is present;
+   * an all-cash case (no actions, no overlap, no rebalance) simply omits the
+   * rows that have nothing to say. */
+  const capRows: AccordionItem[] = [];
+
+  if (holdings.length > 0) {
+    capRows.push({
+      id: "composition",
+      title: "Portfolio composition",
+      severity: "muted",
+      headline: headlines?.composition,
+      body: <HoldingsDonut holdings={holdings} flagged={flaggedInstruments} />,
+    });
+  }
+
+  if (overlap && overlap.per_pair.length > 0) {
+    const strongest = overlap.portfolio?.strongest_pair?.score ?? 0;
+    capRows.push({
+      id: "overlap",
+      title: "Holdings overlap",
+      severity: strongest >= 0.7 ? "flg" : "muted",
+      headline: headlines?.overlap,
+      body: <OverlapHeatmap overlap={overlap} />,
+    });
+  }
+
+  const hasSoWhat =
+    (soWhat?.holding_actions.some((a) => "advisor_action" in a) ?? false) ||
+    (soWhat?.observation_actions.some((a) => "advisor_action" in a) ?? false);
+  if (soWhat && hasSoWhat) {
+    const sw = soWhat;
+    capRows.push({
+      id: "sowhat",
+      title: "So what, advisor actions",
+      severity: "inf",
+      headline: headlines?.sowhat,
+      body: (
+        <div className="sowhat-list">
+          {sw.holding_actions.map((a, i) =>
+            "advisor_action" in a ? (
+              <div key={`h${i}`} className="sowhat">
+                <div className="sowhat-head">
+                  {a.instrument_display_name}
+                  <span className="sowhat-verdict">{a.a2_verdict}</span>
+                </div>
+                <p className="sowhat-body">{a.advisor_action}</p>
+              </div>
+            ) : null,
+          )}
+          {sw.observation_actions.map((a, i) =>
+            "advisor_action" in a ? (
+              <div key={`o${i}`} className="sowhat">
+                <div className="sowhat-head">{a.observation_category.replace(/_/g, " ")}</div>
+                <p className="sowhat-body">{a.advisor_action}</p>
+              </div>
+            ) : null,
+          )}
+        </div>
+      ),
+    });
+  }
+
+  const reb = soWhat?.rebalance_proposal;
+  const rebPositions = reb && reb.kind === "proposal" ? reb.computed.positions : [];
+  const rebNarrative = reb && reb.kind === "proposal" ? reb.narrated.advisor_action : null;
+  if (rebPositions.length > 0) {
+    capRows.push({
+      id: "rebalance",
+      title: "Rebalance framework",
+      severity: "flg",
+      headline: headlines?.rebalance,
+      body: (
+        <div className="rebalance-block">
+          {rebPositions.map((p, i) => (
+            <GlidePath key={i} position={p} corpusCr={metrics?.totalLiquidAumCr ?? 0} />
+          ))}
+          {rebNarrative && <p className="case-paragraph rebalance-narrative">{rebNarrative}</p>}
+        </div>
+      ),
+    });
+  }
+
+  /* Interleave capability rows with briefing rows in wireframe section order. */
+  const ROW_ORDER = [
+    "portfolio",
+    "composition",
+    "headline_observations",
+    "concentration",
+    "overlap",
+    "sowhat",
+    "risk_flags",
+    "comparison",
+    "talking",
+    "rebalance",
+    "appendix",
+    "coverage",
+  ];
+  const ordered = [...rows, ...capRows].sort(
+    (a, b) => ROW_ORDER.indexOf(a.id) - ROW_ORDER.indexOf(b.id),
+  );
+
+  const numbered = ordered.map((r, i) => ({
     ...r,
     num: String(i + 1).padStart(2, "0"),
   }));
