@@ -21,7 +21,7 @@
  "outputs": [
   {
    "file": "ecas_01_malhotras.pdf",
-   "sha256": "af4deb0809f6ed708a869610c0563b1f0e9ad2db4a33541c751f2c047f964d13"
+   "sha256": "5b1992d9ae02c8f984ed9f28523950768bc5536d3507fadb04b2c4befffe9038"
   },
   {
    "file": "transactions_01_malhotras.json",
@@ -29,7 +29,7 @@
   },
   {
    "file": "ecas_02_lalitha_iyengar.pdf",
-   "sha256": "d0eb86bb5655bfad53b4838823e8bebe6fff2d812f592b38ae5cf0d9c4382731"
+   "sha256": "8bb1a28931808b6fea3f032df516b218acb2b8cb185bac88ebf866d978882e11"
   },
   {
    "file": "transactions_02_lalitha_iyengar.json",
@@ -37,7 +37,7 @@
   },
   {
    "file": "ecas_05_rajiv_surana.pdf",
-   "sha256": "8af27c9c89ebe5b8307e897216758e7ec454ec1cd8e16292fa27b98a6412829d"
+   "sha256": "477e18fc15ff757f480b849088a9bb352084bd211fca3836bc47bf64fee089cb"
   },
   {
    "file": "transactions_05_rajiv_surana.json",

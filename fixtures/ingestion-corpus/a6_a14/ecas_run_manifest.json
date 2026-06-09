@@ -21,7 +21,7 @@
  "outputs": [
   {
    "file": "ecas_06_sandeep_krishnan.pdf",
-   "sha256": "24cb24d058461abf278fb4ea9c8ab7df95e33fa6a1e1daea613e52a551b4c3ae"
+   "sha256": "3a4d0ffd2861633943a56a623c4f9929eea9c1bfcb9724ed83080f4b94873004"
   },
   {
    "file": "transactions_06_sandeep_krishnan.json",
@@ -29,7 +29,7 @@
   },
   {
    "file": "ecas_08_dr_lakshmi_pillai.pdf",
-   "sha256": "1a1b20a0a87715d850ca1821fc63afb8fdebc4b52308c8293d0448545c8e72c8"
+   "sha256": "93cd3c54040296a1bb63140014931257d848d52be73c5c8af25e6ae4d35069ec"
   },
   {
    "file": "transactions_08_dr_lakshmi_pillai.json",
@@ -37,7 +37,7 @@
   },
   {
    "file": "ecas_11_anjali_bharat_desai.pdf",
-   "sha256": "2417053ab454bd246094b9dd25f8b0c351707657baab80e61899856c14d40945"
+   "sha256": "cba12f2051f7eb75fed7de2089d6b0cedea03c9c6b59d3712144fed7d3954201"
   },
   {
    "file": "transactions_11_anjali_bharat_desai.json",
@@ -45,7 +45,7 @@
   },
   {
    "file": "ecas_12_karthik_reddy.pdf",
-   "sha256": "c77c3bf094a5765816271babca5db674537c80e87fd1b1efe17900cc66945d9e"
+   "sha256": "900de64cf0e393126539ac9d6c4946a6807134f31a8ccf6e8a284e8b3eb0ed34"
   },
   {
    "file": "transactions_12_karthik_reddy.json",
@@ -53,7 +53,7 @@
   },
   {
    "file": "ecas_13_rahul_kapoor.pdf",
-   "sha256": "58d74bdb34d4e30bbe5e0eb9728bdf9db576eede66a24e73988209287f2ae57b"
+   "sha256": "f926e853db50460b3c8b5c991f64422e5c2c5a6d3679fa92d08b5b0a240320f0"
   },
   {
    "file": "transactions_13_rahul_kapoor.json",
