@@ -1,0 +1,809 @@
+{
+  "rows": [
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "Mirae Asset Large Cap Fund - Growth Plan",
+      "current_market_value_inr": 22000000.0,
+      "amfi_code": 118834
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth",
+      "current_market_value_inr": 18000000.0,
+      "amfi_code": 120665
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 23000000.0,
+      "amfi_code": 122639
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "Kotak Midcap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 14000000.0,
+      "amfi_code": 104978
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "Axis Small Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 6500000.0,
+      "amfi_code": 130503
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "equity",
+      "sub_category": "mf_passive_index",
+      "instrument_display_name": "HDFC Nifty 50 Index Fund - Direct Plan",
+      "current_market_value_inr": 10700000.0,
+      "amfi_code": 101585
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "HDFC Corporate Bond Fund - Growth Option",
+      "current_market_value_inr": 15000000.0
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "NHAI Tax-Free Bonds 2031",
+      "current_market_value_inr": 14000000.0
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank FD",
+      "current_market_value_inr": 11600000.0
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold (sovereign gold bonds + bullion)",
+      "current_market_value_inr": 7200000.0
+    },
+    {
+      "investor_id": "investor_archetype_06",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings account",
+      "current_market_value_inr": 3000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Tata Consultancy Services (TCS)",
+      "current_market_value_inr": 25000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Infosys Limited",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "HCL Technologies",
+      "current_market_value_inr": 13000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Tech Mahindra",
+      "current_market_value_inr": 6500000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "SBI Large Cap FUND-REGULAR PLAN GROWTH",
+      "current_market_value_inr": 18500000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "HDFC Flexi Cap Fund - Growth Plan",
+      "current_market_value_inr": 16500000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "HDFC Mid Cap Fund - Growth Plan",
+      "current_market_value_inr": 12500000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "equity",
+      "sub_category": "mf_passive_index",
+      "instrument_display_name": "UTI Nifty 50 Index Fund - Growth",
+      "current_market_value_inr": 7000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "ICICI Prudential Corporate Bond Fund - Growth",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "ICICI Bank FD",
+      "current_market_value_inr": 20000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "PFC Tax-Free Bonds 2032",
+      "current_market_value_inr": 17000000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold",
+      "current_market_value_inr": 6500000.0
+    },
+    {
+      "investor_id": "investor_archetype_07",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings",
+      "current_market_value_inr": 2500000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "SBI Bank FD (laddered 1-3 yr)",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank FD (laddered 1-3 yr)",
+      "current_market_value_inr": 14000000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "debt",
+      "sub_category": "mf_short_term_debt",
+      "instrument_display_name": "HDFC Liquid Fund - Growth Plan",
+      "current_market_value_inr": 5500000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "Aditya Birla Sun Life Corporate Bond Fund - Growth",
+      "current_market_value_inr": 7500000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "HDFC Large Cap Fund - Growth Option - Regular Plan (inherited)",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "ICICI Prudential Value Fund (inherited)",
+      "current_market_value_inr": 5000000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold (jewellery, traditional)",
+      "current_market_value_inr": 3000000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "alternatives",
+      "sub_category": "sovereign_gold_bond",
+      "instrument_display_name": "Sovereign Gold Bonds",
+      "current_market_value_inr": 2000000.0
+    },
+    {
+      "investor_id": "investor_archetype_08",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings (operational + medical reserve)",
+      "current_market_value_inr": 2000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "Nippon India Large Cap  Fund- Growth Plan -Growth Option",
+      "current_market_value_inr": 27000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 20500000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "Motilal Oswal Midcap Fund-Regular Plan-Growth Option",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "HDFC Small Cap Fund - Growth Option",
+      "current_market_value_inr": 13500000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "mf_passive_index",
+      "instrument_display_name": "ICICI Prudential Nifty 50 Index Fund - Direct",
+      "current_market_value_inr": 20000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_pe",
+      "instrument_display_name": "ICICI Venture India Advantage Fund Series IV (2020 vintage)",
+      "current_market_value_inr": 24000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_pe",
+      "instrument_display_name": "Edelweiss Crossover Opportunities Fund III (2021 vintage)",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_pe",
+      "instrument_display_name": "IIFL Special Opportunities Fund Series 9 (2022 vintage)",
+      "current_market_value_inr": 17000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_private_credit",
+      "instrument_display_name": "Kotak Credit Opportunities Fund (2023 vintage)",
+      "current_market_value_inr": 15000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_real_estate",
+      "instrument_display_name": "ASK Property Fund RESSF III",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold",
+      "current_market_value_inr": 5000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "HDFC Bank",
+      "current_market_value_inr": 17000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "ICICI Bank",
+      "current_market_value_inr": 11000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "NHAI Tax-Free Bonds 2031",
+      "current_market_value_inr": 20000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "HDFC Corporate Bond Fund - Growth",
+      "current_market_value_inr": 16000000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "Kotak Bank FD",
+      "current_market_value_inr": 14500000.0
+    },
+    {
+      "investor_id": "investor_archetype_09",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings account",
+      "current_market_value_inr": 15000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Reliance Industries Limited",
+      "current_market_value_inr": 36000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "HDFC Bank",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Larsen & Toubro",
+      "current_market_value_inr": 11000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Bharti Airtel",
+      "current_market_value_inr": 9500000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "ITC Limited",
+      "current_market_value_inr": 7000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth",
+      "current_market_value_inr": 17500000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "SBI ELSS Tax Saver FUND - REGULAR PLAN- GROWTH",
+      "current_market_value_inr": 14000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "DSP Midcap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 14000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "SBI Corporate Bond Fund - Regular Plan - Growth",
+      "current_market_value_inr": 16000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank FD",
+      "current_market_value_inr": 13000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold",
+      "current_market_value_inr": 4000000.0
+    },
+    {
+      "investor_id": "investor_archetype_10",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings",
+      "current_market_value_inr": 2000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_hybrid_dynamic_aa",
+      "instrument_display_name": "HDFC Balanced Advantage Fund - Growth Plan",
+      "current_market_value_inr": 17000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_hybrid_dynamic_aa",
+      "instrument_display_name": "ICICI Prudential Balanced Advantage Fund - Growth",
+      "current_market_value_inr": 15000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_hybrid_dynamic_aa",
+      "instrument_display_name": "SBI Balanced Advantage Fund - Regular Plan - Growth",
+      "current_market_value_inr": 13000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_hybrid_dynamic_aa",
+      "instrument_display_name": "Edelweiss Balanced Advantage Fund - Regular Plan",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "SBI Large Cap FUND-REGULAR PLAN GROWTH",
+      "current_market_value_inr": 7500000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "HDFC Flexi Cap Fund - Growth Plan",
+      "current_market_value_inr": 4000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank Senior Citizen FD",
+      "current_market_value_inr": 12000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "ICICI Prudential Corporate Bond Fund - Growth",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "REC Tax-Free Bonds 2031",
+      "current_market_value_inr": 5000000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold (jewellery)",
+      "current_market_value_inr": 2500000.0
+    },
+    {
+      "investor_id": "investor_archetype_11",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings + liquid MF",
+      "current_market_value_inr": 3000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "Mirae Asset Large Cap Fund - Growth Plan",
+      "current_market_value_inr": 32000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 28000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "Axis Midcap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "Nippon India Small Cap Fund - Growth Plan",
+      "current_market_value_inr": 16000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "mf_passive_index",
+      "instrument_display_name": "SBI NIFTY INDEX FUND - DIRECT PLAN - GROWTH",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "intl_us_etf",
+      "instrument_display_name": "Vanguard S&P 500 ETF (VOO) via GIFT City",
+      "current_market_value_inr": 42000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "intl_us_individual",
+      "instrument_display_name": "US individual equities (Apple, Microsoft, Alphabet) - US brokerage legacy",
+      "current_market_value_inr": 22000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "equity",
+      "sub_category": "intl_us_etf",
+      "instrument_display_name": "Invesco QQQ ETF via GIFT City",
+      "current_market_value_inr": 18500000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "HDFC Corporate Bond Fund - Growth",
+      "current_market_value_inr": 23000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "NHAI Tax-Free Bonds 2031",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank NRE FD (matured, converted resident)",
+      "current_market_value_inr": 28000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold",
+      "current_market_value_inr": 10000000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "alternatives",
+      "sub_category": "sovereign_gold_bond",
+      "instrument_display_name": "Sovereign Gold Bonds",
+      "current_market_value_inr": 6500000.0
+    },
+    {
+      "investor_id": "investor_archetype_12",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings + liquid MF",
+      "current_market_value_inr": 42000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "SBI Small Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 10000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "Nippon India Small Cap Fund - Growth Plan",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "instrument_display_name": "Kotak-Small Cap Fund - Growth",
+      "current_market_value_inr": 6500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "HDFC Mid Cap Fund - Growth Plan",
+      "current_market_value_inr": 10500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "Kotak Midcap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 6500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 10000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "HDFC Flexi Cap Fund - Growth Plan",
+      "current_market_value_inr": 7000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth",
+      "current_market_value_inr": 8500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "HDFC Bank",
+      "current_market_value_inr": 2500000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "Aditya Birla Sun Life Corporate Bond Fund - Growth",
+      "current_market_value_inr": 6000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "instrument_display_name": "HDFC Bank FD",
+      "current_market_value_inr": 4000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings + liquid MF",
+      "current_market_value_inr": 3000000.0
+    },
+    {
+      "investor_id": "investor_archetype_13",
+      "asset_class": "alternatives",
+      "sub_category": "sovereign_gold_bond",
+      "instrument_display_name": "Sovereign Gold Bonds",
+      "current_market_value_inr": 1000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "unlisted_pre_ipo",
+      "instrument_display_name": "Rathore Speciality Chemicals Pvt Ltd founder shares (held outside advisory scope)",
+      "current_market_value_inr": 800000000.0,
+      "advisory_scope": false
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "instrument_display_name": "HDFC Large Cap Fund - Growth Option",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund - Regular Plan - Growth",
+      "current_market_value_inr": 15000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "instrument_display_name": "HDFC Mid Cap Fund - Growth Plan",
+      "current_market_value_inr": 12000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "pms_growth_quality",
+      "instrument_display_name": "Marcellus Consistent Compounder PMS",
+      "current_market_value_inr": 21000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "pms_concentrated_quality",
+      "instrument_display_name": "White Oak India Pioneers PMS",
+      "current_market_value_inr": 18000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "HDFC Bank",
+      "current_market_value_inr": 10000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "instrument_display_name": "Bharti Airtel",
+      "current_market_value_inr": 9600000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "instrument_display_name": "NHAI Tax-Free Bonds 2031",
+      "current_market_value_inr": 13000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "instrument_display_name": "ICICI Prudential Corporate Bond Fund - Growth",
+      "current_market_value_inr": 9000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "instrument_display_name": "Physical gold (family holdings)",
+      "current_market_value_inr": 7400000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_ii_pe",
+      "instrument_display_name": "Edelweiss Crossover Opportunities Fund III (2022 vintage)",
+      "current_market_value_inr": 5000000.0
+    },
+    {
+      "investor_id": "investor_archetype_14",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "instrument_display_name": "Bank savings",
+      "current_market_value_inr": 10000000.0
+    }
+  ],
+  "metadata": {
+    "description": "Extended holdings for Lean Samriddhi MVP archetypes A6 through A14",
+    "generated_for": "Lean Samriddhi MVP test infrastructure, Batch 2",
+    "investor_count": 9,
+    "row_count": 113,
+    "note": "Same row schema as holdings.json (the existing A1-A5 holdings). All MF names are present in the snapshot fund universe; all sub_categories match the foundation document taxonomy."
+  }
+}

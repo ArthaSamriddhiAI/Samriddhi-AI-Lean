@@ -1,0 +1,47 @@
+{
+ "generator": "generate_ecas.py (Package 07 re-anchor)",
+ "snapshot_sha256": "babab589336a2cb4fda8061932808393b4c503d5222e90e129fe523339a33afc",
+ "snapshot_path": "/Users/shubhamsahamate/Desktop/IMT-G/25 - WealthWisers Technologies - Summer Internship/23 - Lean Samriddhi MVP/17 - Claude Code Local Workflow - Samriddhi AI Data Snapshots - main branch/snapshots/snapshot_t0_q2_2026.json",
+ "statement_date": "2026-04-02",
+ "anchor_month": "2026-03",
+ "aliases": {
+  "_comment": "Canonical persona-label to snapshot-universe fund-name aliases. Shared by generate_ecas.py (statement generation) and the consumer repo's ingestion reconciliation (which receives a copy in each corpus run manifest). Exact entries map a full persona label to the snapshot base name; substitutions patch label fragments before containment matching. Provenance: consumer repo P40/D6/D14 and the Package 07 audit (the resolver knowledge previously lived only inside generate_a1_a5_ingestion.py).",
+  "exact": {
+   "Axis Bluechip Fund": "Axis Large Cap Fund",
+   "Kotak Emerging Equity Fund": "Kotak Midcap Fund",
+   "HDFC Index Fund Nifty 50": "HDFC Nifty 50 Index Fund",
+   "HDFC Index Fund Nifty 50 Plan": "HDFC Nifty 50 Index Fund",
+   "ICICI Pru Balanced Advantage Fund": "ICICI Prudential Balanced Advantage Fund",
+   "Aditya Birla Sun Life Arbitrage Fund": "Aditya BIRLA SUN LIFE ARBITRAGE FUND"
+  },
+  "substitutions": {
+   "Bluechip": "Large Cap"
+  }
+ },
+ "outputs": [
+  {
+   "file": "ecas_01_malhotras.pdf",
+   "sha256": "af4deb0809f6ed708a869610c0563b1f0e9ad2db4a33541c751f2c047f964d13"
+  },
+  {
+   "file": "transactions_01_malhotras.json",
+   "sha256": "d481ba22e17f72c5c861e9e603f4be75610f28a12c50d21ff59b6b9de3cd2c56"
+  },
+  {
+   "file": "ecas_02_lalitha_iyengar.pdf",
+   "sha256": "d0eb86bb5655bfad53b4838823e8bebe6fff2d812f592b38ae5cf0d9c4382731"
+  },
+  {
+   "file": "transactions_02_lalitha_iyengar.json",
+   "sha256": "3eb94f692ae3b172ca3b24033cd7c61303551482f2621b9ca936b1ac0da7af58"
+  },
+  {
+   "file": "ecas_05_rajiv_surana.pdf",
+   "sha256": "8af27c9c89ebe5b8307e897216758e7ec454ec1cd8e16292fa27b98a6412829d"
+  },
+  {
+   "file": "transactions_05_rajiv_surana.json",
+   "sha256": "5ba666dc1fc3a5a79e117fc0c5d9a639ecfbc468b7d248285236ca12243a78ef"
+  }
+ ]
+}

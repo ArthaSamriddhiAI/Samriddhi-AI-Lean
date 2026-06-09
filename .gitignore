@@ -62,6 +62,10 @@ artha-fullfat/
 # (small JSONs, demo-critical for STUB_MODE replay).
 /fixtures/*
 !/fixtures/stub-responses/
+# Synthetic ingestion corpus (Package 07): generated fictional investor
+# statements and listings for onboarding-ingestion tests. Fictional content is
+# public per WA14 and the Package 07 three-tier storage ruling; tracked.
+!/fixtures/ingestion-corpus/
 # Enriched snapshots are NO LONGER committed. As of Phase B (ADR-0027) they are
 # proprietary data fetched from the private Samriddhi-AI-Data-Snapshots repo by
 # `npm run setup-data` and land at fixtures/snapshots/enriched/ (gitignored via
