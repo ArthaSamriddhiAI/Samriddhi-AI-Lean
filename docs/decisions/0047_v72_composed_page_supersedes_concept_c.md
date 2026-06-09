@@ -61,3 +61,16 @@ design ships render), ADR-0045 (chart-render technology), ADR-0046 (Analyst
 Reports tab), ADR-0048 (render-bundle re-scope and section 06 line deferral),
 ADR-0040 (section 05 omission), the layout-gap audit
 (`docs/audits/2026-06-09_layout_gap.md`).
+
+## Ratified divergences from the wireframe, 2026-06-09
+
+The composed page tracks the locked v7.2 wireframe with two deliberate,
+primary-approved divergences, recorded here as intentional design decisions, not
+as unfinished work:
+
+- The Analyst Reports tab (ADR-0046), the one structural exception.
+- The section 03 MMDR proportion strip. The wireframe draws the maintain /
+  monitor / discuss / review split as a pie; this build renders it as a
+  horizontal proportion strip. The primary explicitly approved the strip as the
+  better read for a four-way proportion at this size. It is a chosen divergence
+  with sign-off, not a fidelity gap, and is not to be rebuilt into a pie.
