@@ -2409,4 +2409,13 @@
   }
   .sowhat-verdict { color: var(--color-warn); font-weight: 600; text-transform: uppercase; font-size: 9.5px; letter-spacing: 1px; }
   .sowhat-body { margin: 0; }
+
+  /* T-5.08 Samriddhi 2 Analyst Reports, per-stock verdict blocks (the existing
+     .agent-memo-block, .pdf-bullets, .flag-row, .flag-pill carry the rest). */
+  .ar-s2-stocks { display: flex; flex-direction: column; gap: 14px; }
+  .ar-s2-stock { border-left: 2px solid var(--color-rule-strong); padding-left: 12px; }
+  .ar-s2-stock-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .ar-s2-stock-name { font-family: var(--font-serif); font-size: 14px; font-weight: 500; color: var(--color-ink-1); }
+  .ar-s2-stock-verdict { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--color-warn); font-weight: 600; }
+  .ar-s2-stock-wt { font-family: var(--font-mono); font-size: 11px; color: var(--color-ink-4); margin-left: auto; }
 }

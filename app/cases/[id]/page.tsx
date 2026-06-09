@@ -6,6 +6,7 @@ import { ChatPanel } from "@/components/case-detail/ChatPanel";
 import { CaseStubBadge } from "@/components/case-detail/CaseStubBadge";
 import { OutcomeTab } from "@/components/case-detail/OutcomeTab";
 import { AnalystReportsTab } from "@/components/case-detail/AnalystReportsTab";
+import { AnalystReportsTabS2, type S2EvidenceMap } from "@/components/case-detail/AnalystReportsTabS2";
 import { Lock, Download } from "@/components/chrome/Icons";
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
@@ -189,6 +190,7 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
   let metrics: PortfolioMetrics | null = null;
   let soWhat: A3Output | null = null;
   let overlap: PortfolioOverlapOutput | null = null;
+  let evidence: S2EvidenceMap | null = null;
   try {
     const parsed = JSON.parse(c.contentJson);
     if (parsed && parsed.briefing) {
@@ -202,6 +204,9 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     }
     if (parsed && parsed.portfolio_overlap) {
       overlap = parsed.portfolio_overlap as PortfolioOverlapOutput;
+    }
+    if (parsed && parsed.evidence) {
+      evidence = parsed.evidence as S2EvidenceMap;
     }
   } catch {
     /* fallthrough: content stays null */
@@ -244,6 +249,9 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     }
   })();
 
+  const activeTab: "analysis" | "analyst" = tab === "analyst" && evidence ? "analyst" : "analysis";
+  const evidenceCount = evidence ? Object.keys(evidence).length : 0;
+
   return (
     <div className="case-detail h-[calc(100vh-52px)]">
       <div className="case-toolbar">
@@ -261,6 +269,23 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           </span>
           <CaseStubBadge stubbed={c.stubbed} />
         </div>
+        {evidence && (
+          <div className="case-tabs">
+            <Link
+              href={`/cases/${id}`}
+              className={`case-tab ${activeTab === "analysis" ? "is-active" : ""}`}
+            >
+              Analysis
+            </Link>
+            <Link
+              href={`/cases/${id}?tab=analyst`}
+              className={`case-tab ${activeTab === "analyst" ? "is-active" : ""}`}
+            >
+              Analyst reports
+              <span className="tab-count">{evidenceCount}</span>
+            </Link>
+          </div>
+        )}
         <div className="case-toolbar-right">
           <a
             href={`/api/cases/${id}/briefing.pdf`}
@@ -274,15 +299,19 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
       </div>
 
       <div className="case-body">
-        <AnalysisTab
-          investorName={c.investor.name}
-          snapshotDate={snapshotDate}
-          content={content}
-          holdings={holdings}
-          metrics={metrics}
-          soWhat={soWhat}
-          overlap={overlap}
-        />
+        {activeTab === "analyst" && evidence ? (
+          <AnalystReportsTabS2 investorName={c.investor.name} evidence={evidence} />
+        ) : (
+          <AnalysisTab
+            investorName={c.investor.name}
+            snapshotDate={snapshotDate}
+            content={content}
+            holdings={holdings}
+            metrics={metrics}
+            soWhat={soWhat}
+            overlap={overlap}
+          />
+        )}
         <ChatPanel />
       </div>
     </div>
