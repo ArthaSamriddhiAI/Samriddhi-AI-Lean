@@ -34,9 +34,9 @@ type Props = {
   overlap: PortfolioOverlapOutput | null;
 };
 
-/* section_headlines lands in Step 5 (schema additions); until the fixture
- * backfill, the band falls back to the first sentence of the lede so it is
- * never empty. */
+/* section_headlines is present in the Samriddhi 2 fixtures from the PR #14
+ * re-fire; the first-sentence-of-lede fallback below stays as a defensive
+ * default so the band is never empty if a future case omits it. */
 type ContentWithHeadlines = BriefingContent & {
   section_headlines?: Record<string, string>;
 };
