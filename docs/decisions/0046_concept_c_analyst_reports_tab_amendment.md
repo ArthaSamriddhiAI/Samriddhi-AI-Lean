@@ -72,3 +72,11 @@ annotate forward), WA09 (capability ships data, design ships render), WA13
 Analyst Reports adapter framing), ADR-0045 (the chart-render-technology sibling
 decision), tech debt T16 (E5 inert dispatch), the render bundle audit
 (`docs/audits/2026-06-04_render_bundle_audit.md`).
+
+## Forward annotation, 2026-06-09 (the v7.2 composed page)
+
+ADR-0047 makes the Samriddhi 2 analysis page the v7.2 composed page, superseding
+the Concept C accordion structure. This ADR's amendment still holds: the composed
+Analysis page and the Analyst Reports tab coexist in the tab strip. The composed
+page replaced the accordion as the Analysis surface; it did not remove the tab
+strip this ADR introduced. See ADR-0047.

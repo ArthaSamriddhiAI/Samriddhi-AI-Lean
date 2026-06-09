@@ -75,3 +75,18 @@ WA30 (this disposition), ADR-0031 (A3 so-what, which names T-5.09 as the render
 pass for the glide-path and so-what surfaces), ADR-0046 (the Concept C tab
 amendment, the render bundle's sibling decision), the render bundle audit
 (`docs/audits/2026-06-04_render_bundle_audit.md`).
+
+## Annotation, 2026-06-09 (the section 07 horizon toggle)
+
+The v7.2 fidelity pass added the first client-interactive chart surface: the
+section 07 risk-reward hero's 3Y/5Y horizon toggle
+(`components/case-detail/charts/RrHero.tsx`). The Consequences above said a
+surface that genuinely needs interactive charting would reopen this ADR; the
+toggle is the first such need, and it reopens narrowly. It is plain React
+`useState` over the same hand-rolled markup, switching which horizon's statistics
+show; it introduces no charting library and no client-state framework. Metrics
+that are 3Y-only in the data (beta, R-squared, information ratio, Jensen's alpha)
+render an honest "3Y only" on the 5Y view rather than a blank or a fabricated 5Y
+value (the partial-5Y data limitation, logged as debt). The hand-rolled-SVG
+decision is unchanged; this records that interactivity, when needed, is added as
+plain React state, not a library.
