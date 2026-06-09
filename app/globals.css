@@ -2360,11 +2360,12 @@
 
   /* Holdings overlap heatmap */
   .heatmap-wrap { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  .heatmap-grid { min-width: 0; padding-top: 6px; }
   .heatmap { border-collapse: collapse; font-family: var(--font-mono); font-size: 11.5px; }
   .heatmap th, .heatmap td { text-align: center; width: 56px; height: 36px; padding: 0; vertical-align: middle; border: 1.5px solid var(--color-paper); }
   .heatmap th.corner { background: transparent; border: none; }
   .heatmap th { color: var(--color-ink-3); font-weight: 500; letter-spacing: 0.5px; background: transparent; border: none; padding: 4px; }
-  .heatmap th.col-lbl { font-size: 10.5px; height: 90px; vertical-align: bottom; white-space: nowrap; }
+  .heatmap th.col-lbl { font-size: 10.5px; height: 104px; vertical-align: bottom; white-space: nowrap; overflow: visible; }
   .heatmap th.col-lbl div { transform: rotate(-50deg); transform-origin: left bottom; display: inline-block; position: relative; top: -8px; left: 30px; text-align: left; }
   .heatmap th.row-lbl { text-align: right; padding-right: 10px; font-size: 10.5px; width: auto; }
   .heatmap td.cell { color: var(--color-ink-1); font-weight: 500; }
@@ -2374,10 +2375,10 @@
   .heatmap-legend-bar { display: flex; align-items: center; gap: 8px; margin-top: 18px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.6px; color: var(--color-ink-4); text-transform: uppercase; }
   .heatmap-scale { flex: 0 0 240px; height: 10px; background: linear-gradient(90deg, #F2EFE8 0%, #C28A1D 55%, #3F5B47 100%); border-radius: 2px; border: 1px solid var(--color-rule-strong); }
   .heatmap-notes { font-family: var(--font-serif); font-size: 13.5px; color: var(--color-ink-3); line-height: 1.55; }
-  .heatmap-note { border-left: 2px solid var(--color-rule-strong); padding: 10px 14px; margin-bottom: 12px; background: var(--color-paper); }
+  .heatmap-note { border-left: 2px solid var(--color-rule-strong); padding: 10px 14px; margin-bottom: 12px; background: var(--color-paper); overflow: hidden; }
   .heatmap-note strong { color: var(--color-ink-1); font-weight: 600; }
   .heatmap-note .hn-pair { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4px; color: var(--color-ink-1); margin-bottom: 4px; font-weight: 600; }
-  .heatmap-note .hn-val { font-family: var(--font-mono); font-size: 16px; color: var(--color-ink-1); font-weight: 500; float: right; }
+  .heatmap-note .hn-val { font-family: var(--font-mono); font-size: 16px; color: var(--color-ink-1); font-weight: 500; float: right; margin-left: 8px; }
   .heatmap-empty { font-family: var(--font-serif); font-size: 13.5px; color: var(--color-ink-3); font-style: italic; padding: 8px 0; }
   @media (max-width: 1020px) { .heatmap-wrap { grid-template-columns: 1fr; } }
 

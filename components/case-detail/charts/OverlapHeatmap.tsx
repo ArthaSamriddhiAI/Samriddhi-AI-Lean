@@ -27,6 +27,14 @@ function shortName(name: string): string {
     .join(" ");
 }
 
+/* Column headers are rotated, so a long label projects up and to the right and
+ * collides with the notes column. Match the wireframe: feed the columns a short
+ * single token; the row labels and the cell titles still carry the full name. */
+function colLabel(name: string): string {
+  const first = shortName(name).split(/\s+/)[0];
+  return first.length > 11 ? first.slice(0, 11) : first;
+}
+
 export function OverlapHeatmap({ overlap }: { overlap: PortfolioOverlapOutput }) {
   const pairs = overlap.per_pair ?? [];
   if (pairs.length === 0) {
@@ -59,14 +67,14 @@ export function OverlapHeatmap({ overlap }: { overlap: PortfolioOverlapOutput })
 
   return (
     <div className="heatmap-wrap">
-      <div>
+      <div className="heatmap-grid">
         <table className="heatmap">
           <thead>
             <tr>
               <th className="corner" />
               {names.map((n) => (
                 <th key={n} className="col-lbl">
-                  <div>{shortName(n)}</div>
+                  <div>{colLabel(n)}</div>
                 </th>
               ))}
             </tr>
@@ -104,12 +112,12 @@ export function OverlapHeatmap({ overlap }: { overlap: PortfolioOverlapOutput })
       <div className="heatmap-notes">
         {strongest && (
           <div className="heatmap-note">
+            <span className="hn-val">{Math.round(strongest.score * 100)}%</span>
             <div className="hn-pair">
-              Strongest overlap
-              <span className="hn-val">{Math.round(strongest.score * 100)}%</span>
+              {shortName(strongest.holding_a)} × {shortName(strongest.holding_b)}
             </div>
             <div>
-              <strong>{strongest.holding_a}</strong> and <strong>{strongest.holding_b}</strong> carry the
+              <strong>Strongest overlap.</strong> {strongest.holding_a} and {strongest.holding_b} carry the
               highest pairwise overlap in the {strongest.sleeve} sleeve; consider whether both earn their place.
             </div>
           </div>
