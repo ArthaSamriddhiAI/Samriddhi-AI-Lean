@@ -12,6 +12,9 @@ import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
 import type { A3Output } from "@/lib/agents/a3-so-what";
 import type { PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
+import type { A2Output } from "@/lib/agents/a2-classification";
+import type { TimeSeriesPerformanceOutput } from "@/lib/agents/time-series-performance";
+import type { RiskRewardOutput } from "@/lib/agents/risk-reward-stats";
 import type { BriefingCaseContent } from "@/lib/agents/case/briefing-case-content";
 import type { CaseEvidenceVerdict } from "@/lib/agents/case/case-verdict";
 import type { Proposal } from "@/lib/agents/proposal";
@@ -191,6 +194,9 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
   let soWhat: A3Output | null = null;
   let overlap: PortfolioOverlapOutput | null = null;
   let evidence: S2EvidenceMap | null = null;
+  let a2: A2Output | null = null;
+  let timeSeries: TimeSeriesPerformanceOutput | null = null;
+  let riskReward: RiskRewardOutput | null = null;
   try {
     const parsed = JSON.parse(c.contentJson);
     if (parsed && parsed.briefing) {
@@ -207,6 +213,15 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
     }
     if (parsed && parsed.evidence) {
       evidence = parsed.evidence as S2EvidenceMap;
+    }
+    if (parsed && parsed.a2_classification) {
+      a2 = transformRupeesDeep(parsed.a2_classification as A2Output);
+    }
+    if (parsed && parsed.time_series_performance) {
+      timeSeries = parsed.time_series_performance as TimeSeriesPerformanceOutput;
+    }
+    if (parsed && parsed.risk_reward_stats) {
+      riskReward = parsed.risk_reward_stats as RiskRewardOutput;
     }
   } catch {
     /* fallthrough: content stays null */
@@ -305,11 +320,16 @@ export default async function CaseDetailPage({ params, searchParams }: PageProps
           <AnalysisTab
             investorName={c.investor.name}
             snapshotDate={snapshotDate}
+            frozen={frozen}
             content={content}
             holdings={holdings}
             metrics={metrics}
             soWhat={soWhat}
             overlap={overlap}
+            a2={a2}
+            timeSeries={timeSeries}
+            riskReward={riskReward}
+            evidence={evidence}
           />
         )}
         <ChatPanel />
