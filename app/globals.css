@@ -2543,4 +2543,18 @@
   .dis-eye { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--color-ink-4); display: block; margin-bottom: 12px; }
   .disclaimer p { font-family: var(--font-serif); font-size: 12.5px; line-height: 1.6; color: var(--color-ink-3); margin-bottom: 10px; max-width: 880px; }
   .case-paragraph.muted { color: var(--color-ink-4); font-style: italic; }
+
+  /* composition asset-class donut (section 02) */
+  .comp-donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .comp-donut-legend { display: grid; grid-template-columns: 1fr; gap: 3px; width: 100%; font-family: var(--font-mono); font-size: 10.5px; }
+  .cdl-row { display: flex; align-items: baseline; gap: 6px; }
+  .cdl-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; position: relative; top: 1px; }
+  .cdl-name { color: var(--color-ink-3); flex: 1; }
+  .cdl-w { color: var(--color-ink-1); font-weight: 500; }
+
+  /* rr-hero horizon toggle (section 07) */
+  .rr-horizon-tabs { display: inline-flex; gap: 2px; border: 1px solid var(--color-rule-strong); border-radius: 5px; padding: 2px; margin-bottom: 14px; }
+  .rr-horizon-tabs button { font-family: var(--font-mono); font-size: 11px; padding: 3px 12px; border-radius: 3px; color: var(--color-ink-3); background: transparent; border: 0; cursor: pointer; }
+  .rr-horizon-tabs button.is-active { background: var(--color-accent); color: var(--color-accent-ink); }
+  .rrc-val { font-family: var(--font-serif); font-size: 20px; color: var(--color-ink-1); }
 }

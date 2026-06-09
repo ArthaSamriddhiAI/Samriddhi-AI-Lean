@@ -20,6 +20,8 @@ import { SaaDonut } from "./charts/SaaDonut";
 import { HoldingsDonut } from "./charts/HoldingsDonut";
 import { OverlapHeatmap } from "./charts/OverlapHeatmap";
 import { GlidePath } from "./charts/GlidePath";
+import { CompositionDonut } from "./charts/CompositionDonut";
+import { RrHero } from "./charts/RrHero";
 
 type Holding = { instrument: string; sub_category: string; value_cr: number; weight_pct: number };
 
@@ -159,7 +161,7 @@ export function AnalysisTab({
   evidence,
 }: Props) {
   const h = content.header;
-  const lede = content.workbench_lede;
+  const lede = content.workbench_lede.split(". ").slice(0, 2).join(". ").replace(/\.?$/, ".");
   const e3 = (evidence?.e3 as unknown as E3Block) ?? null;
 
   /* so-what lookups */
@@ -174,11 +176,6 @@ export function AnalysisTab({
 
   const tr = timeSeries?.portfolio?.trailing_returns ?? [];
   const rrStats = riskReward?.portfolio?.stats as Record<string, number> | undefined;
-  const rrCard = (k3: string, k5: string, label: string, fmt: (n: number) => string) => ({
-    label,
-    v3: rrStats && typeof rrStats[k3] === "number" ? fmt(rrStats[k3]) : "n/a",
-    v5: rrStats && typeof rrStats[k5] === "number" ? fmt(rrStats[k5]) : "3Y only",
-  });
 
   /* section 09 sleeve grouping */
   const sleeves = ["Large cap", "Mid cap", "Small cap", "Flexi / multi", "Other"] as const;
@@ -255,6 +252,7 @@ export function AnalysisTab({
           <Section num="02" title="Portfolio composition" aside={h.liquid_aum_label} open>
             <div className="comp-grid">
               <div className="comp-donut-stack">
+                {metrics && <CompositionDonut assetClass={metrics.assetClass} corpusCr={metrics.totalLiquidAumCr} />}
                 {holdings.length > 0 && (
                   <HoldingsDonut
                     holdings={holdings}
@@ -429,21 +427,7 @@ export function AnalysisTab({
             {rrStats ? (
               <>
                 <div className="bench-chip">Benchmark: {riskReward?.portfolio?.benchmark_index_id ?? "blended"}{riskReward?.portfolio?.benchmark_blend ? " (client-weighted)" : ""}</div>
-                <div className="rr-hero">
-                  {[
-                    rrCard("sharpe_3y", "sharpe_5y", "Sharpe", (n) => n.toFixed(2)),
-                    rrCard("sortino_3y", "sortino_5y", "Sortino", (n) => n.toFixed(2)),
-                    rrCard("beta_3y", "beta_3y", "Beta", (n) => n.toFixed(2)),
-                    rrCard("r_squared_3y", "r_squared_3y", "R-squared", (n) => n.toFixed(2)),
-                    rrCard("information_ratio_3y", "information_ratio_3y", "Info ratio", (n) => n.toFixed(2)),
-                  ].map((c) => (
-                    <article className="rr-card" key={c.label}>
-                      <div className="rrc-label">{c.label}</div>
-                      <div className="rrc-3y">{c.v3} <span className="rrc-h">3Y</span></div>
-                      <div className="rrc-5y">{c.v5}{c.v5 !== "3Y only" && <span className="rrc-h"> 5Y</span>}</div>
-                    </article>
-                  ))}
-                </div>
+                <RrHero stats={rrStats} />
                 {riskReward?.portfolio?.coverage_footnote && (
                   <p className="editorial-caption">{typeof riskReward.portfolio.coverage_footnote === "string" ? riskReward.portfolio.coverage_footnote : ""}</p>
                 )}
