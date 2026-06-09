@@ -10,6 +10,7 @@
  */
 import type { BriefingContent } from "@/lib/agents/s1-diagnostic";
 import type { PortfolioMetrics } from "@/lib/agents/portfolio-risk-analytics";
+import { POSITION_ESCALATE_PCT } from "@/lib/agents/portfolio-risk-analytics";
 import type { A3Output } from "@/lib/agents/a3-so-what";
 import type { PortfolioOverlapOutput } from "@/lib/agents/portfolio-overlap";
 import type { A2Output } from "@/lib/agents/a2-classification";
@@ -96,13 +97,6 @@ function Section({
   );
 }
 
-const CLASS_COLOR: Record<string, string> = {
-  Equity: "#3F5B47",
-  Debt: "#9AA688",
-  Alternatives: "#C28A1D",
-  Cash: "#D3CCB7",
-};
-
 const VERDICT_TIERS: Array<{ key: string; label: string }> = [
   { key: "maintain", label: "Maintain" },
   { key: "monitor", label: "Monitor" },
@@ -110,18 +104,41 @@ const VERDICT_TIERS: Array<{ key: string; label: string }> = [
   { key: "review", label: "Review" },
 ];
 
-/* Section 09 cap-tier rule (deterministic, stated in the section caption per the
- * ratified decision): map a holding's sub_category to a market-cap sleeve.
- * Flexi and multi-cap funds are attributed to a dedicated Flexi / multi column
- * rather than split, so the derivation stays auditable. */
-function capTier(subCategory: string): "Large cap" | "Mid cap" | "Small cap" | "Flexi / multi" | "Other" {
-  const s = (subCategory || "").toLowerCase();
-  if (s.includes("flexi") || s.includes("multi")) return "Flexi / multi";
-  if (s.includes("large")) return "Large cap";
-  if (s.includes("mid")) return "Mid cap";
-  if (s.includes("small")) return "Small cap";
-  return "Other";
+/* Section 09 cap-tier rule (deterministic, stated verbatim in the section
+ * caption). Maps a holding's real sub_category enum to a market-cap sleeve.
+ * Flexi-cap funds and the unconstrained-equity PMS strategies go to a Flexi /
+ * multi sleeve rather than being split, so the derivation stays auditable.
+ * Returns null for any holding that is not cap-tierable equity (debt, cash,
+ * gold, international, AIF, unlisted, hybrid); those are shown in the
+ * composition and holdings sections, not the cap-tier map. This switch is the
+ * single source of truth; the caption restates it. */
+type Sleeve = "Large cap" | "Mid cap" | "Small cap" | "Flexi / multi";
+function capTier(subCategory: string): Sleeve | null {
+  switch (subCategory) {
+    case "mf_active_large_cap":
+    case "listed_large_cap":
+    case "mf_passive_index":
+      return "Large cap";
+    case "mf_active_mid_cap":
+    case "pms_focused_midcap":
+      return "Mid cap";
+    case "mf_active_small_cap":
+      return "Small cap";
+    case "mf_active_flexi_cap":
+    case "pms_growth_quality":
+    case "pms_value":
+    case "pms_concentrated_quality":
+    case "pms_equity":
+      return "Flexi / multi";
+    default:
+      return null;
+  }
 }
+
+/* Section 04 concentration minibar: a fixed 0 to 30% display axis so the 15%
+ * escalate threshold reads at the half mark and instrument weights compare
+ * consistently across cases. The axis is a fixed display scale, not data. */
+const CONC_AXIS_MAX = 30;
 
 function pct(n: number | null | undefined, digits = 1): string {
   return typeof n === "number" ? `${(n * 100).toFixed(digits)}%` : "n/a";
@@ -177,15 +194,26 @@ export function AnalysisTab({
   const tr = timeSeries?.portfolio?.trailing_returns ?? [];
   const rrStats = riskReward?.portfolio?.stats as Record<string, number> | undefined;
 
-  /* section 09 sleeve grouping */
-  const sleeves = ["Large cap", "Mid cap", "Small cap", "Flexi / multi", "Other"] as const;
-  const equityHoldings = holdings.filter((x) => CLASS_COLOR && x.weight_pct > 0);
-  const bySleeve = new Map<string, Holding[]>();
-  for (const x of equityHoldings) {
+  /* section 09 sleeve grouping: only cap-tierable equity (capTier != null), so
+   * debt, cash, gold, international, AIF, and unlisted do not leak into the map. */
+  const sleeveOrder: Sleeve[] = ["Large cap", "Mid cap", "Small cap", "Flexi / multi"];
+  const bySleeve = new Map<Sleeve, Holding[]>();
+  for (const x of holdings) {
+    if (x.weight_pct <= 0) continue;
     const t = capTier(x.sub_category);
+    if (t === null) continue;
     if (!bySleeve.has(t)) bySleeve.set(t, []);
     bySleeve.get(t)!.push(x);
   }
+  const renderedSleeves = sleeveOrder.filter((s) => (bySleeve.get(s)?.length ?? 0) > 0);
+  const sleeveCr = (s: Sleeve) => (bySleeve.get(s) ?? []).reduce((sum, x) => sum + x.value_cr, 0);
+  const sleeveWtSum = (s: Sleeve) => (bySleeve.get(s) ?? []).reduce((sum, x) => sum + x.weight_pct, 0);
+
+  /* The position-concentration evidence minibars carry the portfolio-wide
+   * position flags, so they attach to the first (headline) concentration
+   * observation only, not every concentration card, to avoid repeating the
+   * same flag set. */
+  const firstConcIdx = content.section_1_headline_observations.findIndex((o) => o.vocab === "position_over_concentration");
 
   return (
     <div className="ar-shell">
@@ -369,6 +397,7 @@ export function AnalysisTab({
               {content.section_1_headline_observations.map((o, i) => {
                 const oa = soWhat?.observation_actions?.[i];
                 const sw = oa && "advisor_action" in oa ? oa.advisor_action : null;
+                const concFlags = i === firstConcIdx && metrics ? metrics.concentration.positionFlags : [];
                 return (
                   <article className={`obs-card with-sowhat sev-${o.severity}`} key={i}>
                     <div className="obs-main">
@@ -378,6 +407,24 @@ export function AnalysisTab({
                         <span className="obs-meta">source: {o.source}</span>
                       </div>
                       <div className="obs-sentence">{("short_form" in o ? (o as { short_form?: string }).short_form : undefined) ?? o.one_line}</div>
+                      {concFlags.length > 0 && (
+                        <div className="obs-evidence">
+                          <span className="obs-ev-eyebrow">Evidence, single-instrument weight</span>
+                          {concFlags.map((f) => (
+                            <div className="minibar" key={f.instrument}>
+                              <div className="mb-lbl">{f.instrument}</div>
+                              <div className="mb-track">
+                                <div
+                                  className={`mb-fill ${f.severity === "escalate" ? "fill-esc" : "fill-flg"}`}
+                                  style={{ width: `${Math.min(100, (f.weightPct / CONC_AXIS_MAX) * 100)}%` }}
+                                />
+                                <div className="mb-thresh" style={{ left: `${(POSITION_ESCALATE_PCT / CONC_AXIS_MAX) * 100}%` }} title={`${POSITION_ESCALATE_PCT}% escalate threshold`} />
+                              </div>
+                              <div className="mb-val">{f.weightPct.toFixed(1)}%</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     {sw && (
                       <div className="sowhat">
@@ -448,22 +495,41 @@ export function AnalysisTab({
 
           {/* 09 Overlap and consolidation */}
           <Section num="09" title="Overlap and consolidation" aside={overlap?.portfolio?.strongest_pair ? `top ${Math.round(overlap.portfolio.strongest_pair.score * 100)}%` : undefined}>
-            <div className="sleeve-map">
-              {sleeves.filter((s) => (bySleeve.get(s)?.length ?? 0) > 0).map((s) => (
-                <div className="sleeve" key={s}>
-                  <div className="sleeve-head">{s}</div>
-                  <div className="sleeve-body">
-                    {(bySleeve.get(s) ?? []).map((x) => (
-                      <div className="fund-rect" key={x.instrument} style={{ flexGrow: Math.max(1, x.weight_pct) }} title={`${x.instrument}: ${x.weight_pct.toFixed(1)}%`}>
-                        <span className="fr-name">{x.instrument}</span>
-                        <span className="fr-wt">{x.weight_pct.toFixed(1)}%</span>
-                      </div>
-                    ))}
+            {renderedSleeves.length > 0 ? (
+            <>
+            <div className="sleeve-map" style={{ gridTemplateColumns: `repeat(${renderedSleeves.length}, minmax(0, 1fr))` }}>
+              {renderedSleeves.map((s) => {
+                const funds = bySleeve.get(s) ?? [];
+                const wtSum = sleeveWtSum(s) || 1;
+                return (
+                  <div className="sleeve" key={s}>
+                    <div className="sleeve-head">
+                      <span className="sleeve-name">{s}</span>
+                      <span className="sleeve-total">₹{sleeveCr(s).toFixed(2)} Cr</span>
+                    </div>
+                    <div className="sleeve-body">
+                      {funds.map((x) => {
+                        const within = (x.weight_pct / wtSum) * 100;
+                        return (
+                          <div className="fund-rect" key={x.instrument} style={{ flex: within }} title={`${x.instrument}: ₹${x.value_cr.toFixed(2)} Cr, ${within.toFixed(1)}% of sleeve`}>
+                            <div className="fr-name">{x.instrument}</div>
+                            <div className="fr-meta">₹{x.value_cr.toFixed(2)} Cr / {within.toFixed(1)}% of sleeve</div>
+                          </div>
+                        );
+                      })}
+                      {funds.length === 1 && <div className="sleeve-empty">Single resident; no consolidation question here.</div>}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
-            <p className="sleeve-map-cap">Cap-tier columns derive deterministically from each holding's sub-category; flexi and multi-cap funds are attributed to a dedicated column rather than split.</p>
+            <p className="sleeve-map-cap">
+              {renderedSleeves.map((s) => `${(bySleeve.get(s) ?? []).length} in ${s.toLowerCase()}`).join(", ")}. Cap-tier columns derive deterministically from each holding's sub-category: large cap from active large-cap, index, and direct large-cap equity; mid cap from active mid-cap and focused-midcap PMS; small cap from active small-cap; flexi / multi from flexi-cap funds and the unconstrained quality and value PMS strategies. Bar height is the fund's share of its sleeve. Non-cap-tierable holdings (international, AIF, unlisted, hybrid, and all non-equity) are shown in the composition and holdings sections, not here.
+            </p>
+            </>
+            ) : (
+              <p className="case-paragraph muted">No cap-tierable equity sleeves for this portfolio; the holdings are shown in the composition and holdings sections.</p>
+            )}
           </Section>
 
           {/* 11 Rebalance framework */}
