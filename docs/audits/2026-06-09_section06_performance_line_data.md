@@ -87,3 +87,11 @@ My recommendation: keep the window bars as section 06's floor for all five cases
 - Snapshot series: `lib/agents/snapshot-loader.ts` (`monthly_nav`, `monthly_prices`, enriched dir); `lib/agents/time-series-performance.ts` (reads the series for trailing windows); `scripts/setup-data.ts` (fetches the snapshots from `ArthaSamriddhiAI/Samriddhi-AI-Data-Snapshots`).
 - Coverage and consistency: the package `README.md` (9 quarterly snapshots with full schema; eCAS NAVs sourced from the t0 baseline; eCAS covers MF-heavy investors, alt-format for the MF-light ones).
 - Render-path gap: `app/cases/[id]/page.tsx` (loads snapshot metadata only); `fixtures/snapshots/enriched` empty in the working tree.
+
+## Addendum, 2026-06-09: reconciliation outcome (the line is not built)
+
+The Step 2 build fetched the snapshot (`setup-data`, v1.0.0-frozen) and ran the reconciliation gate. It fails systematically. Per folio, the snapshot t0 monthly NAV does not match the eCAS closing NAV: Mirae snapshot 137.44 versus eCAS 101.89 (off 35%); Parag 68.37 versus 79.03 (off 13%); Axis 49.64 versus 54.54 (off 9%); SBI 133.34 versus 151.04 (off 12%); Franklin 113.14 versus 103.28 (off 10%); Kotak Emerging Equity, ICICI Balanced Advantage, and HDFC Index Nifty 50 have no clean share-class match in the snapshot universe. The value test: Surana's Mirae folio (294,460 units) values at Rs 4.00 Cr at the snapshot NAV, not the canonical Rs 3.00 Cr.
+
+Root cause: `generate_ecas.py`'s `simulate_history` synthesizes the eCAS NAV path from an assumed CAGR (working backwards from the current value at the current NAV), not from the snapshot `monthly_nav` series. The eCAS and the snapshot therefore share only the final market value, not a NAV basis, and cannot be combined into one coherent performance line. The eCAS-alone construction is internally reconciled but mutual-fund-only (46% Surana, 46% Iyengar, 52% Malhotra), below the 70% honesty floor; adding the snapshot for listed equity to reach 70% fails reconciliation.
+
+Decision: per WA16 and the reconcile-or-fail mandate, no line is drawn. Section 06 ships the window bars (real, scale-independent, case-consistent). The continuous line is logged as product debt P50 and data debt D14 and handed to the data-management workstream. The bars are honest and shipped; the line is a tracked, precisely-scoped future task.
