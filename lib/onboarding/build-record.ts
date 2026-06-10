@@ -10,10 +10,14 @@
  * check running inline; the lock is impossible while a name is unresolved
  * and not explicitly accepted).
  *
- * Gate 2 boundary, deliberately unbuilt: heuristic rows that carry NO parsed
- * value (prose mentions like "some gold with the family jeweller") are PARKED,
- * excluded from the record, and surfaced as such; no freehand value entry
- * exists anywhere in this build pending the primary's provenance ruling.
+ * Heuristic rows with NO parsed value (prose mentions like "some gold with
+ * the family jeweller") take the advisor-attested path, the primary's Gate 2
+ * ruling: an inline value may be attested (who, when, and a REQUIRED basis
+ * note), stored as the first-class provenance kind advisor_attested,
+ * permanently amber, never promoted to exact, excluded from the totals-tie
+ * arithmetic WITH THE EXCLUSION VISIBLE at the gate tile and in the commit
+ * provenance, and blocking the commit until attested (the attestation is the
+ * confirmation).
  */
 
 import type { ParsedDocument, ParsedFolio, ParsedHolding } from "../ingestion/types";
@@ -35,6 +39,15 @@ import type { AssetClass, SubCategory, StructuredHoldings } from "../../db/fixtu
 
 export type RowSource = "statement" | "listing" | "both" | "notes";
 
+export type Attestation = {
+  valueInr: number;
+  basisNote: string;
+  attestedBy: string;
+  attestedAt: string;
+};
+
+export type ProvenanceKind = "exact" | "heuristic_sourced" | "advisor_attested";
+
 export type WorkbenchRow = {
   /* Stable key for resolutions, confirmations, and overrides. */
   key: string;
@@ -55,8 +68,14 @@ export type WorkbenchRow = {
     | { state: "not_applicable" };
   /* Cross-source agreement detail when both sources carry the row. */
   crossSource: string | null;
-  /* Parked pending the Gate 2 ruling: heuristic with no parsed value. */
-  parked: boolean;
+  /* The provenance kind the row will commit under. advisor_attested is
+   * permanent: it never becomes exact. */
+  provenanceKind: ProvenanceKind;
+  /* Needs an attested value (heuristic row with no parsed amount); blocks
+   * the commit until the attestation (value plus basis note) lands. */
+  needsAttestation: boolean;
+  /* The attestation, once given. */
+  attestation: Attestation | null;
 };
 
 export type GateTile = {
@@ -64,6 +83,9 @@ export type GateTile = {
   label: string;
   ok: boolean;
   value: string;
+  /* The visible-exclusion sub-line (the Gate 2 ruling's explicit addition):
+   * on the totals tile, names the attested rows excluded from the tie. */
+  note: string | null;
 };
 
 export type WorkbenchState = {
@@ -71,10 +93,11 @@ export type WorkbenchState = {
   tiles: GateTile[];
   checks: GateCheck[];
   blockers: string[];
-  parked: WorkbenchRow[];
   clears: boolean;
   anchorMonth: string;
   identityStrings: string[];
+  /* Attested rows summary, surfaced at the gate and in the commit. */
+  attested: { count: number; totalInr: number };
 };
 
 export type AdvisorInputs = {
@@ -88,6 +111,10 @@ export type AdvisorInputs = {
   confirmations: string[];
   /* row key -> advisor-assigned sub-category override. */
   subCategories: Record<string, SubCategory>;
+  /* row key -> attestation for valueless prose rows (the Gate 2 ruling).
+   * Invalid attestations (no positive value, or an empty basis note) are
+   * ignored: no basis note, no confirmation. */
+  attestations: Record<string, Attestation>;
 };
 
 const SUBCATEGORY_TO_ASSET_CLASS: Record<string, AssetClass> = {
@@ -252,25 +279,48 @@ export function buildWorkbench(
           : "DISAGREE: listing " + lr.valueInr + " vs statement " + statementValue;
     }
 
-    const parked = lr.valueInr === null && statementValue === null;
+    /* A heuristic row with no parsed amount takes the attested path: a
+     * valid attestation (positive value plus a non-empty basis note) is its
+     * confirmation; without one it blocks. Attested values are permanently
+     * attested-not-sourced and stay out of the totals-tie arithmetic. */
+    const needsValue = lr.valueInr === null && statementValue === null;
+    const rawAttestation = inputs.attestations[key];
+    const attestation =
+      needsValue &&
+      rawAttestation &&
+      rawAttestation.valueInr > 0 &&
+      rawAttestation.basisNote.trim().length > 0
+        ? rawAttestation
+        : null;
     rows.push({
       key,
       instrument: lr.rawLabel,
       rawLabel: lr.rawLabel,
       source: matchedFolio ? "both" : lr.doc.format === "email_text" ? "notes" : "listing",
-      valueInr,
+      valueInr: attestation ? attestation.valueInr : valueInr,
       provenance: [
         lr.provenance.file + ", " + lr.provenance.locator,
         ...(matchedFolio
           ? [matchedFolio.doc.sourceFile + ", folio " + (matchedFolio.folio.folioNo ?? "?") + ", " + matchedFolio.folio.transactions.length + " rows"]
           : []),
+        ...(attestation
+          ? ["attested by " + attestation.attestedBy + " on " + attestation.attestedAt.slice(0, 10) + ": " + attestation.basisNote]
+          : []),
       ],
       confidence: lr.confidence,
-      confirmed: lr.confidence === "exact" || inputs.confirmations.includes(key),
+      confirmed: needsValue
+        ? attestation !== null
+        : lr.confidence === "exact" || inputs.confirmations.includes(key),
       subCategory,
       resolution,
       crossSource,
-      parked,
+      provenanceKind: needsValue
+        ? "advisor_attested"
+        : lr.confidence === "exact"
+          ? "exact"
+          : "heuristic_sourced",
+      needsAttestation: needsValue && attestation === null,
+      attestation,
     });
   }
 
@@ -293,17 +343,33 @@ export function buildWorkbench(
         ? { state: "resolved", fundName: f.resolved }
         : { state: "unresolved", candidates: f.candidates },
       crossSource: "statement only; not in any listing",
-      parked: false,
+      provenanceKind: "exact",
+      needsAttestation: false,
+      attestation: null,
     });
   }
 
-  const active = rows.filter((r) => !r.parked);
-  const parked = rows.filter((r) => r.parked);
+  const active = rows;
+  const attestedRows = rows.filter((r) => r.attestation !== null);
+  const attested = {
+    count: attestedRows.length,
+    totalInr: attestedRows.reduce((s, r) => s + (r.attestation?.valueInr ?? 0), 0),
+  };
 
-  /* The four tiles, the wireframe's vocabulary. */
+  /* The four tiles, the wireframe's vocabulary. The totals tie covers
+   * SOURCED holdings only; attested recollections must not make the books
+   * appear to tie, and the exclusion is stated on the tile itself (the Gate
+   * 2 ruling's explicit addition). */
+  const sourced = active.filter((r) => r.provenanceKind !== "advisor_attested");
   const listingTotal = listingRows.reduce((s, r) => s + (r.valueInr ?? 0), 0);
-  const mergedTotal = active.reduce((s, r) => s + (r.valueInr ?? 0), 0);
+  const mergedTotal = sourced.reduce((s, r) => s + (r.valueInr ?? 0), 0);
   const totalsOk = listingTotal === 0 || Math.abs(mergedTotal - listingTotal) / listingTotal <= 0.02;
+  const exclusionNote =
+    attested.count > 0
+      ? "sourced holdings only; " + attested.count + " attested row" +
+        (attested.count === 1 ? "" : "s") + " totalling Rs " +
+        (attested.totalInr / 1e7).toFixed(2) + " Cr excluded from the tie"
+      : null;
 
   const ladderChecks = ecasChecks.filter((c) => /unit sum|printed ladder|ties to stated market value|folios parsed/.test(c.label));
   const laddersOk = ladderChecks.every((c) => c.ok);
@@ -316,10 +382,10 @@ export function buildWorkbench(
   const namesOk = unresolved.length === 0;
 
   const tiles: GateTile[] = [
-    { id: "totals", label: "Totals tie", ok: totalsOk, value: (listingTotal / 1e7).toFixed(2) + " Cr = " + (mergedTotal / 1e7).toFixed(2) + " Cr" },
-    { id: "ladders", label: "Statement ladders", ok: laddersOk, value: folioCount + " / " + folioCount + " folios" + (laddersOk ? " tie" : ": check failures") },
-    { id: "nav_basis", label: "NAV basis vs snapshot", ok: navOk, value: navOk ? "anchor " + anchorMonth + " ties" : "statement NAV off the snapshot series" },
-    { id: "names", label: "Name resolution", ok: namesOk, value: namesOk ? "all resolved" : unresolved.length + " unresolved" },
+    { id: "totals", label: "Totals tie", ok: totalsOk, value: (listingTotal / 1e7).toFixed(2) + " Cr = " + (mergedTotal / 1e7).toFixed(2) + " Cr", note: exclusionNote },
+    { id: "ladders", label: "Statement ladders", ok: laddersOk, value: folioCount + " / " + folioCount + " folios" + (laddersOk ? " tie" : ": check failures"), note: null },
+    { id: "nav_basis", label: "NAV basis vs snapshot", ok: navOk, value: navOk ? "anchor " + anchorMonth + " ties" : "statement NAV off the snapshot series", note: null },
+    { id: "names", label: "Name resolution", ok: namesOk, value: namesOk ? "all resolved" : unresolved.length + " unresolved", note: null },
   ];
 
   const blockers: string[] = [];
@@ -327,20 +393,20 @@ export function buildWorkbench(
   if (!laddersOk) blockers.push("statement internal ties failed");
   if (!navOk) blockers.push("statement NAV basis does not match the snapshot");
   for (const r of unresolved) blockers.push("unresolved name: " + r.rawLabel);
-  for (const r of active.filter((x) => x.confidence === "heuristic" && !x.confirmed)) {
+  for (const r of active.filter((x) => x.needsAttestation)) {
+    blockers.push("attestation needed (value plus basis note): " + r.rawLabel);
+  }
+  for (const r of active.filter((x) => !x.needsAttestation && x.confidence === "heuristic" && x.provenanceKind !== "advisor_attested" && !x.confirmed)) {
     blockers.push("unconfirmed heuristic row: " + r.rawLabel);
   }
   for (const r of active.filter((x) => x.subCategory === null)) {
     blockers.push("sub-category needed: " + r.rawLabel);
   }
-  if (parked.length > 0) {
-    blockers.push(parked.length + " prose row(s) parked awaiting the value-entry ruling (Gate 2); excluded from this commit");
-  }
 
   const clears = tiles.every((t) => t.ok) &&
-    active.every((r) => (r.confidence === "exact" || r.confirmed) && r.subCategory !== null && r.valueInr !== null);
+    active.every((r) => r.confirmed && r.subCategory !== null && r.valueInr !== null);
 
-  return { rows, tiles, checks: ecasChecks, blockers, parked, clears, anchorMonth, identityStrings };
+  return { rows, tiles, checks: ecasChecks, blockers, clears, anchorMonth, identityStrings, attested };
 }
 
 export function buildCanonicalRecord(
@@ -361,7 +427,10 @@ export function buildCanonicalRecord(
     }
   }
 
-  const active = state.rows.filter((r) => !r.parked);
+  /* Every row commits, attested ones included: the investor's true book
+   * carries the attested holding at its attested value, permanently marked.
+   * Only the gate's totals-tie arithmetic excludes it (see buildWorkbench). */
+  const active = state.rows;
   const totalCr = active.reduce((s, r) => s + (r.valueInr ?? 0), 0) / 1e7;
 
   const holdings: CanonicalHolding[] = active.map((r) => {
@@ -394,6 +463,15 @@ export function buildCanonicalRecord(
       closingNav: folio?.closingNav ?? null,
       closingUnits: folio?.closingUnits ?? null,
       transactions: txns,
+      ...(r.attestation
+        ? {
+            attestation: {
+              basisNote: r.attestation.basisNote,
+              attestedBy: r.attestation.attestedBy,
+              attestedAt: r.attestation.attestedAt,
+            },
+          }
+        : {}),
     };
   });
 

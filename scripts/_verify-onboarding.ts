@@ -46,6 +46,7 @@ function inputs(partial?: Partial<AdvisorInputs>): AdvisorInputs {
     resolutions: {},
     confirmations: [],
     subCategories: {},
+    attestations: {},
     ...partial,
   };
 }
@@ -72,7 +73,7 @@ async function main(): Promise<void> {
   if (k.clears) {
     const statements = kDocs.filter((d) => d.format === "ecas_pdf");
     const { record, derived } = buildCanonicalRecord(k, inputs(), ctx.universe, statements);
-    check("canonical record carries " + k.rows.filter((r) => !r.parked).length + " holdings", record.holdings.length === k.rows.filter((r) => !r.parked).length);
+    check("canonical record carries " + k.rows.length + " holdings", record.holdings.length === k.rows.length);
     const withTxns = record.holdings.filter((h) => h.transactions && h.transactions.length > 0).length;
     check("7 holdings carry full transaction histories", withTxns === 7, String(withTxns));
     const wsum = derived.holdings.reduce((s, h) => s + h.weightPct, 0);
@@ -111,33 +112,63 @@ async function main(): Promise<void> {
     );
   }
 
-  console.log("Gate 2 boundary and refusal behaviour:");
-  const parkedDoc: ParsedDocument = {
-    sourceFile: "meeting_notes_test.md",
-    format: "email_text",
-    identityStrings: [],
-    holdings: [
-      {
-        rawLabel: "some gold with the family jeweller",
-        valueInr: null,
-        detail: "meeting notes, line 12",
-        confidence: "heuristic",
-        provenance: { file: "meeting_notes_test.md", locator: "line 12" },
-      },
-    ],
-    folios: [],
-    warnings: [],
-  };
-  const p = buildWorkbench([...iDocs, parkedDoc], ctx.universe, ctx.aliases, ctx.anchorMonth,
-    inputs({ confirmations: allKeys, subCategories: subFix }));
-  check("valueless prose row is parked", p.parked.length === 1, String(p.parked.length));
-  check(
-    "parked row is excluded and surfaced as a Gate 2 blocker note",
-    p.blockers.some((b) => b.includes("Gate 2")),
-    p.blockers.join(" | "),
-  );
-  check("parked row does not block the gate itself (excluded from this commit)", p.clears);
+  console.log("Advisor-attested value path (the Gate 2 ruling), Malhotra specimen:");
+  const mDocs: ParsedDocument[] = [
+    await parseEcasPdf(path.join(ROOT, "fixtures/ingestion-corpus/a1_a5/ecas_01_malhotras.pdf")),
+    parseXlsx(path.join(ROOT, "fixtures/ingestion-corpus/a1_a5/altformat_01_malhotras.xlsx")),
+    parseText(path.join(ROOT, "fixtures/ingestion-corpus/a1_a5/meeting_notes_01_malhotras.md")),
+    parseText(path.join(ROOT, "fixtures/ingestion-corpus/a1_a5/meeting_notes_01_malhotras_addendum.md")),
+  ];
+  const m1 = buildWorkbench(mDocs, ctx.universe, ctx.aliases, ctx.anchorMonth, inputs());
+  const goldRow = m1.rows.find((r) => r.needsAttestation);
+  check("the addendum's unvalued gold mention yields an attestation-needed row",
+    goldRow !== undefined && /gold jewellery/i.test(goldRow.rawLabel), goldRow?.rawLabel);
+  check("exactly one attestation-needed row (no extractor over-fire on the main notes)",
+    m1.rows.filter((r) => r.needsAttestation).length === 1);
+  check("unattested row blocks the gate",
+    !m1.clears && m1.blockers.some((b) => b.startsWith("attestation needed")),
+    m1.blockers.join(" | "));
 
+  const goldKey = goldRow ? goldRow.key : "missing";
+  const badAttest = inputs({
+    attestations: { [goldKey]: { valueInr: 1000000, basisNote: "   ", attestedBy: "Priya Nair", attestedAt: "2026-06-10T12:00:00.000Z" } },
+  });
+  const m2 = buildWorkbench(mDocs, ctx.universe, ctx.aliases, ctx.anchorMonth, badAttest);
+  check("no basis note, no confirmation: an empty note does not attest", !m2.clears &&
+    m2.blockers.some((b) => b.startsWith("attestation needed")));
+
+  const goodInputs = inputs({
+    attestations: { [goldKey]: { valueInr: 1000000, basisNote: "Vikram's verbal estimate at the April review; appraisal pending", attestedBy: "Priya Nair", attestedAt: "2026-06-10T12:00:00.000Z" } },
+  });
+  const m3 = buildWorkbench(mDocs, ctx.universe, ctx.aliases, ctx.anchorMonth, goodInputs);
+  console.log(
+    "    tiles: " + m3.tiles.map((t) => t.id + "=" + (t.ok ? "ok" : "FAIL") + " (" + t.value + ")" + (t.note ? " [" + t.note + "]" : "")).join("; "),
+  );
+  if (!m3.clears) console.log("    blockers: " + m3.blockers.join(" | "));
+  check("a valid attestation clears the block", m3.clears, m3.blockers.join(" | "));
+  const attRow = m3.rows.find((r) => r.key === goldKey);
+  check("the attested row stays advisor_attested (never exact)",
+    attRow?.provenanceKind === "advisor_attested" && attRow.confirmed && attRow.attestation !== null);
+  const totalsTile = m3.tiles.find((t) => t.id === "totals");
+  check("totals tile arithmetic excludes the attested value (sourced 11.85 = 11.85)",
+    totalsTile?.value === "11.85 Cr = 11.85 Cr", totalsTile?.value);
+  check("the exclusion is VISIBLE on the totals tile with N and Rs",
+    totalsTile?.note === "sourced holdings only; 1 attested row totalling Rs 0.10 Cr excluded from the tie",
+    String(totalsTile?.note));
+  check("attested summary carries count and total", m3.attested.count === 1 && m3.attested.totalInr === 1000000);
+
+  const { record: mRec, derived: mDer } = buildCanonicalRecord(m3, goodInputs, ctx.universe, [mDocs[0]]);
+  check("the canonical record includes the attested holding at the attested value (book total 11.95 Cr)",
+    Math.abs(mRec.totalLiquidAumCr - 11.95) < 0.005, String(mRec.totalLiquidAumCr));
+  const attHolding = mRec.holdings.find((h) => h.attestation);
+  check("the canonical holding carries the attestation (who, when, basis note)",
+    attHolding !== undefined &&
+      attHolding.attestation?.attestedBy === "Priya Nair" &&
+      (attHolding.attestation?.basisNote ?? "").includes("appraisal pending"));
+  check("the derived demo shape includes the attested holding",
+    mDer.holdings.some((h) => /gold jewellery/i.test(h.instrument) && h.valueCr === 0.1));
+
+  console.log("refusal behaviour:");
   let threw = false;
   try {
     buildCanonicalRecord(i1, inputs(), ctx.universe, []);

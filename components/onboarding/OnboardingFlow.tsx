@@ -15,7 +15,12 @@
 import { useEffect, useState, useTransition } from "react";
 import type { ParsedDocument } from "@/lib/ingestion/types";
 import type { SubCategory } from "@/db/fixtures/structured-holdings";
-import type { AdvisorInputs, WorkbenchState, WorkbenchRow } from "@/lib/onboarding/build-record";
+import type {
+  AdvisorInputs,
+  Attestation,
+  WorkbenchState,
+  WorkbenchRow,
+} from "@/lib/onboarding/build-record";
 import {
   commitInvestor,
   computeWorkbench,
@@ -46,9 +51,10 @@ function slugify(name: string): string {
   return name.toLowerCase().replace(/^(dr|mrs|mr|smt)\.?\s+/i, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
-export function OnboardingFlow({ initialBundle, initialSpecimen }: {
+export function OnboardingFlow({ initialBundle, initialSpecimen, advisorName }: {
   initialBundle: ParsedBundle | null;
   initialSpecimen: string | null;
+  advisorName: string;
 }) {
   const [bundle, setBundle] = useState<ParsedBundle | null>(initialBundle);
   const [investorName, setInvestorName] = useState(initialSpecimen === "krishnan" ? "Sandeep Krishnan" : "");
@@ -57,6 +63,10 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
   const [resolutions, setResolutions] = useState<AdvisorInputs["resolutions"]>({});
   const [confirmations, setConfirmations] = useState<string[]>([]);
   const [subCategories, setSubCategories] = useState<Record<string, SubCategory>>({});
+  const [attestations, setAttestations] = useState<Record<string, Attestation>>({});
+  /* Per-row draft inputs for the attested path (value text plus the
+   * required basis note); committed into attestations on Attest. */
+  const [attestDrafts, setAttestDrafts] = useState<Record<string, { value: string; note: string }>>({});
   const [state, setState] = useState<WorkbenchState | null>(null);
   const [commitResult, setCommitResult] = useState<CommitResult | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -77,6 +87,7 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
     resolutions,
     confirmations,
     subCategories,
+    attestations,
   });
 
   const recompute = (docs: ParsedDocument[], next?: Partial<AdvisorInputs>) => {
@@ -137,6 +148,22 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
     const next = { ...subCategories, [row.key]: sub };
     setSubCategories(next);
     if (bundle) recompute(bundle.docs, { subCategories: next });
+  };
+  const attestRow = (row: WorkbenchRow) => {
+    const draft = attestDrafts[row.key];
+    const valueInr = draft ? Math.round(Number(draft.value.replace(/,/g, "")) * 1e5) : NaN;
+    if (!draft || !Number.isFinite(valueInr) || valueInr <= 0 || !draft.note.trim()) return;
+    const next: Record<string, Attestation> = {
+      ...attestations,
+      [row.key]: {
+        valueInr,
+        basisNote: draft.note.trim(),
+        attestedBy: advisorName,
+        attestedAt: new Date().toISOString(),
+      },
+    };
+    setAttestations(next);
+    if (bundle) recompute(bundle.docs, { attestations: next });
   };
   const onCommit = () => {
     if (!bundle) return;
@@ -209,6 +236,7 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
               <div key={t.id} className={"ob-gate " + (t.ok ? "pass" : "fail")}>
                 <div className="ob-gate-l">{t.label}</div>
                 <div className="ob-gate-v">{t.value}</div>
+                {t.note ? <div className="ob-gate-note">{t.note}</div> : null}
               </div>
             ))}
           </div>
@@ -218,12 +246,24 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
               <tr><th>Instrument (parsed)</th><th>Source</th><th>Sub-category</th><th className="num">Value (Rs Cr)</th><th>Confidence</th></tr>
             </thead>
             <tbody>
-              {state.rows.filter((r) => !r.parked).map((r) => (
-                <tr key={r.key} className={r.resolution.state === "unresolved" ? "ob-row-unres" : undefined}>
+              {state.rows.map((r) => (
+                <tr
+                  key={r.key}
+                  className={
+                    r.resolution.state === "unresolved"
+                      ? "ob-row-unres"
+                      : r.provenanceKind === "advisor_attested"
+                        ? "ob-row-attested"
+                        : undefined
+                  }
+                >
                   <td>
                     <span className="ob-inst">{r.instrument}</span>
                     {r.provenance.map((p) => <span key={p} className="ob-prov">{p}</span>)}
                     {r.crossSource ? <span className="ob-prov">{r.crossSource}</span> : null}
+                    {r.attestation ? (
+                      <span className="ob-prov">excluded from the totals tie (attested, not sourced)</span>
+                    ) : null}
                   </td>
                   <td className="ob-mono">{r.source}</td>
                   <td>
@@ -232,10 +272,49 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
                       {SUB_CATEGORIES.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </td>
-                  <td className="num ob-mono">{crore(r.valueInr)}</td>
+                  <td className="num ob-mono">
+                    {r.needsAttestation ? (
+                      <span className="ob-attest">
+                        <input
+                          className="ob-attest-value"
+                          placeholder="value (Rs lakh)"
+                          inputMode="decimal"
+                          value={attestDrafts[r.key]?.value ?? ""}
+                          onChange={(e) =>
+                            setAttestDrafts({ ...attestDrafts, [r.key]: { value: e.target.value, note: attestDrafts[r.key]?.note ?? "" } })
+                          }
+                        />
+                        <input
+                          className="ob-attest-note"
+                          placeholder="basis note (required)"
+                          value={attestDrafts[r.key]?.note ?? ""}
+                          onChange={(e) =>
+                            setAttestDrafts({ ...attestDrafts, [r.key]: { value: attestDrafts[r.key]?.value ?? "", note: e.target.value } })
+                          }
+                        />
+                        <button
+                          className="ob-pill heur asbtn"
+                          disabled={
+                            !attestDrafts[r.key] ||
+                            !(Number(attestDrafts[r.key]?.value.replace(/,/g, "")) > 0) ||
+                            !attestDrafts[r.key]?.note.trim()
+                          }
+                          onClick={() => attestRow(r)}
+                        >
+                          attest
+                        </button>
+                      </span>
+                    ) : (
+                      crore(r.valueInr)
+                    )}
+                  </td>
                   <td>
                     {r.resolution.state === "unresolved" ? (
                       <span className="ob-pill unres">name unresolved</span>
+                    ) : r.attestation ? (
+                      <span className="ob-pill attested">attested, not sourced</span>
+                    ) : r.needsAttestation ? (
+                      <span className="ob-pill unres">attestation needed</span>
                     ) : r.confidence === "exact" ? (
                       <span className="ob-pill exact">exact{r.source === "both" ? ", 2 sources" : ""}</span>
                     ) : r.confirmed ? (
@@ -261,17 +340,6 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
             </div>
           ))}
 
-          {state.parked.length > 0 ? (
-            <div className="ob-parked">
-              <div className="ob-parked-h">Parked prose rows (awaiting the value-entry ruling, Gate 2; excluded from this commit)</div>
-              {state.parked.map((p) => (
-                <div key={p.key} className="ob-parked-row">
-                  <span className="ob-inst">&#8220;{p.rawLabel}&#8221;</span>
-                  <span className="ob-prov">{p.provenance.join("; ")}</span>
-                </div>
-              ))}
-            </div>
-          ) : null}
         </section>
       ) : null}
 
@@ -308,7 +376,13 @@ export function OnboardingFlow({ initialBundle, initialSpecimen }: {
             {commitResult?.ok ? (
               <span className="ob-committed">
                 Locked: {commitResult.investorId}, {commitResult.holdings} holdings, Rs {commitResult.totalCr.toFixed(2)} Cr.
-                Mandate capture follows as the next step. <a href={"/investors/" + commitResult.investorId}>Open the investor</a>
+                {commitResult.attestedCount > 0
+                  ? " The totals tie covers sourced holdings only: " + commitResult.attestedCount +
+                    " attested row" + (commitResult.attestedCount === 1 ? " sits" : "s sit") +
+                    " outside the tie, totalling Rs " + commitResult.attestedTotalCr.toFixed(2) +
+                    " Cr, attested not sourced."
+                  : ""}
+                {" "}Mandate capture follows as the next step. <a href={"/investors/" + commitResult.investorId}>Open the investor</a>
               </span>
             ) : null}
           </div>

@@ -236,5 +236,28 @@ export function parseText(file: string): ParsedDocument {
       );
     }
   }
+
+  /* Unvalued possession mentions (any prose form): a line naming a held
+   * asset together with an explicit no-valuation cue yields a VALUELESS
+   * heuristic row for the workbench's advisor-attested path (the Gate 2
+   * ruling). Deliberately conservative: both the possession keyword and the
+   * unvalued cue must appear on the same line, so structural prose like an
+   * equity-debt-gold allocation never matches. */
+  const POSSESSION = /(gold|jewellery|jewelry|silver|art\b|antiques|land\b|plot\b|property|insurance polic\w*)/i;
+  const UNVALUED = /(no valuation|never\b[^.]{0,40}(valued|appraised)|value unknown|unvalued|not valued|no figure|valuation pending)/i;
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i].trim();
+    if (!POSSESSION.test(l) || !UNVALUED.test(l)) continue;
+    if (parseAmountInr(l) !== null && /(?:Rs\.?|INR|₹)\s*[\d,]/i.test(l)) continue;
+    const label = l.replace(/^[\s\-•*#]+/, "").slice(0, 90).trim();
+    if (doc.holdings.some((h) => h.rawLabel === label)) continue;
+    doc.holdings.push({
+      rawLabel: label,
+      valueInr: null,
+      detail: l,
+      confidence: "heuristic",
+      provenance: { file: doc.sourceFile, locator: "line " + (i + 1) },
+    });
+  }
   return doc;
 }

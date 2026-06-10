@@ -70,6 +70,16 @@ export type CanonicalHolding = {
   /* Full dated transaction history (eCAS holdings); null for single-lot
    * holdings whose only dated event is purchaseDate at costBasisTotalInr. */
   transactions: CanonicalTransaction[] | null;
+  /* Advisor-attested provenance (Package 07 Gate 2 ruling): present only on
+   * holdings whose value is an advisor's recollection rather than a sourced
+   * document. Permanently attested-not-sourced; excluded from the
+   * reconciliation gate's totals-tie arithmetic; never promoted to exact.
+   * Absent on every sourced holding, including the whole demo-five fixture. */
+  attestation?: {
+    basisNote: string;
+    attestedBy: string;
+    attestedAt: string;
+  } | null;
 };
 
 export type CanonicalExcludedHolding = {

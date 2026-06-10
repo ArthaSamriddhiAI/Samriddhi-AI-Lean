@@ -4,6 +4,7 @@
  * uploads, then hands to the client flow. The reconciliation gate runs
  * server-side on every recompute and again at commit. */
 
+import { prisma } from "@/lib/prisma";
 import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 import { parseSpecimen, type ParsedBundle } from "./actions";
 
@@ -19,9 +20,15 @@ export default async function OnboardPage({
   if (specimen) {
     initialBundle = await parseSpecimen(specimen);
   }
+  /* The attesting advisor's identity for advisor_attested provenance. */
+  const advisorName = (await prisma.setting.findFirst())?.advisorName ?? "Priya Nair";
   return (
     <div className="page-inner">
-      <OnboardingFlow initialBundle={initialBundle} initialSpecimen={specimen ?? null} />
+      <OnboardingFlow
+        initialBundle={initialBundle}
+        initialSpecimen={specimen ?? null}
+        advisorName={advisorName}
+      />
     </div>
   );
 }

@@ -37,6 +37,15 @@ const SPECIMENS: Record<string, string[]> = {
     "fixtures/ingestion-corpus/a6_a14/meeting_notes_06_sandeep_krishnan.md",
   ],
   iyengar_email: ["fixtures/ingestion-corpus/a1_a5/altformat_02_lalitha_iyengar.txt"],
+  /* The advisor-attested demo: the addendum note carries an unvalued
+   * possession mention (ancestral gold jewellery, never appraised) that
+   * exercises the Gate 2 attested-value path end to end. */
+  malhotra: [
+    "fixtures/ingestion-corpus/a1_a5/ecas_01_malhotras.pdf",
+    "fixtures/ingestion-corpus/a1_a5/altformat_01_malhotras.xlsx",
+    "fixtures/ingestion-corpus/a1_a5/meeting_notes_01_malhotras.md",
+    "fixtures/ingestion-corpus/a1_a5/meeting_notes_01_malhotras_addendum.md",
+  ],
 };
 
 async function parseOne(filePath: string): Promise<ParsedDocument> {
@@ -86,7 +95,16 @@ export async function computeWorkbench(
 }
 
 export type CommitResult =
-  | { ok: true; investorId: string; holdings: number; totalCr: number }
+  | {
+      ok: true;
+      investorId: string;
+      holdings: number;
+      totalCr: number;
+      /* The visible totals-tie exclusion (Gate 2 ruling): how many attested
+       * rows, totalling how much, sit outside the sourced tie. */
+      attestedCount: number;
+      attestedTotalCr: number;
+    }
   | { ok: false; error: string };
 
 export async function commitInvestor(
@@ -143,7 +161,23 @@ export async function commitInvestor(
           acceptedMismatches: Object.entries(inputs.resolutions)
             .filter(([, v]) => "acceptMismatch" in v)
             .map(([label, v]) => ({ label, note: (v as { acceptMismatch: string }).acceptMismatch })),
-          parkedRows: state.parked.map((p) => ({ label: p.rawLabel, provenance: p.provenance })),
+          attestedRows: state.rows
+            .filter((r) => r.attestation !== null)
+            .map((r) => ({
+              label: r.rawLabel,
+              valueInr: r.attestation?.valueInr,
+              basisNote: r.attestation?.basisNote,
+              attestedBy: r.attestation?.attestedBy,
+              attestedAt: r.attestation?.attestedAt,
+            })),
+          totalsTieNote:
+            state.attested.count > 0
+              ? "the totals tie covers sourced holdings only; " +
+                state.attested.count + " attested row" +
+                (state.attested.count === 1 ? "" : "s") + " totalling Rs " +
+                (state.attested.totalInr / 1e7).toFixed(2) +
+                " Cr excluded from the tie"
+              : "all holdings sourced; no attested values",
         },
       }),
     },
@@ -153,5 +187,7 @@ export async function commitInvestor(
     investorId: inputs.investorId,
     holdings: record.holdings.length,
     totalCr: record.totalLiquidAumCr,
+    attestedCount: state.attested.count,
+    attestedTotalCr: state.attested.totalInr / 1e7,
   };
 }

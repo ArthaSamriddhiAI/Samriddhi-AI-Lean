@@ -19,6 +19,17 @@ Samriddhi must accept any file format an investor's data arrives in: registrar s
 
 Offline corpus verification (`scripts/_verify-ingestion.ts`): all 8 synthetic statements pass the full gate against the snapshot and the generated structured truth (26 to 56 checks each); all 13 listings tie row-for-row with pinned total-tie truth; the one hard-prose email yields zero confident rows plus the explicit route-to-fallback warning, which is the designed behaviour, not a failure.
 
+## Amendment, 2026-06-10 (the Gate 2 ruling): the advisor_attested provenance kind
+
+The primary's ruling on the Package 07 Gate 2 question adds a third provenance kind beside exact and heuristic_sourced: **advisor_attested**, for a prose-mentioned holding with no parseable amount whose value is entered by the advisor. Its contract, encoded in the workbench core (`lib/onboarding/build-record.ts`) and the canonical shape (`db/fixtures/canonical-holdings.ts`, the optional `attestation` field):
+
+- The attestation captures who attested, when, and a REQUIRED one-line basis note; without the note there is no confirmation and the row keeps blocking the commit. The act of attesting is the row's confirmation.
+- It is permanent: an attested value is never promoted to exact, renders amber in the row, and is marked attested-not-sourced in the commit provenance.
+- It is excluded from the reconciliation gate's totals-tie arithmetic (a recollection must not make the books appear to tie), and the EXCLUSION IS VISIBLE, which is the point of the design, not a nicety: the totals tile carries a note naming the count and the rupee total excluded, and the commit summary and stored provenance repeat it. A green tie can never silently read as the whole portfolio.
+- The attested holding itself joins the canonical record and the derived book at its attested value; honesty lives in the marking and the tie exclusion, not in dropping the investor's real wealth.
+
+WA30 disposition: amends this ADR in place (the kind extends the envelope's confidence model this ADR defined; the behaviour was ruled by the primary at the Gate 2 stop and is verified by `scripts/_verify-onboarding.ts`).
+
 ## References
 
 WA16 (no fabrication; the gate's mandate); WA12 (the fallback's gate); ADR-0048 (the interim design this supersedes in substance); ADR-0050 (the sanitised-input requirement); ADR-0052 (the store the gate feeds); D3 (the no-parsing debt this closes); the Package 07 audit (B3).
