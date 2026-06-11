@@ -1,0 +1,407 @@
+/* Explorer surfaces (Package 10, RE1 + RE2). Page-scoped per the WA29
+ * single-writer flag: the case screen and app/globals.css are untouched;
+ * everything the explorer needs lives in this module. Functionality-first
+ * register per the ratified wireframes (no new aesthetic direction). */
+
+.page {
+  max-width: var(--container-app);
+  margin: 0 auto;
+  padding: 28px 28px 96px;
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  margin: 18px 0 30px;
+  border-bottom: 1px solid var(--color-rule);
+}
+.tab {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11.5px;
+  padding: 8px 16px;
+  color: var(--color-ink-3);
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+.tabActive {
+  composes: tab;
+  color: var(--color-ink-1);
+  background: #ffffff;
+  border-color: var(--color-rule);
+  position: relative;
+  top: 1px;
+}
+
+.section {
+  margin-bottom: 44px;
+}
+.secHead {
+  display: grid;
+  grid-template-columns: 30px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  border-top: 1px solid var(--color-rule);
+  padding-top: 16px;
+  margin-bottom: 14px;
+}
+.secNum {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 12px;
+  color: var(--color-ink-4);
+}
+.secTitle {
+  font-family: var(--font-source-serif-4), Georgia, serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+.secTitle em {
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-ink-4);
+  margin-left: 10px;
+}
+.secAside {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--color-ink-4);
+  text-align: right;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+.chip {
+  display: inline-block;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid var(--color-rule);
+  color: var(--color-ink-3);
+  background: #ffffff;
+  white-space: nowrap;
+}
+.chipReal {
+  composes: chip;
+  color: #3f5b47;
+  border-color: #9aa688;
+  background: #e8ede9;
+}
+.chipAmber {
+  composes: chip;
+  color: #8a6414;
+  border-color: #c28a1d;
+  background: #f6edd9;
+}
+.chipMuted {
+  composes: chip;
+  color: var(--color-ink-4);
+}
+
+.banner {
+  border: 1px solid #c28a1d;
+  background: #f6edd9;
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-size: 12.5px;
+  color: var(--color-ink-2);
+  margin: 12px 0 0;
+  line-height: 1.55;
+}
+.banner b {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8a6414;
+  display: block;
+  margin-bottom: 3px;
+  font-weight: 500;
+}
+
+.snapRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.snapCard {
+  display: block;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 9px 12px;
+  min-width: 104px;
+  text-decoration: none;
+  color: inherit;
+}
+.snapCardSel {
+  composes: snapCard;
+  border-color: var(--color-ink-1);
+  box-shadow: 0 1px 0 var(--color-rule);
+}
+.snapId {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+}
+.snapMeta {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  color: var(--color-ink-4);
+  margin: 2px 0 6px;
+  max-width: 150px;
+}
+
+.famRow {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 0 0 14px;
+}
+.fam {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  border: 1px solid var(--color-rule);
+  border-radius: 99px;
+  background: #ffffff;
+  padding: 5px 13px;
+  color: var(--color-ink-3);
+  text-decoration: none;
+}
+.famSel {
+  composes: fam;
+  color: var(--color-ink-1);
+  border-color: var(--color-ink-1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.table th {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: var(--color-ink-4);
+  text-align: left;
+  font-weight: 500;
+  padding: 7px 9px;
+  border-bottom: 1px solid var(--color-rule);
+  white-space: nowrap;
+}
+.table td {
+  padding: 6px 9px;
+  border-bottom: 1px solid var(--color-rule-faint);
+  vertical-align: top;
+}
+.r {
+  text-align: right !important;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.muted {
+  color: var(--color-ink-4);
+}
+.small {
+  font-size: 11px;
+}
+.mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+.srcNote {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--color-ink-4);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.filterForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 12px;
+}
+.filterInput {
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background: #ffffff;
+  min-width: 240px;
+}
+.btn {
+  border: 1px solid var(--color-rule);
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  background: #ffffff;
+  color: var(--color-ink-2);
+  cursor: pointer;
+}
+
+.capBar {
+  display: inline-flex;
+  height: 8px;
+  width: 84px;
+  border-radius: 2px;
+  overflow: hidden;
+  vertical-align: middle;
+  background: var(--color-paper-sunken);
+}
+.capSegL {
+  background: #3f5b47;
+  height: 8px;
+}
+.capSegM {
+  background: #9aa688;
+  height: 8px;
+}
+.capSegS {
+  background: #c5bfa8;
+  height: 8px;
+}
+
+/* nine-cell grid */
+.grid3 {
+  display: grid;
+  grid-template-columns: 110px repeat(3, 1fr);
+  gap: 10px;
+  align-items: stretch;
+}
+.gridAxis {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--color-ink-4);
+  align-self: center;
+}
+.cell {
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 11px 13px;
+  min-height: 118px;
+}
+.cellAnchor {
+  composes: cell;
+  border-color: #9aa688;
+  background: #fcfdfc;
+}
+.cellEmpty {
+  composes: cell;
+  background: transparent;
+  border-style: dashed;
+}
+.cellId {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--color-ink-4);
+  margin-bottom: 6px;
+}
+.cellNote {
+  font-size: 11.5px;
+  color: var(--color-ink-3);
+  line-height: 1.5;
+}
+.kv {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11.5px;
+  padding: 2px 0;
+  color: var(--color-ink-2);
+}
+.kv b {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-weight: 500;
+  font-size: 11px;
+  color: var(--color-ink-1);
+  white-space: nowrap;
+}
+
+/* mandates */
+.mandateGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.bandRow {
+  display: grid;
+  grid-template-columns: 86px 1fr 92px;
+  gap: 8px;
+  align-items: center;
+  font-size: 11px;
+  padding: 3px 0;
+}
+.bandTrack {
+  position: relative;
+  height: 6px;
+  background: var(--color-paper-sunken);
+  border-radius: 3px;
+}
+.bandFill {
+  position: absolute;
+  top: 0;
+  height: 6px;
+  background: #9aa688;
+  opacity: 0.55;
+  border-radius: 3px;
+}
+.bandTarget {
+  position: absolute;
+  top: -3px;
+  width: 2px;
+  height: 12px;
+  background: var(--color-ink-1);
+}
+.bandVal {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--color-ink-3);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* shortlists */
+.slGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.fundRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--color-rule-faint);
+}
+.fundRow:last-child {
+  border-bottom: none;
+}
+.fundMeta {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--color-ink-3);
+  white-space: nowrap;
+}
+
+.footer {
+  border-top: 1px solid var(--color-rule);
+  margin-top: 52px;
+  padding-top: 12px;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  color: var(--color-ink-4);
+  line-height: 1.7;
+}

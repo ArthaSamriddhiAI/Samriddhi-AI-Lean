@@ -23,9 +23,17 @@ async function main() {
   console.log("Probe: enriched fields reachable through loadSnapshot (t0)");
   const s0 = await loadSnapshot("t0_q2_2026");
 
-  /* Enrichment-only top-level blocks. */
+  /* Enrichment-only top-level blocks. The index set is the 40-series v2
+   * block: the 16 canonical ids plus the FIMMDA/G-Sec yield-to-TR grid
+   * (ADR-0041); the original 16-count assertion predated that expansion
+   * and had been failing against v2.0.0 t0 since the grid landed. */
   const idxKeys = s0.indices ? Object.keys(s0.indices) : [];
-  assert(idxKeys.length === 16, "indices has 16 canonical entries", `got ${idxKeys.length}`);
+  assert(idxKeys.length === 40, "indices has the 40-series v2 set (16 canonical + FIMMDA grid, ADR-0041)", `got ${idxKeys.length}`);
+  assert(
+    !!s0.indices?.["aaa_5y_tr"]?.monthly_values,
+    "indices.aaa_5y_tr.monthly_values present (FIMMDA grid reachable)",
+    "missing",
+  );
   assert(
     !!s0.indices?.["nifty_50_tri"]?.monthly_values,
     "indices.nifty_50_tri.monthly_values present",
