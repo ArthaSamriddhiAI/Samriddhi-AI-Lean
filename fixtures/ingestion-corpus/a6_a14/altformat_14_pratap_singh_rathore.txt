@@ -1,0 +1,28 @@
+Client: Pratap Singh Rathore
+Statement period: April 2025 - March 2026
+Prepared for advisor review
+
+NOTES BEFORE READING THIS:
+  - All Cr values; multiply by 1,00,00,000 for Rs
+  - Some folio numbers omitted; only consolidated by AMC
+  - PMS holdings shown at last reported NAV (Q4 statement)
+
+HOLDINGS:
+
+> HDFC Large Cap Fund - Growth Option                                     Rs   1.80 Cr  [equity/mf_active_large_cap]
+> Parag Parikh Flexi Cap Fund - Regular Plan - Growth                     Rs   1.50 Cr  [equity/mf_active_flexi_cap]
+> HDFC Mid Cap Fund - Growth Plan                                         Rs   1.20 Cr  [equity/mf_active_mid_cap]
+> Marcellus Consistent Compounder PMS                                     Rs   2.10 Cr  [equity/pms_growth_quality]
+> White Oak India Pioneers PMS                                            Rs   1.80 Cr  [equity/pms_concentrated_quality]
+> HDFC Bank                                                               Rs   1.00 Cr  [equity/listed_large_cap]
+> Bharti Airtel                                                           Rs   0.96 Cr  [equity/listed_large_cap]
+> NHAI Tax-Free Bonds 2031                                                Rs   1.30 Cr  [debt/tax_free_bond]
+> ICICI Prudential Corporate Bond Fund - Growth                           Rs   0.90 Cr  [debt/mf_corporate_debt]
+> Physical gold (family holdings)                                         Rs   0.74 Cr  [alternatives/physical_gold]
+> Edelweiss Crossover Opportunities Fund III (2022 vintage)               Rs   0.50 Cr  [alternatives/aif_cat_ii_pe]
+> Bank savings                                                            Rs   1.00 Cr  [cash/savings]
+
+TOTAL: Rs 14.80 Cr
+
+NOTE: PMS values are quarterly statements; current month-end values may
+vary by 2-4% pending Q1 reporting cycle.

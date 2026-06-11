@@ -20,6 +20,7 @@ import { createHash } from "node:crypto";
 import {
   copyFileSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -63,6 +64,31 @@ function humanSize(bytes: number): string {
   if (bytes >= 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + " MB";
   if (bytes >= 1024) return (bytes / 1024).toFixed(1) + " KB";
   return bytes + " B";
+}
+
+function isSymlink(p: string): boolean {
+  try {
+    return lstatSync(p).isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+/* Refuse to place assets through symlinks (data repo ADR-0003, ADR-0027
+ * amendment). A symlink at any path component of a target redirects the copy
+ * outside this working tree; on 2026-06-09 exactly that overwrote the data
+ * repo clone's real t0 with the synthetic release blob. The sibling-clone
+ * symlink remains a documented read-only dev override; setup-data refuses to
+ * write through it rather than silently following it. */
+function symlinkInTargetPath(targetAbs: string): string | null {
+  const rel = path.relative(ROOT, targetAbs);
+  if (rel.startsWith("..")) return null;
+  let cur = ROOT;
+  for (const seg of rel.split(path.sep)) {
+    cur = path.join(cur, seg);
+    if (isSymlink(cur)) return cur;
+  }
+  return null;
 }
 
 function main(): void {
@@ -169,6 +195,28 @@ function main(): void {
     }
   }
 
+  // 7.5 refuse to write through symlinks, before placing anything (ADR-0003)
+  for (const asset of manifest.assets) {
+    const dest = path.resolve(ROOT, asset.target_path);
+    const link = symlinkInTargetPath(dest);
+    if (link) {
+      rmSync(tmp, { recursive: true, force: true });
+      fail(
+        "refusing to place " +
+          asset.target_path +
+          " because " +
+          path.relative(ROOT, link) +
+          " is a symbolic link. Writing through it would modify whatever the " +
+          "link points at (on 2026-06-09 this overwrote the data repo clone's " +
+          "real t0 with the synthetic release blob; see the data repo's " +
+          "ADR-0003 and this repo's ADR-0027 amendment). Either keep the link " +
+          "as your dev override and do NOT run setup-data (the linked clone " +
+          "serves the data), or remove the link and re-run setup-data to " +
+          "fetch real copies.",
+      );
+    }
+  }
+
   // 8. place each asset at its target path (relative to repo root)
   let totalBytes = 0;
   for (const asset of manifest.assets) {
@@ -193,6 +241,17 @@ function main(): void {
   console.log(
     "Next: run `npm run db:push` (first time) then `npm run db:seed`.",
   );
+
+  if (manifest.version === "v1.0.0-frozen") {
+    console.warn(
+      "\nWARNING: v1.0.0-frozen's snapshot_t0_q2_2026.json is the synthetic " +
+        "ADR-0014-era series, superseded by the real t0 (ADR-0042). No " +
+        "v2.0.0 release has been published yet, so this is the only fetchable " +
+        "version; the real t0 exists on the data repo's main branch. See the " +
+        "ADR-0027 amendment and the data repo's ADR-0003 before doing any " +
+        "data-sensitive work against this t0.",
+    );
+  }
 }
 
 main();

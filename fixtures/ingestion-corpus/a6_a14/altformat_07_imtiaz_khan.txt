@@ -1,0 +1,24 @@
+PORTFOLIO HOLDINGS
+Investor: Imtiaz Khan
+As of: 31-Mar-2026
+==========================================================================================
+
+Asset Class     Sub-Category                 Instrument                                                  Value (INR)
+-------------------------------------------------------------------------------------------------------------------
+equity          listed_large_cap             Tata Consultancy Services (TCS)                           25,000,000.00
+equity          listed_large_cap             Infosys Limited                                           21,000,000.00
+equity          listed_large_cap             HCL Technologies                                          13,000,000.00
+equity          listed_large_cap             Tech Mahindra                                              6,500,000.00
+equity          mf_active_large_cap          SBI Large Cap FUND-REGULAR PLAN GROWTH                    18,500,000.00
+equity          mf_active_flexi_cap          HDFC Flexi Cap Fund - Growth Plan                         16,500,000.00
+equity          mf_active_mid_cap            HDFC Mid Cap Fund - Growth Plan                           12,500,000.00
+equity          mf_passive_index             UTI Nifty 50 Index Fund - Growth                           7,000,000.00
+debt            mf_corporate_debt            ICICI Prudential Corporate Bond Fund - Growth             18,000,000.00
+debt            bank_fd                      ICICI Bank FD                                             20,000,000.00
+debt            tax_free_bond                PFC Tax-Free Bonds 2032                                   17,000,000.00
+alternatives    physical_gold                Physical gold                                              6,500,000.00
+cash            savings                      Bank savings                                               2,500,000.00
+-------------------------------------------------------------------------------------------------------------------
+TOTAL                                                                                                 184,000,000.00
+
+* Values as of 31-Mar-2026 NAV/CMP. Source: composite from advisor records.

@@ -1,0 +1,816 @@
+{
+  "rows": [
+    {
+      "holding_id": "holding_arch01_001",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_fd_hdfc",
+      "instrument_display_name": "HDFC Bank Fixed Deposit",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 9000000,
+      "cost_basis_total_inr": 9000000,
+      "purchase_date": "2024-06-15",
+      "current_market_value_inr": 9300000,
+      "vehicle_specific_attributes": {
+        "maturity": "2026-06-15",
+        "interest_rate": 7.0
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch01_002",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_fd_sbi",
+      "instrument_display_name": "SBI Fixed Deposit",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 9000000,
+      "cost_basis_total_inr": 9000000,
+      "purchase_date": "2024-09-01",
+      "current_market_value_inr": 9200000,
+      "vehicle_specific_attributes": {
+        "maturity": "2026-09-01",
+        "interest_rate": 6.8
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch01_003",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_mf_axis_bluechip",
+      "instrument_display_name": "Axis Bluechip Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 25000,
+      "cost_basis_per_unit_inr": 80,
+      "cost_basis_total_inr": 2000000,
+      "purchase_date": "2008-04-15",
+      "current_market_value_inr": 4000000,
+      "vehicle_specific_attributes": {
+        "sip_active": false,
+        "growth_option": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch01_004",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_mf_hdfc_index_nifty",
+      "instrument_display_name": "HDFC Index Fund Nifty 50 Plan (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_passive_index",
+      "quantity": 18000,
+      "cost_basis_per_unit_inr": 100,
+      "cost_basis_total_inr": 1800000,
+      "purchase_date": "2010-06-20",
+      "current_market_value_inr": 4800000,
+      "vehicle_specific_attributes": {
+        "sip_active": false
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch01_005",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_mf_icici_balanced_advantage",
+      "instrument_display_name": "ICICI Pru Balanced Advantage Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_hybrid_dynamic_aa",
+      "quantity": 22000,
+      "cost_basis_per_unit_inr": 65,
+      "cost_basis_total_inr": 1430000,
+      "purchase_date": "2012-08-10",
+      "current_market_value_inr": 3300000,
+      "vehicle_specific_attributes": {
+        "sip_active": false
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch01_006",
+      "investor_id": "investor_archetype_01",
+      "instrument_id": "instr_mf_franklin_corporate_debt",
+      "instrument_display_name": "Franklin India Corporate Debt Fund (Direct, Growth)",
+      "asset_class": "debt",
+      "sub_category": "mf_corporate_debt",
+      "quantity": 15000,
+      "cost_basis_per_unit_inr": 200,
+      "cost_basis_total_inr": 3000000,
+      "purchase_date": "2015-03-12",
+      "current_market_value_inr": 3500000,
+      "vehicle_specific_attributes": {
+        "sip_active": false
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_01",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_001",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_mf_mirae_largecap",
+      "instrument_display_name": "Mirae Asset Large Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 80000,
+      "cost_basis_per_unit_inr": 65,
+      "cost_basis_total_inr": 5200000,
+      "purchase_date": "2014-03-15",
+      "current_market_value_inr": 18500000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 200000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_002",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_mf_parag_flexicap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "quantity": 70000,
+      "cost_basis_per_unit_inr": 55,
+      "cost_basis_total_inr": 3850000,
+      "purchase_date": "2015-11-10",
+      "current_market_value_inr": 16800000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 150000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_003",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_mf_kotak_emerging",
+      "instrument_display_name": "Kotak Emerging Equity Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "quantity": 35000,
+      "cost_basis_per_unit_inr": 80,
+      "cost_basis_total_inr": 2800000,
+      "purchase_date": "2017-04-01",
+      "current_market_value_inr": 12500000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 100000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_004",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_mf_axis_bluechip",
+      "instrument_display_name": "Axis Bluechip Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 28000,
+      "cost_basis_per_unit_inr": 70,
+      "cost_basis_total_inr": 1960000,
+      "purchase_date": "2013-06-20",
+      "current_market_value_inr": 14000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 100000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_005",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_bond_tax_free_nhai",
+      "instrument_display_name": "NHAI Tax-Free Bonds 2032",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "quantity": 20,
+      "cost_basis_per_unit_inr": 1000000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2017-09-15",
+      "current_market_value_inr": 21500000,
+      "vehicle_specific_attributes": {
+        "yield": 7.39,
+        "maturity": "2032-09-15"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_006",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_bond_pfc_tax_free",
+      "instrument_display_name": "PFC Tax-Free Bonds 2031",
+      "asset_class": "debt",
+      "sub_category": "tax_free_bond",
+      "quantity": 10,
+      "cost_basis_per_unit_inr": 1000000,
+      "cost_basis_total_inr": 10000000,
+      "purchase_date": "2018-03-20",
+      "current_market_value_inr": 9700000,
+      "vehicle_specific_attributes": {
+        "yield": 7.51,
+        "maturity": "2031-03-20"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_007",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_fd_hdfc",
+      "instrument_display_name": "HDFC Bank Fixed Deposit",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 15000000,
+      "cost_basis_total_inr": 15000000,
+      "purchase_date": "2024-04-01",
+      "current_market_value_inr": 15500000,
+      "vehicle_specific_attributes": {
+        "maturity": "2027-04-01",
+        "interest_rate": 7.2
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch03_008",
+      "investor_id": "investor_archetype_03",
+      "instrument_id": "instr_alt_physical_gold",
+      "instrument_display_name": "Physical Gold (jewellery/bullion)",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "quantity": 2500,
+      "cost_basis_per_unit_inr": 4000,
+      "cost_basis_total_inr": 10000000,
+      "purchase_date": "2010-01-01",
+      "current_market_value_inr": 10000000,
+      "vehicle_specific_attributes": {
+        "purity": "22k",
+        "purpose": "jewellery"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_03",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch05_001",
+      "investor_id": "investor_archetype_05",
+      "instrument_id": "instr_cash_savings",
+      "instrument_display_name": "Bank Savings Account",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 520000000,
+      "cost_basis_total_inr": 520000000,
+      "purchase_date": "2025-11-15",
+      "current_market_value_inr": 525000000,
+      "vehicle_specific_attributes": {
+        "recent_liquidity_event": true,
+        "needs_deployment": true,
+        "currency": "INR_NRE_RESIDENT_MID_CONVERSION"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_05",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch05_002",
+      "investor_id": "investor_archetype_05",
+      "instrument_id": "instr_fd_hdfc",
+      "instrument_display_name": "HDFC Bank Fixed Deposit",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 40000000,
+      "cost_basis_total_inr": 40000000,
+      "purchase_date": "2024-04-01",
+      "current_market_value_inr": 41500000,
+      "vehicle_specific_attributes": {
+        "maturity": "2026-04-01",
+        "interest_rate": 6.5,
+        "account_type": "NRE"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_05",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch05_003",
+      "investor_id": "investor_archetype_05",
+      "instrument_id": "instr_intl_us_individual",
+      "instrument_display_name": "US Listed Equities (mixed, legacy holding)",
+      "asset_class": "equity",
+      "sub_category": "intl_us_individual",
+      "quantity": 1500,
+      "cost_basis_per_unit_inr": 25000,
+      "cost_basis_total_inr": 37500000,
+      "purchase_date": "2017-08-15",
+      "current_market_value_inr": 40000000,
+      "vehicle_specific_attributes": {
+        "held_via": "us_brokerage_legacy",
+        "needs_gift_city_routing_review": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_05",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_001",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_pms_marcellus_consistent",
+      "instrument_display_name": "Marcellus Consistent Compounder PMS",
+      "asset_class": "equity",
+      "sub_category": "pms_concentrated_quality",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 20000000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2019-06-15",
+      "current_market_value_inr": 25000000,
+      "vehicle_specific_attributes": {
+        "pms_inception": "2019-06-15",
+        "current_aum_in_strategy": 25000000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_002",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_pms_motilal_focused25",
+      "instrument_display_name": "Motilal Oswal Value Strategy PMS",
+      "asset_class": "equity",
+      "sub_category": "pms_value",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 20000000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2020-09-10",
+      "current_market_value_inr": 21000000,
+      "vehicle_specific_attributes": {
+        "pms_inception": "2020-09-10"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_003",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_pms_white_oak_quality",
+      "instrument_display_name": "White Oak India Pioneers Equity Strategy",
+      "asset_class": "equity",
+      "sub_category": "pms_growth_quality",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 20000000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2021-04-20",
+      "current_market_value_inr": 22000000,
+      "vehicle_specific_attributes": {
+        "pms_inception": "2021-04-20"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_004",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_pms_alchemy_smartalpha",
+      "instrument_display_name": "Alchemy Smart Alpha 250 PMS",
+      "asset_class": "equity",
+      "sub_category": "pms_focused_midcap",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 20000000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2022-11-15",
+      "current_market_value_inr": 19000000,
+      "vehicle_specific_attributes": {
+        "pms_inception": "2022-11-15"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_005",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_aif_avendus_absolute_return",
+      "instrument_display_name": "Avendus Absolute Return Fund",
+      "asset_class": "alternatives",
+      "sub_category": "aif_cat_iii_long_short",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 30000000,
+      "cost_basis_total_inr": 30000000,
+      "purchase_date": "2018-08-01",
+      "current_market_value_inr": 30000000,
+      "vehicle_specific_attributes": {
+        "vintage_year": 2018,
+        "j_curve_stage": "wind_down",
+        "cagr_to_date": 8.2,
+        "fund_status": "wind_down"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_006",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_eq_itc",
+      "instrument_display_name": "ITC Limited",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "quantity": 30000,
+      "cost_basis_per_unit_inr": 200,
+      "cost_basis_total_inr": 6000000,
+      "purchase_date": "2015-04-20",
+      "current_market_value_inr": 11000000,
+      "vehicle_specific_attributes": {
+        "long_held": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_007",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_eq_hdfcbank",
+      "instrument_display_name": "HDFC Bank",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "quantity": 20000,
+      "cost_basis_per_unit_inr": 700,
+      "cost_basis_total_inr": 14000000,
+      "purchase_date": "2015-09-15",
+      "current_market_value_inr": 25000000,
+      "vehicle_specific_attributes": {
+        "long_held": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_008",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_eq_reliance",
+      "instrument_display_name": "Reliance Industries",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "quantity": 12000,
+      "cost_basis_per_unit_inr": 900,
+      "cost_basis_total_inr": 10800000,
+      "purchase_date": "2016-06-10",
+      "current_market_value_inr": 27000000,
+      "vehicle_specific_attributes": {
+        "long_held": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_009",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_mf_mirae_largecap",
+      "instrument_display_name": "Mirae Asset Large Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 25000,
+      "cost_basis_per_unit_inr": 80,
+      "cost_basis_total_inr": 2000000,
+      "purchase_date": "2014-03-15",
+      "current_market_value_inr": 5000000,
+      "vehicle_specific_attributes": {
+        "sip_active": false
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_010",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_mf_parag_flexicap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "quantity": 22000,
+      "cost_basis_per_unit_inr": 70,
+      "cost_basis_total_inr": 1540000,
+      "purchase_date": "2015-08-20",
+      "current_market_value_inr": 4500000,
+      "vehicle_specific_attributes": {
+        "sip_active": false
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_011",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_fd_hdfc",
+      "instrument_display_name": "HDFC Bank Fixed Deposit",
+      "asset_class": "debt",
+      "sub_category": "bank_fd",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 15000000,
+      "cost_basis_total_inr": 15000000,
+      "purchase_date": "2024-09-15",
+      "current_market_value_inr": 15500000,
+      "vehicle_specific_attributes": {
+        "maturity": "2026-09-15",
+        "interest_rate": 6.9
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch08_012",
+      "investor_id": "investor_archetype_08",
+      "instrument_id": "instr_mf_aditya_arbitrage",
+      "instrument_display_name": "Aditya Birla Sun Life Arbitrage Fund (Direct, Growth)",
+      "asset_class": "debt",
+      "sub_category": "mf_arbitrage",
+      "quantity": 30000,
+      "cost_basis_per_unit_inr": 500,
+      "cost_basis_total_inr": 15000000,
+      "purchase_date": "2024-04-01",
+      "current_market_value_inr": 16000000,
+      "vehicle_specific_attributes": {},
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_08",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_001",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_unlisted_b2b_saas",
+      "instrument_display_name": "B2B SaaS Pvt Ltd (founder shares)",
+      "asset_class": "equity",
+      "sub_category": "unlisted_pre_ipo",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 0,
+      "cost_basis_total_inr": 0,
+      "purchase_date": "2018-06-15",
+      "current_market_value_inr": 1650000000,
+      "vehicle_specific_attributes": {
+        "founder_stake": true,
+        "stake_pct": 26,
+        "valuation_reference": 1650000000,
+        "secondary_available_inr": 140000000,
+        "not_in_corpus": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1,
+      "advisory_scope": false
+    },
+    {
+      "holding_id": "holding_arch09_002",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_mf_mirae_largecap",
+      "instrument_display_name": "Mirae Asset Large Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 80000,
+      "cost_basis_per_unit_inr": 60,
+      "cost_basis_total_inr": 4800000,
+      "purchase_date": "2010-04-15",
+      "current_market_value_inr": 30000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 200000,
+        "long_term_holding": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_003",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_mf_parag_flexicap",
+      "instrument_display_name": "Parag Parikh Flexi Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_flexi_cap",
+      "quantity": 100000,
+      "cost_basis_per_unit_inr": 50,
+      "cost_basis_total_inr": 5000000,
+      "purchase_date": "2012-06-20",
+      "current_market_value_inr": 40000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 200000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_004",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_mf_axis_bluechip",
+      "instrument_display_name": "Axis Bluechip Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_large_cap",
+      "quantity": 90000,
+      "cost_basis_per_unit_inr": 65,
+      "cost_basis_total_inr": 5850000,
+      "purchase_date": "2013-09-15",
+      "current_market_value_inr": 38000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 150000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_005",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_mf_kotak_emerging",
+      "instrument_display_name": "Kotak Emerging Equity Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_mid_cap",
+      "quantity": 60000,
+      "cost_basis_per_unit_inr": 90,
+      "cost_basis_total_inr": 5400000,
+      "purchase_date": "2018-08-15",
+      "current_market_value_inr": 30000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 100000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_006",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_mf_sbi_smallcap",
+      "instrument_display_name": "SBI Small Cap Fund (Direct, Growth)",
+      "asset_class": "equity",
+      "sub_category": "mf_active_small_cap",
+      "quantity": 35000,
+      "cost_basis_per_unit_inr": 110,
+      "cost_basis_total_inr": 3850000,
+      "purchase_date": "2019-05-10",
+      "current_market_value_inr": 22000000,
+      "vehicle_specific_attributes": {
+        "sip_active": true,
+        "sip_amount": 50000
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_007",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_pms_white_oak_quality",
+      "instrument_display_name": "White Oak India Pioneers Equity Strategy",
+      "asset_class": "equity",
+      "sub_category": "pms_growth_quality",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 25000000,
+      "cost_basis_total_inr": 25000000,
+      "purchase_date": "2021-04-15",
+      "current_market_value_inr": 30000000,
+      "vehicle_specific_attributes": {
+        "pms_inception": "2021-04-15",
+        "monitored_carefully": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_008",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_eq_reliance",
+      "instrument_display_name": "Reliance Industries",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "quantity": 25000,
+      "cost_basis_per_unit_inr": 1100,
+      "cost_basis_total_inr": 27500000,
+      "purchase_date": "2014-06-20",
+      "current_market_value_inr": 70000000,
+      "vehicle_specific_attributes": {
+        "long_held": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_009",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_eq_hdfcbank",
+      "instrument_display_name": "HDFC Bank",
+      "asset_class": "equity",
+      "sub_category": "listed_large_cap",
+      "quantity": 12000,
+      "cost_basis_per_unit_inr": 700,
+      "cost_basis_total_inr": 8400000,
+      "purchase_date": "2014-09-10",
+      "current_market_value_inr": 20000000,
+      "vehicle_specific_attributes": {
+        "long_held": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_010",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_intl_us_etf_voo",
+      "instrument_display_name": "Vanguard S&P 500 ETF (held via GIFT/US brokerage)",
+      "asset_class": "equity",
+      "sub_category": "intl_us_etf",
+      "quantity": 800,
+      "cost_basis_per_unit_inr": 35000,
+      "cost_basis_total_inr": 28000000,
+      "purchase_date": "2022-04-01",
+      "current_market_value_inr": 30000000,
+      "vehicle_specific_attributes": {
+        "held_via": "gift_city"
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_011",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_alt_physical_gold",
+      "instrument_display_name": "Physical Gold (jewellery/bullion)",
+      "asset_class": "alternatives",
+      "sub_category": "physical_gold",
+      "quantity": 4000,
+      "cost_basis_per_unit_inr": 5000,
+      "cost_basis_total_inr": 20000000,
+      "purchase_date": "2010-01-01",
+      "current_market_value_inr": 20000000,
+      "vehicle_specific_attributes": {},
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    },
+    {
+      "holding_id": "holding_arch09_012",
+      "investor_id": "investor_archetype_09",
+      "instrument_id": "instr_cash_savings",
+      "instrument_display_name": "Bank Savings Account",
+      "asset_class": "cash",
+      "sub_category": "savings",
+      "quantity": 1,
+      "cost_basis_per_unit_inr": 15000000,
+      "cost_basis_total_inr": 15000000,
+      "purchase_date": "2024-12-01",
+      "current_market_value_inr": 15000000,
+      "vehicle_specific_attributes": {
+        "liquid_reserves": true
+      },
+      "is_seed_data": true,
+      "seed_archetype_id": "investor_archetype_09",
+      "schema_version": 1
+    }
+  ],
+  "metadata": {
+    "description": "Foundation A1-A5 holdings, extracted from /mnt/project/holdings.json",
+    "note": "Used as input to ingestion artifact generators. Original investor_archetype_NN IDs preserved."
+  }
+}

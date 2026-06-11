@@ -60,3 +60,15 @@ Future workstreams classify new artifacts by this principle: if an artifact is s
 ## Related debt
 - (Public repo) Cross-reference debt entry P29 pointing to the private repo's debt log.
 - (Private repo) DM1 (refresh cadence frozen for lean build), DM2 (assembly methodology not documented in reproducible form).
+
+## Amendment, 2026-06-10 (Package 07): symlink guard, dev override, and the v2.0.0 release gap
+
+WA30 disposition: amends this ADR in place; the producer-side record is the data repo's ADR-0003.
+
+1. **Incident.** On the development machine, `fixtures/snapshots/enriched` was an untracked symlink into the data repo clone's `snapshots/` directory, and `scripts/setup-data.ts` placed release assets with a plain copy that wrote through it. A 2026-06-09 run, pinned to `v1.0.0-frozen`, silently overwrote the data repo clone's real t0 (ADR-0042) with the synthetic blob. Detected by the Package 07 audit (`docs/audits/2026-06-10_package_07_onboarding_data_audit.md`); restored and recorded in the data repo's ADR-0003.
+
+2. **Guard.** `setup-data` now refuses to place any asset whose target path contains a symbolic link, before placing anything, with remediation in the error message. The fail-safe posture of the original decision (verify everything before placing anything) extends to the write path.
+
+3. **Dev override.** The sibling-clone symlink is a documented, read-only-in-spirit dev override for serving unreleased data versions to this repo. Expectations: nothing writes through it (the guard closes the known writer), and the data repo clone sits on canonical `main` with a clean, hash-verified working tree before data-sensitive work.
+
+4. **Release gap and the pin.** No v2.0.0 release or tag exists on the data repo remote (API-verified 2026-06-10, drafts included), so this flow currently cannot serve the real t0; `data-version.txt` intentionally stays at `v1.0.0-frozen`, and `setup-data` warns after a v1.0.0-frozen fetch that its t0 is the superseded synthetic series. The standing recommendation is to publish v2.0.0 at data repo commit df819b1 per its committed `manifest.json`; publication is a deliberate human action, not auto-cut by a workstream.

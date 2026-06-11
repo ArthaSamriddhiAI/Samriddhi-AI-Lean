@@ -40,7 +40,8 @@ export default async function InvestorsPage() {
           <div className="eyebrow mb-2">Workspace</div>
           <h1>Investors</h1>
           <p className="page-lede mt-1.5">
-            Six pre-seeded demo profiles. The MVP does not onboard live.
+            Six pre-seeded demo profiles, plus investors onboarded through the
+            reconciliation workbench.
           </p>
         </div>
         <div className="flex gap-2.5 shrink-0">
@@ -48,6 +49,9 @@ export default async function InvestorsPage() {
             <Search size={13} />
             Search
           </button>
+          <a href="/investors/onboard" className="btn btn-secondary">
+            Add investor
+          </a>
         </div>
       </div>
 

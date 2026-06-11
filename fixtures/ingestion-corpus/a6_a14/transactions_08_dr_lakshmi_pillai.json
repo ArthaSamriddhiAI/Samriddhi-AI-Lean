@@ -1,0 +1,1519 @@
+{
+ "batch": "extended",
+ "archetype_id": "investor_archetype_08",
+ "slug": "08_dr_lakshmi_pillai",
+ "investor_name": "Dr. Lakshmi Pillai",
+ "statement_date": "2026-04-02",
+ "anchor_month": "2026-03",
+ "nav_basis": "snapshot monthly_nav (real t0); closing units tie to the anchor-month grid point",
+ "folios": [
+  {
+   "fund_name": "HDFC Liquid Fund - Growth Plan",
+   "resolved_fund_name": "HDFC Liquid Fund - Growth Plan",
+   "amfi_code": 100868,
+   "sub_category": "mf_short_term_debt",
+   "isin": "INF073K01836",
+   "folio_no": "93914847",
+   "registrar": "CAMS",
+   "advisor": "DIRECT",
+   "anchor_month": "2026-03",
+   "closing_nav": 5348.4712,
+   "closing_units": 1028.3312360361967,
+   "market_value_inr": 5500000.0,
+   "invested_cost_inr": 4026497.3848975766,
+   "transactions": [
+    {
+     "date": "2020-05-24",
+     "type": "Purchase-BSE -",
+     "amount_inr": 4026497.3848975766,
+     "units": 1028.3312360361967,
+     "nav": 3915.5646,
+     "unit_balance": 1028.3312360361967
+    },
+    {
+     "date": "2020-05-24",
+     "type": "*** Stamp Duty ***",
+     "amount_inr": 201.32,
+     "units": null,
+     "nav": null,
+     "unit_balance": null
+    },
+    {
+     "date": "2020-05-25",
+     "type": "***Address Updated from KRA Data***",
+     "amount_inr": null,
+     "units": null,
+     "nav": null,
+     "unit_balance": null
+    }
+   ]
+  },
+  {
+   "fund_name": "HDFC Large Cap Fund - Growth Option - Regular Plan (inherited)",
+   "resolved_fund_name": "HDFC Large Cap Fund - Growth Option - Regular Plan",
+   "amfi_code": 102000,
+   "sub_category": "mf_active_large_cap",
+   "isin": "INF352K01129",
+   "folio_no": "48344839",
+   "registrar": "CAMS",
+   "advisor": "ARN-0845",
+   "anchor_month": "2026-03",
+   "closing_nav": 1019.47,
+   "closing_units": 8337.665649798424,
+   "market_value_inr": 8500000.0,
+   "invested_cost_inr": 6073267.669986831,
+   "transactions": [
+    {
+     "date": "2019-03-05",
+     "type": "Purchase-BSE -",
+     "amount_inr": 416624.91523169726,
+     "units": 828.7695025327027,
+     "nav": 502.703,
+     "unit_balance": 828.7695025327027
+    },
+    {
+     "date": "2019-05-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 38174.50054742056,
+     "units": 74.01745137648193,
+     "nav": 515.75,
+     "unit_balance": 902.7869539091846
+    },
+    {
+     "date": "2019-06-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34480.32785105608,
+     "units": 66.78209035069187,
+     "nav": 516.311,
+     "unit_balance": 969.5690442598765
+    },
+    {
+     "date": "2019-07-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 33562.98952114616,
+     "units": 70.00004071392465,
+     "nav": 479.471,
+     "unit_balance": 1039.5690849738012
+    },
+    {
+     "date": "2019-08-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34582.881818265785,
+     "units": 74.60700146756393,
+     "nav": 463.534,
+     "unit_balance": 1114.1760864413652
+    },
+    {
+     "date": "2019-09-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 33111.04691333423,
+     "units": 69.3602279814617,
+     "nav": 477.378,
+     "unit_balance": 1183.5363144228268
+    },
+    {
+     "date": "2019-10-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34291.32699548858,
+     "units": 69.04553525935587,
+     "nav": 496.648,
+     "unit_balance": 1252.5818496821828
+    },
+    {
+     "date": "2019-11-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 33811.50645986852,
+     "units": 67.42196063312906,
+     "nav": 501.491,
+     "unit_balance": 1320.003810315312
+    },
+    {
+     "date": "2019-12-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 36625.60821308236,
+     "units": 73.22163488567091,
+     "nav": 500.202,
+     "unit_balance": 1393.2254452009827
+    },
+    {
+     "date": "2020-01-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34307.977031680515,
+     "units": 70.54769093658665,
+     "nav": 486.309,
+     "unit_balance": 1463.7731361375695
+    },
+    {
+     "date": "2020-02-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 33910.65055838543,
+     "units": 75.78882914737625,
+     "nav": 447.436,
+     "unit_balance": 1539.5619652849457
+    },
+    {
+     "date": "2020-03-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 22049.376453958685,
+     "units": 63.953130032887294,
+     "nav": 344.774,
+     "unit_balance": 1603.515095317833
+    },
+    {
+     "date": "2020-04-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 25664.301287421258,
+     "units": 65.6587577772409,
+     "nav": 390.874,
+     "unit_balance": 1669.1738530950738
+    },
+    {
+     "date": "2020-05-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 24831.903680089777,
+     "units": 65.73164507127161,
+     "nav": 377.777,
+     "unit_balance": 1734.9054981663455
+    },
+    {
+     "date": "2020-06-02",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28397.337217250497,
+     "units": 70.40074477399116,
+     "nav": 403.367,
+     "unit_balance": 1805.3062429403367
+    },
+    {
+     "date": "2020-07-02",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28517.38299445967,
+     "units": 67.05255125090741,
+     "nav": 425.299,
+     "unit_balance": 1872.3587941912442
+    },
+    {
+     "date": "2020-08-01",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 27575.06946658109,
+     "units": 62.39734043536849,
+     "nav": 441.927,
+     "unit_balance": 1934.7561346266127
+    },
+    {
+     "date": "2020-08-31",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 27968.889154981094,
+     "units": 63.288482385057016,
+     "nav": 441.927,
+     "unit_balance": 1998.0446170116695
+    },
+    {
+     "date": "2020-09-30",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 30113.106371266138,
+     "units": 71.33389958205191,
+     "nav": 422.143,
+     "unit_balance": 2069.3785165937215
+    },
+    {
+     "date": "2020-10-30",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 26950.92490987521,
+     "units": 62.24332705118839,
+     "nav": 432.993,
+     "unit_balance": 2131.6218436449103
+    },
+    {
+     "date": "2020-11-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34221.65599523367,
+     "units": 69.84453301174904,
+     "nav": 489.969,
+     "unit_balance": 2201.466376656659
+    },
+    {
+     "date": "2020-12-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 38729.16274334554,
+     "units": 73.10603103505039,
+     "nav": 529.767,
+     "unit_balance": 2274.5724076917095
+    },
+    {
+     "date": "2021-01-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 37748.10996532175,
+     "units": 71.32067943258347,
+     "nav": 529.273,
+     "unit_balance": 2345.8930871242933
+    },
+    {
+     "date": "2021-02-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41293.19150621731,
+     "units": 70.67194170437709,
+     "nav": 584.294,
+     "unit_balance": 2416.5650288286706
+    },
+    {
+     "date": "2021-03-04",
+     "type": "Purchase-BSE -",
+     "amount_inr": 475930.8320634349,
+     "units": 828.7695025327027,
+     "nav": 574.262,
+     "unit_balance": 3245.334531361373
+    },
+    {
+     "date": "2021-03-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 37492.783713853096,
+     "units": 65.28863778876732,
+     "nav": 574.262,
+     "unit_balance": 3310.6231691501403
+    },
+    {
+     "date": "2021-04-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 39661.37780208116,
+     "units": 69.47301104432063,
+     "nav": 570.889,
+     "unit_balance": 3380.096180194461
+    },
+    {
+     "date": "2021-05-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 40215.38932312352,
+     "units": 64.97944611375053,
+     "nav": 618.894,
+     "unit_balance": 3445.0756263082117
+    },
+    {
+     "date": "2021-06-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 46291.41833922879,
+     "units": 74.09341717081746,
+     "nav": 624.771,
+     "unit_balance": 3519.169043479029
+    },
+    {
+     "date": "2021-07-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 45088.855392003905,
+     "units": 71.97955242237362,
+     "nav": 626.412,
+     "unit_balance": 3591.1485959014026
+    },
+    {
+     "date": "2021-08-26",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 47775.36694004564,
+     "units": 72.2274719899338,
+     "nav": 661.457,
+     "unit_balance": 3663.3760678913363
+    },
+    {
+     "date": "2021-09-25",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 50665.191563649314,
+     "units": 73.19370009787436,
+     "nav": 692.207,
+     "unit_balance": 3736.5697679892105
+    },
+    {
+     "date": "2021-10-25",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 49459.34264624369,
+     "units": 70.96846502646459,
+     "nav": 696.92,
+     "unit_balance": 3807.538233015675
+    },
+    {
+     "date": "2021-11-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 49764.28494945223,
+     "units": 74.65602072284122,
+     "nav": 666.581,
+     "unit_balance": 3882.194253738516
+    },
+    {
+     "date": "2021-12-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 45854.1292803443,
+     "units": 67.33896170813252,
+     "nav": 680.945,
+     "unit_balance": 3949.5332154466487
+    },
+    {
+     "date": "2022-01-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 51113.00216739611,
+     "units": 73.327071992018,
+     "nav": 697.055,
+     "unit_balance": 4022.860287438667
+    },
+    {
+     "date": "2022-02-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 46983.588467858084,
+     "units": 70.48190227774782,
+     "nav": 666.605,
+     "unit_balance": 4093.3421897164144
+    },
+    {
+     "date": "2022-03-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 51949.130155667815,
+     "units": 74.85789033483842,
+     "nav": 693.97,
+     "unit_balance": 4168.200080051252
+    },
+    {
+     "date": "2022-04-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 47254.928852735284,
+     "units": 68.60750560814795,
+     "nav": 688.772,
+     "unit_balance": 4236.8075856594005
+    },
+    {
+     "date": "2022-05-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 45248.29412520326,
+     "units": 66.97547217667872,
+     "nav": 675.595,
+     "unit_balance": 4303.783057836079
+    },
+    {
+     "date": "2022-06-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 43209.45901421792,
+     "units": 66.50156600639002,
+     "nav": 649.751,
+     "unit_balance": 4370.284623842469
+    },
+    {
+     "date": "2022-07-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 44949.43592581891,
+     "units": 64.05453314535062,
+     "nav": 701.737,
+     "unit_balance": 4434.3391569878195
+    },
+    {
+     "date": "2022-08-21",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 55120.06804492237,
+     "units": 75.41200604297107,
+     "nav": 730.919,
+     "unit_balance": 4509.751163030791
+    },
+    {
+     "date": "2022-09-20",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 46614.87701156617,
+     "units": 66.46715347809732,
+     "nav": 701.322,
+     "unit_balance": 4576.218316508888
+    },
+    {
+     "date": "2022-10-20",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 47167.92273191917,
+     "units": 63.26186863687828,
+     "nav": 745.598,
+     "unit_balance": 4639.480185145766
+    },
+    {
+     "date": "2022-11-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 56326.33082536218,
+     "units": 72.6994924067283,
+     "nav": 774.783,
+     "unit_balance": 4712.1796775524945
+    },
+    {
+     "date": "2022-12-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 46912.376218507845,
+     "units": 62.28400681691586,
+     "nav": 753.201,
+     "unit_balance": 4774.463684369411
+    },
+    {
+     "date": "2023-01-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 47837.01544794038,
+     "units": 64.381607901694,
+     "nav": 743.023,
+     "unit_balance": 4838.845292271105
+    },
+    {
+     "date": "2023-02-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 50492.66709430312,
+     "units": 68.94542838301965,
+     "nav": 732.357,
+     "unit_balance": 4907.790720654124
+    },
+    {
+     "date": "2023-03-04",
+     "type": "Purchase-BSE -",
+     "amount_inr": 610695.3833312726,
+     "units": 828.7695025327027,
+     "nav": 736.87,
+     "unit_balance": 5736.560223186827
+    },
+    {
+     "date": "2023-03-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 50287.51348170116,
+     "units": 68.24475617368213,
+     "nav": 736.87,
+     "unit_balance": 5804.80497936051
+    },
+    {
+     "date": "2023-04-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 50722.10796967763,
+     "units": 66.18531374694517,
+     "nav": 766.365,
+     "unit_balance": 5870.990293107455
+    },
+    {
+     "date": "2023-05-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 53558.48293616409,
+     "units": 68.0167315436706,
+     "nav": 787.431,
+     "unit_balance": 5939.007024651125
+    },
+    {
+     "date": "2023-06-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 51545.611680182024,
+     "units": 62.76940985664952,
+     "nav": 821.19,
+     "unit_balance": 6001.776434507775
+    },
+    {
+     "date": "2023-07-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 64456.48047682376,
+     "units": 75.36680531457802,
+     "nav": 855.237,
+     "unit_balance": 6077.143239822353
+    },
+    {
+     "date": "2023-08-16",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 62464.36867319034,
+     "units": 74.24752516428802,
+     "nav": 841.299,
+     "unit_balance": 6151.390764986641
+    },
+    {
+     "date": "2023-09-15",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 60381.174282150074,
+     "units": 69.39064782362622,
+     "nav": 870.163,
+     "unit_balance": 6220.781412810267
+    },
+    {
+     "date": "2023-10-15",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 55992.39209048379,
+     "units": 66.1959715348011,
+     "nav": 845.858,
+     "unit_balance": 6286.977384345069
+    },
+    {
+     "date": "2023-11-14",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 59211.4861901011,
+     "units": 65.53198014290406,
+     "nav": 903.551,
+     "unit_balance": 6352.5093644879735
+    },
+    {
+     "date": "2023-12-14",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 70784.47282765637,
+     "units": 72.27802595601138,
+     "nav": 979.336,
+     "unit_balance": 6424.787390443985
+    },
+    {
+     "date": "2024-01-13",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 74792.77944791471,
+     "units": 75.1694535798031,
+     "nav": 994.989,
+     "unit_balance": 6499.956844023788
+    },
+    {
+     "date": "2024-02-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 75882.5198024562,
+     "units": 75.13477848695403,
+     "nav": 1009.952,
+     "unit_balance": 6575.091622510742
+    },
+    {
+     "date": "2024-03-13",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 66103.27820700262,
+     "units": 64.37757298555191,
+     "nav": 1026.806,
+     "unit_balance": 6639.469195496295
+    },
+    {
+     "date": "2024-04-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 73308.42904273189,
+     "units": 70.10008820573195,
+     "nav": 1045.768,
+     "unit_balance": 6709.569283702026
+    },
+    {
+     "date": "2024-05-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 68958.72705805625,
+     "units": 65.63928288336177,
+     "nav": 1050.571,
+     "unit_balance": 6775.208566585388
+    },
+    {
+     "date": "2024-06-11",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 80001.84741231831,
+     "units": 72.30269494147532,
+     "nav": 1106.485,
+     "unit_balance": 6847.511261526863
+    },
+    {
+     "date": "2024-07-11",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 76905.44436967303,
+     "units": 66.38094472617254,
+     "nav": 1158.547,
+     "unit_balance": 6913.8922062530355
+    },
+    {
+     "date": "2024-08-10",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 87953.33110149764,
+     "units": 74.83294558502142,
+     "nav": 1175.329,
+     "unit_balance": 6988.725151838057
+    },
+    {
+     "date": "2024-09-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 75306.70662152368,
+     "units": 62.798501160396,
+     "nav": 1199.18,
+     "unit_balance": 7051.523652998452
+    },
+    {
+     "date": "2024-10-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 82955.18054930029,
+     "units": 73.99808263655811,
+     "nav": 1121.045,
+     "unit_balance": 7125.52173563501
+    },
+    {
+     "date": "2024-11-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 74866.87604180069,
+     "units": 67.07161207196114,
+     "nav": 1116.223,
+     "unit_balance": 7192.593347706972
+    },
+    {
+     "date": "2024-12-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 82035.07199118067,
+     "units": 75.02915007388187,
+     "nav": 1093.376,
+     "unit_balance": 7267.622497780854
+    },
+    {
+     "date": "2025-01-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 77619.14476911089,
+     "units": 72.04890019707467,
+     "nav": 1077.312,
+     "unit_balance": 7339.671397977929
+    },
+    {
+     "date": "2025-02-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 69167.85016848985,
+     "units": 68.04410182681993,
+     "nav": 1016.515,
+     "unit_balance": 7407.715499804748
+    },
+    {
+     "date": "2025-03-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 79777.94241192463,
+     "units": 74.0100436686519,
+     "nav": 1077.934,
+     "unit_balance": 7481.725543473401
+    },
+    {
+     "date": "2025-04-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 71241.44559996434,
+     "units": 64.21677282106774,
+     "nav": 1109.39,
+     "unit_balance": 7545.942316294468
+    },
+    {
+     "date": "2025-05-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 78483.82146113053,
+     "units": 70.07753106693428,
+     "nav": 1119.957,
+     "unit_balance": 7616.019847361402
+    },
+    {
+     "date": "2025-06-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 86006.91328777756,
+     "units": 74.51918479772921,
+     "nav": 1154.158,
+     "unit_balance": 7690.539032159131
+    },
+    {
+     "date": "2025-07-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 84203.77131944383,
+     "units": 74.4951861804736,
+     "nav": 1130.325,
+     "unit_balance": 7765.034218339605
+    },
+    {
+     "date": "2025-08-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 70638.36567144388,
+     "units": 63.45814052875571,
+     "nav": 1113.149,
+     "unit_balance": 7828.4923588683605
+    },
+    {
+     "date": "2025-09-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 75806.6662747191,
+     "units": 67.50130563000347,
+     "nav": 1123.04,
+     "unit_balance": 7895.9936644983645
+    },
+    {
+     "date": "2025-10-04",
+     "type": "SIP Purchase",
+     "amount_inr": 85354.83091258562,
+     "units": 73.58543005821465,
+     "nav": 1159.942,
+     "unit_balance": 7969.579094556579
+    },
+    {
+     "date": "2025-11-03",
+     "type": "SIP Purchase",
+     "amount_inr": 86756.76368732253,
+     "units": 73.34943966016074,
+     "nav": 1182.787,
+     "unit_balance": 8042.9285342167395
+    },
+    {
+     "date": "2025-12-03",
+     "type": "SIP Purchase",
+     "amount_inr": 88819.59440941867,
+     "units": 75.25815087914721,
+     "nav": 1180.199,
+     "unit_balance": 8118.186685095887
+    },
+    {
+     "date": "2026-01-02",
+     "type": "SIP Purchase",
+     "amount_inr": 81797.95622731598,
+     "units": 71.33652602262418,
+     "nav": 1146.649,
+     "unit_balance": 8189.5232111185105
+    },
+    {
+     "date": "2026-02-01",
+     "type": "SIP Purchase",
+     "amount_inr": 86992.14027498222,
+     "units": 75.05682856677876,
+     "nav": 1159.017,
+     "unit_balance": 8264.58003968529
+    },
+    {
+     "date": "2026-03-03",
+     "type": "SIP Purchase",
+     "amount_inr": 74508.58694203632,
+     "units": 73.08561011313361,
+     "nav": 1019.47,
+     "unit_balance": 8337.665649798424
+    }
+   ]
+  },
+  {
+   "fund_name": "Aditya Birla Sun Life Corporate Bond Fund - Growth",
+   "resolved_fund_name": "Aditya Birla Sun Life Corporate Bond Fund - Growth - Regular Plan",
+   "amfi_code": 103178,
+   "sub_category": "mf_corporate_debt",
+   "isin": "INF955K01189",
+   "folio_no": "51534082",
+   "registrar": "CAMS",
+   "advisor": "DIRECT",
+   "anchor_month": "2026-03",
+   "closing_nav": 115.795,
+   "closing_units": 64769.63599464571,
+   "market_value_inr": 7500000.0,
+   "invested_cost_inr": 5841547.562502699,
+   "transactions": [
+    {
+     "date": "2022-03-08",
+     "type": "Purchase-BSE -",
+     "amount_inr": 5841547.562502699,
+     "units": 64769.63599464571,
+     "nav": 90.1896,
+     "unit_balance": 64769.63599464571
+    },
+    {
+     "date": "2022-03-08",
+     "type": "*** Stamp Duty ***",
+     "amount_inr": 292.08,
+     "units": null,
+     "nav": null,
+     "unit_balance": null
+    },
+    {
+     "date": "2022-03-09",
+     "type": "***Address Updated from KRA Data***",
+     "amount_inr": null,
+     "units": null,
+     "nav": null,
+     "unit_balance": null
+    }
+   ]
+  },
+  {
+   "fund_name": "ICICI Prudential Value Fund (inherited)",
+   "resolved_fund_name": "ICICI Prudential Value Fund (erstwhile Value Discovery Fund) - Growth",
+   "amfi_code": 102594,
+   "sub_category": "mf_active_flexi_cap",
+   "isin": "INF932K01776",
+   "folio_no": "63763215",
+   "registrar": "CAMS",
+   "advisor": "ARN-0845",
+   "anchor_month": "2026-03",
+   "closing_nav": 436.19,
+   "closing_units": 11462.894610146954,
+   "market_value_inr": 5000000.0,
+   "invested_cost_inr": 3027932.291752967,
+   "transactions": [
+    {
+     "date": "2019-03-05",
+     "type": "Purchase-BSE -",
+     "amount_inr": 168118.24530995777,
+     "units": 1149.1335974706612,
+     "nav": 146.3,
+     "unit_balance": 1149.1335974706612
+    },
+    {
+     "date": "2019-05-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 13672.193893997639,
+     "units": 93.30644846787442,
+     "nav": 146.53,
+     "unit_balance": 1242.4400459385356
+    },
+    {
+     "date": "2019-06-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 12713.264557666314,
+     "units": 86.92236125848704,
+     "nav": 146.26,
+     "unit_balance": 1329.3624071970228
+    },
+    {
+     "date": "2019-07-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14514.115097660484,
+     "units": 103.83542064430165,
+     "nav": 139.78,
+     "unit_balance": 1433.1978278413244
+    },
+    {
+     "date": "2019-08-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 12670.85968850525,
+     "units": 92.88124680036103,
+     "nav": 136.42,
+     "unit_balance": 1526.0790746416853
+    },
+    {
+     "date": "2019-09-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 12575.32465491966,
+     "units": 90.33997596925043,
+     "nav": 139.2,
+     "unit_balance": 1616.4190506109358
+    },
+    {
+     "date": "2019-10-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14613.107765617851,
+     "units": 102.757244677715,
+     "nav": 142.21,
+     "unit_balance": 1719.1762952886509
+    },
+    {
+     "date": "2019-11-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 13405.703835407941,
+     "units": 94.06851333526028,
+     "nav": 142.51,
+     "unit_balance": 1813.244808623911
+    },
+    {
+     "date": "2019-12-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14572.252179670226,
+     "units": 102.5564936284765,
+     "nav": 142.09,
+     "unit_balance": 1915.8013022523874
+    },
+    {
+     "date": "2020-01-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 13263.937907905445,
+     "units": 92.81322446228708,
+     "nav": 142.91,
+     "unit_balance": 2008.6145267146744
+    },
+    {
+     "date": "2020-02-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 12967.825832509643,
+     "units": 99.2790218382303,
+     "nav": 130.62,
+     "unit_balance": 2107.8935485529046
+    },
+    {
+     "date": "2020-03-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 9486.702991788216,
+     "units": 89.73423185573417,
+     "nav": 105.72,
+     "unit_balance": 2197.627780408639
+    },
+    {
+     "date": "2020-04-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 12018.89817024161,
+     "units": 97.97748569529315,
+     "nav": 122.67,
+     "unit_balance": 2295.605266103932
+    },
+    {
+     "date": "2020-05-03",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 11289.934459130089,
+     "units": 89.14982990469116,
+     "nav": 126.64,
+     "unit_balance": 2384.7550960086232
+    },
+    {
+     "date": "2020-06-02",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 11746.685595195859,
+     "units": 88.20819700530045,
+     "nav": 133.17,
+     "unit_balance": 2472.9632930139237
+    },
+    {
+     "date": "2020-07-02",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14597.53001033947,
+     "units": 100.91621161658809,
+     "nav": 144.65,
+     "unit_balance": 2573.8795046305117
+    },
+    {
+     "date": "2020-08-01",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14423.753637371254,
+     "units": 97.86114144359355,
+     "nav": 147.39,
+     "unit_balance": 2671.7406460741054
+    },
+    {
+     "date": "2020-08-31",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 13457.033850573056,
+     "units": 91.30221758988436,
+     "nav": 147.39,
+     "unit_balance": 2763.04286366399
+    },
+    {
+     "date": "2020-09-30",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14987.662763452921,
+     "units": 102.82425057253651,
+     "nav": 145.76,
+     "unit_balance": 2865.867114236526
+    },
+    {
+     "date": "2020-10-30",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 14412.398925432986,
+     "units": 97.45350547997153,
+     "nav": 147.89,
+     "unit_balance": 2963.3206197164977
+    },
+    {
+     "date": "2020-11-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 16316.919287007893,
+     "units": 100.67200942132214,
+     "nav": 162.08,
+     "unit_balance": 3063.99262913782
+    },
+    {
+     "date": "2020-12-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 15959.867632717283,
+     "units": 91.41341218120901,
+     "nav": 174.59,
+     "unit_balance": 3155.406041319029
+    },
+    {
+     "date": "2021-01-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 16459.616517106846,
+     "units": 93.42500009709867,
+     "nav": 176.18,
+     "unit_balance": 3248.831041416128
+    },
+    {
+     "date": "2021-02-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 17869.519291959306,
+     "units": 94.21373592006805,
+     "nav": 189.67,
+     "unit_balance": 3343.0447773361957
+    },
+    {
+     "date": "2021-03-04",
+     "type": "Purchase-BSE -",
+     "amount_inr": 221357.60488077346,
+     "units": 1149.1335974706612,
+     "nav": 192.63,
+     "unit_balance": 4492.1783748068565
+    },
+    {
+     "date": "2021-03-29",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 17789.970909894822,
+     "units": 92.35306499452227,
+     "nav": 192.63,
+     "unit_balance": 4584.531439801379
+    },
+    {
+     "date": "2021-04-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 20568.395976564363,
+     "units": 104.23877952850377,
+     "nav": 197.32,
+     "unit_balance": 4688.770219329883
+    },
+    {
+     "date": "2021-05-28",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 21707.00489569118,
+     "units": 102.7501888464034,
+     "nav": 211.26,
+     "unit_balance": 4791.520408176286
+    },
+    {
+     "date": "2021-06-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 21461.215366233417,
+     "units": 100.05228608966628,
+     "nav": 214.5,
+     "unit_balance": 4891.572694265952
+    },
+    {
+     "date": "2021-07-27",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 22585.289549550904,
+     "units": 102.0435076562188,
+     "nav": 221.33,
+     "unit_balance": 4993.616201922171
+    },
+    {
+     "date": "2021-08-26",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 23476.04915232279,
+     "units": 101.55318230013752,
+     "nav": 231.17,
+     "unit_balance": 5095.1693842223085
+    },
+    {
+     "date": "2021-09-25",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 21970.13916609124,
+     "units": 89.71065400608919,
+     "nav": 244.9,
+     "unit_balance": 5184.880038228398
+    },
+    {
+     "date": "2021-10-25",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 22803.000242875303,
+     "units": 93.13429277436408,
+     "nav": 244.84,
+     "unit_balance": 5278.0143310027615
+    },
+    {
+     "date": "2021-11-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 24513.63896284783,
+     "units": 103.44617024453656,
+     "nav": 236.97,
+     "unit_balance": 5381.4605012472975
+    },
+    {
+     "date": "2021-12-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 21508.04414220342,
+     "units": 88.93501547388117,
+     "nav": 241.84,
+     "unit_balance": 5470.395516721179
+    },
+    {
+     "date": "2022-01-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 24443.833354239025,
+     "units": 96.2583025684769,
+     "nav": 253.94,
+     "unit_balance": 5566.653819289656
+    },
+    {
+     "date": "2022-02-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 23041.33875783509,
+     "units": 93.43608579819582,
+     "nav": 246.6,
+     "unit_balance": 5660.089905087852
+    },
+    {
+     "date": "2022-03-24",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 23833.136706477573,
+     "units": 94.00519349377815,
+     "nav": 253.53,
+     "unit_balance": 5754.09509858163
+    },
+    {
+     "date": "2022-04-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 25011.102547617367,
+     "units": 98.34887557554704,
+     "nav": 254.31,
+     "unit_balance": 5852.443974157178
+    },
+    {
+     "date": "2022-05-23",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 22103.32205313907,
+     "units": 88.78975678130902,
+     "nav": 248.94,
+     "unit_balance": 5941.233730938487
+    },
+    {
+     "date": "2022-06-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 23416.15664610377,
+     "units": 97.87726402818829,
+     "nav": 239.24,
+     "unit_balance": 6039.110994966675
+    },
+    {
+     "date": "2022-07-22",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 26382.657448627113,
+     "units": 103.61174036298596,
+     "nav": 254.63,
+     "unit_balance": 6142.722735329662
+    },
+    {
+     "date": "2022-08-21",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 24339.41422539201,
+     "units": 92.59106868563173,
+     "nav": 262.87,
+     "unit_balance": 6235.3138040152935
+    },
+    {
+     "date": "2022-09-20",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 25467.986244747277,
+     "units": 99.004766928733,
+     "nav": 257.24,
+     "unit_balance": 6334.318570944027
+    },
+    {
+     "date": "2022-10-20",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 25755.3923350194,
+     "units": 94.72376732261642,
+     "nav": 271.9,
+     "unit_balance": 6429.042338266643
+    },
+    {
+     "date": "2022-11-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28140.850964501016,
+     "units": 99.69126741002204,
+     "nav": 282.28,
+     "unit_balance": 6528.733605676665
+    },
+    {
+     "date": "2022-12-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28782.56985152523,
+     "units": 103.53442392634975,
+     "nav": 278.0,
+     "unit_balance": 6632.268029603015
+    },
+    {
+     "date": "2023-01-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 24157.62423792806,
+     "units": 86.76684231710385,
+     "nav": 278.42,
+     "unit_balance": 6719.034871920119
+    },
+    {
+     "date": "2023-02-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28680.745981167274,
+     "units": 104.79281662160574,
+     "nav": 273.69,
+     "unit_balance": 6823.8276885417245
+    },
+    {
+     "date": "2023-03-04",
+     "type": "Purchase-BSE -",
+     "amount_inr": 314575.3223075935,
+     "units": 1149.1335974706612,
+     "nav": 273.75,
+     "unit_balance": 7972.961286012385
+    },
+    {
+     "date": "2023-03-19",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 27234.07981618026,
+     "units": 99.4852230728046,
+     "nav": 273.75,
+     "unit_balance": 8072.44650908519
+    },
+    {
+     "date": "2023-04-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 27844.154927215623,
+     "units": 98.63670313229522,
+     "nav": 282.29,
+     "unit_balance": 8171.083212217485
+    },
+    {
+     "date": "2023-05-18",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 25554.98955351526,
+     "units": 88.53278903001997,
+     "nav": 288.65,
+     "unit_balance": 8259.616001247505
+    },
+    {
+     "date": "2023-06-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 30421.60088590892,
+     "units": 100.85734471342015,
+     "nav": 301.63,
+     "unit_balance": 8360.473345960925
+    },
+    {
+     "date": "2023-07-17",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 29924.187665065267,
+     "units": 93.72983670069934,
+     "nav": 319.26,
+     "unit_balance": 8454.203182661624
+    },
+    {
+     "date": "2023-08-16",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 30463.588594397603,
+     "units": 95.86075268069354,
+     "nav": 317.79,
+     "unit_balance": 8550.063935342318
+    },
+    {
+     "date": "2023-09-15",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 28410.686507386672,
+     "units": 86.401941814326,
+     "nav": 328.82,
+     "unit_balance": 8636.465877156645
+    },
+    {
+     "date": "2023-10-15",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 32384.594860764526,
+     "units": 101.10391452269528,
+     "nav": 320.31,
+     "unit_balance": 8737.56979167934
+    },
+    {
+     "date": "2023-11-14",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34751.61523193612,
+     "units": 101.17507637107289,
+     "nav": 343.48,
+     "unit_balance": 8838.744868050413
+    },
+    {
+     "date": "2023-12-14",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 36699.30172568217,
+     "units": 100.46896004621708,
+     "nav": 365.28,
+     "unit_balance": 8939.213828096628
+    },
+    {
+     "date": "2024-01-13",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 34690.634553813594,
+     "units": 91.14243748046239,
+     "nav": 380.62,
+     "unit_balance": 9030.356265577093
+    },
+    {
+     "date": "2024-02-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 37541.69662225443,
+     "units": 96.19169986228971,
+     "nav": 390.28,
+     "unit_balance": 9126.547965439382
+    },
+    {
+     "date": "2024-03-13",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 38442.35653755892,
+     "units": 97.42354478714341,
+     "nav": 394.59,
+     "unit_balance": 9223.971510226525
+    },
+    {
+     "date": "2024-04-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 35350.97209832329,
+     "units": 87.63255354071217,
+     "nav": 403.4,
+     "unit_balance": 9311.604063767238
+    },
+    {
+     "date": "2024-05-12",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 37925.8871410293,
+     "units": 94.11123636077643,
+     "nav": 402.99,
+     "unit_balance": 9405.715300128013
+    },
+    {
+     "date": "2024-06-11",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 43940.06100294185,
+     "units": 102.86798783317771,
+     "nav": 427.15,
+     "unit_balance": 9508.58328796119
+    },
+    {
+     "date": "2024-07-11",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41501.42614544746,
+     "units": 90.82467314187303,
+     "nav": 456.94,
+     "unit_balance": 9599.407961103063
+    },
+    {
+     "date": "2024-08-10",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 42944.831886087144,
+     "units": 92.02003875396332,
+     "nav": 466.69,
+     "unit_balance": 9691.427999857027
+    },
+    {
+     "date": "2024-09-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 43882.74637302658,
+     "units": 92.60112341055219,
+     "nav": 473.89,
+     "unit_balance": 9784.029123267579
+    },
+    {
+     "date": "2024-10-09",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41498.05576397902,
+     "units": 91.96652652522886,
+     "nav": 451.23,
+     "unit_balance": 9875.995649792807
+    },
+    {
+     "date": "2024-11-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 39153.06451187088,
+     "units": 87.58878886796913,
+     "nav": 447.01,
+     "unit_balance": 9963.584438660777
+    },
+    {
+     "date": "2024-12-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 39938.48035099129,
+     "units": 91.12549135482179,
+     "nav": 438.28,
+     "unit_balance": 10054.7099300156
+    },
+    {
+     "date": "2025-01-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 45105.21697138098,
+     "units": 103.40964044977069,
+     "nav": 436.18,
+     "unit_balance": 10158.11957046537
+    },
+    {
+     "date": "2025-02-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 36238.938059175634,
+     "units": 87.80939679955326,
+     "nav": 412.7,
+     "unit_balance": 10245.928967264923
+    },
+    {
+     "date": "2025-03-08",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41770.7259695718,
+     "units": 95.58737263912629,
+     "nav": 436.99,
+     "unit_balance": 10341.51633990405
+    },
+    {
+     "date": "2025-04-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 42942.907808798285,
+     "units": 95.02535418290873,
+     "nav": 451.91,
+     "unit_balance": 10436.541694086958
+    },
+    {
+     "date": "2025-05-07",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41086.25293530353,
+     "units": 88.73537414216132,
+     "nav": 463.02,
+     "unit_balance": 10525.277068229121
+    },
+    {
+     "date": "2025-06-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41473.23285072809,
+     "units": 87.54613989134758,
+     "nav": 473.73,
+     "unit_balance": 10612.823208120468
+    },
+    {
+     "date": "2025-07-06",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 46296.66680055249,
+     "units": 99.15331705763833,
+     "nav": 466.92,
+     "unit_balance": 10711.976525178108
+    },
+    {
+     "date": "2025-08-05",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 44988.70665715415,
+     "units": 96.92082092540426,
+     "nav": 464.18,
+     "unit_balance": 10808.897346103511
+    },
+    {
+     "date": "2025-09-04",
+     "type": "SIP Purchase via Reg",
+     "amount_inr": 41308.465630350714,
+     "units": 88.45117046454267,
+     "nav": 467.02,
+     "unit_balance": 10897.348516568054
+    },
+    {
+     "date": "2025-10-04",
+     "type": "SIP Purchase",
+     "amount_inr": 48773.95630262979,
+     "units": 100.47991657079538,
+     "nav": 485.41,
+     "unit_balance": 10997.82843313885
+    },
+    {
+     "date": "2025-11-03",
+     "type": "SIP Purchase",
+     "amount_inr": 47517.67392407016,
+     "units": 95.42468054476296,
+     "nav": 497.96,
+     "unit_balance": 11093.253113683613
+    },
+    {
+     "date": "2025-12-03",
+     "type": "SIP Purchase",
+     "amount_inr": 43820.45243211035,
+     "units": 87.87641365281024,
+     "nav": 498.66,
+     "unit_balance": 11181.129527336423
+    },
+    {
+     "date": "2026-01-02",
+     "type": "SIP Purchase",
+     "amount_inr": 43214.02339422677,
+     "units": 88.974496889429,
+     "nav": 485.69,
+     "unit_balance": 11270.104024225853
+    },
+    {
+     "date": "2026-02-01",
+     "type": "SIP Purchase",
+     "amount_inr": 48450.81806558937,
+     "units": 100.03265833713093,
+     "nav": 484.35,
+     "unit_balance": 11370.136682562983
+    },
+    {
+     "date": "2026-03-03",
+     "type": "SIP Purchase",
+     "amount_inr": 40460.08043285208,
+     "units": 92.75792758397048,
+     "nav": 436.19,
+     "unit_balance": 11462.894610146954
+    }
+   ]
+  }
+ ]
+}

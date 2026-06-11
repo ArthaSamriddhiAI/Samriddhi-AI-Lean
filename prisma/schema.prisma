@@ -40,6 +40,17 @@ model Investor {
   // at runtime.
   mandateJson           String?
   onboardingTranscript  String?
+  // Package 07 onboarding (ADR-0049, ADR-0052). dataTier names the storage
+  // tier the investor's data belongs to ("synthetic_public" for fictional
+  // investors on this public repo; "real_local_only" for real client data
+  // that exists only in this local store and never enters any repository).
+  // canonicalJson is the JSON-encoded transaction-bearing canonical record
+  // plus onboarding provenance (gate report, accepted mismatches, identity
+  // strings for the PII vault). holdingsJson stays the derived demo-surface
+  // shape (byte-identical derivation, ADR-0052). Both null on investors
+  // seeded before onboarding existed.
+  dataTier              String?
+  canonicalJson         String?
   createdAt             DateTime @default(now())
 
   cases                 Case[]

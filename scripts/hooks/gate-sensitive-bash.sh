@@ -33,12 +33,26 @@ fi
 
 # WA12: an LLM or pipeline run that may incur Anthropic spend (heuristic match; the
 # allow-list also leaves these to default-prompt, so this is a hard-block backstop).
-if printf '%s' "$CMD" | grep -Eq '(tsx|node|npx)[^&|;]*(refire|pipeline|backfill)'; then
+if printf '%s' "$CMD" | grep -Eq '(tsx|node|npx|npm)[^&|;]*(refire|pipeline|backfill)'; then
+  # Structural no-spend proof (Package 07): if EVERY script file named in the
+  # command provably never reaches the Anthropic SDK through its static import
+  # chain, the invocation cannot spend and is allowed without a marker. The
+  # proof is the import graph (scripts/hooks/check-sdk-reach.mjs), not an
+  # agent's assertion of its own innocence; anything unproven (no script path
+  # found, unresolvable imports, genuine SDK reach) falls through to the
+  # human-in-the-loop marker protocol below, fail closed.
+  SCRIPTS="$(printf '%s' "$CMD" | grep -oE '[^[:space:]"'"'"';&|]+\.(ts|tsx|mts|mjs|js|cjs)' | sort -u)"
+  if [ -n "$SCRIPTS" ]; then
+    # shellcheck disable=SC2086
+    if node "$PROJ/scripts/hooks/check-sdk-reach.mjs" "$PROJ" $SCRIPTS >/dev/null 2>&1; then
+      exit 0
+    fi
+  fi
   if [ -f "$APPROVALS/api-cost" ]; then
     rm -f "$APPROVALS/api-cost"
     exit 0
   fi
-  echo "WA12: this looks like an LLM or pipeline run that may incur API spend. Surface the call count and a rough cost estimate to the primary first. On approval, record it with: mkdir -p .claude/.approvals && touch .claude/.approvals/api-cost   then retry. See docs/working_agreements/WA12_api_call_gate.md." >&2
+  echo "WA12: this looks like an LLM or pipeline run that may incur API spend, and the import-chain check could not prove it spend-free. Surface the call count and a rough cost estimate to the primary first. On approval, record it with: mkdir -p .claude/.approvals && touch .claude/.approvals/api-cost   then retry. See docs/working_agreements/WA12_api_call_gate.md." >&2
   exit 2
 fi
 exit 0

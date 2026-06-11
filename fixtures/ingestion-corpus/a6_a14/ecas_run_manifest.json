@@ -1,0 +1,63 @@
+{
+ "generator": "generate_ecas.py (Package 07 re-anchor)",
+ "snapshot_sha256": "babab589336a2cb4fda8061932808393b4c503d5222e90e129fe523339a33afc",
+ "snapshot_path": "/Users/shubhamsahamate/Desktop/IMT-G/25 - WealthWisers Technologies - Summer Internship/23 - Lean Samriddhi MVP/17 - Claude Code Local Workflow - Samriddhi AI Data Snapshots - main branch/snapshots/snapshot_t0_q2_2026.json",
+ "statement_date": "2026-04-02",
+ "anchor_month": "2026-03",
+ "aliases": {
+  "_comment": "Canonical persona-label to snapshot-universe fund-name aliases. Shared by generate_ecas.py (statement generation) and the consumer repo's ingestion reconciliation (which receives a copy in each corpus run manifest). Exact entries map a full persona label to the snapshot base name; substitutions patch label fragments before containment matching. Provenance: consumer repo P40/D6/D14 and the Package 07 audit (the resolver knowledge previously lived only inside generate_a1_a5_ingestion.py).",
+  "exact": {
+   "Axis Bluechip Fund": "Axis Large Cap Fund",
+   "Kotak Emerging Equity Fund": "Kotak Midcap Fund",
+   "HDFC Index Fund Nifty 50": "HDFC Nifty 50 Index Fund",
+   "HDFC Index Fund Nifty 50 Plan": "HDFC Nifty 50 Index Fund",
+   "ICICI Pru Balanced Advantage Fund": "ICICI Prudential Balanced Advantage Fund",
+   "Aditya Birla Sun Life Arbitrage Fund": "Aditya BIRLA SUN LIFE ARBITRAGE FUND"
+  },
+  "substitutions": {
+   "Bluechip": "Large Cap"
+  }
+ },
+ "outputs": [
+  {
+   "file": "ecas_06_sandeep_krishnan.pdf",
+   "sha256": "3a4d0ffd2861633943a56a623c4f9929eea9c1bfcb9724ed83080f4b94873004"
+  },
+  {
+   "file": "transactions_06_sandeep_krishnan.json",
+   "sha256": "b8cd10ce3ee3140c0b141a38d1ea032306607bd13a59978c627bebc17aaa14fc"
+  },
+  {
+   "file": "ecas_08_dr_lakshmi_pillai.pdf",
+   "sha256": "93cd3c54040296a1bb63140014931257d848d52be73c5c8af25e6ae4d35069ec"
+  },
+  {
+   "file": "transactions_08_dr_lakshmi_pillai.json",
+   "sha256": "004ddcbca97e2a575c7c2d0cdb0ca398ca4254e5a3b5d99ddf7ae36dc87abddb"
+  },
+  {
+   "file": "ecas_11_anjali_bharat_desai.pdf",
+   "sha256": "cba12f2051f7eb75fed7de2089d6b0cedea03c9c6b59d3712144fed7d3954201"
+  },
+  {
+   "file": "transactions_11_anjali_bharat_desai.json",
+   "sha256": "bff874ac61d66039db06171ea27fb6893671bb0e37a29ceb51dbac9957efe8eb"
+  },
+  {
+   "file": "ecas_12_karthik_reddy.pdf",
+   "sha256": "900de64cf0e393126539ac9d6c4946a6807134f31a8ccf6e8a284e8b3eb0ed34"
+  },
+  {
+   "file": "transactions_12_karthik_reddy.json",
+   "sha256": "ce65c9c117d237c1ddf9b4c7d149527b01298842f071450b098f94e21a8140d1"
+  },
+  {
+   "file": "ecas_13_rahul_kapoor.pdf",
+   "sha256": "f926e853db50460b3c8b5c991f64422e5c2c5a6d3679fa92d08b5b0a240320f0"
+  },
+  {
+   "file": "transactions_13_rahul_kapoor.json",
+   "sha256": "b5e2d42b8b8cf9dd1bbb7a7b29871e3864e2336177ef01f65a13c58f11e660c4"
+  }
+ ]
+}

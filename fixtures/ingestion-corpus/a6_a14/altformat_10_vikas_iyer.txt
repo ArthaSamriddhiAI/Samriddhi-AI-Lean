@@ -1,0 +1,44 @@
+Investments Summary - Vikas Iyer
+Generated: 31-Mar-2026
+
+-------- EQUITY HOLDINGS --------
+  Reliance Industries Limited
+    Type: listed_large_cap | Current Value: Rs 36,000,000
+
+  HDFC Bank
+    Type: listed_large_cap | Current Value: Rs 18,000,000
+
+  Larsen & Toubro
+    Type: listed_large_cap | Current Value: Rs 11,000,000
+
+  Bharti Airtel
+    Type: listed_large_cap | Current Value: Rs 9,500,000
+
+  ITC Limited
+    Type: listed_large_cap | Current Value: Rs 7,000,000
+
+  ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth
+    Type: mf_active_large_cap | Current Value: Rs 17,500,000
+
+  SBI ELSS Tax Saver FUND - REGULAR PLAN- GROWTH
+    Type: mf_active_flexi_cap | Current Value: Rs 14,000,000
+
+  DSP Midcap Fund - Regular Plan - Growth
+    Type: mf_active_mid_cap | Current Value: Rs 14,000,000
+
+-------- DEBT HOLDINGS --------
+  SBI Corporate Bond Fund - Regular Plan - Growth
+    Type: mf_corporate_debt | Current Value: Rs 16,000,000
+
+  HDFC Bank FD
+    Type: bank_fd | Current Value: Rs 13,000,000
+
+-------- OTHERS --------
+  Physical gold
+    Type: physical_gold | Current Value: Rs 4,000,000
+
+  Bank savings
+    Type: savings | Current Value: Rs 2,000,000
+
+==================================================
+GRAND TOTAL: Rs 162,000,000

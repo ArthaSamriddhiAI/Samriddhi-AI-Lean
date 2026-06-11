@@ -2606,7 +2606,616 @@
         "text": "Portfolio 3Y annualised return 9.9% (absolute 32.9%); no prior snapshot for cross-snapshot evolution (t0_q2_2026 is the baseline).",
         "generation_method": "templated"
       },
-      "reasoning_summary": "Trailing-window returns (1M/3M/6M/1Y/3Y/SI) computed at agent runtime from monthly_nav (funds) and monthly_prices (stocks); benchmark-relative alpha against the read-through benchmark (tier_b_stats._meta.benchmark_index_id, ADR-0017); sleeve and portfolio rollups are market-value weighted; cross-snapshot evolution diffs NAV/cmp_rs across the snapshot pair. Sentinels mark instruments where returns are not computable by construction."
+      "reasoning_summary": "Trailing-window returns (1M/3M/6M/1Y/3Y/SI) computed at agent runtime from monthly_nav (funds) and monthly_prices (stocks); benchmark-relative alpha against the read-through benchmark (tier_b_stats._meta.benchmark_index_id, ADR-0017); sleeve and portfolio rollups are market-value weighted; cross-snapshot evolution diffs NAV/cmp_rs across the snapshot pair. Sentinels mark instruments where returns are not computable by construction.",
+      "gross_net_series": {
+        "method": "real_anchored_v1",
+        "anchor_month": "2026-03",
+        "window_start": "2017-03",
+        "window_start_reason": "earliest covered value month",
+        "coverage": {
+          "covered_weight_pct": 100.1,
+          "floor_pct": 70,
+          "clears_floor": true,
+          "covered": [
+            {
+              "instrument": "HDFC Bank FD",
+              "weightPct": 27.3,
+              "basis": "contractual_accrual_terminal_anchored",
+              "series": "contractual rate 7% (holding attributes)",
+              "firstValueMonth": "2024-06",
+              "costEventMonth": "2024-06"
+            },
+            {
+              "instrument": "SBI FD",
+              "weightPct": 27,
+              "basis": "contractual_accrual_terminal_anchored",
+              "series": "contractual rate 6.8% (holding attributes)",
+              "firstValueMonth": "2024-09",
+              "costEventMonth": "2024-09"
+            },
+            {
+              "instrument": "Franklin India Corporate Debt Fund",
+              "weightPct": 10.3,
+              "basis": "ecas_transactions",
+              "series": "Franklin India Corporate Debt Fund - Growth",
+              "firstValueMonth": "2020-02",
+              "costEventMonth": "2020-02"
+            },
+            {
+              "instrument": "Axis Large Cap Fund",
+              "weightPct": 11.7,
+              "basis": "ecas_transactions",
+              "series": "Axis Large Cap Fund - Regular Plan - Growth",
+              "firstValueMonth": "2017-03",
+              "costEventMonth": "2017-03"
+            },
+            {
+              "instrument": "HDFC Index Fund Nifty 50",
+              "weightPct": 14.1,
+              "basis": "ecas_transactions",
+              "series": "HDFC Nifty 50 Index Fund - Direct Plan",
+              "firstValueMonth": "2018-05",
+              "costEventMonth": "2018-05"
+            },
+            {
+              "instrument": "ICICI Prudential Balanced Advantage Fund",
+              "weightPct": 9.7,
+              "basis": "ecas_transactions",
+              "series": "ICICI Prudential Balanced Advantage Fund - Growth",
+              "firstValueMonth": "2022-04",
+              "costEventMonth": "2022-04"
+            }
+          ],
+          "excluded": []
+        },
+        "monthly": [
+          {
+            "month": "2017-03",
+            "gross_value_inr": 155744,
+            "net_invested_inr": 155744
+          },
+          {
+            "month": "2017-04",
+            "gross_value_inr": 161852,
+            "net_invested_inr": 155744
+          },
+          {
+            "month": "2017-05",
+            "gross_value_inr": 177016,
+            "net_invested_inr": 166961
+          },
+          {
+            "month": "2017-06",
+            "gross_value_inr": 187264,
+            "net_invested_inr": 177209
+          },
+          {
+            "month": "2017-07",
+            "gross_value_inr": 209783,
+            "net_invested_inr": 188623
+          },
+          {
+            "month": "2017-08",
+            "gross_value_inr": 221893,
+            "net_invested_inr": 199132
+          },
+          {
+            "month": "2017-09",
+            "gross_value_inr": 233559,
+            "net_invested_inr": 211171
+          },
+          {
+            "month": "2017-10",
+            "gross_value_inr": 252493,
+            "net_invested_inr": 222524
+          },
+          {
+            "month": "2017-11",
+            "gross_value_inr": 265249,
+            "net_invested_inr": 235280
+          },
+          {
+            "month": "2017-12",
+            "gross_value_inr": 287252,
+            "net_invested_inr": 247751
+          },
+          {
+            "month": "2018-01",
+            "gross_value_inr": 301723,
+            "net_invested_inr": 259165
+          },
+          {
+            "month": "2018-02",
+            "gross_value_inr": 306548,
+            "net_invested_inr": 271874
+          },
+          {
+            "month": "2018-03",
+            "gross_value_inr": 314696,
+            "net_invested_inr": 283338
+          },
+          {
+            "month": "2018-04",
+            "gross_value_inr": 347083,
+            "net_invested_inr": 295084
+          },
+          {
+            "month": "2018-05",
+            "gross_value_inr": 390588,
+            "net_invested_inr": 331204
+          },
+          {
+            "month": "2018-06",
+            "gross_value_inr": 428702,
+            "net_invested_inr": 365905
+          },
+          {
+            "month": "2018-07",
+            "gross_value_inr": 490670,
+            "net_invested_inr": 403160
+          },
+          {
+            "month": "2018-08",
+            "gross_value_inr": 533482,
+            "net_invested_inr": 442239
+          },
+          {
+            "month": "2018-09",
+            "gross_value_inr": 529152,
+            "net_invested_inr": 478193
+          },
+          {
+            "month": "2018-10",
+            "gross_value_inr": 535687,
+            "net_invested_inr": 511721
+          },
+          {
+            "month": "2018-11",
+            "gross_value_inr": 604700,
+            "net_invested_inr": 547353
+          },
+          {
+            "month": "2018-12",
+            "gross_value_inr": 642899,
+            "net_invested_inr": 582860
+          },
+          {
+            "month": "2019-01",
+            "gross_value_inr": 675340,
+            "net_invested_inr": 620215
+          },
+          {
+            "month": "2019-02",
+            "gross_value_inr": 709104,
+            "net_invested_inr": 654283
+          },
+          {
+            "month": "2019-03",
+            "gross_value_inr": 791733,
+            "net_invested_inr": 692188
+          },
+          {
+            "month": "2019-04",
+            "gross_value_inr": 842070,
+            "net_invested_inr": 730428
+          },
+          {
+            "month": "2019-05",
+            "gross_value_inr": 905995,
+            "net_invested_inr": 770595
+          },
+          {
+            "month": "2019-06",
+            "gross_value_inr": 945070,
+            "net_invested_inr": 809098
+          },
+          {
+            "month": "2019-07",
+            "gross_value_inr": 942814,
+            "net_invested_inr": 847225
+          },
+          {
+            "month": "2019-08",
+            "gross_value_inr": 982072,
+            "net_invested_inr": 884639
+          },
+          {
+            "month": "2019-09",
+            "gross_value_inr": 1079462,
+            "net_invested_inr": 924547
+          },
+          {
+            "month": "2019-10",
+            "gross_value_inr": 1141840,
+            "net_invested_inr": 963734
+          },
+          {
+            "month": "2019-11",
+            "gross_value_inr": 1426224,
+            "net_invested_inr": 1238614
+          },
+          {
+            "month": "2019-12",
+            "gross_value_inr": 1481603,
+            "net_invested_inr": 1276671
+          },
+          {
+            "month": "2020-01",
+            "gross_value_inr": 1519945,
+            "net_invested_inr": 1317862
+          },
+          {
+            "month": "2020-02",
+            "gross_value_inr": 3956928,
+            "net_invested_inr": 3805557
+          },
+          {
+            "month": "2020-03",
+            "gross_value_inr": 3662968,
+            "net_invested_inr": 3837171
+          },
+          {
+            "month": "2020-04",
+            "gross_value_inr": 3810834,
+            "net_invested_inr": 3873121
+          },
+          {
+            "month": "2020-05",
+            "gross_value_inr": 3829532,
+            "net_invested_inr": 3907978
+          },
+          {
+            "month": "2020-06",
+            "gross_value_inr": 4001956,
+            "net_invested_inr": 3945355
+          },
+          {
+            "month": "2020-07",
+            "gross_value_inr": 4156819,
+            "net_invested_inr": 3982846
+          },
+          {
+            "month": "2020-08",
+            "gross_value_inr": 4278162,
+            "net_invested_inr": 4063655
+          },
+          {
+            "month": "2020-09",
+            "gross_value_inr": 4325165,
+            "net_invested_inr": 4103136
+          },
+          {
+            "month": "2020-10",
+            "gross_value_inr": 4467640,
+            "net_invested_inr": 4140859
+          },
+          {
+            "month": "2020-11",
+            "gross_value_inr": 4749764,
+            "net_invested_inr": 4185018
+          },
+          {
+            "month": "2020-12",
+            "gross_value_inr": 4980605,
+            "net_invested_inr": 4232273
+          },
+          {
+            "month": "2021-01",
+            "gross_value_inr": 4932103,
+            "net_invested_inr": 4278857
+          },
+          {
+            "month": "2021-02",
+            "gross_value_inr": 5104155,
+            "net_invested_inr": 4327631
+          },
+          {
+            "month": "2021-03",
+            "gross_value_inr": 5205903,
+            "net_invested_inr": 4375461
+          },
+          {
+            "month": "2021-04",
+            "gross_value_inr": 5265992,
+            "net_invested_inr": 4422648
+          },
+          {
+            "month": "2021-05",
+            "gross_value_inr": 5493633,
+            "net_invested_inr": 4476970
+          },
+          {
+            "month": "2021-06",
+            "gross_value_inr": 5596845,
+            "net_invested_inr": 4528391
+          },
+          {
+            "month": "2021-07",
+            "gross_value_inr": 5688350,
+            "net_invested_inr": 4578716
+          },
+          {
+            "month": "2021-08",
+            "gross_value_inr": 6036894,
+            "net_invested_inr": 4640384
+          },
+          {
+            "month": "2021-09",
+            "gross_value_inr": 6171915,
+            "net_invested_inr": 4704653
+          },
+          {
+            "month": "2021-10",
+            "gross_value_inr": 6254352,
+            "net_invested_inr": 4764066
+          },
+          {
+            "month": "2021-11",
+            "gross_value_inr": 6199600,
+            "net_invested_inr": 4823560
+          },
+          {
+            "month": "2021-12",
+            "gross_value_inr": 6324423,
+            "net_invested_inr": 4882584
+          },
+          {
+            "month": "2022-01",
+            "gross_value_inr": 6331070,
+            "net_invested_inr": 4942878
+          },
+          {
+            "month": "2022-02",
+            "gross_value_inr": 6304564,
+            "net_invested_inr": 5003527
+          },
+          {
+            "month": "2022-03",
+            "gross_value_inr": 6479906,
+            "net_invested_inr": 5064454
+          },
+          {
+            "month": "2022-04",
+            "gross_value_inr": 6932195,
+            "net_invested_inr": 5630839
+          },
+          {
+            "month": "2022-05",
+            "gross_value_inr": 7100539,
+            "net_invested_inr": 5941770
+          },
+          {
+            "month": "2022-06",
+            "gross_value_inr": 7464842,
+            "net_invested_inr": 6492993
+          },
+          {
+            "month": "2022-07",
+            "gross_value_inr": 8506370,
+            "net_invested_inr": 7131423
+          },
+          {
+            "month": "2022-08",
+            "gross_value_inr": 9290228,
+            "net_invested_inr": 7720135
+          },
+          {
+            "month": "2022-09",
+            "gross_value_inr": 9448005,
+            "net_invested_inr": 8041262
+          },
+          {
+            "month": "2022-10",
+            "gross_value_inr": 9751367,
+            "net_invested_inr": 8104918
+          },
+          {
+            "month": "2022-11",
+            "gross_value_inr": 9980023,
+            "net_invested_inr": 8164076
+          },
+          {
+            "month": "2022-12",
+            "gross_value_inr": 9875685,
+            "net_invested_inr": 8220731
+          },
+          {
+            "month": "2023-01",
+            "gross_value_inr": 9782046,
+            "net_invested_inr": 8281033
+          },
+          {
+            "month": "2023-02",
+            "gross_value_inr": 9778280,
+            "net_invested_inr": 8336769
+          },
+          {
+            "month": "2023-03",
+            "gross_value_inr": 9863424,
+            "net_invested_inr": 8396742
+          },
+          {
+            "month": "2023-04",
+            "gross_value_inr": 10170277,
+            "net_invested_inr": 8456047
+          },
+          {
+            "month": "2023-05",
+            "gross_value_inr": 10431673,
+            "net_invested_inr": 8519563
+          },
+          {
+            "month": "2023-06",
+            "gross_value_inr": 10744729,
+            "net_invested_inr": 8584540
+          },
+          {
+            "month": "2023-07",
+            "gross_value_inr": 11014418,
+            "net_invested_inr": 8651780
+          },
+          {
+            "month": "2023-08",
+            "gross_value_inr": 10980446,
+            "net_invested_inr": 8716430
+          },
+          {
+            "month": "2023-09",
+            "gross_value_inr": 11195190,
+            "net_invested_inr": 8780745
+          },
+          {
+            "month": "2023-10",
+            "gross_value_inr": 11116141,
+            "net_invested_inr": 8841449
+          },
+          {
+            "month": "2023-11",
+            "gross_value_inr": 11591743,
+            "net_invested_inr": 8905668
+          },
+          {
+            "month": "2023-12",
+            "gross_value_inr": 12220756,
+            "net_invested_inr": 8978308
+          },
+          {
+            "month": "2024-01",
+            "gross_value_inr": 12342742,
+            "net_invested_inr": 9052145
+          },
+          {
+            "month": "2024-02",
+            "gross_value_inr": 12615168,
+            "net_invested_inr": 9126906
+          },
+          {
+            "month": "2024-03",
+            "gross_value_inr": 12935264,
+            "net_invested_inr": 9200535
+          },
+          {
+            "month": "2024-04",
+            "gross_value_inr": 13114159,
+            "net_invested_inr": 9275319
+          },
+          {
+            "month": "2024-05",
+            "gross_value_inr": 13201337,
+            "net_invested_inr": 9356098
+          },
+          {
+            "month": "2024-06",
+            "gross_value_inr": 22138566,
+            "net_invested_inr": 18435999
+          },
+          {
+            "month": "2024-07",
+            "gross_value_inr": 22656191,
+            "net_invested_inr": 18521304
+          },
+          {
+            "month": "2024-08",
+            "gross_value_inr": 22996006,
+            "net_invested_inr": 18610516
+          },
+          {
+            "month": "2024-09",
+            "gross_value_inr": 31739955,
+            "net_invested_inr": 27702430
+          },
+          {
+            "month": "2024-10",
+            "gross_value_inr": 31259910,
+            "net_invested_inr": 27782092
+          },
+          {
+            "month": "2024-11",
+            "gross_value_inr": 31481330,
+            "net_invested_inr": 27865338
+          },
+          {
+            "month": "2024-12",
+            "gross_value_inr": 31543569,
+            "net_invested_inr": 27945681
+          },
+          {
+            "month": "2025-01",
+            "gross_value_inr": 31612760,
+            "net_invested_inr": 28026601
+          },
+          {
+            "month": "2025-02",
+            "gross_value_inr": 31256608,
+            "net_invested_inr": 28100756
+          },
+          {
+            "month": "2025-03",
+            "gross_value_inr": 32053206,
+            "net_invested_inr": 28179664
+          },
+          {
+            "month": "2025-04",
+            "gross_value_inr": 32672958,
+            "net_invested_inr": 28258093
+          },
+          {
+            "month": "2025-05",
+            "gross_value_inr": 33086797,
+            "net_invested_inr": 28343422
+          },
+          {
+            "month": "2025-06",
+            "gross_value_inr": 33650929,
+            "net_invested_inr": 28436172
+          },
+          {
+            "month": "2025-07",
+            "gross_value_inr": 33589870,
+            "net_invested_inr": 28523369
+          },
+          {
+            "month": "2025-08",
+            "gross_value_inr": 33688798,
+            "net_invested_inr": 28605202
+          },
+          {
+            "month": "2025-09",
+            "gross_value_inr": 33983232,
+            "net_invested_inr": 28690384
+          },
+          {
+            "month": "2025-10",
+            "gross_value_inr": 34633534,
+            "net_invested_inr": 28779888
+          },
+          {
+            "month": "2025-11",
+            "gross_value_inr": 35044648,
+            "net_invested_inr": 28870486
+          },
+          {
+            "month": "2025-12",
+            "gross_value_inr": 35199933,
+            "net_invested_inr": 28954948
+          },
+          {
+            "month": "2026-01",
+            "gross_value_inr": 35053385,
+            "net_invested_inr": 29038334
+          },
+          {
+            "month": "2026-02",
+            "gross_value_inr": 35278263,
+            "net_invested_inr": 29125290
+          },
+          {
+            "month": "2026-03",
+            "gross_value_inr": 34100000,
+            "net_invested_inr": 29200521
+          }
+        ]
+      }
     },
     "portfolio_overlap": {
       "agent_id": "portfolio_overlap",

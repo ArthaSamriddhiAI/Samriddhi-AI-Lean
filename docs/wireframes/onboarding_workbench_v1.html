@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light only">
+<title>Add investor, reconciliation workbench, wireframe v1 (Package 07, B4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF8F4; --raised: #FFFFFF; --ink-1: #1A1A1A; --ink-2: #4A4A4A;
+    --ink-3: #8A8A8A; --ink-4: #9A9489; --rule: #D8D2C5; --rule-soft: #E8E4DC;
+    --sage: #3F5B47; --sage-soft: #E8EDE9; --sage-mid: #9AA688;
+    --ochre: #C28A1D; --ochre-soft: #F6EDD9; --brick: #B23A2D; --brick-soft: #F3E2DF;
+    --serif: "Source Serif 4", Georgia, serif; --sans: "Geist", -apple-system, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink-1); font-family: var(--sans); padding: 48px 0 96px; }
+  .page { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink-4); }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: 34px; letter-spacing: -0.01em; margin: 8px 0 4px; }
+  .sub { font-family: var(--serif); font-size: 15px; color: var(--ink-2); max-width: 760px; line-height: 1.55; }
+  .steps { display: flex; gap: 10px; margin: 28px 0 36px; align-items: center; font-family: var(--mono); font-size: 11px; }
+  .step { display: flex; gap: 8px; align-items: baseline; padding: 7px 14px; border: 1px solid var(--rule); border-radius: 4px; color: var(--ink-3); background: var(--raised); }
+  .step b { font-family: var(--serif); font-size: 14px; font-weight: 500; color: inherit; }
+  .step.done { border-color: var(--sage-mid); color: var(--sage); background: var(--sage-soft); }
+  .step.active { border-color: var(--ink-1); color: var(--ink-1); box-shadow: 0 1px 0 var(--rule); }
+  .arrow { color: var(--ink-4); }
+  section { margin-bottom: 44px; }
+  .sec-head { display: grid; grid-template-columns: 30px 1fr auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 18px; margin-bottom: 18px; }
+  .sec-num { font-family: var(--mono); font-size: 12px; color: var(--ink-4); }
+  .sec-title { font-family: var(--serif); font-size: 21px; font-weight: 400; }
+  .sec-title em { font-style: italic; font-size: 13px; color: var(--ink-4); margin-left: 10px; }
+  .sec-aside { font-family: var(--mono); font-size: 11px; color: var(--ink-4); }
+  .frame { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); gap: 30px; align-items: start; }
+  .note { font-family: var(--serif); font-size: 12.5px; font-style: italic; color: var(--ink-3); line-height: 1.6; border-left: 2px solid var(--rule); padding-left: 12px; }
+  .note b { font-style: normal; color: var(--ink-2); font-weight: 500; }
+  .card { background: var(--raised); border: 1px solid var(--rule); border-radius: 6px; padding: 18px; }
+  .dropzone { border: 1.5px dashed var(--rule); border-radius: 6px; background: var(--raised); padding: 26px 22px; text-align: center; }
+  .dropzone .big { font-family: var(--serif); font-size: 16px; color: var(--ink-2); }
+  .dropzone .formats { font-family: var(--mono); font-size: 10.5px; color: var(--ink-4); margin-top: 8px; letter-spacing: 0.4px; }
+  .filechips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+  .chip { font-family: var(--mono); font-size: 10.5px; padding: 4px 10px; border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); color: var(--ink-2); }
+  .chip.ok { border-color: var(--sage-mid); color: var(--sage); background: var(--sage-soft); }
+  textarea.notes { width: 100%; min-height: 64px; margin-top: 14px; border: 1px solid var(--rule); border-radius: 4px; background: var(--paper); padding: 10px 12px; font-family: var(--serif); font-size: 13px; color: var(--ink-2); resize: vertical; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--ink-4); text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td { padding: 8px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td .inst { font-family: var(--serif); font-size: 13.5px; }
+  td .prov { font-family: var(--mono); font-size: 9px; color: var(--ink-4); display: block; margin-top: 3px; }
+  td.num { font-family: var(--mono); font-size: 12px; }
+  .pill { font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.5px; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; white-space: nowrap; }
+  .pill.exact { background: var(--sage-soft); color: var(--sage); }
+  .pill.heur { background: var(--ochre-soft); color: var(--ochre); }
+  .pill.unres { background: var(--brick-soft); color: var(--brick); }
+  select, .selectish { font-family: var(--mono); font-size: 10.5px; color: var(--ink-2); border: 1px solid var(--rule); border-radius: 3px; background: var(--paper); padding: 3px 6px; }
+  .gatebar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .gate { border: 1px solid var(--rule); border-radius: 5px; background: var(--raised); padding: 10px 12px; }
+  .gate .g-l { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6px; text-transform: uppercase; color: var(--ink-4); }
+  .gate .g-v { font-family: var(--serif); font-size: 18px; font-weight: 300; margin-top: 3px; }
+  .gate.pass .g-v { color: var(--sage); } .gate.warn .g-v { color: var(--ochre); } .gate.fail .g-v { color: var(--brick); }
+  .resolve { border-left: 2px solid var(--brick); background: var(--raised); border-radius: 0 5px 5px 0; padding: 12px 14px; margin-top: 14px; }
+  .resolve .q { font-family: var(--serif); font-size: 13.5px; }
+  .resolve .cands { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .cand { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--sage-mid); color: var(--sage); border-radius: 3px; padding: 4px 9px; background: var(--sage-soft); }
+  .cand.alt { border-color: var(--rule); color: var(--ink-3); background: var(--paper); }
+  .btnrow { display: flex; gap: 12px; margin-top: 18px; align-items: center; }
+  .btn { font-family: var(--sans); font-size: 13px; font-weight: 500; padding: 9px 18px; border-radius: 4px; border: 1px solid var(--ink-1); background: var(--ink-1); color: var(--paper); }
+  .btn.ghost { background: transparent; color: var(--ink-2); border-color: var(--rule); }
+  .btn.disabled { opacity: 0.45; }
+  .tiers { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .tier { border: 1px solid var(--rule); border-radius: 5px; padding: 12px; background: var(--raised); }
+  .tier .t-k { font-family: var(--mono); font-size: 9px; letter-spacing: 0.6px; text-transform: uppercase; color: var(--ink-4); }
+  .tier .t-n { font-family: var(--serif); font-size: 14px; margin-top: 4px; }
+  .tier .t-d { font-size: 11.5px; color: var(--ink-3); margin-top: 5px; line-height: 1.5; }
+  .tier.active { border-color: var(--sage); background: var(--sage-soft); }
+  .foot { border-top: 1px solid var(--rule); margin-top: 52px; padding-top: 16px; font-family: var(--serif); font-size: 12px; color: var(--ink-3); line-height: 1.65; max-width: 880px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Samriddhi, Investors, add investor (wireframe v1, Package 07 B4, WA15: design lands before the capability)</div>
+  <h1>Add investor: parse, reconcile, commit</h1>
+  <p class="sub">Three steps. Files go in, every parsed number stays traceable to its source, and nothing is stored until the reconciliation gate passes and the advisor has confirmed the residue. The workbench is the product surface of the same gate that runs in code: parse confidence is shown, never assumed.</p>
+
+  <div class="steps">
+    <div class="step done"><b>1</b> Intake</div><span class="arrow">&#8594;</span>
+    <div class="step active"><b>2</b> Reconciliation workbench</div><span class="arrow">&#8594;</span>
+    <div class="step"><b>3</b> Commit and lock</div>
+  </div>
+
+  <section>
+    <div class="sec-head"><div class="sec-num">01</div><div class="sec-title">Intake <em>completed state shown</em></div><div class="sec-aside">any format; nothing auto-commits</div></div>
+    <div class="frame">
+      <div>
+        <div class="dropzone">
+          <div class="big">Drop investor documents here</div>
+          <div class="formats">eCAS PDF &nbsp;&middot;&nbsp; XLSX &nbsp;&middot;&nbsp; CSV / TSV &nbsp;&middot;&nbsp; plain text &nbsp;&middot;&nbsp; forwarded email &nbsp;&middot;&nbsp; paste</div>
+          <div class="filechips">
+            <span class="chip ok">ecas_06_sandeep_krishnan.pdf &nbsp;7 folios</span>
+            <span class="chip ok">altformat_06_sandeep_krishnan.xlsx &nbsp;11 rows</span>
+            <span class="chip">meeting_notes_06.md &nbsp;notes</span>
+          </div>
+        </div>
+        <textarea class="notes">Pre-meeting context (optional): standing quarterly review; clean MF stack; wants the children&#8217;s education corpus discussion next quarter.</textarea>
+      </div>
+      <div class="note"><b>Margin note.</b> The intake never guesses the investor. Statements and listings for one person arrive together; the parse runs locally; identity strings found in the documents are captured for the PII vault, not for the prompt. Meeting notes land in the transcript field, sanitised before any future model use.</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num">02</div><div class="sec-title">Reconciliation workbench <em>the heart of the flow</em></div><div class="sec-aside">gate: 3 of 4 green; 1 name needs a pick</div></div>
+
+    <div class="gatebar">
+      <div class="gate pass"><div class="g-l">Totals tie</div><div class="g-v">14.50 Cr = 14.50 Cr</div></div>
+      <div class="gate pass"><div class="g-l">Statement ladders</div><div class="g-v">7 / 7 folios tie</div></div>
+      <div class="gate pass"><div class="g-l">NAV basis vs snapshot</div><div class="g-v">anchor 2026-03 &#10003;</div></div>
+      <div class="gate fail"><div class="g-l">Name resolution</div><div class="g-v">1 unresolved</div></div>
+    </div>
+
+    <div class="frame">
+      <div class="card" style="padding: 8px 12px 4px;">
+        <table>
+          <tr><th>Instrument (parsed)</th><th>Source</th><th>Sub-category</th><th class="num">Value (Rs)</th><th>Confidence</th></tr>
+          <tr>
+            <td><span class="inst">Mirae Asset Large Cap Fund - Growth Plan</span><span class="prov">ecas pdf, folio 7176757, 88 rows; xlsx Portfolio!C6</span></td>
+            <td class="num">both</td>
+            <td><span class="selectish">mf_active_large_cap</span></td>
+            <td class="num">2,20,00,000</td>
+            <td><span class="pill exact">exact, 2 sources</span></td>
+          </tr>
+          <tr>
+            <td><span class="inst">Parag Parikh Flexi Cap Fund - Regular Plan</span><span class="prov">ecas pdf, folio 55315286, 96 rows; xlsx Portfolio!C7</span></td>
+            <td class="num">both</td>
+            <td><span class="selectish">mf_active_flexi_cap</span></td>
+            <td class="num">2,30,00,000</td>
+            <td><span class="pill exact">exact, 2 sources</span></td>
+          </tr>
+          <tr>
+            <td><span class="inst">HDFC Nifty 50 Index Fund</span><span class="prov">ecas pdf, folio 65509520, 84 rows</span></td>
+            <td class="num">ecas</td>
+            <td><span class="selectish">mf_passive_index</span></td>
+            <td class="num">1,07,00,000</td>
+            <td><span class="pill exact">exact</span></td>
+          </tr>
+          <tr style="background: var(--brick-soft);">
+            <td><span class="inst">Axis Bluechip Fund (Direct, Growth)</span><span class="prov">xlsx Portfolio!C9; no statement folio</span></td>
+            <td class="num">xlsx</td>
+            <td><span class="selectish">mf_active_large_cap</span></td>
+            <td class="num">65,00,000</td>
+            <td><span class="pill unres">name unresolved</span></td>
+          </tr>
+          <tr>
+            <td><span class="inst">HDFC Bank Fixed Deposit, 6.9% to Sep 2026</span><span class="prov">xlsx Portfolio!C13; rate and maturity captured</span></td>
+            <td class="num">xlsx</td>
+            <td><span class="selectish">bank_fd</span></td>
+            <td class="num">1,55,00,000</td>
+            <td><span class="pill exact">exact</span></td>
+          </tr>
+          <tr>
+            <td><span class="inst">&#8220;some gold with the family jeweller&#8221;</span><span class="prov">meeting notes, line 12</span></td>
+            <td class="num">notes</td>
+            <td><span class="selectish">physical_gold</span></td>
+            <td class="num">&#8212;&#8201;needs value</td>
+            <td><span class="pill heur">heuristic, confirm</span></td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <div class="note" style="margin-bottom: 14px;"><b>Provenance is a first-class column.</b> Every value names its file and cell, page, or line. Heuristic rows (prose extractions) are amber and require the advisor to confirm or discard; the gate will not pass with unconfirmed amber rows. The four tiles above are the same checks the code runs: totals, statement unit ladders, the NAV basis against the snapshot series, and name resolution.</div>
+        <div class="resolve">
+          <div class="q">&#8220;Axis Bluechip Fund&#8221; is not in the snapshot universe. Did you mean:</div>
+          <div class="cands">
+            <span class="cand">Axis Large Cap Fund - Regular Plan - Growth &nbsp;(renamed 2024)</span>
+            <span class="cand alt">Axis Large &amp; Midcap Fund</span>
+            <span class="cand alt">keep as unmatched (logged to debt)</span>
+          </div>
+        </div>
+        <div class="note" style="margin-top: 14px;"><b>WA26 runs here, not after.</b> The persona-snapshot alignment check is this queue; the investor cannot be locked while a holding is unresolved, unless the mismatch is accepted explicitly and logged.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><div class="sec-num">03</div><div class="sec-title">Commit and lock <em>disabled until the gate is green</em></div><div class="sec-aside">storage tier is explicit</div></div>
+    <div class="frame">
+      <div>
+        <div class="tiers">
+          <div class="tier active">
+            <div class="t-k">Tier 1, this investor</div>
+            <div class="t-n">Synthetic / fictional</div>
+            <div class="t-d">Stored as public fixtures in the codebase repository (WA14: invented content is public).</div>
+          </div>
+          <div class="tier">
+            <div class="t-k">Tier 2</div>
+            <div class="t-n">Real client data</div>
+            <div class="t-d">Local-only store on this machine. Never enters any repository, public or private (P30).</div>
+          </div>
+          <div class="tier">
+            <div class="t-k">Tier 3, end-state</div>
+            <div class="t-n">Secure data service</div>
+            <div class="t-d">A separate data server Samriddhi queries; logged as data debt, not built in the lean MVP.</div>
+          </div>
+        </div>
+        <div class="btnrow">
+          <span class="btn disabled">Commit holdings and lock persona</span>
+          <span class="btn ghost">Save draft</span>
+          <span style="font-family: var(--mono); font-size: 10.5px; color: var(--brick);">blocked: 1 unresolved name, 1 unconfirmed heuristic row</span>
+        </div>
+      </div>
+      <div class="note"><b>Locking means something.</b> Commit writes the canonical transaction-bearing record (statement folios keep their full dated histories), derives the demo-surface holdings deterministically, and runs the WA26 check to exit 0. Mandate capture opens as the next step after the lock; cases can only be generated for locked personas. Real-data commits additionally stamp the PII vault locally; nothing identity-bearing ever reaches a prompt (B2).</div>
+    </div>
+  </section>
+
+  <div class="foot">
+    Wireframe v1 for review (Package 07, B4). The workbench renders the ingestion envelope exactly as built: per-field provenance, exact versus heuristic confidence, the four gate checks, and did-you-mean candidates from the shared alias map. Specimen content is the synthetic A6 cohort (Sandeep Krishnan) plus one deliberately unresolved name drawn from the real alias cases. Register follows the v7.2 lineage: warm paper, serif display at weight 300, mono provenance. Review questions for the primary: (1) is the gate-tile vocabulary right (totals, ladders, NAV basis, names); (2) should heuristic rows allow inline value entry, as drawn, or force a source document; (3) does mandate capture belong inside this flow or after the lock, as drawn? Build follows only after this design is ratified (WA15); the case screen is untouched by this thread.
+  </div>
+
+</div>
+</body>
+</html>
