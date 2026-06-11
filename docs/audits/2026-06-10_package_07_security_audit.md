@@ -4,7 +4,7 @@ Written 2026-06-10 on `features/package-07` against commit 7a64323; read-only pa
 
 **Scope framing, per the primary's context: the human tests onboarding with SYNTHETIC personas only, which carry no real PII, so nothing here blocks merging or testing synthetic-only onboarding. Every finding below is forward-looking: it gates the future day real client data flows through the system.** Severity is assigned on that future basis.
 
-**Debt note (WA24).** The kickoff asks for deferred fixes to be logged as debt next-free-in-series, and separately constrains this pass to commit nothing beyond the two artifacts. Resolution: the entries are drafted VERBATIM in section 3, numbered at today's next-free positions (T25, T26, T27 after T24; the D and DM series are untouched). Landing them in `docs/debt/tech_debt_log.md` is a one-edit follow-up for the next write-authorised pass; if another workstream lands first, renumber per WA24.
+**Debt note (WA24).** The kickoff asks for deferred fixes to be logged as debt next-free-in-series, and separately constrains this pass to commit nothing beyond the two artifacts. Resolution: the entries are drafted VERBATIM in section 3, numbered at today's next-free positions (T25, T26, T27 after T24; the D and DM series are untouched). LANDED 2026-06-11 by the debt-landing pass: the three entries are now in `docs/debt/tech_debt_log.md` at exactly T25, T26, T27 (the numbers held; no renumber was needed), with the F5 fold in T25's acceptance criteria and T25 marked as the real-tier enablement workstream's opening task.
 
 ---
 
