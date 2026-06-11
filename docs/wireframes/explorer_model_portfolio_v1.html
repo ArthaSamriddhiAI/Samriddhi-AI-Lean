@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light only">
+<title>Explorer, model portfolio reference, wireframe v1 (Package 10, RE1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF8F4; --raised: #FFFFFF; --ink-1: #1A1A1A; --ink-2: #4A4A4A;
+    --ink-3: #8A8A8A; --ink-4: #9A9489; --rule: #D8D2C5; --rule-soft: #E8E4DC;
+    --sage: #3F5B47; --sage-soft: #E8EDE9; --sage-mid: #9AA688;
+    --ochre: #C28A1D; --ochre-soft: #F6EDD9; --brick: #B23A2D; --brick-soft: #F3E2DF;
+    --serif: "Source Serif 4", Georgia, serif; --sans: "Geist", -apple-system, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink-1); font-family: var(--sans); padding: 48px 0 96px; }
+  .page { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink-4); }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: 34px; letter-spacing: -0.01em; margin: 8px 0 4px; }
+  .sub { font-family: var(--serif); font-size: 15px; color: var(--ink-2); max-width: 780px; line-height: 1.55; }
+  .tabs { display: flex; gap: 2px; margin: 26px 0 38px; border-bottom: 1px solid var(--rule); }
+  .tab { font-family: var(--mono); font-size: 11.5px; padding: 9px 16px; color: var(--ink-3); border: 1px solid transparent; border-bottom: none; }
+  .tab.active { color: var(--ink-1); background: var(--raised); border-color: var(--rule); border-radius: 5px 5px 0 0; position: relative; top: 1px; }
+  section { margin-bottom: 46px; }
+  .sec-head { display: grid; grid-template-columns: 30px 1fr auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 18px; margin-bottom: 16px; }
+  .sec-num { font-family: var(--mono); font-size: 12px; color: var(--ink-4); }
+  .sec-title { font-family: var(--serif); font-size: 21px; font-weight: 400; }
+  .sec-title em { font-style: italic; font-size: 13px; color: var(--ink-4); margin-left: 10px; }
+  .sec-aside { font-family: var(--mono); font-size: 11px; color: var(--ink-4); }
+  .frame { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); gap: 30px; align-items: start; }
+  .note { font-family: var(--serif); font-size: 12.5px; font-style: italic; color: var(--ink-3); line-height: 1.6; border-left: 2px solid var(--rule); padding-left: 12px; }
+  .note b { font-style: normal; color: var(--ink-2); font-weight: 500; }
+  .card { background: var(--raised); border: 1px solid var(--rule); border-radius: 6px; padding: 18px; }
+  .alloc-bar { display: flex; height: 38px; border-radius: 4px; overflow: hidden; font-family: var(--mono); font-size: 11px; color: #FFF; }
+  .alloc-bar div { display: flex; align-items: center; padding-left: 10px; }
+  .seg-eq { background: #3F5B47; } .seg-debt { background: #6B7F5E; } .seg-alt { background: #9AA688; } .seg-cash { background: #C5BFA8; color: #4A4A4A; }
+  .legend { display: flex; gap: 22px; margin-top: 10px; font-size: 11.5px; color: var(--ink-2); flex-wrap: wrap; }
+  .legend .sw { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+  .legend .rng { font-family: var(--mono); font-size: 10.5px; color: var(--ink-4); margin-left: 5px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-4); text-align: left; font-weight: 500; padding: 7px 10px; border-bottom: 1px solid var(--rule); }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td.r, th.r { text-align: right; font-family: var(--mono); font-size: 12px; }
+  tr.class-row td { font-family: var(--serif); font-weight: 500; font-size: 13px; background: var(--paper); }
+  .vehicle { display: block; font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin-top: 2px; }
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--rule); color: var(--ink-3); background: var(--raised); }
+  .chip.sage { color: var(--sage); border-color: var(--sage-mid); background: var(--sage-soft); }
+  .chip.ochre { color: var(--ochre); border-color: var(--ochre); background: var(--ochre-soft); }
+  .register-label { font-family: var(--mono); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink-4); padding: 4px 0 10px; }
+  .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tier-card { border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; background: var(--raised); }
+  .tier-card h4 { font-family: var(--serif); font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .kv { display: flex; justify-content: space-between; font-size: 11.5px; padding: 2.5px 0; color: var(--ink-2); }
+  .kv b { font-family: var(--mono); font-weight: 500; font-size: 11px; color: var(--ink-1); }
+  .mandate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mandate-card { border: 1px solid var(--rule); border-radius: 6px; padding: 14px; background: var(--raised); }
+  .mandate-card .nm { font-family: var(--serif); font-size: 14.5px; font-weight: 500; }
+  .mandate-card .meta { font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin: 3px 0 9px; }
+  .band-row { display: grid; grid-template-columns: 78px 1fr 64px; gap: 8px; align-items: center; font-size: 11px; padding: 3px 0; }
+  .band-track { position: relative; height: 6px; background: var(--rule-soft); border-radius: 3px; }
+  .band-fill { position: absolute; top: 0; height: 6px; background: var(--sage-mid); border-radius: 3px; opacity: .55; }
+  .band-target { position: absolute; top: -3px; width: 2px; height: 12px; background: var(--ink-1); }
+  .band-val { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); text-align: right; }
+  .shortlist { border: 1px solid var(--rule); border-radius: 6px; background: var(--raised); padding: 13px 15px; }
+  .shortlist h4 { font-family: var(--serif); font-size: 13.5px; font-weight: 500; }
+  .shortlist .gap { font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin: 2px 0 8px; }
+  .fund { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; padding: 4px 0; border-bottom: 1px solid var(--rule-soft); }
+  .fund:last-child { border-bottom: none; }
+  .fund .fm { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); white-space: nowrap; }
+  .sl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .picker { display: flex; gap: 8px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-bottom: 14px; }
+  .picker .pv { border: 1px solid var(--rule); background: var(--raised); border-radius: 4px; padding: 5px 12px; color: var(--ink-1); }
+  .bm-strip { border: 1px dashed var(--rule); border-radius: 6px; padding: 14px 18px; background: transparent; color: var(--ink-3); font-size: 12px; line-height: 1.6; }
+  .bm-strip b { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-4); display: block; margin-bottom: 5px; }
+  .src { font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin-top: 8px; }
+  footer { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 14px; font-family: var(--mono); font-size: 10.5px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Workspace · Explorer · wireframe v1 · Package 10 · RE1 · read-only</div>
+  <h1>Model portfolio</h1>
+  <p class="sub">The reference register the diagnostics compare against, the house-view framework the instrument funnel actually consumes, each investor's mandate as resolved, and the funnel's best-pick shortlists. Everything on this page exists on main today; nothing here is editable.</p>
+
+  <div class="tabs">
+    <div class="tab active">Model portfolio</div>
+    <div class="tab">Data universe</div>
+  </div>
+
+  <!-- 01 indicative model -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div class="sec-title">Indicative model<em>the single reference cell</em></div>
+      <div class="sec-aside">foundation §2 · MODEL_BANDS</div>
+    </div>
+    <div class="frame">
+      <div>
+        <div class="register-label">Register A · indicative reference · aggressive_long_term cell</div>
+        <div class="alloc-bar">
+          <div class="seg-eq" style="width:65%">Equity 65%</div>
+          <div class="seg-debt" style="width:25%">Debt 25%</div>
+          <div class="seg-alt" style="width:7%">Alt 7%</div>
+          <div class="seg-cash" style="width:3%"></div>
+        </div>
+        <div class="legend">
+          <span><span class="sw" style="background:#3F5B47"></span>Equity <span class="rng">target 65 · band 60-70</span></span>
+          <span><span class="sw" style="background:#6B7F5E"></span>Debt <span class="rng">target 25 · band 20-30</span></span>
+          <span><span class="sw" style="background:#9AA688"></span>Alternatives <span class="rng">target 7 · band 5-10</span></span>
+          <span><span class="sw" style="background:#C5BFA8"></span>Cash <span class="rng">target 3 · band 2-5</span></span>
+        </div>
+        <table style="margin-top:18px">
+          <thead><tr><th>Sub-category</th><th class="r">% of AUM</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr class="class-row"><td colspan="3">Equity · 65%</td></tr>
+            <tr><td>MF active large cap<span class="vehicle">mf_active_large_cap</span></td><td class="r">40</td><td>Anchor of the equity sleeve</td></tr>
+            <tr><td>MF passive index<span class="vehicle">mf_passive_index</span></td><td class="r">10</td><td>Cost efficiency, index anchor</td></tr>
+            <tr><td>PMS growth quality<span class="vehicle">pms_growth_quality</span></td><td class="r">10</td><td>HNI ticket size supports PMS access</td></tr>
+            <tr><td>Listed large cap direct<span class="vehicle">listed_large_cap</span></td><td class="r">5</td><td>Advisor-curated conviction positions</td></tr>
+            <tr class="class-row"><td colspan="3">Debt · 25%</td></tr>
+            <tr><td>Tax-free bonds<span class="vehicle">tax_free_bond</span></td><td class="r">8</td><td>Post-tax yield in HNI brackets</td></tr>
+            <tr><td>Corporate debt MF<span class="vehicle">mf_corporate_debt</span></td><td class="r">8</td><td>Ballast with liquidity</td></tr>
+            <tr><td>Short-term debt MF<span class="vehicle">mf_short_term_debt</span></td><td class="r">5</td><td>Duration risk contained</td></tr>
+            <tr><td>Bank FD<span class="vehicle">bank_fd</span></td><td class="r">4</td><td>Near-cash, scheduled maturity</td></tr>
+            <tr class="class-row"><td colspan="3">Alternatives · 7% &nbsp;·&nbsp; Cash · 3%</td></tr>
+            <tr><td>AIF Cat II PE / private credit<span class="vehicle">aif_cat_ii_pe, aif_cat_ii_private_credit</span></td><td class="r">4</td><td>Uncorrelated return, locked capital</td></tr>
+            <tr><td>Gold, SGB or physical<span class="vehicle">sovereign_gold_bond, physical_gold</span></td><td class="r">3</td><td>Ballast, inflation hedge</td></tr>
+            <tr><td>Liquid MF or savings<span class="vehicle">savings</span></td><td class="r">3</td><td>Tactical and near-term needs</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>One cell of nine.</b> This is the <b>aggressive_long_term</b> cell of the broader 3x3 matrix, the only cell the MVP ships. It is the comparison reference and the no-mandate fallback; since ADR-0032 the operative comparison for every seeded investor is their own mandate (section 03).<br><br>
+        <b>Register note.</b> This table is the foundation §2 vocabulary (vehicle mix, % of AUM). The funnel does not consume it; what the code consumes is section 02. The two registers are deliberately rendered apart.
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 operative framework -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div class="sec-title">House-view framework<em>what the funnel consumes</em></div>
+      <div class="sec-aside">ADR-0033 · ADR-0037 · v1 pending calibration (P45)</div>
+    </div>
+    <div class="frame">
+      <div>
+        <div class="register-label">Register B · operative · keyed by risk tier, not by cell</div>
+        <div class="tier-grid">
+          <div class="tier-card">
+            <h4>Conservative</h4>
+            <div class="kv"><span>International</span><b>10% of eq</b></div>
+            <div class="kv"><span>Dom large / mid / small</span><b>75 / 20 / 5</b></div>
+            <div class="kv"><span>Sov / HG / credit</span><b>55 / 42 / 3</b></div>
+          </div>
+          <div class="tier-card">
+            <h4>Moderate-Aggressive</h4>
+            <div class="kv"><span>International</span><b>15% of eq</b></div>
+            <div class="kv"><span>Dom large / mid / small</span><b>55 / 35 / 10</b></div>
+            <div class="kv"><span>Sov / HG / credit</span><b>35 / 55 / 10</b></div>
+          </div>
+          <div class="tier-card" style="border-color: var(--sage-mid)">
+            <h4>Aggressive</h4>
+            <div class="kv"><span>International</span><b>20% of eq</b></div>
+            <div class="kv"><span>Dom large / mid / small</span><b>35 / 40 / 25</b></div>
+            <div class="kv"><span>Sov / HG / credit</span><b>25 / 55 / 20</b></div>
+          </div>
+          <div class="tier-card">
+            <h4>Ultra-Aggressive</h4>
+            <div class="kv"><span>International</span><b>20% of eq</b></div>
+            <div class="kv"><span>Dom large / mid / small</span><b>35 / 40 / 25</b></div>
+            <div class="kv"><span>Sov / HG / credit</span><b>25 / 55 / 20</b></div>
+          </div>
+        </div>
+        <table style="margin-top:14px">
+          <thead><tr><th>Time horizon</th><th>Debt duration preference</th><th class="r">HHI ceiling by tier</th></tr></thead>
+          <tbody>
+            <tr><td>Under 3 years, near-term</td><td>short</td><td class="r">Conservative 0.20</td></tr>
+            <tr><td>3 to 5 years, operational</td><td>medium</td><td class="r">Mod-Aggr 0.25 · Aggressive 0.30</td></tr>
+            <tr><td>Over 5 years (default)</td><td>long</td><td class="r">Ultra-Aggressive 0.35</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>This is the shipped model-portfolio foundation slice.</b> Equity allocates on two levels (international share of the sleeve, then the domestic cap split); debt allocates on credit by risk tier and duration by horizon. Every tier keeps a non-zero large-cap core and a non-zero, non-dominant international allocation, the never-zero principle.<br><br>
+        <b>Tier resolution is stated, not practiced.</b> The tier comes from the investor's stated risk appetite string; a practiced (allocation-derived) classifier does not exist on main and is proposed separately (audit Part B, BM6). All values are house view v1, named and tunable.
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 per-investor mandates -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div class="sec-title">Investor mandates, as resolved<em>the operative comparators</em></div>
+      <div class="sec-aside">mandateJson · resolveTargetBands · ADR-0032</div>
+    </div>
+    <div class="mandate-grid">
+      <div class="mandate-card">
+        <div class="nm">Rajiv Surana</div>
+        <div class="meta"><span class="chip sage">aggressive_long_term</span> · foundation_default</div>
+        <div class="band-row"><span>Equity</span><div class="band-track"><div class="band-fill" style="left:60%;width:10%"></div><div class="band-target" style="left:65%"></div></div><span class="band-val">60-70 · t 65</span></div>
+        <div class="band-row"><span>Debt</span><div class="band-track"><div class="band-fill" style="left:20%;width:10%"></div><div class="band-target" style="left:25%"></div></div><span class="band-val">20-30 · t 25</span></div>
+        <div class="band-row"><span>Alternatives</span><div class="band-track"><div class="band-fill" style="left:5%;width:5%"></div><div class="band-target" style="left:7.5%"></div></div><span class="band-val">5-10 · t 7.5</span></div>
+        <div class="band-row"><span>Cash</span><div class="band-track"><div class="band-fill" style="left:2%;width:3%"></div><div class="band-target" style="left:3.5%"></div></div><span class="band-val">2-5 · t 3.5</span></div>
+      </div>
+      <div class="mandate-card">
+        <div class="nm">Arjun Menon</div>
+        <div class="meta"><span class="chip sage">aggressive_long_term</span> · investor_specified · explicit targets</div>
+        <div class="band-row"><span>Equity</span><div class="band-track"><div class="band-fill" style="left:55%;width:15%"></div><div class="band-target" style="left:65%"></div></div><span class="band-val">55-70 · t 65</span></div>
+        <div class="band-row"><span>Debt</span><div class="band-track"><div class="band-fill" style="left:15%;width:15%"></div><div class="band-target" style="left:15%"></div></div><span class="band-val">15-30 · t 15</span></div>
+        <div class="band-row"><span>Alternatives</span><div class="band-track"><div class="band-fill" style="left:5%;width:15%"></div><div class="band-target" style="left:15%"></div></div><span class="band-val">5-20 · t 15</span></div>
+        <div class="band-row"><span>Cash</span><div class="band-track"><div class="band-fill" style="left:2%;width:8%"></div><div class="band-target" style="left:5%"></div></div><span class="band-val">2-10 · t 5</span></div>
+      </div>
+      <div class="mandate-card">
+        <div class="nm">Lalitha Iyengar</div>
+        <div class="meta"><span class="chip ochre">conservative_medium_term</span> · investor_specified</div>
+        <div class="band-row"><span>Equity</span><div class="band-track"><div class="band-fill" style="left:25%;width:20%"></div><div class="band-target" style="left:35%"></div></div><span class="band-val">25-45 · t 35</span></div>
+        <div class="band-row"><span>Debt</span><div class="band-track"><div class="band-fill" style="left:45%;width:20%"></div><div class="band-target" style="left:55%"></div></div><span class="band-val">45-65 · t 55</span></div>
+        <div class="band-row"><span>Alternatives</span><div class="band-track"><div class="band-fill" style="left:0;width:10%"></div><div class="band-target" style="left:5%"></div></div><span class="band-val">0-10 · t 5</span></div>
+        <div class="band-row"><span>Cash</span><div class="band-track"><div class="band-fill" style="left:3%;width:7%"></div><div class="band-target" style="left:6.5%"></div></div><span class="band-val">3-10 · t 6.5</span></div>
+        <div class="src">wrapper ceiling 1 · excludes Cat III, pre-IPO · model comparison renders as informational for this cell</div>
+      </div>
+    </div>
+    <div class="src" style="margin-top:10px">Six cards in the live surface (Sharma, Bhatt, Malhotra fold in identically); targets resolve explicit-or-midpoint per ADR-0032; source provenance (foundation_default vs investor_specified) rendered per card. Read-only: mandate editing is build-missing (BM4).</div>
+  </section>
+
+  <!-- 04 best-pick shortlists -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div class="sec-title">Best-pick shortlists, computed<em>deterministic funnel over the live universe</em></div>
+      <div class="sec-aside">ADR-0034 · surface 3 of internal 5 · zero spend</div>
+    </div>
+    <div class="picker">
+      View framework for
+      <span class="pv">Tier: Aggressive</span>
+      <span class="pv">Horizon: over 5 years → long duration</span>
+      <span>or</span>
+      <span class="pv">Investor: Arjun Menon (persisted plan, case c-2026-05-15-menon-01)</span>
+    </div>
+    <div class="sl-grid">
+      <div class="shortlist">
+        <h4>Equity · international</h4>
+        <div class="gap">target 12.5% of AUM · current 6.6 · deploy 3.46 Cr · eligible 14 → cohort 7</div>
+        <div class="fund"><span>Navi Total Stock Market US FOF</span><span class="fm">TER 0.06 · Sharpe 0.81</span></div>
+        <div class="fund"><span>Navi NASDAQ 100 US FOF</span><span class="fm">TER 0.13 · Sharpe 0.92</span></div>
+        <div class="fund"><span>Motilal Oswal Nasdaq 100 FOF</span><span class="fm">TER 0.24 · Sharpe 0.89</span></div>
+      </div>
+      <div class="shortlist">
+        <h4>Equity · domestic large</h4>
+        <div class="gap">target 17.5% of AUM · current 0 · deploy 10.19 Cr · eligible 24 → cohort 12</div>
+        <div class="fund"><span>ICICI Prudential Large Cap Fund</span><span class="fm">TER 0.93 · Sharpe 0.61</span></div>
+        <div class="fund"><span>Nippon India Large Cap Fund</span><span class="fm">TER 1.49 · Sharpe 0.58</span></div>
+        <div class="fund"><span>HDFC Large Cap Fund</span><span class="fm">TER 1.36 · Sharpe 0.52</span></div>
+      </div>
+      <div class="shortlist">
+        <h4>Equity · domestic mid / small</h4>
+        <div class="gap">mid: deploy 11.64 Cr · small: deploy 7.28 Cr</div>
+        <div class="fund"><span>HDFC Mid Cap Fund · Kotak Midcap Fund</span><span class="fm">mid shortlist</span></div>
+        <div class="fund"><span>Nippon India Small Cap · Axis Small Cap</span><span class="fm">small shortlist</span></div>
+        <div class="fund"><span>Diversified option: Parag Parikh Flexi Cap</span><span class="fm">offered, not decomposed</span></div>
+      </div>
+      <div class="shortlist">
+        <h4>Debt · credit by duration · and gold</h4>
+        <div class="gap">credit split 25 / 55 / 20 · preferred duration: long</div>
+        <div class="fund"><span>Sovereign: ICICI Pru Constant Maturity Gilt</span><span class="fm">SOV 95</span></div>
+        <div class="fund"><span>High grade: ICICI Pru Bond · HDFC Income</span><span class="fm">SOV+AAA ≥ 70</span></div>
+        <div class="fund"><span>Gold: Mirae Asset Gold ETF · ABSL Gold ETF</span><span class="fm">non-gold AIF: advisor-select</span></div>
+      </div>
+    </div>
+    <div class="frame" style="margin-top:14px">
+      <div class="src">Cadence renders per shortlist (staging threshold 2 Cr, up to 4 tranches across about 14 days). Thin pools degrade honestly: an empty pool renders its degradation reason, never a padded list. Eligible and cohort counts render verbatim.</div>
+      <div class="note"><b>Computed, not curated.</b> These are quality-gated funnel picks under named house-view parameters, recomputed deterministically from the loaded snapshot. A CIO-curated preferred layer (roles: core, satellite, optional) does not exist on main; it is proposed separately (BM3).</div>
+    </div>
+  </section>
+
+  <!-- build-missing strip -->
+  <section>
+    <div class="bm-strip">
+      <b>Not on this page, deliberately (build-missing, audit Part B)</b>
+      The nine-cell matrix grid (BM1, P43) · instrument cell tags over the universe (BM2, today 0 of 1,773 funds carry any tag) · curated preferred-portfolio entries with roles (BM3) · firm-level configuration editing and investor mandate write-back (BM4, the designed Sections B and C) · practiced-risk-appetite chip (BM6). These render here only after separate ratification; nothing on this wireframe depends on them.
+    </div>
+  </section>
+
+  <footer>
+    Wireframe v1 · Package 10 RE1 · read-only over data on main at d7a579d · sources: foundation §2, MODEL_BANDS and resolveTargetBands (lib/agents/portfolio-risk-analytics.ts), EQUITY_SPLIT_BY_TIER / DEBT_CREDIT_SPLIT_BY_TIER / durationForHorizon (db/fixtures/structured-mandates.ts), MANDATES_BY_INVESTOR, buildDeploymentPlan (lib/agents/instrument-selection.ts) over snapshot t0 v2.0.0; specimen shortlists are the persisted Menon deployment plan; TER and Sharpe cells are specimen values, the live surface reads them from the snapshot. Charts per ADR-0045. No long dashes (WA07).
+  </footer>
+
+</div>
+</body>
+</html>

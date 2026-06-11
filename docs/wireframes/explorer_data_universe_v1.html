@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="light only">
+<title>Explorer, data universe dashboard, wireframe v1 (Package 10, RE2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF8F4; --raised: #FFFFFF; --ink-1: #1A1A1A; --ink-2: #4A4A4A;
+    --ink-3: #8A8A8A; --ink-4: #9A9489; --rule: #D8D2C5; --rule-soft: #E8E4DC;
+    --sage: #3F5B47; --sage-soft: #E8EDE9; --sage-mid: #9AA688;
+    --ochre: #C28A1D; --ochre-soft: #F6EDD9; --brick: #B23A2D; --brick-soft: #F3E2DF;
+    --serif: "Source Serif 4", Georgia, serif; --sans: "Geist", -apple-system, sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--paper); color: var(--ink-1); font-family: var(--sans); padding: 48px 0 96px; }
+  .page { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--ink-4); }
+  h1 { font-family: var(--serif); font-weight: 300; font-size: 34px; letter-spacing: -0.01em; margin: 8px 0 4px; }
+  .sub { font-family: var(--serif); font-size: 15px; color: var(--ink-2); max-width: 780px; line-height: 1.55; }
+  .tabs { display: flex; gap: 2px; margin: 26px 0 38px; border-bottom: 1px solid var(--rule); }
+  .tab { font-family: var(--mono); font-size: 11.5px; padding: 9px 16px; color: var(--ink-3); border: 1px solid transparent; border-bottom: none; }
+  .tab.active { color: var(--ink-1); background: var(--raised); border-color: var(--rule); border-radius: 5px 5px 0 0; position: relative; top: 1px; }
+  section { margin-bottom: 46px; }
+  .sec-head { display: grid; grid-template-columns: 30px 1fr auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 18px; margin-bottom: 16px; }
+  .sec-num { font-family: var(--mono); font-size: 12px; color: var(--ink-4); }
+  .sec-title { font-family: var(--serif); font-size: 21px; font-weight: 400; }
+  .sec-title em { font-style: italic; font-size: 13px; color: var(--ink-4); margin-left: 10px; }
+  .sec-aside { font-family: var(--mono); font-size: 11px; color: var(--ink-4); }
+  .frame { display: grid; grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr); gap: 30px; align-items: start; }
+  .note { font-family: var(--serif); font-size: 12.5px; font-style: italic; color: var(--ink-3); line-height: 1.6; border-left: 2px solid var(--rule); padding-left: 12px; }
+  .note b { font-style: normal; color: var(--ink-2); font-weight: 500; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-4); text-align: left; font-weight: 500; padding: 7px 9px; border-bottom: 1px solid var(--rule); }
+  td { padding: 6px 9px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  td.r, th.r { text-align: right; font-family: var(--mono); font-size: 11.5px; }
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 99px; border: 1px solid var(--rule); color: var(--ink-3); background: var(--raised); }
+  .chip.sage { color: var(--sage); border-color: var(--sage-mid); background: var(--sage-soft); }
+  .chip.ochre { color: var(--ochre); border-color: var(--ochre); background: var(--ochre-soft); }
+  .chip.brick { color: var(--brick); border-color: var(--brick); background: var(--brick-soft); }
+  .snap-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .snap { border: 1px solid var(--rule); border-radius: 6px; background: var(--raised); padding: 10px 12px; min-width: 102px; }
+  .snap.sel { border-color: var(--ink-1); box-shadow: 0 1px 0 var(--rule); }
+  .snap .id { font-family: var(--mono); font-size: 11px; font-weight: 500; }
+  .snap .dt { font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin: 2px 0 6px; }
+  .banner { border: 1px solid var(--ochre); background: var(--ochre-soft); border-radius: 6px; padding: 11px 14px; font-size: 12px; color: var(--ink-2); margin-top: 12px; }
+  .banner b { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ochre); display: block; margin-bottom: 3px; }
+  .fam-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+  .fam { font-family: var(--mono); font-size: 11px; border: 1px solid var(--rule); border-radius: 99px; background: var(--raised); padding: 5px 13px; color: var(--ink-3); }
+  .fam.sel { color: var(--ink-1); border-color: var(--ink-1); }
+  .capbar { display: inline-flex; height: 8px; width: 84px; border-radius: 2px; overflow: hidden; vertical-align: middle; }
+  .capbar i { display: block; height: 8px; }
+  .series-card { border: 1px solid var(--rule); border-radius: 6px; background: var(--raised); padding: 14px 16px; }
+  .series-card h4 { font-family: var(--serif); font-size: 13.5px; font-weight: 500; margin-bottom: 2px; }
+  .series-card .meta { font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin-bottom: 10px; }
+  .drill { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .tile { border: 1px solid var(--rule); border-radius: 6px; background: var(--raised); padding: 13px 15px; }
+  .tile h4 { font-family: var(--serif); font-size: 13.5px; font-weight: 500; margin-bottom: 7px; }
+  .kv { display: flex; justify-content: space-between; font-size: 11.5px; padding: 2.5px 0; color: var(--ink-2); }
+  .kv b { font-family: var(--mono); font-weight: 500; font-size: 11px; color: var(--ink-1); }
+  .verdicts { display: flex; gap: 6px; margin-top: 4px; }
+  .v-pill { flex: 1; text-align: center; border-radius: 4px; padding: 7px 0 5px; font-family: var(--mono); font-size: 10px; color: #FFF; }
+  .v-pill b { display: block; font-size: 15px; font-weight: 500; }
+  .picker { display: flex; gap: 8px; align-items: center; font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-bottom: 14px; flex-wrap: wrap; }
+  .picker .pv { border: 1px solid var(--rule); background: var(--raised); border-radius: 4px; padding: 5px 12px; color: var(--ink-1); }
+  .bm-strip { border: 1px dashed var(--rule); border-radius: 6px; padding: 14px 18px; color: var(--ink-3); font-size: 12px; line-height: 1.6; }
+  .bm-strip b { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-4); display: block; margin-bottom: 5px; }
+  .src { font-family: var(--mono); font-size: 10px; color: var(--ink-4); margin-top: 8px; }
+  footer { border-top: 1px solid var(--rule); margin-top: 56px; padding-top: 14px; font-family: var(--mono); font-size: 10.5px; color: var(--ink-4); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Workspace · Explorer · wireframe v1 · Package 10 · RE2 · read-only</div>
+  <h1>Data universe</h1>
+  <p class="sub">A visual explorer over everything Samriddhi reasons with: the snapshot universe, the per-investor stores, and the persisted analytics the cases already carry. Every panel reads existing data through existing interfaces; nothing recomputes, nothing calls a model, nothing edits.</p>
+
+  <div class="tabs">
+    <div class="tab">Model portfolio</div>
+    <div class="tab active">Data universe</div>
+  </div>
+
+  <!-- 01 snapshot inspector -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div class="sec-title">Snapshot inspector<em>which universe, on what basis</em></div>
+      <div class="sec-aside">pin v2.0.0 · release 2026-06-10 · loader LRU 3</div>
+    </div>
+    <div class="snap-row">
+      <div class="snap sel"><div class="id">t0_q2_2026</div><div class="dt">2026-04-02 · baseline</div><span class="chip sage">real t0 · realv1</span></div>
+      <div class="snap"><div class="id">t1_q3_2026</div><div class="dt">2026-07-01 · quiet</div><span class="chip ochre">synthetic-forward</span></div>
+      <div class="snap"><div class="id">t2_q4_2026</div><div class="dt">rate-cut stress</div><span class="chip ochre">synthetic-forward</span></div>
+      <div class="snap"><div class="id">t3_q1_2027</div><div class="dt">normalisation</div><span class="chip ochre">synthetic-forward</span></div>
+      <div class="snap"><div class="id">t4 ... t8</div><div class="dt">bank shock · idiosyncratic · smallcap rally ...</div><span class="chip ochre">synthetic-forward</span></div>
+    </div>
+    <div class="frame" style="margin-top:4px">
+      <div>
+        <div class="banner">
+          <b>Disclosure · shown whenever a forward snapshot is selected</b>
+          t1 through t8 are the synthetic forward-projection regime-test set, anchored to the superseded synthetic t0 until the real-basis re-derivation lands (data repo DM3). They exercise diagnostic behaviour across regimes; they are not history and not real market data. t0 is the real-data baseline (realv1, Option B).
+        </div>
+        <div class="src">Per-snapshot detail on select: evolution_type and test axis, evolved fields vs static fields (from snapshot_metadata), enrichment version, days since t0, holdings count 1,773.</div>
+      </div>
+      <div class="note"><b>t0 is the default truth surface.</b> The picker opens on t0; forward snapshots are an explicit, labelled act. The disclosure vocabulary is the shipped ADR-0019/0020 taxonomy the risk-reward rollup already uses.</div>
+    </div>
+  </section>
+
+  <!-- 02 universe browser -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div class="sec-title">Universe browser<em>the instrument families</em></div>
+      <div class="sec-aside">snapshot t0 · 12 families · disk JSON via loadSnapshot</div>
+    </div>
+    <div class="fam-row">
+      <span class="fam sel">Mutual funds · 1,773</span>
+      <span class="fam">Listed equity · 500</span>
+      <span class="fam">PMS · 513</span>
+      <span class="fam">AIF · 162</span>
+      <span class="fam">Unlisted · 100</span>
+      <span class="fam">Indices · 40</span>
+      <span class="fam">FX · 4</span>
+      <span class="fam">Debt yields · 25</span>
+      <span class="fam">Macro · 5 dimensions</span>
+    </div>
+    <div class="frame">
+      <div>
+        <table>
+          <thead><tr><th>Fund</th><th>SEBI category</th><th class="r">AUM Cr</th><th class="r">TER</th><th class="r">3Y</th><th class="r">Sharpe 3y</th><th>Cap split</th></tr></thead>
+          <tbody>
+            <tr><td>Mirae Asset Large Cap Fund</td><td>Large Cap Fund</td><td class="r">38,420</td><td class="r">1.18</td><td class="r">14.2</td><td class="r">0.61</td><td><span class="capbar"><i style="width:70%;background:#3F5B47"></i><i style="width:22%;background:#9AA688"></i><i style="width:8%;background:#C5BFA8"></i></span></td></tr>
+            <tr><td>Parag Parikh Flexi Cap Fund</td><td>Flexi Cap Fund</td><td class="r">81,919</td><td class="r">1.33</td><td class="r">18.7</td><td class="r">0.74</td><td><span class="capbar"><i style="width:58%;background:#3F5B47"></i><i style="width:18%;background:#9AA688"></i><i style="width:24%;background:#C5BFA8"></i></span></td></tr>
+            <tr><td>HDFC Mid Cap Fund</td><td>Mid Cap Fund</td><td class="r">77,683</td><td class="r">1.42</td><td class="r">26.1</td><td class="r">0.78</td><td><span class="capbar"><i style="width:12%;background:#3F5B47"></i><i style="width:74%;background:#9AA688"></i><i style="width:14%;background:#C5BFA8"></i></span></td></tr>
+            <tr><td>ICICI Prudential Constant Maturity Gilt</td><td>Gilt Fund with 10 year Constant</td><td class="r">2,612</td><td class="r">0.39</td><td class="r">8.3</td><td class="r">0.44</td><td><span class="chip">SOV 95</span></td></tr>
+            <tr><td>Axis Small Cap Fund</td><td>Small Cap Fund</td><td class="r">26,304</td><td class="r">1.55</td><td class="r">21.9</td><td class="r">0.66</td><td><span class="capbar"><i style="width:6%;background:#3F5B47"></i><i style="width:20%;background:#9AA688"></i><i style="width:74%;background:#C5BFA8"></i></span></td></tr>
+          </tbody>
+        </table>
+        <div class="src">Columns per family (A6 of the audit): MF rows carry 56 fields (returns ladder, vol, Sharpe, Sortino, VaR, beta, Top 5 holdings and sectors, cap split, benchmark identity, tier_b_stats); listed equity 49 fields; sort and filter on any column; row select opens the record detail with its monthly series. Cells above are specimen values; the live surface reads the snapshot.</div>
+      </div>
+      <div>
+        <div class="series-card">
+          <h4>nifty_50_tri</h4>
+          <div class="meta">monthly · 2019-05 to 2026-04 · 84 points · basis: total return</div>
+          <svg viewBox="0 0 280 84" width="100%" height="84" role="img" aria-label="specimen series line">
+            <polyline fill="none" stroke="#3F5B47" stroke-width="1.5" points="0,70 20,66 40,72 60,58 80,52 100,55 120,44 140,40 160,46 180,34 200,30 220,33 240,24 260,20 280,16"/>
+            <line x1="0" y1="83" x2="280" y2="83" stroke="#D8D2C5" stroke-width="1"/>
+          </svg>
+          <div class="src">Any monthly_nav, monthly_prices, index, fx, or yield series renders here as a hand-authored SVG line per ADR-0045. MF NAV history spans about 20 years (241 points).</div>
+        </div>
+        <div class="note" style="margin-top:12px"><b>Macro panel.</b> The fifth tab renders the snapshot's five macro dimensions (economic cycle, RBI policy, fiscal, global linkages, news and qualitative intelligence) as indicator tables with value, direction, as-of date, and source document.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 investor drill -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div class="sec-title">Investor data drill<em>per-investor stores and persisted case analytics</em></div>
+      <div class="sec-aside">Prisma lane · holdingsJson, mandateJson, canonical fixtures, case content</div>
+    </div>
+    <div class="picker">
+      <span class="pv">Rajiv Surana</span>
+      <span>Malhotra · Iyengar · Bhatt · Menon · Sharma</span>
+      <span class="chip sage">tier: synthetic_public</span>
+      <span class="chip">cell: aggressive_long_term</span>
+      <span class="chip">case c-2026-05-15-surana-01 · s2 · t0</span>
+    </div>
+    <div class="drill">
+      <div class="tile">
+        <h4>Holdings · 23.0 Cr liquid</h4>
+        <div class="kv"><span>HDFC Flexi Cap (MF)</span><b>10.7%</b></div>
+        <div class="kv"><span>Reliance Industries (direct)</span><b>20.3%</b></div>
+        <div class="kv"><span>GIFT US ETF · PMS · gold · cash</span><b>...</b></div>
+        <div class="src">Full table with sub-categories and values; canonical transaction detail opens where the record carries it (demo five: in-repo canonical fixtures with dated eCAS histories, byte-identity verified; onboarded investors: canonicalJson on the row).</div>
+      </div>
+      <div class="tile">
+        <h4>Band arithmetic · persisted metrics</h4>
+        <div class="kv"><span>Equity actual vs target</span><b>72.5 vs 65 · out of band</b></div>
+        <div class="kv"><span>Debt</span><b>in band</b></div>
+        <div class="kv"><span>HHI vs tier ceiling 0.30</span><b>renders verbatim</b></div>
+        <div class="kv"><span>Liquidity T30+T90 vs floor</span><b>renders verbatim</b></div>
+        <div class="src">content.metrics.assetClass, concentration, liquidity, cashDeployment; values render as persisted, never recomputed.</div>
+      </div>
+      <div class="tile">
+        <h4>A2 verdicts · A3 actions</h4>
+        <div class="verdicts">
+          <span class="v-pill" style="background:#3F5B47"><b>9</b>maintain</span>
+          <span class="v-pill" style="background:#9AA688"><b>3</b>monitor</span>
+          <span class="v-pill" style="background:#C28A1D"><b>2</b>discuss</span>
+          <span class="v-pill" style="background:#B23A2D"><b>1</b>review</span>
+        </div>
+        <div class="src" style="margin-top:8px">Counts from content.a2_classification.summary; A3 holding and observation actions listed below it; deployment plan chip links to the model-portfolio page's section 04 view for this investor.</div>
+      </div>
+      <div class="tile">
+        <h4>Risk-reward · persisted</h4>
+        <div class="kv"><span>Portfolio beta (3y)</span><b>vs client-weighted blend</b></div>
+        <div class="kv"><span>Jensen's alpha</span><b>per sleeve and portfolio</b></div>
+        <div class="kv"><span>Coverage footnotes</span><b>render verbatim</b></div>
+        <div class="src">content.risk_reward_stats including the synthetic-forward disclosure rollup and the PMS/AIF framework notice, rendered as shipped.</div>
+      </div>
+      <div class="tile">
+        <h4>Performance line · section 06 basis</h4>
+        <svg viewBox="0 0 240 56" width="100%" height="56" role="img" aria-label="specimen gross and net series">
+          <polyline fill="none" stroke="#3F5B47" stroke-width="1.5" points="0,46 30,44 60,40 90,42 120,34 150,30 180,32 210,24 240,20"/>
+          <polyline fill="none" stroke="#9AA688" stroke-width="1.2" points="0,48 30,47 60,44 90,46 120,39 150,36 180,38 210,31 240,28"/>
+        </svg>
+        <div class="kv"><span>Coverage</span><b>surana 81.2 · iyengar 100.1 · malhotra 91.5</b></div>
+        <div class="src">gross_net_series where persisted; Bhatt and Menon render the honest deferral note (below the 70 percent floor, P50), no line.</div>
+      </div>
+      <div class="tile">
+        <h4>Overlap · persisted</h4>
+        <div class="kv"><span>Strongest pair</span><b>renders from portfolio summary</b></div>
+        <div class="kv"><span>Within-sleeve pairs</span><b>per_pair table</b></div>
+        <div class="kv"><span>Layers</span><b>stock · structural · categorical</b></div>
+        <div class="src">content.portfolio_overlap; Samriddhi 1 cases render their own block set (proposal, materiality, gate results, evidence verdicts, IC1 deliberation).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 look-through coverage -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div class="sec-title">Look-through coverage map<em>what the analytics can actually see</em></div>
+      <div class="sec-aside">content.metrics · whole-book look-through (T-5.16)</div>
+    </div>
+    <div class="frame">
+      <div>
+        <table>
+          <thead><tr><th>Stock exposure (Surana)</th><th class="r">% of book</th><th>Sources</th></tr></thead>
+          <tbody>
+            <tr><td>Reliance Industries</td><td class="r">20.3</td><td>direct holding</td></tr>
+            <tr><td>HDFC Bank</td><td class="r">5.8</td><td>MF top-5 look-through</td></tr>
+            <tr><td>ICICI Bank</td><td class="r">0.47</td><td>MF top-5 look-through</td></tr>
+          </tbody>
+        </table>
+        <table style="margin-top:12px">
+          <thead><tr><th>Sector exposure</th><th class="r">% of book</th><th>Coverage</th></tr></thead>
+          <tbody>
+            <tr><td>Petroleum Products</td><td class="r">20.3</td><td rowspan="3" style="vertical-align:middle">covered weight 34.8% · uncovered 65.2% with footnote (PMS, AIF, gold, FD opacity per the established posture)</td></tr>
+            <tr><td>Banks</td><td class="r">5.8</td></tr>
+            <tr><td>Financial Services</td><td class="r">2.42</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <b>Honest-state surface.</b> The map renders the persisted stockExposureLookThrough, sectorExposureLookThrough, and lookThroughCoverage exactly as the cases carry them, named stocks versus aggregated weight, with the uncovered footnote verbatim. It is the visual answer to "which holdings drive which observations, and what can the system not see".
+      </div>
+    </div>
+  </section>
+
+  <!-- guardrails strip -->
+  <section>
+    <div class="bm-strip">
+      <b>Boundaries this page holds (audit Part A7)</b>
+      The case screen is not touched: links into a case are plain navigation, no Case Detail components or styles change (WA29 single-writer). Forward snapshots always carry the DM3 disclosure. Every investor row carries its tier badge; rows with tier real_local_only (none exist today) suppress identity fields by rule. Snapshot refresh, exports, firm configuration editing, and any tag or curation surface are out of scope (audit Part B).
+    </div>
+  </section>
+
+  <footer>
+    Wireframe v1 · Package 10 RE2 · read-only over data on main at d7a579d · sources: fixtures/snapshots/enriched (t0 v2.0.0 universe: 1,773 MF, 500 listed, 513 PMS, 162 AIF, 100 unlisted, 40 indices, 4 FX, 25 yield series, 5 macro dimensions), lib/agents/snapshot-loader.ts, Prisma investor and case rows, persisted case blocks (metrics, risk_reward_stats, portfolio_overlap, a2_classification, a3_so_what, time_series_performance), db/fixtures/canonical-holdings.ts. Stock and sector exposure figures are the persisted Surana values; AUM, TER, Sharpe and series cells are specimen values, the live surface reads them from the snapshot. Charts per ADR-0045. No long dashes (WA07).
+  </footer>
+
+</div>
+</body>
+</html>
