@@ -11,6 +11,8 @@
  */
 
 import Link from "next/link";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { prisma } from "@/lib/prisma";
 import { loadSnapshot } from "@/lib/agents/snapshot-loader";
 import {
@@ -64,6 +66,14 @@ export default async function DataUniversePage({ searchParams }: { searchParams:
   const prov = snapshotProvenance(snap);
   const isForward = selectedId !== "t0_q2_2026";
 
+  /* The live consumer pin (data-version.txt, the ADR-0027 release flow). */
+  let pin = "unpinned";
+  try {
+    pin = readFileSync(path.resolve(process.cwd(), "data-version.txt"), "utf-8").trim() || "unpinned";
+  } catch {
+    /* missing pin file renders as unpinned */
+  }
+
   /* series payload resolution */
   let chart: { title: string; subtitle?: string; series: Record<string, number> } | null = null;
   if (series) {
@@ -114,7 +124,7 @@ export default async function DataUniversePage({ searchParams }: { searchParams:
           <div className={s.secTitle}>
             Snapshot inspector<em>which universe, on what basis</em>
           </div>
-          <div className={s.secAside}>pin v2.0.0 · loader LRU 3 · fixtures/snapshots/enriched</div>
+          <div className={s.secAside}>pin {pin} · loader LRU 3 · fixtures/snapshots/enriched</div>
         </div>
         <div className={s.snapRow}>
           {snapshotRows.map((row) => (
@@ -143,13 +153,15 @@ export default async function DataUniversePage({ searchParams }: { searchParams:
             {prov.kind === "forward_v2" ? (
               <>
                 Basis: re-derived from the real t0 baseline ({String(prov.forwardDerivation?.version ?? "v2-forward")},
-                seed {String(prov.forwardDerivation?.seed_snapshot ?? "realv1 t0")}). Benchmark-relative statistics on
-                forward snapshots are regime-test texture, not relative-performance signal.
+                seed {String(prov.forwardDerivation?.seed_snapshot ?? "realv1 t0")}); this is the set the pinned release
+                ({pin}) carries, coherent with its baseline. Benchmark-relative statistics on forward snapshots are
+                regime-test texture, not relative-performance signal.
               </>
             ) : (
               <>
-                Staleness: this snapshot has NOT been re-derived to v2 coherence; it is the v1 forward set anchored to
-                the superseded synthetic t0. Treat its values as legacy regime-test artifacts.
+                Staleness: this snapshot predates the re-derived forward set the pin ({pin}) carries; it is the v1
+                forward set anchored to the superseded synthetic t0. Refresh the local data (scripts/setup-data.ts) to
+                fetch the coherent set.
               </>
             )}
           </div>
